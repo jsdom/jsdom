@@ -3827,19 +3827,19 @@ webidl-conversions@^4.0.0, webidl-conversions@^4.0.1, webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webidl2@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-4.1.0.tgz#8d44e406d4b2876c8bf924d3d7290c0cf5c08abc"
+webidl2@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-8.1.0.tgz#c4b4c0e7fed838e5521a2e794ec82949a26bd265"
 
-webidl2js@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-8.0.0.tgz#f2d6cd644770bf7de9e51d34438d92f07eb7690a"
+webidl2js@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-9.0.0.tgz#71e1d3dd37ad2730e601a54fc18046b5eccd0ea6"
   dependencies:
     co "^4.6.0"
     pn "^1.0.0"
     prettier "^1.5.3"
     webidl-conversions "^4.0.0"
-    webidl2 "^4.1.0"
+    webidl2 "^8.1.0"
 
 whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.3:
   version "1.0.3"
