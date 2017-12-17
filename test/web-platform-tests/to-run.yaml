@@ -561,7 +561,6 @@ DIR: html/semantics/forms/the-option-element
 
 option-label.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
 option-text-recurse.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
-option-text-setter.html: [fail, Unknown]
 option-value.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
 
 ---
