@@ -793,6 +793,16 @@ urlencoded-parser.html: [fail, Fetch is not implemented]
 
 ---
 
+DIR: websockets
+
+Create-Secure-extensions-empty.htm: [fail, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
+interfaces/WebSocket/close/close-basic.html*: [mutates-globals]
+interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
+multi-globals/message-received.html: [fail, Multi-globals]
+unload-a-document/*: [fail, Requires window.open]
+
+---
+
 DIR: xhr
 
 abort-after-stop.htm: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
