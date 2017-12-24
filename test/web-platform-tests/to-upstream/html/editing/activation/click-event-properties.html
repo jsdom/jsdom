@@ -29,7 +29,7 @@ async_test(t => {
 
   const element = document.querySelector("button");
   element.addEventListener("click", t.step_func_done(e => {
-    // assert_equals(e.view, window);
+    assert_equals(e.view, window);
     assert_equals(e.detail, 0);
     assert_equals(e.ctrlKey, false);
     assert_equals(e.shiftKey, false);
