@@ -50,16 +50,16 @@ async_test(t => {
     assert_equals(e.altKey, false);
     assert_equals(e.metaKey, false);
 
-    // assert_equals(e.getModifierState("AltGraph"), false);
-    // assert_equals(e.getModifierState("CapsLock"), false);
-    // assert_equals(e.getModifierState("Fn"), false);
-    // assert_equals(e.getModifierState("FnLock"), false);
-    // assert_equals(e.getModifierState("Hyper"), false);
-    // assert_equals(e.getModifierState("NumLock"), false);
-    // assert_equals(e.getModifierState("ScrollLock"), false);
-    // assert_equals(e.getModifierState("Super"), false);
-    // assert_equals(e.getModifierState("Symbol"), false);
-    // assert_equals(e.getModifierState("SymbolLock"), false);
+    assert_equals(e.getModifierState("AltGraph"), false);
+    assert_equals(e.getModifierState("CapsLock"), false);
+    assert_equals(e.getModifierState("Fn"), false);
+    assert_equals(e.getModifierState("FnLock"), false);
+    assert_equals(e.getModifierState("Hyper"), false);
+    assert_equals(e.getModifierState("NumLock"), false);
+    assert_equals(e.getModifierState("ScrollLock"), false);
+    assert_equals(e.getModifierState("Super"), false);
+    assert_equals(e.getModifierState("Symbol"), false);
+    assert_equals(e.getModifierState("SymbolLock"), false);
   }));
 
   element.click();
