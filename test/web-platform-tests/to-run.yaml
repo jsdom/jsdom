@@ -773,6 +773,16 @@ DIR: progress-events
 
 ---
 
+DIR: uievents
+
+constructors/inputevent-constructor.html: [fail, InputEvent not implemented]
+interfaces.html: [fail, depends on fetch]
+legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [fail, Unknown]
+legacy-domevents-tests/approved/domnodeinserted.html: [fail, Unknown]
+order-of-events/**: [fail, Unknown]
+
+---
+
 DIR: url
 
 a-element-xhtml.xhtml: [fail, Unknown]
