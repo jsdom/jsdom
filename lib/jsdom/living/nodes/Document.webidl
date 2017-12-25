@@ -1,5 +1,6 @@
 [Constructor,
- Exposed=Window]
+ Exposed=Window,
+ LegacyWindowAlias=HTMLDocument]
 interface Document : Node {
   [SameObject] readonly attribute DOMImplementation implementation;
   readonly attribute USVString URL;
