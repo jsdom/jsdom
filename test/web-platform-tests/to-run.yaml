@@ -198,6 +198,15 @@ xml-serialization.xhtml: [fail, Unknown]
 
 ---
 
+DIR: hr-time
+
+idlharness.html: [fail, ReferenceError - WebIDL2 is not defined]
+test_cross_frame_start.html: [fail, Not implemented]
+timeOrigin.html: [fail, Needs Worker implementation]
+window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
+
+---
+
 DIR: html/browsers/browsing-the-web/history-traversal
 
 001.html: [fail, Unknown]
