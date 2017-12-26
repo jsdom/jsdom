@@ -1,5 +1,6 @@
-[Constructor(optional sequence<BlobPart> blobParts, optional BlobPropertyBag options),
-Exposed=(Window,Worker)]
+[Constructor(optional sequence<BlobPart> blobParts,
+             optional BlobPropertyBag options),
+ Exposed=(Window,Worker), Serializable]
 interface Blob {
 
   readonly attribute unsigned long long size;
@@ -11,8 +12,11 @@ interface Blob {
             optional DOMString contentType);
 };
 
+enum EndingType { "transparent", "native" };
+
 dictionary BlobPropertyBag {
   DOMString type = "";
+  EndingType endings = "transparent";
 };
 
 typedef (BufferSource or Blob or USVString) BlobPart;
