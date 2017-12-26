@@ -7,7 +7,7 @@ const { describe, specify, before } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths, stripPrefix } = require("./wpt-manifest-utils.js");
 const startWPTServer = require("./start-wpt-server.js");
 
-const validReasons = new Set(["fail", "timeout", "needs-await", "needs-node8"]);
+const validReasons = new Set(["fail", "timeout", "flaky", "needs-await", "needs-node8"]);
 
 let supportsAwait = true;
 try {
