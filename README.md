@@ -167,7 +167,7 @@ There is also a special event, `"jsdomError"`, which will fire with error object
 - Script execution errors that are not handled by a window `onerror` event handler that returns `true` or calls `event.preventDefault()`
 - Not-implemented errors resulting from calls to methods, like `window.alert`, which jsdom does not implement, but installs anyway for web compatibility
 
-If you're using `sendTo()` to send errors to `c`, by default it will call `console.error` with information from `"jsdomError"` events. If you'd prefer to maintain a strict one-to-one mapping of events to method calls, and perhaps handle `"jsdomError"`s yourself, then you can do
+If you're using `sendTo(c)` to send errors to `c`, by default it will call `console.error` with information from `"jsdomError"` events. If you'd prefer to maintain a strict one-to-one mapping of events to method calls, and perhaps handle `"jsdomError"`s yourself, then you can do
 
 ```js
 const c = {error(err) {do something with err;}};
