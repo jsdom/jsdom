@@ -1,4 +1,4 @@
-[Constructor(DOMString type, optional FocusEventInit eventInitDict)]
+[Constructor(DOMString type, optional FocusEventInit eventInitDict), Exposed=Window]
 interface FocusEvent : UIEvent {
   readonly attribute EventTarget? relatedTarget;
 };

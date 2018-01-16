@@ -1,4 +1,5 @@
-[Exposed=(Window,Worker)]
+[Constructor,
+ Exposed=(Window,Worker,AudioWorklet)]
 interface EventTarget {
   void addEventListener(DOMString type, EventListener? callback, optional (AddEventListenerOptions or boolean) options);
   void removeEventListener(DOMString type, EventListener? callback, optional (EventListenerOptions or boolean) options);
@@ -9,11 +10,11 @@ callback interface EventListener {
   void handleEvent(Event event);
 };
 
-dictionary EventListenerOptions{
+dictionary EventListenerOptions {
   boolean capture = false;
 };
 
-dictionary AddEventListenerOptions: EventListenerOptions {
-// boolean passive = false;
+dictionary AddEventListenerOptions : EventListenerOptions {
+//  boolean passive = false;
   boolean once = false;
 };

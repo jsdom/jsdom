@@ -1,28 +1,32 @@
-[Constructor(DOMString typeArg, optional MouseEventInit mouseEventInitDict)]
+[Constructor(DOMString type, optional MouseEventInit eventInitDict), Exposed=Window]
 interface MouseEvent : UIEvent {
-    readonly    attribute long           screenX;
-    readonly    attribute long           screenY;
-    readonly    attribute long           clientX;
-    readonly    attribute long           clientY;
-    readonly    attribute boolean        ctrlKey;
-    readonly    attribute boolean        shiftKey;
-    readonly    attribute boolean        altKey;
-    readonly    attribute boolean        metaKey;
-    readonly    attribute short          button;
-    readonly    attribute EventTarget?   relatedTarget;
-    // Introduced in this specification
-    readonly    attribute unsigned short buttons;
-    boolean getModifierState (DOMString keyArg);
+  readonly attribute long screenX;
+  readonly attribute long screenY;
+  readonly attribute long clientX;
+  readonly attribute long clientY;
+
+  readonly attribute boolean ctrlKey;
+  readonly attribute boolean shiftKey;
+  readonly attribute boolean altKey;
+  readonly attribute boolean metaKey;
+
+  readonly attribute short button;
+  readonly attribute unsigned short buttons;
+
+  readonly attribute EventTarget? relatedTarget;
+
+  boolean getModifierState(DOMString keyArg);
 };
 
 dictionary MouseEventInit : EventModifierInit {
-             long           screenX = 0;
-             long           screenY = 0;
-             long           clientX = 0;
-             long           clientY = 0;
-             short          button = 0;
-             unsigned short buttons = 0;
-             EventTarget?   relatedTarget = null;
+  long screenX = 0;
+  long screenY = 0;
+  long clientX = 0;
+  long clientY = 0;
+
+  short button = 0;
+  unsigned short buttons = 0;
+  EventTarget? relatedTarget = null;
 };
 
 // https://github.com/w3c/uievents/issues/136

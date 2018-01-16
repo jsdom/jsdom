@@ -1,7 +1,7 @@
-[Constructor]
+[Constructor,
+  Exposed=Window]
 interface DOMParser {
-    [NewObject]
-    Document parseFromString(DOMString str, SupportedType type);
+  [NewObject] Document parseFromString(DOMString str, SupportedType type);
 };
 
 enum SupportedType {

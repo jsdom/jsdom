@@ -1,4 +1,4 @@
-[Constructor(DOMString type, optional MessageEventInit eventInitDict), Exposed=(Window,Worker)]
+[Constructor(DOMString type, optional MessageEventInit eventInitDict), Exposed=(Window,Worker,AudioWorklet)]
 interface MessageEvent : Event {
   readonly attribute any data;
   readonly attribute USVString origin;

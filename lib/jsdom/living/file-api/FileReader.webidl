@@ -3,6 +3,7 @@ interface FileReader: EventTarget {
 
   // async read methods
   void readAsArrayBuffer(Blob blob);
+//  void readAsBinaryString(Blob blob);
   void readAsText(Blob blob, optional DOMString label);
   void readAsDataURL(Blob blob);
 
@@ -19,7 +20,7 @@ interface FileReader: EventTarget {
   // File or Blob data
   readonly attribute (DOMString or ArrayBuffer)? result;
 
-  readonly attribute DOMError? error;
+  readonly attribute DOMException? error;
 
   // event handler content attributes
   attribute EventHandler onloadstart;
@@ -28,4 +29,5 @@ interface FileReader: EventTarget {
   attribute EventHandler onabort;
   attribute EventHandler onerror;
   attribute EventHandler onloadend;
+
 };
