@@ -30,7 +30,7 @@
     "html-encoding-sniffer": "^1.0.2",
     "left-pad": "^1.2.0",
     "nwmatcher": "^1.4.3",
-    "parse5": "^3.0.3",
+    "parse5": "^4.0.0",
     "pn": "^1.0.0",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.3",
