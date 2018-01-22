@@ -30,6 +30,7 @@ addDir("../../lib/jsdom/living/domparsing");
 addDir("../../lib/jsdom/living/svg");
 addDir("../../lib/jsdom/living/aborting");
 addDir("../../lib/jsdom/living/websockets");
+addDir("../../lib/jsdom/living/hr-time");
 
 
 const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");

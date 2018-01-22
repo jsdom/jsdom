@@ -37,6 +37,7 @@
     "sax": "^1.2.4",
     "symbol-tree": "^3.2.2",
     "tough-cookie": "^2.3.3",
+    "w3c-hr-time": "^1.0.1",
     "webidl-conversions": "^4.0.2",
     "whatwg-encoding": "^1.0.3",
     "whatwg-url": "^6.4.0",
