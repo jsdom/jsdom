@@ -73,7 +73,8 @@
   },
   "browser": {
     "canvas": false,
-    "vm": "./lib/jsdom/vm-shim.js"
+    "vm": "./lib/jsdom/vm-shim.js",
+    "./lib/jsdom/living/websockets/WebSocket-impl.js": "./lib/jsdom/living/websockets/WebSocket-impl-browser.js"
   },
   "scripts": {
     "prepare": "yarn convert-idl",
