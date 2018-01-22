@@ -9,14 +9,13 @@ var toFileUrl = require('../util.js').toFileUrl(__dirname);
 
 describe("frame", { skipIfBrowser: true }, () => {
   specify('frame_parent', (t) => {
-    var window = jsdom.jsdom('<html><head>\
+    var window = jsdom.jsdom('<html><body>\
       <script>\
         aGlobal=1;\
         var iframe = document.createElement("iframe");\
         iframe.src = "' + toFileUrl('files/iframe.html') + '";\
         document.body.appendChild(iframe);\
-      </script>\
-      </head><body></body></html>',
+      </script>',
       {
         features : {
           FetchExternalResources: ['script','iframe']

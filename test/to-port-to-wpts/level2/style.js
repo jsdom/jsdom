@@ -14,9 +14,9 @@ describe("level2/style", { skipIfBrowser: true }, () => {
         "<html><head><style>p{color:red}</style></head><body>",
         function (err, win) {
       var style = win.document.head.lastChild;
-      assert.equal(1, style.sheet.cssRules.length);
-      assert.equal("p", style.sheet.cssRules[0].selectorText);
-      assert.equal("red", style.sheet.cssRules[0].style.color);
+      assert.equal(style.sheet.cssRules.length, 1);
+      assert.equal(style.sheet.cssRules[0].selectorText, "p");
+      assert.equal(style.sheet.cssRules[0].style.color, "red");
       t.done();
     });
   }, {
@@ -34,8 +34,8 @@ describe("level2/style", { skipIfBrowser: true }, () => {
       src: removeScript,
       done: function(err, window) {
         assert.ifError(err);
-        assert.equal(1, window.document.getElementsByTagName("style").length);
-        assert.equal(1, window.document.styleSheets.length);
+        assert.equal(window.document.getElementsByTagName("style").length, 1);
+        assert.equal(window.document.styleSheets.length, 1);
         t.done();
       }
     });
