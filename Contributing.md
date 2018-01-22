@@ -44,6 +44,10 @@ First you'll want to run `yarn` to install all dependencies. Then, configure you
 
 **To run all the tests:** `yarn test`
 
+In the following sections, we'll give commands for running a subset of the tests. If you do that, instead of running the whole suite with `yarn test`, then please run this command first:
+
+**Before running test subsets**: `yarn pretest`
+
 ### Web platform feature tests
 
 All tests for web platform features (as opposed to features of jsdom itself, such as the `JSDOM()` constructor) should be in [web-platform-tests](https://github.com/w3c/web-platform-tests) format. We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browse the web-platform-tests repository and find the test covering your work, and then just enable it in [the `to-run.yaml` file](https://github.com/tmpvar/jsdom/blob/master/test/web-platform-tests/to-run.yaml). These tests are HTML files which use a special library called [testharness.js](http://testthewebforward.org/docs/testharness-library.html) to report their results.
