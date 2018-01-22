@@ -1,4 +1,29 @@
+## 11.6.0
+
+* Added a fully-functioning `WebSocket` implementation!
+* Added a `window.performance` implementation, including the basics of the [High Resolution Time](https://w3c.github.io/hr-time/) specification: `performance.now()`, `performance.timeOrigin`, and `performance.toJSON()`.
+* Added support for all of the public API of `HTMLMeterElement`, except for `meterEl.labels`.
+* Added the `locationbar`, `menubar`, `personalbar`, `scrollbars`, `statusbar`, and `toolbar` properties to `Window`.
+* Added more properties to `window.screen`: `availWidth`, `availHeight`, `colorDepth`, and `pixelDepth`. All of its properties are now getters as well.
+* Added `window.devicePixelRatio`.
+* Added `getModifierState()` to `MouseEvent` and `KeyboardEvent`.
+* Added a setter for `HTMLInputElement`'s `files` property.
+* Added support for the `endings` option to the `Blob` constructor.
+* Fixed firing various event firings to have the correct default values, e.g. the properties of `MouseEvent` when using `element.click()`.
+* Fixed the firing of `popstate` and `hashchange` events during fragment navigation to make them trusted events.
+* Fixed `data:` URL parsing to not include the fragment portions.
+* Fixed all URL-accepting properties to properly perform [scalar value string conversion](https://infra.spec.whatwg.org/#javascript-string-convert) and URL resolution.
+* Fixed many other small edge-case conformance issues in the API surface of various web APIs; see [#2053](https://github.com/tmpvar/jsdom/pull/2053) and [#2081](https://github.com/tmpvar/jsdom/pull/2081) for more information.
+* Fixed various APIs to use ASCII lowercasing, instead of Unicode lowercasing, for element and attribute names.
+* Fixed the encoding of a document created via `new Document()` to be UTF-8.
+* Fixed event handler properties behavior when given non-callable objects.
+* Increased the performance of parsing HTML documents with large numbers of sibling elements.
+* Removed `probablySupportsContext()` and `setContext()` from `HTMLCanvasElement`, per spec updates.
+* Removed the nonstandard `window.scrollLeft` and `window.scrollTop` properties, and the `window.createPopup()` method.
+
 ## 11.5.1
+
+(This should have been a minor release; oops.)
 
 * Added `AbortSignal` and `AbortController`.
 * Fixed validation for file `<input>`s and implemented validation for more input types.
@@ -16,7 +41,7 @@ For this release we'd like to welcome [@Zirro](https://github.com/tmpvar/jsdom/c
 * Added support for parsing CDATA sections in XML documents, including in `domParser.parseFromString()`. (myabc)
 * Added appropriate `input.value` getter/setter logic for `<input type="file">`.
 * Significantly improved the spec-compliance of `NamedNodeMap`, i.e. of `element.attributes`, such that retrieving named or indexed properties will now always work properly.
-* Fixed `domParser.parseFromString()` to not parse HTML character entities in XML docuemnts. (myabc)
+* Fixed `domParser.parseFromString()` to not parse HTML character entities in XML documents. (myabc)
 * Fixed `xhr.abort()` to clear any set headers.
 * Fixed `XMLHttpRequest` to always decoded responses as UTF-8 when `responseType` is set to `"json"`.
 * Fixed `XMLHttpRequest` CORS header handling, especially with regard to preflights and Access-Control-Allow-Headers. (ScottAlbertine)
