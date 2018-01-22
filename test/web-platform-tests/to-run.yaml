@@ -201,6 +201,7 @@ xml-serialization.xhtml: [fail, Unknown]
 DIR: hr-time
 
 idlharness.html: [fail, ReferenceError - WebIDL2 is not defined]
+performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
 window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
