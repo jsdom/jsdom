@@ -1,3 +1,12 @@
+## 11.6.1
+
+* Fixed one regression (since v11.6.0) in `<style>` elements, where their `sheet` property would sometimes be `null` when it should not be.
+* Fixed a case where a `<style>` element's `sheet` property would be left as a `CSSStyleSheet` despite it not being in the document.
+
+Another regression remains where we are emitting spurious CSS-parsing `"jsdomError"` events; see [#2123](https://github.com/tmpvar/jsdom/issues/2123). We also discovered a large amount of preexisting brokenness around `<style>`, `<link>`, and `@import`; see [#2124](https://github.com/tmpvar/jsdom/issues/2124) for more details.
+
+We'll try to fix these soon, especially the regression.
+
 ## 11.6.0
 
 * Added a fully-functioning `WebSocket` implementation!
