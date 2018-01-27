@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Spaces inside style sheet properties should work fine</title>
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<!-- Regression test for https://github.com/tmpvar/jsdom/issues/2123 -->
+
+<style>
+.cool-class {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<p class="cool-class">
+  Hello!
+</p>
+
+<script>
+"use strict";
+
+const el = document.querySelector(".cool-class");
+assert_equals(window.getComputedStyle(el).fontFamily, `"Helvetica Neue", Helvetica, Arial, sans-serif`);
+
+done();
+</script>
