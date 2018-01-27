@@ -8,6 +8,7 @@ require("./api/fragment.js");
 require("./api/from-file.js");
 require("./api/from-outside.js");
 require("./api/from-url.js");
+require("./api/jsdom-errors.js");
 require("./api/methods.js");
 require("./api/options.js");
 require("./api/options-run-scripts.js");
