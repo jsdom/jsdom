@@ -153,7 +153,7 @@ describe("on-error", () => {
       t.done();
     });
 
-    doc.body.innerHTML = `<script>throw new Error("oh no!");</script>`;
+    doc.write(`<script>throw new Error("oh no!");</script>`);
   }, {
     async: true
   });

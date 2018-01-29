@@ -184,16 +184,12 @@ describe("API: JSDOM class's methods", () => {
       });
 
       it("should reconfigure the window.top property (tested from the inside)", () => {
-        const dom = new JSDOM(``, { runScripts: "dangerously" });
+        const dom = new JSDOM(`<script>window.getTopResult = () => top.is;</script>`, { runScripts: "dangerously" });
         const newTop = { is: "top" };
 
         dom.reconfigure({ windowTop: newTop });
 
-        dom.window.document.body.innerHTML = `<script>
-          window.topResult = top.is;
-        </script>`;
-
-        assert.strictEqual(dom.window.topResult, "top");
+        assert.strictEqual(dom.window.getTopResult(), "top");
       });
 
       it("should do nothing when no options are passed", () => {
