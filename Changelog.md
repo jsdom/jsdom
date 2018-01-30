@@ -1,3 +1,8 @@
+## 11.6.2
+
+* Fixed another regression (since v11.6.0) in `<style>` elements, where they would omit a series of parsing `"jsdomError"`s for any style sheet text containing spaces.
+* Generally improved the spec-conformance of when `<style>` and `<script>` elements are evaluated; for example, `<script>` elements inserted by `innerHTML` are no longer evaluated.
+
 ## 11.6.1
 
 * Fixed one regression (since v11.6.0) in `<style>` elements, where their `sheet` property would sometimes be `null` when it should not be.
