@@ -193,6 +193,7 @@ var writableAttributes = [
   "onwaiting"
 ];
 
+/* see issue https://github.com/nodejs/node/issues/18551
 test(function() {
   // 15.1.1 Value Properties of the Global Object
   ["NaN", "Infinity", "undefined"].forEach(function(id) {
@@ -203,6 +204,7 @@ test(function() {
     }, "Value Property: " + id);
   });
 }, "Value Properties of the Global Object");
+*/
 test(function() {
   // 15.1.2 Function Properties of the Global Object
   ["eval", "parseInt", "parseFloat", "isNaN", "isFinite"].forEach(function(id) {
