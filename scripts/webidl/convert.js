@@ -31,6 +31,7 @@ addDir("../../lib/jsdom/living/svg");
 addDir("../../lib/jsdom/living/aborting");
 addDir("../../lib/jsdom/living/websockets");
 addDir("../../lib/jsdom/living/hr-time");
+addDir("../../lib/jsdom/living/validity");
 
 
 const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
