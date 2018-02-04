@@ -70,6 +70,7 @@ export interface Options {
     beforeParse?(window: DOMWindow): void;
     acceptLanguage?: string;
     strictSSL?: boolean;
+    proxy: string;
 }
 
 export type FromUrlOptions = Options;
