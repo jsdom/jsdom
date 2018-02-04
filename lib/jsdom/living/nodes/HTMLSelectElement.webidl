@@ -25,12 +25,12 @@ interface HTMLSelectElement : HTMLElement {
   attribute long selectedIndex;
   attribute DOMString value;
 
-//  readonly attribute boolean willValidate;
-//  readonly attribute ValidityState validity;
-//  readonly attribute DOMString validationMessage;
-//  boolean checkValidity();
-//  boolean reportValidity();
-//  void setCustomValidity(DOMString error);
+  readonly attribute boolean willValidate;
+  readonly attribute ValidityState validity;
+  readonly attribute DOMString validationMessage;
+  boolean checkValidity();
+  boolean reportValidity();
+  void setCustomValidity(DOMString error);
 
 //  readonly attribute NodeList labels;
 };
