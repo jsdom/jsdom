@@ -99,9 +99,9 @@ describe("API: constructor options", () => {
     });
 
     it("should disallow content types that are unparseable", () => {
-      assert.throws(() => new JSDOM(``, { contentType: "" }), TypeError);
-      assert.throws(() => new JSDOM(``, { contentType: "html" }), TypeError);
-      assert.throws(() => new JSDOM(``, { contentType: "text/html/xml" }), TypeError);
+      assert.throws(() => new JSDOM(``, { contentType: "" }), Error);
+      assert.throws(() => new JSDOM(``, { contentType: "html" }), Error);
+      assert.throws(() => new JSDOM(``, { contentType: "text/html/xml" }), Error);
     });
 
     it("should disallow content types that are not XML or HTML", () => {
