@@ -42,7 +42,7 @@
     "w3c-hr-time": "^1.0.1",
     "webidl-conversions": "^4.0.2",
     "whatwg-encoding": "^1.0.3",
-    "whatwg-mimetype": "^2.0.1",
+    "whatwg-mimetype": "^2.1.0",
     "whatwg-url": "^6.4.0",
     "ws": "^4.0.0",
     "xml-name-validator": "^3.0.0"
