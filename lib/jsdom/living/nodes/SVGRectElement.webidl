@@ -1,10 +1,10 @@
-// https://developer.mozilla.org/en-US/docs/Web/API/SVGRectElement
-// https://dxr.mozilla.org/mozilla-beta/source/dom/webidl/SVGRectElement.webidl
+// https://svgwg.org/svg2-draft/shapes.html#InterfaceSVGRectElement
+
 interface SVGRectElement : SVGGeometryElement {
-  [Constant] readonly attribute SVGAnimatedLength x;
-  [Constant] readonly attribute SVGAnimatedLength y;
-  [Constant] readonly attribute SVGAnimatedLength width;
-  [Constant] readonly attribute SVGAnimatedLength height;
-  [Constant] readonly attribute SVGAnimatedLength rx;
-  [Constant] readonly attribute SVGAnimatedLength ry;
+  [SameObject] readonly attribute SVGAnimatedLength x;
+  [SameObject] readonly attribute SVGAnimatedLength y;
+  [SameObject] readonly attribute SVGAnimatedLength width;
+  [SameObject] readonly attribute SVGAnimatedLength height;
+  [SameObject] readonly attribute SVGAnimatedLength rx;
+  [SameObject] readonly attribute SVGAnimatedLength ry;
 };

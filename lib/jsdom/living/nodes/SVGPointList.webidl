@@ -1,19 +1,15 @@
-// https://dxr.mozilla.org/mozilla-beta/source/dom/webidl/SVGPointList.webidl
+// https://svgwg.org/svg2-draft/shapes.html#InterfaceSVGPointList
 
 interface SVGPointList {
+  readonly attribute unsigned long length;
   readonly attribute unsigned long numberOfItems;
-  [Throws]
+
   void clear();
-  [Throws]
-  SVGPoint initialize(SVGPoint newItem);
-  [Throws]
-  getter SVGPoint getItem(unsigned long index);
-  [Throws]
-  SVGPoint insertItemBefore(SVGPoint newItem, unsigned long index);
-  [Throws]
-  SVGPoint replaceItem(SVGPoint newItem, unsigned long index);
-  [Throws]
-  SVGPoint removeItem(unsigned long index);
-  [Throws]
-  SVGPoint appendItem(SVGPoint newItem);
+  DOMPoint initialize(DOMPoint newItem);
+  getter DOMPoint getItem(unsigned long index);
+  DOMPoint insertItemBefore(DOMPoint newItem, unsigned long index);
+  DOMPoint replaceItem(DOMPoint newItem, unsigned long index);
+  DOMPoint removeItem(unsigned long index);
+  DOMPoint appendItem(DOMPoint newItem);
+  setter void (unsigned long index, DOMPoint newItem);
 };

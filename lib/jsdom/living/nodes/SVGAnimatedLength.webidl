@@ -1,8 +1,6 @@
-// https://dxr.mozilla.org/mozilla-beta/source/dom/webidl/SVGAnimatedLength.webidl
+// https://svgwg.org/svg2-draft/types.html#InterfaceSVGAnimatedLength
 
 interface SVGAnimatedLength {
-  [Constant]
-  readonly attribute SVGLength baseVal;
-  [Constant]
-  readonly attribute SVGLength animVal;
+  [SameObject] readonly attribute SVGLength baseVal;
+  [SameObject] readonly attribute SVGLength animVal;
 };

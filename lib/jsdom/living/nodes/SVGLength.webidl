@@ -1,6 +1,5 @@
-// https://dxr.mozilla.org/mozilla-beta/source/dom/webidl/SVGLength.webidl
+// https://svgwg.org/svg2-draft/types.html#InterfaceSVGLength
 
-[NoInterfaceObject]
 interface SVGLength {
   // Length Unit Types
   const unsigned short SVG_LENGTHTYPE_UNKNOWN = 0;
@@ -16,15 +15,10 @@ interface SVGLength {
   const unsigned short SVG_LENGTHTYPE_PC = 10;
 
   readonly attribute unsigned short unitType;
-  [Throws]
            attribute float value;
-  [SetterThrows]
            attribute float valueInSpecifiedUnits;
-  [SetterThrows]
            attribute DOMString valueAsString;
 
-  [Throws]
   void newValueSpecifiedUnits(unsigned short unitType, float valueInSpecifiedUnits);
-  [Throws]
   void convertToSpecifiedUnits(unsigned short unitType);
 };

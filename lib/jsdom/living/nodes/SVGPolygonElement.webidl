@@ -1,5 +1,5 @@
-// https://developer.mozilla.org/en-US/docs/Web/API/SVGPolygonElement
-// https://dxr.mozilla.org/mozilla-beta/source/dom/webidl/SVGPolygonElement.webidl
+// https://svgwg.org/svg2-draft/shapes.html#InterfaceSVGPolygonElement
+
 interface SVGPolygonElement : SVGGeometryElement {
 
 };

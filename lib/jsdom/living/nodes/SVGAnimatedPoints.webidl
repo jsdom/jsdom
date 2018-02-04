@@ -1,9 +1,7 @@
-// https://dxr.mozilla.org/mozilla-beta/source/dom/webidl/SVGAnimatedPoints.webidl
+// https://svgwg.org/svg2-draft/shapes.html#InterfaceSVGLineElement
 
 [NoInterfaceObject]
 interface SVGAnimatedPoints {
-  [Constant]
-  readonly attribute SVGPointList points;
-  [Constant]
-  readonly attribute SVGPointList animatedPoints;
+  [SameObject] readonly attribute SVGPointList points;
+  [SameObject] readonly attribute SVGPointList animatedPoints;
 };

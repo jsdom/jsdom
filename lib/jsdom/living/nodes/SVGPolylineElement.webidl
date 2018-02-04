@@ -1,5 +1,5 @@
-// https://developer.mozilla.org/en-US/docs/Web/API/SVGPolylineElement
-// https://dxr.mozilla.org/mozilla-beta/source/dom/webidl/SVGPolylineElement.webidl
+// https://svgwg.org/svg2-draft/shapes.html#InterfaceSVGPolylineElement
+
 interface SVGPolylineElement : SVGGeometryElement {
 
 };
