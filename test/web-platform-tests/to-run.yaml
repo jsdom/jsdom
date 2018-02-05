@@ -487,7 +487,6 @@ DIR: html/semantics/forms/the-form-element
 form-action-submission-with-base-url.html: [timeout, Unknown]
 form-action-submission.html: [timeout, Unknown]
 form-autocomplete.html: [fail, Unknown]
-form-checkvalidity.html: [fail, Validation is not implemented]
 form-elements-filter.html: [fail, Unknown]
 form-elements-interfaces-01.html: [fail, Unknown]
 form-elements-matches.html: [fail, Unknown]
@@ -501,8 +500,6 @@ DIR: html/semantics/forms/the-input-element
 
 button.html: [fail, Validation is not implemented]
 checkbox.html: [fail, Events weirdness]
-datetime-local.html: [fail, min/max constraints not implemented]
-datetime.html: [fail, step is not implemented]
 hidden.html: [fail, list/step/validation/valueAsDate/valueAsNumber not implemented]
 input-labels.html: [fail, labels attribute is not implemented]
 input-stepdown.html: [fail, stepDown()-method is not implemented]
@@ -544,8 +541,6 @@ option-value.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-i
 ---
 
 DIR: html/semantics/forms/the-select-element
-
-select-validity.html: [fail, Validation is not implemented]
 
 ---
 
