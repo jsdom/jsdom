@@ -13,12 +13,12 @@ interface HTMLObjectElement : HTMLElement {
 //  readonly attribute WindowProxy? contentWindow;
 //  Document? getSVGDocument();
 
-//  readonly attribute boolean willValidate;
-//  readonly attribute ValidityState validity;
-//  readonly attribute DOMString validationMessage;
-//  boolean checkValidity();
-//  boolean reportValidity();
-//  void setCustomValidity(DOMString error);
+  readonly attribute boolean willValidate;
+  readonly attribute ValidityState validity;
+  readonly attribute DOMString validationMessage;
+  boolean checkValidity();
+  boolean reportValidity();
+  void setCustomValidity(DOMString error);
 
   // also has obsolete members
 };

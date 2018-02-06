@@ -10,6 +10,5 @@ interface ValidityState {
   readonly attribute boolean stepMismatch;
   readonly attribute boolean badInput;
   readonly attribute boolean customError;
-
   readonly attribute boolean valid;
 };
