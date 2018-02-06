@@ -456,8 +456,6 @@ formaction.html: [fail, Unknown]
 ---
 DIR: html/semantics/forms/constraints
 
-form-validation-willValidate.html: [fail, willValidate is not fully implemented yet]
-
 ---
 
 DIR: html/semantics/forms/resetting-a-form
@@ -471,14 +469,9 @@ reset-form.html: [fail, Unknown]
 DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, Unknown]
-button-checkvalidity.html: [fail, Validation is not implemented]
 button-events.html: [fail, Unknown]
 button-labels.html: [fail, labels attribute is not implemented]
-button-setcustomvalidity.html: [fail, Validation is not implemented]
-button-validation.html: [fail, Validation is not implemented]
-button-validationmessage.html: [fail, Validation is not implemented]
-button-validity.html: [fail, Validation is not implemented]
-button-willvalidate.html: [fail, Validation is not implemented]
+button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
 
@@ -500,6 +493,8 @@ DIR: html/semantics/forms/the-input-element
 
 button.html: [fail, Validation is not implemented]
 checkbox.html: [fail, Events weirdness]
+datetime-local.html: [fail, min/max constraints not implemented]
+datetime.html: [fail, step is not implemented]
 hidden.html: [fail, list/step/validation/valueAsDate/valueAsNumber not implemented]
 input-labels.html: [fail, labels attribute is not implemented]
 input-stepdown.html: [fail, stepDown()-method is not implemented]
