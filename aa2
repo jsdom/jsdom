@@ -1,0 +1,269 @@
+
+** Note: you can use --noprofile to disable default.profile **
+
+]0;firejail yarn test-wpt --fgrep forms yarn run v1.3.2
+$ mocha test/web-platform-tests/run-wpts.js --fgrep forms
+
+
+WPT server at http://web-platform.test:9000/ is not up yet (Error: connect ECONNREFUSED 127.0.0.1:9000); trying again
+WPT server at http://web-platform.test:9000/ is not up yet (Error: connect ECONNREFUSED 127.0.0.1:9000); trying again
+WPT server at http://web-platform.test:9000/ is not up yet (Error: connect ECONNREFUSED 127.0.0.1:9000); trying again
+WPT server at http://web-platform.test:9000/ is up!
+  web-platform-tests
+    html/dom/documents/dom-tree-accessors
+      ✓ document.forms.html
+    html/semantics/forms/attributes-common-to-form-controls
+      - [timeout] dirname-ltr.html
+      ✓ disabled-elements-01.html
+      - [fail] formAction_document_address.html
+      - [fail] formaction.html
+    html/semantics/forms/constraints
+      ✓ form-validation-checkValidity.html
+      ✓ form-validation-reportValidity.html
+      1) form-validation-validate.html
+      ✓ form-validation-validity-badInput.html
+      ✓ form-validation-validity-customError.html
+      ✓ form-validation-validity-patternMismatch.html
+      ✓ form-validation-validity-rangeOverflow.html
+      ✓ form-validation-validity-rangeUnderflow.html
+      ✓ form-validation-validity-stepMismatch.html
+      ✓ form-validation-validity-tooLong.html
+      ✓ form-validation-validity-tooShort.html
+      ✓ form-validation-validity-typeMismatch.html
+      ✓ form-validation-validity-valid.html
+      ✓ form-validation-validity-valueMissing.html
+      ✓ form-validation-willValidate.html
+      ✓ inputwillvalidate.html
+    html/semantics/forms/resetting-a-form
+      - [fail] reset-event.html
+      ✓ reset-form-2.html
+      - [fail] reset-form-event-realm.html
+      - [fail] reset-form.html
+    html/semantics/forms/the-button-element
+      - [fail] button-activate.html
+      ✓ button-checkvalidity.html
+      ✓ button-click-submits.html
+      - [fail] button-events.html
+      - [fail] button-labels.html
+      ✓ button-menu-historical.html
+      ✓ button-setcustomvalidity.html
+      ✓ button-type.html
+      - [fail] button-validation.html
+      ✓ button-validationmessage.html
+      ✓ button-validity.html
+      ✓ button-willvalidate.html
+    html/semantics/forms/the-form-element
+      ✓ form-action-reflection-with-base-url.html
+      ✓ form-action-reflection.html
+      - [timeout] form-action-submission-with-base-url.html
+      - [timeout] form-action-submission.html
+      ✓ form-action.html
+      - [fail] form-autocomplete.html
+      ✓ form-checkvalidity.html
+      - [fail] form-elements-filter.html
+      - [fail] form-elements-interfaces-01.html
+      - [fail] form-elements-matches.html
+      - [fail] form-elements-nameditem-01.html
+      ✓ form-elements-nameditem-02.html
+      ✓ form-elements-sameobject.html
+      - [fail] form-indexed-element.html
+      ✓ form-length.html
+      - [fail] form-nameditem.html
+    html/semantics/forms/the-input-element
+      - [fail] button.html
+      ✓ checkbox-click-events.html
+      - [fail] checkbox.html
+      ✓ checked.xhtml
+      ✓ clone.html
+      ✓ cloning-steps.html
+      ✓ color.html
+      ✓ date.html
+      - [fail] datetime-local.html
+      - [fail] datetime.html
+      ✓ email.html
+      ✓ files.html
+      - [fail] hidden.html
+      ✓ input-checkvalidity.html
+      ✓ input-height.html
+      - [fail] input-labels.html
+      ✓ input-setcustomvalidity.html
+      - [fail] input-stepdown.html
+      - [fail] input-stepup.html
+      - [fail] input-type-button.html
+      ✓ input-type-checkbox.html
+      ✓ input-validationmessage.html
+      ✓ input-validity.html
+      ✓ input-value-invalidstateerr.html
+      - [fail] input-valueasdate-invalidstateerr.html
+      - [timeout] input-valueasnumber-invalidstateerr.html
+      ✓ input-width.html
+      ✓ input-willvalidate.html
+      - [fail] maxlength.html
+      - [fail] minlength.html
+      - [fail] month.html
+      ✓ number.html
+      ✓ password.html
+      ✓ pattern_attribute.html
+      - [fail] radio-groupname-case.html
+      ✓ radio-input-cancel.html
+      - [fail] radio.html
+      - [fail] range-2.html
+      - [fail] range.html
+      ✓ required_attribute.html
+      - [fail] reset.html
+      ✓ search_input.html
+      ✓ selection.html
+      ✓ telephone.html
+      - [fail] text.html
+      ✓ time-2.html
+      - [fail] time.html
+      - [fail] type-change-state.html
+      ✓ url.html
+      ✓ valueMode.html
+      ✓ week.html
+    html/semantics/forms/the-label-element
+      - [fail] label-attributes.html
+      - [fail] labelable-elements.html
+      ✓ proxy-click-to-associated-element.html
+    html/semantics/forms/the-meter-element
+      ✓ meter.html
+    html/semantics/forms/the-option-element
+      ✓ option-element-constructor.html
+      ✓ option-form.html
+      ✓ option-index.html
+      - [fail] option-label.html
+      ✓ option-selected.html
+      ✓ option-text-backslash.html
+      ✓ option-text-label.html
+      - [fail] option-text-recurse.html
+      ✓ option-text-setter.html
+      ✓ option-text-spaces.html
+      - [fail] option-value.html
+    html/semantics/forms/the-select-element
+      ✓ common-HTMLOptionsCollection-add.html
+      ✓ common-HTMLOptionsCollection-namedItem.html
+      ✓ common-HTMLOptionsCollection.html
+      ✓ select-add.html
+      ✓ select-ask-for-reset.html
+      ✓ select-multiple.html
+      ✓ select-named-getter.html
+      ✓ select-remove.html
+      ✓ select-selectedOptions.html
+      2) select-validity.html
+      ✓ select-value.html
+      ✓ selected-index.html
+    html/semantics/forms/the-textarea-element
+      - [fail] cloning-steps.html
+      ✓ textarea-type.html
+      - [fail] value-defaultValue-textContent-xhtml.xhtml
+      ✓ value-defaultValue-textContent.html
+
+
+  85 passing (7s)
+  48 pending
+  2 failing
+
+  1) web-platform-tests html/semantics/forms/constraints form-validation-validate.html:
+     Error: Failed in "The invalid event must be fired at the invalid controls": 
+assert_equals: The invalid event will be fired if the checkValidity or reportValidity method are called. expected 4 but got 2
+
+    at Test.<anonymous> (http://web-platform.test:9000/html/semantics/forms/constraints/form-validation-validate.html:118:5)
+    at Test.step (http://web-platform.test:9000/resources/testharness.js:1489:25)
+    at test (http://web-platform.test:9000/resources/testharness.js:511:18)
+    at http://web-platform.test:9000/html/semantics/forms/constraints/form-validation-validate.html:117:3
+    at ContextifyScript.Script.runInContext (vm.js:59:29)
+    at Object.runInContext (vm.js:120:6)
+      at window.add_completion_callback (test/web-platform-tests/run-single-wpt.js:118:20)
+      at http://web-platform.test:9000/resources/testharness.js:2079:22
+      at forEach (http://web-platform.test:9000/resources/testharness.js:2786:26)
+      at Tests.notify_complete (http://web-platform.test:9000/resources/testharness.js:2076:9)
+      at Tests.complete (http://web-platform.test:9000/resources/testharness.js:2031:14)
+      at http://web-platform.test:9000/resources/testharness.js:1866:26
+      at invokeEventListeners (lib/jsdom/living/events/EventTarget-impl.js:193:27)
+      at EventTargetImpl._dispatch (lib/jsdom/living/events/EventTarget-impl.js:119:9)
+      at EventTargetImpl.dispatchEvent (lib/jsdom/living/events/EventTarget-impl.js:82:17)
+      at Window.dispatchEvent (lib/jsdom/living/generated/EventTarget.js:157:21)
+      at Document.window.document.addEventListener (lib/jsdom/browser/Window.js:603:16)
+      at invokeEventListeners (lib/jsdom/living/events/EventTarget-impl.js:193:27)
+      at DocumentImpl._dispatch (lib/jsdom/living/events/EventTarget-impl.js:119:9)
+      at DocumentImpl.dispatchEvent (lib/jsdom/living/events/EventTarget-impl.js:82:17)
+      at lib/jsdom/browser/resource-loader.js:51:15
+      at Object.check (lib/jsdom/living/nodes/Document-impl.js:74:11)
+      at Object.check (lib/jsdom/living/nodes/Document-impl.js:77:23)
+      at Object.check (lib/jsdom/living/nodes/Document-impl.js:77:23)
+      at Object.check (lib/jsdom/living/nodes/Document-impl.js:77:23)
+      at lib/jsdom/living/nodes/Document-impl.js:93:12
+      at wrappedEnqueued (lib/jsdom/browser/resource-loader.js:255:16)
+      at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:511:3)
+
+  2) web-platform-tests html/semantics/forms/the-select-element select-validity.html:
+     Error: 4 errors in test:
+
+Failed in "Placeholder label options within a select": 
+assert_true: An empty non-placeholder option should be a valid choice. expected true got false
+
+    at Test.<anonymous> (http://web-platform.test:9000/html/semantics/forms/the-select-element/select-validity.html:24:3)
+    at Test.step (http://web-platform.test:9000/resources/testharness.js:1489:25)
+    at test (http://web-platform.test:9000/resources/testharness.js:511:18)
+    at http://web-platform.test:9000/html/semantics/forms/the-select-element/select-validity.html:10:1
+    at ContextifyScript.Script.runInContext (vm.js:59:29)
+    at Object.runInContext (vm.js:120:6)
+Failed in "Placeholder label-like options within optgroup": 
+assert_true: The first option is not considered a placeholder if it is located within an optgroup. expected true got false
+
+    at Test.<anonymous> (http://web-platform.test:9000/html/semantics/forms/the-select-element/select-validity.html:52:3)
+    at Test.step (http://web-platform.test:9000/resources/testharness.js:1489:25)
+    at test (http://web-platform.test:9000/resources/testharness.js:511:18)
+    at http://web-platform.test:9000/html/semantics/forms/the-select-element/select-validity.html:43:1
+    at ContextifyScript.Script.runInContext (vm.js:59:29)
+    at Object.runInContext (vm.js:120:6)
+Failed in "Validation on selects with display size set as more than one": 
+assert_true: If one option is selected, the select should be considered valid. expected true got false
+
+    at Test.<anonymous> (http://web-platform.test:9000/html/semantics/forms/the-select-element/select-validity.html:70:3)
+    at Test.step (http://web-platform.test:9000/resources/testharness.js:1489:25)
+    at test (http://web-platform.test:9000/resources/testharness.js:511:18)
+    at http://web-platform.test:9000/html/semantics/forms/the-select-element/select-validity.html:61:1
+    at ContextifyScript.Script.runInContext (vm.js:59:29)
+    at Object.runInContext (vm.js:120:6)
+Failed in "Validation on selects with multiple set": 
+assert_true: If one option is selected, the select should be considered valid. expected true got false
+
+    at Test.<anonymous> (http://web-platform.test:9000/html/semantics/forms/the-select-element/select-validity.html:89:3)
+    at Test.step (http://web-platform.test:9000/resources/testharness.js:1489:25)
+    at test (http://web-platform.test:9000/resources/testharness.js:511:18)
+    at http://web-platform.test:9000/html/semantics/forms/the-select-element/select-validity.html:81:1
+    at ContextifyScript.Script.runInContext (vm.js:59:29)
+    at Object.runInContext (vm.js:120:6)
+      at window.add_completion_callback (test/web-platform-tests/run-single-wpt.js:120:20)
+      at http://web-platform.test:9000/resources/testharness.js:2079:22
+      at forEach (http://web-platform.test:9000/resources/testharness.js:2786:26)
+      at Tests.notify_complete (http://web-platform.test:9000/resources/testharness.js:2076:9)
+      at Tests.complete (http://web-platform.test:9000/resources/testharness.js:2031:14)
+      at http://web-platform.test:9000/resources/testharness.js:1866:26
+      at invokeEventListeners (lib/jsdom/living/events/EventTarget-impl.js:193:27)
+      at EventTargetImpl._dispatch (lib/jsdom/living/events/EventTarget-impl.js:119:9)
+      at EventTargetImpl.dispatchEvent (lib/jsdom/living/events/EventTarget-impl.js:82:17)
+      at Window.dispatchEvent (lib/jsdom/living/generated/EventTarget.js:157:21)
+      at Document.window.document.addEventListener (lib/jsdom/browser/Window.js:603:16)
+      at invokeEventListeners (lib/jsdom/living/events/EventTarget-impl.js:193:27)
+      at DocumentImpl._dispatch (lib/jsdom/living/events/EventTarget-impl.js:119:9)
+      at DocumentImpl.dispatchEvent (lib/jsdom/living/events/EventTarget-impl.js:82:17)
+      at lib/jsdom/browser/resource-loader.js:51:15
+      at Object.check (lib/jsdom/living/nodes/Document-impl.js:74:11)
+      at Object.check (lib/jsdom/living/nodes/Document-impl.js:77:23)
+      at Object.check (lib/jsdom/living/nodes/Document-impl.js:77:23)
+      at Object.check (lib/jsdom/living/nodes/Document-impl.js:77:23)
+      at lib/jsdom/living/nodes/Document-impl.js:93:12
+      at wrappedEnqueued (lib/jsdom/browser/resource-loader.js:255:16)
+      at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:511:3)
+
+
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+** Note: you can use --noprofile to disable default.profile **
+
+Parent pid 10855, child pid 10856
+
+Parent is shutting down, bye...
