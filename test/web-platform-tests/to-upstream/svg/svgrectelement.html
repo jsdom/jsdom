@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<title>SVGPathElement interface</title>
+<link rel="author" title="Mario Brandao" href="mailto:marinho@gmail.com">
+<link rel="help" href="https://svgwg.org/svg2-draft/shapes.html#InterfaceSVGRectElement">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<svg>
+  <rect x="10" y="20" width="100" height="60" id="aRect"/>
+</svg>
+
+<script>
+"use strict";
+
+test(() => {
+  const rect = document.querySelector("#aRect");
+  assert_equals(rect.localName, "rect");
+  assert_true(rect instanceof Element);
+  assert_true(rect instanceof SVGElement);
+  assert_true(rect instanceof SVGGraphicsElement);
+  assert_true(rect instanceof SVGGeometryElement);
+  assert_true(rect instanceof SVGRectElement);
+  assert_false(rect instanceof HTMLElement);
+}, "Basic properties");
+
+test(() => {
+  const rect = document.querySelector("#aRect");
+  const pathData = rect.getPathData();
+  assert_equals(pathData.commands.length, 5);
+
+  assert_equals(pathData.commands[0].type, 2); // SVGPathData.MOVE_TO
+  assert_equals(pathData.commands[0].relative, false);
+  assert_equals(pathData.commands[0].x, 10);
+  assert_equals(pathData.commands[0].y, 20);
+
+  assert_equals(pathData.commands[1].type, 16); // SVGPathData.LINE_TO
+  assert_equals(pathData.commands[1].relative, false);
+  assert_equals(pathData.commands[1].x, 110);
+  assert_equals(pathData.commands[1].y, 20);
+
+  assert_equals(pathData.commands[2].type, 16); // SVGPathData.LINE_TO
+  assert_equals(pathData.commands[2].relative, false);
+  assert_equals(pathData.commands[2].x, 110);
+  assert_equals(pathData.commands[2].y, 80);
+
+  assert_equals(pathData.commands[3].type, 16); // SVGPathData.LINE_TO
+  assert_equals(pathData.commands[3].relative, false);
+  assert_equals(pathData.commands[3].x, 10);
+  assert_equals(pathData.commands[3].y, 80);
+
+  assert_equals(pathData.commands[4].type, 1); // SVGPathData.CLOSE_PATH
+}, "Path data processing");
+
+test(() => {
+  const rect = document.querySelector("#aRect");
+  const pointIsInFill1 = rect.isPointInFill({ x: 5, y: 25 });
+  assert_equals(pointIsInFill1, false);
+
+  const pointIsInFill2 = rect.isPointInFill({ x: 15, y: 19 });
+  assert_equals(pointIsInFill2, false);
+
+  const pointIsInFill3 = rect.isPointInFill({ x: 111, y: 81 });
+  assert_equals(pointIsInFill3, false);
+
+  const pointIsInFill4 = rect.isPointInFill({ x: 11, y: 21 });
+  assert_equals(pointIsInFill4, true);
+
+  const pointIsInFill5 = rect.isPointInFill({ x: 109, y: 79 });
+  assert_equals(pointIsInFill5, true);
+}, 'Method isPointInFill');
+
+</script>

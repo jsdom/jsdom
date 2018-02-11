@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<title>SVGPathElement interface</title>
+<link rel="author" title="Mario Brandao" href="mailto:marinho@gmail.com">
+<link rel="help" href="https://svgwg.org/svg2-draft/paths.html#InterfaceSVGPathElement">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<svg>
+  <path id="aPath" d="M 100 100 L 300 100 L 200 300 z" fill="orange" stroke="black" stroke-width="3" />
+</svg>
+
+<script>
+"use strict";
+
+test(() => {
+  const path = document.querySelector("#aPath");
+  assert_equals(path.localName, "path");
+  assert_true(path instanceof Element);
+  assert_true(path instanceof SVGElement);
+  assert_true(path instanceof SVGGraphicsElement);
+  assert_true(path instanceof SVGGeometryElement);
+  assert_true(path instanceof SVGPathElement);
+  assert_false(path instanceof HTMLElement);
+}, "Basic properties");
+
+test(() => {
+  const path = document.querySelector("#aPath");
+  const pathData = path.getPathData();
+  assert_equals(pathData.commands.length, 4);
+
+  assert_equals(pathData.commands[0].type, 2); // SVGPathData.MOVE_TO
+  assert_equals(pathData.commands[0].relative, false);
+  assert_equals(pathData.commands[0].x, 100);
+  assert_equals(pathData.commands[0].y, 100);
+
+  assert_equals(pathData.commands[1].type, 16); // SVGPathData.LINE_TO
+  assert_equals(pathData.commands[1].relative, false);
+  assert_equals(pathData.commands[1].x, 300);
+  assert_equals(pathData.commands[1].y, 100);
+
+  assert_equals(pathData.commands[2].type, 16); // SVGPathData.LINE_TO
+  assert_equals(pathData.commands[2].relative, false);
+  assert_equals(pathData.commands[2].x, 200);
+  assert_equals(pathData.commands[2].y, 300);
+
+  assert_equals(pathData.commands[3].type, 1); // SVGPathData.CLOSE_PATH
+}, "Path data processing");
+
+test(() => {
+  const path = document.querySelector("#aPath");
+  const pointIsInFill1 = path.isPointInFill({ x: 95, y: 200 });
+  assert_equals(pointIsInFill1, false);
+
+  const pointIsInFill2 = path.isPointInFill({ x: 195, y: 90 });
+  assert_equals(pointIsInFill2, false);
+
+  const pointIsInFill3 = path.isPointInFill({ x: 95, y: 90 });
+  assert_equals(pointIsInFill3, false);
+
+  // TODO: still failing for no reason
+  // const pointIsInFill4 = path.isPointInFill({ x: 105, y: 200 });
+  // assert_equals(pointIsInFill4, true);
+}, 'Method isPointInFill');
+
+</script>

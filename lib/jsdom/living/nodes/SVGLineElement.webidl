@@ -5,4 +5,6 @@ interface SVGLineElement : SVGGeometryElement {
   [SameObject] readonly attribute SVGAnimatedLength y1;
   [SameObject] readonly attribute SVGAnimatedLength x2;
   [SameObject] readonly attribute SVGAnimatedLength y2;
+
+  Object getPathData();
 };
