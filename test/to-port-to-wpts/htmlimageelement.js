@@ -135,4 +135,35 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
   }, {
     async: true
   });
+
+  specify("removing src attribute from image", t => {
+    if (!isCanvasInstalled(assert, t.done)) {
+      return;
+    }
+    const window = jsdom.jsdom("", { features: { FetchExternalResources: ["img"] } }).defaultView;
+    const image = new window.Image();
+    const src = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
+    const onLoadWithoutSrc = () => {
+      assert.ok(false, "onload should not be triggered when src attribute is removed");
+      t.done();
+    };
+    const onErrorWithoutSrc = () => {
+      assert.ok(false, "onerror should not be triggered when src attribute is removed");
+      t.done();
+    };
+    image.onload = () => {
+      image.onload = onLoadWithoutSrc;
+      image.onerror = onErrorWithoutSrc;
+      assert.doesNotThrow(() => image.removeAttribute("src"));
+      assert.strictEqual(image.width, 0, "after removing src, width should be 0");
+      assert.strictEqual(image.height, 0, "after removeing src, width should be 0");
+      assert.strictEqual(image.complete, false, "after removeing src, complete should be false");
+      assert.strictEqual(image.src, "", "after removeing src, src should be an empty string");
+      assert.strictEqual(image.currentSrc, "", "after removeing src, currentSrc should be an empty string");
+      t.done();
+    }
+    image.src = src;
+  }, {
+    async: true
+  });
 });
