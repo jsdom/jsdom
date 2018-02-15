@@ -23,18 +23,16 @@ async_test(t => {
     assert_equals(image.complete, false);
     assert_equals(image.src, "");
     assert_equals(image.currentSrc, "");
-
-    t.done();
   };
 
   image.src = "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==";
 
-  // JSDOM specific: in case image loading is not supported (no canvas api), run checks out of onload handler
   t.step_timeout(() => {
+    // JSDOM specific: in case image loading is not supported (no canvas api), run checks out of onload handler
     image.removeAttribute("src");
-
     assert_equals(image.src, "");
     assert_equals(image.currentSrc, "");
+    // end of JSDOM specific
 
     t.done();
   }, 1000);
