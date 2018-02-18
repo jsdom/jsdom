@@ -454,6 +454,7 @@ formAction_document_address.html: [fail, Unknown]
 formaction.html: [fail, Unknown]
 
 ---
+
 DIR: html/semantics/forms/constraints
 
 ---
@@ -495,7 +496,7 @@ button.html: [fail, Validation is not implemented]
 checkbox.html: [fail, Events weirdness]
 datetime-local.html: [fail, min/max constraints not implemented]
 datetime.html: [fail, step is not implemented]
-hidden.html: [fail, list/step/validation/valueAsDate/valueAsNumber not implemented]
+hidden.html: [fail, list/step/valueAsDate/valueAsNumber not implemented]
 input-labels.html: [fail, labels attribute is not implemented]
 input-stepdown.html: [fail, stepDown()-method is not implemented]
 input-stepup.html: [fail, stepUp()-method is not implemented]
