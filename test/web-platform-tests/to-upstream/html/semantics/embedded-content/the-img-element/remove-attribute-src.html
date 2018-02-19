@@ -31,7 +31,7 @@ async_test(t => {
 
   image.src = "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==";
 
-  img.onload = runTest;
+  image.onload = runTest;
 
   // JSDOM specific: when image loading is not supported (i.e. when node-canvas is not installed), run the test anyway.
   t.step_timeout(runTest, 1000);
