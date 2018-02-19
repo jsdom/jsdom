@@ -51,7 +51,7 @@ function createJSDOM(urlPrefix, testPath) {
       pool: globalPool,
       strictSSL: false,
       features: {
-        FetchExternalResources: ["script", "frame", "iframe", "link"],
+        FetchExternalResources: ["script", "frame", "iframe", "link", "img"],
         ProcessExternalResources: ["script"]
       },
       virtualConsole,
