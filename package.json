@@ -23,7 +23,6 @@
     "acorn": "^5.3.0",
     "acorn-globals": "^4.1.0",
     "array-equal": "^1.0.0",
-    "browser-process-hrtime": "^0.1.2",
     "cssom": ">= 0.3.2 < 0.4.0",
     "cssstyle": ">= 0.2.37 < 0.3.0",
     "data-urls": "^1.0.0",
