@@ -3,7 +3,7 @@ interface FileReader: EventTarget {
 
   // async read methods
   void readAsArrayBuffer(Blob blob);
-//  void readAsBinaryString(Blob blob);
+  void readAsBinaryString(Blob blob);
   void readAsText(Blob blob, optional DOMString label);
   void readAsDataURL(Blob blob);
 
