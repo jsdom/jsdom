@@ -56,7 +56,7 @@ const dom = new JSDOM(``, {
 
 Note that both `url` and `referrer` are canonicalized before they're used, so e.g. if you pass in `"https:example.com"`, jsdom will interpret that as if you had given `"https://example.com/"`. If you pass an unparseable URL, the call will throw. (URLs are parsed and serialized according to the [URL Standard](http://url.spec.whatwg.org/).)
 
-### Executing scripts
+### Executing 
 
 jsdom's most powerful ability is that it can execute scripts inside the jsdom. These scripts can modify the content of the page and access all the web platform APIs jsdom implements.
 
@@ -84,6 +84,8 @@ dom.window.document.body.children.length === 2;
 
 Again we emphasize to only use this when feeding jsdom code you know is safe. If you use it on arbitrary user-supplied code, or code from the Internet, you are effectively running untrusted Node.js code, and your machine could be compromised.
 
+If you want to execute external scripts just add the option `resources: "usable"` to your options as described [below](https://github.com/jsdom/jsdom#loading-subresources).
+
 Note that event handler attributes, like `<div onclick="">`, will also not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
 
 If you are simply trying to execute script "from the outside", instead of letting `<script>` elements (and inline event handlers) run "from the inside", you can use the `runScripts: "outside-only"` option, which enables `window.eval`:
@@ -100,18 +102,6 @@ This is turned off by default for performance reasons, but is safe to enable.
 Note that we strongly advise against trying to "execute scripts" by mashing together the jsdom and Node global environments (e.g. by doing `global.window = dom.window`), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using `window.eval` or `runScripts: "dangerously"`. This might require, for example, creating a browserify bundle to execute as a `<script>` element—just like you would in a browser.
 
 Finally, for advanced use cases you can use the `dom.runVMScript(script)` method, documented below.
-
-#### Executing external scripts 
-To enable executing external scripts inside the page, you can use the `runScripts: "dangerously"` option together with the `resources: "usable` option:
-
-```js
-const dom = new JSDOM(`<body>
-  <script src="./createHrElement.js"></script>
-</body>`, { runScripts: "dangerously", resources: "usable" });
-
-// The script will be executed and modify the DOM:
-dom.window.document.body.children.length === 2;
-```
 
 ### Pretending to be a visual browser
 
