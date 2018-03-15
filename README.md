@@ -393,6 +393,12 @@ Notably, jsdom works well inside a web worker. The original contributor, [@lawns
 
 Not everything works perfectly when running jsdom inside a web browser. Sometimes that is because of fundamental limitations (such as not having filesystem access), but sometimes it is simply because we haven't spent enough time making the appropriate small tweaks. Bug reports are certainly welcome.
 
+### Debugging the DOM using Chrome Devtools
+
+As of Node.js v6 you can debug programs using Chrome Devtools. See official documentation for how to get started: https://nodejs.org/en/docs/inspector/
+
+By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug you can use [jsdom-devtools-formatter](https://github.com/viddo/jsdom-devtools-formatter), which let's you inspect them like real DOM elements.
+
 ## Caveats
 
 ### Asynchronous script loading
