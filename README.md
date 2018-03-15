@@ -101,6 +101,18 @@ Note that we strongly advise against trying to "execute scripts" by mashing toge
 
 Finally, for advanced use cases you can use the `dom.runVMScript(script)` method, documented below.
 
+#### Executing external scripts 
+To enable executing external scripts inside the page, you can use the `runScripts: "dangerously"` option together with the `resources: "usable` option:
+
+```js
+const dom = new JSDOM(`<body>
+  <script src="./createHrElement.js"></script>
+</body>`, { runScripts: "dangerously", resources: "usable" });
+
+// The script will be executed and modify the DOM:
+dom.window.document.body.children.length === 2;
+```
+
 ### Pretending to be a visual browser
 
 jsdom does not have the capability to render visual content, and will act like a headless browser by default. It provides hints to web pages through APIs such as `document.hidden` that their content is not visible.
