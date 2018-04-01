@@ -1,3 +1,13 @@
+## 11.7.0
+
+* Added the boolean return value to `DOMTokenList`'s `replace()` method, per the recent spec addition.
+* Added `FileReader`'s `readAsBinaryString()` method, as it has been added back to the specification.
+* Fixed event handlers to be own properties of each `Window`, instead of on `Window.prototype`. (Fetz)
+* Fixed an exception that would sometimes get raised when removing an `<img>` element's `src=""` attribute. (atsikov)
+* Fixed `"abort"` events on `AbortSignal`s to have their `isTrusted` set to true.
+* Fixed some argument conversions in `XMLHttpRequest`'s `open()` method.
+* Improved MIME type and data: URL parsing throughout jsdom, by using the new [`whatwg-mimetype`](https://www.npmjs.com/package/whatwg-mimetype) and [`data-urls`](https://www.npmjs.com/package/data-urls) packages.
+
 ## 11.6.2
 
 * Fixed another regression (since v11.6.0) in `<style>` elements, where they would omit a series of parsing `"jsdomError"`s for any style sheet text containing spaces.
