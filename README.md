@@ -395,9 +395,9 @@ Not everything works perfectly when running jsdom inside a web browser. Sometime
 
 ### Debugging the DOM using Chrome Devtools
 
-As of Node.js v6 you can debug programs using Chrome Devtools. See official documentation for how to get started: https://nodejs.org/en/docs/inspector/
+As of Node.js v6 you can debug programs using Chrome Devtools. See the [official documentation](https://nodejs.org/en/docs/inspector/) for how to get started.
 
-By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug you can use [jsdom-devtools-formatter](https://github.com/viddo/jsdom-devtools-formatter), which let's you inspect them like real DOM elements.
+By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug, you can use [jsdom-devtools-formatter](https://github.com/viddo/jsdom-devtools-formatter), which lets you inspect them like real DOM elements.
 
 ## Caveats
 
