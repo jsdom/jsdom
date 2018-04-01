@@ -11,6 +11,7 @@ blob/Blob-constructor.html: [fail, "- Blob is not a function
 file/File-constructor-endings.html: [needs-await]
 file/send-file-form*: [fail, DataTransfer not implemented]
 filelist-section/filelist.html: [fail, function is not instanceof Function]
+historical.https.html: [needs-await]
 idlharness.html: [fail, URL.createObjectURL not implemented]
 unicode.html: [needs-await]
 url/**: [fail, blob URLs not implemented]
