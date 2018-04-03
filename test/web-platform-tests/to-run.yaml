@@ -492,7 +492,6 @@ form-nameditem.html: [fail, Unknown]
 
 DIR: html/semantics/forms/the-input-element
 
-button.html: [fail, Validation is not implemented]
 checkbox.html: [fail, Events weirdness]
 datetime-local.html: [fail, min/max constraints not implemented]
 datetime.html: [fail, step is not implemented]
