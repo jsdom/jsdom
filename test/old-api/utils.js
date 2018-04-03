@@ -79,8 +79,4 @@ describe("jsdom/utils", () => {
     assert.strictEqual(utils.isValidTargetOrigin("google"), false);
     assert.strictEqual(utils.isValidTargetOrigin("?"), false);
   });
-
-  specify("parseDataUrl should handle empty base64 data urls", () => {
-    assert.strictEqual(utils.parseDataUrl("data:text/css;base64,").buffer.toString(), "");
-  });
 });

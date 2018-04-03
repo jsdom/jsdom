@@ -84,6 +84,8 @@ dom.window.document.body.children.length === 2;
 
 Again we emphasize to only use this when feeding jsdom code you know is safe. If you use it on arbitrary user-supplied code, or code from the Internet, you are effectively running untrusted Node.js code, and your machine could be compromised.
 
+If you want to execute _external_ scripts, included via `<script src="">`, you'll also need to ensure that they load them. To do this, add the option `resources: "usable"` [as described below](#loading-subresources).
+
 Note that event handler attributes, like `<div onclick="">`, will also not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
 
 If you are simply trying to execute script "from the outside", instead of letting `<script>` elements (and inline event handlers) run "from the inside", you can use the `runScripts: "outside-only"` option, which enables `window.eval`:
@@ -392,6 +394,12 @@ jsdom's primary target is still Node.js, and so we use language features that ar
 Notably, jsdom works well inside a web worker. The original contributor, [@lawnsea](https://github.com/lawnsea/), who made this possible, has [published a paper](https://pdfs.semanticscholar.org/47f0/6bb6607a975500a30e9e52d7c9fbc0034e27.pdf) about his project which uses this capability.
 
 Not everything works perfectly when running jsdom inside a web browser. Sometimes that is because of fundamental limitations (such as not having filesystem access), but sometimes it is simply because we haven't spent enough time making the appropriate small tweaks. Bug reports are certainly welcome.
+
+### Debugging the DOM using Chrome Devtools
+
+As of Node.js v6 you can debug programs using Chrome Devtools. See the [official documentation](https://nodejs.org/en/docs/inspector/) for how to get started.
+
+By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug, you can use [jsdom-devtools-formatter](https://github.com/viddo/jsdom-devtools-formatter), which lets you inspect them like real DOM elements.
 
 ## Caveats
 

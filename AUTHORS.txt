@@ -3,6 +3,7 @@ Adrian Lang <mail@adrianlang.de>
 Adrian Makowski <adrian.makowski@gmail.com>
 airportyh <airportyh@gmail.com>
 alec <alec.hulce@gmail.com>
+Aleksei Tsikov <alexey.tsikov@gmail.com>
 Alex Coles <alex@alexbcoles.com>
 Alex Pearson <alex@alexpear.com>
 Alex Rattray <rattray.alex@gmail.com>
@@ -75,6 +76,7 @@ Francis Saul <francis@mummybot.com>
 Francisco Requena <frarees@gmail.com>
 Frederic Hemberger <mail@frederic-hemberger.de>
 FrozenCow <frozencow@gmail.com>
+Futtetennista <futtetennista@gmail.com>
 Gary Court <gary.court@gmail.com>
 Gianluca Guarini <gianluca.guarini@gmail.com>
 Godmar Back <godmar@gmail.com>
@@ -140,6 +142,7 @@ Lon Ingram <lawnsea@gmail.com>
 Louis-Dominique Dubeau <ldd@lddubeau.com>
 lovebear <hheennrryy@gmail.com>
 Ludovico Fischer <livrerie@gmail.com>
+Luis Silva <fetzpt@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
 makana <mamas-albtraum@web.de>
 Manuel Lopez <jmlopez.rod@gmail.com>
@@ -166,6 +169,7 @@ Mitar <mitar.git@tnode.com>
 Nao Iizuka <iizuka@kyu-mu.net>
 Nick Oliver <github@pixnbits.org>
 Nick Stenning <nick@whiteink.com>
+Nicklas Gummesson <nicklas.gummesson@gmail.com>
 Nicolas HENRY <icewil@gmail.com>
 Nicolas LaCasse <nicolas.lacasse@gmail.com>
 Nik Nyby <niknyby@gmail.com>

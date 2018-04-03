@@ -1,6 +1,6 @@
 {
   "name": "jsdom",
-  "version": "11.6.2",
+  "version": "11.7.0",
   "description": "A JavaScript implementation of many web standards",
   "keywords": [
     "dom",
@@ -23,10 +23,9 @@
     "acorn": "^5.3.0",
     "acorn-globals": "^4.1.0",
     "array-equal": "^1.0.0",
-    "browser-process-hrtime": "^0.1.2",
-    "content-type-parser": "^1.0.2",
     "cssom": ">= 0.3.2 < 0.4.0",
     "cssstyle": ">= 0.2.37 < 0.3.0",
+    "data-urls": "^1.0.0",
     "domexception": "^1.0.0",
     "escodegen": "^1.9.0",
     "html-encoding-sniffer": "^1.0.2",
@@ -42,6 +41,7 @@
     "w3c-hr-time": "^1.0.1",
     "webidl-conversions": "^4.0.2",
     "whatwg-encoding": "^1.0.3",
+    "whatwg-mimetype": "^2.1.0",
     "whatwg-url": "^6.4.0",
     "ws": "^4.0.0",
     "xml-name-validator": "^3.0.0"
