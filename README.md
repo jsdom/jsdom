@@ -44,7 +44,11 @@ const dom = new JSDOM(``, {
   referrer: "https://example.com/",
   contentType: "text/html",
   userAgent: "Mellblomenator/9000",
-  includeNodeLocations: true
+  includeNodeLocations: true,
+  proxy: 'http://proxy.com',
+  headers: {
+    'X-PROXY-HEADER': 'value'
+  }
 });
 ```
 
@@ -53,6 +57,8 @@ const dom = new JSDOM(``, {
 - `contentType` affects the value read from `document.contentType`, and how the document is parsed: as HTML or as XML. Values that are not `"text/html"` or an [XML mime type](https://html.spec.whatwg.org/multipage/infrastructure.html#xml-mime-type) will throw. It defaults to `"text/html"`.
 - `userAgent` affects the value read from `navigator.userAgent`, as well as the `User-Agent` header sent while fetching subresources. It defaults to <code>\`Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
 - `includeNodeLocations` preserves the location info produced by the HTML parser, allowing you to retrieve it with the `nodeLocation()` method (described below). It also ensures that line numbers reported in exception stack traces for code running inside `<script>` elements are correct. It defaults to `false` to give the best performance, and cannot be used with an XML content type since our XML parser does not support location info.
+- `proxy` an optional URL for a HTTP proxy to use for the requests.
+- `headers` an optional list of headers to be sent when fetching external data (in addition to already sent headers).
 
 Note that both `url` and `referrer` are canonicalized before they're used, so e.g. if you pass in `"https:example.com"`, jsdom will interpret that as if you had given `"https://example.com/"`. If you pass an unparseable URL, the call will throw. (URLs are parsed and serialized according to the [URL Standard](http://url.spec.whatwg.org/).)
 
