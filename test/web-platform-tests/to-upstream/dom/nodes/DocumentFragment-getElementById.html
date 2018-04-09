@@ -43,6 +43,18 @@ test(() => {
 }, "It must return the first element when there are matches");
 
 test(() => {
+  const frag = document.createDocumentFragment();
+  frag.appendChild(document.createElement("div"));
+  frag.childNodes[0].setAttribute("id", "");
+
+  assert_equals(
+    frag.getElementById(""),
+    null,
+    "Even if there is an element with an empty-string ID attribute, it must not be returned"
+  );
+});
+
+test(() => {
   const frag = document.querySelector("template").content;
 
   assert_true(frag.getElementById("foo").hasAttribute("data-yes"));
