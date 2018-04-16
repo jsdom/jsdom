@@ -3,6 +3,7 @@
 interface Event {
   readonly attribute DOMString type;
   readonly attribute EventTarget? target;
+  readonly attribute EventTarget? srcElement; // historical
   readonly attribute EventTarget? currentTarget;
 //  sequence<EventTarget> composedPath();
 
@@ -18,6 +19,7 @@ interface Event {
 
   readonly attribute boolean bubbles;
   readonly attribute boolean cancelable;
+           attribute boolean returnValue;  // historical
   void preventDefault();
   readonly attribute boolean defaultPrevented;
 //  readonly attribute boolean composed;
