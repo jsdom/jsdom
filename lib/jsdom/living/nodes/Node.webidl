@@ -46,9 +46,9 @@ interface Node : EventTarget {
   unsigned short compareDocumentPosition(Node other);
   boolean contains(Node? other);
 
-//  DOMString? lookupPrefix(DOMString? namespace);
-//  DOMString? lookupNamespaceURI(DOMString? prefix);
-//  boolean isDefaultNamespace(DOMString? namespace);
+  DOMString? lookupPrefix(DOMString? namespace);
+  DOMString? lookupNamespaceURI(DOMString? prefix);
+  boolean isDefaultNamespace(DOMString? namespace);
 
   [CEReactions] Node insertBefore(Node node, Node? child);
   [CEReactions] Node appendChild(Node node);
