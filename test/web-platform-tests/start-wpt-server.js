@@ -29,7 +29,7 @@ module.exports = ({ toUpstream = false } = {}) => {
   const configPath = configPaths[configType];
   const config = configs[configType];
 
-  const urlPrefix = `http://${config.host}:${config.ports.http[0]}/`;
+  const urlPrefix = `http://${config.browser_host}:${config.ports.http[0]}/`;
 
   return dnsLookup("web-platform.test").then(
     () => {

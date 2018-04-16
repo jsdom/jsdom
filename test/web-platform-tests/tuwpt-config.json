@@ -1,8 +1,8 @@
 {
-  "host": "web-platform.test",
+  "browser_host": "web-platform.test",
   "doc_root": "../to-upstream",
   "ws_doc_root": null,
-  "external_host": null,
+  "server_host": null,
   "ports": {
     "http": [10000, "auto"],
     "https": [10443],
@@ -11,7 +11,7 @@
   },
   "check_subdomains": true,
   "log_level": "info",
-  "bind_hostname": true,
+  "bind_address": true,
   "ssl": {
     "type": "pregenerated",
     "encrypt_after_connect": false,
