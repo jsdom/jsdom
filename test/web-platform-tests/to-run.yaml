@@ -1,5 +1,6 @@
 DIR: FileAPI
 
+FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-constructor-endings.html: [needs-await]
 blob/Blob-constructor.html: [fail, "- Blob is not a function
                                     - a date is not instanceof Date
@@ -13,6 +14,7 @@ file/send-file-form*: [fail, DataTransfer not implemented]
 filelist-section/filelist.html: [fail, function is not instanceof Function]
 historical.https.html: [needs-await]
 idlharness.html: [fail, URL.createObjectURL not implemented]
+reading-data-section/**: [timeout, Unknown]
 unicode.html: [needs-await]
 url/**: [fail, blob URLs not implemented]
 
@@ -37,10 +39,12 @@ DIR: css/cssom-view
 
 CaretPosition-001.html: [fail, Unknown]
 DOMRectList.html: [fail, Unknown]
+GetBoundingRect.html: [fail, Not implemented]
 HTMLBody-ScrollArea_quirksmode.html: [fail, Unknown]
 MediaQueryList-001.html: [fail, Unknown]
 MediaQueryList-with-empty-string.html: [fail, Unknown]
 cssom-getBoundingClientRect-002.html: [fail, Unknown]
+cssom-getBoxQuads-001.html: [fail, Not implemented]
 cssom-getClientRects-002.html: [fail, Unknown]
 cssom-view-img-attributes-001.html: [fail, Unknown]
 elementFromPoint**: [fail, Not implemented]
@@ -90,6 +94,7 @@ EventListener-incumbent-global-2.sub.html: [fail, Multi-globals]
 EventListener-invoke-legacy.html: [fail, Animation stuff not implemented]
 EventTarget-constructible.any.html: [fail, Not implemented]
 EventTarget-dispatchEvent.html: [fail, We don't support every event interface yet]
+relatedTarget.window.html: [fail, Shadow DOM not implemented]
 
 ---
 
@@ -393,8 +398,11 @@ the-translate-attribute-012.html: [fail, Unknown]
 DIR: html/editing/focus
 
 composed.window.html: [fail, Not implemented]
+focus-01.html: [fail, scrollIntoView() not implemented]
+focus-02.html: [fail, scrollIntoView() not implemented]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
+sequential-focus-navigation-and-the-tabindex-attribute/**: [fail, scrollIntoView() not implemented]
 tabindex-focus-flag.html: [fail, Unknown]
 
 ---
@@ -710,7 +718,7 @@ nomodule-**: [fail, Not implemented]
 script-charset-02.html: [fail, Unknown]
 script-charset-03.html: [fail, Unknown]
 script-crossorigin.html: [fail, Unknown]
-script-defer.html: [fail, defer semantics Not implemented]
+script-defer.html: [fail, defer semantics not implemented]
 script-for-event-xhtml.xhtml: [fail, Not implemented]
 script-for-event.html: [fail, Not implemented]
 script-not-executed-after-shutdown.html: [fail, Unknown]
@@ -802,14 +810,15 @@ a-element-xhtml.xhtml: [fail, Unknown]
 a-element.html: [fail, Unknown]
 failure.html: [fail, Depends on fetch]
 interfaces.any.html: [fail, Depends on fetch]
-url-constructor.html: [fail, url.search vs. url.searchParams propagation]
+url-constructor.html: [fail, href setter does not propagate to URL.searchParams, https://github.com/jsdom/whatwg-url/issues/111]
 urlencoded-parser.html: [fail, Depends on fetch]
 
 ---
 
 DIR: websockets
 
-Create-Secure-extensions-empty.htm: [fail, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
+Create-Secure-extensions-empty.any.html: [fail, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
+Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
 interfaces/WebSocket/close/close-basic.html*: [mutates-globals]
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 multi-globals/message-received.html: [fail, Multi-globals]
@@ -840,6 +849,8 @@ data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.htm: [fail, Unknown]
 getallresponseheaders.htm: [fail, Unknown]
+header-user-agent-async.htm: [fail, https://github.com/jsdom/jsdom/pull/2103]
+header-user-agent-sync.htm: [fail, https://github.com/jsdom/jsdom/pull/2103]
 headers-normalize-response.htm: [fail, Unknown]
 interfaces.html: [fail, really need to move XHR to Web IDL]
 loadstart-and-state.html: [fail, Unknown]
@@ -854,6 +865,7 @@ open-url-redirected-worker-origin.htm: [fail, needs Worker implementation]
 open-url-worker-origin.htm: [fail, needs Worker implementation]
 open-url-worker-simple.htm: [fail, needs Worker implementation]
 overridemimetype-blob.html: [fail, Unknown]
+overridemimetype-edge-cases.window.html: [fail, Unknown]
 responseType-document-in-worker.html: [fail, needs Worker implementation]
 responseXML-unavailable-in-worker.html: [fail, needs Worker implementation]
 responsedocument-decoding.htm: [fail, Unknown]
@@ -863,6 +875,7 @@ responsexml-document-properties.htm: [fail, https://github.com/w3c/web-platform-
 responsexml-media-type.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 responsexml-non-well-formed.htm: [fail, xml parsing is not strict]
 send-after-setting-document-domain.htm: [fail, document.domain not implemented]
+send-authentication-competing-names-passwords.htm: [fail, Unknown]
 send-authentication-cors-setrequestheader-no-cred.htm: [fail, Unknown]
 send-blob-with-no-mime-type.html: [fail, Unknown]
 send-conditional-cors.htm: [timeout, Unknown]
