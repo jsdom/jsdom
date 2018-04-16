@@ -453,6 +453,10 @@ formaction.html: [fail, Unknown]
 
 ---
 
+DIR: html/semantics/forms/constraints
+
+---
+
 DIR: html/semantics/forms/resetting-a-form
 
 reset-event.html: [fail, Unknown]
@@ -464,14 +468,9 @@ reset-form.html: [fail, Unknown]
 DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, Unknown]
-button-checkvalidity.html: [fail, Validation is not implemented]
 button-events.html: [fail, Unknown]
 button-labels.html: [fail, labels attribute is not implemented]
-button-setcustomvalidity.html: [fail, Validation is not implemented]
-button-validation.html: [fail, Validation is not implemented]
-button-validationmessage.html: [fail, Validation is not implemented]
-button-validity.html: [fail, Validation is not implemented]
-button-willvalidate.html: [fail, Validation is not implemented]
+button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
 
@@ -480,7 +479,6 @@ DIR: html/semantics/forms/the-form-element
 form-action-submission-with-base-url.html: [timeout, Unknown]
 form-action-submission.html: [timeout, Unknown]
 form-autocomplete.html: [fail, Unknown]
-form-checkvalidity.html: [fail, Validation is not implemented]
 form-elements-filter.html: [fail, Unknown]
 form-elements-interfaces-01.html: [fail, Unknown]
 form-elements-matches.html: [fail, Unknown]
@@ -492,24 +490,17 @@ form-nameditem.html: [fail, Unknown]
 
 DIR: html/semantics/forms/the-input-element
 
-button.html: [fail, Validation is not implemented]
 checkbox.html: [fail, Events weirdness]
 datetime-local.html: [fail, min/max constraints not implemented]
 datetime.html: [fail, step is not implemented]
-email.html: [fail, Validation is not implemented]
-hidden.html: [fail, list/step/validation/valueAsDate/valueAsNumber not implemented]
+hidden.html: [fail, list/step/valueAsDate/valueAsNumber not implemented]
 image-click-form-data.html: [timeout, Unknown]
-input-checkvalidity.html: [fail, Validation is not implemented]
 input-labels.html: [fail, labels attribute is not implemented]
-input-setcustomvalidity.html: [fail, Validation is not implemented]
 input-stepdown.html: [fail, stepDown()-method is not implemented]
 input-stepup.html: [fail, stepUp()-method is not implemented]
 input-type-button.html: [fail, Unknown]
-input-validationmessage.html: [fail, Validation is not implemented]
-input-validity.html: [fail, Validation is not implemented]
 input-valueasdate-invalidstateerr.html: [fail, valueAsDate not implemented]
 input-valueasnumber-invalidstateerr.html: [timeout, valueAsNumber not implemented]
-input-willvalidate.html: [fail, Validation is not implemented]
 maxlength.html: [fail, Reflection not implemented correctly]
 minlength.html: [fail, Reflection not implemented correctly]
 month.html: [fail, step attribute not yet implemented]
@@ -534,6 +525,7 @@ labelable-elements.html: [fail, Unknown]
 DIR: html/semantics/forms/the-meter-element
 
 ---
+
 DIR: html/semantics/forms/the-option-element
 
 option-label.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
@@ -543,8 +535,6 @@ option-value.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-i
 ---
 
 DIR: html/semantics/forms/the-select-element
-
-select-validity.html: [fail, Validation is not implemented]
 
 ---
 

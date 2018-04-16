@@ -43,12 +43,12 @@ interface HTMLInputElement : HTMLElement {
 //  void stepUp(optional long n = 1);
 //  void stepDown(optional long n = 1);
 
-//  readonly attribute boolean willValidate;
-//  readonly attribute ValidityState validity;
-//  readonly attribute DOMString validationMessage;
-//  boolean checkValidity();
-//  boolean reportValidity();
-//  void setCustomValidity(DOMString error);
+  readonly attribute boolean willValidate;
+  readonly attribute ValidityState validity;
+  readonly attribute DOMString validationMessage;
+  boolean checkValidity();
+  boolean reportValidity();
+  void setCustomValidity(DOMString error);
 
 //  readonly attribute NodeList? labels;
 
