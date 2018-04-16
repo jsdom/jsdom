@@ -24,6 +24,7 @@ Anton Yefremov <anton.yefremov@gmail.com>
 antonj <anton.johansson@gmail.com>
 Aria Stewart <aredridel@nbtsc.org>
 Arrix <arrixzhou@gmail.com>
+Aryan Arora <aryanarora278@gmail.com>
 Avery Fay <avery@mixpanel.com>
 Avi Deitcher <avi@deitcher.net>
 Brandon Bethke <brandon.bethke@neudesic.com>
@@ -132,6 +133,7 @@ kblomquist <kblomquist@groupon.com>
 Ken "Elf" Mathieu Sternberg <elf@pendorwright.com>
 Kenneth Powers <ken@kenpowers.net>
 King Koopa <bbyholm@abo.fi>
+kontomondo <kontomondo@gmail.com>
 Kuriyama hibiya <kuriyama@hibiya.moe>
 Kyle <halldirector@gmail.com>
 Kyle McFarland <kyle.mcfarland@formidablelabs.com>

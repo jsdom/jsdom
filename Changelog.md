@@ -1,3 +1,8 @@
+## 11.8.0
+
+* Added the full constraint validation API, i.e. `willValidate`, `validity`, `validationMessage`, `checkValidity()`, `reportValidity()`, and `setCustomValidity()`, on `HTMLButtonElement`, `HTMLFieldSetElement`, `HTMLFormElement`, `HTMLInputElement`, `HTMLObjectElement`, `HTMLOutputElement`, `HTMLSelectElement`, and `HTMLTextAreaElement`. (kontomondo)
+* Added `getElementById()` to `DocumentFragment`.
+
 ## 11.7.0
 
 * Added the boolean return value to `DOMTokenList`'s `replace()` method, per the recent spec addition.
@@ -7,6 +12,7 @@
 * Fixed `"abort"` events on `AbortSignal`s to have their `isTrusted` set to true.
 * Fixed some argument conversions in `XMLHttpRequest`'s `open()` method.
 * Improved MIME type and data: URL parsing throughout jsdom, by using the new [`whatwg-mimetype`](https://www.npmjs.com/package/whatwg-mimetype) and [`data-urls`](https://www.npmjs.com/package/data-urls) packages.
+* Removed some unnnecessary `.webidl` files that were included in the npm package.
 
 ## 11.6.2
 
