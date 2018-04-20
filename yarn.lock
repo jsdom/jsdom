@@ -913,7 +913,21 @@ crypto-browserify@^3.0.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
-cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
+css-object-model@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/css-object-model/-/css-object-model-0.3.0.tgz#bd9528e2795dd3bcd5c8eccb314b0345fd8d7be9"
+  dependencies:
+    css-tree "1.0.0-alpha24"
+    domexception "^1.0.0"
+
+css-tree@1.0.0-alpha24:
+  version "1.0.0-alpha24"
+  resolved "https://registry.yarnpkg.com/css-tree/-/css-tree-1.0.0-alpha24.tgz#869911837755e8b81c48efb4359a7f88521127fe"
+  dependencies:
+    mdn-data "^1.0.0"
+    source-map "^0.5.3"
+
+cssom@0.3.x:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/cssom/-/cssom-0.3.2.tgz#b8036170c79f07a90ff2f16e22284027a243848b"
 
@@ -2398,6 +2412,10 @@ md5.js@^1.3.4:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+mdn-data@^1.0.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-1.1.1.tgz#79586c90321787e5a2e51eb6823bb448949bc1ab"
 
 media-typer@0.3.0:
   version "0.3.0"
