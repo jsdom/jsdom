@@ -1,3 +1,10 @@
+## 11.9.0
+
+* Added `node.lookupPrefix()`, `node.lookupNamespaceURI()` and `node.isDefaultNamespace()`.
+* Fixed the cloning of `Document`s; previously it would not clone all of the appropriate state, and wouuld sometimes add an extra document type node.
+* Fixed various edge cases in the `textContent` and `nodeValue` properties.
+* Fixed `canvas.toBlob()` to properly pass through the JPEG quality argument, instead of always passing zero to `node-canvas`. (challakoushik)
+
 ## 11.8.0
 
 * Added the full constraint validation API, i.e. `willValidate`, `validity`, `validationMessage`, `checkValidity()`, `reportValidity()`, and `setCustomValidity()`, on `HTMLButtonElement`, `HTMLFieldSetElement`, `HTMLFormElement`, `HTMLInputElement`, `HTMLObjectElement`, `HTMLOutputElement`, `HTMLSelectElement`, and `HTMLTextAreaElement`. (kontomondo)
