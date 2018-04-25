@@ -133,9 +133,9 @@ describe("jsdom/env", () => {
   });
 
   specify("string, full HTML document", { async: true }, t => {
-    env(
-      "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
-      (err, window) => {
+    env({
+      html: "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
+      done(err, window) {
         assert.ifError(err);
         assert.equal(
           serializeDocument(window.document),
@@ -143,18 +143,18 @@ describe("jsdom/env", () => {
         );
         t.done();
       }
-    );
+    });
   });
 
   specify("string, HTML content with a null byte", { async: true }, t => {
-    env(
-      "<div>\0</div>",
-      (err, window) => {
+    env({
+      html: "<div>\0</div>",
+      done(err, window) {
         assert.ifError(err);
         assert.ok(window.document.querySelector("div") !== null, "div was parsed");
         t.done();
       }
-    );
+    });
   });
 
   specify("with src", { async: true }, t => {
