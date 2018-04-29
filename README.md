@@ -112,7 +112,7 @@ jsdom does not have the capability to render visual content, and will act like a
 
 When the `pretendToBeVisual` option is set to `true`, jsdom will pretend that it is rendering and displaying content. It does this by:
 
-* Changing `document.hidden` to return `true` instead of `false`
+* Changing `document.hidden` to return `false` instead of `true`
 * Changing `document.visibilityState` to return `"visible"` instead of `"prerender"`
 * Enabling `window.requestAnimationFrame()` and `window.cancelAnimationFrame()` methods, which otherwise do not exist
 
