@@ -1,4 +1,7 @@
-# jsdom
+<h1 align="center">
+    <a href="https://github.com/jsdom/jsdom"><img width="200" height="200" src="logo.svg" alt="jsdom" /></a><br />
+    jsdom
+</h1>
 
 jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG [DOM](https://dom.spec.whatwg.org/) and [HTML](https://html.spec.whatwg.org/multipage/) Standards, for use with Node.js. In general, the goal of the project is to emulate enough of a subset of a web browser to be useful for testing and scraping real-world web applications.
 
