@@ -1,5 +1,5 @@
-<h1 align="center">
-    <a href="https://github.com/jsdom/jsdom"><img width="200" height="200" src="logo.svg" alt=""></a><br>
+<h1 style="text-align: center;">
+    <img width="200" height="200" src="logo.svg" alt=""><br>
     jsdom
 </h1>
 
