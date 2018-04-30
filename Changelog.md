@@ -1,3 +1,8 @@
+## 11.10.0
+
+* Added `event.srcElement` and `event.returnValue`.
+* Fixed `XMLHttpRequest` to correctly set the User-Agent header, and set it on CORS preflight requests. (BehindTheMath)
+
 ## 11.9.0
 
 * Added `node.lookupPrefix()`, `node.lookupNamespaceURI()` and `node.isDefaultNamespace()`.

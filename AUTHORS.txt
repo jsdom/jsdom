@@ -27,6 +27,7 @@ Arrix <arrixzhou@gmail.com>
 Aryan Arora <aryanarora278@gmail.com>
 Avery Fay <avery@mixpanel.com>
 Avi Deitcher <avi@deitcher.net>
+Behind The Math <aryehb412@gmail.com>
 Brandon Bethke <brandon.bethke@neudesic.com>
 Brandon Paton <brandon@localizejs.com>
 Brian Donovan <donovan@squareup.com>
@@ -179,6 +180,7 @@ Nik Nyby <niknyby@gmail.com>
 Ojek <ojek25@gmail.com>
 Olivier El Mekki <olivier@el-mekki.com>
 Ondřej Žára <ondras@zarovi.cz>
+Onur Yıldırım <onury@users.noreply.github.com>
 Paul O’Shannessy <paul@oshannessy.com>
 peller <github@peller.org>
 Pepijn Verlaan <pepijnverlaan@yahoo.com>
