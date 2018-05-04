@@ -1,6 +1,5 @@
 "use strict";
 const path = require("path");
-const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const { EventEmitter } = require("events");
@@ -1053,11 +1052,6 @@ describe("jsdom/miscellaneous", () => {
         assert.ok(w.$, "window contains $");
         t.done();
       });
-    });
-
-    specify("issue_509_out_of_memory", () => {
-      const html = fs.readFileSync(path.resolve(__dirname, "files/reddit.html"));
-      jsdom.jsdom(html.toString());
     });
 
     specify("jquery_val_on_selects", { async: true }, t => {
