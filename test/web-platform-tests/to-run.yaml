@@ -810,7 +810,6 @@ a-element-xhtml.xhtml: [fail, Unknown]
 a-element.html: [fail, Unknown]
 failure.html: [fail, Depends on fetch]
 interfaces.any.html: [fail, Depends on fetch]
-url-constructor.html: [fail, href setter does not propagate to URL.searchParams, https://github.com/jsdom/whatwg-url/issues/111]
 urlencoded-parser.html: [fail, Depends on fetch]
 
 ---
