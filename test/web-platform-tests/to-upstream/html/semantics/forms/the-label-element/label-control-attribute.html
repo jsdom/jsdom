@@ -8,13 +8,15 @@
 <body>
 
 <label id="label1">
+  Label-Text
   <input id="input1" type="text" disabled>
 </label>
 
-<label id="label2" for="input2"></label>
+<label id="label2" for="input2">Label-Text</label>
 <input id="input2" type="text">
 
 <label id="label3" for="notfoundid">
+  Label-Text
   <input id="input3" type="checkbox">
 </label>
 
@@ -38,7 +40,7 @@
   test(() => {
     const label = document.getElementById("label3");
 
-    assert_equals(label.control, undefined);
+    assert_equals(label.control, null);
 
   }, "label with invalid for attribute, don't have a control");
 </script>
