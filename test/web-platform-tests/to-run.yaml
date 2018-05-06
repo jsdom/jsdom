@@ -471,6 +471,13 @@ button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
 
+DIR: html/semantics/forms/the-fieldset-element
+
+HTMLFieldSetElement.html: [fail, Unknown]
+disabled-001.html: [fail, Unknown]
+
+---
+
 DIR: html/semantics/forms/the-form-element
 
 form-action-submission-with-base-url.html: [timeout, Unknown]
@@ -542,9 +549,24 @@ value-defaultValue-textContent-xhtml.xhtml: [fail, Unknown]
 
 ---
 
+DIR: html/semantics/grouping-content
+
+the-ol-element/grouping-ol.html: [fail, Unknown]
+the-ol-element/ol.start-reflection-1.html: [fail, Unknown]
+the-ol-element/ol.start-reflection-2.html: [fail, Unknown]
+
+---
+
 DIR: html/semantics/interactive-elements/the-details-element
 
 toggleEvent.html: [fail, The ninth test requires a streaming HTML parser to pass]
+
+---
+
+DIR: html/semantics/links
+
+following-hyperlinks/activation-behavior.window.html: [fail, Unknown]
+links-created-by-a-and-area-elements/htmlanchorelement_noopener.html: [fail, Unknown]
 
 ---
 
