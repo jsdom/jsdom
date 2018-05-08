@@ -141,7 +141,7 @@ exports.inBrowserContext = () => {
  * Resolves a path to a static fixture file to a file or http URL.
  * If running tests from node, a valid file url will be returned.
  * If running tests using karma, a http url to the file be returned (this file is served by karma)
- * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/reddit.html"
+ * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
  * @returns {string} URL
  */
 exports.getTestFixtureUrl = relativePath => {
@@ -158,7 +158,7 @@ exports.getTestFixtureUrl = relativePath => {
  * Reads a static fixture file as utf8.
  * If running tests from node, the file will be read from the file system
  * If running tests using karma, a http request will be performed to retrieve the file using karma's server.
- * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/reddit.html"
+ * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
  */
 exports.readTestFixture = relativePath => {
   const useRequest = exports.inBrowserContext();
