@@ -7,5 +7,5 @@ interface HTMLMeterElement : HTMLElement {
   [CEReactions] attribute double low;
   [CEReactions] attribute double high;
   [CEReactions] attribute double optimum;
-  // readonly attribute NodeList labels;
+  readonly attribute NodeList labels;
 };
