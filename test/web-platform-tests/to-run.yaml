@@ -466,7 +466,6 @@ DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, Unknown]
 button-events.html: [fail, Unknown]
-button-labels.html: [fail, labels attribute is not implemented]
 button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
