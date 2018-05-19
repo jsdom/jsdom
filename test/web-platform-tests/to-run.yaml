@@ -519,8 +519,6 @@ type-change-state.html: [fail, type attribute state switching not yet implemente
 
 DIR: html/semantics/forms/the-label-element
 
-labelable-elements.html: [fail, Unknown]
-
 ---
 
 DIR: html/semantics/forms/the-meter-element
