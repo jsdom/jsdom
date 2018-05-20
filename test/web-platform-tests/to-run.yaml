@@ -466,7 +466,6 @@ DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, Unknown]
 button-events.html: [fail, Unknown]
-button-labels.html: [fail, labels attribute is not implemented]
 button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
@@ -499,7 +498,6 @@ datetime-local.html: [fail, min/max constraints not implemented]
 datetime.html: [fail, step is not implemented]
 hidden.html: [fail, list/step/valueAsDate/valueAsNumber not implemented]
 image-click-form-data.html: [timeout, Unknown]
-input-labels.html: [fail, labels attribute is not implemented]
 input-stepdown.html: [fail, stepDown()-method is not implemented]
 input-stepup.html: [fail, stepUp()-method is not implemented]
 input-type-button.html: [fail, Unknown]
@@ -521,8 +519,7 @@ type-change-state.html: [fail, type attribute state switching not yet implemente
 
 DIR: html/semantics/forms/the-label-element
 
-label-attributes.html: [fail, Unknown]
-labelable-elements.html: [fail, Unknown]
+label-attributes.html: [fail, Shadow DOM, copied working tests to upstream]
 
 ---
 

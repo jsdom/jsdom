@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Label event handling with disabled labeled control</title>
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+
+<label id="label1">
+  Label-Text
+  <input id="input1" type="text" disabled>
+</label>
+
+<label id="label2" for="input2">Label-Text</label>
+<input id="input2" type="text">
+
+<label id="label3" for="notfoundid">
+  Label-Text
+  <input id="input3" type="checkbox">
+</label>
+
+<script>
+  "use strict";
+
+  test(() => {
+    const label = document.getElementById("label1");
+    const input = document.getElementById("input1");
+
+    assert_equals(label.control, input);
+  }, "get descendant controlled element");
+
+  test(() => {
+    const label = document.getElementById("label2");
+    const input = document.getElementById("input2");
+
+    assert_equals(label.control, input);
+  }, "get control by for attribute");
+
+  test(() => {
+    const label = document.getElementById("label3");
+
+    assert_equals(label.control, null);
+
+  }, "label with invalid for attribute, don't have a control");
+</script>
+</body>
