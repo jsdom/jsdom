@@ -519,6 +519,8 @@ type-change-state.html: [fail, type attribute state switching not yet implemente
 
 DIR: html/semantics/forms/the-label-element
 
+label-attributes.html: [fail, Shadow DOM, copied working tests to upstream]
+
 ---
 
 DIR: html/semantics/forms/the-meter-element
