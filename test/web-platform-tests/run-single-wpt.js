@@ -61,7 +61,11 @@ function createJSDOM(urlPrefix, testPath) {
         } else if (resource.url.pathname.startsWith("/resources/")) {
           // When running to-upstream tests, the server doesn't have a /resources/ directory.
           // So, always go to the one in ./tests.
-          const filePath = path.resolve(__dirname, "tests" + resource.url.pathname);
+          // The path replacement accounts for a rewrite performed by the WPT server:
+          // https://github.com/w3c/web-platform-tests/blob/master/tools/serve/serve.py#L271
+          const filePath = path.resolve(__dirname, "tests" + resource.url.pathname)
+            .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
+
           fs.readFile(filePath, { encoding: "utf-8" }, callback);
         } else {
           resource.defaultFetch(callback);
