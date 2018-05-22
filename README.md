@@ -332,6 +332,8 @@ dom.window.ran === 3;
 
 This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
 
+`runVMScript` also takes an `options` object as its second argument. See the [Node docs](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options) for details.
+
 ### Reconfiguring the jsdom with `reconfigure(settings)`
 
 The `top` property on `window` is marked `[Unforgeable]` in the spec, meaning it is a non-configurable own property and thus cannot be overridden or shadowed by normal code running inside the jsdom, even using `Object.defineProperty`.
