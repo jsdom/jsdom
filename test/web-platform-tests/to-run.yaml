@@ -188,7 +188,7 @@ xml-serialization.xhtml: [fail, Unknown]
 
 DIR: hr-time
 
-idlharness.html: [fail, ReferenceError - WebIDL2 is not defined]
+idlharness.html: [fail, Depends on fetch]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
@@ -780,7 +780,7 @@ serializing.html: [fail, Unknown]
 
 DIR: html/webappapis/animation-frames
 
-idlharness.html: [fail, "Unknown ('ReferenceError: WebIDL2 is not defined', but why?)"]
+idlharness.html: [fail, The methods do not always throw when expected to]
 same-dispatch-time.html: [fail, Probably https://github.com/tmpvar/jsdom/pull/1994#discussion_r147567274]
 
 ---
