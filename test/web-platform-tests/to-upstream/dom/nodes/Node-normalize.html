@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<title>Node.normalize()</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id=log></div>
+<script>
+"use strict";
+// The specification for normalize is clear that only "exclusive Text
+// nodes" are to be modified. This excludes CDATASection nodes, which
+// derive from Text. Naïve implementations may fail to skip
+// CDATASection nodes, or even worse, try to test textContent or
+// nodeValue without taking care to check the node type. They will
+// fail this test.
+test(() => {
+  // We create an XML document so that we can create CDATASection.
+  // Except for the CDATASection the result should be the same for
+  // an HTML document. (No non-Text node should be touched.)
+  const doc = new DOMParser().parseFromString("<div/>", "text/xml");
+  const div = doc.documentElement;
+  const t1 = div.appendChild(doc.createTextNode("a"));
+  // The first parameter is the "target" of the processing
+  // instruction, and the 2nd is the text content.
+  const t2 = div.appendChild(doc.createProcessingInstruction("pi", ""));
+  const t3 = div.appendChild(doc.createTextNode("b"));
+  const t4 = div.appendChild(doc.createCDATASection(""));
+  const t5 = div.appendChild(doc.createTextNode("c"));
+  const t6 = div.appendChild(doc.createComment(""));
+  const t7 = div.appendChild(doc.createTextNode("d"));
+  const t8 = div.appendChild(doc.createElement("el"));
+  const t9 = div.appendChild(doc.createTextNode("e"));
+  const expected = [t1, t2, t3, t4, t5, t6, t7, t8, t9];
+  assert_array_equals(div.childNodes, expected);
+  div.normalize();
+  assert_array_equals(div.childNodes, expected);
+}, "Non-text nodes with empty textContent values.");
+</script>
