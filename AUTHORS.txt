@@ -113,6 +113,7 @@ Joe Lencioni <joe.lencioni@gmail.com>
 Johan Sköld <johan@pingdom.com>
 John Hurliman <jhurliman@jhurliman.org>
 John Roberts <jroberts@logitech.com>
+Jon Sakas <jon.sakas@gmail.com>
 Jonathan Commins <joncom@gmail.com>
 Jonathan Ong <jonathanrichardong@gmail.com>
 Joris van der Wel <joris@jorisvanderwel.com>
@@ -228,6 +229,7 @@ Stephen Bannasch <stephen.bannasch@gmail.com>
 sterpe <srterpe@gmail.com>
 steve <steve@goddamnbugs.com>
 Steve Conover <sconover@gmail.com>
+Sven Müller <sven.mueller@breathless-code.de>
 Swizec Teller <swizec@swizec.com>
 Thomas Chung <thomas@nomology.id.au>
 Tiago Rodrigues <tmcrodrigues@gmail.com>

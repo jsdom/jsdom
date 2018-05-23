@@ -1,3 +1,16 @@
+## 11.11.0
+
+* Added `node.getRootNode()`. (FrecksterGIT)
+* Added `label.control`. (FrecksterGIT)
+* Added `el.labels` for form control elements. (FrecksterGIT)
+* Fixed the `contentType` of `Document`s created through `<iframe>`s.
+* Fixed the `contentType` and `origin` of `Document`s created through `document.implementation.createDocument()`.
+* Fixed `imgEl.srcset` to return the value of the `srcset=""` attribute, instead of the `cite=""` attribute.
+* Fixed `node.normalize()` to not modify non-`Text` nodes. (lddubeau)
+* Upgraded `cssstyle` to v0.3.1, bringing along various fixes to our CSS parser and object model. (jsakas)
+* Upgraded `whatwg-url` to v6.4.1, fixing the interaction of `URL`'s `href` and `searchParams` properties.
+* Upgraded our selector matching engine from `nwsmatcher` to `nwsapi`, bringing along extensive fixes, performance improvements, and additional selector support.
+
 ## 11.10.0
 
 * Added `event.srcElement` and `event.returnValue`.
