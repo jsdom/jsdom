@@ -7,6 +7,8 @@ sudo: false
 git:
   submodules: false
 
+cache: yarn
+
 script:
   - yarn lint
   - yarn test --retries 1
