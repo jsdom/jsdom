@@ -85,8 +85,8 @@ function checkToRun() {
       }
 
       if (pattern < lastPattern) {
-        throw new Error("Bad lexicographical expectation pattern sorting in to-run.yaml: " + pattern +
-                        " should come before " + lastPattern);
+        throw new Error("Bad lexicographical expectation pattern sorting in to-run.yaml: " +
+                        `${pattern} should come before ${lastPattern}`);
       }
       lastPattern = pattern;
 
@@ -105,7 +105,6 @@ function checkToRun() {
 }
 
 function expectationsInDoc(doc) {
-  const keys = Object.keys(doc);
-  keys.shift(); // get rid of the DIR key
-  return keys;
+  // get rid of the DIR key
+  return Object.keys(doc).slice(1);
 }

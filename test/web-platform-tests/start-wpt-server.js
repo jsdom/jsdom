@@ -1,13 +1,14 @@
 "use strict";
 /* eslint-disable no-console, global-require */
 const path = require("path");
+const { promisify } = require("util");
 const dns = require("dns");
 const childProcess = require("child_process");
-const q = require("q");
 const { inBrowserContext } = require("../util.js");
 const requestHead = require("request-promise-native").head;
-const dnsLookup = q.denodeify(dns.lookup);
 
+const dnsLookup = promisify(dns.lookup);
+const delay = promisify(setTimeout);
 const wptDir = path.resolve(__dirname, "tests");
 
 const configPaths = {
@@ -69,6 +70,6 @@ function pollForServer(url) {
     })
     .catch(err => {
       console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
-      return q.delay(500).then(() => pollForServer(url));
+      return delay(500).then(() => pollForServer(url));
     });
 }
