@@ -2817,9 +2817,9 @@ parse-json@^2.2.0:
   dependencies:
     error-ex "^1.2.0"
 
-parse5@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
+parse5@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.0.0.tgz#4d02710d44f3c3846197a11e205d4ef17842b81a"
 
 parsejson@0.0.3:
   version "0.0.3"

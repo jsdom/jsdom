@@ -65,12 +65,14 @@ describe("API: JSDOM class's methods", () => {
       const node = dom.window.document.querySelector("p");
 
       assert.deepEqual(dom.nodeLocation(node), {
-        line: 1,
-        col: 1,
+        endCol: 13,
+        endLine: 1,
+        startLine: 1,
+        startCol: 1,
         startOffset: 0,
         endOffset: 12,
-        startTag: { line: 1, col: 1, startOffset: 0, endOffset: 3 },
-        endTag: { line: 1, col: 9, startOffset: 8, endOffset: 12 }
+        startTag: { endCol: 4, endLine: 1, startLine: 1, startCol: 1, startOffset: 0, endOffset: 3 },
+        endTag: { endCol: 13, endLine: 1, startLine: 1, startCol: 9, startOffset: 8, endOffset: 12 }
       });
     });
 
@@ -79,8 +81,10 @@ describe("API: JSDOM class's methods", () => {
       const node = dom.window.document.querySelector("p").firstChild;
 
       assert.deepEqual(dom.nodeLocation(node), {
-        line: 1,
-        col: 4,
+        endCol: 9,
+        endLine: 1,
+        startLine: 1,
+        startCol: 4,
         startOffset: 3,
         endOffset: 8
       });
@@ -96,27 +100,35 @@ describe("API: JSDOM class's methods", () => {
         startTag: {
           attrs: {
             src: {
-              line: 2,
-              col: 14,
+              endCol: 27,
+              endLine: 2,
+              startLine: 2,
+              startCol: 14,
               startOffset: 22,
               endOffset: 35
             }
           },
-          line: 2,
-          col: 9,
+          endCol: 28,
+          endLine: 2,
+          startLine: 2,
+          startCol: 9,
           startOffset: 17,
           endOffset: 36
         },
         attrs: {
           src: {
-            line: 2,
-            col: 14,
+            endCol: 27,
+            endLine: 2,
+            startLine: 2,
+            startCol: 14,
             startOffset: 22,
             endOffset: 35
           }
         },
-        line: 2,
-        col: 9,
+        endCol: 28,
+        endLine: 2,
+        startLine: 2,
+        startCol: 9,
         startOffset: 17,
         endOffset: 36
       });

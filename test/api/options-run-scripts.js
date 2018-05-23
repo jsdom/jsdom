@@ -46,7 +46,7 @@ describe("API: runScripts constructor option", () => {
         virtualConsole.on("jsdomError", err => {
           try {
             assert.strictEqual(err.type, "unhandled exception");
-            assert(err.detail.stack.includes("at about:blank:2"));
+            assert.isTrue(err.detail.stack.includes("at about:blank:2"));
             resolve();
           } catch (actualErr) {
             reject(actualErr);
