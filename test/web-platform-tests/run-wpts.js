@@ -7,7 +7,15 @@ const { describe, specify, before } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths, stripPrefix } = require("./wpt-manifest-utils.js");
 const startWPTServer = require("./start-wpt-server.js");
 
-const validReasons = new Set(["fail", "timeout", "flaky", "mutates-globals", "needs-await", "needs-node8"]);
+const validReasons = new Set([
+  "fail",
+  "timeout",
+  "flaky",
+  "mutates-globals",
+  "needs-await",
+  "needs-node8",
+  "fails-node10"
+]);
 
 let supportsAwait = true;
 try {
@@ -17,6 +25,7 @@ try {
 }
 
 const hasNode8 = Number(process.versions.node.split(".")[0]) >= 8;
+const notNode10 = Number(process.versions.node.split(".")[0]) !== 10;
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
 const manifest = readManifest(manifestFilename);
@@ -51,7 +60,8 @@ describe("web-platform-tests", () => {
           const testFile = stripPrefix(testFilePath, toRunDoc.DIR + "/");
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
           const shouldRunAnyway = (reason === "needs-await" && supportsAwait) ||
-                                  (reason === "needs-node8" && hasNode8);
+                                  (reason === "needs-node8" && hasNode8) ||
+                                  (reason === "fails-node10" && notNode10);
           if (matchingPattern && !shouldRunAnyway) {
             specify.skip(`[${reason}] ${testFile}`);
           } else {
