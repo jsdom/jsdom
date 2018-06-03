@@ -338,8 +338,8 @@ browsing-context.html: [fail, Unknown]
 nested-browsing-contexts/frameElement.html: [timeout, Unknown]
 nested-browsing-contexts/window-parent-null.html: [fail, Unknown]
 nested-browsing-contexts/window-top-null.html: [fail, Unknown]
-noreferrer-null-opener.html: [timeout, Needs localStorage]
-noreferrer-window-name.html: [timeout, Needs localStorage]
+noreferrer-null-opener.html: [timeout, Unknown]
+noreferrer-window-name.html: [timeout, Depends on URL.createObjectURL]
 targeting-cross-origin-nested-browsing-contexts.html: [timeout, Unknown]
 
 ---
@@ -835,6 +835,17 @@ interfaces/WebSocket/close/close-basic.html*: [mutates-globals]
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 multi-globals/message-received.html: [fail, Multi-globals]
 unload-a-document/*: [timeout, Requires window.open]
+
+---
+
+DIR: webstorage
+
+idlharness.html: [fail, Depends on fetch]
+storage_enumerate.html: [needs-node8, Uses Object.values()]
+storage_local_window_open.html: [timeout, Depends on window.open()]
+storage_session_window_noopener.html: [fail, Depends on BroadcastChannel]
+storage_session_window_open.html: [timeout, Depends on window.open()]
+storage_string_conversion.html: [needs-node10, function.toString() does not use correct formatting in earlier versions, https://github.com/nodejs/node/issues/20459]
 
 ---
 

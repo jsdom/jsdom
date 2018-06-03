@@ -32,7 +32,7 @@ addDir("../../lib/jsdom/living/aborting");
 addDir("../../lib/jsdom/living/websockets");
 addDir("../../lib/jsdom/living/hr-time");
 addDir("../../lib/jsdom/living/constraint-validation");
-
+addDir("../../lib/jsdom/living/webstorage");
 
 const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
 
