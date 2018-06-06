@@ -17,7 +17,7 @@ historical.https.html: [needs-await]
 idlharness.html: [fail, URL.createObjectURL not implemented]
 reading-data-section/**: [timeout, Unknown]
 unicode.html: [needs-await]
-url/**: [fail, blob URLs not implemented]
+url/**: [timeout, blob URLs not implemented]
 
 ---
 
@@ -28,11 +28,11 @@ access-control-expose-headers-parsing.window.html: [fail, Depends on fetch]
 allow-headers.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 image-tainting-in-cross-origin-iframe.sub.html: [timeout, Unknown]
 origin.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
-preflight-cache.htm: [fail, Cache should probably be implemented for simple requests before]
+preflight-cache.htm: [timeout, Cache should probably be implemented for simple requests before]
 redirect-preflight-2.htm: [fail, Preflight should also be done before redirected requests but request module redirects cannot be paused while doing preflight]
-remote-origin.htm: [fail, postMessage event does not contain source]
-response-headers.htm: [fail, I don't find a spec about combining same value response headers; also https://github.com/tmpvar/jsdom/issues/1833]
-simple-requests.htm: [fail, Maybe https://github.com/tmpvar/jsdom/issues/1833 but it fails locally too]
+remote-origin.htm: [timeout, postMessage event does not contain source]
+response-headers.htm: [timeout, I don't find a spec about combining same value response headers; also https://github.com/tmpvar/jsdom/issues/1833]
+simple-requests.htm: [timeout, Maybe https://github.com/tmpvar/jsdom/issues/1833 but it fails locally too]
 
 ---
 
@@ -90,9 +90,9 @@ AddEventListenerOptions-passive.html: [fail, Not implemented, https://github.com
 Event-dispatch-click.html: [fail, Unknown]
 Event-dispatch-redispatch.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
-EventListener-incumbent-global-1.sub.html: [fail, Multi-globals]
-EventListener-incumbent-global-2.sub.html: [fail, Multi-globals]
-EventListener-invoke-legacy.html: [fail, Animation stuff not implemented]
+EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
+EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
+EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
 EventTarget-constructible.any.html: [fail, Not implemented]
 EventTarget-dispatchEvent.html: [fail, We don't support every event interface yet]
 relatedTarget.window.html: [fail, Shadow DOM not implemented]
@@ -197,7 +197,7 @@ window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
 
 DIR: html/browsers/browsing-the-web/history-traversal
 
-001.html: [fail, Unknown]
+001.html: [timeout, Unknown]
 browsing_context_name.html: [timeout, Unknown]
 browsing_context_name_cross_origin.html: [timeout, Unknown]
 browsing_context_name_cross_origin_2.html: [fail, window.name not implemented]
@@ -326,27 +326,27 @@ DIR: html/browsers/offline/browser-state
 
 DIR: html/browsers/windows
 
-auxiliary-browsing-contexts/opener-closed.html: [fail, Needs ParentNode.append()]
+auxiliary-browsing-contexts/opener-closed.html: [timeout, Needs ParentNode.append()]
 auxiliary-browsing-contexts/opener-multiple.html: [timeout, Unknown]
 auxiliary-browsing-contexts/opener-noopener.html: [timeout, Unknown]
 auxiliary-browsing-contexts/opener-noreferrer.html: [timeout, Unknown]
 auxiliary-browsing-contexts/opener-setter.window.html: [fail, Not implemented]
 auxiliary-browsing-contexts/opener.html: [timeout, Unknown]
-browsing-context-names/**: [fail, Not implemented]
+browsing-context-names/**: [timeout, Not implemented]
 browsing-context.html: [fail, Unknown]
-nested-browsing-contexts/frameElement.html: [fail, Unknown]
+nested-browsing-contexts/frameElement.html: [timeout, Unknown]
 nested-browsing-contexts/window-parent-null.html: [fail, Unknown]
 nested-browsing-contexts/window-top-null.html: [fail, Unknown]
 nested-browsing-contexts/window-top.html: [fail, Unknown]
-noreferrer-null-opener.html: [fail, Needs localStorage]
-noreferrer-window-name.html: [fail, Needs localStorage]
+noreferrer-null-opener.html: [timeout, Needs localStorage]
+noreferrer-window-name.html: [timeout, Needs localStorage]
 targeting-cross-origin-nested-browsing-contexts.html: [timeout, Unknown]
 
 ---
 
 DIR: html/dom/documents/dom-tree-accessors
 
-Document.currentScript.html: [fail, Unknown]
+Document.currentScript.html: [timeout, Unknown]
 document.getElementsByName/document.getElementsByName-namespace-xhtml.xhtml: [fail, Needs MathML and SVG support]
 document.getElementsByName/document.getElementsByName-namespace.html: [fail, Needs MathML and SVG support]
 document.title-09.html: [fail, Requires SVG support]
@@ -390,8 +390,8 @@ the-translate-attribute-012.html: [fail, Unknown]
 DIR: html/editing/focus
 
 composed.window.html: [fail, Not implemented]
-focus-01.html: [fail, scrollIntoView() not implemented]
-focus-02.html: [fail, scrollIntoView() not implemented]
+focus-01.html: [timeout, scrollIntoView() not implemented]
+focus-02.html: [timeout, scrollIntoView() not implemented]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
 sequential-focus-navigation-and-the-tabindex-attribute/**: [fail, scrollIntoView() not implemented]
@@ -412,7 +412,7 @@ other-elements-attributes-and-apis/document-color-01.html: [fail, Legacy color a
 other-elements-attributes-and-apis/document-color-02.html: [fail, Legacy color attributes not implemented]
 other-elements-attributes-and-apis/document-color-03.html: [fail, Legacy color attributes not implemented]
 other-elements-attributes-and-apis/document-color-04.html: [fail, Legacy color attributes not implemented]
-the-marquee-element-0/marquee-events.html: [fail, <marquee> is not implemented]
+the-marquee-element-0/marquee-events.html: [timeout, <marquee> is not implemented]
 the-marquee-element-0/marquee-loop.html: [fail, <marquee> is not implemented]
 the-marquee-element-0/marquee-scrollamount.html: [fail, <marquee> is not implemented]
 the-marquee-element-0/marquee-scrolldelay.html: [fail, <marquee> is not implemented]
@@ -464,7 +464,7 @@ reset-form.html: [fail, Unknown]
 DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, Unknown]
-button-events.html: [fail, Unknown]
+button-events.html: [timeout, Unknown]
 button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
@@ -518,7 +518,7 @@ type-change-state.html: [fail, type attribute state switching not yet implemente
 
 DIR: html/semantics/forms/the-label-element
 
-label-attributes.html: [fail, Shadow DOM, copied working tests to upstream]
+label-attributes.html: [timeout, Shadow DOM, copied working tests to upstream]
 
 ---
 
@@ -723,7 +723,7 @@ fetch-src/failure.html: [timeout, Unknown]
 load-error-events-1.html: [timeout, Unknown]
 load-error-events-2.html: [timeout, Unknown]
 load-error-events-3.html: [timeout, Unknown]
-module/**: [fail, Not implemented]
+module/**: [timeout, Not implemented]
 muted-errors.sub.html: [fail, Muted errors not implemented]
 nomodule-**: [fail, Not implemented]
 script-charset-02.html: [fail, Unknown]
@@ -734,7 +734,7 @@ script-for-event-xhtml.xhtml: [fail, Not implemented]
 script-for-event.html: [fail, Not implemented]
 script-not-executed-after-shutdown.html: [fail, Unknown]
 script-not-found-not-executed.html: [fail, Unknown]
-script-onerror-insertion-point-1.html: [fail, Unknown]
+script-onerror-insertion-point-1.html: [timeout, Unknown]
 script-onerror-insertion-point-2.html: [flaky]
 script-onload-insertion-point.html: [fail, Unknown]
 script-text-xhtml.xhtml: [fail, Unknown]
@@ -757,7 +757,7 @@ template-element/template-content-hierarcy.html: [fail, probably a combination o
 DIR: html/semantics/tabular-data
 
 processing-model-1/col-span-limits.html: [fail, depends on a working offsetWidth]
-the-table-element/caption-methods.html: [fail, needs HTMLIframeElement#srcdoc]
+the-table-element/caption-methods.html: [timeout, needs HTMLIframeElement#srcdoc]
 
 ---
 
@@ -809,9 +809,9 @@ DIR: uievents
 
 constructors/inputevent-constructor.html: [fail, InputEvent not implemented]
 interfaces.html: [fail, Depends on fetch]
-legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [fail, Unknown]
-legacy-domevents-tests/approved/domnodeinserted.html: [fail, Unknown]
-order-of-events/**: [fail, Unknown]
+legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Unknown]
+legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Unknown]
+order-of-events/**: [timeout, Unknown]
 
 ---
 
@@ -827,12 +827,12 @@ urlencoded-parser.html: [fail, Depends on fetch]
 
 DIR: websockets
 
-Create-Secure-extensions-empty.any.html: [fail, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
+Create-Secure-extensions-empty.any.html: [timeout, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
 interfaces/WebSocket/close/close-basic.html*: [mutates-globals]
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 multi-globals/message-received.html: [fail, Multi-globals]
-unload-a-document/*: [fail, Requires window.open]
+unload-a-document/*: [timeout, Requires window.open]
 
 ---
 
@@ -866,8 +866,8 @@ open-during-abort-processing.htm: [fail, Unknown]
 open-method-case-sensitive.htm: [fail, request module forces upper case]
 open-send-during-abort.htm: [fail, Unknown]
 open-url-encoding.htm: [fail, URL parser should use the encoding of the document - https://bugzilla.mozilla.org/show_bug.cgi?id=1405696]
-open-url-multi-window-4.htm: [fail, https://github.com/w3c/web-platform-tests/issues/6941]
-open-url-multi-window-5.htm: [fail, location.reload is not implemented]
+open-url-multi-window-4.htm: [timeout, https://github.com/w3c/web-platform-tests/issues/6941]
+open-url-multi-window-5.htm: [timeout, location.reload is not implemented]
 open-url-multi-window-6.htm: [fail, Unknown]
 open-url-redirected-worker-origin.htm: [fail, needs Worker implementation]
 open-url-worker-origin.htm: [fail, needs Worker implementation]
@@ -882,7 +882,7 @@ responsetype.html: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 responsexml-document-properties.htm: [fail, https://github.com/w3c/web-platform-tests/issues/2668]
 responsexml-media-type.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 responsexml-non-well-formed.htm: [fail, xml parsing is not strict]
-send-after-setting-document-domain.htm: [fail, document.domain not implemented]
+send-after-setting-document-domain.htm: [timeout, document.domain not implemented]
 send-authentication-competing-names-passwords.htm: [fail, Unknown]
 send-authentication-cors-setrequestheader-no-cred.htm: [fail, Unknown]
 send-blob-with-no-mime-type.html: [fail, Unknown]
