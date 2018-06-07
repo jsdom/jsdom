@@ -15,7 +15,7 @@ module.exports = urlPrefixFactory => {
     };
   }
 
-  return (testPath, title = testPath) => {
+  return (testPath, title = testPath, expectFail) => {
     specify({
       title,
       expectPromise: true,
@@ -24,13 +24,13 @@ module.exports = urlPrefixFactory => {
       slow: 10000,
       skipIfBrowser: true,
       fn() {
-        return createJSDOM(urlPrefixFactory(), testPath);
+        return createJSDOM(urlPrefixFactory(), testPath, expectFail);
       }
     });
   };
 };
 
-function createJSDOM(urlPrefix, testPath) {
+function createJSDOM(urlPrefix, testPath, expectFail) {
   const reporterPathname = "/resources/testharnessreport.js";
   const unhandledExceptions = [];
   const doneErrors = [];
@@ -42,7 +42,13 @@ function createJSDOM(urlPrefix, testPath) {
     virtualConsole.on("jsdomError", e => {
       if (e.type === "unhandled exception" && !allowUnhandledExceptions) {
         unhandledExceptions.push(e);
-        console.error(e.detail.stack);
+
+        // Some failing tests make a lot of noise.
+        // There's no need to log these messages
+        // for errors we're already aware of.
+        if (!expectFail) {
+          console.error(e.detail.stack);
+        }
       }
     });
 
@@ -118,9 +124,16 @@ function createJSDOM(urlPrefix, testPath) {
           errors.push(...doneErrors);
           errors.push(...unhandledExceptions);
 
-          if (errors.length === 1) {
+          if (errors.length === 0 && expectFail) {
+            reject(new Error(`
+            Hey, did you fix a bug? This test used to be failing, but during
+            this run there were no errors. If you have fixed the issue covered
+            by this test, you can edit the "to-run.yaml" file and remove the line
+            containing this test. Thanks!
+            `));
+          } else if (errors.length === 1 && !expectFail) {
             reject(new Error(errors[0]));
-          } else if (errors.length) {
+          } else if (errors.length && !expectFail) {
             reject(new Error(`${errors.length} errors in test:\n\n${errors.join("\n")}`));
           } else {
             resolve();

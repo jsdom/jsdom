@@ -14,7 +14,8 @@ const validReasons = new Set([
   "mutates-globals",
   "needs-await",
   "needs-node8",
-  "fails-node10"
+  "fails-node10",
+  "timeout-node6" // For tests that timeout in Node.js v6, but pass in later versions
 ]);
 
 let supportsAwait = true;
@@ -25,7 +26,7 @@ try {
 }
 
 const hasNode8 = Number(process.versions.node.split(".")[0]) >= 8;
-const notNode10 = Number(process.versions.node.split(".")[0]) !== 10;
+const isNode10 = Number(process.versions.node.split(".")[0]) === 10;
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
 const manifest = readManifest(manifestFilename);
@@ -59,13 +60,17 @@ describe("web-platform-tests", () => {
 
           const testFile = stripPrefix(testFilePath, toRunDoc.DIR + "/");
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
-          const shouldRunAnyway = (reason === "needs-await" && supportsAwait) ||
-                                  (reason === "needs-node8" && hasNode8) ||
-                                  (reason === "fails-node10" && notNode10);
-          if (matchingPattern && !shouldRunAnyway) {
+          const shouldSkip = ["timeout", "flaky", "mutates-globals"].includes(reason) ||
+                             (reason === "timeout-node6" && !hasNode8);
+          const expectFail = (reason === "fail") ||
+                             (reason === "needs-await" && !supportsAwait) ||
+                             (reason === "needs-node8" && !hasNode8) ||
+                             (reason === "fails-node10" && isNode10);
+
+          if (matchingPattern && shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);
           } else {
-            runSingleWPT(testFilePath, testFile);
+            runSingleWPT(testFilePath, testFile, expectFail);
           }
         }
       }
