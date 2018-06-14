@@ -15,7 +15,6 @@ const validReasons = new Set([
   "needs-await",
   "needs-node8",
   "needs-node10",
-  "fails-node10",
   "timeout-node6" // For tests that timeout in Node.js v6, but pass in later versions
 ]);
 
@@ -28,7 +27,6 @@ try {
 
 const hasNode8 = Number(process.versions.node.split(".")[0]) >= 8;
 const hasNode10 = Number(process.versions.node.split(".")[0]) >= 10;
-const isNode10 = Number(process.versions.node.split(".")[0]) === 10;
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
 const manifest = readManifest(manifestFilename);
@@ -67,8 +65,7 @@ describe("web-platform-tests", () => {
           const expectFail = (reason === "fail") ||
                              (reason === "needs-await" && !supportsAwait) ||
                              (reason === "needs-node8" && !hasNode8) ||
-                             (reason === "needs-node10" && !hasNode10) ||
-                             (reason === "fails-node10" && isNode10);
+                             (reason === "needs-node10" && !hasNode10);
 
           if (matchingPattern && shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);
