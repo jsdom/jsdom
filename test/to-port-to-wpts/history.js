@@ -183,7 +183,7 @@ describe("history", () => {
       const state = { foo: "bar" };
 
       window.addEventListener("popstate", event => {
-        assert.strictEqual(event.bubbles, true);
+        assert.strictEqual(event.bubbles, false);
         assert.strictEqual(event.cancelable, false);
         assert.strictEqual(event.state, state);
 
