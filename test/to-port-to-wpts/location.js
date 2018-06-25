@@ -62,7 +62,7 @@ describe("location", () => {
         url: "http://www.example.com"
       }).defaultView;
       window.addEventListener("hashchange", event => {
-        assert.strictEqual(event.bubbles, true);
+        assert.strictEqual(event.bubbles, false);
         assert.strictEqual(event.cancelable, false);
         assert.strictEqual(event.oldURL, "http://www.example.com/");
         assert.strictEqual(event.newURL, "http://www.example.com/#foo");
@@ -85,7 +85,7 @@ describe("location", () => {
         url: "http://www.example.com"
       }).defaultView;
       window.addEventListener("hashchange", event => {
-        assert.strictEqual(event.bubbles, true);
+        assert.strictEqual(event.bubbles, false);
         assert.strictEqual(event.cancelable, false);
         assert.strictEqual(event.oldURL, "http://www.example.com/");
         assert.strictEqual(event.newURL, "http://www.example.com/#foo");
