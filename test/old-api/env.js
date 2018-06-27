@@ -3,6 +3,8 @@ const path = require("path");
 const http = require("http");
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
+const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loader");
+const { URL } = require("url");
 
 const { env, createVirtualConsole, serializeDocument } = require("../../lib/old-api.js");
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
@@ -211,52 +213,6 @@ describe("jsdom/env", () => {
         assert.strictEqual(window.isExecuted, true);
         assert.strictEqual(window.wasCreatedSet, true);
 
-        t.done();
-      }
-    });
-  });
-
-  specify("with configurable resource loader", { async: true }, t => {
-    env({
-      html: "<!DOCTYPE html><html><head><script src='foo.js'></script></head><body></body></html>",
-      url: "http://example.org/",
-      resourceLoader(resource, callback) {
-        callback(null, "window.resourceLoaderWasOverridden = true;");
-      },
-      features: {
-        FetchExternalResources: ["script"],
-        ProcessExternalResources: ["script"],
-        SkipExternalResources: false
-      },
-      done(err, window) {
-        assert.ifError(err);
-        assert.strictEqual(window.resourceLoaderWasOverridden, true);
-        t.done();
-      }
-    });
-  });
-
-  specify("with configurable resource loader and iframe", { async: true }, t => {
-    const routes = {
-      "/iframe.html": "<html><head><script src='foo.js'></script></head><body></body></html>",
-      "/foo.js": "window.resourceLoaderWasOverridden = true;"
-    };
-
-    env({
-      html: "<html><head></head><body><iframe name='bar' src='http://localhost/iframe.html'></iframe></body></html>",
-      resourceLoader(resource, callback) {
-        const response = routes[resource.url.path];
-        assert.ok(response, `Not found: ${resource.url.path}`);
-        callback(null, response);
-      },
-      features: {
-        FetchExternalResources: ["script", "iframe"],
-        ProcessExternalResources: ["script"],
-        SkipExternalResources: false
-      },
-      done(err, window) {
-        assert.ifError(err);
-        assert.strictEqual(window.frames.bar.resourceLoaderWasOverridden, true);
         t.done();
       }
     });
@@ -493,7 +449,7 @@ describe("jsdom/env", () => {
     specify("explicit config.file, with a script", { async: true }, t => {
       env({
         file: path.resolve(__dirname, "files/env.html"),
-        scripts: [path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")],
+        scripts: [`file://${path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")}`],
         done(err, window) {
           assert.ifError(err);
 
@@ -575,7 +531,7 @@ describe("jsdom/env", () => {
     specify("with a nonexistent script", { async: true }, t => {
       env({
         html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
-        scripts: ["path/to/invalid.js", "another/invalid.js"],
+        scripts: ["file://path/to/invalid.js", "file://another/invalid.js"],
         done(err, window) {
           assert.equal(err, null);
           assert.ok(window.location.href);
@@ -651,6 +607,32 @@ describe("jsdom/env", () => {
       "with configurable resource loader modifying routes and content",
       { async: true },
       t => {
+        class CustomResourceLoader extends ResourceLoader {
+          fetch(url, options) {
+            assert.ok(typeof url === "string");
+
+            if (/\.js$/.test(url)) {
+              const urlObject = new URL(url);
+
+              urlObject.pathname = `/js/dir${urlObject.pathname}`;
+
+              const originalOnLoad = options.onLoad;
+
+              options.onLoad = data => {
+                const newData = Buffer.concat([
+                  data,
+                  Buffer.from("\nwindow.modifiedContent = true;", "utf-8")
+                ]);
+
+                originalOnLoad(newData);
+              };
+
+              return super.fetch(urlObject.href, options);
+            }
+
+            return super.fetch(url, options);
+          }
+        }
         const routes = {
           "/js/dir/test.js": "window.modifiedRoute = true;",
           "/html": "<!DOCTYPE html><html><head><script src='./test.js'></script></head><body></body></html>"
@@ -668,26 +650,7 @@ describe("jsdom/env", () => {
           env({
             document: { cookie },
             url: "http://127.0.0.1:64001/html",
-            resourceLoader(resource, callback) {
-              assert.ok(typeof resource === "object");
-              assert.ok(typeof resource.url === "object");
-              assert.equal(resource.cookie, "key=value");
-              assert.equal(resource.baseUrl, "http://127.0.0.1:64001/html");
-              assert.ok(typeof resource.defaultFetch === "function");
-              assert.ok(typeof callback === "function");
-              if (/\.js$/.test(resource.url.path)) {
-                resource.url.path = "/js/dir" + resource.url.path;
-                resource.defaultFetch((err, body) => {
-                  if (err) {
-                    callback(err);
-                  } else {
-                    callback(null, body + "\nwindow.modifiedContent = true;");
-                  }
-                });
-              } else {
-                resource.defaultFetch(callback);
-              }
-            },
+            resourceLoader: new CustomResourceLoader(),
             done(err, window) {
               server.close();
               assert.ifError(err);

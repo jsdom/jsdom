@@ -6,8 +6,9 @@ const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
 const { delay } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
+const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loader.js");
 
-const { JSDOM } = require("../..");
+const { JSDOM, VirtualConsole } = require("../..");
 
 describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
   describe("defaults", () => {
@@ -125,7 +126,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
     it("should download stylesheet links", { slow: 500 }, () => {
       const sourceString = `body { color: blue; }`;
       const url = resourceServer(
-        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+        { "Content-Type": "text/css", "Content-Length": sourceString.length },
         sourceString
       );
       const dom = new JSDOM(``, { resources: "usable" });
@@ -238,24 +239,231 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         );
       });
     });
+
+    it("should use the custom resource loader when specified", { slow: 500 }, () => {
+      let called = false;
+
+      class CustomResource extends ResourceLoader {
+        fetch(url, options) {
+          called = true;
+
+          return super.fetch(url, options);
+        }
+      }
+      const sourceString = `Hello`;
+      const url = resourceServer(
+        { "Content-Type": "text/html", "Content-Length": sourceString.length },
+        sourceString
+      );
+      const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", resourceLoader: new CustomResource() });
+
+      const element = dom.window.document.createElement("frame");
+      setUpLoadingAsserts(element);
+      element.src = url;
+      dom.window.document.body.appendChild(element);
+
+      return assertLoaded(element).then(() => {
+        assert.strictEqual(
+          dom.window.frames[0].document.body.textContent, "Hello",
+          "The frame must have been downloaded"
+        );
+        assert.isTrue(called, "The custom resource should be called");
+      });
+    });
+
+    describe("resources returns 404", () => {
+      it(
+        "should fire an error event downloading images if and only if canvas is installed",
+        { slow: 500 },
+        () => {
+          const url = resourceNotFound();
+          const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+          const element = dom.window.document.createElement("img");
+          setUpLoadingAsserts(element);
+          element.src = url;
+          dom.window.document.body.appendChild(element);
+
+          return canvas ? assertError(element) : assertNotLoaded(element);
+        }
+      );
+
+      it("should fire an error event downloading stylesheets", { slow: 500 }, () => {
+        const url = resourceNotFound();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+        const element = dom.window.document.createElement("link");
+        setUpLoadingAsserts(element);
+        element.rel = "stylesheet";
+        element.href = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading scripts", { slow: 500 }, () => {
+        const url = resourceNotFound();
+
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading iframes", { slow: 500 }, () => {
+        const url = resourceNotFound();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+        const element = dom.window.document.createElement("iframe");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading frames", { slow: 500 }, () => {
+        const url = resourceNotFound();
+        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+        const element = dom.window.document.createElement("frame");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+    });
+
+    describe("resources returns 503", () => {
+      it(
+        "should fire an error event downloading images if and only if canvas is installed",
+        { slow: 500 },
+        () => {
+          const url = resourceServerError();
+          const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+          const element = dom.window.document.createElement("img");
+          setUpLoadingAsserts(element);
+          element.src = url;
+          dom.window.document.body.appendChild(element);
+
+          return canvas ? assertError(element) : assertNotLoaded(element);
+        }
+      );
+
+      it("should fire an error event downloading stylesheets", { slow: 500 }, () => {
+        const url = resourceServerError();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+        const element = dom.window.document.createElement("link");
+        setUpLoadingAsserts(element);
+        element.rel = "stylesheet";
+        element.href = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading scripts", { slow: 500 }, () => {
+        const url = resourceServerError();
+
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading iframes", { slow: 500 }, () => {
+        const url = resourceServerError();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+        const element = dom.window.document.createElement("iframe");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading frames", { slow: 500 }, () => {
+        const url = resourceServerError();
+        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+        const element = dom.window.document.createElement("frame");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+    });
   });
 
-  it("should disallow other values", () => {
+  it("should disallow other values for resources", () => {
     assert.throws(() => new JSDOM(``, { resources: null }), RangeError);
     assert.throws(() => new JSDOM(``, { resources: "asdf" }), RangeError);
     assert.throws(() => new JSDOM(``, { resources: true }), RangeError);
     assert.throws(() => new JSDOM(``, { resources: false }), RangeError);
   });
+
+  it("should disallow custom resource loaders if they doesn't implement ResourceLoader", () => {
+    assert.throws(() => new JSDOM(``, {
+      resourceLoader: {
+        fetch() { }
+      }
+    }), Error);
+
+    class MyResourceLoader {
+      fetch() { }
+    }
+
+    assert.throws(() => new JSDOM(``, {
+      resourceLoader: new MyResourceLoader()
+    }), RangeError);
+
+    function MyResourceLoaderFunction() {
+      this.fetch = function () { };
+    }
+
+    assert.throws(() => new JSDOM(``, {
+      resourceLoader: new MyResourceLoaderFunction()
+    }), Error);
+  });
 });
 
-function resourceServer(headers, body) {
+function resourceServer(headers, body, statusCode) {
   const server = http.createServer((req, res) => {
-    res.writeHead(200, headers);
+    res.writeHead(statusCode || 200, headers);
     res.end(body);
     server.close();
   }).listen();
 
   return `http://127.0.0.1:${server.address().port}/`;
+}
+
+function resourceNotFound() {
+  const notFoundText = "Not found";
+
+  return resourceServer({ "Content-Type": "text/html", "Content-Length": notFoundText.length }, notFoundText, 404);
+}
+
+function resourceServerError() {
+  const serverErrorText = "Internal server error";
+
+  return resourceServer(
+    { "Content-Type": "text/html", "Content-Length": serverErrorText.length },
+    serverErrorText,
+    503
+  );
 }
 
 function imageServer() {
@@ -277,6 +485,7 @@ function setUpLoadingAsserts(element) {
     });
     element.addEventListener("error", () => {
       element.errorFired = true;
+      resolve();
     });
   });
 }
@@ -289,5 +498,28 @@ function assertNotLoaded(element) {
 }
 
 function assertLoaded(element) {
-  return element.loadPromise;
+  return element.loadPromise
+    .then(() => {
+      assert.isTrue(element.loadFired, "The load event must fire");
+      assert.isFalse(element.errorFired, "The error event must not fire");
+    });
+}
+
+function assertError(element) {
+  return element.loadPromise
+    .then(() => {
+      assert.isFalse(element.loadFired, "The load event must not fire");
+      assert.isTrue(element.errorFired, "The error event must fire");
+    });
+}
+
+function ignoreResourceLoadingErrorsVC() {
+  const vc = new VirtualConsole();
+  vc.sendTo(console, { omitJSDOMErrors: true });
+  vc.on("jsdomError", err => {
+    if (err.type !== "resource loading") {
+      console.error(err.stack, err.detail);
+    }
+  });
+  return vc;
 }

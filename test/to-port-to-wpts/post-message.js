@@ -16,9 +16,11 @@ describe("post-message", () => {
     const iframe = injectIFrame(document);
 
     window.onload = () => {
-      assert.throwsDomException(() => {
+      try {
         iframe.contentWindow.postMessage("testMessage", "bogus targetOrigin");
-      }, document, "SyntaxError");
+      } catch (err) {
+        assert.ok(err.name === "SyntaxError");
+      }
 
       assert.throws(() => {
         iframe.contentWindow.postMessage("testMessage");
@@ -95,8 +97,9 @@ describe("post-message", () => {
     setTimeout(() => {
       assert.ok(window.postMessageEvent.type === "message");
       assert.ok(window.postMessageEvent.data === "ack");
+
       t.done();
-    }, 0);
+    }, 20);
   }, {
     async: true
   });

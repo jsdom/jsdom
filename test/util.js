@@ -45,16 +45,12 @@ exports.load = dirname => {
     }
 
     const contents = fileCache[file] || fs.readFileSync(file, "utf8");
-    const doc = jsdom.jsdom(null, options);
+    const doc = jsdom.jsdom(contents, options);
     const window = doc.defaultView;
-
     doc.parent = window;
     window.loadComplete = () => {
       // some of the loaded files expect this to exist
     };
-
-    doc.write(contents);
-    doc.close();
 
     fileCache[file] = contents;
     return doc;
