@@ -5,7 +5,7 @@
 * Added `el.labels` for form control elements. (FrecksterGIT)
 * Fixed the `contentType` of `Document`s created through `<iframe>`s.
 * Fixed the `contentType` and `origin` of `Document`s created through `document.implementation.createDocument()`.
-* Fixed `imgEl.srcset` to return the value of the `srcset=""` attribute, instead of the `cite=""` attribute.
+* Fixed `sourceEl.srcset` to return the value of the `srcset=""` attribute, instead of the `cite=""` attribute.
 * Fixed `node.normalize()` to not modify non-`Text` nodes. (lddubeau)
 * Upgraded `cssstyle` to v0.3.1, bringing along various fixes to our CSS parser and object model. (jsakas)
 * Upgraded `whatwg-url` to v6.4.1, fixing the interaction of `URL`'s `href` and `searchParams` properties.
@@ -19,7 +19,7 @@
 ## 11.9.0
 
 * Added `node.lookupPrefix()`, `node.lookupNamespaceURI()` and `node.isDefaultNamespace()`.
-* Fixed the cloning of `Document`s; previously it would not clone all of the appropriate state, and wouuld sometimes add an extra document type node.
+* Fixed the cloning of `Document`s; previously it would not clone all of the appropriate state, and would sometimes add an extra document type node.
 * Fixed various edge cases in the `textContent` and `nodeValue` properties.
 * Fixed `canvas.toBlob()` to properly pass through the JPEG quality argument, instead of always passing zero to `node-canvas`. (challakoushik)
 
@@ -37,7 +37,7 @@
 * Fixed `"abort"` events on `AbortSignal`s to have their `isTrusted` set to true.
 * Fixed some argument conversions in `XMLHttpRequest`'s `open()` method.
 * Improved MIME type and data: URL parsing throughout jsdom, by using the new [`whatwg-mimetype`](https://www.npmjs.com/package/whatwg-mimetype) and [`data-urls`](https://www.npmjs.com/package/data-urls) packages.
-* Removed some unnnecessary `.webidl` files that were included in the npm package.
+* Removed some unnecessary `.webidl` files that were included in the npm package.
 
 ## 11.6.2
 
