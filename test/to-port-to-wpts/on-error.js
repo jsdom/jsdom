@@ -153,7 +153,9 @@ describe("on-error", () => {
       t.done();
     });
 
-    doc.write(`<script>throw new Error("oh no!");</script>`);
+    doc.onload = () => {
+      doc.write(`<script>throw new Error("oh no!");</script>`);
+    };
   }, {
     async: true
   });

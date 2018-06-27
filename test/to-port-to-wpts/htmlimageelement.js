@@ -100,6 +100,12 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
     const src = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
     image.onload = () => {
       assert.ok(true, "onload should be triggered when loading from data URL.");
+      assert.strictEqual(image.width, 168, "after setting data URL, width should be 168");
+      assert.strictEqual(image.height, 168, "after setting data URL, height should be 168");
+      assert.strictEqual(image.complete, true, "after setting data URL, complete should be true");
+      assert.strictEqual(image.src, src, "after setting data URL, src should be the data URL");
+      assert.strictEqual(image.currentSrc, src, "after setting data URL, currentSrc should be the data URL");
+
       t.done();
     };
     image.onerror = () => {
@@ -107,11 +113,6 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
       t.done();
     };
     image.src = src;
-    assert.strictEqual(image.width, 168, "after setting data URL, width should be 168");
-    assert.strictEqual(image.height, 168, "after setting data URL, height should be 168");
-    assert.strictEqual(image.complete, true, "after setting data URL, complete should be true");
-    assert.strictEqual(image.src, src, "after setting data URL, src should be the data URL");
-    assert.strictEqual(image.currentSrc, src, "after setting data URL, currentSrc should be the data URL");
   }, {
     async: true
   });

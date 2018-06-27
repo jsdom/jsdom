@@ -84,7 +84,7 @@ describe("jsdom/miscellaneous", () => {
     const window = doc.defaultView;
 
     window.close();
-    assert.equal(window.a, 1);
+    assert.equal(window.a, 0);
   });
 
   specify("bad <style> tag contents do not cause exceptions (GH-1477)", () => {
@@ -115,6 +115,7 @@ describe("jsdom/miscellaneous", () => {
       // do nothing
     };
     res.headers = {};
+    res.statusCode = 200;
 
     // Monkey patch https.request so it emits "close" instead of "end.
     https.request = () => {
@@ -998,27 +999,6 @@ describe("jsdom/miscellaneous", () => {
 
       doc.defaultView.doCheck = () => {
         assert.equal(doc.getElementById("test").innerHTML, "hello from javascript");
-        t.done();
-      };
-    });
-
-    specify("ensure_resources_can_be_skipped_via_options_features", { async: true }, t => {
-      const html = `<html><head></head>
-                 <body><span id="test">hello from html</span><span id="cat">
-                 hello from cat<script src="./files/hello.js"></script>
-                 <script src="./files/nyan.js"></script></body></html>`;
-
-      const doc2 = jsdom.jsdom(html, {
-        url: toFileUrl(__filename),
-        features: {
-          FetchExternalResources: ["script"],
-          ProcessExternalResources: ["script"],
-          SkipExternalResources: new RegExp(".*/files/h")
-        }
-      });
-      doc2.defaultView.onload = () => {
-        assert.equal(doc2.getElementById("test").innerHTML, "hello from html", "js should not be executed (doc2)");
-        assert.equal(doc2.getElementById("cat").innerHTML, "hello from nyan cat", "js should be executed (doc2)");
         t.done();
       };
     });

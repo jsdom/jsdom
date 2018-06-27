@@ -27,7 +27,7 @@ describe("jsonp/jsonp", () => {
       server.listen(43213, "127.0.0.1", () => {
         jsdom.env({
           html: "<!DOCTYPE html><html><head></head><body></body></html>",
-          scripts: [jQueryFile],
+          scripts: [`file://${jQueryFile}`],
           features: {
             FetchExternalResources: ["script"],
             ProcessExternalResources: ["script"]

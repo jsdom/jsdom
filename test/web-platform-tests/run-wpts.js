@@ -13,9 +13,7 @@ const validReasons = new Set([
   "flaky",
   "mutates-globals",
   "needs-await",
-  "needs-node8",
-  "needs-node10",
-  "timeout-node6" // For tests that timeout in Node.js v6, but pass in later versions
+  "needs-node10"
 ]);
 
 let supportsAwait = true;
@@ -25,7 +23,6 @@ try {
   supportsAwait = false;
 }
 
-const hasNode8 = Number(process.versions.node.split(".")[0]) >= 8;
 const hasNode10 = Number(process.versions.node.split(".")[0]) >= 10;
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
@@ -60,11 +57,9 @@ describe("web-platform-tests", () => {
 
           const testFile = stripPrefix(testFilePath, toRunDoc.DIR + "/");
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
-          const shouldSkip = ["timeout", "flaky", "mutates-globals"].includes(reason) ||
-                             (reason === "timeout-node6" && !hasNode8);
+          const shouldSkip = ["timeout", "flaky", "mutates-globals"].includes(reason);
           const expectFail = (reason === "fail") ||
                              (reason === "needs-await" && !supportsAwait) ||
-                             (reason === "needs-node8" && !hasNode8) ||
                              (reason === "needs-node10" && !hasNode10);
 
           if (matchingPattern && shouldSkip) {

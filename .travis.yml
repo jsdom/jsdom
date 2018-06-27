@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - 6
-  - 8
+  - "8"
+  - "10"
 sudo: false
 
 git:
@@ -32,7 +32,7 @@ addons:
 
 matrix:
   include:
-    - node_js: 6
+    - node_js: 8
       env: TEST_SUITE=node-canvas-prebuilt
       script: "export CXX=g++-4.8 && yarn add canvas-prebuilt && yarn test --retries 1"
       addons:
@@ -49,7 +49,7 @@ matrix:
           - www.not-web-platform.test
           - www.web-platform.test
           - xn--n8j6ds53lwwkrqhv28a.web-platform.test
-    - node_js: 6
+    - node_js: 8
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
       addons:
@@ -76,7 +76,7 @@ matrix:
             - libpango1.0-dev
             - libgif-dev
             - build-essential
-    - node_js: 8
+    - node_js: 10
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
       addons:
