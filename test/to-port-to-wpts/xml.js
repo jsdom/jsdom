@@ -50,7 +50,7 @@ describe("jsdom/xml", () => {
   });
 
   specify("parse5 can somewhat serialize XML docs", () => {
-    const source = `<foo xmlns:foo="http://example.org/bar"><foo:bar></foo:bar></foo>`;
+    const source = `<foo xmlns:foo="http://example.org/bar"><foo:bar/></foo>`;
     const dom = new JSDOM(source, { contentType: "application/xml" });
     assert.strictEqual(dom.serialize(), source);
   });
