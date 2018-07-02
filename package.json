@@ -19,6 +19,7 @@
   "license": "MIT",
   "repository": "jsdom/jsdom",
   "dependencies": {
+    "@trust/webcrypto": "^0.9.2",
     "abab": "^2.0.0",
     "acorn": "^5.5.3",
     "acorn-globals": "^4.1.0",
