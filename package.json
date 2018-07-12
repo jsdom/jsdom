@@ -24,7 +24,7 @@
     "acorn-globals": "^4.1.0",
     "array-equal": "^1.0.0",
     "cssom": ">= 0.3.2 < 0.4.0",
-    "cssstyle": ">= 0.3.1 < 0.4.0",
+    "cssstyle": "^1.0.0",
     "data-urls": "^1.0.0",
     "domexception": "^1.0.1",
     "escodegen": "^1.9.1",
