@@ -83,7 +83,8 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
           doneErrors.push(error);
         }
       },
-      pretendToBeVisual: true
+      pretendToBeVisual: true,
+      storageQuota: 100000 // Filling the default quota takes about a minute between two WPTs
     });
   });
 
