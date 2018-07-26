@@ -292,7 +292,7 @@ describe("API: constructor options", () => {
 
   describe("storageQuota", () => {
     describe("not set", () => {
-      it("should be 5000000 bytes by default", () => {
+      it("should be 5000000 code units by default", () => {
         const { localStorage, sessionStorage } = (new JSDOM(``, { url: "https://example.com" })).window;
         const dataWithinQuota = "0".repeat(4000000);
 
@@ -309,7 +309,7 @@ describe("API: constructor options", () => {
       });
     });
 
-    describe("set to 10000 bytes", () => {
+    describe("set to 10000 code units", () => {
       it("should only allow setting data within the custom quota", () => {
         const { localStorage, sessionStorage } = (new JSDOM(``, {
           url: "https://example.com",
@@ -338,13 +338,13 @@ describe("API: constructor options", () => {
       });
     });
 
-    describe("set to 10000000 bytes", () => {
+    describe("set to 10000000 code units", () => {
       it("should only allow setting data within the custom quota", () => {
         const { localStorage, sessionStorage } = (new JSDOM(``, {
           url: "https://example.com",
           storageQuota: 10000000
         })).window;
-        const dataWithinQuota = "0".repeat(8000000);
+        const dataWithinQuota = "0000000000".repeat(800000);
 
         localStorage.someKey = dataWithinQuota;
         sessionStorage.someKey = dataWithinQuota;
@@ -352,7 +352,7 @@ describe("API: constructor options", () => {
         assert.strictEqual(localStorage.someKey, dataWithinQuota);
         assert.strictEqual(sessionStorage.someKey, dataWithinQuota);
 
-        const dataExceedingQuota = "0".repeat(11000000);
+        const dataExceedingQuota = "0000000000".repeat(1100000);
 
         assert.throws(() => localStorage.setItem("foo", dataExceedingQuota));
         assert.throws(() => sessionStorage.setItem("bar", dataExceedingQuota));
