@@ -31,7 +31,7 @@ interface Element : Node {
 //  ShadowRoot attachShadow(ShadowRootInit init);
 //  readonly attribute ShadowRoot? shadowRoot;
 
-//  Element? closest(DOMString selectors);
+  Element? closest(DOMString selectors);
   boolean matches(DOMString selectors);
   boolean webkitMatchesSelector(DOMString selectors); // historical alias of .matches
 
