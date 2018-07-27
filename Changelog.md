@@ -1,3 +1,12 @@
+## 11.12.0
+
+* Added `window.localStorage`, `window.sessionStorage`, and `StorageEvent` support. These are currently only stored in-memory; file an issue if you need persistent (on-disk) storage capability so we can discuss adding that. This feature includes the new `storageQuota` option for controlling how much can be stored.
+* Added `element.closest()`. (caub)
+* Changed `"hashchange"` and `"popstate"` events to no longer bubble, per a specification update.
+* Fixed the old API in Node.js v10 to not throw, when given input that is not a valid file path (such as a typical HTML string).
+* Upgraded `cssstyle` to v1.0.0, bringing along various fixes to our CSS parser and object model. (eddies)
+* Upgraded `nwsapi` to v2.0.7, bringing along various fixes to our selector engine.
+
 ## 11.11.0
 
 * Added `node.getRootNode()`. (FrecksterGIT)
