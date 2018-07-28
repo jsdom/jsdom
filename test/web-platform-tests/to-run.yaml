@@ -386,6 +386,14 @@ the-translate-attribute-012.html: [fail, Unknown]
 
 ---
 
+DIR: html/editing/dnd/dom
+
+---
+
+  DIR: html/editing/dnd/the-draggable-attribute
+
+---
+
 DIR: html/editing/focus
 
 composed.window.html: [fail, Not implemented]
