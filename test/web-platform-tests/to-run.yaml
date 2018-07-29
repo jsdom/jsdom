@@ -97,7 +97,6 @@ Event-timestamp-high-resolution.html: [fail, Not implemented]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
 EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
 EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
-EventTarget-constructible.any.html: [fail, Not implemented]
 EventTarget-dispatchEvent.html: [fail, We don't support every event interface yet]
 event-global-extra.window.html: [timeout, Not implemented]
 event-global.html: [fail, Not implemented]
@@ -154,7 +153,6 @@ attributes.html: [fail, toggleAttribute() not implemented]
 insert-adjacent.html: [fail, Unknown]
 prepend-on-Document.html: [fail, Ensure pre-insertion validity not fully implemented, https://github.com/tmpvar/jsdom/issues/1349]
 remove-unscopable.html: [fail, Unknown]
-rootNode.html: [fail, Needs Shadow DOM]
 
 ---
 
@@ -777,6 +775,48 @@ messageevent-constructor.https.html: [fail, uses MessageChannel]
 ---
 
 DIR: progress-events
+
+---
+
+DIR: shadow-dom
+
+Document-prototype-currentScript.html: [timeout, Test not up to date next with updating wpt it should work]
+DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
+Element-interface-attachShadow-custom-element.html: [fail, CustomElement.define is not implemented]
+Extensions-to-Event-Interface.html: [fail, https://github.com/web-platform-tests/wpt/pull/12598]
+MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
+Range-prototype-insertNode.html: [fail, Range is not implemented]
+ShadowRoot-interface.html: [fail, ShadowRoot.innerHTML is still at the stage of draft]
+form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
+input-element-list.html: [fail, HTMLInputElement.list is not implemented]
+leaktests/get-elements.html: [fail, https://github.com/web-platform-tests/wpt/pull/12598]
+leaktests/html-collection.html: [fail, Document.all is not implemented]
+leaktests/window-frames.html: [fail, Window.name is not implemeneted]
+scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
+slotchange-customelements.html: [fail, CustomElement.define is not implemented]
+slotchange-event.html: [timeout, MutationObserver is not implemented]
+slotchange.html: [timeout, MutationObserver is not implemented]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/activeElement-confirm-return-null.html: [fail, ShadowRoot.activeElement is not implemented]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-007.html: [fail, ShadowRoot.activeElement is not implemented]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, Range is not implemented]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html: [fail, Range is not implemented]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-007.html: [fail, Range is not implemented]
+untriaged/events/event-dispatch/test-003.html: [timeout, Iframe related timeout issue]
+untriaged/html-elements-in-shadow-trees/html-forms/test-003.html: [fail, HTMLFormElemement.submit is not implemented]
+untriaged/html-elements-in-shadow-trees/inert-html-elements/test-001.html: [fail, Unknown]
+untriaged/shadow-trees/upper-boundary-encapsulation/dom-tree-accessors-001.html: [fail, Document.all is not implemented]
+untriaged/shadow-trees/upper-boundary-encapsulation/test-005.html: [fail, HTMLOutputElementImpl.form is not implemented]
+untriaged/shadow-trees/upper-boundary-encapsulation/test-007.html: [fail, HTMLOutputElementImpl.form is not implemented]
+untriaged/styles/test-001.html: [fail, offsetTop not implemented]
+untriaged/styles/test-003.html: [fail, ShadowRoot.stylesheets is not implemented]
+untriaged/styles/test-005.html: [fail, offsetTop not implemented]
+untriaged/styles/test-008.html: [fail, offsetTop and offsetHeight not implemented]
+untriaged/user-interaction/active-element/test-001.html: [fail, ShadowRoot.activeElement is not implemented]
+untriaged/user-interaction/active-element/test-002.html: [fail, ShadowRoot.activeElement is not implemented]
+untriaged/user-interaction/editing/inheritance-of-content-editable-001.html: [fail, contentEditable is not implemented]
+untriaged/user-interaction/ranges-and-selections/test-001.html: [fail, Range is not implemented]
+untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, Range is not implemented]
 
 ---
 
