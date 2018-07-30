@@ -29,7 +29,6 @@
     "domexception": "^1.0.1",
     "escodegen": "^1.9.1",
     "html-encoding-sniffer": "^1.0.2",
-    "left-pad": "^1.3.0",
     "nwsapi": "^2.0.7",
     "parse5": "4.0.0",
     "pn": "^1.1.0",
