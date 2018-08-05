@@ -765,7 +765,6 @@ DIR: progress-events
 
 DIR: uievents
 
-constructors/inputevent-constructor.html: [fail, InputEvent not implemented]
 interfaces.html: [fail, Depends on fetch]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Unknown]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Unknown]
