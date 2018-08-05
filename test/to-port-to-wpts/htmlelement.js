@@ -3,7 +3,7 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 const nonInheritedTags = [
   "article", "section", "nav", "aside", "hgroup", "header", "footer", "address", "dt",
@@ -13,7 +13,7 @@ const nonInheritedTags = [
 
 describe("htmlelement", () => {
   specify("unknown elements should return HTMLUnknownElement", () => {
-    const doc = jsdom.jsdom();
+    const doc = (new JSDOM()).window.document;
 
     const el = doc.createElement("foobar");
     assert.ok(
@@ -25,7 +25,7 @@ describe("htmlelement", () => {
       "unknown element should inherit from HTMLElement too (createElement)"
     );
 
-    const doc2 = jsdom.jsdom("<foobar>");
+    const doc2 = (new JSDOM("<foobar>")).window.document;
     const el2 = doc2.body.firstChild;
     assert.ok(
       el2.constructor === doc2.defaultView.HTMLUnknownElement,
@@ -38,7 +38,7 @@ describe("htmlelement", () => {
   });
 
   specify("other elements should have their respective types", () => {
-    const doc = jsdom.jsdom();
+    const doc = (new JSDOM()).window.document;
 
     const el = doc.createElement("div");
     assert.ok(
@@ -50,7 +50,7 @@ describe("htmlelement", () => {
       "div element should inherit from HTMLElement too (createElement)"
     );
 
-    const doc2 = jsdom.jsdom("<div>");
+    const doc2 = (new JSDOM("<div>")).window.document;
     const el2 = doc2.body.firstChild;
     assert.ok(
       el2.constructor === doc2.defaultView.HTMLDivElement,
@@ -66,7 +66,7 @@ describe("htmlelement", () => {
     t.timeout(5000); // give this a bit of leeway. It's apparently slow
 
     for (let i = 0; i < nonInheritedTags.length; ++i) {
-      const doc = jsdom.jsdom("<" + nonInheritedTags[i] + ">");
+      const doc = (new JSDOM("<" + nonInheritedTags[i] + ">")).window.document;
       const el = doc.body.firstChild;
       assert.ok(
         el.constructor === doc.defaultView.HTMLElement,

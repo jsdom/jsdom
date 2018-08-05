@@ -5,7 +5,7 @@ const path = require("path");
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 const { isCanvasInstalled } = require("../util.js");
 
 // Tests for the HTML canvas element
@@ -16,9 +16,8 @@ describe("htmlcanvaselement", () => {
   specify(
     "canvas element is an instance of HTMLElement and HTMLCanvasElement (GH-649)",
     () => {
-      const document = jsdom.jsdom();
-      const window = document.defaultView;
-      const canvas = document.createElement("canvas");
+      const { window } = new JSDOM();
+      const canvas = window.document.createElement("canvas");
 
       assert.strictEqual(canvas instanceof window.HTMLElement, true);
       assert.strictEqual(canvas instanceof window.HTMLCanvasElement, true);
@@ -26,15 +25,15 @@ describe("htmlcanvaselement", () => {
   );
 
   specify("canvas elements work with getElementById (GH-737)", () => {
-    const document = jsdom.jsdom("<canvas id='foo'></canvas>");
-    const canvas = document.getElementById("foo");
+    const { window } = new JSDOM("<canvas id='foo'></canvas>");
+    const canvas = window.document.getElementById("foo");
 
     assert.ok(canvas);
   });
 
   specify("canvas elements width and height must default to 300x150", () => {
-    const document = jsdom.jsdom();
-    const canvas = document.createElement("canvas");
+    const { window } = new JSDOM();
+    const canvas = window.document.createElement("canvas");
 
     assert.strictEqual(canvas.width, 300);
     assert.strictEqual(canvas.height, 150);
@@ -69,8 +68,8 @@ describe("htmlcanvaselement", () => {
   specify(
     "canvas width and height must parse correctly initially (GH-1025)",
     () => {
-      const document = jsdom.jsdom("<canvas width='99' height='101'></canvas>");
-      const canvas = document.querySelector("canvas");
+      const { window } = new JSDOM("<canvas width='99' height='101'></canvas>");
+      const canvas = window.document.querySelector("canvas");
 
       assert.strictEqual(canvas.width, 99);
       assert.strictEqual(canvas.height, 101);
@@ -84,8 +83,8 @@ describe("htmlcanvaselement", () => {
         return;
       }
 
-      const document = jsdom.jsdom("<canvas width='400' height='400'></canvas>");
-      const canvas = document.querySelector("canvas");
+      const { window } = new JSDOM("<canvas width='400' height='400'></canvas>");
+      const canvas = window.document.querySelector("canvas");
       const ctx = canvas.getContext("2d");
 
       ctx.beginPath();
@@ -110,8 +109,8 @@ describe("htmlcanvaselement", () => {
   specify(
     "canvas width and height properties must reflect their attributes after setting them (GH-1281)",
     () => {
-      const document = jsdom.jsdom("<canvas></canvas>");
-      const canvas = document.querySelector("canvas");
+      const { window } = new JSDOM("<canvas></canvas>");
+      const canvas = window.document.querySelector("canvas");
 
       canvas.setAttribute("width", 99);
       canvas.setAttribute("height", 101);
@@ -127,8 +126,8 @@ describe("htmlcanvaselement", () => {
         return;
       }
 
-      const document = jsdom.jsdom("<canvas width='99' height='101'></canvas>");
-      const canvas = document.querySelector("canvas");
+      const { window } = new JSDOM("<canvas width='99' height='101'></canvas>");
+      const canvas = window.document.querySelector("canvas");
 
       assert.strictEqual(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
       t.done();
@@ -144,12 +143,11 @@ describe("htmlcanvaselement", () => {
         return;
       }
 
-      const document = jsdom.jsdom(
+      const { window } = new JSDOM(
         "<canvas width='168' height='168'></canvas>",
-        { features: { FetchExternalResources: ["img"] } }
+        { resources: "usable" }
       );
-      const window = document.defaultView;
-      const canvas = document.querySelector("canvas");
+      const canvas = window.document.querySelector("canvas");
       const ctx = canvas.getContext("2d");
       const image = new window.Image();
       image.src = "file://" + path.resolve(__dirname, "files/image.png");

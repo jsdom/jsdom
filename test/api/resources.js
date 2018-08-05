@@ -406,6 +406,92 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         return assertError(element);
       });
     });
+
+    describe("canceling requests", () => {
+      it("should abort a script request when closing the window", () => {
+        const sourceString = `window.x = 5;`;
+        const url = resourceServer(
+          { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+          sourceString
+        );
+        const dom = new JSDOM(`<script>window.y = 6;</script>`, { resources: "usable", runScripts: "dangerously" });
+  
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        dom.window.close();
+  
+        return assertNotLoaded(element).then(() => {
+          assert.strictEqual(dom.window.x, undefined, "The external script must not have run");
+          assert.strictEqual(dom.window.y, 6, "The inline script must have run");
+        });
+      });
+
+      it("should cancel (with no event) an XHR request when closing the window", () => {
+        const sourceString = `Hello`;
+        const url = resourceServer(
+          { "Content-Type": "text/plain", "Content-Length": sourceString.length },
+          sourceString
+        );
+        const dom = new JSDOM();
+
+        const xhr = new dom.window.XMLHttpRequest();
+        setUpLoadingAsserts(xhr);
+        xhr.open("GET", url);
+        xhr.send();
+
+        dom.window.close();
+
+        return assertNotLoaded(xhr).then(() => {
+          assert.isFalse(xhr.abortFired);
+        });
+      });
+
+      // TODO: the "with no events" part of these tests may be wrong. Test what browsers do and fix if necessary.
+
+      it("should abort a script request (with no events) when stopping the window", () => {
+        const sourceString = `window.x = 5;`;
+        const url = resourceServer(
+          { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+          sourceString
+        );
+        const dom = new JSDOM(`<script>window.y = 6;</script>`, { resources: "usable", runScripts: "dangerously" });
+  
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        dom.window.stop();
+  
+        return assertNotLoaded(element).then(() => {
+          assert.strictEqual(dom.window.x, undefined, "The script must not have run");
+          assert.strictEqual(dom.window.y, 6, "The inline script must have run");
+        });
+      });
+
+      it("should abort (with no events) an XHR request when closing the window", () => {
+        const sourceString = `Hello`;
+        const url = resourceServer(
+          { "Content-Type": "text/plain", "Content-Length": sourceString.length },
+          sourceString
+        );
+        const dom = new JSDOM();
+
+        const xhr = new dom.window.XMLHttpRequest();
+        setUpLoadingAsserts(xhr);
+        xhr.open("GET", url);
+        xhr.send();
+
+        dom.window.stop();
+
+        return assertNotLoaded(xhr).then(() => {
+          assert.isFalse(xhr.abortFired);
+        });
+      });
+    });
   });
 
   it("should disallow other values for resources", () => {
@@ -440,9 +526,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
   });
 });
 
-function resourceServer(headers, body, statusCode) {
+function resourceServer(headers, body, { statusCode = 200 } = {}) {
   const server = http.createServer((req, res) => {
-    res.writeHead(statusCode || 200, headers);
+    res.writeHead(statusCode, headers);
     res.end(body);
     server.close();
   }).listen();
@@ -453,7 +539,10 @@ function resourceServer(headers, body, statusCode) {
 function resourceNotFound() {
   const notFoundText = "Not found";
 
-  return resourceServer({ "Content-Type": "text/html", "Content-Length": notFoundText.length }, notFoundText, 404);
+  return resourceServer(
+    { "Content-Type": "text/html", "Content-Length": notFoundText.length },
+    notFoundText,
+    { statusCode: 404 });
 }
 
 function resourceServerError() {
@@ -462,7 +551,7 @@ function resourceServerError() {
   return resourceServer(
     { "Content-Type": "text/html", "Content-Length": serverErrorText.length },
     serverErrorText,
-    503
+    { statusCode: 503 }
   );
 }
 
@@ -474,42 +563,46 @@ function imageServer() {
   return resourceServer({ "Content-Type": "image/png", "Content-Length": pngBytes.byteLength }, pngBytes);
 }
 
-function setUpLoadingAsserts(element) {
-  element.loadFired = false;
-  element.errorFired = false;
+function setUpLoadingAsserts(loadable) {
+  loadable.loadFired = false;
+  loadable.errorFired = false;
+  loadable.abortFired = false;
 
-  element.loadPromise = new Promise(resolve => {
-    element.addEventListener("load", () => {
-      element.loadFired = true;
+  loadable.loadPromise = new Promise(resolve => {
+    loadable.addEventListener("load", () => {
+      loadable.loadFired = true;
       resolve();
     });
-    element.addEventListener("error", () => {
-      element.errorFired = true;
+    loadable.addEventListener("error", () => {
+      loadable.errorFired = true;
       resolve();
+    });
+    loadable.addEventListener("abort", () => {
+      loadable.abortFired = true;
     });
   });
 }
 
-function assertNotLoaded(element) {
+function assertNotLoaded(loadable) {
   return delay(30).then(() => {
-    assert.isFalse(element.loadFired, "The load event must not fire");
-    assert.isFalse(element.errorFired, "The error event must not fire");
+    assert.isFalse(loadable.loadFired, "The load event must not fire");
+    assert.isFalse(loadable.errorFired, "The error event must not fire");
   });
 }
 
-function assertLoaded(element) {
-  return element.loadPromise
+function assertLoaded(loadable) {
+  return loadable.loadPromise
     .then(() => {
-      assert.isTrue(element.loadFired, "The load event must fire");
-      assert.isFalse(element.errorFired, "The error event must not fire");
+      assert.isTrue(loadable.loadFired, "The load event must fire");
+      assert.isFalse(loadable.errorFired, "The error event must not fire");
     });
 }
 
-function assertError(element) {
-  return element.loadPromise
+function assertError(loadable) {
+  return loadable.loadPromise
     .then(() => {
-      assert.isFalse(element.loadFired, "The load event must not fire");
-      assert.isTrue(element.errorFired, "The error event must fire");
+      assert.isFalse(loadable.loadFired, "The load event must not fire");
+      assert.isTrue(loadable.errorFired, "The error event must fire");
     });
 }
 

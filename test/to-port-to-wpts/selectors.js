@@ -2,14 +2,14 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 require("chai").use(require("../chai-helpers.js"));
 
 // These tests are mostly random regression tests, not systematic parsing tests. They are compiled from the bug tracker.
 describe("jsdom/selectors", () => {
   specify("div:last-child > span[title] (GH-972)", () => {
-    const document = jsdom.jsdom("<div><div><span title='title text'>text</span></div></div>");
+    const { document } = (new JSDOM("<div><div><span title='title text'>text</span></div></div>")).window;
 
     assert.doesNotThrow(() => {
       document.firstChild.querySelector("div:last-child > span[title]");
@@ -17,16 +17,17 @@ describe("jsdom/selectors", () => {
   });
 
   specify("div[title=''] (GH-1163)", () => {
-    const document = jsdom.jsdom(`<!doctype html><html><head></head><body>
+    const { document } = (new JSDOM(`<!doctype html><html><head></head><body>
       <div></div><div title=""></div><div title="yes"></div>
-    </body></html>`);
+    </body></html>`)).window;
 
     assert.strictEqual(document.querySelectorAll("div[title='']").length, 1);
     assert.strictEqual(document.querySelectorAll("div[title][title='']").length, 1);
   });
 
   specify("matches smoke test", () => {
-    const document = jsdom.jsdom(`<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`);
+    const html = `<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`;
+    const { document } = (new JSDOM(html)).window;
     const div = document.body.children.item(0);
 
     const element = document.querySelector("#main p");
@@ -43,7 +44,8 @@ describe("jsdom/selectors", () => {
   });
 
   specify("querySelector smoke test", () => {
-    const document = jsdom.jsdom(`<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`);
+    const html = `<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`;
+    const { document } = (new JSDOM(html)).window;
     const div = document.body.children.item(0);
 
     const element = document.querySelector("#main p");
@@ -60,7 +62,8 @@ describe("jsdom/selectors", () => {
   });
 
   specify("querySelector smoke test on a document fragment", () => {
-    const document = jsdom.jsdom(`<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`);
+    const html = `<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`;
+    const { document } = (new JSDOM(html)).window;
     const div = document.body.children.item(0);
     const fragment = document.createDocumentFragment();
 
@@ -81,8 +84,8 @@ describe("jsdom/selectors", () => {
   });
 
   specify("querySelectorAll smoke test", () => {
-    const document = jsdom.jsdom(`<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next">` +
-                                 `<div id="next-child"><p>Baz</p></div></div></body></html>`);
+    const { document } = (new JSDOM(`<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next">` +
+                                 `<div id="next-child"><p>Baz</p></div></div></body></html>`)).window;
     const div = document.body.children.item(0);
 
     const elements = document.querySelectorAll("#main p");
@@ -128,8 +131,9 @@ describe("jsdom/selectors", () => {
   });
 
   specify("querySelectorAll smoke test on a document fragment", () => {
-    const document = jsdom.jsdom(`<html><body><div id="main"><p>Foo</p><p>Bar</p></div>` +
-                                 `<div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>`);
+    const html = `<html><body><div id="main"><p>Foo</p><p>Bar</p></div>` +
+                 `<div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>`;
+    const { document } = (new JSDOM(html)).window;
     const fragment = document.createDocumentFragment();
     fragment.appendChild(document.body.firstChild);
     fragment.appendChild(document.body.firstChild);
@@ -187,7 +191,7 @@ describe("jsdom/selectors", () => {
   });
 
   specify("invalid selector //MAIN MENU... (GH-1214)", () => {
-    const document = jsdom.jsdom();
+    const { document } = (new JSDOM()).window;
 
     const selector = " //MAIN MENU - (used to keep mobile menu options hidden and keep weather/search and menu " +
                      "on one line) // #tncms-region-nav-main-nav-right-nav";

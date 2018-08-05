@@ -3,11 +3,12 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const { jsdom } = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 describe("inline-event-handlers", () => {
   specify("inline event handlers have the correct global scope", () => {
-    const doc = jsdom(`<div onclick="document.foo = 'clicked'"></div>`);
+    const html = `<div onclick="document.foo = 'clicked'"></div>`;
+    const doc = (new JSDOM(html, { runScripts: "dangerously" })).window.document;
     const div = doc.body.firstElementChild;
 
     div.click();
@@ -16,7 +17,8 @@ describe("inline-event-handlers", () => {
   });
 
   specify("inline error event handlers have the correct global scope", () => {
-    const doc = jsdom(`<body onerror="document.foo = 'errored'"></div>`);
+    const html = `<body onerror="document.foo = 'errored'"></div>`;
+    const doc = (new JSDOM(html, { runScripts: "dangerously" })).window.document;
 
     const e = new doc.defaultView.ErrorEvent("error");
     doc.defaultView.dispatchEvent(e);
@@ -27,7 +29,7 @@ describe("inline-event-handlers", () => {
   specify(
     "inline event handlers have their return values reflected in the corresponding property",
     () => {
-      const doc = jsdom(`<div onclick="return 10"></div>`);
+      const doc = (new JSDOM(`<div onclick="return 10"></div>`, { runScripts: "dangerously" })).window.document;
       const div = doc.body.firstElementChild;
 
       assert.equal(div.onclick(), 10);
@@ -37,14 +39,15 @@ describe("inline-event-handlers", () => {
   specify(
     "inline event handlers have their return values reflected in the corresponding property",
     () => {
-      const doc = jsdom(`<body onerror="return 10"></div>`);
+      const doc = (new JSDOM(`<body onerror="return 10"></div>`, { runScripts: "dangerously" })).window.document;
 
       assert.equal(doc.defaultView.onerror(), 10);
     }
   );
 
   specify("inline event handlers have access to an event argument", () => {
-    const doc = jsdom(`<div onclick="document.bubbles = event.bubbles"></div>`);
+    const html = `<div onclick="document.bubbles = event.bubbles"></div>`;
+    const doc = (new JSDOM(html, { runScripts: "dangerously" })).window.document;
     const div = doc.body.firstElementChild;
 
     div.click();
@@ -53,8 +56,13 @@ describe("inline-event-handlers", () => {
   });
 
   specify("inline error event handlers have access to a lot of arguments", () => {
-    const doc = jsdom(`<body onerror="document.onerrorEvent = event; document.onerrorSource = source;
-      document.onerrorLineno = lineno; document.onerrorColno = colno; document.onerrorError = error;"></div>`);
+    const html = `<body onerror="
+      document.onerrorEvent = event;
+      document.onerrorSource = source;
+      document.onerrorLineno = lineno;
+      document.onerrorColno = colno;
+      document.onerrorError = error;"></div>`;
+    const doc = (new JSDOM(html, { runScripts: "dangerously" })).window.document;
 
     const errorObj = { should: "be this object" };
     const e = new doc.defaultView.ErrorEvent("error", {
@@ -76,7 +84,7 @@ describe("inline-event-handlers", () => {
   specify(
     "inline event handlers set via properties have access to an event argument",
     t => {
-      const doc = jsdom(`<div></div>`);
+      const doc = (new JSDOM(`<div></div>`)).window.document;
       const div = doc.body.firstElementChild;
 
       div.onclick = function (event) {
@@ -94,7 +102,7 @@ describe("inline-event-handlers", () => {
   specify(
     "inline error event handlers set via properties have access to lots of arguments",
     t => {
-      const doc = jsdom();
+      const doc = (new JSDOM()).window.document;
 
       const errorObj = { should: "be this object" };
 
@@ -130,7 +138,7 @@ describe("inline-event-handlers", () => {
   specify(
     "proxied body/window event handlers: setting on body as properties reflects on window",
     () => {
-      const doc = jsdom();
+      const doc = (new JSDOM()).window.document;
 
       for (const name of proxied) {
         function handler() {
@@ -151,7 +159,7 @@ describe("inline-event-handlers", () => {
   specify(
     "proxied body/window event handlers: setting on body as attributes reflects on window",
     () => {
-      const doc = jsdom();
+      const doc = (new JSDOM(``, { runScripts: "dangerously" })).window.document;
 
       for (const name of proxied) {
         doc.body.setAttribute(name, "return 5;");
@@ -168,7 +176,7 @@ describe("inline-event-handlers", () => {
   specify(
     "proxied body/window event handlers: setting on body as attributes should not throw without a window",
     () => {
-      const doc = jsdom().implementation.createHTMLDocument();
+      const doc = (new JSDOM(``, { runScripts: "dangerously" })).window.document.implementation.createHTMLDocument();
 
       for (const name of proxied) {
         doc.body.setAttribute(name, "return 5;");

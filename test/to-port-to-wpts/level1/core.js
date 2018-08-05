@@ -2,7 +2,6 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../../lib/old-api.js");
 const staff = require("./core/files/staff.xml");
 const hc_staff = require("./core/files/hc_staff.xml");
 const hc_nodtdstaff = require("./core/files/hc_nodtdstaff.xml");
@@ -13976,87 +13975,5 @@ describe("level1/core", () => {
 
     let txt7 = doc.createTextNode("");
     assert.strictEqual(txt7.nodeValue, "");
-  });
-
-  specify("onevent_properties_are_set_on_setAttribute", () => {
-    let doc = jsdom.jsdom();
-    let elem = doc.createElement("test");
-    elem.setAttribute("onclick", "test");
-    assert.ok(elem.onclick, "elem.onclick is set");
-  });
-
-  specify("onevent_properties_are_set_on_setAttributeNode", () => {
-    let doc = jsdom.jsdom();
-    let elem = doc.createElement("test");
-    let attr = doc.createAttribute("onclick");
-
-    attr.value = "test";
-    elem.setAttributeNode(attr);
-    assert.ok(elem.onclick, "elem.onevent is set");
-  });
-
-  specify("onevent_properties_are_set_on_attr_set_value", () => {
-    let doc = jsdom.jsdom();
-    let elem = doc.createElement("test");
-    let attr = doc.createAttribute("onclick");
-
-    elem.setAttributeNode(attr);
-    attr.value = "test";
-    assert.ok(elem.onclick, "elem.onevent is set");
-  });
-
-  specify("memoized_queries_cleared_on_remove_child", () => {
-    let doc = hc_staff.hc_staff();
-    let elemList = doc.getElementsByTagName("acronym");
-    let origLength = elemList.length;
-    elemList.item(0).parentNode.removeChild(elemList.item(0));
-    let newLength = doc.getElementsByTagName("acronym").length;
-    assert.equal(newLength, origLength - 1, "Num elements queried has changed");
-  });
-
-  specify("memoized_queries_cleared_on_append_child", () => {
-    let doc = hc_staff.hc_staff();
-    let origLength = doc.getElementsByTagName("acronym").length;
-    let newElement = doc.createElement("acronym");
-    doc.getElementsByTagName("p")[0].appendChild(newElement);
-    let newLength = doc.getElementsByTagName("acronym").length;
-    assert.equal(newLength, origLength + 1, "Num elements queried has changed");
-  });
-
-  specify("restrict_text_data_type", () => {
-    let doc = jsdom.jsdom();
-    let testObj = {
-      valueOf: function () { return 34; },
-      toString: function () { return "str"; }
-    };
-    let text = doc.createTextNode(testObj);
-    assert.ok(text.data === "str", "String type forced (create)");
-    text.data = testObj;
-    assert.ok(text.data === "str", "String type forced (set)");
-  });
-
-  specify("child_nodes_state", () => {
-    let doc = jsdom.jsdom();
-    let element = doc.createElement("div");
-    let childNodes = element.childNodes;
-    let newElement = element.appendChild(doc.createElement("div"));
-    assert.equal(childNodes[0], newElement);
-  });
-
-  specify("hc_docclonenodetrue", () => {
-    let doc;
-    let docClone;
-
-    doc = hc_staff.hc_staff();
-    docClone = doc.cloneNode(true);
-    assert.notDeepEqual(doc, docClone, "clone");
-  });
-
-  specify("getElementById() should work after changing the id attribute of an <img> element", () => {
-    let doc = jsdom.jsdom();
-    let img = doc.createElement("img");
-    doc.body.appendChild(img);
-    img.setAttribute("id", "foo");
-    assert.ok(doc.getElementById("foo") === img);
   });
 });

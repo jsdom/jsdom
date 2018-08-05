@@ -3,13 +3,13 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 describe("history", () => {
   specify(
     "a default window should have a history object with correct default values",
     () => {
-      const window = jsdom.jsdom().defaultView;
+      const { window } = new JSDOM();
 
       assert.ok(window.history);
       assert.strictEqual(window.history.state, null);
@@ -20,7 +20,7 @@ describe("history", () => {
   specify(
     "the history object should update correctly when calling pushState/replaceState",
     () => {
-      const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+      const { window } = new JSDOM(``, { url: "http://www.example.org/" });
 
       window.addEventListener("popstate", () => {
         assert.fail("popstate should not fire as a result of a pushState() or replaceState() call");
@@ -56,7 +56,7 @@ describe("history", () => {
   specify(
     "the history object should update correctly when calling forward/back/go",
     t => {
-      const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+      const { window } = new JSDOM(``, { url: "http://www.example.org/" });
       const initialPath = window.location.pathname;
 
       [
@@ -140,7 +140,7 @@ describe("history", () => {
   specify(
     "the history object should update correctly when calling pushState with index behind length",
     t => {
-      const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+      const { window } = new JSDOM(``, { url: "http://www.example.org/" });
 
       [
         [{ foo: "bar" }, "title 1", "/bar"],
@@ -178,7 +178,7 @@ describe("history", () => {
   specify(
     "the history object should fire popstate on the window while navigating the history",
     t => {
-      const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+      const { window } = new JSDOM(``, { url: "http://www.example.org/" });
 
       const state = { foo: "bar" };
 

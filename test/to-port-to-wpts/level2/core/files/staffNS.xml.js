@@ -1,9 +1,9 @@
-const jsdom = require("../../../../../lib/old-api.js");
+const { JSDOM } = require("../../../../..");
 
 // Our XML parser is not namespace aware so we can't just parse the string
 
 exports.staffNS = function() {
-  var bootstrapDoc = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  var bootstrapDoc = (new JSDOM(``, { contentType: "application/xml" })).window.document;
   var doctype = bootstrapDoc.implementation.createDocumentType("staff", "STAFF", "staffNS.dtd");
   var doc = bootstrapDoc.implementation.createDocument(null, "staff", doctype);
   var staff = doc.documentElement;

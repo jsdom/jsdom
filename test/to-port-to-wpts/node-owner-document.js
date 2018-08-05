@@ -3,20 +3,20 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const { jsdom } = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 // Spec: https://dom.spec.whatwg.org/#dom-node-ownerdocument
 
 describe("node-owner-document", () => {
   specify("ownerDocument returns null for document nodes", () => {
-    const doc = jsdom();
+    const doc = (new JSDOM()).window.document;
     assert.equal(doc.ownerDocument, null);
   });
 
   specify(
     "ownerDocument returns the appropriate document for in-document nodes",
     () => {
-      const doc = jsdom("<!DOCTYPE html><p>Text</p><!-- comment -->");
+      const doc = (new JSDOM("<!DOCTYPE html><p>Text</p><!-- comment -->")).window.document;
       const el = doc.querySelector("p");
       const text = el.firstChild;
       const comment = el.nextSibling;
@@ -39,7 +39,7 @@ describe("node-owner-document", () => {
   specify(
     "ownerDocument returns the appropriate document for detached nodes",
     () => {
-      const doc = jsdom();
+      const doc = (new JSDOM()).window.document;
       const el = doc.createElement("p");
       const text = doc.createTextNode("text");
       const comment = doc.createComment("comment");
