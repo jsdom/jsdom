@@ -21,5 +21,3 @@ All Mocha tests are run via the file [`index.js`](./index.js). This includes run
 All files related to running web-platform-tests are inside the [`web-platform-tests`](./web-platform-tests/) subdirectory.
 
 Ideally we would only use Mocha for testing the JSDOM API itself, from the outside. Unfortunately, a lot of web platform features are still tested using Mocha, instead of web-platform-tests. These are located in the [`to-port-to-wpts`](./to-port-to-wpts/) subdirectory.
-
-Another complication is that we have two APIs, the old (pre-v10) jsdom API, and the current one. So there is an additional subdirectory, [`old-api`](./old-api/), covering the old API in particular. Additionally, many of the `to-port-to-wpts` are based on the old API, as is the web platform tests runner (for now).

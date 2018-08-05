@@ -1,7 +1,7 @@
 ### Basic info:
 
-- **Node.js version:** <!-- only v6 and above are supported -->
-- **jsdom version:** <!-- only v10 and above are supported -->
+- **Node.js version:** <!-- only v8 and above are supported -->
+- **jsdom version:** <!-- only v12 and above are supported -->
 
 ### Minimal reproduction case
 
@@ -19,9 +19,6 @@ const dom = new JSDOM(`
 ```
 
 <!--
-You can also use the old API in your repro case, as long as you are using
-v10 or above
-
 Please create a minimal repro. Any reports involving third party libraries
 will be closed, as we cannot debug third-party library interactions for you.
 
