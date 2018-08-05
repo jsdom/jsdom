@@ -240,37 +240,6 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
     });
 
-    it("should use the custom resource loader when specified", { slow: 500 }, () => {
-      let called = false;
-
-      class CustomResource extends ResourceLoader {
-        fetch(url, options) {
-          called = true;
-
-          return super.fetch(url, options);
-        }
-      }
-      const sourceString = `Hello`;
-      const url = resourceServer(
-        { "Content-Type": "text/html", "Content-Length": sourceString.length },
-        sourceString
-      );
-      const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", resourceLoader: new CustomResource() });
-
-      const element = dom.window.document.createElement("frame");
-      setUpLoadingAsserts(element);
-      element.src = url;
-      dom.window.document.body.appendChild(element);
-
-      return assertLoaded(element).then(() => {
-        assert.strictEqual(
-          dom.window.frames[0].document.body.textContent, "Hello",
-          "The frame must have been downloaded"
-        );
-        assert.isTrue(called, "The custom resource should be called");
-      });
-    });
-
     describe("resources returns 404", () => {
       it(
         "should fire an error event downloading images if and only if canvas is installed",
@@ -415,14 +384,14 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
           sourceString
         );
         const dom = new JSDOM(`<script>window.y = 6;</script>`, { resources: "usable", runScripts: "dangerously" });
-  
+
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
         element.src = url;
         dom.window.document.body.appendChild(element);
 
         dom.window.close();
-  
+
         return assertNotLoaded(element).then(() => {
           assert.strictEqual(dom.window.x, undefined, "The external script must not have run");
           assert.strictEqual(dom.window.y, 6, "The inline script must have run");
@@ -458,21 +427,21 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
           sourceString
         );
         const dom = new JSDOM(`<script>window.y = 6;</script>`, { resources: "usable", runScripts: "dangerously" });
-  
+
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
         element.src = url;
         dom.window.document.body.appendChild(element);
 
         dom.window.stop();
-  
+
         return assertNotLoaded(element).then(() => {
           assert.strictEqual(dom.window.x, undefined, "The script must not have run");
           assert.strictEqual(dom.window.y, 6, "The inline script must have run");
         });
       });
 
-      it("should abort (with no events) an XHR request when closing the window", () => {
+      it("should abort (with no events) an XHR request when stopping the window", () => {
         const sourceString = `Hello`;
         const url = resourceServer(
           { "Content-Type": "text/plain", "Content-Length": sourceString.length },
@@ -494,35 +463,68 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
     });
   });
 
+  describe("With a custom resource loader", () => {
+    it("should use it", { slow: 500 }, () => {
+      let called = false;
+
+      class CustomResource extends ResourceLoader {
+        fetch(url, options) {
+          called = true;
+
+          return super.fetch(url, options);
+        }
+      }
+      const sourceString = `Hello`;
+      const url = resourceServer(
+        { "Content-Type": "text/html", "Content-Length": sourceString.length },
+        sourceString
+      );
+      const dom = new JSDOM(`<frameset></frameset>`, { resources: new CustomResource() });
+
+      const element = dom.window.document.createElement("frame");
+      setUpLoadingAsserts(element);
+      element.src = url;
+      dom.window.document.body.appendChild(element);
+
+      return assertLoaded(element).then(() => {
+        assert.strictEqual(
+          dom.window.frames[0].document.body.textContent, "Hello",
+          "The frame must have been downloaded"
+        );
+        assert.isTrue(called, "The custom resource should be called");
+      });
+    });
+  });
+
   it("should disallow other values for resources", () => {
-    assert.throws(() => new JSDOM(``, { resources: null }), RangeError);
-    assert.throws(() => new JSDOM(``, { resources: "asdf" }), RangeError);
-    assert.throws(() => new JSDOM(``, { resources: true }), RangeError);
-    assert.throws(() => new JSDOM(``, { resources: false }), RangeError);
+    assert.throws(() => new JSDOM(``, { resources: null }), TypeError);
+    assert.throws(() => new JSDOM(``, { resources: "asdf" }), TypeError);
+    assert.throws(() => new JSDOM(``, { resources: true }), TypeError);
+    assert.throws(() => new JSDOM(``, { resources: false }), TypeError);
   });
 
   it("should disallow custom resource loaders if they doesn't implement ResourceLoader", () => {
     assert.throws(() => new JSDOM(``, {
-      resourceLoader: {
+      resources: {
         fetch() { }
       }
-    }), Error);
+    }), TypeError);
 
     class MyResourceLoader {
       fetch() { }
     }
 
     assert.throws(() => new JSDOM(``, {
-      resourceLoader: new MyResourceLoader()
-    }), RangeError);
+      resources: new MyResourceLoader()
+    }), TypeError);
 
     function MyResourceLoaderFunction() {
       this.fetch = function () { };
     }
 
     assert.throws(() => new JSDOM(``, {
-      resourceLoader: new MyResourceLoaderFunction()
-    }), Error);
+      resources: new MyResourceLoaderFunction()
+    }), TypeError);
   });
 });
 

@@ -78,9 +78,8 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
 
   return JSDOM.fromURL(urlPrefix + testPath, {
     runScripts: "dangerously",
-    resources: "usable",
     virtualConsole,
-    resourceLoader: new CustomResourceLoader(),
+    resources: new CustomResourceLoader(),
     pretendToBeVisual: true,
     strictSSL: false,
     pool: globalPool,
