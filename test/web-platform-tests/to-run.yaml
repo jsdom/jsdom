@@ -558,7 +558,6 @@ DIR: html/semantics/forms/the-select-element
 
 DIR: html/semantics/forms/the-textarea-element
 
-cloning-steps.html: [fail, Unknown]
 value-defaultValue-textContent-xhtml.xhtml: [fail, Unknown]
 
 ---
