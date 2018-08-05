@@ -4,23 +4,19 @@ var fs = require('fs');
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 var toFileUrl = require('../util.js').toFileUrl(__dirname);
 
 describe("frame", { skipIfBrowser: true }, () => {
   specify('frame_parent', (t) => {
-    var window = jsdom.jsdom('<html><body>\
+    var { window } = new JSDOM('<html><body>\
       <script>\
         aGlobal=1;\
         var iframe = document.createElement("iframe");\
         iframe.src = "' + toFileUrl('files/iframe.html') + '";\
         document.body.appendChild(iframe);\
       </script>',
-      {
-        features : {
-          FetchExternalResources: ['script','iframe']
-        }
-      }).defaultView;
+      { resources: "usable", runScripts: "dangerously" });
     window.iframe.onload = function() {
       assert.strictEqual(window.DONE, 1);
       assert.strictEqual(window.PARENT_IS_TOP, true);
@@ -43,15 +39,14 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('frame_src_relative_to_parent_doc', (t) => {
-    var window = jsdom.jsdom('<html><body>\
+    var { window } = new JSDOM('<html><body>\
       <iframe src="./files/iframe.html"></iframe>\
       </body></html>',
       {
-        url : toFileUrl("test.html"),
-        features : {
-          FetchExternalResources: ['script','iframe']
-        }
-      }).defaultView;
+        url: toFileUrl("test.html"),
+        resources: "usable",
+        runScripts: "dangerously"
+      });
     window.document.onload = function(){
       assert.strictEqual(window.LOADED_FRAME, 1);
       assert.strictEqual(window.PARENT_IS_TOP, true);
@@ -63,13 +58,11 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('test iframe element existence', () => {
     var iframeParentPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(iframeParentPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM(fs.readFileSync(iframeParentPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
-    var elem = doc.getElementById('simpleIFrameID');
+    var elem = window.document.getElementById('simpleIFrameID');
     assert.notEqual(elem, null);
     assert.equal(elem.name, 'simpleIFrame');
     assert.equal(elem.id, 'simpleIFrameID');
@@ -77,18 +70,16 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('test iframe.contentDocument access', (t) => {
     var iframeParentPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(iframeParentPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM(fs.readFileSync(iframeParentPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
-    doc.addEventListener('load', function () {
-      var iframeElem = doc.getElementById('simpleIFrameID');
+    window.document.addEventListener('load', function () {
+      var iframeElem = window.document.getElementById('simpleIFrameID');
       assert.notEqual(iframeElem, null);
       var iframeDoc = iframeElem.contentDocument;
       assert.notEqual(iframeDoc, null);
-      assert.notStrictEqual(iframeDoc, doc);
+      assert.notStrictEqual(iframeDoc, window.document);
       var iframeDiv = iframeDoc.getElementById('iframeDiv');
       assert.notEqual(iframeDiv, null);
       assert.equal(iframeDiv.innerHTML, "Initial Text");
@@ -99,26 +90,24 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('test iframe load event', (t) => {
-    var doc = jsdom.jsdom(null, {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM(``, {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
-    var iFrame = doc.createElement('iframe');
+    var iFrame = window.document.createElement('iframe');
     iFrame.addEventListener('load', function () {
       assert.notEqual(iFrame.contentDocument, null);
       t.done();
     });
     iFrame.src = 'files/simple_iframe.html';
     // Must insert into doc to force load.
-    doc.documentElement.appendChild(iFrame);
+    window.document.documentElement.appendChild(iFrame);
   }, {
     async: true
   });
 
   specify('iframe loads blank document when src unspecified', (t) => {
-    var doc = jsdom.jsdom(null);
+    var doc = (new JSDOM(``, { resources: "usable" })).window.document;
     var iFrame = doc.createElement('iframe');
     iFrame.addEventListener('load', function () {
       assert.notEqual(iFrame.contentDocument, null);
@@ -132,19 +121,17 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('test iframe.contentWindow acccess', (t) => {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM(fs.readFileSync(htmlPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
-    doc.addEventListener('load', function () {
-      var iframeElem = doc.getElementById('simpleIFrameID');
+    window.document.addEventListener('load', function () {
+      var iframeElem = window.document.getElementById('simpleIFrameID');
       assert.notEqual(iframeElem, null);
       var iframeDoc = iframeElem.contentDocument;
       assert.notEqual(iframeDoc, null);
       var iframeWindow = iframeElem.contentWindow;
-      assert.notStrictEqual(iframeWindow, doc.defaultView);
+      assert.notStrictEqual(iframeWindow, window.document.defaultView);
       assert.equal(iframeWindow, iframeDoc.defaultView);
       t.done();
     });
@@ -154,20 +141,18 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('get iframe window via indexed frames access', (t) => {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM(fs.readFileSync(htmlPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
-    doc.addEventListener('load', function () {
-      var window = doc.defaultView;
+    window.document.addEventListener('load', function () {
       var iframeWindow = window.frames[0];
       assert.notEqual(iframeWindow, null);
       assert.notStrictEqual(iframeWindow, window);
       assert.strictEqual(iframeWindow.parent, window);
       var iframeDoc = iframeWindow.document;
       assert.notStrictEqual(iframeWindow.document, window.document);
+      assert.strictEqual(iframeWindow.document, iframeDoc);
       assert.notEqual(iframeWindow.document.getElementById('iframeDiv'), null);
       t.done();
     });
@@ -176,12 +161,11 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('get iframe window via indexed frames access with setAttributeNode', (t) => {
-    var doc = jsdom.jsdom("<html><head></head><body><iframe name='simpleIFrame' id='simpleIFrameID'></iframe></body></html>", {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM("<html><head></head><body><iframe name='simpleIFrame' id='simpleIFrameID'></iframe></body></html>", {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
+    const doc = window.document;
     var iframe = doc.getElementById('simpleIFrameID');
     var attr = doc.createAttribute('src');
     attr.value = 'files/simple_iframe.html';
@@ -204,12 +188,11 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('update named frames access on name change', (t) => {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var doc = (new JSDOM(fs.readFileSync(htmlPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
-    });
+    })).window.document;
+
     doc.addEventListener('load', function () {
       var window = doc.defaultView;
       var iframeWindow = window.frames['simpleIFrame'];
@@ -228,12 +211,10 @@ describe("frame", { skipIfBrowser: true }, () => {
   // See: http://www.whatwg.org/specs/web-apps/current-work/#dom-frames
   specify('test frames array identity', (t) => {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var doc = (new JSDOM(fs.readFileSync(htmlPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
-    });
+    })).window.document;
     doc.addEventListener('load', function () {
       var window = doc.defaultView;
       assert.strictEqual(window.frames, window);
@@ -245,13 +226,11 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('test nested iframes', (t) => {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM(fs.readFileSync(htmlPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
-    var window = doc.defaultView;
+    const doc = window.document;
     doc.addEventListener('load', function () {
       var topIFrameElem = doc.getElementById('simpleIFrameID');
       var topIFrameDoc = topIFrameElem.contentDocument;
@@ -281,13 +260,11 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('test multiple iframes', (t) => {
     var htmlPath = path.resolve(__dirname, 'files', 'multiple_iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM(fs.readFileSync(htmlPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
-    var window = doc.defaultView;
+    var doc = window.document;
     doc.addEventListener('load', function () {
       var iframe1 = doc.getElementById('frame1ID');
       var iframe2 = doc.getElementById('frame2ID');
@@ -309,13 +286,11 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('test named lookup', (t) => {
     var htmlPath = path.resolve(__dirname, 'files', 'multiple_iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var { window } = new JSDOM(fs.readFileSync(htmlPath, 'utf8'), {
+      resources: "usable",
       url : toFileUrl(__filename)
     });
-    var window = doc.defaultView;
+    var doc = window.document;
     doc.addEventListener('load', function () {
       var iframe1 = doc.getElementById('frame1ID');
       var iframe2 = doc.getElementById('frame2ID');
@@ -331,13 +306,12 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   // This is based off of a test from the jQuery test suite that was failing.
   specify('test iframe without src', (t) => {
-    var doc = jsdom.jsdom(null, {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
-      url : toFileUrl(__filename)
+    var { window } = new JSDOM(``, {
+      resources: "usable",
+      url : toFileUrl(__filename),
+      runScripts: "dangerously"
     });
-    var window = doc.defaultView;
+    var doc = window.document;
     window.loaded = function () {
       assert.equal(window.testVal, 3);
       t.done();
@@ -356,12 +330,10 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('test setting src multiple times', (t) => {
-    var doc = jsdom.jsdom(null, {
-      features : {
-        FetchExternalResources   : ['script', 'iframe']
-      },
+    var doc = (new JSDOM(null, {
+      resources: "usable",
       url : toFileUrl(__filename)
-    });
+    })).window.document;
     var iframe = doc.createElement('iframe');
     iframe.addEventListener('load', function () {
       assert.equal(iframe.src, toFileUrl('files/simple_iframe.html'));
@@ -376,13 +348,11 @@ describe("frame", { skipIfBrowser: true }, () => {
 
   specify('test framesets', (t) => {
     var htmlPath = path.resolve(__dirname, 'files', 'frameset_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
-      features : {
-        FetchExternalResources   : ['script', 'frame']
-      },
-      url : toFileUrl(__filename)
+    var { window } = new JSDOM(fs.readFileSync(htmlPath, 'utf8'), {
+      resources: "usable",
+      url : toFileUrl(htmlPath)
     });
-    var window = doc.defaultView;
+    var doc = window.document;
     doc.addEventListener('load', function () {
       var frame1 = doc.getElementById('frame1ID');
       var frame2 = doc.getElementById('frame2ID');
@@ -410,8 +380,7 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('test frame references', () => {
-    var document = jsdom.jsdom("<!doctype html><iframe name='foo'></iframe>");
-    var window = document.defaultView;
+    var { window } = new JSDOM("<!doctype html><iframe name='foo'></iframe>");
 
     assert.strictEqual(window.length, 1, "frame should exist (.length)");
     assert.notEqual(window[0], undefined, "frame should exist (undefined check)");
@@ -419,12 +388,11 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('remove frame', () => {
-    var document = jsdom.jsdom("<!doctype html><iframe id='myFrame' name='foo'></iframe>");
-    var window = document.defaultView;
+    var { window } = new JSDOM("<!doctype html><iframe id='myFrame' name='foo'></iframe>");
 
     assert.strictEqual(window.length, 1, "frame should exist (.length)");
     assert.notEqual(window[0], undefined, "frame should exist (undefined check)");
-    document.body.removeChild(document.getElementById("myFrame"));
+    window.document.body.removeChild(window.document.getElementById("myFrame"));
 
     assert.strictEqual(window.length, 0, "frame shouldn't exist (.length)");
     assert.strictEqual(window[0], undefined, "frame shouldn't exist anymore (idx accessor)");
@@ -433,23 +401,22 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('remove middle frame', () => {
-    var document = jsdom.jsdom("<!doctype html><iframe id='myFrame1' name='foo1'></iframe>"+
+    var { window } = new JSDOM("<!doctype html><iframe id='myFrame1' name='foo1'></iframe>"+
       "<iframe id='myFrame2' name='foo2'></iframe><iframe id='myFrame3' name='foo3'></iframe>");
-    var window = document.defaultView;
 
     assert.strictEqual(window.length, 3, "frames should exist (.length)");
     assert.notEqual(window[0], undefined, "frame1 should exist (undefined check)");
     assert.notEqual(window[1], undefined, "frame2 should exist (undefined check)");
     assert.notEqual(window[2], undefined, "frame3 should exist (undefined check)");
 
-    document.body.removeChild(document.getElementById("myFrame2"));
+    window.document.body.removeChild(window.document.getElementById("myFrame2"));
     assert.strictEqual(window.length, 2, "frame shouldn't exist (.length)");
     assert.strictEqual(window[2], undefined, "frame shouldn't exist anymore (idx accessor)");
     assert.strictEqual(window.foo2, undefined, "frame shouldn't exist anymore (name accessor)");
 
     assert.strictEqual(window.foo3, window[1], "frame index accessor should be moved down");
 
-    document.body.removeChild(document.getElementById("myFrame1"));
+    window.document.body.removeChild(window.document.getElementById("myFrame1"));
     assert.strictEqual(window.length, 1, "frame shouldn't exist (.length)");
     assert.strictEqual(window[1], undefined, "frame shouldn't exist anymore (idx accessor)");
     assert.strictEqual(window.foo1, undefined, "frame shouldn't exist anymore (name accessor)");
@@ -458,7 +425,7 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('accessor should not exist before append', () => {
-    var document = jsdom.jsdom();
+    var { document } = (new JSDOM()).window;
     var el = document.createElement("iframe");
     el.setAttribute("name", "foo");
 
@@ -496,8 +463,8 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('move frame', () => {
-    var document = jsdom.jsdom("<!doctype html><iframe name='foo'></iframe>");
-    var window = document.defaultView;
+    var { window } = new JSDOM("<!doctype html><iframe name='foo'></iframe>");
+    var document = window.document;
 
     var frame = document.querySelector("iframe");
     var beforeFrame = document.createElement("iframe");
@@ -510,8 +477,8 @@ describe("frame", { skipIfBrowser: true }, () => {
   });
 
   specify('frame should not be loaded and accessor should not exist until in document, even with a parent node', (t) => {
-    var document = jsdom.jsdom("<!doctype html>", { url: toFileUrl(__filename) });
-    var window = document.defaultView;
+    var { window } = new JSDOM("<!doctype html>", { url: toFileUrl(__filename) });
+    var document = window.document;
 
     var frame = document.createElement("iframe");
     frame.onload = function () {

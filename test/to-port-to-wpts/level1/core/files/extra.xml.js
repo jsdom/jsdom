@@ -1,8 +1,8 @@
 "use strict";
-const jsdom = require("../../../../../lib/old-api.js");
+const { JSDOM } = require("../../../../..");
 
 exports.extra = function() {
-  var doc = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  var doc = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
 
   var splitTextTest = doc.createElement("splitTextTest");
   splitTextTest.appendChild(doc.createTextNode("Split me"));

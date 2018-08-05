@@ -12,7 +12,7 @@ function joinIterator(values) {
   return joinedValue;
 }
 
-describe("jsdom/named-properties-tracker", () => {
+describe("Helpers: named-properties-tracker", () => {
   specify("get() should return the tracker previously created by create()", () => {
     const obj = {};
 

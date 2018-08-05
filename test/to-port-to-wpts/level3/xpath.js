@@ -1,8 +1,8 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../../lib/old-api.js");
-const xpath = require('../../../lib/jsdom/level3/xpath')(jsdom.jsdom().defaultView);
+const { JSDOM } = require("../../..");
+const xpath = require('../../../lib/jsdom/level3/xpath')((new JSDOM()).window);
 const domTestHelper = require('../files/DOMTestCase');
 
 function all1(re, s) {
@@ -293,7 +293,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
     assert.deepEqual(true, x);
   });
   specify("testEvaluateWildcardChild", function() {
-    var doc = jsdom.jsdom('<html><body><div>3</div><div>4</div></body></html>'),
+    const doc = (new JSDOM('<html><body><div>3</div><div>4</div></body></html>')).window.document,
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
         div1 = doc.getElementsByTagName('div')[1];
@@ -301,14 +301,14 @@ describe("xpath", { skipIfBrowser: true }, () => {
     assert.deepEqual(xpath.stringifyObject({nodes:[div0,div1], pos: [[1],[2]], lasts: [[2],[2]]}), xpath.stringifyObject(x));
   });
   specify("testEvaluateArithmetic3", function() {
-    var doc = jsdom.jsdom('<html><body><div>3</div><div>4</div></body></html>'),
+    const doc = (new JSDOM('<html><body><div>3</div><div>4</div></body></html>')).window.document,
         body = doc.getElementsByTagName('body')[0];
     var x = xpath.evaluate(
       '*<*', doc, body);
     assert.deepEqual(true, x);
   });
   specify("testEvaluateSelf", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div></body></html>'),
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div></body></html>')).window.document,
         div0 = doc.getElementsByTagName('div')[0],
         div1 = doc.getElementsByTagName('div')[1];
     var newCtx = xpath.axes.self([doc, div0, div1], xpath.nodeTypes.element, null, true);
@@ -320,7 +320,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testEvaluateParent", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><span></span></body></html>'),
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><span></span></body></html>')).window.document,
         div0 = doc.getElementsByTagName('div')[0],
         span = doc.getElementsByTagName('span')[0],
         body = div0.parentNode;
@@ -333,7 +333,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testSortUniqDocumentOrder", function() {
-    var doc = jsdom.jsdom('<html><body><div id=x><a></a><div>b</div></div><span></span></body></html>'),
+    const doc = (new JSDOM('<html><body><div id=x><a></a><div>b</div></div><span></span></body></html>')).window.document,
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
         id = doc.getElementById('x').getAttributeNode('id'),
@@ -347,8 +347,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(ctx2));
   });
   specify("testId", function() {
-    var doc = jsdom.jsdom(
-      '<html><body><div id=test>b c d</div><br id=b><br id=c><br id=d></body></html>'),
+    const doc = (new JSDOM('<html><body><div id=test>b c d</div><br id=b><br id=c><br id=d></body></html>')).window.document,
         b = doc.getElementById('b'),
         c = doc.getElementById('c'),
         d = doc.getElementById('d');
@@ -360,13 +359,13 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
   function outerHtml(node) { return node.outerHTML; }
   specify("testEvaluateChildAxis", function() {
-    var doc = jsdom.jsdom('<html><body>Hello.</body></html>');
+    const doc = (new JSDOM('<html><body>Hello.</body></html>')).window.document;
     var ctx = doc.body;
     var x = xpath.evaluate('child::text()', doc, ctx);
     assert.deepEqual([doc.body.firstChild], x.nodes);
   });
   specify("testDescendantDfs1", function() {
-    var doc = jsdom.jsdom('<html><body><a><b><i></i></b></a><u></u></body></html>');
+    const doc = (new JSDOM('<html><body><a><b><i></i></b></a><u></u></body></html>')).window.document;
     var body = doc.getElementsByTagName('body')[0],
         a = doc.getElementsByTagName('a')[0],
         b = doc.getElementsByTagName('b')[0],
@@ -381,7 +380,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
   specify("testDescendantOrSelfChild", function() {
     // from http://trac.webkit.org/export/73247/trunk/LayoutTests/fast/xpath/xpath-functional-test.html
-    var doc = jsdom.jsdom(
+    var doc = (new JSDOM(
       '<html><body>' +
       '<blockquote id="n12" title="12" class="15">' +
       '  <!--blockquoteComment-->' +
@@ -396,7 +395,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       '  <font id="n17" title="17" class="14" face="n8 n26">font</font>' +
       '</blockquote>' +
       '</html></body>'
-    );
+    )).window.document;
     var newCtx = xpath.evaluate('.//*[ancestor::blockquote]', doc, doc);
     var nodeNames = newCtx.nodes
       .map(function(n) {return n.nodeName;})
@@ -406,7 +405,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
 
   function testDescendantDfsAndSelfBase(test, andSelf) {
     var andSelf = !!andSelf;
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div></body></html>')).window.document;
     var div0 = doc.getElementsByTagName('div')[0],
         div1 = doc.getElementsByTagName('div')[1];
     if (andSelf) fn = xpath.axes['descendant-or-self'];
@@ -427,12 +426,12 @@ describe("xpath", { skipIfBrowser: true }, () => {
     testDescendantDfsAndSelfBase(t, true);
   });
   specify("testFollowing", function() {
-    var doc = jsdom.jsdom(
+    var doc = (new JSDOM(
       '<html><head><title></title></head>' +
       '<body>' +
         '<div><a></a><b></b></div>' +
         '<div><i></i><u></u></div>' +
-      '</body></html>');
+      '</body></html>')).window.document;
     var body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
         a = doc.getElementsByTagName('a')[0],
@@ -450,12 +449,12 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testPreceding2", function() {
-    var doc = jsdom.jsdom(
+    var doc = (new JSDOM(
       '<html><head><title></title></head>' +
       '<body>' +
         '<div><a></a><b></b></div>' +
         '<div><i></i><u></u></div>' +
-      '</body></html>');
+      '</body></html>')).window.document;
     var head = doc.getElementsByTagName('head')[0],
         title = doc.getElementsByTagName('title')[0],
         a = doc.getElementsByTagName('a')[0],
@@ -473,7 +472,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testFollowingSibling", function() {
-    var doc = jsdom.jsdom('<html><body><a>one</a><a>two</a><a>three</a><a>four</a><a>five</a><a>six</a></body></html>');
+    const doc = (new JSDOM('<html><body><a>one</a><a>two</a><a>three</a><a>four</a><a>five</a><a>six</a></body></html>')).window.document;
     var one = doc.getElementsByTagName('a')[0],
         two = doc.getElementsByTagName('a')[1],
         three = doc.getElementsByTagName('a')[2],
@@ -486,7 +485,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testPrecedingSibling", function() {
-    var doc = jsdom.jsdom('<html><body><a>one</a><a>two</a><a>three</a><a>four</a><a>five</a><a>six</a></body></html>');
+    const doc = (new JSDOM('<html><body><a>one</a><a>two</a><a>three</a><a>four</a><a>five</a><a>six</a></body></html>')).window.document;
     var one = doc.getElementsByTagName('a')[0],
         two = doc.getElementsByTagName('a')[1],
         three = doc.getElementsByTagName('a')[2],
@@ -499,7 +498,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testAncestor", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -514,7 +513,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testChild", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -530,12 +529,12 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // TODO: 'concat(a[1], a[1][1])'
   // TODO: 'concat(a[1], a[position()>1][1])'
   specify("testEvaluatePosition", function() {
-    var doc = jsdom.jsdom('<html><body><a>one</a><a>two</a><a>three</a></body></html>');
+    const doc = (new JSDOM('<html><body><a>one</a><a>two</a><a>three</a></body></html>')).window.document;
     var x = xpath.evaluate('concat(a[1], a[1][1])', doc, doc.body);
     assert.deepEqual('oneone', x);
   });
   specify("testEvaluatePositionAndLast", function() {
-    var doc = jsdom.jsdom('<html><body><a>one</a><a>two</a><a>three</a><a>four</a><a>five</a><a>six</a></body></html>');
+    const doc = (new JSDOM('<html><body><a>one</a><a>two</a><a>three</a><a>four</a><a>five</a><a>six</a></body></html>')).window.document;
     var one = doc.getElementsByTagName('a')[0],
         two = doc.getElementsByTagName('a')[1],
         three = doc.getElementsByTagName('a')[2],
@@ -548,7 +547,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testAttributePredicate", function() {
-    var doc = jsdom.jsdom('<html><body><a href="x" rel=alternate>a</a></body></html>');
+    const doc = (new JSDOM('<html><body><a href="x" rel=alternate>a</a></body></html>')).window.document;
     var a = doc.getElementsByTagName('a')[0];
     var newCtx = xpath.evaluate('//*[@href="x"]', doc, doc.body);
     assert.deepEqual(
@@ -556,7 +555,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testMorePredicates", function() {
-    var doc = jsdom.jsdom('<html><body><blockquote><a></a></blockquote></body></html>');
+    const doc = (new JSDOM('<html><body><blockquote><a></a></blockquote></body></html>')).window.document;
     var blockquote = doc.getElementsByTagName('blockquote')[0],
         a = doc.getElementsByTagName('a')[0];
     var newCtx = xpath.evaluate('//*[ancestor::blockquote]', doc, doc.body);
@@ -565,7 +564,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testAttributeWildcard", function() {
-    var doc = jsdom.jsdom('<html><body><a href="x" rel=alternate>a</a></body></html>');
+    const doc = (new JSDOM('<html><body><a href="x" rel=alternate>a</a></body></html>')).window.document;
     var a = doc.getElementsByTagName('a')[0];
     var newCtx = xpath.evaluate('//*[@*="alternate"]', doc, doc.body);
     assert.deepEqual(
@@ -573,7 +572,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testEvaluatePath", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -586,33 +585,33 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testEvaluateSubstringBefore", function() {
-    var doc = jsdom.jsdom('<html></html>');
+    const doc = (new JSDOM('<html></html>')).window.document;
     var newCtx = xpath.evaluate('substring-before("1999/04/01","/")', doc, doc.body);
     assert.equal('1999', newCtx);
   });
   specify("testEvaluateSubstringAfter", function() {
-    var doc = jsdom.jsdom('<html></html>');
+    const doc = (new JSDOM('<html></html>')).window.document;
     var newCtx = xpath.evaluate('substring-after("1999/04/01","/")', doc, doc.body);
     assert.deepEqual('04/01', newCtx);
   });
   specify("testEvaluateSubstring", function() {
-    var doc = jsdom.jsdom('<html></html>');
+    const doc = (new JSDOM('<html></html>')).window.document;
     assert.equal('04', xpath.evaluate('substring("1999/04/01", 6, 2)', doc, doc));
     assert.equal('04/01', xpath.evaluate('substring("1999/04/01", 6)', doc, doc));
   });
   specify("testEvaluateContains", function() {
-    var doc = jsdom.jsdom('<html></html>');
+    const doc = (new JSDOM('<html></html>')).window.document;
     assert.equal(true, xpath.evaluate('contains("hello", "el")', doc, doc));
     assert.equal(false, xpath.evaluate('contains("hello", "mm")', doc, doc));
   });
   specify("testEvaluateTranslate", function() {
-    var doc = jsdom.jsdom('<html></html>');
+    const doc = (new JSDOM('<html></html>')).window.document;
     assert.equal('BAr', xpath.evaluate('translate("bar","abc","ABC")', doc, doc));
     assert.equal('AAA', xpath.evaluate('translate("--aaa--", "abc-", "ABC")', doc, doc));
     assert.equal('sub', xpath.evaluate('translate(normalize-space(" s u b"), " ", "")', doc, doc));
   });
   specify("testUnion", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -625,7 +624,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testUnion2", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -638,7 +637,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       xpath.stringifyObject(newCtx));
   });
   specify("testUnion3", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -658,7 +657,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
     return r;
   }
   specify("testDocumentEvaluate", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -673,7 +672,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       stringifyNodeList(r));
   });
   specify("testDocumentEvaluate2", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -688,7 +687,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       stringifyNodeList(r));
   });
   specify("testDocumentEvaluateWildcard", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -703,7 +702,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
       stringifyNodeList(r));
   });
   specify("testDocumentEvaluateStringPred", function() {
-    var doc = jsdom.jsdom('<html><body><div>a<div>b</div></div><img></body></html>');
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
         body = doc.getElementsByTagName('body')[0],
         div0 = doc.getElementsByTagName('div')[0],
@@ -719,7 +718,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
   specify("testAttributeNodePredicate", function() {
     // copied from Webkit LayoutTests/fast/xpath/attribute-node-predicate.html
-    var doc = jsdom.jsdom('<html></html>');
+    const doc = (new JSDOM('<html></html>')).window.document;
     var root = doc.createElement('div');
     root.innerHTML =
       '<p>a</p><div><span id="21"></span><span id="22"></span><span id="23"></span></div>';
@@ -755,103 +754,103 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // Only test cases applicable to XPath are included.
 
   specify("NIST_coreFunction001", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("correct substring",
             xpath.evaluate("substring(substring('internalexternalcorrect substring',9),9)", document, document), "correct substring");
   });
 
   specify("NIST_coreFunction002", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("correct substring",
             xpath.evaluate("substring(substring('internalexternalcorrect substring',9,25),9,17)", document, document), "correct substring");
   });
 
   specify("NIST_coreFunction003", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("A New Concatenated String",
             xpath.evaluate("concat(concat('A ','N','e'),'w ','Concatenated String')", document, document));
   });
 
   specify("NIST_coreFunction004", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("Unchanged String",
             xpath.evaluate("string(string('Unchanged String'))", document, document));
   });
 
   specify("NIST_coreFunction005", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("Correct Substring After",
             xpath.evaluate("substring-after(substring-after('wrongnogoodCorrect Substring After','wrong'),'nogood')", document, document));
   });
 
   specify("NIST_coreFunction006", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("correct substring Before",
             xpath.evaluate("substring-before(substring-before('correct substring Beforenogoodwrong','wrong'),'nogood')", document, document));
   });
 
   specify("NIST_coreFunction007", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("new string",
             xpath.evaluate("translate(translate('old string','old','123'),'123','new')", document, document));
   });
 
   specify("NIST_coreFunction008", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("new string",
             xpath.evaluate("translate('old string',translate('123','123','old'),'new')", document, document));
   });
 
   specify("NIST_coreFunction009", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("new string",
             xpath.evaluate("translate(translate('old string','old string','old string'),translate('123','123','old'),translate('123','123','new'))", document, document));
   });
 
   specify("NIST_coreFunction010", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("new string",
             xpath.evaluate("translate(translate('old string','old string','old string'),translate('123','123','old'),translate('123','123','new'))", document, document));
   });
 
   specify("NIST_coreFunction011", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("A New Concatenated String",
             xpath.evaluate("concat('A New ',concat('Conca','tena','ted '),'String')", document, document));
   });
 
   specify("NIST_coreFunction012", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("A New Concatenated String",
             xpath.evaluate("concat('A New ','Concatenated ',concat('St','ri','ng'))", document, document));
   });
 
   specify("NIST_coreFunction013", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("A New Concatenated String",
             xpath.evaluate("concat(concat('A ','Ne','w '),concat('Conca','tena','ted '),concat('St','ri','ng'))", document, document));
   });
 
   specify("NIST_coreFunction014", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("Correct Substring After",
             xpath.evaluate("substring-after('wrongCorrect Substring After',substring-after('nogoodstringwrong','nogoodstring'))", document, document));
   });
 
   specify("NIST_coreFunction015", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("Correct Substring After",
             xpath.evaluate("substring-after(substring-after('nogoodwrongCorrect Substring After','nogood'),substring-after('nogoodstringwrong','nogoodstring'))", document, document));
   });
 
   specify("NIST_coreFunction016", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("Correct Substring Before",
             xpath.evaluate("substring-before('Correct Substring Beforewrong',substring-before('wrongnogood','nogood'))", document, document));
   });
 
   specify("NIST_coreFunction017", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal("Correct Substring Before",
             xpath.evaluate("substring-before(substring-before('Correct Substring Beforewrongcut here','cut here'),substring-before('wrongnogood','nogood'))", document, document));
   });
@@ -864,35 +863,35 @@ describe("xpath", { skipIfBrowser: true }, () => {
   //
   //
   // exports.NIST_coreFunction018 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "String From Variable"
   //     test.equal("String From Variable",
   //             xpath.evaluate("string($variable1)", document, document));
   // };
   //
   // exports.NIST_coreFunction019 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "String "
   //     test.equal("String From Variable",
   //             xpath.evaluate("concat($variable1,'From ','Variable')", document, document));
   // };
   //
   // exports.NIST_coreFunction020 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "From "
   //     test.equal("String From Variable",
   //             xpath.evaluate("concat('String ',$variable1,'Variable')", document, document));
   // };
   //
   // exports.NIST_coreFunction021 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "Variable"
   //     test.equal("String From Variable",
   //             xpath.evaluate("concat('String ','From ',$variable1)", document, document));
   // };
   //
   // exports.NIST_coreFunction022 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "String "
   //     // set $variable2 = "From "
   //     // set $variable3 = "Variable"
@@ -901,21 +900,21 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // };
   //
   // exports.NIST_coreFunction023 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "substring-before with variablecut this"
   //     test.equal("substring-before with variable",
   //             xpath.evaluate("substring-before($variable1,'cut this')", document, document));
   // };
   //
   // exports.NIST_coreFunction024 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "cut this"
   //     test.equal("substring-before with variable",
   //             xpath.evaluate("substring-before('substring-before with variablecut this',$variable1)", document, document));
   // };
   //
   // exports.NIST_coreFunction025 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "substring before with variablecut this"
   //     // set $variable2 = "cut this"
   //     test.equal("substring before with variable",
@@ -923,21 +922,21 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // };
   //
   // exports.NIST_coreFunction026 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "cut thissubstring-after with variable"
   //     test.equal("substring-after with variable",
   //             xpath.evaluate("substring-after($variable1,'cut this')", document, document));
   // };
   //
   // exports.NIST_coreFunction027 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "cut this"
   //     test.equal("substring after with variable",
   //             xpath.evaluate("substring-after('cut thissubstring after with variable',$variable1)", document, document));
   // };
   //
   // exports.NIST_coreFunction028 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "cut thissubstring-after with variable"
   //     // set $variable2 = "cut this"
   //     test.equal("substring-after with variable",
@@ -945,49 +944,49 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // };
   //
   // exports.NIST_coreFunction029 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "cut thissubstring with variable"
   //     test.equal("substring with variable",
   //             xpath.evaluate("substring($variable1,9)", document, document));
   // };
   //
   // exports.NIST_coreFunction030 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "cut thissubstring with variable"
   //     test.equal("substring with variable",
   //             xpath.evaluate("substring($variable1,9,23)", document, document));
   // };
   //
   // exports.NIST_coreFunction031 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "should return the value 26"
   //     test.equal(26,
   //             xpath.evaluate("string-length($variable1)", document, document));
   // };
   //
   // exports.NIST_coreFunction032 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "translate 1234 variable"
   //     test.equal("translate with variable",
   //             xpath.evaluate("translate($variable1,'1234','with')", document, document));
   // };
   //
   // exports.NIST_coreFunction033 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "1234"
   //     test.equal("translate with variable",
   //             xpath.evaluate("translate('translate 1234 variable',$variable1,'with')", document, document));
   // };
   //
   // exports.NIST_coreFunction034 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "with"
   //     test.equal("translate with variable",
   //             xpath.evaluate("translate('translate 1234 variable','1234',$variable1)", document, document));
   // };
   //
   // exports.NIST_coreFunction035 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "translate 1234 variable"
   //     // set $variable2 = "1234"
   //     // set $variable3 = "with"
@@ -1002,13 +1001,13 @@ describe("xpath", { skipIfBrowser: true }, () => {
 
 
   specify("NIST_coreFunction060", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(-2,
             xpath.evaluate("floor(-1.99999)", document, document));
   });
 
   specify("NIST_coreFunction061", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(-2,
             xpath.evaluate("floor(-1.0001)", document, document));
   });
@@ -1017,7 +1016,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // coreFunction062 is omitted because it tests XPath variables, as above.
 
   // exports.NIST_coreFunction062 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "3.1"
   //     test.equal(3,
   //             xpath.evaluate("floor($variable1)", document, document));
@@ -1028,37 +1027,37 @@ describe("xpath", { skipIfBrowser: true }, () => {
 
 
   specify("NIST_coreFunction064", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(2,
             xpath.evaluate("floor(ceiling(1.2))", document, document));
   });
 
   specify("NIST_coreFunction065", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(1,
             xpath.evaluate("floor(round(1.2))", document, document));
   });
 
   specify("NIST_coreFunction066", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(1,
             xpath.evaluate("floor(floor(1.2))", document, document));
   });
 
   specify("NIST_coreFunction067", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(1,
             xpath.evaluate("floor((((((2*10)-4)+9) div 5) mod 2))", document, document));
   });
 
   specify("NIST_coreFunction068", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(-1,
             xpath.evaluate("ceiling(-1.0001)", document, document));
   });
 
   specify("NIST_coreFunction069", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(-1,
             xpath.evaluate("ceiling(-1.9999)", document, document));
   });
@@ -1066,20 +1065,20 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // coreFunction070 is omitted because it tests XPath variables, as above.
   //
   // exports.NIST_coreFunction070 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "2.5"
   //     test.equal(3,
   //             xpath.evaluate("ceiling($variable1)", document, document));
   // };
 
   specify("NIST_coreFunction071", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(2,
             xpath.evaluate("ceiling(floor(2.2))", document, document));
   });
 
   specify("NIST_coreFunction072", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(4,
             xpath.evaluate("ceiling(ceiling(3.2))", document, document));
   });
@@ -1089,13 +1088,13 @@ describe("xpath", { skipIfBrowser: true }, () => {
 
 
   specify("NIST_coreFunction074", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(3,
             xpath.evaluate("ceiling((((((2*10)-4)+9) div 5) div 2))", document, document));
   });
 
   specify("NIST_coreFunction075", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(-2,
             xpath.evaluate("round(-1.9999)", document, document));
   });
@@ -1103,7 +1102,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // coreFunction076 is omitted because it tests XPath variables, as above.
   //
   // exports.NIST_coreFunction076 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     // set $variable1 = "2.3"
   //     test.equal(2
   //             xpath.evaluate("round($variable1)", document, document));
@@ -1114,66 +1113,66 @@ describe("xpath", { skipIfBrowser: true }, () => {
 
 
   specify("NIST_coreFunction078", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(4,
             xpath.evaluate("round(ceiling(3.2))", document, document));
   });
 
   specify("NIST_coreFunction079", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(3,
             xpath.evaluate("round((((((2*10)-4)+9) div 5) div 2))", document, document));
   });
 
   specify("NIST_coreFunction080", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.ok(isNaN(xpath.evaluate("round(NaN)", document, document)));
   });
 
   specify("NIST_coreFunction081", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(0,
             xpath.evaluate("round(-0)", document, document));
   });
 
   specify("NIST_coreFunction082", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(0,
             xpath.evaluate("round(-0.25)", document, document));
   });
 
   specify("NIST_coreFunction083", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(2,
             xpath.evaluate("round(round(2.3))", document, document));
   });
 
   specify("NIST_coreFunction084", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(Number.POSITIVE_INFINITY,
             xpath.evaluate("round(2.3 div 0)", document, document));
   });
 
   specify("NIST_coreFunction085", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(Number.NEGATIVE_INFINITY,
             xpath.evaluate("round(-2.3 div 0)", document, document));
   });
 
   specify("NIST_coreFunction086", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(-1.9999,
             xpath.evaluate("number('-1.9999')", document, document));
   });
 
   specify("NIST_coreFunction087", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(1.9999,
             xpath.evaluate("number('1.9999')", document, document));
   });
 
   specify("NIST_coreFunction088", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -1193,7 +1192,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_coreFunction089", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -1217,43 +1216,43 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // so those tests are omitted here.
 
   specify("NIST_dataManipulation001a", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true,
             xpath.evaluate("2 > 1", document, document));
   });
 
   specify("NIST_dataManipulation001b", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true,
             xpath.evaluate("9 mod 3 = 0", document, document));
   });
 
   specify("NIST_dataManipulation002a", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(false,
             xpath.evaluate("2 > 3", document, document));
   });
 
   specify("NIST_dataManipulation003", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true,
             xpath.evaluate("(((((2*10)-4)+9) div 5) div 2) > 2", document, document));
   });
 
   specify("NIST_dataManipulation004", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(false,
             xpath.evaluate("(((((2*10)-4)+9) div 5) div 2) > 4", document, document));
   });
 
   specify("NIST_dataManipulation007", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true,
             xpath.evaluate("(round(3.7) > 3)", document, document));
   });
 
   specify("NIST_dataManipulation009", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -1269,7 +1268,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_dataManipulation013", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -1294,7 +1293,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_dataManipulation014", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -1319,7 +1318,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_dataManipulation016", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -1341,7 +1340,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
 
 
   specify("NIST_expression001", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -1362,7 +1361,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression002", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -1383,7 +1382,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression003", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -1410,7 +1409,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression004", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -1437,7 +1436,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression005", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var book1 = document.createElement("book");
@@ -1496,7 +1495,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression006", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     doc.setAttribute("attr1", "attribute 1 ");
     doc.setAttribute("attr2", "attribute 2");
@@ -1518,7 +1517,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression007", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     doc.setAttribute("attr1", "attribute 1 ");
     doc.setAttribute("attr2", "attribute 2");
@@ -1540,7 +1539,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression008", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var book1 = document.createElement("book");
@@ -1599,7 +1598,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression009", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -1620,7 +1619,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression010", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -1641,7 +1640,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression011", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var book1 = document.createElement("book");
@@ -1704,7 +1703,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // variables is included below.
   //
   // exports.NIST_expression012 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     var doc = document.createElement("doc");
   //     document.appendChild(doc);
   //     var child1 = document.createElement("child1");
@@ -1734,7 +1733,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // };
 
   specify("NIST_expression012_noVariables", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var child1 = document.createElement("child1");
@@ -1761,7 +1760,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression013", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -1790,7 +1789,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // key() function.
 
   specify("NIST_expression016", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var book1 = document.createElement("book");
@@ -1859,7 +1858,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression017", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var book1 = document.createElement("book");
@@ -1928,7 +1927,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression018", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var book1 = document.createElement("book");
@@ -1974,7 +1973,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // variables is included below.
   //
   // exports.NIST_expression019 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     var doc = document.createElement("doc");
   //     document.appendChild(doc);
   //     var child1 = document.createElement("child1");
@@ -2001,7 +2000,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // };
 
   specify("NIST_expression019_noVariables", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var child1 = document.createElement("child1");
@@ -2025,7 +2024,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression020", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -2046,7 +2045,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression021", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var sub1 = document.createElement("sub1");
@@ -2073,7 +2072,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression022", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var child1 = document.createElement("child1");
@@ -2090,7 +2089,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression023", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var child1 = document.createElement("child1");
@@ -2117,7 +2116,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // variables is included below.
   //
   // exports.NIST_expression025 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     var doc = document.createElement("doc");
   //     document.appendChild(doc);
   //     var child1 = document.createElement("child1");
@@ -2142,7 +2141,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // };
 
   specify("NIST_expression025_noVariables", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var child1 = document.createElement("child1");
@@ -2169,7 +2168,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // be redundant with other tests.
   //
   // exports.NIST_expression026 = function(test) {
-  //     var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+  //     const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
   //     var doc = document.createElement("doc");
   //     document.appendChild(doc);
   //     var child1 = document.createElement("child1");
@@ -2198,37 +2197,37 @@ describe("xpath", { skipIfBrowser: true }, () => {
   // };
 
   specify("NIST_expression027", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true, xpath.evaluate("(-0 = 0)", document, document));
   });
 
   specify("NIST_expression028", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(false, xpath.evaluate("(-0 < 0)", document, document));
   });
 
   specify("NIST_expression029", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(false, xpath.evaluate("(-0 > 0)", document, document));
   });
 
   specify("NIST_expression030", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true, xpath.evaluate("(-0 >= 0)", document, document));
   });
 
   specify("NIST_expression031", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true, xpath.evaluate("(-0 <= 0)", document, document));
   });
 
   specify("NIST_expression032", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(false, xpath.evaluate("(-0 != 0)", document, document));
   });
 
   specify("NIST_expression033", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true, xpath.evaluate("2.1 > 2.0", document, document));
     assert.equal(false, xpath.evaluate("2.1 < 2.0", document, document));
     assert.equal(false, xpath.evaluate("2.1 = 2.0", document, document));
@@ -2236,7 +2235,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression034", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true, xpath.evaluate("2.0 < 2.1", document, document));
     assert.equal(false, xpath.evaluate("2.0 > 2.1", document, document));
     assert.equal(false, xpath.evaluate("2.0 = 2.1", document, document));
@@ -2244,7 +2243,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression035", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true, xpath.evaluate("2.0 <= 2.0", document, document));
     assert.equal(false, xpath.evaluate("2.0 > 2.0", document, document));
     assert.equal(true, xpath.evaluate("2.0 = 2.0", document, document));
@@ -2252,7 +2251,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_expression036", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     assert.equal(true, xpath.evaluate("2.0 >= 2.0", document, document));
     assert.equal(false, xpath.evaluate("2.0 < 2.0", document, document));
     assert.equal(true, xpath.evaluate("2.0 = 2.0", document, document));
@@ -2260,7 +2259,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath001", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var child1 = document.createElement("child1");
@@ -2275,7 +2274,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath002", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -2307,7 +2306,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath003", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -2339,7 +2338,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath004", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -2372,7 +2371,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath005", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1a = document.createElement("element1");
@@ -2397,7 +2396,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath006", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1 = document.createElement("element1");
@@ -2428,7 +2427,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath007", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1a = document.createElement("element1");
@@ -2449,7 +2448,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath008", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1a = document.createElement("element1");
@@ -2470,7 +2469,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath009", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1a = document.createElement("element1");
@@ -2491,7 +2490,7 @@ describe("xpath", { skipIfBrowser: true }, () => {
   });
 
   specify("NIST_locationPath010", function() {
-    var document = jsdom.jsdom(undefined, { parsingMode: "xml" });
+    const document = (new JSDOM(undefined, { contentType: "application/xml" })).window.document;
     var doc = document.createElement("doc");
     document.appendChild(doc);
     var element1a = document.createElement("element1");

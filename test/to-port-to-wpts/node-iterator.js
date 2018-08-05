@@ -3,7 +3,7 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 const load = require("../util.js").load(__dirname);
 
 function descendants(root) {
@@ -101,49 +101,6 @@ describe("node-contains", { skipIfBrowser: true }, () => {
     assert.strictEqual(Object.getPrototypeOf(it).constructor.name, "NodeIterator");
   });
 
-  specify(
-    "too many concurrent iterators should throw when accessing the iterator",
-    () => {
-      /* eslint-disable no-unused-expressions */
-      const doc = jsdom.jsdom("<html/>", { concurrentNodeIterators: 3 });
-
-      const iterators = [
-        doc.createNodeIterator(doc),
-        doc.createNodeIterator(doc),
-        doc.createNodeIterator(doc),
-        doc.createNodeIterator(doc)
-      ];
-
-      assert.throws(() => iterators[0].referenceNode, /no longer working/i);
-
-      assert.throws(() => iterators[0].pointerBeforeReferenceNode, /no longer working/i);
-
-      assert.throws(() => iterators[0].nextNode(), /no longer working/i);
-
-      assert.throws(() => iterators[0].previousNode(), /no longer working/i);
-
-      // Other getters / method should not fail because they
-      // are not affected by removing steps
-
-      iterators[0].root;
-      iterators[0].whatToShow;
-      iterators[0].filter;
-      iterators[0].detach(); // (noop)
-
-      // The 3 newer iterators should not fail
-      for (let i = 1; i < iterators.length; ++i) {
-        iterators[i].referenceNode;
-        iterators[i].pointerBeforeReferenceNode;
-        iterators[i].nextNode();
-        iterators[i].previousNode();
-        iterators[i].root;
-        iterators[i].whatToShow;
-        iterators[i].filter;
-        iterators[i].detach(); // (noop)
-      }
-    }
-  );
-
   specify("detach() should be a no-op", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc);
@@ -229,7 +186,7 @@ describe("node-contains", { skipIfBrowser: true }, () => {
   );
 
   specify("iterating over nodes of a foreign document should be allowed", () => {
-    const doc = jsdom.jsdom("<html/>");
+    const doc = (new JSDOM("<html/>")).window.document;
     const foreignDoc = load("test");
     const it = doc.createNodeIterator(foreignDoc.body);
 

@@ -1,16 +1,13 @@
-const fs = require("fs");
-const path = require("path");
-
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../../lib/old-api.js");
+const { JSDOM } = require("../../..");
 const toPathname = require("../../util.js").toPathname(__dirname);
 const toFileUrl = require("../../util.js").toFileUrl(__dirname);
 const load = require("../../util.js").load(__dirname +  "/html/");
 
 function getImplementation() {
-  return jsdom.jsdom().implementation;
+  return (new JSDOM()).window.document.implementation;
 }
 
 describe("level2/html", { skipIfBrowser: true }, () => {
@@ -1752,36 +1749,6 @@ describe("level2/html", { skipIfBrowser: true }, () => {
 
   /**
    *
-   The referrer attribute returns the URI of the page that linked to this
-   page.
-   Retrieve the referrer attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95229140
-   */
-  specify("HTMLDocument02", () => {
-    var success;
-    var nodeList;
-    var testNode;
-    var vreferrer;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("document");
-    vreferrer = doc.referrer;
-    assert.equal(vreferrer, "", "referrerLink");
-
-    // Test configuration of referrer value.
-    doc = load("document", { referrer:'http://www.example.com' });
-    vreferrer = doc.referrer;
-    assert.equal(vreferrer, "http://www.example.com", "referrerLink");
-
-  });
-
-  /**
-   *
    The URL attribute specifies the absolute URI of the document.
    Retrieve the URL attribute and examine its value.
    * @author NIST
@@ -1929,61 +1896,6 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     vanchors = doc.anchors;
     vlength = vanchors.length;
     assert.equal(vlength, 1, "lengthLink");
-  });
-
-  /**
-   *
-   The cookie attribute returns the cookies associated with this document.
-   Retrieve the cookie attribute and examine its value.
-   * @author NIST
-   * @author Rick Rivello
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8747038
-   * Updated with multiple-cookie test by dai-shi in GH-738.
-   */
-  specify("HTMLDocument12", () => {
-    var success;
-    var nodeList;
-    var vcookie;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("document");
-    vcookie = doc.cookie;
-    assert.equal(vcookie, "", "cookieLink");
-
-    doc = load("document", { cookie:false } );
-    vcookie = doc.cookie;
-    assert.equal(vcookie, "", "cookieLink");
-
-    future = new Date();
-    future.setTime( future.getTime() + (24 * 60 * 60 * 1000) );
-    cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
-    doc = load("document", {
-      url: "http://example.com",
-      cookie: cookie
-    });
-    vcookie = doc.cookie;
-    assert.equal(vcookie, "key=value", "cookieLink");
-
-    doc = load("document", { url: 'http://example.com' });
-    doc.cookie = "key1=value1";
-    doc.cookie = "key2=value2";
-    vcookie = doc.cookie;
-    assert.equal(vcookie, "key1=value1; key2=value2", "cookieLink");
-
-    doc = load("document", { url: 'http://example.com' });
-    doc.cookie = "key3=value3; max-age=300";
-    doc.cookie = "key4=value4; path=/";
-    vcookie = doc.cookie;
-    assert.equal(vcookie, "key3=value3; key4=value4", "cookieLink");
-
-    var ret = doc.cookie = null;
-    assert.equal(ret, null, "cookieLink");
-    assert.equal(doc.cookie, vcookie + "; null", "cookieLink"); // yes, this is actually how this should behave
-
-
   });
 
   /**
@@ -6331,28 +6243,6 @@ describe("level2/html", { skipIfBrowser: true }, () => {
 
   /**
    *
-   HTMLFormElement.submit submits the form.
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76767676
-   */
-  specify("HTMLFormElement10", () => {
-    var success;
-    var nodeList;
-    var testNode;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("form3");
-    nodeList = doc.getElementsByTagName("form");
-    assert.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    testNode.submit();
-  });
-
-  /**
-   *
    The frameBorder attribute specifies the request for frame borders.
    (frameBorder=1 A border is drawn)
    (FrameBorder=0 A border is not drawn)
@@ -6583,7 +6473,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-78799536
    */
-  specify("HTMLFrameElement09", () => {
+  specify("HTMLFrameElement09", { async: true }, t => {
     var success;
     var testNode;
     var cd;
@@ -6593,13 +6483,14 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load("frame2");
+    doc = load("frame2", { resources: "usable" });
     doc.onload = function() {
       testNode = doc.getElementById("Frame1");
       cd = testNode.contentDocument;
       vtitle = cd.title;
       // Updated as per: http://lists.w3.org/Archives/Public/www-dom/2009JulSep/0026.html
       assert.equal(vtitle, "NIST DOM HTML Test - FRAME", "titleLink");
+      t.done();
     };
   });
 
@@ -7227,7 +7118,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-67133006
    */
-  specify("HTMLIFrameElement11", () => {
+  specify("HTMLIFrameElement11", { async: true }, t => {
     var success;
     var testNode;
     var cd;
@@ -7237,12 +7128,13 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load("iframe2");
+    doc = load("iframe2", { resources: "usable" });
     doc.onload = function() {
       testNode = doc.getElementById("Iframe2");
       cd = testNode.contentDocument;
       vtitle = cd.title;
       assert.equal(vtitle, "NIST DOM HTML Test - FRAME", "titleLink");
+      t.done();
     };
   });
 
@@ -10596,7 +10488,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load("scriptinline");
+    doc = load("scriptinline", { runScripts: "dangerously", resources: "usable" });
     nodeList = doc.getElementsByTagName("script");
     assert.equal(nodeList.length, 1, 'Asize');
     scriptNode = nodeList.item(0);
@@ -18350,7 +18242,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     String.prototype.normalize = function () {
       return "masked alt";
     };
-    var doc = jsdom.jsdom("<img alt=\"alt\" />");
+    var doc = (new JSDOM("<img alt=\"alt\" />")).window.document;
     var img = doc.getElementsByTagName("img").item(0);
 
     assert.strictEqual(img.alt, "alt", "<img> elements should not have their attribute properties masked by defining " +
@@ -18365,7 +18257,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     String.prototype.normalize = function () {
       return "masked action";
     };
-    var doc = jsdom.jsdom("<form></form>");
+    var doc = (new JSDOM("<form></form>")).window.document;
     var form = doc.getElementsByTagName("form").item(0);
     form.action = "test.html";
 
@@ -18375,44 +18267,11 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     String.prototype.normalize = oldNormalize;
   });
 
-  specify("filename_with_spaces_in_script_tag_can_be_read", () => {
-    jsdom.env(
-      '<html><head></head><body></body></html>',
-      [toFileUrl(path.resolve(__dirname, './html/files/js/script with spaces.js'))],
-      function(err, window){
-        assert.strictEqual(err, null, "There should be no errors when using scripts with spaces in their filenames");
-      }
-    );
-  });
-
   specify("rowIndex_on_detached_table_row_should_return_minus_one", () => {
-    var doc = jsdom.jsdom();
+    var doc = (new JSDOM()).window.document;
     var row = doc.createElement('tr');
 
     assert.strictEqual(row.rowIndex, -1, "rowIndex should equal -1");
-  });
-
-  specify("readonly_attribute_works_in_empty_form", () => {
-    jsdom.env(
-      '<input id="input" readonly />', function (err, window) {
-        assert.strictEqual(window.document.getElementById("input").readOnly, true);
-        jsdom.env(
-          '<input id="input" readonly="" />', function (err, window) {
-            assert.strictEqual(window.document.getElementById("input").readOnly, true);
-          }
-        );
-      }
-    );
-  });
-
-  specify("selected_attribute_works_in_empty_form", () => {
-    jsdom.env(
-      '<select multiple><option selected="" /><option selected /></select>', function (err, window) {
-        var options = window.document.getElementsByTagName('option');
-        assert.ok(options[0].selected, 'attribute with empty value');
-        assert.ok(options[1].selected, 'attribute without value');
-      }
-    );
   });
 
   specify("radio_group_with_same_name_in_several_forms_work", () => {
@@ -18422,17 +18281,16 @@ describe("level2/html", { skipIfBrowser: true }, () => {
         '</form><form>' +
         '<input type="radio" name="group1" value="1" checked="checked" id="form2-input1" />' +
         '<input type="radio" name="group1" value="5" id="form2-input2" /></form>';
-    jsdom.env(html, function (err, window) {
-        var input1 = window.document.getElementById('form1-input1');
-        var input2 = window.document.getElementById('form1-input2');
-        var input3 = window.document.getElementById('form2-input1');
+    const { window }  = new JSDOM(html);
+    var input1 = window.document.getElementById('form1-input1');
+    var input2 = window.document.getElementById('form1-input2');
+    var input3 = window.document.getElementById('form2-input1');
 
-        input2.checked = true;
+    input2.checked = true;
 
-        assert.equal(input1.checked, false, 'Radio input in the same form should be unchecked');
-        assert.ok(input2.checked, 'The radio input should be checked');
-        assert.ok(input3.checked, 'Radio input in a different form should still be checked');
-    });
+    assert.equal(input1.checked, false, 'Radio input in the same form should be unchecked');
+    assert.ok(input2.checked, 'The radio input should be checked');
+    assert.ok(input3.checked, 'Radio input in a different form should still be checked');
   });
 
   specify("radio_group_with_same_name_outside_form", () => {
@@ -18446,33 +18304,28 @@ describe("level2/html", { skipIfBrowser: true }, () => {
         '<input type="radio" name="group1" value="1" checked="checked" id="form2-input1" />' +
         '<input type="radio" name="group1" value="5" id="form2-input2" /></form>' +
         '</div>';
-    jsdom.env(html, function (err, window) {
-        var input1 = window.document.getElementById('form1-input1');
-        var input2 = window.document.getElementById('form1-input2');
-        var input3 = window.document.getElementById('form2-input1');
+    const { window } = new JSDOM(html);
+    var input1 = window.document.getElementById('form1-input1');
+    var input2 = window.document.getElementById('form1-input2');
+    var input3 = window.document.getElementById('form2-input1');
 
-        input2.checked = true;
+    input2.checked = true;
 
-        assert.equal(input1.checked, false, 'Radio input in the same group should be unchecked');
-        assert.ok(input2.checked, 'The radio input should be checked');
-        assert.ok(input3.checked, 'Radio input in a sibling form should still be checked');
-    });
+    assert.equal(input1.checked, false, 'Radio input in the same group should be unchecked');
+    assert.ok(input2.checked, 'The radio input should be checked');
+    assert.ok(input3.checked, 'Radio input in a sibling form should still be checked');
   });
 
   specify("htmlcollection_allows_index_access_for_name_and_id", () => {
-    jsdom.env(
-      '<form><input name="test"><input id="test2"></form>', function (err, window) {
-        var form = window.document.getElementsByTagName('form')[0];
-        assert.ok(form.elements.test, 'form.elements by name');
-        assert.ok(form.elements.test2, 'form.elements by id');
-      }
-    );
+    const { window } = new JSDOM('<form><input name="test"><input id="test2"></form>');
+    var form = window.document.getElementsByTagName('form')[0];
+    assert.ok(form.elements.test, 'form.elements by name');
+    assert.ok(form.elements.test2, 'form.elements by id');
   });
 
   specify("parsing_with_bad_html_tag", () => {
-    var doc;
     assert.doesNotThrow(function () {
-      doc = jsdom.jsdom(
+      new JSDOM(
         '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" ' +
                                                    'xmlns:og="xmlns:fb="http://ogp.me/ns/fb#"></html>');
     });
@@ -18480,7 +18333,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
   });
 
   specify("option_element_id_attaching_on_id_change", () => {
-    var doc = jsdom.jsdom('<html><head></head><body></body></html>');
+    var doc = (new JSDOM('<html><head></head><body></body></html>')).window.document;
     var option = doc.createElement('option');
     option.setAttribute('id', 'foo');
     doc.body.appendChild(option);
@@ -18491,7 +18344,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
   });
 
   specify("div_element_to_string", () => {
-    var doc = jsdom.jsdom('<html><head></head><body></body></html>');
+    var doc = (new JSDOM('<html><head></head><body></body></html>')).window.document;
     var div = doc.createElement('div');
 
     assert.ok(div.toString() === '[object HTMLDivElement]', 'div.toString() should return "[object HTMLDivElement] just like a browser');

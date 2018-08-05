@@ -3,16 +3,15 @@
 const { assert } = require("chai");
 const { beforeEach, describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 let el;
 let window;
 
 describe("class-list", () => {
   beforeEach(() => {
-    const doc = jsdom.jsdom();
-    el = doc.createElement("p");
-    window = doc.defaultView;
+    window = (new JSDOM()).window;
+    el = window.document.createElement("p");
   });
 
   specify("classList is a DOMTokenList", () => {

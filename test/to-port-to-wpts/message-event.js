@@ -3,14 +3,14 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 // Tests for MessageEvent
 // Spec: https://html.spec.whatwg.org/multipage/comms.html#messageevent
 
 describe("location", () => {
   specify("MessageEvent has a read-only property 'type'", () => {
-    const window = jsdom.jsdom().defaultView;
+    const { window } = new JSDOM();
     const event = new window.MessageEvent("fake type");
 
     assert.equal(event.type, "fake type");
@@ -20,7 +20,7 @@ describe("location", () => {
   });
 
   specify("MessageEvent has a read-only property 'data'", () => {
-    const window = jsdom.jsdom().defaultView;
+    const { window } = new JSDOM();
     const event = new window.MessageEvent("fake type", {
       data: "fake data"
     });

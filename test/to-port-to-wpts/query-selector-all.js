@@ -3,7 +3,7 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const { jsdom } = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 const load = require("../util.js").load(__dirname);
 
 // Tests for ParentNode's querySelectorAll
@@ -28,7 +28,7 @@ describe("query-selector-all", { skipIfBrowser: true }, () => {
   });
 
   specify("querySelectorAll exists on document fragments", () => {
-    const doc = jsdom();
+    const doc = (new JSDOM()).window.document;
     const docFrag = doc.createDocumentFragment();
 
     const div = doc.createElement("div");

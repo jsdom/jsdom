@@ -3,7 +3,7 @@
 const { assert } = require("chai");
 const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../../lib/old-api.js");
+const { JSDOM } = require("../../..");
 
 class EventMonitor {
   constructor() {
@@ -81,79 +81,6 @@ describe("level2/events", () => {
       var event = doc.createEvent(type);
       assert.notEqual(event, null, "should not be null for " + type);
       assert.ok((event instanceof event_types[type]),"should be instanceof " + type);
-    }
-  });
-
-  // @see https://dom.spec.whatwg.org/#interface-event
-  specify('event interface eventInit parameter', () => {
-    var doc = jsdom.jsdom();
-
-    testEventConstructor(doc.defaultView.Event);
-    testEventConstructor(doc.defaultView.UIEvent);
-    testEventConstructor(doc.defaultView.MouseEvent);
-
-
-    function testEventConstructor(Constructor) {
-      assert.throws(function () {
-        new Constructor('myevent', 'not a dictionary');
-      }, TypeError);
-
-      var event = new Constructor('myevent');
-      assert.equal(event.bubbles, false);
-      assert.equal(event.cancelable, false);
-
-      event = new Constructor('myevent', null);
-      assert.equal(event.bubbles, false);
-      assert.equal(event.cancelable, false);
-
-      event = new Constructor('myevent', { bubbles: true });
-      assert.equal(event.bubbles, true);
-      assert.equal(event.cancelable, false);
-
-      event = new Constructor('myevent', { cancelable: true });
-      assert.equal(event.bubbles, false);
-      assert.equal(event.cancelable, true);
-
-      event = new Constructor('myevent', { bubbles: true, cancelable: true });
-      assert.equal(event.bubbles, true);
-      assert.equal(event.cancelable, true);
-
-      event = new Constructor('myevent', {});
-      assert.equal(event.bubbles, false);
-      assert.equal(event.cancelable, false);
-
-      event = new Constructor('myevent', { bubbles: null, cancelable: null });
-      assert.equal(event.bubbles, false);
-      assert.equal(event.cancelable, false);
-
-      event = new Constructor('myevent', { bubbles: 0, cancelable: 0 });
-      assert.equal(event.bubbles, false);
-      assert.equal(event.cancelable, false);
-
-      // values > 0 are considered true
-      event = new Constructor('myevent', { bubbles: 1, cancelable: 1 });
-      assert.equal(event.bubbles, true);
-      assert.equal(event.cancelable, true);
-
-      // values > 0 are considered true
-      event = new Constructor('myevent', { bubbles: 10, cancelable: 10 });
-      assert.equal(event.bubbles, true);
-      assert.equal(event.cancelable, true);
-
-      // empty string is considered false
-      event = new Constructor('myevent', { bubbles: "", cancelable: "" });
-      assert.equal(event.bubbles, false);
-      assert.equal(event.cancelable, false);
-
-      // non empty string is considered true
-      event = new Constructor('myevent', { bubbles: "false", cancelable: "false" });
-      assert.equal(event.bubbles, true);
-      assert.equal(event.cancelable, true);
-
-      // non empty string is considered true
-      event = new Constructor('myevent', { bubbles: "true", cancelable: "true" });
-      assert.equal(event.bubbles, true);
-      assert.equal(event.cancelable, true);
     }
   });
 
@@ -503,7 +430,7 @@ describe("level2/events", () => {
   });
 
   specify('remove listener in handler', () => {
-    const document = jsdom.jsdom();
+    const { document } = (new JSDOM()).window;
     let h1 = 0, h2 = 0;
 
     document.addEventListener("click", function handler1() {

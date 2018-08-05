@@ -3,7 +3,7 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const { jsdom } = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 // Tests for node.cloneNode
 // Spec: https://dom.spec.whatwg.org/#dom-node-clonenodedeep
@@ -13,7 +13,7 @@ describe("node-clone-node", () => {
     "Should be able to clone elements with strange names containing colons",
     () => {
       // https://github.com/tmpvar/jsdom/issues/1142#issuecomment-108122608
-      const doc = jsdom("KSL.com <http://KSL.com> has not verified the accuracy of the information provided with");
+      const doc = (new JSDOM("KSL.com <http://KSL.com> has not verified the accuracy of the information provided with")).window.document;
 
       // Parses as <http: ksl.com=""> has not verified ...</http:>
 
@@ -30,7 +30,8 @@ describe("node-clone-node", () => {
     "Should be able to clone elements with strange names containing angle brackets",
     () => {
       // https://github.com/tmpvar/jsdom/issues/1142#issuecomment-108122608
-      const doc = jsdom("<p>Blah blah blah<p><Home-Schooling</b><p><p>In talking with parents who home-school");
+      const html = "<p>Blah blah blah<p><Home-Schooling</b><p><p>In talking with parents who home-school";
+      const doc = (new JSDOM(html)).window.document;
 
       // Parses as <home-schooling< b=""></home-schooling>
 
@@ -44,7 +45,7 @@ describe("node-clone-node", () => {
   );
 
   specify("Cloning a text node", () => {
-    const doc = jsdom("<p>Some text</p>");
+    const doc = (new JSDOM("<p>Some text</p>")).window.document;
 
     const original = doc.querySelector("p").firstChild;
     const clone = original.cloneNode();
@@ -55,7 +56,7 @@ describe("node-clone-node", () => {
   });
 
   specify("Cloning a comment node", () => {
-    const doc = jsdom("<body><!-- Some text --></body>");
+    const doc = (new JSDOM("<body><!-- Some text --></body>")).window.document;
 
     const original = doc.body.firstChild;
     const clone = original.cloneNode();
@@ -66,7 +67,7 @@ describe("node-clone-node", () => {
   });
 
   specify("Cloning a comment node", () => {
-    const doc = jsdom("<body><!-- Some text --></body>");
+    const doc = (new JSDOM("<body><!-- Some text --></body>")).window.document;
 
     const original = doc.body.firstChild;
     const clone = original.cloneNode();
@@ -77,7 +78,7 @@ describe("node-clone-node", () => {
   });
 
   specify("Cloning a doctype node", () => {
-    const doc = jsdom("<!DOCTYPE html><title>stuff</title>");
+    const doc = (new JSDOM("<!DOCTYPE html><title>stuff</title>")).window.document;
 
     const original = doc.doctype;
     const clone = original.cloneNode();
@@ -90,7 +91,7 @@ describe("node-clone-node", () => {
   });
 
   specify("Cloning a document fragment node, shallowly", () => {
-    const doc = jsdom();
+    const doc = (new JSDOM()).window.document;
 
     const original = doc.createDocumentFragment();
     const div = doc.createElement("div");
@@ -105,7 +106,7 @@ describe("node-clone-node", () => {
   });
 
   specify("Cloning a document fragment node, deeply", () => {
-    const doc = jsdom();
+    const doc = (new JSDOM()).window.document;
 
     const original = doc.createDocumentFragment();
     const div = doc.createElement("div");
@@ -122,7 +123,7 @@ describe("node-clone-node", () => {
   });
 
   specify("Deep heterogenous clone of a document", () => {
-    const doc = jsdom("<body><!-- comment -->text<p attr='stuff'>element</p>");
+    const doc = (new JSDOM("<body><!-- comment -->text<p attr='stuff'>element</p>")).window.document;
 
     const clone = doc.cloneNode(true);
 

@@ -1,48 +1,36 @@
 "use strict";
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
+const { createServer } = require("../util.js");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 const { URL } = require("whatwg-url");
 const path = require("path");
-const http = require("http");
-const querystring = require("querystring");
 
 const jQueryFile = path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.4.min.js");
 
 describe("jsonp/jsonp", () => {
-  specify(
-    "making a JSONP request from a jsdom window using jQuery",
-    { async: true, skipIfBrowser: true },
-    t => {
-      const server = http.createServer((req, res) => {
-        const url = new URL("http://example.com" + req.url);
-        const query = querystring.parse(url.search.substring(1));
+  specify("making a JSONP request from a jsdom window using jQuery", { skipIfBrowser: true }, () => {
+    return createServer((req, res) => {
+      const url = new URL("http://example.com" + req.url);
 
-        res.writeHead(200);
-        res.write(query.jsoncallback + `({"message":"jsonp works!"});`);
-        res.end();
+      res.writeHead(200);
+      res.write(url.searchParams.get("jsoncallback") + `({"message":"jsonp works!"});`);
+      res.end();
+    }).then(s => {
+      const host = `http://127.0.0.1:${s.address().port}`;
+      const options = { resources: "usable", runScripts: "dangerously" };
+      const { window } = new JSDOM(`<script src="file://${jQueryFile}"></script>`, options);
+
+      return new Promise(resolve => {
+        window.onload = () => {
+          window.jQuery.getJSON(host + "?jsoncallback=?", data => {
+            assert.equal(data.message, "jsonp works!");
+            s.close();
+            resolve();
+          });
+        };
       });
-
-      server.listen(43213, "127.0.0.1", () => {
-        jsdom.env({
-          html: "<!DOCTYPE html><html><head></head><body></body></html>",
-          scripts: [`file://${jQueryFile}`],
-          features: {
-            FetchExternalResources: ["script"],
-            ProcessExternalResources: ["script"]
-          },
-          done(err, window) {
-            assert.ifError(err);
-
-            window.jQuery.getJSON("http://localhost:43213?jsoncallback=?", data => {
-              assert.equal(data.message, "jsonp works!");
-              server.close();
-              t.done();
-            });
-          }
-        });
-      });
-    }
-  );
+    });
+  });
 });

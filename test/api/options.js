@@ -124,6 +124,11 @@ describe("API: constructor options", () => {
       const dom = new JSDOM(``, { userAgent: "test user agent" });
       assert.strictEqual(dom.window.navigator.userAgent, "test user agent");
     });
+
+    it("should inherit the custom user agent to iframes", () => {
+      const dom = new JSDOM(`<iframe></iframe>`, { userAgent: "test user agent" });
+      assert.strictEqual(dom.window.frames[0].navigator.userAgent, "test user agent");
+    });
   });
 
   describe("includeNodeLocations", () => {
@@ -172,6 +177,8 @@ describe("API: constructor options", () => {
       assert.instanceOf(dom.cookieJar, jsdom.CookieJar);
       assert.strictEqual(document.cookie, "foo");
     });
+
+    // More tests in cookies.js
   });
 
   describe("virtualConsole", () => {

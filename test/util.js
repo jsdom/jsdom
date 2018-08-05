@@ -5,7 +5,7 @@ const http = require("http");
 const https = require("https");
 const enableDestroy = require("server-destroy");
 const request = require("request");
-const jsdom = require("../lib/old-api.js");
+const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
 
 function toPathname(dirname, relativePath) {
@@ -45,15 +45,14 @@ exports.load = dirname => {
     }
 
     const contents = fileCache[file] || fs.readFileSync(file, "utf8");
-    const doc = jsdom.jsdom(contents, options);
-    const window = doc.defaultView;
-    doc.parent = window;
-    window.loadComplete = () => {
-      // some of the loaded files expect this to exist
-    };
+    const { window } = new JSDOM(contents, options);
+
+    // some of the loaded files expect these to exist
+    window.document.parent = window;
+    window.loadComplete = () => { };
 
     fileCache[file] = contents;
-    return doc;
+    return window.document;
   };
 };
 

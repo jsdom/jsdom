@@ -3,13 +3,13 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const { jsdom } = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 describe("non-document-type-child-node", () => {
   specify(
     "TextNode should implement NonDocumentTypeChildNode:nextElementSibling",
     () => {
-      const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
+      const doc = (new JSDOM("<div id='1'>1</div> <div id='2'>2</div>")).window.document;
       const newCommentNode1 = doc.createComment("comment1");
       const textnode1 = doc.createTextNode("Text1");
       const element2 = doc.querySelector("div[id='2']");
@@ -22,7 +22,7 @@ describe("non-document-type-child-node", () => {
   specify(
     "TextNode should implement NonDocumentTypeChildNode:previousElementSibling",
     () => {
-      const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
+      const doc = (new JSDOM("<div id='1'>1</div> <div id='2'>2</div>")).window.document;
       const newCommentNode1 = doc.createComment("comment1");
       const textnode1 = doc.createTextNode("Text1");
       doc.body.appendChild(textnode1);
@@ -34,7 +34,7 @@ describe("non-document-type-child-node", () => {
   specify(
     "CommentNode should implement NonDocumentTypeChildNode:nextElementSibling",
     () => {
-      const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
+      const doc = (new JSDOM("<div id='1'>1</div> <div id='2'>2</div>")).window.document;
 
       const newCommentNode1 = doc.createComment("comment1");
       const newCommentNode2 = doc.createComment("comment2");
@@ -48,7 +48,7 @@ describe("non-document-type-child-node", () => {
   specify(
     "CommentNode should implement NonDocumentTypeChildNode:previousElementSibling",
     () => {
-      const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
+      const doc = (new JSDOM("<div id='1'>1</div> <div id='2'>2</div>")).window.document;
 
       const newCommentNode1 = doc.createComment("comment1");
       const newCommentNode2 = doc.createComment("comment2");
@@ -61,7 +61,7 @@ describe("non-document-type-child-node", () => {
   specify(
     "Element should implement NonDocumentTypeChildNode:nextElementSibling",
     () => {
-      const doc = jsdom(`<!DOCTYPE html>
+      const doc = (new JSDOM(`<!DOCTYPE html>
     <?foo bar?>
     <html id="html_id">
       <head>
@@ -76,7 +76,7 @@ describe("non-document-type-child-node", () => {
         <div id='3'>3</div>
         <!-- comment 4 -->
       </body>
-    </html>`);
+    </html>`)).window.document;
 
       const element1 = doc.querySelector("div[id='1']");
       assert.strictEqual(element1.nextElementSibling.id, "2");
@@ -88,7 +88,7 @@ describe("non-document-type-child-node", () => {
   specify(
     "Element should implement NonDocumentTypeChildNode:previousElementSibling",
     () => {
-      const doc = jsdom(`<!DOCTYPE html>
+      const doc = (new JSDOM(`<!DOCTYPE html>
     <?foo bar?>
     <html id="html_id">
       <head>
@@ -103,7 +103,7 @@ describe("non-document-type-child-node", () => {
         <div id='3'>3</div>
         <!-- comment 4 -->
       </body>
-    </html>`);
+    </html>`)).window.document;
 
       const element3 = doc.querySelector("div[id='3']");
       assert.strictEqual(element3.previousElementSibling.id, "2");

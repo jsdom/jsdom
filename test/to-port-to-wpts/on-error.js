@@ -3,14 +3,14 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const { jsdom, createVirtualConsole } = require("../../lib/old-api.js");
+const { JSDOM, VirtualConsole } = require("../..");
 const { toFileUrl, todo } = require("../util.js");
 
 describe("on-error", () => {
   specify(
     "onerror catches exceptions thrown in addEventListener event handlers",
     t => {
-      const doc = jsdom("", { url: "http://example.com" });
+      const doc = docForTests();
 
       const error = new Error("oh no!");
       doc.body.addEventListener("click", () => {
@@ -40,7 +40,7 @@ describe("on-error", () => {
   specify(
     "onerror property catches exceptions thrown in addEventListener event handlers",
     t => {
-      const doc = jsdom("", { url: "http://example.com" });
+      const doc = docForTests();
 
       const errorThrown = new Error("oh no!");
       doc.body.addEventListener("click", () => {
@@ -70,7 +70,7 @@ describe("on-error", () => {
   specify(
     "onerror catches exceptions thrown in addEventListener event handlers (multiline message)",
     t => {
-      const doc = jsdom("", { url: "http://example.com" });
+      const doc = docForTests();
 
       const error = new Error("oh\nno\n!");
       doc.body.addEventListener("click", () => {
@@ -96,7 +96,7 @@ describe("on-error", () => {
   );
 
   specify("onerror catches exceptions thrown in inline event handlers", t => {
-    const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { url: "http://example.com" });
+    const doc = docForTests(`<body onclick="throw new Error('oh no!')"></body>`, { runScripts: "dangerously" });
 
     doc.defaultView.addEventListener("error", event => {
       assert.equal(event.message, "oh no!");
@@ -115,7 +115,7 @@ describe("on-error", () => {
   specify(
     "onerror catches exceptions thrown in inline event handler properties",
     t => {
-      const doc = jsdom("", { url: "http://example.com" });
+      const doc = docForTests();
 
       doc.body.onclick = () => {
         throw new Error("oh no!");
@@ -142,7 +142,7 @@ describe("on-error", () => {
   );
 
   specify("onerror catches exceptions thrown in sync script execution", t => {
-    const doc = jsdom("", { url: "http://example.com" });
+    const doc = docForTests(``, { runScripts: "dangerously" });
 
     doc.defaultView.addEventListener("error", event => {
       assert.equal(event.message, "oh no!", "message equality");
@@ -163,7 +163,7 @@ describe("on-error", () => {
   specify(
     "onerror set during parsing catches exceptions thrown in sync script execution during parsing",
     () => {
-      const doc = jsdom(`<script>
+      const doc = docForTests(`<script>
         onerror = (message, filename, lineno, colno, error) => {
           window.onerrorMessage = message;
           window.onerrorFilename = filename;
@@ -172,7 +172,7 @@ describe("on-error", () => {
           window.onerrorError = error;
         };
         throw new Error("oh no!");
-      </script>`, { url: "http://example.com" });
+      </script>`, { runScripts: "dangerously" });
 
       assert.equal(doc.defaultView.onerrorMessage, "oh no!", "message equality");
       assert.equal(doc.defaultView.onerrorFilename, "http://example.com/");
@@ -185,7 +185,7 @@ describe("on-error", () => {
   specify(
     "unhandled Errors thrown in sync script excecution during parsing go to the virtual console",
     t => {
-      const virtualConsole = createVirtualConsole();
+      const virtualConsole = new VirtualConsole();
       virtualConsole.on("jsdomError", error => {
         assert.ok(error instanceof Error);
         assert.ok(error.message === "Uncaught [TypeError: oh no!]");
@@ -193,7 +193,8 @@ describe("on-error", () => {
         t.done();
       });
 
-      jsdom(`<script>throw new TypeError("oh no!")</script>`, { virtualConsole });
+      // eslint-disable-next-line no-new
+      new JSDOM(`<script>throw new TypeError("oh no!")</script>`, { virtualConsole, runScripts: "dangerously" });
     },
     {
       async: true
@@ -203,7 +204,7 @@ describe("on-error", () => {
   specify(
     "unhandled non-Error exceptions thrown in sync script excecution during parsing go to the virtual console",
     t => {
-      const virtualConsole = createVirtualConsole();
+      const virtualConsole = new VirtualConsole();
       virtualConsole.on("jsdomError", error => {
         assert.ok(error instanceof Error);
         // Browserify hasn't caught up yet
@@ -213,7 +214,8 @@ describe("on-error", () => {
         t.done();
       });
 
-      jsdom(`<script>throw {}</script>`, { virtualConsole });
+      // eslint-disable-next-line no-new
+      new JSDOM(`<script>throw {}</script>`, { virtualConsole, runScripts: "dangerously" });
     },
     {
       async: true
@@ -223,7 +225,7 @@ describe("on-error", () => {
   specify(
     "unhandled exceptions thrown in inline event handlers go to the virtual console",
     t => {
-      const virtualConsole = createVirtualConsole();
+      const virtualConsole = new VirtualConsole();
       virtualConsole.on("jsdomError", error => {
         assert.ok(error instanceof Error);
         assert.equal(error.message, "Uncaught [Error: oh no!]");
@@ -231,7 +233,8 @@ describe("on-error", () => {
         t.done();
       });
 
-      const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
+      const html = `<body onclick="throw new Error('oh no!')"></body>`;
+      const doc = (new JSDOM(html, { virtualConsole, runScripts: "dangerously" })).window.document;
 
       doc.body.click();
     },
@@ -243,7 +246,7 @@ describe("on-error", () => {
   specify(
     "adding an onerror handler does not prevent errors from going to the virtual console",
     t => {
-      const virtualConsole = createVirtualConsole();
+      const virtualConsole = new VirtualConsole();
       virtualConsole.on("jsdomError", error => {
         assert.ok(error instanceof Error);
         assert.equal(error.message, "Uncaught [Error: oh no!]");
@@ -251,7 +254,8 @@ describe("on-error", () => {
         t.done();
       });
 
-      const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
+      const html = `<body onclick="throw new Error('oh no!')"></body>`;
+      const doc = (new JSDOM(html, { virtualConsole, runScripts: "dangerously" })).window.document;
 
       doc.defaultView.onerror = () => {
         // just a no-op handler to trigger the setter logic
@@ -267,12 +271,13 @@ describe("on-error", () => {
   specify(
     "adding an onerror handler that returns true *does* prevent errors from going to the virtual console",
     t => {
-      const virtualConsole = createVirtualConsole();
+      const virtualConsole = new VirtualConsole();
       virtualConsole.on("jsdomError", () => {
         assert.fail("should not get here");
       });
 
-      const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
+      const html = `<body onclick="throw new Error('oh no!')"></body>`;
+      const doc = (new JSDOM(html, { virtualConsole, runScripts: "dangerously" })).window.document;
 
       doc.defaultView.onerror = () => true;
 
@@ -287,3 +292,10 @@ describe("on-error", () => {
     }
   );
 });
+
+function docForTests(html = ``, options = {}) {
+  // Purposefully not sent to the real console since we're expecting jsdomErrors
+  const virtualConsole = new VirtualConsole();
+
+  return (new JSDOM(html, Object.assign({ virtualConsole, url: "http://example.com" }, options))).window.document;
+}

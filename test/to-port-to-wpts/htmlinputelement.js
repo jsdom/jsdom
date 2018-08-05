@@ -3,11 +3,11 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 describe("htmlinputelement", () => {
   specify("html input should handle value/defaultValue correctly", () => {
-    const input = jsdom.jsdom("<input>").querySelector("input");
+    const input = (new JSDOM("<input>")).window.document.querySelector("input");
 
     assert.strictEqual(input.value, "", "value should equal empty string if uninitialized");
     assert.strictEqual(input.defaultValue, "", "defaultValue should equal empty string if uninitialized");
@@ -41,8 +41,7 @@ describe("htmlinputelement", () => {
   });
 
   specify("html input should handle checked/defaultChecked correctly", () => {
-    const doc = jsdom.jsdom();
-    const checked = doc.createElement("input");
+    const checked = (new JSDOM()).window.document.createElement("input");
 
     assert.strictEqual(checked.checked, false, "checkedness is false by default");
 
@@ -69,7 +68,7 @@ describe("htmlinputelement", () => {
   });
 
   specify("uncheck other radio buttons in the same group", () => {
-    const doc = jsdom.jsdom();
+    const doc = (new JSDOM()).window.document;
     const form = doc.createElement("form");
     const div = doc.createElement("div");
     const radioA = doc.createElement("input");
@@ -128,7 +127,7 @@ describe("htmlinputelement", () => {
   specify(
     "inputs should default to type text on the property, despite having no attribute",
     () => {
-      const doc = jsdom.jsdom(`<html><head></head><body><input id="input" /></body></html>`);
+      const doc = (new JSDOM(`<html><head></head><body><input id="input" /></body></html>`)).window.document;
       const inputEl = doc.getElementById("input");
 
       assert.equal(inputEl.hasAttribute("type"), false);
@@ -138,7 +137,7 @@ describe("htmlinputelement", () => {
   );
 
   specify("setting an input's type property should set its type attribute", () => {
-    const doc = jsdom.jsdom(`<html><head></head><body><input id="input" /></body></html>`);
+    const doc = (new JSDOM(`<html><head></head><body><input id="input" /></body></html>`)).window.document;
     const inputEl = doc.getElementById("input");
     inputEl.type = "checkbox";
 
@@ -148,7 +147,7 @@ describe("htmlinputelement", () => {
   specify(
     "an input's parsed type attribute should be reflected in both its property and attribute",
     () => {
-      const doc = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
+      const doc = (new JSDOM(`<input id="input" type="checkbox" />`)).window.document;
       const inputEl = doc.getElementById("input");
 
       assert.equal(inputEl.type, "checkbox");

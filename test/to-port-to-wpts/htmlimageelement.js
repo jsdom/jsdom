@@ -6,7 +6,7 @@ const http = require("http");
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 const { isCanvasInstalled } = require("../util.js");
 const toFileUrl = require("../util").toFileUrl(__dirname);
 
@@ -14,7 +14,7 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
   specify(
     "Image constructor should create a HTMLImageElement with specified width and height",
     () => {
-      const window = jsdom.jsdom().defaultView;
+      const { window } = new JSDOM();
       const image = new window.Image(100, 200);
 
       assert.strictEqual(image.width, 100, "width should be set to the passed constructor parameter");
@@ -26,7 +26,7 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
     if (!isCanvasInstalled(assert, t.done)) {
       return;
     }
-    const window = jsdom.jsdom("", { features: { FetchExternalResources: ["img"] } }).defaultView;
+    const { window } = new JSDOM(``, { resources: "usable" });
     const image = new window.Image();
     const src = toFileUrl("files/image.png");
     assert.strictEqual(image.width, 0, "before loading, width should be 0");
@@ -78,15 +78,7 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
     })
       .listen();
 
-    jsdom.env({
-      url: `http://127.0.0.1:${server.address().port}/test.html`,
-      features: {
-        FetchExternalResources: ["img"]
-      },
-      done(err) {
-        assert.ifError(err);
-      }
-    });
+    JSDOM.fromURL(`http://127.0.0.1:${server.address().port}/test.html`, { resources: "usable" });
   }, {
     async: true
   });
@@ -95,7 +87,7 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
     if (!isCanvasInstalled(assert, t.done)) {
       return;
     }
-    const window = jsdom.jsdom("", { features: { FetchExternalResources: ["img"] } }).defaultView;
+    const { window } = new JSDOM(``, { resources: "usable" });
     const image = new window.Image();
     const src = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
     image.onload = () => {
@@ -121,7 +113,7 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
     if (!isCanvasInstalled(assert, t.done)) {
       return;
     }
-    const window = jsdom.jsdom("", { features: { FetchExternalResources: ["img"] } }).defaultView;
+    const { window } = new JSDOM(``, { resources: "usable" });
     const image = new window.Image();
     const src = "file://" + path.resolve(__dirname, "files/invalid.png");
     image.onload = () => {

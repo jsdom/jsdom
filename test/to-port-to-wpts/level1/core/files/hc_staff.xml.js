@@ -1,8 +1,8 @@
 "use strict";
-const jsdom = require("../../../../../lib/old-api.js");
+const { JSDOM } = require("../../../../..");
 
 exports.hc_staff = function () {
-  return jsdom.jsdom(`
+  return (new JSDOM(`
 <?xml version="1.0"?>
 <?TEST-STYLE PIDATA?>
 <!DOCTYPE html
@@ -78,7 +78,6 @@ This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
 </body></html>
 `,
   {
-    parsingMode: "xml",
-    virtualConsole: jsdom.createVirtualConsole().sendTo(console)
-  });
+    contentType: "application/xml"
+  })).window.document;
 };

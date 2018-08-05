@@ -3,7 +3,7 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 const { injectIFrame, injectIFrameWithScript, todo } = require("../util.js");
 
 // Tests for window.postMessage(message, targetOrigin, transfer)
@@ -11,8 +11,8 @@ const { injectIFrame, injectIFrameWithScript, todo } = require("../util.js");
 
 describe("post-message", () => {
   specify("throws SyntaxError on invalid targetOrigin", t => {
-    const document = jsdom.jsdom();
-    const window = document.defaultView;
+    const { window } = new JSDOM();
+    const { document } = window;
     const iframe = injectIFrame(document);
 
     window.onload = () => {
@@ -33,8 +33,8 @@ describe("post-message", () => {
   });
 
   specify("postMessage from iframe to parent", t => {
-    const document = jsdom.jsdom();
-    const window = document.defaultView;
+    const { window } = new JSDOM();
+    const { document } = window;
     const iframeWindow = injectIFrame(document).contentWindow;
 
     window.addEventListener("message", event => {
@@ -49,8 +49,8 @@ describe("post-message", () => {
   });
 
   specify("postMessage an object from iframe to parent", t => {
-    const document = jsdom.jsdom();
-    const window = document.defaultView;
+    const { window } = new JSDOM();
+    const { document } = window;
     const iframeWindow = injectIFrame(document).contentWindow;
 
     window.addEventListener("message", event => {
@@ -66,7 +66,7 @@ describe("post-message", () => {
   });
 
   specify("postMessage from parent to iframe", t => {
-    const document = jsdom.jsdom();
+    const { document } = (new JSDOM()).window;
     const iframeWindow = injectIFrame(document).contentWindow;
 
     iframeWindow.addEventListener("message", event => {
@@ -81,8 +81,8 @@ describe("post-message", () => {
   });
 
   specify("postMessage from iframe to iframe", t => {
-    const document = jsdom.jsdom();
-    const window = document.defaultView;
+    const { window } = new JSDOM(``, { runScripts: "dangerously" });
+    const { document } = window;
 
     window.iframeReceiver = injectIFrameWithScript(document, `
       window.addEventListener("message", event => {
@@ -105,8 +105,8 @@ describe("post-message", () => {
   });
 
   specify("postMessage silently rejects absolute URL targetOrigins", t => {
-    const document = jsdom.jsdom();
-    const window = document.defaultView;
+    const { window } = new JSDOM();
+    const { document } = window;
     window.iframeReceiver = injectIFrame(document).contentWindow;
     window.iframeSender = injectIFrame(document).contentWindow;
 
@@ -129,8 +129,8 @@ describe("post-message", () => {
       // This would require knowledge of the source window
       // See: https://github.com/tmpvar/jsdom/pull/1140#issuecomment-111587499
 
-      const document = jsdom.jsdom();
-      const window = document.defaultView;
+      const { window } = new JSDOM();
+      const { document } = window;
       window.iframeReceiver = injectIFrame(document);
 
       window.iframeReceiver.addEventListener("message", event => {

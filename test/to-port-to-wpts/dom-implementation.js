@@ -3,23 +3,23 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const jsdom = require("../../lib/old-api.js");
+const { JSDOM } = require("../..");
 
 describe("dom-implementation", () => {
   specify("new DOMImplementation() is not allowed", () => {
-    const { DOMImplementation } = jsdom.jsdom().defaultView;
+    const { DOMImplementation } = (new JSDOM()).window;
 
     assert.throws(() => new DOMImplementation(), /Illegal constructor/i);
   });
 
   specify("create an empty document", () => {
-    const { implementation } = jsdom.jsdom();
+    const { implementation } = (new JSDOM()).window.document;
     const document = implementation.createDocument(null, null, null);
     assert.equal(document.childNodes.length, 0, "document should not contain any nodes");
   });
 
   specify("doctype ownerDocument", () => {
-    const document = jsdom.jsdom();
+    const { document } = (new JSDOM()).window;
     const doctype = document.implementation.createDocumentType("bananas", "", "");
     assert.ok(
       doctype.ownerDocument === document,
@@ -30,20 +30,20 @@ describe("dom-implementation", () => {
   });
 
   specify("doctype child of ownerDocument", () => {
-    const document = jsdom.jsdom();
+    const { document } = (new JSDOM()).window;
     const doctype = document.implementation.createDocumentType("hatstand", "", "");
     const newDocument = document.implementation.createDocument(null, null, doctype);
     assert.ok(newDocument.firstChild === doctype, "doctype should be a child of the document");
   });
 
   specify("defaultView should be null", () => {
-    const document = jsdom.jsdom();
+    const { document } = (new JSDOM()).window;
     const newDocument = document.implementation.createDocument(null, null, null);
     assert.strictEqual(newDocument.defaultView, null, "defaultView should be null");
   });
 
   specify("location should be null", () => {
-    const document = jsdom.jsdom();
+    const { document } = (new JSDOM()).window;
     const newDocument = document.implementation.createHTMLDocument();
     assert.strictEqual(newDocument.location, null, "location should be null");
   });
@@ -51,7 +51,7 @@ describe("dom-implementation", () => {
   specify(
     "setting proxied event handlers on the body should have no effect",
     () => {
-      const document = jsdom.jsdom();
+      const { document } = (new JSDOM()).window;
       const newDocument = document.implementation.createHTMLDocument();
 
       const proxiedEventHandlers = [
@@ -68,7 +68,7 @@ describe("dom-implementation", () => {
   );
 
   specify("iframe added to a created Document should not load", () => {
-    const document = jsdom.jsdom();
+    const { document } = (new JSDOM()).window;
     const newDocument = document.implementation.createHTMLDocument();
 
     const iframe = newDocument.createElement("iframe");
