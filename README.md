@@ -5,9 +5,7 @@
 
 jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG [DOM](https://dom.spec.whatwg.org/) and [HTML](https://html.spec.whatwg.org/multipage/) Standards, for use with Node.js. In general, the goal of the project is to emulate enough of a subset of a web browser to be useful for testing and scraping real-world web applications.
 
-The latest versions of jsdom require Node.js v6 or newer. (Versions of jsdom below v10 still work with Node.js v4, but are unsupported.)
-
-As of v10, jsdom has a new API (documented below). The old API is still supported for now; [see its documentation](./lib/old-api.md) for details.
+The latest versions of jsdom require Node.js v8 or newer. (Versions of jsdom below v12 still work with Node.js v6, but are unsupported.)
 
 ## Basic usage
 
@@ -450,14 +448,6 @@ console.log(dom2.window.document.createElement("frameset").expando); // logs "bl
 This is done mainly for performance and memory reasons: creating separate copies of all the many classes on the web platform, each time we create a jsdom, would be rather expensive.
 
 Nevertheless, we remain interested in one day providing an option to create an "independent" jsdom, at the cost of some performance.
-
-### Missing features in the new API
-
-Compared to the old jsdom API from v9.x and before, the new API is noticeably missing fine-grained control of resource loads. Previous versions of jsdom allowed you to set options that were used when making requests (both for the initial request, in the old equivalent of `JSDOM.fromURL()`, and for subresource requests). They also allowed you to control which subresources were requested and applied to the main document, so that you could e.g. download stylesheets but not scripts. Finally, they provided a customizable resource loader that let you intercept any outgoing request and fulfill it with a completely synthetic response.
-
-None of these features are yet in the new jsdom API, although we are hoping to add them back soon! This requires a decent amount of behind-the-scenes work to implement in a reasonable way, unfortunately.
-
-In the meantime, please feel free to use the old jsdom API to get access to this functionality. It is supported and maintained, although it will not be getting new features. The documentation is found in [lib/old-api.md](./lib/old-api.md).
 
 ### Unimplemented parts of the web platform
 
