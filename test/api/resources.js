@@ -6,31 +6,29 @@ const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
 const { delay } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
-const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loader.js");
 
-const { JSDOM, VirtualConsole } = require("../..");
+const { JSDOM, VirtualConsole, ResourceLoader } = require("../..");
 
 describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
   describe("defaults", () => {
     it("should not download images", { slow: 500 }, () => {
-      const url = imageServer();
-      const dom = new JSDOM(``);
+      const [url, neverRequestedPromise] = neverRequestedServer();
+      const dom = new JSDOM();
 
       const element = dom.window.document.createElement("img");
       setUpLoadingAsserts(element);
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      return assertNotLoaded(element);
+      return Promise.all([
+        assertNotLoaded(element),
+        neverRequestedPromise
+      ]);
     });
 
     it("should not download stylesheet links", { slow: 500 }, () => {
-      const sourceString = `body { color: blue; }`;
-      const url = resourceServer(
-        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-        sourceString
-      );
-      const dom = new JSDOM(``);
+      const [url, neverRequestedPromise] = neverRequestedServer();
+      const dom = new JSDOM();
 
       const element = dom.window.document.createElement("link");
       setUpLoadingAsserts(element);
@@ -38,19 +36,14 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       element.href = url;
       dom.window.document.body.appendChild(element);
 
-      return assertNotLoaded(element).then(() => {
-        // I think this should actually be "rgb(0, 0, 0)" per spec. It's fine to change the test in the future if we
-        // fix that.
-        assert.strictEqual(dom.window.getComputedStyle(dom.window.document.body).color, "");
-      });
+      return Promise.all([
+        assertNotLoaded(element),
+        neverRequestedPromise
+      ]);
     });
 
     it("should not download scripts (even with runScripts: \"dangerously\")", { slow: 500 }, () => {
-      const sourceString = `window.x = 5;`;
-      const url = resourceServer(
-        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-        sourceString
-      );
+      const [url, neverRequestedPromise] = neverRequestedServer();
       const dom = new JSDOM(``, { runScripts: "dangerously" });
 
       const element = dom.window.document.createElement("script");
@@ -58,25 +51,25 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      return assertNotLoaded(element).then(() => {
-        assert.strictEqual(dom.window.x, undefined, "The script must not have run");
-      });
+      return Promise.all([
+        assertNotLoaded(element),
+        neverRequestedPromise
+      ]);
     });
 
     it("should not download iframes", { slow: 500 }, () => {
-      const sourceString = `Hello`;
-      const url = resourceServer(
-        { "Content-Type": "text/html", "Content-Length": sourceString.length },
-        sourceString
-      );
-      const dom = new JSDOM(``, { runScripts: "dangerously" });
+      const [url, neverRequestedPromise] = neverRequestedServer();
+      const dom = new JSDOM();
 
       const element = dom.window.document.createElement("iframe");
       setUpLoadingAsserts(element);
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      return assertNotLoaded(element).then(() => {
+      return Promise.all([
+        assertNotLoaded(element),
+        neverRequestedPromise
+      ]).then(() => {
         // This may not be the optimal behavior for "not loading" iframes: it's fine to change this test in the future
         // if we have better semantics. (E.g., perhaps we should treat all URLs as about:blank.)
         assert.strictEqual(
@@ -87,20 +80,19 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
     });
 
     it("should not download frames", { slow: 500 }, () => {
-      const sourceString = `Hello`;
-      const url = resourceServer(
-        { "Content-Type": "text/html", "Content-Length": sourceString.length },
-        sourceString
-      );
-      const dom = new JSDOM(`<frameset></frameset>`, { runScripts: "dangerously" });
+      const [url, neverRequestedPromise] = neverRequestedServer();
+      const dom = new JSDOM(`<frameset></frameset>`);
 
       const element = dom.window.document.createElement("frame");
       setUpLoadingAsserts(element);
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      return assertNotLoaded(element).then(() => {
-        // This may not be the optimal behavior for "not loading" frames: it's fine to change this test in the future
+      return Promise.all([
+        assertNotLoaded(element),
+        neverRequestedPromise
+      ]).then(() => {
+        // This may not be the optimal behavior for "not loading" iframes: it's fine to change this test in the future
         // if we have better semantics. (E.g., perhaps we should treat all URLs as about:blank.)
         assert.strictEqual(
           dom.window.frames[0].document.documentElement, null,
@@ -111,17 +103,34 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
   });
 
   describe("set to \"usable\"", () => {
-    it("should download images if and only if canvas is installed", { slow: 500 }, () => {
-      const url = imageServer();
-      const dom = new JSDOM(``, { resources: "usable" });
+    if (canvas) {
+      it("should download images [canvas is installed]", { slow: 500 }, () => {
+        const url = imageServer();
+        const dom = new JSDOM(``, { resources: "usable" });
 
-      const element = dom.window.document.createElement("img");
-      setUpLoadingAsserts(element);
-      element.src = url;
-      dom.window.document.body.appendChild(element);
+        const element = dom.window.document.createElement("img");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
 
-      return canvas ? assertLoaded(element) : assertNotLoaded(element);
-    });
+        return assertLoaded(element);
+      });
+    } else {
+      it("should not download images [canvas is not installed]", { slow: 500 }, () => {
+        const [url, neverRequestedPromise] = neverRequestedServer();
+        const dom = new JSDOM(``, { resources: "usable" });
+
+        const element = dom.window.document.createElement("img");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return Promise.all([
+          assertNotLoaded(element),
+          neverRequestedPromise
+        ]);
+      });
+    }
 
     it("should download stylesheet links", { slow: 500 }, () => {
       const sourceString = `body { color: blue; }`;
@@ -163,11 +172,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
     });
 
     it("should not download or run scripts, if runScripts: \"outside-only\" is set", { slow: 500 }, () => {
-      const sourceString = `window.x = 5;`;
-      const url = resourceServer(
-        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-        sourceString
-      );
+      const [url, neverRequestedPromise] = neverRequestedServer();
       const dom = new JSDOM(``, { resources: "usable", runScripts: "outside-only" });
 
       const element = dom.window.document.createElement("script");
@@ -175,17 +180,14 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      return assertNotLoaded(element).then(() => {
-        assert.strictEqual(dom.window.x, undefined, "The script must not have run");
-      });
+      return Promise.all([
+        assertNotLoaded(element),
+        neverRequestedPromise
+      ]);
     });
 
     it("should not download or run scripts, if runScripts is not set", { slow: 500 }, () => {
-      const sourceString = `window.x = 5;`;
-      const url = resourceServer(
-        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-        sourceString
-      );
+      const [url, neverRequestedPromise] = neverRequestedServer();
       const dom = new JSDOM(``, { resources: "usable" });
 
       const element = dom.window.document.createElement("script");
@@ -193,9 +195,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      return assertNotLoaded(element).then(() => {
-        assert.strictEqual(dom.window.x, undefined, "The script must not have run");
-      });
+      return Promise.all([
+        assertNotLoaded(element),
+        neverRequestedPromise
+      ]);
     });
 
     it("should download iframes", { slow: 500 }, () => {
@@ -245,7 +248,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         "should fire an error event downloading images if and only if canvas is installed",
         { slow: 500 },
         () => {
-          const url = resourceNotFound();
+          const url = resourceServer404();
           const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
 
           const element = dom.window.document.createElement("img");
@@ -258,8 +261,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       );
 
       it("should fire an error event downloading stylesheets", { slow: 500 }, () => {
-        const url = resourceNotFound();
-        const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+        const url = resourceServer404();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("link");
         setUpLoadingAsserts(element);
@@ -271,9 +275,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
 
       it("should fire an error event downloading scripts", { slow: 500 }, () => {
-        const url = resourceNotFound();
-
-        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole: ignoreResourceLoadingErrorsVC() });
+        const url = resourceServer404();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
@@ -284,8 +288,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
 
       it("should fire an error event downloading iframes", { slow: 500 }, () => {
-        const url = resourceNotFound();
-        const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+        const url = resourceServer404();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("iframe");
         setUpLoadingAsserts(element);
@@ -296,8 +301,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
 
       it("should fire an error event downloading frames", { slow: 500 }, () => {
-        const url = resourceNotFound();
-        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+        const url = resourceServer404();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("frame");
         setUpLoadingAsserts(element);
@@ -313,7 +319,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         "should fire an error event downloading images if and only if canvas is installed",
         { slow: 500 },
         () => {
-          const url = resourceServerError();
+          const url = resourceServer503();
           const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
 
           const element = dom.window.document.createElement("img");
@@ -326,8 +332,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       );
 
       it("should fire an error event downloading stylesheets", { slow: 500 }, () => {
-        const url = resourceServerError();
-        const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+        const url = resourceServer503();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("link");
         setUpLoadingAsserts(element);
@@ -339,9 +346,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
 
       it("should fire an error event downloading scripts", { slow: 500 }, () => {
-        const url = resourceServerError();
-
-        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole: ignoreResourceLoadingErrorsVC() });
+        const url = resourceServer503();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
@@ -352,8 +359,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
 
       it("should fire an error event downloading iframes", { slow: 500 }, () => {
-        const url = resourceServerError();
-        const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+        const url = resourceServer503();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("iframe");
         setUpLoadingAsserts(element);
@@ -364,8 +372,9 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
 
       it("should fire an error event downloading frames", { slow: 500 }, () => {
-        const url = resourceServerError();
-        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+        const url = resourceServer503();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("frame");
         setUpLoadingAsserts(element);
@@ -538,16 +547,17 @@ function resourceServer(headers, body, { statusCode = 200 } = {}) {
   return `http://127.0.0.1:${server.address().port}/`;
 }
 
-function resourceNotFound() {
+function resourceServer404() {
   const notFoundText = "Not found";
 
   return resourceServer(
     { "Content-Type": "text/html", "Content-Length": notFoundText.length },
     notFoundText,
-    { statusCode: 404 });
+    { statusCode: 404 }
+  );
 }
 
-function resourceServerError() {
+function resourceServer503() {
   const serverErrorText = "Internal server error";
 
   return resourceServer(
@@ -555,6 +565,25 @@ function resourceServerError() {
     serverErrorText,
     { statusCode: 503 }
   );
+}
+
+function neverRequestedServer() {
+  let serverURL;
+  const promise = new Promise((resolve, reject) => {
+    const server = http.createServer(req => {
+      reject(new Error(`${req.url} was requested, but should not have been`));
+      server.close();
+    }).listen();
+
+    setTimeout(() => {
+      server.close();
+      resolve();
+    }, 30);
+
+    serverURL = `http://127.0.0.1:${server.address().port}/`;
+  });
+
+  return [serverURL, promise];
 }
 
 function imageServer() {
@@ -613,6 +642,7 @@ function ignoreResourceLoadingErrorsVC() {
   vc.sendTo(console, { omitJSDOMErrors: true });
   vc.on("jsdomError", err => {
     if (err.type !== "resource loading") {
+      // eslint-disable-next-line no-console
       console.error(err.stack, err.detail);
     }
   });
