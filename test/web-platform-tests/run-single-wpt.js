@@ -8,7 +8,6 @@ const { JSDOM, VirtualConsole } = require("../../lib/api.js");
 const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loader");
 
 const reporterPathname = "/resources/testharnessreport.js";
-const globalPool = { maxSockets: 6 };
 
 module.exports = urlPrefixFactory => {
   if (inBrowserContext()) {
@@ -33,11 +32,11 @@ module.exports = urlPrefixFactory => {
 };
 
 class CustomResourceLoader extends ResourceLoader {
+  constructor() {
+    super({ strictSSL: false });
+  }
   fetch(urlString, options) {
     const url = new URL(urlString);
-
-    options.requestOptions.strictSSL = false;
-    options.requestOptions.pool = globalPool;
 
     if (url.pathname === reporterPathname) {
       return Promise.resolve(Buffer.from("window.shimTest();", "utf-8"));
@@ -81,8 +80,6 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
     virtualConsole,
     resources: new CustomResourceLoader(),
     pretendToBeVisual: true,
-    strictSSL: false,
-    pool: globalPool,
     storageQuota: 100000 // Filling the default quota takes about a minute between two WPTs
   })
     .then(dom => {

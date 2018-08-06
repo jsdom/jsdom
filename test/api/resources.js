@@ -2,10 +2,12 @@
 const http = require("http");
 const path = require("path");
 const fs = require("fs");
+const nodeURLParse = require("url").parse;
 const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
-const { delay } = require("../util.js");
+const { delay, createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
+const { version: packageVersion } = require("../../package.json");
 
 const { JSDOM, VirtualConsole, ResourceLoader } = require("../..");
 
@@ -202,11 +204,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
     });
 
     it("should download iframes", { slow: 500 }, () => {
-      const sourceString = `Hello`;
-      const url = resourceServer(
-        { "Content-Type": "text/html", "Content-Length": sourceString.length },
-        sourceString
-      );
+      const url = htmlServer("Hello");
       const dom = new JSDOM(``, { resources: "usable" });
 
       const element = dom.window.document.createElement("iframe");
@@ -223,11 +221,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
     });
 
     it("should download frames", { slow: 500 }, () => {
-      const sourceString = `Hello`;
-      const url = resourceServer(
-        { "Content-Type": "text/html", "Content-Length": sourceString.length },
-        sourceString
-      );
+      const url = htmlServer("Hello");
       const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable" });
 
       const element = dom.window.document.createElement("frame");
@@ -473,24 +467,31 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
   });
 
   describe("With a custom resource loader", () => {
-    it("should use it", { slow: 500 }, () => {
-      let called = false;
-
-      class CustomResource extends ResourceLoader {
-        fetch(url, options) {
-          called = true;
-
-          return super.fetch(url, options);
-        }
+    class RecordingResourceLoader extends ResourceLoader {
+      fetch(...args) {
+        this.called = true;
+        return super.fetch(...args);
       }
-      const sourceString = `Hello`;
-      const url = resourceServer(
-        { "Content-Type": "text/html", "Content-Length": sourceString.length },
-        sourceString
-      );
-      const dom = new JSDOM(`<frameset></frameset>`, { resources: new CustomResource() });
+    }
 
-      const element = dom.window.document.createElement("frame");
+    it("should intercept JSDOM.fromURL()'s initial request", () => {
+      const url = htmlServer("Hello");
+      const resourceLoader = new RecordingResourceLoader();
+
+      return JSDOM.fromURL(url, { resources: resourceLoader }).then(dom => {
+        assert.isTrue(resourceLoader.called);
+        assert.strictEqual(dom.window.document.body.textContent, "Hello");
+      });
+    });
+
+    // Just this one as a smoke test; no need to repeat all of the above.
+    it("should intercept iframe fetches", () => {
+      const url = htmlServer("Hello");
+      const resourceLoader = new RecordingResourceLoader();
+
+      const dom = new JSDOM(``, { resources: resourceLoader });
+
+      const element = dom.window.document.createElement("iframe");
       setUpLoadingAsserts(element);
       element.src = url;
       dom.window.document.body.appendChild(element);
@@ -500,10 +501,71 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
           dom.window.frames[0].document.body.textContent, "Hello",
           "The frame must have been downloaded"
         );
-        assert.isTrue(called, "The custom resource should be called");
+        assert.isTrue(resourceLoader.called, "The custom resource should be called");
+      });
+    });
+
+    it("should be able to change the user agent", () => {
+      const url = htmlServer("<iframe></iframe>");
+      const resourceLoader = new ResourceLoader({ userAgent: "test user agent" });
+
+      return JSDOM.fromURL(url, { resources: resourceLoader }).then(dom => {
+        assert.strictEqual(dom.window.navigator.userAgent, "test user agent");
+        dom.window.onload = () => {
+          assert.strictEqual(dom.window.frames[0].navigator.userAgent, "test user agent");
+        };
+      });
+    });
+
+    it("should be able to customize the proxy option", () => {
+      return threeRequestServer().then(([mainServer, mainHost]) => {
+        let proxyServerRequestCount = 0;
+        return createServer((proxyServerReq, proxyServerRes) => {
+          ++proxyServerRequestCount;
+          const options = nodeURLParse(proxyServerReq.url);
+          options.headers = proxyServerReq.headers;
+          options.method = proxyServerReq.method;
+
+          const mainServerReq = http.request(options, mainServerRes => {
+            proxyServerRes.writeHead(mainServerRes.statusCode, mainServerRes.headers);
+            mainServerRes.pipe(proxyServerRes);
+          });
+          proxyServerReq.pipe(mainServerReq);
+        }).then(proxyServer => {
+          const resourceLoader = new ResourceLoader({ proxy: `http://127.0.0.1:${proxyServer.address().port}` });
+          const options = { resources: resourceLoader, runScripts: "dangerously" };
+          return JSDOM.fromURL(mainHost + "/html", options).then(dom => {
+            return new Promise(resolve => {
+              dom.window.done = resolve;
+            });
+          }).then(() => {
+            assert.strictEqual(proxyServerRequestCount, 3);
+            return Promise.all([
+              mainServer.destroy(),
+              proxyServer.destroy()
+            ]);
+          });
+        });
       });
     });
   });
+
+  for (const resources of [undefined, "usable"]) {
+    describe(`User agent (resources set to ${resources})`, () => {
+      const expected = `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 ` +
+                       `(KHTML, like Gecko) jsdom/${packageVersion}`;
+
+      it("should have a default user agent following the correct pattern", () => {
+        const dom = new JSDOM(``, { resources });
+        assert.strictEqual(dom.window.navigator.userAgent, expected);
+      });
+
+      it("should inherit the default user agent to iframes", () => {
+        const dom = new JSDOM(`<iframe></iframe>`, { resources });
+        assert.strictEqual(dom.window.frames[0].navigator.userAgent, expected);
+      });
+    });
+  }
 
   it("should disallow other values for resources", () => {
     assert.throws(() => new JSDOM(``, { resources: null }), TypeError);
@@ -592,6 +654,38 @@ function imageServer() {
   const pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
 
   return resourceServer({ "Content-Type": "image/png", "Content-Length": pngBytes.byteLength }, pngBytes);
+}
+
+function htmlServer(sourceString) {
+  return resourceServer(
+    { "Content-Type": "text/html", "Content-Length": sourceString.length },
+    sourceString
+  );
+}
+
+function threeRequestServer() {
+  const routes = {
+    "/html": `<!DOCTYPE html><script src="/js"></script>`,
+    "/js": `const xhr = new window.XMLHttpRequest();
+            xhr.open("GET", "/xhr");
+            xhr.onload = () => {
+              window.done();
+            };
+            xhr.send();`,
+    "/xhr": "test"
+  };
+
+  return createServer((req, res) => {
+    res.writeHead(200, { "Content-Length": routes[req.url].length });
+    res.end(routes[req.url]);
+  }).then(s => {
+    s.numberOfConnections = 0;
+    s.on("connection", () => {
+      ++s.numberOfConnections;
+    });
+
+    return [s, `http://127.0.0.1:${s.address().port}`];
+  });
 }
 
 function setUpLoadingAsserts(loadable) {
