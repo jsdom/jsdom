@@ -44,7 +44,6 @@ const dom = new JSDOM(``, {
   url: "https://example.org/",
   referrer: "https://example.com/",
   contentType: "text/html",
-  userAgent: "Mellblomenator/9000",
   includeNodeLocations: true,
   storageQuota: 10000000
 });
@@ -53,7 +52,6 @@ const dom = new JSDOM(``, {
 - `url` sets the value returned by `window.location`, `document.URL`, and `document.documentURI`, and affects things like resolution of relative URLs within the document and the same-origin restrictions and referrer used while fetching subresources. It defaults to `"about:blank"`.
 - `referrer` just affects the value read from `document.referrer`. It defaults to no referrer (which reflects as the empty string).
 - `contentType` affects the value read from `document.contentType`, and how the document is parsed: as HTML or as XML. Values that are not `"text/html"` or an [XML mime type](https://html.spec.whatwg.org/multipage/infrastructure.html#xml-mime-type) will throw. It defaults to `"text/html"`.
-- `userAgent` affects the value read from `navigator.userAgent`, as well as the `User-Agent` header sent while fetching subresources. It defaults to <code>\`Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
 - `includeNodeLocations` preserves the location info produced by the HTML parser, allowing you to retrieve it with the `nodeLocation()` method (described below). It also ensures that line numbers reported in exception stack traces for code running inside `<script>` elements are correct. It defaults to `false` to give the best performance, and cannot be used with an XML content type since our XML parser does not support location info.
 - `storageQuota` is the maximum size in code units for the separate storage areas used by `localStorage` and `sessionStorage`. Attempts to store data larger than this limit will cause a `DOMException` to be thrown. By default, it is set to 5,000,000 code units per origin, as inspired by the HTML specification.
 
@@ -128,6 +126,8 @@ Note that jsdom still [does not do any layout or rendering](#unimplemented-parts
 
 ### Loading subresources
 
+#### Basic options
+
 By default, jsdom will not load any subresources such as scripts, stylesheets, images, or iframes. If you'd like jsdom to load such resources, you can pass the `resources: "usable"` option, which will load all usable resources. Those are:
 
 * Frames and iframes, via `<frame>` and `<iframe>`
@@ -135,7 +135,43 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 * Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
 * Images, via `<img>`, but only if the `canvas` (or `canvas-prebuilt`) npm package is also installed (see "Canvas Support" below)
 
-In the future we plan to offer more customization of resource loading via this option, but for now the default and the `"usable"` option are the two modes offered.
+#### Advanced configuration
+
+_This resource loader system is new as of jsdom v12.0.0, and we'd love your feedback on whether it meets your needs and how easy it is to use. Please file an issue to discuss!_
+
+To more fully customize jsdom's resource-loading behavior, you can pass an instance of the `ResourceLoader` class as the `resources` option value:
+
+```js
+const resourceLoader = new jsdom.ResourceLoader({
+  proxy: "http://127.0.0.1:9001",
+  strictSSL: false,
+  userAgent: "Mellblomenator/9000",
+});
+const dom = new JSDOM(``, { resources: resourceLoader });
+```
+
+The three options to the `ResourceLoader` constructor are:
+
+- `proxy` is the address of a HTTP proxy to be used.
+- `strictSSL` can be set to false to disable the requirement that SSL certificates be valid.
+- `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
+
+You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that only returns results for requests to a trusted origin:
+
+```js
+class CustomResourceLoader extends jsdom.ResourceLoader {
+  fetch(url, options) {
+    // Override the contents of this script to do something unusual.
+    if (url === "https://example.com/some-specific-script.js") {
+      return Buffer.from("window.someGlobal = 5;");
+    }
+
+    return super.fetch(url, options);
+  }
+}
+```
+
+jsdom will call your custom resource loader's `fetch()` method whenever it encounters a "usable" resource, per the above section. The method takes a URL string, as well as a few options which you should pass through unmodified if calling `super.fetch()`. It must return a promise for a Node.js `Buffer` object, or return `null` if the resource is intentionally not to be loaded. In general, most cases will want to delegate to `super.fetch()`, as shown.
 
 ### Virtual consoles
 
@@ -322,11 +358,9 @@ The options provided to `fromURL()` are similar to those provided to the `JSDOM`
 
 - The `url` and `contentType` options cannot be provided.
 - The `referrer` option is used as the HTTP `Referer` request header of the initial request.
-- The `userAgent` option is used as the HTTP `User-Agent` request header of any requests.
+- The `resources` option also affects the initial request; this is useful if you want to, for example, configure a proxy (see above).
 - The resulting jsdom's URL, content type, and referrer are determined from the response.
 - Any cookies set via HTTP `Set-Cookie` response headers are stored in the jsdom's cookie jar. Similarly, any cookies already in a supplied cookie jar are sent as HTTP `Cookie` request headers.
-
-The initial request is not infinitely customizable to the same extent as is possible in a package like [request](https://www.npmjs.com/package/request); `fromURL()` is meant to be a convenience API for the majority of cases. If you need greater control over the initial request, you should perform it yourself, and then use the `JSDOM` constructor manually.
 
 ### `fromFile()`
 
