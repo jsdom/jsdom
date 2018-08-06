@@ -1,7 +1,5 @@
 "use strict";
 const path = require("path");
-const http = require("http");
-const parseURL = require("url").parse;
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
@@ -682,70 +680,6 @@ describe("jsdom/miscellaneous", () => {
         t.done();
       };
       window.document.body.appendChild(script);
-    });
-
-    specify("proxy option should be consulted for all requests", { async: true }, t => {
-      const html = `<!DOCTYPE html><html><head><script src="/test.js"></script></head><body>foo</body></html>`;
-      const script = `const xhr = new XMLHttpRequest();
-                 xhr.onload = function () {
-                   document.body.innerHTML = xhr.responseText;
-                   window.doCheck();
-                 };
-                 xhr.open("GET", "/foo.txt", true);
-                 xhr.send();`;
-
-      const server = http.createServer((req, res) => {
-        switch (req.url) {
-          case "/": {
-            res.writeHead(200, { "Content-Length": html.length });
-            res.end(html);
-            break;
-          }
-          case "/test.js": {
-            res.writeHead(200, { "Content-Length": script.length });
-            res.end(script);
-            break;
-          }
-          case "/foo.txt": {
-            const text = "Hello world";
-            res.writeHead(200, { "Content-Length": text.length });
-            res.end(text);
-            break;
-          }
-        }
-      });
-
-      let count = 0;
-
-      const proxyServer = http.createServer((req, res) => {
-        count++;
-        const options = parseURL(req.url);
-        options.headers = req.headers;
-        options.method = req.method;
-        const serverReq = http.request(options, serverRes => {
-          res.writeHeader(serverRes.statusCode, serverRes.headers);
-          serverRes.pipe(res);
-        });
-        req.pipe(serverReq);
-      });
-
-      proxyServer.listen(8002, () => {
-        server.listen(8001, "127.0.0.1", () => {
-          JSDOM.fromURL("http://127.0.0.1:8001", {
-            proxy: "http://127.0.0.1:8002",
-            runScripts: "dangerously",
-            resources: "usable"
-          }).then(({ window }) => {
-            window.doCheck = () => {
-              server.close();
-              proxyServer.close();
-              assert.equal(window.document.body.innerHTML, "Hello world");
-              assert.equal(count, 3);
-              t.done();
-            };
-          });
-        });
-      });
     });
   }); // describe("node specific tests")
 });

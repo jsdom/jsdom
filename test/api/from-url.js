@@ -94,18 +94,6 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
         assert.strictEqual(dom.window.navigator.userAgent, expected);
       });
     });
-
-    it("should use the supplied userAgent option as a User-Agent header", () => {
-      let recordedHeader;
-      const url = requestRecordingServer(req => {
-        recordedHeader = req.headers["user-agent"];
-      });
-
-      return JSDOM.fromURL(url, { userAgent: "the user agent" }).then(dom => {
-        assert.strictEqual(recordedHeader, "the user agent");
-        assert.strictEqual(dom.window.navigator.userAgent, "the user agent");
-      });
-    });
   });
 
   describe("referrer", () => {

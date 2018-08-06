@@ -4,7 +4,6 @@ const { describe, it } = require("mocha-sugar-free");
 
 const jsdom = require("../..");
 const { JSDOM } = require("../..");
-const { version: packageVersion } = require("../../package.json");
 
 describe("API: constructor options", () => {
   describe("(general tests)", () => {
@@ -108,26 +107,6 @@ describe("API: constructor options", () => {
       assert.throws(() => new JSDOM(``, { contentType: "text/sgml" }), RangeError);
       assert.throws(() => new JSDOM(``, { contentType: "application/javascript" }), RangeError);
       assert.throws(() => new JSDOM(``, { contentType: "text/plain" }), RangeError);
-    });
-  });
-
-  describe("userAgent", () => {
-    it("should have a default user agent following the correct pattern", () => {
-      const expected = `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 ` +
-                       `(KHTML, like Gecko) jsdom/${packageVersion}`;
-
-      const dom = new JSDOM();
-      assert.strictEqual(dom.window.navigator.userAgent, expected);
-    });
-
-    it("should set the user agent to the given value", () => {
-      const dom = new JSDOM(``, { userAgent: "test user agent" });
-      assert.strictEqual(dom.window.navigator.userAgent, "test user agent");
-    });
-
-    it("should inherit the custom user agent to iframes", () => {
-      const dom = new JSDOM(`<iframe></iframe>`, { userAgent: "test user agent" });
-      assert.strictEqual(dom.window.frames[0].navigator.userAgent, "test user agent");
     });
   });
 
