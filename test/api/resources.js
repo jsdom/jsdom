@@ -552,7 +552,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
   for (const resources of [undefined, "usable"]) {
     describe(`User agent (resources set to ${resources})`, () => {
-      const expected = `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 ` +
+      const expected = `Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 ` +
                        `(KHTML, like Gecko) jsdom/${packageVersion}`;
 
       it("should have a default user agent following the correct pattern", () => {

@@ -81,7 +81,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
 
   describe("user agent", () => {
     it("should use the default user agent as the User-Agent header when none is given", () => {
-      const expected = `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 ` +
+      const expected = `Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 ` +
                        `(KHTML, like Gecko) jsdom/${packageVersion}`;
 
       let recordedHeader;

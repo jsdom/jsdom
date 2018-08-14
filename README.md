@@ -154,7 +154,7 @@ The three options to the `ResourceLoader` constructor are:
 
 - `proxy` is the address of a HTTP proxy to be used.
 - `strictSSL` can be set to false to disable the requirement that SSL certificates be valid.
-- `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
+- `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
 
 You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that only returns results for requests to a trusted origin:
 
