@@ -1,0 +1,32 @@
+<!-- Based on https://github.com/web-platform-tests/wpt/blob/203c34855f6871d6e55eaf7b55b50dad563f781f/html/browsers/windows/nested-browsing-contexts/frameElement.sub.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>HTML Test: window.frameElement</title>
+    <link rel="author" title="Intel" href="http://www.intel.com/" />
+    <script src="/resources/testharness.js"></script>
+    <script src="/resources/testharnessreport.js"></script>
+  </head>
+  <body>
+    <!-- t1 (same-origin)-->
+    <iframe id="iframe_0"></iframe>
+    <iframe id="iframe_1" src="./resources/frameElement-nested-frame.html"></iframe>
+
+    <script>
+      test(function() {
+        assert_equals(window.frameElement, null,
+          "The frameElement attribute should be null.");
+      }, "The window's frameElement attribute must return null if it is not a nested browsing context");
+
+      var t1 = async_test("The window's frameElement attribute must return its container element if it is a nested browsing context");
+      window.addEventListener("load", t1.step_func_done(function() {
+        assert_equals(frames[0].frameElement, document.getElementById("iframe_0"),
+          "The frameElement attribute should be the first iframe element.");
+        assert_equals(document.getElementById("iframe_1").contentWindow[0].frameElement,
+          document.getElementById("iframe_1").contentDocument.getElementById("f1"),
+          "The frameElement attribute should be the frame element in 'resources/frameElement-nested-frame.html'.");
+      }));
+    </script>
+  </body>
+</html>
