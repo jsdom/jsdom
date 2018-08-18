@@ -18,7 +18,7 @@ interface HTMLElement : Element {
   void blur();
   [CEReactions, Reflect] attribute DOMString accessKey;
 //  readonly attribute DOMString accessKeyLabel;
-//  [CEReactions] attribute boolean draggable;
+  [CEReactions] attribute boolean draggable;
 //  [CEReactions] attribute boolean spellcheck;
 
 //  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString innerText;
