@@ -554,7 +554,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     var doc = load("anchor2");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'A size');
-    assert.equal(nodeList.item(0).origin, 'file://', 'a.origin');
+    assert.equal(nodeList.item(0).origin, 'null', 'a.origin');
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'A size');
