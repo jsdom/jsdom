@@ -4,6 +4,7 @@ This major release brings along our [new resource loader API](https://github.com
 
 Breaking changes:
 
+* jsdom now requires Node.js v8.
 * Removed the old jsdom API, as the new API now has all the capabilities you need.
 * Updated our [parse5](https://github.com/inikulin/parse5/) dependency to v5, which changes the format of the node locations returned by `dom.nodeLocation()`.
 * Updated our [whatwg-url](https://github.com/jsdom/whatwg-url) dependency to v7, which changes the origin of `file:` URLs to be an opaque origin (and thus `file:` URLs are no longer same origin to each other).
