@@ -120,7 +120,7 @@ DIR: dom/nodes
 CharacterData-appendChild.html: [fail, Unknown]
 Comment-constructor.html: [fail, Unknown]
 DOMImplementation-createDocument.html: [fail, Unknown]
-Document-URL.sub.html: [fail, Unknown]
+Document-URL.html: [fail, Unknown]
 Document-characterSet-normalization.html: [fail, Some encodings are not supported - see the whatwg-encoding module]
 Document-constructor-xml.xml: [fail, Unknown]
 Document-constructor.html: [fail, new Document().origin should inherit from current Document]
@@ -166,6 +166,7 @@ attributes.html: [fail, toggleAttribute() not implemented]
 insert-adjacent.html: [fail, Unknown]
 prepend-on-Document.html: [fail, Ensure pre-insertion validity not fully implemented, https://github.com/tmpvar/jsdom/issues/1349]
 remove-unscopable.html: [fail, Unknown]
+rootNode.html: [fail, Needs Shadow DOM]
 
 ---
 
@@ -195,7 +196,9 @@ xmldomparser.html: [fail, The status returned is "loading", instead of "complete
 
 DIR: hr-time
 
-idlharness.html: [fail, Depends on fetch]
+idlharness.any.html: [fail, Depends on fetch]
+idlharness.any.serviceworker.html: [timeout, Needs Service Worker implementation]
+idlharness.any.sharedworker.html: [fail, Needs Shared Worker implementation]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
@@ -342,6 +345,7 @@ auxiliary-browsing-contexts/opener-closed.html: [timeout, Needs ParentNode.appen
 auxiliary-browsing-contexts/opener-multiple.html: [timeout, Unknown]
 auxiliary-browsing-contexts/opener-noopener.html: [timeout, Unknown]
 auxiliary-browsing-contexts/opener-noreferrer.html: [timeout, Unknown]
+auxiliary-browsing-contexts/opener-setter.html: [timeout, Not implemented]
 auxiliary-browsing-contexts/opener-setter.window.html: [fail, Not implemented]
 auxiliary-browsing-contexts/opener.html: [timeout, Unknown]
 browsing-context-names/**: [timeout, Not implemented]
@@ -413,6 +417,12 @@ DIR: html/editing/focus
 composed.window.html: [fail, Not implemented]
 focus-01.html: [timeout, scrollIntoView() not implemented]
 focus-02.html: [timeout, scrollIntoView() not implemented]
+inert/inert-does-not-match-disabled-selector.html: [fail, Not implemented]
+inert/inert-in-shadow-dom.html: [fail, Not implemented]
+inert/inert-label-focus.html: [fail, Not implemented]
+inert/inert-node-is-uneditable.html: [fail, Not implemented]
+inert/inert-node-is-unfocusable.html: [fail, Not implemented]
+inert/inert-node-is-unselectable.html: [fail, Not implemented]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-negative.html: [fail, Unknown]
@@ -565,6 +575,8 @@ DIR: html/semantics/forms/the-select-element
 
 DIR: html/semantics/forms/the-textarea-element
 
+textarea-maxlength.html: [fail, Unknown]
+textarea-minlength.html: [fail, Unknown]
 value-defaultValue-textContent-xhtml.xhtml: [fail, Unknown]
 
 ---
@@ -777,9 +789,13 @@ DIR: html/webappapis/scripting/events
 
 compile-event-handler-settings-objects.html: [timeout, Unknown]
 event-handler-all-global-events.html: [fail, Depends on fetch]
+event-handler-attributes-body-window.html: [fail, Depends on fetch]
+event-handler-attributes-window-body.html: [fail, Depends on fetch]
+event-handler-attributes-windowless-body.html: [fail, Depends on fetch]
 event-handler-processing-algorithm-error/script-element.html: [timeout, Unknown]
-event-handler-processing-algorithm-error/synthetic-errorevent-click.html: [fail, uses Worker]
-event-handler-processing-algorithm-error/worker.html: [fail, workers]
+event-handler-processing-algorithm-error/synthetic-errorevent-click.html: [fail, Needs Worker implementation]
+event-handler-processing-algorithm-error/worker.html: [fail, Needs Worker implementation]
+event-handler-removal.window.html: [fail, Unknown]
 messageevent-constructor.https.html: [fail, uses MessageChannel]
 
 ---
@@ -790,7 +806,7 @@ DIR: progress-events
 
 DIR: uievents
 
-interfaces.html: [fail, Depends on fetch]
+idlharness.window.html: [fail, Depends on fetch]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Unknown]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Unknown]
 order-of-events/**: [timeout, Unknown]
@@ -804,12 +820,12 @@ a-element-origin.html: [fail, Depends on fetch]
 a-element-xhtml.xhtml: [fail, Unknown]
 a-element.html: [fail, Unknown]
 failure.html: [fail, Depends on fetch]
-interfaces.any.html: [fail, Depends on fetch]
+idlharness.any.html: [fail, Depends on fetch]
 toascii.window.html: [fail, Depends on fetch]
 url-constructor.html: [fail, Depends on fetch]
 url-origin.html: [fail, Depends on fetch]
 url-setters.html: [fail, Depends on fetch]
-urlencoded-parser.html: [fail, Depends on fetch]
+urlencoded-parser.any.html: [fail, Depends on fetch]
 
 ---
 
@@ -817,8 +833,9 @@ DIR: websockets
 
 Create-Secure-extensions-empty.any.html: [timeout, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
+basic-auth.any.serviceworker.html: [timeout, Needs Service Worker implementation]
 basic-auth.any.sharedworker.html: [fail, Needs Shared Worker implementation]
-basic-auth.https.any.serviceworker.html: [timeout, Needs Service Worker implementation]
+bufferedAmount-unchanged-by-sync-xhr.any.sharedworker.html: [fail, Needs Shared Worker implementation]
 interfaces/WebSocket/close/close-basic.html*: [mutates-globals]
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 unload-a-document/*: [timeout, Requires window.open]
@@ -861,7 +878,8 @@ event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.htm: [fail, Unknown]
 getallresponseheaders.htm: [fail, Unknown]
 headers-normalize-response.htm: [fail, Unknown]
-interfaces.html: [fail, really need to move XHR to Web IDL]
+idlharness.any.html: [fail, Depends on fetch]
+idlharness.any.sharedworker.html: [fail, Needs Shared Worker implementation]
 loadstart-and-state.html: [fail, Unknown]
 open-during-abort-processing.htm: [fail, Unknown]
 open-method-case-sensitive.htm: [fail, request module forces upper case]
@@ -870,7 +888,7 @@ open-url-encoding.htm: [fail, URL parser should use the encoding of the document
 open-url-multi-window-4.htm: [timeout, https://github.com/w3c/web-platform-tests/issues/6941]
 open-url-multi-window-5.htm: [timeout, location.reload is not implemented]
 open-url-multi-window-6.htm: [timeout, Unknown]
-open-url-redirected-sharedworker-origin.htm: [fail, Needs SharedWorker implementation]
+open-url-redirected-sharedworker-origin.htm: [fail, Needs Shared Worker implementation]
 open-url-redirected-worker-origin.htm: [fail, Needs Worker implementation]
 open-url-worker-origin.htm: [fail, Needs Worker implementation]
 open-url-worker-simple.htm: [timeout, Needs Worker implementation]
@@ -880,7 +898,7 @@ responseType-document-in-worker.html: [fail, Needs Worker implementation]
 responseXML-unavailable-in-worker.html: [fail, Needs Worker implementation]
 responsedocument-decoding.htm: [fail, Unknown]
 responsetext-decoding.htm: [fail, Unknown]
-responsetype.html: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
+responsetype.any.html: [fail, Unknown]
 responsexml-document-properties.htm: [fail, https://github.com/w3c/web-platform-tests/issues/2668]
 responsexml-media-type.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 responsexml-non-well-formed.htm: [fail, xml parsing is not strict]
