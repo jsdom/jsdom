@@ -11,7 +11,9 @@ exports.getPossibleTestFilePaths = manifest => {
     const testFilePaths = testharnessTests[containerPath].map(value => value[[0]]);
     for (const testFilePath of testFilePaths) {
       // Globally disable worker tests
-      if (testFilePath.endsWith(".worker.html")) {
+      if (testFilePath.endsWith(".worker.html") ||
+          testFilePath.endsWith(".serviceworker.html") ||
+          testFilePath.endsWith(".sharedworker.html")) {
         continue;
       }
 
