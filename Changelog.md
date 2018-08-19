@@ -1,3 +1,27 @@
+## 12.0.0
+
+This major release brings along our [new resource loader API](https://github.com/jsdom/jsdom#loading-subresources), finally bringing all the capabilities from jsdom v9 to the new (jsdom v10+) API. Thanks very much to [@sarvaje](https://github.com/sarvaje) for his work to make this possible!
+
+Breaking changes:
+
+* Removed the old jsdom API, as the new API now has all the capabilities you need.
+* Updated our [parse5](https://github.com/inikulin/parse5/) dependency to v5, which changes the format of the node locations returned by `dom.nodeLocation()`.
+* Updated our [whatwg-url](https://github.com/jsdom/whatwg-url) dependency to v7, which changes the origin of `file:` URLs to be an opaque origin (and thus `file:` URLs are no longer same origin to each other).
+
+Other changes:
+
+* Added `countReset()`, `dir()` and `dirxml()` methods to `console`.
+* Added the `InputEvent` class.
+* Added `window.status`.
+* Added `htmlElement.draggable`.
+* Fixed `window.frameElement` to correctly return an actual `HTMLElement` instance, instead of a jsdom internal class.
+* Fixed cloning of `textarea` elements to preserve their values.
+* Fixed `select.selectedOptions` sometimes returning outdated results.
+* Fixed CSS selection APIs sometimes returning outdated results, especially for state pseudo-class selectors like `:checked`.
+* Fixed CSS selection APIs to throw an error for invalid selectors even when used on empty nodes.
+* Fixed `window.name` to default to the empty string, per spec, instead of `"nodejs"`.
+* Fixed the default User-Agent to say "unknown OS" instead of "undefined" when jsdom is used in web browsers.
+
 ## 11.12.0
 
 * Added `window.localStorage`, `window.sessionStorage`, and `StorageEvent` support. These are currently only stored in-memory; file an issue if you need persistent (on-disk) storage capability so we can discuss adding that. This feature includes the new `storageQuota` option for controlling how much can be stored.
@@ -45,7 +69,7 @@
 * Fixed an exception that would sometimes get raised when removing an `<img>` element's `src=""` attribute. (atsikov)
 * Fixed `"abort"` events on `AbortSignal`s to have their `isTrusted` set to true.
 * Fixed some argument conversions in `XMLHttpRequest`'s `open()` method.
-* Improved MIME type and data: URL parsing throughout jsdom, by using the new [`whatwg-mimetype`](https://www.npmjs.com/package/whatwg-mimetype) and [`data-urls`](https://www.npmjs.com/package/data-urls) packages.
+* Improved MIME type and `data:` URL parsing throughout jsdom, by using the new [`whatwg-mimetype`](https://www.npmjs.com/package/whatwg-mimetype) and [`data-urls`](https://www.npmjs.com/package/data-urls) packages.
 * Removed some unnecessary `.webidl` files that were included in the npm package.
 
 ## 11.6.2

@@ -109,6 +109,7 @@ Jeff Carpenter <gcarpenterv@gmail.com>
 Jeremy Danyow <jdanyow@gmail.com>
 Jérémy Lal <kapouer@melix.org>
 Jerry Sievert <github@legitimatesounding.com>
+Jesus David Garcia Gomez <jdgarcia@outlook.com>
 Jimmy Mabey <jimmy@velsoft.com>
 Joe Lencioni <joe.lencioni@gmail.com>
 Johan Sköld <johan@pingdom.com>
@@ -190,6 +191,7 @@ Pete Bevin <pete@petebevin.com>
 Péter <peter.perenyi@gmail.com>
 Peter Lyons <pete@peterlyons.com>
 Phil Dokas <pdokas@organic.com>
+Pierre-Marie Dartus <dartus.pierremarie@gmail.com>
 Rainer Eli <claushellsing@gmail.com>
 Ralph Holzmann <ralphholzmann@gmail.com>
 Ra'Shaun Stovall <help@sneakyhead.com>
