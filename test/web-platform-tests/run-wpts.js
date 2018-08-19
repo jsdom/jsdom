@@ -12,16 +12,8 @@ const validReasons = new Set([
   "timeout",
   "flaky",
   "mutates-globals",
-  "needs-await",
   "needs-node10"
 ]);
-
-let supportsAwait = true;
-try {
-  eval("async () => { await 0; }"); // eslint-disable-line no-eval
-} catch (e) {
-  supportsAwait = false;
-}
 
 const hasNode10 = Number(process.versions.node.split(".")[0]) >= 10;
 
@@ -59,7 +51,6 @@ describe("web-platform-tests", () => {
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
           const shouldSkip = ["timeout", "flaky", "mutates-globals"].includes(reason);
           const expectFail = (reason === "fail") ||
-                             (reason === "needs-await" && !supportsAwait) ||
                              (reason === "needs-node10" && !hasNode10);
 
           if (matchingPattern && shouldSkip) {
