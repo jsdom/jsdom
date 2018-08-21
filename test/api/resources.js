@@ -468,9 +468,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
   describe("With a custom resource loader", () => {
     class RecordingResourceLoader extends ResourceLoader {
-      fetch(...args) {
+      fetch(url, options) {
         this.called = true;
-        return super.fetch(...args);
+        this.options = options;
+        return super.fetch(url, options);
       }
     }
 
@@ -481,6 +482,26 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       return JSDOM.fromURL(url, { resources: resourceLoader }).then(dom => {
         assert.isTrue(resourceLoader.called);
         assert.strictEqual(dom.window.document.body.textContent, "Hello");
+      });
+    });
+
+    it("should receive an element in options", () => {
+      const resourceLoader = new RecordingResourceLoader();
+      const sourceString = `window.x = 5;`;
+      const url = resourceServer(
+        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+        sourceString
+      );
+
+      const dom = new JSDOM(``, { resources: resourceLoader, runScripts: "dangerously" });
+      const element = dom.window.document.createElement("script");
+
+      setUpLoadingAsserts(element);
+      element.src = url;
+      dom.window.document.body.appendChild(element);
+
+      return assertLoaded(element).then(() => {
+        assert.exists(resourceLoader.options.element);
       });
     });
 
