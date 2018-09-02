@@ -145,12 +145,9 @@ Element-closest.html: [fail, :has is not supported (by all major browsers as wel
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
-MutationObserver-characterData.html: [fail, Range is not implemented]
-MutationObserver-childList.html: [fail, Range is not implemented]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 MutationObserver-sanity.html: [fail, TypeError is not instanceof TypeError]
 Node-childNodes.html: [fail, Unknown]
-Node-contains-xml.xml: [fail, Unknown]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
 ParentNode-querySelector-All.html: [fail, ::slotted() pseudo-class is not supported]
@@ -158,6 +155,12 @@ ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 Text-constructor.html: [fail, Unknown]
 aria-element-reflection.tentative.html: [fail, WAI-ARIA not implemented]
 remove-and-adopt-crash.html: [fail, Unknown]
+
+---
+
+DIR: dom/ranges
+
+StaticRange-constructor.html: [fail, Attr interface doesn't extends from Node interface]
 
 ---
 
@@ -173,7 +176,7 @@ DOMParser-parseFromString-html.html: [fail, needs to get "the active document's 
 DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD validation]
 DOMParser-parseFromString-xml.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 XMLSerializer-serializeToString.html: [fail, Unknown]
-createContextualFragment.html: [fail, Range is not implemented]
+createContextualFragment.html: [fail, Script execution timing]
 idlharness.window.html: [fail, Depends on fetch]
 innerhtml-05.xhtml: [fail, Unknown]
 
@@ -847,13 +850,22 @@ DIR: html/webappapis/timers
 
 ---
 
+DIR: selection
+
+idlharness.window.html: [fail, Depends on fetch]
+script-and-style-elements.html: [fail,
+  toString should return only the text within the selection that is visible to the user
+  (https://www.w3.org/Bugs/Public/show_bug.cgi?id=10583, https://bugzilla.mozilla.org/show_bug.cgi?id=1535392)
+]
+
+---
+
 DIR: shadow-dom
 
 Document-prototype-currentScript.html: [timeout, Test not up to date next with updating wpt it should work]
 DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
 Element-interface-attachShadow-custom-element.html: [fail, CustomElement.define is not implemented]
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
-Range-prototype-insertNode.html: [fail, Range is not implemented]
 ShadowRoot-interface.html: [fail, shadowRoot.styleSheet is not yet implemented]
 focus/focus-selector-delegatesFocus.html: [fail, 'https://github.com/dperini/nwsapi/issues/31']
 focus/focus-tabindex-order-*: [fail, Uses testdriver.js]
@@ -864,9 +876,9 @@ offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
 slotchange-customelements.html: [fail, CustomElement.define is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
-untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, Range is not implemented]
-untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html: [fail, Range is not implemented]
-untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-007.html: [fail, Range is not implemented]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, https://github.com/w3c/selection-api/issues/114]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html: [fail, DocumentOrShadowRoot.elementFromPoint() is not implemented. Needs layout engine]
+untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-007.html: [fail, DocumentOrShadowRoot.elementFromPoint() is not implemented. Needs layout engine]
 untriaged/events/event-dispatch/test-003.html: [timeout, Iframe related timeout issue]
 untriaged/html-elements-in-shadow-trees/html-forms/test-003.html: [timeout, HTMLFormElement.submit is not implemented]
 untriaged/html-elements-in-shadow-trees/inert-html-elements/test-001.html: [fail, Unknown]
@@ -876,8 +888,7 @@ untriaged/styles/test-003.html: [fail, ShadowRoot.stylesheets is not implemented
 untriaged/styles/test-005.html: [fail, offsetTop not implemented]
 untriaged/styles/test-008.html: [fail, offsetTop and offsetHeight not implemented]
 untriaged/user-interaction/editing/inheritance-of-content-editable-001.html: [fail, contentEditable is not implemented]
-untriaged/user-interaction/ranges-and-selections/test-001.html: [fail, Range is not implemented]
-untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, Range is not implemented]
+untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://github.com/w3c/selection-api/issues/114]
 
 ---
 
