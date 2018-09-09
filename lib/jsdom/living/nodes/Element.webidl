@@ -39,7 +39,7 @@ interface Element : Node {
   HTMLCollection getElementsByTagNameNS(DOMString? namespace, DOMString localName);
   HTMLCollection getElementsByClassName(DOMString classNames);
 
-//  [CEReactions] Element? insertAdjacentElement(DOMString where, Element element); // historical
+  [CEReactions] Element? insertAdjacentElement(DOMString where, Element element); // historical
 //  void insertAdjacentText(DOMString where, DOMString data); // historical
 };
 
