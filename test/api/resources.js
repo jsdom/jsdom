@@ -485,26 +485,6 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
     });
 
-    it("should receive an element in options", () => {
-      const resourceLoader = new RecordingResourceLoader();
-      const sourceString = `window.x = 5;`;
-      const url = resourceServer(
-        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-        sourceString
-      );
-
-      const dom = new JSDOM(``, { resources: resourceLoader, runScripts: "dangerously" });
-      const element = dom.window.document.createElement("script");
-
-      setUpLoadingAsserts(element);
-      element.src = url;
-      dom.window.document.body.appendChild(element);
-
-      return assertLoaded(element).then(() => {
-        assert.exists(resourceLoader.options.element);
-      });
-    });
-
     // Just this one as a smoke test; no need to repeat all of the above.
     it("should intercept iframe fetches", () => {
       const url = htmlServer("Hello");
@@ -568,6 +548,87 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
           });
         });
       });
+    });
+
+    describe("element option", () => {
+      it("should receive script elements in options", () => {
+        const resourceLoader = new RecordingResourceLoader();
+        const sourceString = `window.x = 5;`;
+        const url = resourceServer(
+          { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+          sourceString
+        );
+
+        const dom = new JSDOM(``, { resources: resourceLoader, runScripts: "dangerously" });
+        const element = dom.window.document.createElement("script");
+
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertLoaded(element).then(() => {
+          assert.instanceOf(resourceLoader.options.element, dom.window.HTMLScriptElement);
+        });
+      });
+
+      it("should receive stylesheet link elements in options", () => {
+        const resourceLoader = new RecordingResourceLoader();
+        const sourceString = `.foo {}`;
+        const url = resourceServer(
+          { "Content-Type": "text/css", "Content-Length": sourceString.length },
+          sourceString
+        );
+
+        const dom = new JSDOM(``, { resources: resourceLoader });
+        const element = dom.window.document.createElement("link");
+        element.rel = "stylesheet";
+
+        setUpLoadingAsserts(element);
+        element.href = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertLoaded(element).then(() => {
+          assert.instanceOf(resourceLoader.options.element, dom.window.HTMLLinkElement);
+        });
+      });
+
+      it("should receive frame elements in options", () => {
+        const resourceLoader = new RecordingResourceLoader();
+        const sourceString = `<!DOCTYPE html>`;
+        const url = resourceServer(
+          { "Content-Type": "text/html", "Content-Length": sourceString.length },
+          sourceString
+        );
+
+        const dom = new JSDOM(``, { resources: resourceLoader });
+        const element = dom.window.document.createElement("iframe");
+
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertLoaded(element).then(() => {
+          assert.instanceOf(resourceLoader.options.element, dom.window.HTMLIFrameElement);
+        });
+      });
+
+      if (canvas) {
+        it("should receive img elements in options [canvas is installed]", () => {
+          const resourceLoader = new RecordingResourceLoader();
+          const url = imageServer();
+
+          const dom = new JSDOM(``, { resources: resourceLoader });
+          const element = dom.window.document.createElement("img");
+
+          setUpLoadingAsserts(element);
+          element.src = url;
+          dom.window.document.body.appendChild(element);
+
+          return assertLoaded(element).then(() => {
+            assert.instanceOf(resourceLoader.options.element, dom.window.HTMLImageElement);
+          });
+        });
+      }
     });
   });
 
