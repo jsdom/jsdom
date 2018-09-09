@@ -80,7 +80,7 @@ describe("API: constructor options", () => {
     });
 
     it("should allow customizing document content type via the contentType option", () => {
-      const { document } = (new JSDOM(``, { contentType: "application/funstuff+xml" })).window;
+      const { document } = (new JSDOM(`<doc/>`, { contentType: "application/funstuff+xml" })).window;
 
       assert.strictEqual(document.contentType, "application/funstuff+xml");
     });
@@ -92,7 +92,7 @@ describe("API: constructor options", () => {
     });
 
     it("should not show content type parameters in document.contentType (XML)", () => {
-      const { document } = (new JSDOM(``, { contentType: "application/xhtml+xml; charset=utf8" })).window;
+      const { document } = (new JSDOM(`<doc/>`, { contentType: "application/xhtml+xml; charset=utf8" })).window;
 
       assert.strictEqual(document.contentType, "application/xhtml+xml");
     });

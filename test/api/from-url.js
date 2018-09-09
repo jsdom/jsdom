@@ -180,7 +180,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
 
     describe("contentType", () => {
       it("should use the content type fetched for a 200", () => {
-        const url = simpleServer(200, { "Content-Type": "application/xml" });
+        const url = simpleServer(200, { "Content-Type": "application/xml" }, "<doc/>");
 
         return JSDOM.fromURL(url).then(dom => {
           assert.strictEqual(dom.window.document.contentType, "application/xml");

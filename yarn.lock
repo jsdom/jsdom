@@ -3193,6 +3193,12 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
+saxes@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/saxes/-/saxes-3.1.2.tgz#f18440ea0fa6a625d3d1a7e13f4c3f10effc5f40"
+  dependencies:
+    xmlchars "^1.1.0"
+
 "semver@2 || 3 || 4 || 5", semver@^5.3.0:
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
@@ -3860,6 +3866,10 @@ wtf-8@1.0.0:
 xml-name-validator@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
+
+xmlchars@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-1.1.0.tgz#efe153f1505def1eb9e1887365670262ed4f296d"
 
 xmlhttprequest-ssl@1.5.3:
   version "1.5.3"

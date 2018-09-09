@@ -2,7 +2,7 @@
 const { JSDOM } = require("../../../../..");
 
 exports.hc_staff = function () {
-  return (new JSDOM(`
+  return (new JSDOM(`\
 <?xml version="1.0"?>
 <?TEST-STYLE PIDATA?>
 <!DOCTYPE html
