@@ -1,7 +1,7 @@
 "use strict";
 const fs = require("fs");
 
-const EXPECTED_MANIFEST_VERSION = 4;
+const EXPECTED_MANIFEST_VERSION = 5;
 
 exports.getPossibleTestFilePaths = manifest => {
   const testharnessTests = manifest.items.testharness;
