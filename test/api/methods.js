@@ -182,6 +182,13 @@ describe("API: JSDOM class's methods", () => {
 
       assert.strictEqual(dom.window.ran, 3);
     });
+
+    it("should allow passing through options", () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const script = new vm.Script("while(true) {}");
+
+      assert.throws(() => dom.runVMScript(script, { timeout: 50 }), "Script execution timed out.");
+    });
   });
 
   describe("reconfigure", () => {

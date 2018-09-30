@@ -307,7 +307,7 @@ console.log(dom.nodeLocation(imgEl));    // { startOffset: 13, endOffset: 32 }
 
 Note that this feature only works if you have set the `includeNodeLocations` option; node locations are off by default for performance reasons.
 
-### Running vm-created scripts with `runVMScript(script)`
+### Running vm-created scripts with `runVMScript(script[, options])`
 
 The built-in `vm` module of Node.js allows you to create `Script` instances, which can be compiled ahead of time and then run multiple times on a given "VM context". Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `runVMScript()` method:
 
@@ -331,6 +331,8 @@ dom.window.ran === 3;
 ```
 
 This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
+
+`runVMScript()` also takes an `options` object as its second argument. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options) for details.
 
 ### Reconfiguring the jsdom with `reconfigure(settings)`
 
