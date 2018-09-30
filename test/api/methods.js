@@ -183,7 +183,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(dom.window.ran, 3);
     });
 
-    it("should allow passing through options", () => {
+    it("should allow passing through options", { skipIfBrowser: true }, () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const script = new vm.Script("while(true) {}");
 
