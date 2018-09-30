@@ -206,6 +206,7 @@ Robin <fbzhong@gmail.com>
 Robin Berjon <robin@berjon.com>
 Rodrigo Flores <rodrigo.flores@plataformatec.com.br>
 Rolf Timmermans <rolftimmermans@voormedia.com>
+Ronald Rey <reyronald@gmail.com>
 Ryan Gasparini <ryan@rxgx.com>
 Ryan Grove <ryan@wonko.com>
 Ryan Seddon <rseddon@zendesk.com>

@@ -1,3 +1,12 @@
+## 12.1.0
+
+* Dramatically upgraded our XML parser, from the unmaintained [sax](https://github.com/isaacs/sax-js) package to the well-maintained [saxes](https://github.com/lddubeau/saxes) replacement. This increases our specification conformance, including rejecting certain ill-formed XML documents that were previously accepted, and properly handling other constructs like empty comments, CDATA sections, and `<script>` elements. (lddubeau)
+* Added `fieldsetEl.elements` and `fieldsetEl.type` properties.
+* Added the `options` parameter to `dom.runVMScript()`. (SimenB)
+* Added the ability for custom resource loader `fetch()` implementations to see what element initiated the fetch. (sarvaje)
+* Fixed `input` and `change` events for `<input>` elements to be trusted and uncancelable.
+* "Fixed" `<script>`s with the `async` attribute to not execute before sync `<script>`s that precede them. We still do not, in general, have proper execution of scripts during the initial parsing of a document, so this fix is more of a reduction of badness than an alignment with the specification. This behavior regressed in v12.0.0. (sarvaje)
+
 ## 12.0.0
 
 This major release brings along our [new resource loader API](https://github.com/jsdom/jsdom#loading-subresources), finally bringing all the capabilities from jsdom v9 to the new (jsdom v10+) API. Thanks very much to [@sarvaje](https://github.com/sarvaje) for his work to make this possible!
