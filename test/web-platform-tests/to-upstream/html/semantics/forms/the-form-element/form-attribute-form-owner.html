@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Clicking a button should submit the form</title>
+<link rel="author" title="Jamie Treworgy" href="mailto:jamie@treworgy.com">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#attr-button-type-submit-state">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+test(() => {
+
+  let form = document.createElement("form");
+  form.id = "form1";
+  document.body.appendChild(form);
+  form = document.getElementById("form1");
+
+  const redherring = document.createElement("div");
+  redherring.id = "form2";
+  document.body.appendChild(redherring);
+
+  const elementNames = ["button", "input", "legend", "select", "textarea", "fieldset", "object", "output"];
+  elementNames.forEach(e => {
+    const el = document.createElement(e);
+    document.body.appendChild(el);
+    assert_equals(el.form, null, `${e} without form attribute`);
+    el.setAttribute("form", "form1");
+    assert_equals(el.form, form, `${e} with valid form attribute`);
+    el.setAttribute("form", "form2");
+    assert_equals(el.form, null, `${e} with invalid form attribute`);
+  });
+}, "`form` property of elements connected via 'form' attribute is correct");
+
+
+async_test(t => {
+
+  const form = document.createElement("form");
+  form.id = "form1";
+  const button = document.createElement("button");
+  button.setAttribute("form", "form1");
+
+  document.body.appendChild(form);
+  document.body.appendChild(button);
+  form.addEventListener("submit", t.step_func_done(ev => {
+    ev.preventDefault();
+    assert_equals(ev.target, form);
+  }));
+
+  button.click();
+  t.step_timeout(() => t.done(), 500);
+
+}, "clicking a button with .click() should trigger a submit (form connected via 'form' attribute)");
+
+</script>

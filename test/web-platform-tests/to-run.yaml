@@ -463,6 +463,14 @@ DIR: html/semantics/forms/constraints
 
 ---
 
+DIR: html/semantics/forms/form-control-infrastructure
+
+form.html: [fail, dom is not parsed according to spec; form element not present]
+form_owner_and_table.html: [fail, dom is not parsed according to spec; form element not present]
+form_owner_and_table_3.html: [fail, Unknown]
+
+---
+
 DIR: html/semantics/forms/resetting-a-form
 
 reset-event.html: [fail, Unknown]
