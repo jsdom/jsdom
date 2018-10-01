@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cross-Origin POST with preflight and FormData body should send body</title>
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+  <script src="support.js"></script>
+</head>
+<body>
+<script>
+  "use strict";
+
+  // duplicated from wpt/tests/cors/support.js
+  function corsUrl(path) {
+    function dirname(dirPath) {
+      return dirPath.replace(/\/[^/]*$/, "/");
+    }
+
+    /* This subdomain should point to this same location */
+    const SUBDOMAIN = "www1";
+
+    /* Changes http://example.com/abc/def/cool.htm to http://www1.example.com/abc/def/ */
+    const CROSSDOMAIN = dirname(location.href).replace("://", "://" + SUBDOMAIN + ".");
+
+    return CROSSDOMAIN + path;
+  }
+
+  function testCorsFormDataUpload(description, path, method, form, headers, withCredentials) {
+    const test = async_test(description);
+    const client = new XMLHttpRequest();
+    const url = corsUrl(path);
+
+    client.open(method, url, true);
+    client.withCredentials = withCredentials;
+    for (const key of Object.keys(headers)) {
+      client.setRequestHeader(key, headers[key]);
+    }
+
+    client.send(form);
+
+    client.onload = () => {
+      test.step(() => {
+        assert_equals(client.status, 200);
+        assert_regexp_match(client.responseText, /Content-Disposition: form-data/);
+
+        for (const key of form.keys()) {
+          assert_regexp_match(client.responseText, new RegExp(key));
+          assert_regexp_match(client.responseText, new RegExp(form.get(key)));
+        }
+      });
+      test.done();
+    };
+  }
+
+  const form = new FormData();
+  form.append("key", "value");
+
+  testCorsFormDataUpload(
+    "Cross-Origin POST FormData body but no preflight",
+    "resources/echo-content-cors.py",
+    "POST",
+    form,
+    {},
+    false
+  );
+
+  testCorsFormDataUpload(
+    "Cross-Origin POST with preflight and FormData body",
+    "resources/echo-content-cors.py",
+    "POST",
+    form,
+    {
+      Authorization: "Bearer access-token"
+    },
+    true
+  );
+
+</script>
+</body>
+</html>
