@@ -91,7 +91,7 @@
     "test-browser-iframe": "karma start test/karma.conf.js",
     "test-browser-worker": "karma start test/karma-webworker.conf.js",
     "test-browser": "yarn test-browser-iframe && yarn test-browser-worker",
-    "lint": "eslint . --cache && eslint test/web-platform-tests/to-upstream --cache --ext .html",
+    "lint": "eslint . --cache --ext .js,.html",
     "lint-is-complete": "eslint-find-rules --unused .eslintrc.json",
     "init-wpt": "git submodule update --init --recursive",
     "reset-wpt": "rimraf ./test/web-platform-tests/tests && yarn init-wpt",
