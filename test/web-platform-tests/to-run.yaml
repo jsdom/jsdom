@@ -90,7 +90,6 @@ DIR: dom/collections
 
 DIR: dom/events
 
-AddEventListenerOptions-passive.html: [fail, Not implemented, https://github.com/tmpvar/jsdom/issues/1609]
 Event-dispatch-click.html: [fail, Unknown]
 Event-dispatch-redispatch.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
