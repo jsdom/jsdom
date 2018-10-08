@@ -858,7 +858,6 @@ unload-a-document/*: [timeout, Requires window.open]
 
 DIR: webstorage
 
-event_initstorageevent.html: [fail, initStorageEvent() not implemented]
 event_no_duplicates.html: [fail, weird microtask/task timing, https://github.com/jsdom/jsdom/pull/2279#issuecomment-408319938]
 idlharness.window.html: [fail, Depends on fetch]
 storage_local_window_open.html: [timeout, Depends on window.open()]
