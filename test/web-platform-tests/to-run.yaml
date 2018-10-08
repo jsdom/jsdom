@@ -172,7 +172,6 @@ innerhtml-03.xhtml: [fail, Unknown]
 innerhtml-05.xhtml: [fail, Unknown]
 insert_adjacent_html-xhtml.xhtml: [fail, Unknown]
 interfaces.any.html: [fail, Depends on fetch]
-xml-serialization.xhtml: [fail, Unknown]
 xmldomparser.html: [fail, The status returned is "loading", instead of "complete"]
 
 ---
@@ -694,7 +693,6 @@ DIR: html/semantics/scripting-1/the-template-element
 
 additions-to-parsing-xhtml-documents/node-document.html: [timeout, Templates in XHTML are totally messed up]
 additions-to-parsing-xhtml-documents/template-child-nodes.html: [timeout, Templates in XHTML are totally messed up]
-additions-to-serializing-xhtml-documents/outerhtml.html: [fail, Templates in XHTML are totally messed up]
 definitions/template-contents-owner-test-001.html: [fail, template content owner document semantics not yet implemented]
 definitions/template-contents-owner-test-002.html: [fail, template content owner document semantics not yet implemented]
 template-element/node-document-changes.html: [fail, template content owner document semantics not yet implemented]
