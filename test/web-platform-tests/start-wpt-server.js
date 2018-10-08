@@ -3,10 +3,10 @@
 const path = require("path");
 const dns = require("dns");
 const childProcess = require("child_process");
-const q = require("q");
-const { inBrowserContext } = require("../util.js");
+const { promisify } = require("util");
+const { inBrowserContext, delay } = require("../util.js");
 const requestHead = require("request-promise-native").head;
-const dnsLookup = q.denodeify(dns.lookup);
+const dnsLookup = promisify(dns.lookup);
 
 const wptDir = path.resolve(__dirname, "tests");
 
@@ -69,6 +69,6 @@ function pollForServer(url) {
     })
     .catch(err => {
       console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
-      return q.delay(500).then(() => pollForServer(url));
+      return delay(500).then(() => pollForServer(url));
     });
 }
