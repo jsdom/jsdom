@@ -5,7 +5,7 @@ const { createServer } = require("../util.js");
 const { JSDOM } = require("../..");
 
 describe("xhr-requires-server", { skipIfBrowser: true }, () => {
-  specify("Getting a non-file URL should not fail for getAllResponseHeaders", t => {
+  specify("Getting a non-file URL should not fail for getAllResponseHeaders", () => {
     return createServer((req, res) => {
       res.writeHead(200, [["date", "0"]]);
       res.end("<body></body>");
@@ -16,20 +16,19 @@ describe("xhr-requires-server", { skipIfBrowser: true }, () => {
       const { window } = new JSDOM(``, { url: testHost + "/TestPath/get-headers" });
 
       const xhr = new window.XMLHttpRequest();
-      xhr.onload = () => {
-        assert.doesNotThrow(() => {
+      const promise = new Promise(resolve => {
+        xhr.onload = () => {
           assert.strictEqual(
             xhr.getAllResponseHeaders(),
             "date: 0\r\nconnection: keep-alive\r\ntransfer-encoding: chunked"
           );
-        });
-        t.done();
-      };
+          resolve();
+        };
+      });
 
       xhr.open("GET", testHost + "/TestPath/get-headers", true);
       xhr.send();
+      return promise;
     });
-  }, {
-    async: true
   });
 });
