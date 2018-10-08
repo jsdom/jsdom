@@ -1,34 +1,53 @@
 "use strict";
+const http = require("http");
+
 const { assert } = require("chai");
-const { describe, specify } = require("mocha-sugar-free");
-const { createServer } = require("../util.js");
+const { beforeEach, describe, specify } = require("mocha-sugar-free");
+const portfinder = require("portfinder");
+
 const { JSDOM } = require("../..");
 
 describe("xhr-requires-server", { skipIfBrowser: true }, () => {
-  specify("Getting a non-file URL should not fail for getAllResponseHeaders", () => {
-    return createServer((req, res) => {
-      res.writeHead(200, [["date", "0"]]);
-      res.end("<body></body>");
-    }).then(s => {
-      const testHost = `http://127.0.0.1:${s.address().port}`;
+  let testHost = null;
 
-      // From https://github.com/tmpvar/jsdom/pull/1183
-      const { window } = new JSDOM(``, { url: testHost + "/TestPath/get-headers" });
+  beforeEach(() => {
+    return new Promise((resolve, reject) => {
+      portfinder.getPort((err, port) => {
+        if (err) {
+          reject(err);
+          return;
+        }
 
-      const xhr = new window.XMLHttpRequest();
-      const promise = new Promise(resolve => {
-        xhr.onload = () => {
-          assert.strictEqual(
-            xhr.getAllResponseHeaders(),
-            "date: 0\r\nconnection: keep-alive\r\ntransfer-encoding: chunked"
-          );
-          resolve();
-        };
+        http.createServer((req, res) => {
+          res.writeHead(200, [["date", "0"]]);
+          res.end("<body></body>");
+        })
+          .listen(port);
+
+        testHost = "http://127.0.0.1:" + port;
+        resolve();
       });
-
-      xhr.open("GET", testHost + "/TestPath/get-headers", true);
-      xhr.send();
-      return promise;
     });
+  });
+
+  specify("Getting a non-file URL should not fail for getAllResponseHeaders", t => {
+    // From https://github.com/tmpvar/jsdom/pull/1183
+    const { window } = new JSDOM(``, { url: testHost + "/TestPath/get-headers" });
+
+    const xhr = new window.XMLHttpRequest();
+    xhr.onload = () => {
+      assert.doesNotThrow(() => {
+        assert.strictEqual(
+          xhr.getAllResponseHeaders(),
+          "date: 0\r\nconnection: keep-alive\r\ntransfer-encoding: chunked"
+        );
+      });
+      t.done();
+    };
+
+    xhr.open("GET", testHost + "/TestPath/get-headers", true);
+    xhr.send();
+  }, {
+    async: true
   });
 });
