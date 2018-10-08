@@ -2,7 +2,7 @@
  HTMLConstructor]
 interface HTMLOutputElement : HTMLElement {
 //  [SameObject, PutForwards=value] readonly attribute DOMTokenList htmlFor;
-//  readonly attribute HTMLFormElement? form;
+  readonly attribute HTMLFormElement? form;
   [CEReactions, Reflect] attribute DOMString name;
 
 //  readonly attribute DOMString type;
