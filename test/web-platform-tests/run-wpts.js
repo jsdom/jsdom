@@ -9,6 +9,7 @@ const startWPTServer = require("./start-wpt-server.js");
 
 const validReasons = new Set([
   "fail",
+  "fail-slow",
   "timeout",
   "flaky",
   "mutates-globals",
@@ -49,7 +50,7 @@ describe("web-platform-tests", () => {
 
           const testFile = stripPrefix(testFilePath, toRunDoc.DIR + "/");
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
-          const shouldSkip = ["timeout", "flaky", "mutates-globals"].includes(reason);
+          const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason);
           const expectFail = (reason === "fail") ||
                              (reason === "needs-node10" && !hasNode10);
 
