@@ -19,6 +19,7 @@ interface Element : Node {
   [CEReactions] void setAttributeNS(DOMString? namespace, DOMString qualifiedName, DOMString value);
   [CEReactions] void removeAttribute(DOMString qualifiedName);
   [CEReactions] void removeAttributeNS(DOMString? namespace, DOMString localName);
+  [CEReactions] boolean toggleAttribute(DOMString qualifiedName, optional boolean force);
   boolean hasAttribute(DOMString qualifiedName);
   boolean hasAttributeNS(DOMString? namespace, DOMString localName);
 
