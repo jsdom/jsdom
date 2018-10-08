@@ -5,7 +5,7 @@ interface Event {
   readonly attribute EventTarget? target;
   readonly attribute EventTarget? srcElement; // historical
   readonly attribute EventTarget? currentTarget;
-//  sequence<EventTarget> composedPath();
+  sequence<EventTarget> composedPath();
 
   const unsigned short NONE = 0;
   const unsigned short CAPTURING_PHASE = 1;
@@ -22,7 +22,7 @@ interface Event {
            attribute boolean returnValue;  // historical
   void preventDefault();
   readonly attribute boolean defaultPrevented;
-//  readonly attribute boolean composed;
+  readonly attribute boolean composed;
 
   [Unforgeable] readonly attribute boolean isTrusted;
   // Modified - No support for DOMHighResTimeStamp usage in Event-impl
@@ -35,5 +35,5 @@ interface Event {
 dictionary EventInit {
   boolean bubbles = false;
   boolean cancelable = false;
-//  boolean composed = false;
+  boolean composed = false;
 };

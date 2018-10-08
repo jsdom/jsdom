@@ -8,7 +8,7 @@ interface Element : Node {
   [CEReactions, Reflect] attribute DOMString id;
   [CEReactions, Reflect=class] attribute DOMString className;
   [SameObject, PutForwards=value] readonly attribute DOMTokenList classList;
-//  [CEReactions, Unscopable] attribute DOMString slot;
+  [CEReactions, Unscopable, Reflect] attribute DOMString slot;
 
   boolean hasAttributes();
   [SameObject] readonly attribute NamedNodeMap attributes;
@@ -28,8 +28,8 @@ interface Element : Node {
   [CEReactions] Attr? setAttributeNodeNS(Attr attr);
   [CEReactions] Attr removeAttributeNode(Attr attr);
 
-//  ShadowRoot attachShadow(ShadowRootInit init);
-//  readonly attribute ShadowRoot? shadowRoot;
+  ShadowRoot attachShadow(ShadowRootInit init);
+  readonly attribute ShadowRoot? shadowRoot;
 
   Element? closest(DOMString selectors);
   boolean matches(DOMString selectors);
@@ -87,3 +87,5 @@ partial interface Element {
   readonly attribute long clientWidth;
   readonly attribute long clientHeight;
 };
+
+Element implements Slotable;
