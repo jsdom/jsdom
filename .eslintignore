@@ -1,6 +1,7 @@
 node_modules
 
 benchmark/browser-bundle.js
+benchmark/browser-runner.html
 test/worker-bundle.js
 
 lib/jsdom/browser/default-stylesheet.js
@@ -13,12 +14,8 @@ test/*.js
 !test/karma*
 !test/util.js
 
-test/browser/files
+test/api/fixtures
 test/jquery-fixtures
-test/jsdom/files
-test/jsdom/leak.js
-test/runner
-test/sizzle
 test/to-port-to-wpts/files
 test/to-port-to-wpts/frame.js
 test/to-port-to-wpts/level1
