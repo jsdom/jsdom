@@ -1,18 +1,20 @@
 "use strict";
-const fs = require("pn/fs");
+const { promisify } = require("util");
+const fs = require("fs");
 const path = require("path");
 const { assert } = require("chai");
 const { describe, it, before, after } = require("mocha-sugar-free");
 const { createServer } = require("../util.js");
-
 const { JSDOM } = require("../..");
+
+const readFile = promisify(fs.readFile);
 
 function fixturePath(fixture) {
   return path.resolve(__dirname, "fixtures/encoding", fixture);
 }
 
 function readFixture(fixture) {
-  return fs.readFile(fixturePath(fixture));
+  return readFile(fixturePath(fixture));
 }
 
 const factories = {
