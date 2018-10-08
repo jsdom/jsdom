@@ -1,6 +1,26 @@
+<!-- Style guide:
+
+* Package names are in `code`, sometimes [`linked`]().
+* Prefer referring to methods and properties via `someInstance.prop`, instead of `ClassName.prototype.prop`. (Never use `ClassName.prop` except for statics.)
+* Refer to attributes via `attr=""`
+* Refer to elements via `<element>`
+* Never use the IDL terms "interface", "attribute", or "operation".
+* URL schemes are in `code`, e.g. `data:`.
+* Except in the headings, all version numbers get a "v" prefix, e.g. v12.2.0.
+
+-->
+
+## 12.2.0
+
+* Added support for shadow DOM! This includes shadow roots, slots, composed events, and more. (pmdartus)
+* Added the `element.toggleAttribute()` method.
+* Fixed `XMLHttpRequest` sometimes sending an empty request body after a preflight request. (andreasf)
+* Fixed the `formElement.form` property to use an algorithm that also checks the `form=""` attribute, instead of always looking for the closest ancestor `<form>` element. (jamietre)
+* Stopped swallowing errors when the `canvas` or `canvas-prebuilt` packages were installed, but failed to load. (joscha)
+
 ## 12.1.0
 
-* Dramatically upgraded our XML parser, from the unmaintained [sax](https://github.com/isaacs/sax-js) package to the well-maintained [saxes](https://github.com/lddubeau/saxes) replacement. This increases our specification conformance, including rejecting certain ill-formed XML documents that were previously accepted, and properly handling other constructs like empty comments, CDATA sections, and `<script>` elements. (lddubeau)
+* Dramatically upgraded our XML parser, from the unmaintained [`sax`](https://github.com/isaacs/sax-js) package to the well-maintained [`saxes`](https://github.com/lddubeau/saxes) replacement. This increases our specification conformance, including rejecting certain ill-formed XML documents that were previously accepted, and properly handling other constructs like empty comments, CDATA sections, and `<script>` elements. (lddubeau)
 * Added `fieldsetEl.elements` and `fieldsetEl.type` properties.
 * Added the `options` parameter to `dom.runVMScript()`. (SimenB)
 * Added the ability for custom resource loader `fetch()` implementations to see what element initiated the fetch. (sarvaje)
@@ -15,8 +35,8 @@ Breaking changes:
 
 * jsdom now requires Node.js v8.
 * Removed the old jsdom API, as the new API now has all the capabilities you need.
-* Updated our [parse5](https://github.com/inikulin/parse5/) dependency to v5, which changes the format of the node locations returned by `dom.nodeLocation()`.
-* Updated our [whatwg-url](https://github.com/jsdom/whatwg-url) dependency to v7, which changes the origin of `file:` URLs to be an opaque origin (and thus `file:` URLs are no longer same origin to each other).
+* Updated our [`parse5`](https://github.com/inikulin/parse5/) dependency to v5, which changes the format of the node locations returned by `dom.nodeLocation()`.
+* Updated our [`whatwg-url`](https://github.com/jsdom/whatwg-url) dependency to v7, which changes the origin of `file:` URLs to be an opaque origin (and thus `file:` URLs are no longer same origin to each other).
 
 Other changes:
 
@@ -327,7 +347,7 @@ Apart from the new API, the following changes were made, with breaking changes b
 * Added the `blob.isClosed` property. (TimothyGu)
 * Fixed the `file.lastModified` property to be on `File` instead of on `Blob`. (TimothyGu)
 * Fixed the `file.lastModified` property to default to the time of the `File` object's creation, not the time that the property is accessed. (TimothyGu)
-* Fixed a minor edge-case regression where non-HTML elements with the name `"iframe"` became focusable in 9.7.0.
+* Fixed a minor edge-case regression where non-HTML elements with the name `"iframe"` became focusable in v9.7.0.
 
 ## 9.7.1
 
@@ -357,11 +377,11 @@ Apart from the new API, the following changes were made, with breaking changes b
 
 ## 9.4.5
 
-* Fixed `"error"` events from failed resource loads going missing since 9.4.3. I really should have tested that release better.
+* Fixed `"error"` events from failed resource loads going missing since v9.4.3. I really should have tested that release better.
 
 ## 9.4.4
 
-* Fixed a leftover `console.log` introduced in the error handling path in 9.4.3.
+* Fixed a leftover `console.log` introduced in the error handling path in v9.4.3.
 
 ## 9.4.3
 
@@ -434,7 +454,7 @@ Apart from the new API, the following changes were made, with breaking changes b
 * Fixed `formEl.action` to return a value resolved relative to the document URL, or to return the document URL if the corresponding attribute is missing or empty.
 * Sped up XPath execution. (vsemozhetbyt)
 * Fixed `window.close()` not correctly clearing event listeners on the document. (Ojek)
-* Fixed a regression introduced in 9.0.0 where invalid CSS would cause a crash while attempting to parse it. Instead, a `"jsdomError"` will now be emitted to the virtual console.
+* Fixed a regression introduced in v9.0.0 where invalid CSS would cause a crash while attempting to parse it. Instead, a `"jsdomError"` will now be emitted to the virtual console.
 
 ## 9.0.0
 
@@ -472,7 +492,7 @@ Your normal change log follows:
 ## 8.4.0
 
 * Added an implementation of the `TreeWalker` class (and `document.createTreeWalker`). (garycourt)
-* Fixed a few minor bugs in URL parsing and the `URL` API, by upgrading to `whatwg-url` 2.0.1.
+* Fixed a few minor bugs in URL parsing and the `URL` API, by upgrading to `whatwg-url` v2.0.1.
 * Fixed a few issues with generated files in the published package, which seem to have impacted webpack users.
 
 ## 8.3.1
@@ -486,7 +506,7 @@ Your normal change log follows:
   * `load` and `error` events will fire on the `<img>` element, according to how well image decoding goes.
   * You can draw images onto canvases, using the newly-enabled `canvasContext.drawImage` API.
 * Added `canvasContext.createPattern` and `canvasContext.toBlob`, when the `canvas` npm package is installed. (lehni)
-* Added a basic implementation of the [Page Visibility API](https://w3c.github.io/page-visibility/), in particular a `document.hidden` property that always returns `true`, and a `document.visibilityState` property that always returns `"prerender"`. This is a more standard alternative to our proprietary `navigator.noUI`, which will be removed whenever we release 9.0.0. (kapouer)
+* Added a basic implementation of the [Page Visibility API](https://w3c.github.io/page-visibility/), in particular a `document.hidden` property that always returns `true`, and a `document.visibilityState` property that always returns `"prerender"`. This is a more standard alternative to our proprietary `navigator.noUI`, which will be removed whenever we release v9.0.0. (kapouer)
 
 ## 8.2.0
 
@@ -721,9 +741,9 @@ Finally, if you're a loyal jsdom fan whose made it this far into the changelog, 
 ## 5.6.1
 
 * Fixed an accidentally-created global `attribute` variable if you ever called `createAttributeNS`.
-* Dependency upgrades fixed a couple of bugs, although you would have gotten these anyway with a clean jsdom 5.6.0 install:
-  - Parsing of CSS properties that use `url("quoted string")` now works correctly, as of `cssstyle` 0.2.29.
-  - Selectors for the empty string, like `div[title=""]`, now work correctly, as of `nwmatcher` 1.3.6.
+* Dependency upgrades fixed a couple of bugs, although you would have gotten these anyway with a clean jsdom v5.6.0 install:
+  - Parsing of CSS properties that use `url("quoted string")` now works correctly, as of `cssstyle` v0.2.29.
+  - Selectors for the empty string, like `div[title=""]`, now work correctly, as of `nwmatcher` v1.3.6.
 
 ## 5.6.0
 
@@ -754,7 +774,7 @@ Additionally, Joris-van-der-Wel added [a benchmarking framework](https://github.
 
 ## 5.4.1
 
-* Fixed to work with browserify again (regression introduced in 5.4.0).
+* Fixed to work with browserify again (regression introduced in v5.4.0).
 
 ## 5.4.0
 

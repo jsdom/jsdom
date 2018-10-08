@@ -13,6 +13,7 @@ Alistair MacDonald <amacdonald@aisquared.com>
 Alvaro Dias <alvarod@microsoft.com>
 Ammar Khaku <ammar.khaku@gmail.com>
 Andrea Bogazzi <andreabogazzi79@gmail.com>
+Andreas Fleig <andreasfleig@gmail.com>
 Andreas Lind Petersen <andreas@one.com>
 andrew morton <drewish@katherinehouse.com>
 Andrew Patton <andrew@acusti.ca>
@@ -97,6 +98,7 @@ Jack <jack@jackmarchant.com>
 James Broad <jb@kulor.com>
 James Kyle <me@thejameskyle.com>
 James McMath <mcmathja@mediant.co>
+James Treworgy <jamietre@gmail.com>
 Jameson Little <t.jameson.little@gmail.com>
 Jared Deckard <jared.deckard@gmail.com>
 Jason Davies <jason@jasondavies.com>
@@ -121,6 +123,7 @@ Jonathan Ong <jonathanrichardong@gmail.com>
 Joris van der Wel <joris@jorisvanderwel.com>
 Jörn Hees <joernhees@users.noreply.github.com>
 Jos Shepherd <jos@hipsnip.com>
+Joscha Feth <joscha@feth.com>
 José Valim <jose.valim@gmail.com>
 Joseph Frazier <1212jtraceur@gmail.com>
 Josh Marshall <catchjosh@gmail.com>
