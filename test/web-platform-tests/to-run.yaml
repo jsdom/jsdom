@@ -812,8 +812,6 @@ untriaged/events/event-dispatch/test-003.html: [timeout, Iframe related timeout 
 untriaged/html-elements-in-shadow-trees/html-forms/test-003.html: [fail, HTMLFormElemement.submit is not implemented]
 untriaged/html-elements-in-shadow-trees/inert-html-elements/test-001.html: [fail, Unknown]
 untriaged/shadow-trees/upper-boundary-encapsulation/dom-tree-accessors-001.html: [fail, Document.all is not implemented]
-untriaged/shadow-trees/upper-boundary-encapsulation/test-005.html: [fail, HTMLOutputElementImpl.form is not implemented]
-untriaged/shadow-trees/upper-boundary-encapsulation/test-007.html: [fail, HTMLOutputElementImpl.form is not implemented]
 untriaged/styles/test-001.html: [fail, offsetTop not implemented]
 untriaged/styles/test-003.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/styles/test-005.html: [fail, offsetTop not implemented]
