@@ -179,7 +179,7 @@ One of the options you will receive in `fetch()` will be the element (if applica
 class CustomResourceLoader extends jsdom.ResourceLoader {
   fetch(url, options) {
     if (options.element) {
-      console.log(`Element ${options.element.localName} is requestion the url ${url}`);
+      console.log(`Element ${options.element.localName} is requesting the url ${url}`);
     }
 
     return super.fetch(url, options);
