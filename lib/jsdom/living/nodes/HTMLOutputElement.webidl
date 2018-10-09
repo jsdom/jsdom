@@ -6,7 +6,7 @@ interface HTMLOutputElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString name;
 
 //  readonly attribute DOMString type;
-//  [CEReactions] attribute DOMString defaultValue;
+  [CEReactions] attribute DOMString defaultValue;
 //  [CEReactions] attribute DOMString value;
 
   readonly attribute boolean willValidate;

@@ -474,7 +474,6 @@ DIR: html/semantics/forms/resetting-a-form
 
 reset-event.html: [fail, Unknown]
 reset-form-event-realm.html: [fail, Unknown]
-reset-form.html: [fail, Unknown]
 
 ---
 
