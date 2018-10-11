@@ -124,6 +124,8 @@ window.requestAnimationFrame(timestamp => {
 
 Note that jsdom still [does not do any layout or rendering](#unimplemented-parts-of-the-web-platform), so this is really just about _pretending_ to be visual, not about implementing the parts of the platform a real, visual web browser would implement.
 
+You can set `document.hidden` via `dom.reconfigure`. Please see [Reconfiguring the jsdom with `reconfigure(settings)`](#reconfiguring-the-jsdom-with-reconfiguresettings)
+
 ### Loading subresources
 
 #### Basic options
@@ -340,7 +342,10 @@ The `top` property on `window` is marked `[Unforgeable]` in the spec, meaning it
 
 Similarly, at present jsdom does not handle navigation (such as setting `window.location.href = "https://example.com/"`); doing so will cause the virtual console to emit a `"jsdomError"` explaining that this feature is not implemented, and nothing will change: there will be no new `Window` or `Document` object, and the existing `window`'s `location` object will still have all the same property values.
 
-However, if you're acting from outside the window, e.g. in some test framework that creates jsdoms, you can override one or both of these using the special `reconfigure()` method:
+`document.hidden` can also be set via `reconfigure`.
+Setting `document.hidden = false` will change the environment to `pretendToBeVisual` to true. Please see [Pretending to be a visual browser](#pretending-to-be-a-visual-browser).
+
+However, if you're acting from outside the window, e.g. in some test framework that creates jsdoms, you can override one or all of these using the special `reconfigure()` method:
 
 ```js
 const dom = new JSDOM();
@@ -348,10 +353,11 @@ const dom = new JSDOM();
 dom.window.top === dom.window;
 dom.window.location.href === "about:blank";
 
-dom.reconfigure({ windowTop: myFakeTopForTesting, url: "https://example.com/" });
+dom.reconfigure({ windowTop: myFakeTopForTesting, url: "https://example.com/", documentHidden: false });
 
 dom.window.top === myFakeTopForTesting;
 dom.window.location.href === "https://example.com/";
+dom.window.document.hidden === false;
 ```
 
 Note that changing the jsdom's URL will impact all APIs that return the current document URL, such as `window.location`, `document.URL`, and `document.documentURI`, as well as resolution of relative URLs within the document, and the same-origin checks and referrer used while fetching subresources. It will not, however, perform a navigation to the contents of that URL; the contents of the DOM will remain unchanged, and no new instances of `Window`, `Document`, etc. will be created.

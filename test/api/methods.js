@@ -287,5 +287,44 @@ describe("API: JSDOM class's methods", () => {
         assert.strictEqual(window.document.documentURI, "http://example.com/");
       });
     });
+
+    describe("documentHidden", () => {
+      it("should reconfigure the document.hidden property (tested from the outside)", () => {
+        const dom = new JSDOM();
+
+        dom.reconfigure({ documentHidden: false });
+        assert.strictEqual(dom.window.document.hidden, false);
+
+        dom.reconfigure({ documentHidden: true });
+        assert.strictEqual(dom.window.document.hidden, true);
+      });
+
+      it("should reconfigure the document.hidden property (tested from the inside)", () => {
+        const dom = new JSDOM(`<script>window.getHidden = () => document.hidden;</script>`, { runScripts: "dangerously" });
+
+        dom.reconfigure({ documentHidden: false });
+        assert.strictEqual(dom.window.getHidden(), false);
+
+        dom.reconfigure({ documentHidden: true });
+        assert.strictEqual(dom.window.getHidden(), true);
+      });
+
+      it("should do nothing when no options are passed", () => {
+        const dom = new JSDOM();
+        const expected = true;
+
+        dom.reconfigure({ });
+
+        assert.strictEqual(dom.window.document.hidden, expected);
+      });
+
+      it("should do nothing if passing undefined", () => {
+        const dom = new JSDOM();
+
+        dom.reconfigure({ documentHidden: undefined });
+
+        assert.strictEqual(dom.window.document.hidden, true);
+      });
+    });
   });
 });
