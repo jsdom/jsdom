@@ -357,7 +357,7 @@ dom.reconfigure({ windowTop: myFakeTopForTesting, url: "https://example.com/", d
 
 dom.window.top === myFakeTopForTesting;
 dom.window.location.href === "https://example.com/";
-dom.hidden === false;
+dom.window.document.hidden === false;
 ```
 
 Note that changing the jsdom's URL will impact all APIs that return the current document URL, such as `window.location`, `document.URL`, and `document.documentURI`, as well as resolution of relative URLs within the document, and the same-origin checks and referrer used while fetching subresources. It will not, however, perform a navigation to the contents of that URL; the contents of the DOM will remain unchanged, and no new instances of `Window`, `Document`, etc. will be created.

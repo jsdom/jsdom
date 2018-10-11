@@ -291,37 +291,40 @@ describe("API: JSDOM class's methods", () => {
     describe("documentHidden", () => {
       it("should reconfigure the document.hidden property (tested from the outside)", () => {
         const dom = new JSDOM();
-        const expected = false;
 
         dom.reconfigure({ documentHidden: false });
+        assert.strictEqual(dom.window.document.hidden, false);
 
-        assert.strictEqual(dom.document.hidden, expected);
+        dom.reconfigure({ documentHidden: true });
+        assert.strictEqual(dom.window.document.hidden, true);
       });
 
-      // it("should reconfigure the window.top property (tested from the inside)", () => {
-      //   const dom = new JSDOM(`<script>window.getTopResult = () => top.is;</script>`, { runScripts: "dangerously" });
-      //   const newTop = { is: "top" };
+      it("should reconfigure the document.hidden property (tested from the inside)", () => {
+        const dom = new JSDOM(`<script>window.getHidden = () => document.hidden;</script>`, { runScripts: "dangerously" });
 
-      //   dom.reconfigure({ windowTop: newTop });
+        dom.reconfigure({ documentHidden: false });
+        assert.strictEqual(dom.window.getHidden(), false);
 
-      //   assert.strictEqual(dom.window.getTopResult(), "top");
-      // });
+        dom.reconfigure({ documentHidden: true });
+        assert.strictEqual(dom.window.getHidden(), true);
+      });
 
-      // it("should do nothing when no options are passed", () => {
-      //   const dom = new JSDOM();
+      it("should do nothing when no options are passed", () => {
+        const dom = new JSDOM();
+        const expected = true;
 
-      //   dom.reconfigure({ });
+        dom.reconfigure({ });
 
-      //   assert.strictEqual(dom.window.top, dom.window);
-      // });
+        assert.strictEqual(dom.window.document.hidden, expected);
+      });
 
-      // it("should change window.top to undefined if passing undefined", () => {
-      //   const dom = new JSDOM();
+      it("should do nothing if passing undefined", () => {
+        const dom = new JSDOM();
 
-      //   dom.reconfigure({ windowTop: undefined });
+        dom.reconfigure({ documentHidden: undefined });
 
-      //   assert.strictEqual(dom.window.top, undefined);
-      // });
+        assert.strictEqual(dom.window.document.hidden, true);
+      });
     });
   });
 });
