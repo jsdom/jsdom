@@ -472,8 +472,6 @@ form_owner_and_table_3.html: [fail, complex form owner semantics not implemented
 
 DIR: html/semantics/forms/resetting-a-form
 
-reset-event.html: [fail, Expects event.isTrusted to equal true]
-
 ---
 
 DIR: html/semantics/forms/the-button-element
