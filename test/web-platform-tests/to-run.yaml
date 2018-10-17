@@ -113,7 +113,6 @@ DOMTokenList-iteration.html: [fail, The test checks a builtin method is from the
 
 DIR: dom/nodes
 
-CharacterData-appendChild.html: [fail, Unknown]
 Comment-constructor.html: [fail, Unknown]
 DOMImplementation-createDocument.html: [fail, Unknown]
 Document-URL.html: [fail, Unknown]
@@ -137,7 +136,6 @@ Element-insertAdjacentText.html: [fail, Not implemented]
 Element-matches.html: [fail, Whitespace in pseudo-class parameter]
 Element-webkitMatchesSelector.html: [fail, Whitespace in pseudo-class parameter]
 MutationObserver-**: [fail, Not implemented]
-Node-appendChild.html: [fail, Unknown]
 Node-childNodes.html: [fail, Unknown]
 Node-contains-xml.xml: [fail, Unknown]
 Node-insertBefore.html: [fail, Unknown]
@@ -148,9 +146,7 @@ ParentNode-querySelector-All-xht.xht: [timeout, Unknown]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 ProcessingInstruction-literal-1.xhtml: [fail, Unknown]
 Text-constructor.html: [fail, Unknown]
-append-on-Document.html: [fail, Ensure pre-insertion validity not fully implemented, https://github.com/tmpvar/jsdom/issues/1349]
 insert-adjacent.html: [fail, Unknown]
-prepend-on-Document.html: [fail, Ensure pre-insertion validity not fully implemented, https://github.com/tmpvar/jsdom/issues/1349]
 remove-unscopable.html: [fail, Unknown]
 
 ---
