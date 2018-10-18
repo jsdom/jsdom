@@ -139,31 +139,19 @@ test(() => {
 }, "documents should not be compared based on properties");
 
 test(() => {
+  const parentFactory = () => document.createElement("foo");
 
-  testDeepEquality(() => document.createElement("foo"));
-  testDeepEquality(() => document.createDocumentFragment());
-  testDeepEquality(() => document.implementation.createDocument("http://example.org", "example"));
-  testDeepEquality(() => document.implementation.createHTMLDocument());
-  testDeepEquality(() => document.createComment("data"));
-  testDeepEquality(() => document.createTextNode("data"));
-  testDeepEquality(() => document.createProcessingInstruction("target", "data"));
+  const parentA = parentFactory();
+  const parentB = parentFactory();
 
-  function testDeepEquality(parentFactory) {
-    // Some ad-hoc tests of deep equality
+  parentA.appendChild(document.createElement("p"));
+  assert_false(parentA.isEqualNode(parentB));
+  parentB.appendChild(document.createElement("p"));
+  assert_true(parentA.isEqualNode(parentB));
 
-    const parentA = parentFactory();
-    const parentB = parentFactory();
-
-    parentA.appendChild(document.createComment("data"));
-    assert_false(parentA.isEqualNode(parentB));
-    parentB.appendChild(document.createComment("data"));
-    assert_true(parentA.isEqualNode(parentB));
-
-    parentA.firstChild.appendChild(document.implementation.createDocumentType("qualifiedName", "publicId", "systemId"));
-    assert_false(parentA.isEqualNode(parentB));
-    parentB.firstChild.appendChild(document.implementation.createDocumentType("qualifiedName", "publicId", "systemId"));
-    assert_true(parentA.isEqualNode(parentB));
-  }
-
+  parentA.firstChild.appendChild(document.createTextNode("data"));
+  assert_false(parentA.isEqualNode(parentB));
+  parentB.firstChild.appendChild(document.createTextNode("data"));
+  assert_true(parentA.isEqualNode(parentB));
 }, "node equality testing should test descendant equality too");
 </script>
