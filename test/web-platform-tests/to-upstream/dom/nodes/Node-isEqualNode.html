@@ -139,10 +139,8 @@ test(() => {
 }, "documents should not be compared based on properties");
 
 test(() => {
-  const parentFactory = () => document.createElement("foo");
-
-  const parentA = parentFactory();
-  const parentB = parentFactory();
+  const parentA = document.createElement("foo");
+  const parentB = document.createElement("foo");
 
   parentA.appendChild(document.createElement("p"));
   assert_false(parentA.isEqualNode(parentB));
