@@ -133,7 +133,7 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 * Frames and iframes, via `<frame>` and `<iframe>`
 * Stylesheets, via `<link rel="stylesheet">`
 * Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
-* Images, via `<img>`, but only if the `canvas` (or `canvas-prebuilt`) npm package is also installed (see "Canvas Support" below)
+* Images, via `<img>`, but only if the `canvas` npm package is also installed (see "Canvas Support" below)
 
 #### Advanced configuration
 
@@ -422,7 +422,7 @@ console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
 
 ### Canvas support
 
-jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) or [`canvas-prebuilt`](https://npmjs.org/package/canvas-prebuilt) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include `canvas` as a dependency in your project, as a peer of `jsdom`. If jsdom can find the `canvas` package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
+jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include `canvas` as a dependency in your project, as a peer of `jsdom`. If jsdom can find the `canvas` package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s. Since jsdom version X.Y.Z, version 2.x of `canvas` is required; version 1.x is no longer supported.
 
 ### Encoding sniffing
 
