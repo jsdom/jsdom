@@ -131,8 +131,6 @@ Document-importNode.html: [fail, Attr should be a Node, https://github.com/jsdom
 Element-closest.html: [fail, :has is not supported (by all major browsers as well)]
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
-Element-insertAdjacentElement.html: [fail, Not implemented]
-Element-insertAdjacentText.html: [fail, Not implemented]
 Element-matches.html: [fail, Whitespace in pseudo-class parameter]
 Element-webkitMatchesSelector.html: [fail, Whitespace in pseudo-class parameter]
 MutationObserver-**: [fail, Not implemented]
@@ -144,7 +142,6 @@ ParentNode-querySelector-All-xht.xht: [timeout, Unknown]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 ProcessingInstruction-literal-1.xhtml: [fail, Unknown]
 Text-constructor.html: [fail, Unknown]
-insert-adjacent.html: [fail, Unknown]
 remove-unscopable.html: [fail, Unknown]
 
 ---
