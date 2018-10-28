@@ -8,7 +8,7 @@ interface HTMLAreaElement : HTMLElement {
 //  [CEReactions] attribute DOMString download;
 //  [CEReactions] attribute USVString ping;
   [CEReactions, Reflect] attribute DOMString rel;
-//  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
 //  [CEReactions] attribute DOMString referrerPolicy;
 
   // also has obsolete members
