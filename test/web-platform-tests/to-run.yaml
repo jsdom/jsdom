@@ -862,7 +862,7 @@ unload-a-document/*: [timeout, Requires window.open]
 
 DIR: webstorage
 
-event_no_duplicates.html: [fail, weird microtask/task timing, https://github.com/jsdom/jsdom/pull/2279#issuecomment-408319938]
+event_no_duplicates.html: [needs-node11, Earlier Node.js timers did not match browser behaviour, https://github.com/nodejs/node/pull/22842]
 idlharness.window.html: [fail, Depends on fetch]
 storage_local_window_open.html: [timeout, Depends on window.open()]
 storage_session_window_noopener.html: [fail, Depends on BroadcastChannel]

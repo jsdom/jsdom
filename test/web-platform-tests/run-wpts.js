@@ -13,10 +13,12 @@ const validReasons = new Set([
   "timeout",
   "flaky",
   "mutates-globals",
-  "needs-node10"
+  "needs-node10",
+  "needs-node11"
 ]);
 
 const hasNode10 = Number(process.versions.node.split(".")[0]) >= 10;
+const hasNode11 = Number(process.versions.node.split(".")[0]) >= 11;
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
 const manifest = readManifest(manifestFilename);
@@ -52,7 +54,8 @@ describe("web-platform-tests", () => {
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
           const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason);
           const expectFail = (reason === "fail") ||
-                             (reason === "needs-node10" && !hasNode10);
+                             (reason === "needs-node10" && !hasNode10) ||
+                             (reason === "needs-node11" && !hasNode11);
 
           if (matchingPattern && shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);

@@ -187,7 +187,7 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const script = new vm.Script("while(true) {}");
 
-      assert.throws(() => dom.runVMScript(script, { timeout: 50 }), "Script execution timed out.");
+      assert.throws(() => dom.runVMScript(script, { timeout: 50 }), /Script execution timed out(?: after 50ms|\.)/);
     });
   });
 
