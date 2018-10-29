@@ -5,7 +5,7 @@ interface HTMLAnchorElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString download;
 //  [CEReactions] attribute USVString ping;
   [CEReactions, Reflect] attribute DOMString rel;
-//  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
   [CEReactions, Reflect] attribute DOMString hreflang;
   [CEReactions, Reflect] attribute DOMString type;
 

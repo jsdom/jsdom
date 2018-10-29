@@ -5,7 +5,7 @@ interface HTMLLinkElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString? crossOrigin;
   [CEReactions, Reflect] attribute DOMString rel;
 //  [CEReactions] attribute DOMString as; // (default "")
-//  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
   [CEReactions, Reflect] attribute DOMString media;
 //  [CEReactions] attribute DOMString nonce;
 //  [CEReactions] attribute DOMString integrity;
