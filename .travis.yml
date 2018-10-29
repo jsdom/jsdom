@@ -33,23 +33,6 @@ addons:
 matrix:
   include:
     - node_js: 8
-      env: TEST_SUITE=node-canvas-prebuilt
-      script: "export CXX=g++-4.8 && yarn add canvas-prebuilt && yarn test --retries 1"
-      addons:
-        hosts:
-          - xn--lve-6lad.not-web-platform.test
-          - xn--lve-6lad.web-platform.test
-          - xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
-          - www1.web-platform.test
-          - www2.web-platform.test
-          - not-web-platform.test
-          - web-platform.test
-          - www2.not-web-platform.test
-          - www1.not-web-platform.test
-          - www.not-web-platform.test
-          - www.web-platform.test
-          - xn--n8j6ds53lwwkrqhv28a.web-platform.test
-    - node_js: 8
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
       addons:
