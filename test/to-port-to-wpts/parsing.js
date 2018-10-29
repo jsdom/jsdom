@@ -126,7 +126,7 @@ describe("jsdom/parsing", () => {
     assert.equal(els[0].getAttribute("prefix:hasOwnProperty"), "value");
     assert.equal(
       els[0].outerHTML,
-      `<element xmlns:prefix="https://example.com/" prefix:hasOwnProperty="value"></element>`
+      `<element xmlns:prefix="https://example.com/" prefix:hasOwnProperty="value"/>`
     );
   });
 
