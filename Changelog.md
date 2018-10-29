@@ -10,6 +10,20 @@
 
 -->
 
+## 13.0.0
+
+Breaking change:
+
+* Removed support for v1.x of the [`canvas`](https://github.com/Automattic/node-canvas) package, in favor of v2.x. This also removes support for `canvas-prebuilt`, since `canvas` v2.x has a built-in prebuilt version.
+
+Other changes:
+
+* Added proper XML serialization, based on the [`w3c-xmlserializer`](https://github.com/jsdom/w3c-xmlserializer) package. Previously we were just using the HTML serialization, even in XML documents.
+* Added the `storageEvent.initStorageEvent()` method.
+* Added support for the `passive` option to `addEventListener()`.
+* Added the `relList` property to `<a>`, `<area>`, and `<link>` elements.
+* Fixed our implementation of the node tree modification constraints (for example the [ensure pre-insertion validity](https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity) algorithm). It is no longer possible to add, remove, or move nodes to create impossible DOM trees. (pmdartus)
+
 ## 12.2.0
 
 * Added support for shadow DOM! This includes shadow roots, slots, composed events, and more. (pmdartus)

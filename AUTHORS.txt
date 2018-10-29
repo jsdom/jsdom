@@ -213,6 +213,7 @@ Ronald Rey <reyronald@gmail.com>
 Ryan Gasparini <ryan@rxgx.com>
 Ryan Grove <ryan@wonko.com>
 Ryan Seddon <rseddon@zendesk.com>
+Ryan T <ryanto@gmail.com>
 Ryan Wolf <rwolf@borderstylo.com>
 S Sesha Sendhil <seshasendhil@gmail.com>
 Salvatore Porchia <sporchia@2co.com>
@@ -259,5 +260,6 @@ Xavi <xavi.rmz@gmail.com>
 Yonathan <yonathan@gmail.com>
 Yun Cui <ycui@microstrategy.com>
 Yunlei Liu <yunlei.liu@appfolio.com>
+Zach Bjornson <zbbjornson@gmail.com>
 Zach Smith <zach@amicushq.com>
 Zirro <code@zirro.se>
