@@ -436,6 +436,8 @@ link-load-error-events.html: [fail, We don't fire error events]
 link-load-error-events.https.html: [fail, We don't fire error events]
 link-rel-attribute.html: [fail, CSS computed style computation]
 link-style-error-01.html: [fail, We don't fire error events]
+link-style-error-limited-quirks.html: [fail, We don't fire error events]
+link-style-error-quirks.html: [fail, We don't fire error events]
 
 ---
 
