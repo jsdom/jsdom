@@ -306,6 +306,19 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
         return assertError(element);
       });
+
+      it("should fire an error event downloading a file via file uri", () => {
+        const { window } = new JSDOM(``, { url: "file:///" });
+
+        const xhr = new window.XMLHttpRequest();
+        setUpLoadingAsserts(xhr);
+        xhr.open("GET", "file:///nonexisting.txt");
+        xhr.send();
+
+        return assertError(xhr).then(() => {
+          assert.isTrue(xhr.errorFired);
+        });
+      });
     });
 
     describe("resources returns 503", () => {
