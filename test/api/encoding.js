@@ -1,5 +1,5 @@
 "use strict";
-const fs = require("pn/fs");
+const fs = require("fs");
 const path = require("path");
 const { assert } = require("chai");
 const { describe, it, before, after } = require("mocha-sugar-free");
@@ -12,7 +12,13 @@ function fixturePath(fixture) {
 }
 
 function readFixture(fixture) {
-  return fs.readFile(fixturePath(fixture));
+  return new Promise((resolve, reject) => {
+    fs.readFile(fixturePath(fixture), (err, buffer) => {
+      if (err) return reject(err);
+
+      return resolve(buffer);
+    });
+  });
 }
 
 const factories = {
