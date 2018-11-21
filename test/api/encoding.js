@@ -14,7 +14,9 @@ function fixturePath(fixture) {
 function readFixture(fixture) {
   return new Promise((resolve, reject) => {
     fs.readFile(fixturePath(fixture), (err, buffer) => {
-      if (err) return reject(err);
+      if (err) {
+        return reject(err);
+      }
 
       return resolve(buffer);
     });
