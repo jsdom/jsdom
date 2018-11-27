@@ -339,8 +339,6 @@ DIR: html/dom/documents/dom-tree-accessors
 Document.currentScript.html: [timeout, Unknown]
 document.getElementsByName/document.getElementsByName-namespace-xhtml.xhtml: [fail, Needs MathML and SVG support]
 document.getElementsByName/document.getElementsByName-namespace.html: [fail, Needs MathML and SVG support]
-document.title-09.html: [fail, Requires SVG support]
-document.title-not-in-html-svg.html: [fail, Unknown]
 nameditem-01.html: [fail, Unknown]
 nameditem-02.html: [fail, Unknown]
 nameditem-04.html: [fail, Unknown]
