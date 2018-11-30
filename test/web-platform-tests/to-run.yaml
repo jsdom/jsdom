@@ -535,7 +535,6 @@ input-valueasnumber-invalidstateerr.html: [timeout, valueAsNumber not implemente
 maxlength.html: [fail, Reflection not implemented correctly]
 minlength.html: [fail, Reflection not implemented correctly]
 month.html: [fail, step attribute not yet implemented]
-radio-groupname-case.html: [fail, Semantics not implemented]
 range-2.html: [fail, step attribute not yet implemented]
 range.html: [fail, step attribute and range semantics not yet implemented]
 reset.html: [fail, Reset semantics not yet implemented]
