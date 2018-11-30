@@ -562,7 +562,6 @@ DIR: html/semantics/forms/the-textarea-element
 
 textarea-maxlength.html: [fail, Unknown]
 textarea-minlength.html: [fail, Unknown]
-value-defaultValue-textContent-xhtml.xhtml: [fail, Unknown]
 
 ---
 
