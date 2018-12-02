@@ -449,6 +449,12 @@ style_type_change.html: [fail, Spec mismatches tests https://github.com/whatwg/h
 
 ---
 
+DIR: html/semantics/embedded-content/media-elements/offsets-into-the-media-resource
+
+currentTime.html: [timeout, Loading metadata is not implemented]
+
+---
+
 DIR: html/semantics/forms/attributes-common-to-form-controls
 
 dirname-ltr.html: [timeout, Unknown]
