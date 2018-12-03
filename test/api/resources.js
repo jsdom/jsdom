@@ -307,7 +307,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading via XHR", { slow: 500 }, () => {
+      it("should fire an load event downloading via XHR", { slow: 500 }, () => {
         const url = resourceServer404();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
@@ -317,7 +317,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         xhr.open("GET", url);
         xhr.send();
 
-        return assertError(xhr);
+        return assertLoaded(xhr);
       });
     });
 
@@ -391,7 +391,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading via XHR", { slow: 500 }, () => {
+      it("should fire a load event downloading via XHR", { slow: 500 }, () => {
         const url = resourceServer503();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
@@ -401,7 +401,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         xhr.open("GET", url);
         xhr.send();
 
-        return assertError(xhr);
+        return assertLoaded(xhr);
       });
     });
 
@@ -923,7 +923,7 @@ function ignoreResourceLoadingErrorsVC() {
   const vc = new VirtualConsole();
   vc.sendTo(console, { omitJSDOMErrors: true });
   vc.on("jsdomError", err => {
-    if (err.type !== "resource loading") {
+    if (err.type !== "resource loading" && err.type !== "XMLHttpRequest") {
       // eslint-disable-next-line no-console
       console.error(err.stack, err.detail);
     }
