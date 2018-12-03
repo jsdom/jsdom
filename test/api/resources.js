@@ -237,7 +237,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
     });
 
-    describe("resources returns 404", () => {
+    describe("resource returns 404", () => {
       it(
         "should fire an error event downloading images if and only if canvas is installed",
         { slow: 500 },
@@ -307,21 +307,21 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading a file via file uri", () => {
-        const { window } = new JSDOM(``, { url: "file:///" });
+      it("should fire an error event downloading via XHR", { slow: 500 }, () => {
+        const url = resourceServer404();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
 
         const xhr = new window.XMLHttpRequest();
         setUpLoadingAsserts(xhr);
-        xhr.open("GET", "file:///nonexisting.txt");
+        xhr.open("GET", url);
         xhr.send();
 
-        return assertError(xhr).then(() => {
-          assert.isTrue(xhr.errorFired);
-        });
+        return assertError(xhr);
       });
     });
 
-    describe("resources returns 503", () => {
+    describe("resource returns 503", () => {
       it(
         "should fire an error event downloading images if and only if canvas is installed",
         { slow: 500 },
@@ -389,6 +389,99 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         dom.window.document.body.appendChild(element);
 
         return assertError(element);
+      });
+
+      it("should fire an error event downloading via XHR", { slow: 500 }, () => {
+        const url = resourceServer503();
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
+
+        const xhr = new window.XMLHttpRequest();
+        setUpLoadingAsserts(xhr);
+        xhr.open("GET", url);
+        xhr.send();
+
+        return assertError(xhr);
+      });
+    });
+
+    describe("resource is a nonexistant file: URL", () => {
+      const url = "file:///nonexistant-asdf-1234.txt"; // hope nobody has a file named this on their system
+
+      it(
+        "should fire an error event downloading images if and only if canvas is installed",
+        { slow: 500 },
+        () => {
+          const dom = new JSDOM(``, { resources: "usable", virtualConsole: ignoreResourceLoadingErrorsVC() });
+
+          const element = dom.window.document.createElement("img");
+          setUpLoadingAsserts(element);
+          element.src = url;
+          dom.window.document.body.appendChild(element);
+
+          return canvas ? assertError(element) : assertNotLoaded(element);
+        }
+      );
+
+      it("should fire an error event downloading stylesheets", { slow: 500 }, () => {
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
+
+        const element = dom.window.document.createElement("link");
+        setUpLoadingAsserts(element);
+        element.rel = "stylesheet";
+        element.href = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading scripts", { slow: 500 }, () => {
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
+
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading iframes", { slow: 500 }, () => {
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
+
+        const element = dom.window.document.createElement("iframe");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading frames", { slow: 500 }, () => {
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
+
+        const element = dom.window.document.createElement("frame");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        return assertError(element);
+      });
+
+      it("should fire an error event downloading via XHR", { slow: 500 }, () => {
+        const virtualConsole = ignoreResourceLoadingErrorsVC();
+        const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
+
+        const xhr = new window.XMLHttpRequest();
+        setUpLoadingAsserts(xhr);
+        xhr.open("GET", url);
+        xhr.send();
+
+        return assertError(xhr);
       });
     });
 
