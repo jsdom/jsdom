@@ -5,9 +5,9 @@ interface HTMLOutputElement : HTMLElement {
   readonly attribute HTMLFormElement? form;
   [CEReactions, Reflect] attribute DOMString name;
 
-//  readonly attribute DOMString type;
-//  [CEReactions] attribute DOMString defaultValue;
-//  [CEReactions] attribute DOMString value;
+  readonly attribute DOMString type;
+  [CEReactions] attribute DOMString defaultValue;
+  [CEReactions] attribute DOMString value;
 
   readonly attribute boolean willValidate;
   readonly attribute ValidityState validity;

@@ -484,10 +484,6 @@ form_owner_and_table_3.html: [fail, complex form owner semantics not implemented
 
 DIR: html/semantics/forms/resetting-a-form
 
-reset-event.html: [fail, Unknown]
-reset-form-event-realm.html: [fail, Unknown]
-reset-form.html: [fail, Unknown]
-
 ---
 
 DIR: html/semantics/forms/the-button-element
@@ -559,6 +555,12 @@ DIR: html/semantics/forms/the-option-element
 option-label.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
 option-text-recurse.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
 option-value.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
+
+---
+
+DIR: html/semantics/forms/the-output-element
+
+output-setcustomvalidity.html: [fail, Not implemented]
 
 ---
 
