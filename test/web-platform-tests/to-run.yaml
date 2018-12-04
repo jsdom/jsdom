@@ -394,7 +394,6 @@ document-base-url.html: [fail, We don't support srcdoc <base> correctly]
 
 DIR: html/interaction/focus
 
-composed.window.html: [fail, Not implemented]
 focus-01.html: [timeout, scrollIntoView() not implemented]
 focus-02.html: [timeout, scrollIntoView() not implemented]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
