@@ -8036,7 +8036,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
   specify("HTMLInputElementDefaultEventClickForCheckboxTogglesCheckedState", () => {
     var doc = load("input");
     var element = doc.querySelector("input[name='Check1']");
-    var clickevent = doc.createEvent("Event");
+    var clickevent = doc.createEvent("MouseEvent");
     clickevent.initEvent("click", true, true);
     element.dispatchEvent(clickevent);
     assert.equal(element.checked, false);
