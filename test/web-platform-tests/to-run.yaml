@@ -578,10 +578,6 @@ textarea-minlength.html: [fail, Unknown]
 
 DIR: html/semantics/grouping-content
 
-the-ol-element/grouping-ol.html: [fail, Unknown]
-the-ol-element/ol.start-reflection-1.html: [fail, Unknown]
-the-ol-element/ol.start-reflection-2.html: [fail, Unknown]
-
 ---
 
 DIR: html/semantics/interactive-elements/the-details-element
