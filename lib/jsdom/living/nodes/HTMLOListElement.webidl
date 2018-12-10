@@ -2,7 +2,7 @@
  HTMLConstructor]
 interface HTMLOListElement : HTMLElement {
   [CEReactions, Reflect] attribute boolean reversed;
-  [CEReactions, Reflect] attribute long start; // TODO this needs the default value
+  [CEReactions] attribute long start;
   [CEReactions, Reflect] attribute DOMString type;
 
   // also has obsolete members
