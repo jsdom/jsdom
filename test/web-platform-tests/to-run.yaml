@@ -561,8 +561,6 @@ option-value.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-i
 
 DIR: html/semantics/forms/the-output-element
 
-output-setcustomvalidity.html: [fail, Not implemented]
-
 ---
 
 DIR: html/semantics/forms/the-select-element
