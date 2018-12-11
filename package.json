@@ -74,7 +74,7 @@
     "st": "^1.2.2",
     "watchify": "^3.11.0",
     "wd": "^1.11.1",
-    "webidl2js": "^9.1.2"
+    "webidl2js": "^9.2.0"
   },
   "browser": {
     "canvas": false,

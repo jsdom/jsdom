@@ -143,7 +143,6 @@ Node-isEqualNode-xhtml.xhtml: [timeout, Unknown]
 ParentNode-querySelector-All-xht.xht: [timeout, Unknown]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 Text-constructor.html: [fail, Unknown]
-remove-unscopable.html: [fail, Unknown]
 
 ---
 
