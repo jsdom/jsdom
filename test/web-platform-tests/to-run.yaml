@@ -587,6 +587,7 @@ DIR: html/semantics/links
 
 following-hyperlinks/activation-behavior.window.html: [fail, Unknown]
 links-created-by-a-and-area-elements/htmlanchorelement_noopener.html: [timeout, Unknown]
+links-created-by-a-and-area-elements/target_blank_implicit_noopener.tentative.html: [fail, Depends on BroadcastChannel]
 
 ---
 
@@ -832,6 +833,7 @@ DIR: uievents
 idlharness.window.html: [fail, Depends on fetch]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Unknown]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Unknown]
+mouse/mouse_buttons_back_forward.html: [timeout, Unknown]
 order-of-events/**: [timeout, Unknown]
 
 ---
@@ -840,8 +842,8 @@ DIR: url
 
 a-element-origin-xhtml.xhtml: [fail, Depends on fetch]
 a-element-origin.html: [fail, Depends on fetch]
-a-element-xhtml.xhtml: [fail, Unknown]
-a-element.html: [fail, Unknown]
+a-element-xhtml.xhtml: [fail, Depends on fetch]
+a-element.html: [fail, Depends on fetch]
 failure.html: [fail, Depends on fetch]
 idlharness.any.html: [fail, Depends on fetch]
 toascii.window.html: [fail, Depends on fetch]
