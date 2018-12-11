@@ -296,7 +296,7 @@ location-prototype-setting-same-origin-domain.sub.html: [fail, Unknown]
 location-prototype-setting-same-origin.html: [fail, Unknown]
 location-symbol-toprimitive.html: [fail, Unknown]
 location-valueof.html: [fail, Unknown]
-location_hash.html: [fail, CSS computed style computation]
+location_hash.html: [fail, Needs <iframe srcdoc>]
 location_reload.html: [timeout, Unknown]
 no-browsing-context.window.html: [fail, Unknown]
 per-global.window.html: [fail, Unknown]
@@ -388,6 +388,7 @@ the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
 
 DIR: html/infrastructure/urls/terminology-0
 
+document-base-url.html: [fail, We don't support srcdoc <base> correctly]
 
 ---
 
@@ -653,6 +654,7 @@ execution-timing/083.html: [fail, Unknown]
 execution-timing/084.html: [fail, Unknown]
 execution-timing/091.html: [fail, Unknown]
 execution-timing/094.html: [fail, Unknown]
+execution-timing/099.html: [fail, Unknown]
 execution-timing/103.html: [fail, Unknown]
 execution-timing/104.html: [fail, Unknown]
 execution-timing/106-import.html: [fail, Unknown]
@@ -742,6 +744,7 @@ pseudo-classes/valid-invalid.html: [fail, Unknown]
 DIR: html/semantics/tabular-data
 
 processing-model-1/col-span-limits.html: [fail, depends on a working offsetWidth]
+the-table-element/caption-methods.html: [timeout, needs HTMLIframeElement#srcdoc]
 
 ---
 
