@@ -497,7 +497,6 @@ DIR: html/semantics/forms/the-fieldset-element
 
 HTMLFieldSetElement.html: [fail, Depends on HTMLFormElement's named properties; has dont-upstream version]
 disabled-001.html: [fail, Unknown]
-fieldset-setcustomvalidity.html: [fail, Not implemented]
 
 ---
 
