@@ -35,6 +35,7 @@ Brian Donovan <donovan@squareup.com>
 Brian Maissy <brian.maissy@gmail.com>
 Brian McDaniel <brianmcd05@gmail.com>
 Brian Peacock <bpeacock@fastfig.com>
+Carlos Serrano <carlos.pastor@mailonline.co.uk>
 Chad Walker <chad@chad-cat-lore-eddie.com>
 Chris Buckley <chris@cmbuckley.co.uk>
 Chris Carpita <ccarpita@gmail.com>
@@ -59,6 +60,7 @@ Domenic Denicola <d@domenic.me>
 dxgriffiths <dxgriffiths@gmail.com>
 Dylan Marriott <info@d-32.com>
 Edward O'Connor <hober0@gmail.com>
+Edward Pfremmer <epfremmer@users.noreply.github.com>
 Edwin Shin <eddies@users.noreply.github.com>
 eleith <online@eleith.com>
 Elijah Insua <tmpvar@gmail.com>
@@ -187,6 +189,7 @@ Ojek <ojek25@gmail.com>
 Olivier El Mekki <olivier@el-mekki.com>
 Ondřej Žára <ondras@zarovi.cz>
 Onur Yıldırım <onury@users.noreply.github.com>
+Pascal Bayer <pascal.bayer@cubesoft.org>
 Paul O’Shannessy <paul@oshannessy.com>
 peller <github@peller.org>
 Pepijn Verlaan <pepijnverlaan@yahoo.com>

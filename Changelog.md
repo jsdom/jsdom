@@ -1,5 +1,7 @@
 <!-- Style guide:
 
+* Use past tense verbs to start the sentence, e.g. "Fixed", "Added", "Removed", ...
+* Each bullet point is a sentence (or more), and so ends with a period.
 * Package names are in `code`, sometimes [`linked`]().
 * Prefer referring to methods and properties via `someInstance.prop`, instead of `ClassName.prototype.prop`. (Never use `ClassName.prop` except for statics.)
 * Refer to attributes via `attr=""`
@@ -7,8 +9,42 @@
 * Never use the IDL terms "interface", "attribute", or "operation".
 * URL schemes are in `code`, e.g. `data:`.
 * Except in the headings, all version numbers get a "v" prefix, e.g. v12.2.0.
+* Follow the bullet point with parenthetical GitHub usernames when contributed by a non-core team member, e.g. "Fixed foo. (person)"
 
+Other guidelines:
+
+* Commit messages are primarily for jsdom developers. Changelog entries are primarily for users. Usually you cannot reuse the commit message.
+* Sometimes a single commit may expand to multiple changelog entries.
+* Do not include commits that have no user-facing impact, e.g. test rolls, refactorings, benchmark additions, etc.
+* For regression fixes, note the version in which something regressed.
+* Breaking changes get their own section.
+* Group in the order "Added", "Removed", "Changed", "Fixed".
+* Roughly order changes within those groupings by impact.
 -->
+
+## 13.1.0
+
+* Added `el.insertAdjacentElement()` and `el.insertAdjacentText()`.
+* Added the firing of a cancelable `"reset"` event to `form.reset()`. (epfremmer)
+* Added the `type`, `value`, and `defaultValue` properties to `<output>` elements, including their form reset behavior. (epfremmer)
+* Added the `outputEl.htmlFor` property.
+* Fixed the performance of parsing large text nodes, particularly noticeable for large inline `<style>` or `<script>` elements. This regressed in v11.6.0. To learn more, see [V8 issue #6730](https://bugs.chromium.org/p/v8/issues/detail?id=6730#c4).
+* Fixed the `style` property on `<a>` and `<area>` elements. This regressed in v13.0.0.
+* Fixed `node.isConnected` to not always return false for nodes inside a shadow tree. (pmdartus)
+* Fixed `<button type="reset">` and `<input type="reset">` elements to actually perform a form reset when clicked, instead of doing nothing. (epfremmer)
+* Fixed `el.setCustomValidity()` for `<output>` and `<fieldset>`.
+* Fixed activation behavior when dispatching bubbling click events, so that for example calling `el.click()` on the child of a submit button element will submit the form.
+* Fixed our XML parsing code to ignore text outside the root element, instead of treating it as an error. (lddubeau)
+* Fixed XML serialization when elements had an unknown prefix.
+* Fixed radio button group name matching to be case-sensitive, per [a spec update](https://github.com/whatwg/html/commit/6acdb2122298d2bb7bb839c0a61b4e1f9b0f9bc9).
+* Fixed `"focus"`/`"blur"` events to be composed.
+* Fixed `mediaElement.duration` to default to `NaN`.
+* Fixed `olEl.start` to default to `1`.
+* Fixed using `XMLHttpRequest` against non-existant `file:` URLs to treat that as a network error, instead of crashing. (pascalbayer) Note that in the future we may completely disable `XMLHttpRequest` usage against `file:` URLs to follow the browser security model.
+* Fixed `document.title` in SVG documents.
+* Fixed `titleElement.text` to return the child text content, instead of being the same as `titleElement.innerHTML`.
+* Fixed `<textarea>`s to properly account for child CDATA section nodes changing.
+* Fixed the value of `Element.prototype[Symbol.unscopables]`.
 
 ## 13.0.0
 
