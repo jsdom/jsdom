@@ -581,6 +581,10 @@ toggleEvent.html: [fail, The ninth test requires a streaming HTML parser to pass
 
 ---
 
+DIR: html/semantics/interactive-elements/the-summary-element
+
+---
+
 DIR: html/semantics/links
 
 following-hyperlinks/activation-behavior.window.html: [fail, Unknown]
