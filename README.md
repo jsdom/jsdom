@@ -33,6 +33,8 @@ const { document } = (new JSDOM(`...`)).window;
 
 Full documentation on everything you can do with the `JSDOM` class is below, in the section "`JSDOM` Object API".
 
+_Important note: in the default configuration, JavaScript globals like `window.Date` or `window.Map` will not exist. Read the "Executing scripts" section below for more._
+
 ## Customizing jsdom
 
 The `JSDOM` constructor accepts a second parameter which can be used to customize your jsdom in the following ways.
@@ -89,7 +91,7 @@ If you want to execute _external_ scripts, included via `<script src="">`, you'l
 
 Note that event handler attributes, like `<div onclick="">`, will also not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
 
-If you are simply trying to execute script "from the outside", instead of letting `<script>` elements (and inline event handlers) run "from the inside", you can use the `runScripts: "outside-only"` option, which enables `window.eval`:
+If you are simply trying to execute script "from the outside", instead of letting `<script>` elements (and inline event handlers) run "from the inside", you can use the `runScripts: "outside-only"` option, which enables all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
 
 ```js
 const window = (new JSDOM(``, { runScripts: "outside-only" })).window;
