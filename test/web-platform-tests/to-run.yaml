@@ -93,7 +93,6 @@ DIR: dom/events
 
 Event-dispatch-click.html: [fail, Unknown]
 Event-dispatch-on-disabled-elements.html: [fail, Unknown]
-Event-dispatch-redispatch.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
 EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
