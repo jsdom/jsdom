@@ -341,7 +341,16 @@ nameditem-08.html: [fail, Unknown]
 
 ---
 
-DIR: html/dom/dynamic-markup-insertion/document-writeln
+DIR: html/dom/documents/resource-metadata-management
+
+document-cookie.html: [fail, Unknown]
+document-lastModified-01.html: [fail, Unknown]
+document-lastModified.html: [fail, Unknown]
+document-readyState.html: [timeout, Unknown]
+
+---
+
+DIR: html/dom/elements/elements-in-the-dom
 
 ---
 
@@ -384,6 +393,10 @@ document-base-url.html: [fail, We don't support srcdoc <base> correctly]
 
 ---
 
+DIR: html/input
+
+---
+
 DIR: html/interaction/focus
 
 focus-01.html: [timeout, scrollIntoView() not implemented]
@@ -409,6 +422,10 @@ the-marquee-element-0/marquee-events.html: [timeout, <marquee> is not implemente
 the-marquee-element-0/marquee-loop.html: [fail, <marquee> is not implemented]
 the-marquee-element-0/marquee-scrollamount.html: [fail, <marquee> is not implemented]
 the-marquee-element-0/marquee-scrolldelay.html: [fail, <marquee> is not implemented]
+
+---
+
+DIR: html/scripting
 
 ---
 
@@ -487,6 +504,12 @@ button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
 
+DIR: html/semantics/forms/the-datalist-element
+
+datalistoptions.html: [fail, Not implemented]
+
+---
+
 DIR: html/semantics/forms/the-fieldset-element
 
 HTMLFieldSetElement.html: [fail, Depends on HTMLFormElement's named properties; has dont-upstream version]
@@ -534,6 +557,13 @@ type-change-state.html: [fail, type attribute state switching not yet implemente
 DIR: html/semantics/forms/the-label-element
 
 label-attributes.sub.html: [fail, Unknown]
+
+---
+
+DIR: html/semantics/forms/the-legend-element
+
+HTMLLegendElement.html: [fail, The form property is not implemented correctly]
+legend-form.html: [fail, The form property is not implemented correctly]
 
 ---
 
@@ -746,13 +776,14 @@ the-a-element/a-download-click.html: [fail, needs URL.createObjectURL]
 
 ---
 
-DIR: html/syntax/parsing/template
+DIR: html/syntax
 
----
-
-DIR: html/syntax/serializing-html-fragments
-
-serializing.html: [fail, Unknown]
+parsing-html-fragments/*: [timeout, Unknown]
+parsing/DOMContentLoaded-defer.html: [fail, Script execution timing]
+parsing/html-integration-point.html: [fail, Incorrect handling of encoded entity references inside <noframes> element]
+parsing/html5lib*: [timeout, Unknown]
+parsing/the-end.html: [fail-slow, Load event has wrong target]
+serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/parse5/pull/286 / https://github.com/whatwg/html/pull/4238]
 
 ---
 
@@ -766,6 +797,16 @@ same-dispatch-time.html: [fail, Probably https://github.com/tmpvar/jsdom/pull/19
 DIR: html/webappapis/atob
 
 base64.html: [fail, Depends on fetch]
+
+---
+
+DIR: html/webappapis/dynamic-markup-insertion/document-writeln
+
+---
+
+DIR: html/webappapis/scripting/event-loops
+
+task_microtask_ordering.html: [fail, MutationObserver is not implemented]
 
 ---
 
@@ -787,6 +828,10 @@ messageevent-constructor.https.html: [fail, uses MessageChannel]
 DIR: html/webappapis/system-state-and-capabilities/the-navigator-object
 
 protocol.https.html: [fail, registerProtocolHandler() is not implemented]
+
+---
+
+DIR: html/webappapis/timers
 
 ---
 
