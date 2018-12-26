@@ -95,7 +95,6 @@ Event-dispatch-click.html: [fail, Unknown]
 Event-dispatch-on-disabled-elements.html: [fail, Unknown]
 Event-dispatch-redispatch.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
-EventListener-addEventListener.sub.window.html: [timeout, Unknown]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
 EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
 EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
@@ -501,7 +500,6 @@ DIR: html/semantics/forms/resetting-a-form
 DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, Unknown]
-button-events.html: [timeout, Unknown]
 button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
