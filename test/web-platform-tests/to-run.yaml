@@ -390,11 +390,11 @@ focus-01.html: [timeout, scrollIntoView() not implemented]
 focus-02.html: [timeout, scrollIntoView() not implemented]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
-sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-negative.html: [fail, Unknown]
-sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-order.html: [fail, Unknown]
-sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-positive.html: [fail, Unknown]
-sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-zero.html: [fail, Unknown]
-tabindex-focus-flag.html: [fail, Unknown]
+sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-negative.html: [fail, scrollIntoView() not implemented]
+sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-order.html: [fail, scrollIntoView() not implemented]
+sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-positive.html: [fail, scrollIntoView() not implemented]
+sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-zero.html: [fail, scrollIntoView() not implemented]
+tabindex-focus-flag.html: [fail, contentEditable is not implemented; has dont-upstream version]
 
 ---
 
