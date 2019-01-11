@@ -807,7 +807,6 @@ function resourceServer(headers, body, { statusCode = 200 } = {}, timeout = 0) {
       server.close();
     }, timeout);
   }).listen();
-
   return `http://127.0.0.1:${server.address().port}/`;
 }
 
