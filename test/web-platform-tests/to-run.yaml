@@ -789,6 +789,12 @@ messageevent-constructor.https.html: [fail, uses MessageChannel]
 
 ---
 
+DIR: html/webappapis/system-state-and-capabilities/the-navigator-object
+
+protocol.https.html: [fail, registerProtocolHandler() is not implemented]
+
+---
+
 DIR: progress-events
 
 ---
