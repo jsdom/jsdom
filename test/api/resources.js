@@ -800,12 +800,12 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 });
 
 function resourceServer(headers, body, { statusCode = 200 } = {}, timeout = 0) {
-    const server = http.createServer((req, res) => {
+  const server = http.createServer((req, res) => {
     setTimeout(() => {
       res.writeHead(statusCode, headers);
-        res.end(body);
-        server.close(); 
-    }, timeout); 
+      res.end(body);
+      server.close();
+    }, timeout);
   }).listen();
 
   return `http://127.0.0.1:${server.address().port}/`;
