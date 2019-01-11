@@ -146,6 +146,7 @@ const resourceLoader = new jsdom.ResourceLoader({
   proxy: "http://127.0.0.1:9001",
   strictSSL: false,
   userAgent: "Mellblomenator/9000",
+  timeout: 10000
 });
 const dom = new JSDOM(``, { resources: resourceLoader });
 ```
@@ -155,6 +156,7 @@ The three options to the `ResourceLoader` constructor are:
 - `proxy` is the address of an HTTP proxy to be used.
 - `strictSSL` can be set to false to disable the requirement that SSL certificates be valid.
 - `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
+- `timeout` request's timeout option.
 
 You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that only returns results for requests to a trusted origin:
 
