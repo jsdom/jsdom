@@ -623,19 +623,18 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         };
       });
     });
-    
+
     it("should be use correct request's timeout", () => {
-      const url = resourceServer({}, '', {}, 500);
+      const url = resourceServer({}, "", {}, 500);
       const resourceLoader = new ResourceLoader({ timeout: 1000 });
       return JSDOM.fromURL(url, { resources: resourceLoader });
     });
-    
+
     it("should be fail with request's timeout", () => {
-      const url = resourceServer({}, '', {}, 500);
+      const url = resourceServer({}, "", {}, 500);
       const resourceLoader = new ResourceLoader({ timeout: 100 });
       return assert.isRejected(JSDOM.fromURL(url, { resources: resourceLoader }));
     });
-    
 
     it("should be able to customize the proxy option", () => {
       return threeRequestServer().then(([mainServer, mainHost]) => {
@@ -801,13 +800,12 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 });
 
 function resourceServer(headers, body, { statusCode = 200 } = {}, timeout = 0) {
-  const server = http.createServer((req, res) => {
-      setTimeout(() => {
-        res.writeHead(statusCode, headers);
+    const server = http.createServer((req, res) => {
+    setTimeout(() => {
+      res.writeHead(statusCode, headers);
         res.end(body);
         server.close(); 
-      }, timeout);
-    
+    }, timeout); 
   }).listen();
 
   return `http://127.0.0.1:${server.address().port}/`;
