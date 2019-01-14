@@ -156,7 +156,6 @@ DIR: domparsing
 
 DOMParser-parseFromString-html.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 DOMParser-parseFromString-xml-doctype.html: [fail, Unknown]
-DOMParser-parseFromString-xml-internal-subset.html: [fail, Unknown]
 DOMParser-parseFromString-xml-parsererror.html: [fail, Unknown]
 DOMParser-parseFromString-xml.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 createContextualFragment.html: [fail, Unknown]
