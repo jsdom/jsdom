@@ -17,12 +17,6 @@ exports.getPossibleTestFilePaths = manifest => {
         continue;
       }
 
-      // We don't have support for .svg documents in general, much less running scripts in them.
-      // See https://github.com/w3c/web-platform-tests/issues/7313 for confirmation this is our bug, not WPT's.
-      if (testFilePath.endsWith(".svg")) {
-        continue;
-      }
-
       allPaths.push(exports.stripPrefix(testFilePath, "/"));
     }
   }
