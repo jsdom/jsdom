@@ -91,7 +91,6 @@ DIR: dom/collections
 
 DIR: dom/events
 
-Event-dispatch-click.html: [fail, Unknown]
 Event-dispatch-on-disabled-elements.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
@@ -174,7 +173,7 @@ browsing_context_name_cross_origin.html: [timeout, Unknown]
 browsing_context_name_cross_origin_2.html: [fail, window.name not implemented]
 persisted-user-state-restoration/resume-timer-on-history-back.html: [timeout, Unknown]
 persisted-user-state-restoration/scroll-restoration-basic.html: [fail, Not implemented]
-persisted-user-state-restoration/scroll-restoration-fragment-scrolling-cross-origin.html: [fail, depends on requestAnimationFrame]
+persisted-user-state-restoration/scroll-restoration-fragment-scrolling-cross-origin.html: [timeout, Unknown]
 persisted-user-state-restoration/scroll-restoration-fragment-scrolling-samedoc.html: [fail, scrollY not implemented]
 persisted-user-state-restoration/scroll-restoration-navigation-cross-origin.html: [fail, scrollY not implemented]
 persisted-user-state-restoration/scroll-restoration-navigation-samedoc.html: [fail, scrollX not implemented]
@@ -300,7 +299,7 @@ DIR: html/browsers/offline/browser-state
 
 DIR: html/browsers/windows
 
-auxiliary-browsing-contexts/opener-closed.html: [timeout, Needs ParentNode.append()]
+auxiliary-browsing-contexts/opener-closed.html: [timeout, Unknown]
 auxiliary-browsing-contexts/opener-multiple.html: [timeout, Unknown]
 auxiliary-browsing-contexts/opener-noopener.html: [timeout, Unknown]
 auxiliary-browsing-contexts/opener-noreferrer.html: [timeout, Unknown]
@@ -496,7 +495,6 @@ DIR: html/semantics/forms/resetting-a-form
 DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, Unknown]
-button-validation.html: [fail, Expects type 'menu' to not change to 'submit']
 
 ---
 
@@ -745,7 +743,6 @@ pseudo-classes/indeterminate-radio.html: [fail, CSS computed style computation]
 pseudo-classes/indeterminate-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/inrange-outofrange-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/inrange-outofrange.html: [fail, Unknown]
-pseudo-classes/link.html: [fail, Bad test, https://github.com/web-platform-tests/wpt/issues/11231]
 pseudo-classes/placeholder-shown-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/readwrite-readonly-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/readwrite-readonly.html: [fail, Unknown]
@@ -773,7 +770,8 @@ parsing-html-fragments/*: [timeout, Unknown]
 parsing/DOMContentLoaded-defer.html: [fail, Script execution timing]
 parsing/html-integration-point.html: [fail, Incorrect handling of encoded entity references inside <noframes> element]
 parsing/html5lib*: [timeout, Unknown]
-serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/parse5/pull/286 / https://github.com/whatwg/html/pull/4238]
+parsing/unclosed-svg-script.html: [fail, Unknown]
+serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/parse5/issues/289]
 
 ---
 
@@ -796,16 +794,15 @@ DIR: html/webappapis/dynamic-markup-insertion/document-writeln
 
 DIR: html/webappapis/scripting/event-loops
 
-task_microtask_ordering.html: [fail, MutationObserver is not implemented]
-
 ---
 
 DIR: html/webappapis/scripting/events
 
+compile-event-handler-lexical-scopes.html: [fail, document.domain and formEl.encoding is not implemented]
 compile-event-handler-settings-objects.html: [timeout, Unknown]
 event-handler-all-global-events.html: [fail, Depends on fetch]
 event-handler-attributes-body-window.html: [fail, Depends on fetch]
-event-handler-attributes-window-body.html: [fail, Depends on fetch]
+event-handler-attributes-frameset-window.html: [fail, Depends on fetch]
 event-handler-attributes-windowless-body.html: [fail, Depends on fetch]
 event-handler-processing-algorithm-error/script-element.html: [timeout, Unknown]
 event-handler-processing-algorithm-error/synthetic-errorevent-click.html: [fail, Needs Worker implementation]
@@ -838,6 +835,7 @@ form-control-form-attribute.html: [fail, Form association doesn't respect the sp
 input-element-list.html: [fail, HTMLInputElement.list is not implemented]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]
+offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
 slotchange-customelements.html: [fail, CustomElement.define is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/activeElement-confirm-return-null.html: [fail, ShadowRoot.activeElement is not implemented]
@@ -933,6 +931,7 @@ close-worker-with-xhr-in-progress.html: [fail, Needs Worker implementation]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.htm: [fail, Unknown]
+formdata.htm: [fail, FormDataEvent is not implemented]
 getallresponseheaders.htm: [fail, Unknown]
 getresponseheader.any.html: [fail, Unknown]
 headers-normalize-response.htm: [timeout, Unknown]

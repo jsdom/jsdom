@@ -17,79 +17,91 @@ branches:
     - master
 
 addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+      - libcairo2-dev
+      - libjpeg8-dev
+      - libpango1.0-dev
+      - libgif-dev
+      - build-essential
+  sauce_connect:
+    username: "jsdom"
+    access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
   hosts:
-    - xn--lve-6lad.not-web-platform.test
-    - xn--lve-6lad.web-platform.test
+    - www1.xn--n8j6ds53lwwkrqhv28a.web-platform.test
+    - xn--lve-6lad.www1.web-platform.test
+    - www.www2.not-web-platform.test
+    - www2.www2.not-web-platform.test
+    - xn--lve-6lad.www.not-web-platform.test
     - xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
-    - www1.web-platform.test
-    - www2.web-platform.test
+    - www.not-web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.www.not-web-platform.test
     - not-web-platform.test
-    - web-platform.test
+    - www1.www.not-web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.www1.web-platform.test
     - www2.not-web-platform.test
     - www1.not-web-platform.test
-    - www.not-web-platform.test
-    - www.web-platform.test
+    - www1.www1.web-platform.test
+    - www2.xn--lve-6lad.web-platform.test
+    - www1.xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.xn--n8j6ds53lwwkrqhv28a.web-platform.test
+    - www1.www2.web-platform.test
+    - xn--lve-6lad.xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
+    - xn--lve-6lad.xn--lve-6lad.not-web-platform.test
+    - www2.www1.not-web-platform.test
+    - www2.xn--n8j6ds53lwwkrqhv28a.web-platform.test
+    - www.xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
+    - web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.xn--lve-6lad.not-web-platform.test
+    - xn--lve-6lad.www.web-platform.test
+    - www.www.web-platform.test
+    - www1.xn--lve-6lad.web-platform.test
+    - xn--lve-6lad.www2.web-platform.test
+    - www.www2.web-platform.test
+    - www2.www.web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.www2.not-web-platform.test
+    - www1.www.web-platform.test
+    - www.xn--lve-6lad.web-platform.test
+    - www.www.not-web-platform.test
+    - xn--lve-6lad.xn--lve-6lad.web-platform.test
+    - xn--lve-6lad.www1.not-web-platform.test
+    - www1.www1.not-web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.www2.web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.www1.not-web-platform.test
+    - www2.www2.web-platform.test
+    - xn--lve-6lad.web-platform.test
     - xn--n8j6ds53lwwkrqhv28a.web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.www.web-platform.test
+    - xn--lve-6lad.not-web-platform.test
+    - www2.xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
+    - www2.xn--lve-6lad.not-web-platform.test
+    - xn--n8j6ds53lwwkrqhv28a.xn--lve-6lad.web-platform.test
+    - www1.xn--lve-6lad.not-web-platform.test
+    - www1.web-platform.test
+    - www.www1.web-platform.test
+    - www2.web-platform.test
+    - www.xn--lve-6lad.not-web-platform.test
+    - www.web-platform.test
+    - xn--lve-6lad.xn--n8j6ds53lwwkrqhv28a.web-platform.test
+    - www1.www2.not-web-platform.test
+    - www2.www1.web-platform.test
+    - www.www1.not-web-platform.test
+    - www.xn--n8j6ds53lwwkrqhv28a.web-platform.test
+    - xn--lve-6lad.www2.not-web-platform.test
+    - www2.www.not-web-platform.test
 
 matrix:
   include:
     - node_js: 8
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
-      addons:
-        hosts:
-          - xn--lve-6lad.not-web-platform.test
-          - xn--lve-6lad.web-platform.test
-          - xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
-          - www1.web-platform.test
-          - www2.web-platform.test
-          - not-web-platform.test
-          - web-platform.test
-          - www2.not-web-platform.test
-          - www1.not-web-platform.test
-          - www.not-web-platform.test
-          - www.web-platform.test
-          - xn--n8j6ds53lwwkrqhv28a.web-platform.test
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.8
-            - libcairo2-dev
-            - libjpeg8-dev
-            - libpango1.0-dev
-            - libgif-dev
-            - build-essential
     - node_js: stable
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
-      addons:
-        hosts:
-          - xn--lve-6lad.not-web-platform.test
-          - xn--lve-6lad.web-platform.test
-          - xn--n8j6ds53lwwkrqhv28a.not-web-platform.test
-          - www1.web-platform.test
-          - www2.web-platform.test
-          - not-web-platform.test
-          - web-platform.test
-          - www2.not-web-platform.test
-          - www1.not-web-platform.test
-          - www.not-web-platform.test
-          - www.web-platform.test
-          - xn--n8j6ds53lwwkrqhv28a.web-platform.test
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.8
-            - libcairo2-dev
-            - libjpeg8-dev
-            - libpango1.0-dev
-            - libgif-dev
-            - build-essential
-    - script: '[ "${TRAVIS_PULL_REQUEST}" != "false" ] || (yarn pretest && yarn test-browser)'
+    - node_js: stable
       env: TEST_SUITE=browser
-      addons:
-        sauce_connect:
-          username: "jsdom"
-          access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
+      script: '[ "${TRAVIS_PULL_REQUEST}" != "false" ] || (yarn pretest && yarn test-browser)'
