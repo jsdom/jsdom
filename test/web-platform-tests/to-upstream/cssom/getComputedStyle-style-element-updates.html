@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Updating the textContent of a style element must change the results of getComputedStyle</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<!-- Derived from https://github.com/jsdom/jsdom/issues/2292 -->
+
+<style>
+  .my-class {
+    font-size: 1.5em;
+  }
+</style>
+
+<h1 class="my-class">Hello world</h1>
+
+<script>
+"use strict";
+const el = document.querySelector(".my-class");
+let insertedStyle;
+
+test(() => {
+  assert_equals(getComputedStyle(el).fontSize, "1.5em");
+}, "Sanity check: getComputedStyle works as expected");
+
+test(() => {
+  insertedStyle = document.createElement("style");
+  insertedStyle.textContent = ".my-class { font-size: 2em; }";
+  document.head.appendChild(insertedStyle);
+
+  assert_equals(getComputedStyle(el).fontSize, "2em");
+}, "Inserting a new CSS element that overrides the old one updates the computed style");
+
+test(() => {
+  insertedStyle.textContent = ".my-class { font-size: 3em; }";
+
+  assert_equals(getComputedStyle(el).fontSize, "3em");
+}, "Updating the inserted CSS element changes the computed style");
+</script>
