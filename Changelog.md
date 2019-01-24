@@ -4,8 +4,8 @@
 * Each bullet point is a sentence (or more), and so ends with a period.
 * Package names are in `code`, sometimes [`linked`]().
 * Prefer referring to methods and properties via `someInstance.prop`, instead of `ClassName.prototype.prop`. (Never use `ClassName.prop` except for statics.)
-* Refer to attributes via `attr=""`
-* Refer to elements via `<element>`
+* Refer to attributes via `attr=""`.
+* Refer to elements via `<element>`.
 * Never use the IDL terms "interface", "attribute", or "operation".
 * URL schemes are in `code`, e.g. `data:`.
 * Except in the headings, all version numbers get a "v" prefix, e.g. v12.2.0.
@@ -21,6 +21,22 @@ Other guidelines:
 * Group in the order "Added", "Removed", "Changed", "Fixed".
 * Roughly order changes within those groupings by impact.
 -->
+
+## 13.2.0
+
+* Added support for `MutationObserver`s! (pmdartus)
+* Added support for XML documents loaded in frames and iframes; previously this would error.
+* Added the `<progress>` element's `value`, `max`, and `position` properties.
+* Added `navigator.plugins` and `navigator.mimeTypes`. (But, they are always empty.)
+* Fixed `<summary>` elements respond to click events by toggling their parent `<details>`.
+* Fixed `<summary>` elements to be focusable.
+* Fixed XML document DOCTYPE parsing to preserve any custom name values.
+* Fixed XML documents to default to UTF-8, not windows-1252 like HTML documents do.
+* Fixed all events fired by jsdom to have `isTrusted` set to `true`.
+* Fixed `DOMParser`-created documents to have their `readyState` set to `"complete"`.
+* Fixed how nested `<fieldset>`s get disabled.
+* Fixed `getComputedStyle()` to throw a sensible exception when passed the wrong argument, instead of one that exposes jsdom internals.
+* Upgraded our [`saxes`](https://github.com/lddubeau/saxes) dependency, so that it now correctly errors on XML fragments like `<foo bar:="1"/>`.
 
 ## 13.1.0
 
