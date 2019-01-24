@@ -23,7 +23,7 @@ console.log(dom.window.document.querySelector("p").textContent); // "Hello world
 
 (Note that jsdom will parse the HTML you pass it just like a browser does, including implied `<html>`, `<head>`, and `<body>` tags.)
 
-The resulting object is an instance of the `JSDOM` class, which contains a number of useful properties and methods besides `window`. In general it can be used to act on the jsdom from the "outside," doing things that are not possible with the normal DOM APIs. For simple cases, where you don't need any of this functionality, we recommend a coding pattern like
+The resulting object is an instance of the `JSDOM` class, which contains a number of useful properties and methods besides `window`. In general, it can be used to act on the jsdom from the "outside," doing things that are not possible with the normal DOM APIs. For simple cases, where you don't need any of this functionality, we recommend a coding pattern like
 
 ```js
 const { window } = new JSDOM(`...`);
@@ -133,7 +133,7 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 * Frames and iframes, via `<frame>` and `<iframe>`
 * Stylesheets, via `<link rel="stylesheet">`
 * Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
-* Images, via `<img>`, but only if the `canvas` npm package is also installed (see "Canvas Support" below)
+* Images, via `<img>`, but only if the `canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
 
 #### Advanced configuration
 
@@ -354,7 +354,7 @@ dom.window.top === myFakeTopForTesting;
 dom.window.location.href === "https://example.com/";
 ```
 
-Note that changing the jsdom's URL will impact all APIs that return the current document URL, such as `window.location`, `document.URL`, and `document.documentURI`, as well as resolution of relative URLs within the document, and the same-origin checks and referrer used while fetching subresources. It will not, however, perform a navigation to the contents of that URL; the contents of the DOM will remain unchanged, and no new instances of `Window`, `Document`, etc. will be created.
+Note that changing the jsdom's URL will impact all APIs that return the current document URL, such as `window.location`, `document.URL`, and `document.documentURI`, as well as the resolution of relative URLs within the document, and the same-origin checks and referrer used while fetching subresources. It will not, however, perform navigation to the contents of that URL; the contents of the DOM will remain unchanged, and no new instances of `Window`, `Document`, etc. will be created.
 
 ## Convenience APIs
 
@@ -458,7 +458,7 @@ By default jsdom elements are formatted as plain old JS objects in the console. 
 
 ### Asynchronous script loading
 
-People often have trouble with asynchronous script loading when using jsdom. Many pages loads scripts asynchronously, but there is no way to tell when they're done doing so, and thus when it's a good time to run your code and inspect the resulting DOM structure. This is a fundamental limitation; we cannot predict what scripts on the web page will do, and so cannot tell you when they are done loading more scripts.
+People often have trouble with asynchronous script loading when using jsdom. Many pages load scripts asynchronously, but there is no way to tell when they're done doing so, and thus when it's a good time to run your code and inspect the resulting DOM structure. This is a fundamental limitation; we cannot predict what scripts on the web page will do, and so cannot tell you when they are done loading more scripts.
 
 This can be worked around in a few ways. The best way, if you control the page in question, is to use whatever mechanisms are given by the script loader to detect when loading is done. For example, if you're using a module loader like RequireJS, the code could look like:
 
