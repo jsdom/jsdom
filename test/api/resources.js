@@ -624,16 +624,19 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
     });
 
-    it("should be use correct request's timeout", () => {
-      const url = resourceServer({}, "", {}, 500);
+    it("should still retrieve JSOM.fromURL()'s initial request successfully, if a long timeout is set", () => {
+      const url = htmlServer("Hello");
       const resourceLoader = new ResourceLoader({ timeout: 1000 });
-      return JSDOM.fromURL(url, { resources: resourceLoader });
+      return JSDOM.fromURL(url, { resources: resourceLoader }).then(dom => {
+        assert.strictEqual(dom.window.document.body.textContent, "Hello");
+      });
     });
 
-    it("should be fail with request's timeout", () => {
-      const url = resourceServer({}, "", {}, 500);
-      const resourceLoader = new ResourceLoader({ timeout: 100 });
-      return assert.isRejected(JSDOM.fromURL(url, { resources: resourceLoader }));
+    it("should reject the JSDOM.fromURL() promise if a too-short timeout is set", () => {
+      const url = resourceServer({}, "", { delayTime: 1000 });
+      const resourceLoader = new ResourceLoader({ timeout: 50 });
+
+      return assert.isRejected(JSDOM.fromURL(url, { resources: resourceLoader }), { name: "RequestError" });
     });
 
     it("should be able to customize the proxy option", () => {
@@ -799,13 +802,13 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
   });
 });
 
-function resourceServer(headers, body, { statusCode = 200 } = {}, timeout = 0) {
+function resourceServer(headers, body, { statusCode = 200, delayTime = 0 } = {}) {
   const server = http.createServer((req, res) => {
     setTimeout(() => {
       res.writeHead(statusCode, headers);
       res.end(body);
       server.close();
-    }, timeout);
+    }, delayTime);
   }).listen();
   return `http://127.0.0.1:${server.address().port}/`;
 }
