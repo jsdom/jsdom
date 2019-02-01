@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>element.focus() / element.blur()</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<input>
+
+<script>
+"use strict";
+
+const input = document.querySelector("input");
+
+test(() => {
+  assert_false(input.matches(":focus"));
+
+  input.focus();
+  assert_true(input.matches(":focus"));
+
+  input.blur();
+  assert_false(input.matches(":focus"));
+}, "The focus() and blur() methods change the focus as expected");
+</script>
