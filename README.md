@@ -405,7 +405,7 @@ For the very simplest of cases, you might not need a whole `JSDOM` instance with
 const frag = JSDOM.fragment(`<p>Hello</p><p><strong>Hi!</strong>`);
 
 frag.childNodes.length === 2;
-frag.querySelector("strong").textContent = "Why hello there!";
+frag.querySelector("strong").textContent === "Hi!";
 // etc.
 ```
 
