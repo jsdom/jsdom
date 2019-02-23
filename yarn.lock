@@ -1535,6 +1535,10 @@ eslint-plugin-html@^5.0.0:
   dependencies:
     htmlparser2 "^3.10.0"
 
+"eslint-plugin-jsdom-internal@link:./scripts/eslint-plugin":
+  version "0.0.0"
+  uid ""
+
 eslint-rule-documentation@^1.0.0:
   version "1.0.21"
   resolved "https://registry.yarnpkg.com/eslint-rule-documentation/-/eslint-rule-documentation-1.0.21.tgz#2a2464f9580e49ffc899176da3bf03cd1fb20e5c"
