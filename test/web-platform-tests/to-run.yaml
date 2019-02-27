@@ -102,6 +102,46 @@ window-screen-width.html: [fail, Test not applicable - no output device]
 
 ---
 
+DIR: custom-elements
+
+CustomElementRegistry.html: [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
+Document-createElement.html: [fail, :defined is not defined and throws]
+HTMLElement-attachInternals.html: [fail, Not implemented]
+HTMLElement-constructor.html: [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
+adopted-callback.html: [fail, "Failing test due to https://github.com/whatwg/dom/issues/813"]
+attribute-changed-callback.html: [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration]
+custom-element-reaction-queue.html: [fail, document.write() implementation is not spec compliant]
+custom-element-registry/per-global.html: [fail, iframe location related issue]
+form-associated/ElementInternals-NotSupportedError.html: [fail, Not implemented]
+form-associated/ElementInternals-accessibility.html: [fail, Not implemented]
+form-associated/ElementInternals-labels.html: [fail, Not implemented]
+form-associated/ElementInternals-setFormValue.html: [timeout, Not implemented]
+form-associated/ElementInternals-validation.html: [fail, Not implemented]
+form-associated/form-associated-callback.html: [fail, Not implemented]
+form-associated/form-disabled-callback.html: [timeout, Not implemented]
+form-associated/form-reset-callback.html: [fail, Not implemented]
+htmlconstructor/newtarget.html: [fail, Currently impossible to get the active function associated realm]
+microtasks-and-constructors.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+parser/parser-constructs-custom-element-synchronously.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+parser/parser-fallsback-to-unknown-element.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+parser/parser-sets-attributes-and-children.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+parser/parser-uses-constructed-element.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+perform-microtask-checkpoint-before-construction.html: [fail, impossible to implement microtask checkpoint without patching Promise]
+pseudo-class-defined.html: [timeout, :defined is not defined and throws]
+reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using wedidl2js]
+reactions/Document.html: [fail,
+  document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539
+  document.write() implementation is not spec compliant]
+reactions/ElementContentEditable.html: [fail, contentEditable is not implemented]
+reactions/HTMLAreaElement.html: [fail, HTMLAreaElement doesn't implement download ping and referrerPolicy]
+reactions/HTMLButtonElement.html: [fail, HTMLButtonElement doesn't implement formAction formEnctype and formMethod]
+reactions/HTMLElement.html: [fail, translate and spellcheck attributes are not implemented on HTMLElement]
+reactions/HTMLImageElement.html: [fail, HTMLImageElement doesn't implement referrerPolicy and decoder]
+throw-on-dynamic-markup-insertion-counter-construct.html: [timeout, document.open() and document.close() implementation is not spec compliant]
+throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.open() and document.close() implementation is not spec compliant]
+
+---
+
 DIR: dom/abort
 
 ---
@@ -940,7 +980,6 @@ DIR: shadow-dom
 
 Document-prototype-currentScript.html: [timeout, Test not up to date next with updating wpt it should work]
 DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
-Element-interface-attachShadow-custom-element.html: [fail, CustomElement.define is not implemented]
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
 ShadowRoot-interface.html: [fail, shadowRoot.styleSheet is not yet implemented]
 focus/click-focus-delegatesFocus-tabindex-varies.html: [fail, element.scrollIntoView is not implemented]
@@ -949,12 +988,10 @@ focus/focus-method-delegatesFocus.html: [fail, delegatesFocus is not implemented
 focus/focus-selector-delegatesFocus.html: [fail, 'https://github.com/dperini/nwsapi/issues/31']
 focus/focus-tabindex-order-*: [fail, Uses testdriver.js]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
-innerHTML-setter.xhtml: [fail, customElements is not implemented]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
-slotchange-customelements.html: [fail, CustomElement.define is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, https://github.com/w3c/selection-api/issues/114]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html: [fail, DocumentOrShadowRoot.elementFromPoint() is not implemented. Needs layout engine]
