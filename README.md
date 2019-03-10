@@ -409,7 +409,7 @@ frag.querySelector("strong").textContent = "Why hello there!";
 // etc.
 ```
 
-Here `frag` is a [`DocumentFragment`](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) instance, whose contents are created by parsing the provided string. The parsing is done using a `<template>` element, so you can include any element there (including ones with weird parsing rules like `<td>`). It's also important to note that the resulting `DocumentFragment` will not have an associated browsing context.
+Here `frag` is a [`DocumentFragment`](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) instance, whose contents are created by parsing the provided string. The parsing is done using a `<template>` element, so you can include any element there (including ones with weird parsing rules like `<td>`). It's also important to note that the resulting `DocumentFragment` will not have [an associated browsing context](https://html.spec.whatwg.org/multipage/#concept-document-bc): that is, elements' `ownerDocument` will have a null `defaultView` property, resources will not load, etc.
 
 All invocations of the `fragment()` factory result in `DocumentFragment`s that share the same template owner `Document`. This allows many calls to `fragment()` with no extra overhead. But it also means that calls to `fragment()` cannot be customized with any options.
 
