@@ -56,4 +56,9 @@ describe("API: JSDOM.fragment()", () => {
     assert.strictEqual(frag.ownerDocument.referrer, "");
     assert.strictEqual(frag.ownerDocument.contentType, "text/html");
   });
+
+  it("should default to no nodes", () => {
+    const frag = JSDOM.fragment();
+    assert.strictEqual(frag.childNodes.length, 0);
+  });
 });
