@@ -59,14 +59,8 @@ describe("API: JSDOM.fragment()", () => {
     assert.notStrictEqual(frag.ownerDocument.defaultView.navigator.userAgent, "Mellblomenator/9000");
   });
 
-  it("should be possible to append to a dom node", () => {
+  it("should default to no nodes", () => {
     const frag = JSDOM.fragment();
-    const test = (new JSDOM()).window.document.createElement("div");
-    test.innerHTML = "test";
-    frag.appendChild(test);
-
-    const res = (new JSDOM()).window.document.createElement("div");
-    res.appendChild(frag);
-    assert.strictEqual(res.outerHTML, "<div><div>test</div></div>");
+    assert.strictEqual(frag.childNodes.length, 0);
   });
 });
