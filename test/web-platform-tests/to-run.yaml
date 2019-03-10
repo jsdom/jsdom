@@ -737,10 +737,6 @@ DIR: html/semantics/scripting-1/the-template-element
 
 additions-to-parsing-xhtml-documents/node-document.html: [timeout, Templates in XHTML are totally messed up]
 additions-to-parsing-xhtml-documents/template-child-nodes.html: [timeout, Templates in XHTML are totally messed up]
-definitions/template-contents-owner-test-001.html: [fail, template content owner document semantics not yet implemented]
-definitions/template-contents-owner-test-002.html: [fail, template content owner document semantics not yet implemented]
-template-element/node-document-changes.html: [fail, template content owner document semantics not yet implemented]
-template-element/template-content-hierarcy.html: [fail, probably a combination of template content owner document semantics and https://github.com/tmpvar/jsdom/issues/1349]
 
 ---
 

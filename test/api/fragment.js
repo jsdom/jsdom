@@ -18,11 +18,10 @@ describe("API: JSDOM.fragment()", () => {
     assert.strictEqual(frag1.ownerDocument, frag2.ownerDocument);
   });
 
-  it("should return fragments with shared Windows each time", () => {
-    const frag1 = JSDOM.fragment(``);
-    const frag2 = JSDOM.fragment(``);
+  it("should return a fragment with no associated browsing context", () => {
+    const frag = JSDOM.fragment(``);
 
-    assert.strictEqual(frag1.ownerDocument.defaultView, frag2.ownerDocument.defaultView);
+    assert.isNull(frag.ownerDocument.defaultView);
   });
 
   it("should allow basic DOM querying", () => {
@@ -45,7 +44,7 @@ describe("API: JSDOM.fragment()", () => {
     assert.strictEqual(frag.firstChild.textContent, "Hi");
   });
 
-  it("should respect ignore any options passed in", () => {
+  it("should ignore any options passed in", () => {
     const frag = JSDOM.fragment(``, {
       url: "https://example.org",
       referrer: "https://example.com",
@@ -56,6 +55,5 @@ describe("API: JSDOM.fragment()", () => {
     assert.strictEqual(frag.ownerDocument.URL, "about:blank");
     assert.strictEqual(frag.ownerDocument.referrer, "");
     assert.strictEqual(frag.ownerDocument.contentType, "text/html");
-    assert.notStrictEqual(frag.ownerDocument.defaultView.navigator.userAgent, "Mellblomenator/9000");
   });
 });
