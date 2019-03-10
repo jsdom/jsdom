@@ -39,6 +39,7 @@ Carlos Serrano <carlos.pastor@mailonline.co.uk>
 Chad Walker <chad@chad-cat-lore-eddie.com>
 Chris Buckley <chris@cmbuckley.co.uk>
 Chris Carpita <ccarpita@gmail.com>
+Christian Bewernitz <coder@karfau.de>
 Christof Marti <chrmarti@microsoft.com>
 Christoph Pojer <christoph.pojer@gmail.com>
 Christophe Coevoet <stof@notk.org>
@@ -249,6 +250,7 @@ Timothy Gu <timothygu99@gmail.com>
 timu <selamtux@gmail.com>
 Tobie <tobie.langel@gmail.com>
 Tom Hudson <mail@tomnomnom.com>
+Tom Jenkinson <tjenkinson@users.noreply.github.com>
 Tom Taylor <tom@tomtaylor.co.uk>
 ulteriorlife <ulteriorlife@gmail.com>
 Vadim Baryshev <vadimbaryshev@gmail.com>

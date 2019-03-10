@@ -22,6 +22,19 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 14.0.0
+
+Breaking changes:
+
+* `JSDOM.fragment()` now creates fragments whose document has no [browsing context](https://html.spec.whatwg.org/multipage/#concept-document-bc), i.e. no associated `Window`. This means the `defaultView` property will be null, resources will not load, etc.
+* `JSDOM.fragment()`, called with no arguments, now creates a `DocumentFragment` with no children, instead of with a single child text node whose data was `"undefined"`.
+
+Other changes:
+
+* Fixed a regression in v13.2.0 when calling `element.blur()` on a focused element.
+* Fixed inserting `<link>` elements into documents with no browsing context to no longer crash if the originating `JSDOM` was configured to fetch the resource. Now, per spec, `<link>` elements only attempt to fetch if they are browsing-context connected.
+* Fixed `<template>` elements to have the correct semantics, of using a separate browsing-context-less document to store its contents. In particular this means resources will not be fetched for elements inside the `<template>`, as per spec.
+
 ## 13.2.0
 
 * Added support for `MutationObserver`s! (pmdartus)
