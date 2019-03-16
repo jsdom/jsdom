@@ -129,8 +129,6 @@ Element-closest.html: [fail, :has is not supported (by all major browsers as wel
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
-Element-matches.html: [fail, Whitespace in pseudo-class parameter]
-Element-webkitMatchesSelector.html: [fail, Whitespace in pseudo-class parameter]
 MutationObserver-characterData.html: [fail, Range is not implemented]
 MutationObserver-childList.html: [fail, Range is not implemented]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
