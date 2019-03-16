@@ -177,7 +177,6 @@ DIR: html/browsers/browsing-the-web/history-traversal
 browsing_context_name.html: [timeout, Unknown]
 browsing_context_name_cross_origin.html: [timeout, Unknown]
 browsing_context_name_cross_origin_2.html: [fail, window.name not implemented]
-events.html: [fail, PageTransitionEvent not defined]
 persisted-user-state-restoration/resume-timer-on-history-back.html: [timeout, Unknown]
 persisted-user-state-restoration/scroll-restoration-basic.html: [fail, Not implemented]
 persisted-user-state-restoration/scroll-restoration-fragment-scrolling-cross-origin.html: [fail, depends on requestAnimationFrame]
@@ -777,7 +776,6 @@ parsing-html-fragments/*: [timeout, Unknown]
 parsing/DOMContentLoaded-defer.html: [fail, Script execution timing]
 parsing/html-integration-point.html: [fail, Incorrect handling of encoded entity references inside <noframes> element]
 parsing/html5lib*: [timeout, Unknown]
-parsing/the-end.html: [fail-slow, Load event has wrong target]
 serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/parse5/pull/286 / https://github.com/whatwg/html/pull/4238]
 
 ---
