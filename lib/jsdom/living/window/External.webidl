@@ -1,5 +1,4 @@
-[Exposed=Window,
- NoInterfaceObject]
+[Exposed=Window]
 interface External {
   void AddSearchProvider();
   void IsSearchProviderInstalled();
