@@ -826,10 +826,6 @@ DIR: html/webappapis/timers
 
 ---
 
-DIR: progress-events
-
----
-
 DIR: shadow-dom
 
 Document-prototype-currentScript.html: [timeout, Test not up to date next with updating wpt it should work]
