@@ -80,6 +80,10 @@ function checkToRun() {
       throw new Error(`DIR entries must not end with a slash: saw "${doc.DIR}"`);
     }
 
+    if (!fs.existsSync(path.resolve(__dirname, "tests", doc.DIR))) {
+      throw new Error(`The directory "${doc.DIR}" does not exist`);
+    }
+
     if (doc.DIR < lastDir) {
       throw new Error(`Bad lexicographical directory sorting in to-run.yaml: ${doc.DIR} should come before ${lastDir}`);
     }
