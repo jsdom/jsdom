@@ -1,14 +1,5 @@
 "use strict";
 
-const JSDOM_HOOK = new Set([
-  "_attach",
-  "_detach",
-  "_attrModified",
-  "_descendantAdded",
-  "_descendantRemoved",
-  "_childTextContentChangeSteps"
-]);
-
 function isSuperHookInvocation(expression, hook) {
   if (expression.type !== "CallExpression") {
     return false;
@@ -46,33 +37,57 @@ module.exports = {
   meta: {
     type: "problem",
     docs: {
-      description: "Prevent missing invocation to the super jsdom hook."
+      description: "Prevent missing invocation to the super jsdom hook.",
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          ancestor: { type: "string" },
+          hook: { type: "string" }
+        },
+        required: ["ancestor", "hook"],
+        additionalProperties: false
+      }
     }
   },
 
   create(context) {
+    const { options } = context;
+
     return {
       MethodDefinition(node) {
         if (
           node.kind !== "method" ||
-          node.key.type !== "Identifier" ||
-          !JSDOM_HOOK.has(node.key.name)
+          node.key.type !== "Identifier"
         ) {
           return;
         }
 
-        const hook = node.key.name;
+        const hookName = node.key.name;
+        const hookOption = options.find(option => option.hook === hookName);
+
+        // Don't do anything if the method is not a known hook.
+        if (hookOption === undefined) {
+          return;
+        }
+
+        // Check if the class is not the ancestor class defining the hook. In this case it should not call super.
+        const isAncestorClass = node.parent.parent.id && node.parent.parent.id.name === hookOption.ancestor;
+        if (isAncestorClass) {
+          return;
+        }
+
         const isMethodCallingSuper = node.value.body.body.some(statement => {
           return (
             statement.type === "ExpressionStatement" &&
-            isSuperHookInvocation(statement.expression, hook)
+            isSuperHookInvocation(statement.expression, hookName)
           );
         });
 
         if (!isMethodCallingSuper) {
           context.report({
             node,
-            message: `Missing invocation to the "${hook}" jsdom hook super.`
+            message: `Missing invocation to the "${hookName}" jsdom hook super.`
           });
         }
       }
