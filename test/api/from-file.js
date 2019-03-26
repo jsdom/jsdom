@@ -39,6 +39,12 @@ describe("API: JSDOM.fromFile()", { skipIfBrowser: true }, () => {
       });
     });
 
+    it("should default to application/xhtml+xml Content-Type for .xht files", () => {
+      return fromFixtureFile("xhtml.xht").then(dom => {
+        assert.strictEqual(dom.window.document.contentType, "application/xhtml+xml");
+      });
+    });
+
     it("should default to application/xhtml+xml Content-Type for .xml files", () => {
       return fromFixtureFile("xhtml.xml").then(dom => {
         assert.strictEqual(dom.window.document.contentType, "application/xhtml+xml");
@@ -47,6 +53,12 @@ describe("API: JSDOM.fromFile()", { skipIfBrowser: true }, () => {
 
     it("should allow overriding the Content-Type for .xhtml files", () => {
       return fromFixtureFile("xhtml.xhtml", { contentType: "text/html" }).then(dom => {
+        assert.strictEqual(dom.window.document.contentType, "text/html");
+      });
+    });
+
+    it("should allow overriding the Content-Type for .xht files", () => {
+      return fromFixtureFile("xhtml.xht", { contentType: "text/html" }).then(dom => {
         assert.strictEqual(dom.window.document.contentType, "text/html");
       });
     });
