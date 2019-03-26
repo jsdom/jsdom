@@ -373,6 +373,10 @@ the-translate-attribute-012.html: [fail, Unknown]
 
 ---
 
+DIR: html/editing/activation
+
+---
+
 DIR: html/editing/dnd
 
 datastore/datatransfer-constructor-001.html: [fail, DataTransfer not implemented]
