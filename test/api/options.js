@@ -254,6 +254,17 @@ describe("API: constructor options", () => {
         assert.isUndefined(window.requestAnimationFrame);
         assert.isUndefined(window.cancelAnimationFrame);
       });
+
+      it("child frame document should not have rAF", () => {
+        const { window } = new JSDOM(`<body></body>`);
+        const frame = window.document.createElement("iframe");
+        window.document.body.appendChild(frame);
+
+        assert.isUndefined(window.requestAnimationFrame);
+        assert.isUndefined(window.cancelAnimationFrame);
+        assert.isUndefined(frame.contentWindow.requestAnimationFrame);
+        assert.isUndefined(frame.contentWindow.cancelAnimationFrame);
+      });
     });
 
     describe("set to true", () => {
@@ -270,8 +281,17 @@ describe("API: constructor options", () => {
         window.requestAnimationFrame(() => {
           context.done();
         });
-
         // Further functionality tests are in web platform tests
+      });
+
+      it("child frame document should have rAF", { async: true }, context => {
+        const { window } = new JSDOM(`<body></body>`, { pretendToBeVisual: true });
+        const frame = window.document.createElement("iframe");
+        window.document.body.appendChild(frame);
+
+        frame.contentWindow.requestAnimationFrame(() => {
+          context.done();
+        });
       });
     });
   });
