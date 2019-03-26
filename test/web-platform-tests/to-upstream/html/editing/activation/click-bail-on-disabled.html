@@ -13,6 +13,8 @@
   <input id="el3" type="checkbox">
 </fieldset>
 
+<button id="el4">hi</button>
+
 <script>
 "use strict";
 
@@ -48,5 +50,26 @@ async_test(t => {
   }, 500);
 
 }, "clicking a disabled checkbox should not cause a click event or cause the checkbox to become checked");
+
+test(() => {
+
+  const element = document.querySelector("#el4");
+  let counter = 0;
+  element.addEventListener("click", () => {
+    ++counter;
+  });
+
+  element.click();
+  assert_equals(counter, 1, "First click must trigger the event listener");
+
+  element.disabled = true;
+  element.click();
+  assert_equals(counter, 1, "Second click, while disabled, must not trigger the event listener");
+
+  element.disabled = false;
+  element.click();
+  assert_equals(counter, 2, "Third click, no longer disabled, must trigger the event listener");
+
+}, "clicking a button that was disabled then re-enabled should cause a click event");
 
 </script>
