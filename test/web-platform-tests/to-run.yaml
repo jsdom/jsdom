@@ -213,7 +213,6 @@ child_navigates_parent_submit.html: [timeout, Unknown]
 empty_fragment.html: [fail, Unknown]
 javascript-url-abort/javascript-url-abort-return-value-string.tentative.html: [timeout, Unknown]
 javascript-url-abort/javascript-url-abort-return-value-undefined.tentative.html: [timeout, Unknown]
-javascript-url-global-scope.html: [timeout, Unknown]
 navigation-unload-form-submit.html: [timeout, Unknown]
 navigation-unload-same-origin-fragment.html: [timeout, Unknown]
 refresh/navigate.window.html: [timeout, Unknown]
@@ -610,7 +609,7 @@ DIR: html/semantics/interactive-elements/the-summary-element
 
 DIR: html/semantics/links
 
-following-hyperlinks/activation-behavior.window.html: [fail, Unknown]
+following-hyperlinks/activation-behavior.window.html: [fail, We don't support navigating to new locations]
 links-created-by-a-and-area-elements/htmlanchorelement_noopener.html: [timeout, Unknown]
 links-created-by-a-and-area-elements/target_blank_implicit_noopener.tentative.html: [fail, Depends on BroadcastChannel]
 
@@ -641,7 +640,6 @@ execution-timing/025.html: [fail, Unknown]
 execution-timing/027.html: [fail, Unknown]
 execution-timing/028.html: [fail, Unknown]
 execution-timing/029.html: [fail, Unknown]
-execution-timing/030.html: [fail, Unknown]
 execution-timing/031.html: [fail, Unknown]
 execution-timing/036.html: [fail, Unknown]
 execution-timing/037.html: [fail, Unknown]
