@@ -290,5 +290,21 @@
       { "ancestor": "NodeImpl", "hook": "_childTextContentChangeSteps" },
       { "ancestor": "ElementImpl", "hook": "_attrModified" }
     ]
-  }
+  },
+
+  // Rules limited to specific locations
+  "overrides": [
+    {
+      "files": ["lib/**"],
+      "rules": {
+        "no-restricted-properties": ["error",
+          { "property": "getAttribute", "message": "Use 'getAttributeNS' with null as the namespace to access attributes within jsdom" },
+          { "property": "setAttribute", "message": "Use 'setAttributeNS' with null as the namespace to access attributes within jsdom" },
+          { "property": "hasAttribute", "message": "Use 'hasAttributeNS' with null as the namespace to access attributes within jsdom" },
+          { "property": "removeAttribute", "message": "Use 'removeAttributeNS' with null as the namespace to access attributes within jsdom" },
+          { "property": "toggleAttribute", "message": "Use 'setAttributeNS' and 'removeAttributeNS' with null as the namespace to access attributes within jsdom" }
+        ]
+      }
+    }
+  ]
 }
