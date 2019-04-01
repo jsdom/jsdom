@@ -19,7 +19,7 @@ interface HTMLInputElement : HTMLElement {
 //  [CEReactions] attribute unsigned long height;
   attribute boolean indeterminate;
   [CEReactions, Reflect] attribute DOMString inputMode;
-//  readonly attribute HTMLElement? list;
+  readonly attribute HTMLElement? list;
   [CEReactions, Reflect] attribute DOMString max;
   [CEReactions] attribute long maxLength;
   [CEReactions, Reflect] attribute DOMString min;
