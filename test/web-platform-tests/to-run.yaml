@@ -500,8 +500,6 @@ button-activate.html: [fail, Unknown]
 
 DIR: html/semantics/forms/the-datalist-element
 
-datalistoptions.html: [fail, Not implemented]
-
 ---
 
 DIR: html/semantics/forms/the-fieldset-element
