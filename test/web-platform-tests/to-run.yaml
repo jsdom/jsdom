@@ -155,6 +155,16 @@ interfaces.any.html: [fail, Depends on fetch]
 
 ---
 
+DIR: fetch/api/headers
+
+header-values-normalize.html: [fail, fetch is not defined]
+header-values.html: [fail, fetch is not defined]
+headers-basic.html: [fail, iterator prototype is wrong]
+headers-no-cors.window.html: [fail, Request is not defined]
+headers-record.html: [fail, V8 does not error on duplicate keys in ownKeys]
+
+---
+
 DIR: hr-time
 
 idlharness.any.html: [fail, Depends on fetch]
