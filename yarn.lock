@@ -4873,10 +4873,10 @@ webidl2@^10.3.3:
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-10.3.3.tgz#9e6562df1ecd466dba0cdb713a0db073bbe1039a"
   integrity sha512-C3rxCpkX2XQ9FW1EIllN0nW2zlN21S+PgE59xQ6ErI5awVaXYm3TTsDDsdCYIfwjVwNZZIpKjcW1xJF89ZlAew==
 
-webidl2js@^9.2.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-9.2.0.tgz#ffa31b569dbcc6886f60ce798d65f0cb8012bc43"
-  integrity sha512-OMLUy2yYzOUyFvqcY1Fkxca1kNurE/WpdrQ4gbRif7/59suwAiRGpAg3Uiha2IkTb75gJYN/j76vMWL44YK7Kw==
+webidl2js@^9.2.1:
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-9.2.1.tgz#f7bbf3e2956d99e9c9437971545b3695c6b5234d"
+  integrity sha512-2NMaYDjyCYugmqhMGMCilwtWmoRGDLa43Ws28Vzbf9VjB6Djr9Biu88D0JRvUicigl67OT2GnyEfXcSz5V+A/w==
   dependencies:
     co "^4.6.0"
     pn "^1.1.0"
