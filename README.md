@@ -53,7 +53,7 @@ const dom = new JSDOM(``, {
 
 - `url` sets the value returned by `window.location`, `document.URL`, and `document.documentURI`, and affects things like resolution of relative URLs within the document and the same-origin restrictions and referrer used while fetching subresources. It defaults to `"about:blank"`.
 - `referrer` just affects the value read from `document.referrer`. It defaults to no referrer (which reflects as the empty string).
-- `contentType` affects the value read from `document.contentType`, and how the document is parsed: as HTML or as XML. Values that are not `"text/html"` or an [XML mime type](https://html.spec.whatwg.org/multipage/infrastructure.html#xml-mime-type) will throw. It defaults to `"text/html"`.
+- `contentType` affects the value read from `document.contentType`, as well as how the document is parsed: as HTML or as XML. Values that are not a [HTML mime type](https://mimesniff.spec.whatwg.org/#html-mime-type) or an [XML mime type](https://mimesniff.spec.whatwg.org/#xml-mime-type) will throw. It defaults to `"text/html"`. If a `charset` parameter is present, it can affect [binary data processing](#encoding-sniffing).
 - `includeNodeLocations` preserves the location info produced by the HTML parser, allowing you to retrieve it with the `nodeLocation()` method (described below). It also ensures that line numbers reported in exception stack traces for code running inside `<script>` elements are correct. It defaults to `false` to give the best performance, and cannot be used with an XML content type since our XML parser does not support location info.
 - `storageQuota` is the maximum size in code units for the separate storage areas used by `localStorage` and `sessionStorage`. Attempts to store data larger than this limit will cause a `DOMException` to be thrown. By default, it is set to 5,000,000 code units per origin, as inspired by the HTML specification.
 
@@ -430,7 +430,9 @@ jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/ca
 
 In addition to supplying a string, the `JSDOM` constructor can also be supplied binary data, in the form of a Node.js [`Buffer`](https://nodejs.org/docs/latest/api/buffer.html) or a standard JavaScript binary data type like `ArrayBuffer`, `Uint8Array`, `DataView`, etc. When this is done, jsdom will [sniff the encoding](https://html.spec.whatwg.org/multipage/syntax.html#encoding-sniffing-algorithm) from the supplied bytes, scanning for `<meta charset>` tags just like a browser does.
 
-This encoding sniffing also applies to `JSDOM.fromFile()` and `JSDOM.fromURL()`. In the latter case, just as in a browser, any `Content-Type` headers sent with the response will take priority.
+If the supplied `contentType` option contains a `charset` parameter, that encoding will override the sniffed encoding—unless a UTF-8 or UTF-16 BOM is present, in which case those take precedence. (Again, this is just like a browser.)
+
+This encoding sniffing also applies to `JSDOM.fromFile()` and `JSDOM.fromURL()`. In the latter case, any `Content-Type` headers sent with the response will take priority, in the same fashion as the constructor's `contentType` option.
 
 Note that in many cases supplying bytes in this fashion can be better than supplying a string. For example, if you attempt to use Node.js's `buffer.toString("utf-8")` API, Node.js will not strip any leading BOMs. If you then give this string to jsdom, it will interpret it verbatim, leaving the BOM intact. But jsdom's binary data decoding code will strip leading BOMs, just like a browser; in such cases, supplying `buffer` directly will give the desired result.
 

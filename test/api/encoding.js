@@ -114,29 +114,61 @@ describe("API: encoding detection", () => {
   });
 
   describe("constructor, given binary data", { skipIfBrowser: true }, () => {
-    for (const binaryDataType of Object.keys(factories)) {
-      const factory = factories[binaryDataType];
+    describe("with no contentType option given", () => {
+      for (const binaryDataType of Object.keys(factories)) {
+        const factory = factories[binaryDataType];
 
-      describe(binaryDataType, () => {
-        for (const encodingFixture of Object.keys(encodingFixtures)) {
-          const { name, body } = encodingFixtures[encodingFixture];
+        describe(binaryDataType, () => {
+          for (const encodingFixture of Object.keys(encodingFixtures)) {
+            const { name, body } = encodingFixtures[encodingFixture];
 
-          it(`should sniff ${encodingFixture} as ${name}`, () => {
-            return factory(encodingFixture).then(binaryData => {
-              assert.strictEqual(
-                binaryData.constructor.name, binaryDataType,
-                "Sanity check: input binary data must be of the right type"
-              );
+            it(`should sniff ${encodingFixture} as ${name}`, () => {
+              return factory(encodingFixture).then(binaryData => {
+                assert.strictEqual(
+                  binaryData.constructor.name, binaryDataType,
+                  "Sanity check: input binary data must be of the right type"
+                );
 
-              const dom = new JSDOM(binaryData);
+                const dom = new JSDOM(binaryData);
 
-              assert.strictEqual(dom.window.document.characterSet, name);
-              assert.strictEqual(dom.window.document.body.textContent, body);
+                assert.strictEqual(dom.window.document.characterSet, name);
+                assert.strictEqual(dom.window.document.body.textContent, body);
+              });
             });
-          });
-        }
-      });
-    }
+          }
+        });
+      }
+    });
+
+    describe("with a contentType option specifying csiso88598e", () => {
+      for (const binaryDataType of Object.keys(factories)) {
+        const factory = factories[binaryDataType];
+
+        describe(binaryDataType, () => {
+          for (const encodingFixture of Object.keys(encodingFixtures)) {
+            const { nameWhenOverridden, bodyWhenOverridden } = encodingFixtures[encodingFixture];
+
+            it(`should sniff ${encodingFixture} as ${nameWhenOverridden}`, () => {
+              return factory(encodingFixture).then(binaryData => {
+                assert.strictEqual(
+                  binaryData.constructor.name, binaryDataType,
+                  "Sanity check: input binary data must be of the right type"
+                );
+
+                const dom = new JSDOM(binaryData, { contentType: "text/html;charset=csiso88598e" });
+
+                assert.strictEqual(dom.window.document.characterSet, nameWhenOverridden);
+                assert.strictEqual(dom.window.document.contentType, "text/html"); // encoding should be stripped
+
+                if (bodyWhenOverridden) {
+                  assert.strictEqual(dom.window.document.body.textContent, bodyWhenOverridden);
+                }
+              });
+            });
+          }
+        });
+      }
+    });
   });
 
   describe("fromFile", { skipIfBrowser: true }, () => {
