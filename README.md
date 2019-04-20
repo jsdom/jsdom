@@ -444,7 +444,7 @@ If you want to be sure to shut down a jsdom window, use `window.close()`, which 
 
 jsdom has some support for being run inside a web browser, using [browserify](https://browserify.org/). That is, inside a web browser, you can use a browserified jsdom to create an entirely self-contained set of plain JavaScript objects which look and act much like the browser's existing DOM objects, while being entirely independent of them. "Virtual DOM", indeed!
 
-jsdom's primary target is still Node.js, and so we use language features that are only present in recent Node.js versions (namely, Node.js v6+). Thus, older browsers will likely not work. (Even transpilation will not help much: we plan to use `Proxy`s extensively throughout the course of jsdom v10.x.)
+jsdom's primary target is still Node.js, and so we use language features that are only present in recent Node.js versions (namely, Node.js v8+). Thus, older browsers will likely not work. (Even transpilation will not help: we use `Proxy`s extensively throughout the jsdom codebase.)
 
 Notably, jsdom works well inside a web worker. The original contributor, [@lawnsea](https://github.com/lawnsea/), who made this possible, has [published a paper](https://pdfs.semanticscholar.org/47f0/6bb6607a975500a30e9e52d7c9fbc0034e27.pdf) about his project which uses this capability.
 
@@ -483,7 +483,7 @@ requirejs(["entry-module"], () => {
 
 If you do not control the page, you could try workarounds such as polling for the presence of a specific element.
 
-For more details, see the discussion in [#640](https://github.com/tmpvar/jsdom/issues/640), especially [@matthewkastor](https://github.com/matthewkastor)'s [insightful comment](https://github.com/tmpvar/jsdom/issues/640#issuecomment-22216965).
+For more details, see the discussion in [#640](https://github.com/jsdom/jsdom/issues/640), especially [@matthewkastor](https://github.com/matthewkastor)'s [insightful comment](https://github.com/jsdom/jsdom/issues/640#issuecomment-22216965).
 
 ### Shared constructors and prototypes
 
@@ -512,12 +512,12 @@ Beyond just features that we haven't gotten to yet, there are two major features
 
 Currently jsdom has dummy behaviors for some aspects of these features, such as sending a "not implemented" `"jsdomError"` to the virtual console for navigation, or returning zeros for many layout-related properties. Often you can work around these limitations in your code, e.g. by creating new `JSDOM` instances for each page you "navigate" to during a crawl, or using `Object.defineProperty()` to change what various layout-related getters and methods return.
 
-Note that other tools in the same space, such as PhantomJS, do support these features. On the wiki, we have a more complete writeup about [jsdom vs. PhantomJS](https://github.com/tmpvar/jsdom/wiki/jsdom-vs.-PhantomJS).
+Note that other tools in the same space, such as PhantomJS, do support these features. On the wiki, we have a more complete writeup about [jsdom vs. PhantomJS](https://github.com/jsdom/jsdom/wiki/jsdom-vs.-PhantomJS).
 
 ## Getting help
 
 If you need help with jsdom, please feel free to use any of the following venues:
 
 - The [mailing list](http://groups.google.com/group/jsdom) (best for "how do I" questions)
-- The [issue tracker](https://github.com/tmpvar/jsdom/issues) (best for bug reports)
+- The [issue tracker](https://github.com/jsdom/jsdom/issues) (best for bug reports)
 - The IRC channel: [#jsdom on freenode](irc://irc.freenode.net/jsdom)
