@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Style should not apply with no browsing context</title>
+<!-- https://github.com/whatwg/html/issues/4547 -->
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+test(() => {
+  const doc = document.implementation.createHTMLDocument();
+  const style = document.createElement("style");
+  style.textContent = `
+    p { color: red; }
+  `;
+
+  doc.head.appendChild(style);
+  doc.body.appendChild(doc.createElement("p"));
+
+  // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue last step falls back to empty string
+  assert_equals(window.getComputedStyle(doc.querySelector("p")).color, "");
+}, "no impact on getComputedStyle");
+
+async_test(t => {
+  const doc = document.implementation.createHTMLDocument();
+  const style = document.createElement("style");
+  style.textContent = `
+    @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,800');
+  `;
+
+  style.onload = t.unreached_func("load event must not be fired");
+  style.onerror = t.unreached_func("error event must not be fired");
+  doc.head.appendChild(style);
+
+  t.step_timeout(() => t.done(), 200);
+}, "no load or error events");
+</script>
