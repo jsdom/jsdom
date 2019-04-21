@@ -165,6 +165,27 @@ headers-record.html: [fail, V8 does not error on duplicate keys in ownKeys]
 
 ---
 
+DIR: fetch/api/response
+
+multi-globals/url-parsing.html: [fail, relative redirect urls are unsupported]
+response-cancel-stream.html: [fail, body is not implemented]
+response-consume-empty.html: [fail, body is not implemented]
+response-consume-stream.html: [fail, body is not implemented]
+response-consume.html: [fail, body is not implemented]
+response-error-from-stream.html: [fail, body is not implemented]
+response-from-stream.any.html: [fail, body is not implemented]
+response-init-002.html: [fail, body is not implemented]
+response-stream-disturbed-1.html: [fail, body is not implemented]
+response-stream-disturbed-2.html: [fail, body is not implemented]
+response-stream-disturbed-3.html: [fail, body is not implemented]
+response-stream-disturbed-4.html: [fail, body is not implemented]
+response-stream-disturbed-5.html: [fail, body is not implemented]
+response-stream-disturbed-6.html: [fail, body is not implemented]
+response-stream-with-broken-then.any.html: [fail, body is not implemented]
+response-trailer.html: [fail, fetch is not implemented]
+
+---
+
 DIR: hr-time
 
 idlharness.any.html: [fail, Depends on fetch]
