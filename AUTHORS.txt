@@ -47,6 +47,7 @@ cjroebuck <tophtfc@gmail.com>
 Cyril Auburtin <cyril.auburtin@gmail.com>
 daishi <daishi@axlight.com>
 Damian Janowski <damian.janowski@gmail.com>
+Damien Rajon <145502+pyrho@users.noreply.github.com>
 Dan Lidral-Porter <dan@luckysort.com>
 Daniel Boelzle [:dbo] <dbo@numberfour.eu>
 Daniel Cassidy <mail@danielcassidy.me.uk>

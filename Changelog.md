@@ -6,6 +6,7 @@
 * Prefer referring to methods and properties via `someInstance.prop`, instead of `ClassName.prototype.prop`. (Never use `ClassName.prop` except for statics.)
 * Refer to attributes via `attr=""`.
 * Refer to elements via `<element>`.
+* Refer to events via `eventname`.
 * Never use the IDL terms "interface", "attribute", or "operation".
 * URL schemes are in `code`, e.g. `data:`.
 * Except in the headings, all version numbers get a "v" prefix, e.g. v12.2.0.
@@ -21,6 +22,23 @@ Other guidelines:
 * Group in the order "Added", "Removed", "Changed", "Fixed".
 * Roughly order changes within those groupings by impact.
 -->
+
+## 14.1.0
+
+* Added activation behavior for `<a>` and `<area>` elements whose `href=""` points to a `javascript:` URL or fragment.
+* Added the `<datalist>` element's `options` property.
+* Added the `<input>` element's `list` property.
+* Added `PageTransitionEvent`, and the firing of `pageshow` events during loading.
+* Exposed the `External` class as a property of `window`.
+* Fixed HTML fragment parsing (via `innerHTML` and `outerHTML`) to be spec-compliant. (pmdartus)
+* Fixed HTML serialization (e.g. via `innerHTML`) breaking after setting certain properties to non-string values.
+* Fixed how disabling an element would cause its activation behavior to forever be null, even if it were re-enabled.
+* Fixed all access to attributes to ignore attributes with namespaces, per the spec.
+* Fixed `<style>`s to no longer apply to documents without a browsing context. This includes fixing a crash that would occur with such styles if they had an `@import` rule.
+* Fixed `<option>`'s `label` and `value` properties to return correct values in various edge cases.
+* Fixed the `load` event during document loading to target the `Document`, not the `Window`.
+* Fixed the `pretendToBeVisual` option to propagate to child subframes, as well as the main `Window`. (pyrho)
+* Updated the minimum [`nwsapi`](https://www.npmjs.com/package/nwsapi) version from v2.1.1 to v2.1.3, bringing along a few fixes in our selector engine.
 
 ## 14.0.0
 
@@ -41,7 +59,7 @@ Other changes:
 * Added support for XML documents loaded in frames and iframes; previously this would error.
 * Added the `<progress>` element's `value`, `max`, and `position` properties.
 * Added `navigator.plugins` and `navigator.mimeTypes`. (But, they are always empty.)
-* Fixed `<summary>` elements respond to click events by toggling their parent `<details>`.
+* Fixed `<summary>` elements respond to `click` events by toggling their parent `<details>`.
 * Fixed `<summary>` elements to be focusable.
 * Fixed XML document DOCTYPE parsing to preserve any custom name values.
 * Fixed XML documents to default to UTF-8, not windows-1252 like HTML documents do.
@@ -54,7 +72,7 @@ Other changes:
 ## 13.1.0
 
 * Added `el.insertAdjacentElement()` and `el.insertAdjacentText()`.
-* Added the firing of a cancelable `"reset"` event to `form.reset()`. (epfremmer)
+* Added the firing of a cancelable `reset` event to `form.reset()`. (epfremmer)
 * Added the `type`, `value`, and `defaultValue` properties to `<output>` elements, including their form reset behavior. (epfremmer)
 * Added the `outputEl.htmlFor` property.
 * Fixed the performance of parsing large text nodes, particularly noticeable for large inline `<style>` or `<script>` elements. This regressed in v11.6.0. To learn more, see [V8 issue #6730](https://bugs.chromium.org/p/v8/issues/detail?id=6730#c4).
@@ -62,11 +80,11 @@ Other changes:
 * Fixed `node.isConnected` to not always return false for nodes inside a shadow tree. (pmdartus)
 * Fixed `<button type="reset">` and `<input type="reset">` elements to actually perform a form reset when clicked, instead of doing nothing. (epfremmer)
 * Fixed `el.setCustomValidity()` for `<output>` and `<fieldset>`.
-* Fixed activation behavior when dispatching bubbling click events, so that for example calling `el.click()` on the child of a submit button element will submit the form.
+* Fixed activation behavior when dispatching bubbling `click` events, so that for example calling `el.click()` on the child of a submit button element will submit the form.
 * Fixed our XML parsing code to ignore text outside the root element, instead of treating it as an error. (lddubeau)
 * Fixed XML serialization when elements had an unknown prefix.
 * Fixed radio button group name matching to be case-sensitive, per [a spec update](https://github.com/whatwg/html/commit/6acdb2122298d2bb7bb839c0a61b4e1f9b0f9bc9).
-* Fixed `"focus"`/`"blur"` events to be composed.
+* Fixed `focus`/`blur` events to be composed.
 * Fixed `mediaElement.duration` to default to `NaN`.
 * Fixed `olEl.start` to default to `1`.
 * Fixed using `XMLHttpRequest` against non-existant `file:` URLs to treat that as a network error, instead of crashing. (pascalbayer) Note that in the future we may completely disable `XMLHttpRequest` usage against `file:` URLs to follow the browser security model.
@@ -135,7 +153,7 @@ Other changes:
 
 * Added `window.localStorage`, `window.sessionStorage`, and `StorageEvent` support. These are currently only stored in-memory; file an issue if you need persistent (on-disk) storage capability so we can discuss adding that. This feature includes the new `storageQuota` option for controlling how much can be stored.
 * Added `element.closest()`. (caub)
-* Changed `"hashchange"` and `"popstate"` events to no longer bubble, per a specification update.
+* Changed `hashchange` and `popstate` events to no longer bubble, per a specification update.
 * Fixed the old API in Node.js v10 to not throw, when given input that is not a valid file path (such as a typical HTML string).
 * Upgraded `cssstyle` to v1.0.0, bringing along various fixes to our CSS parser and object model. (eddies)
 * Upgraded `nwsapi` to v2.0.7, bringing along various fixes to our selector engine.
@@ -176,14 +194,14 @@ Other changes:
 * Added `FileReader`'s `readAsBinaryString()` method, as it has been added back to the specification.
 * Fixed event handlers to be own properties of each `Window`, instead of on `Window.prototype`. (Fetz)
 * Fixed an exception that would sometimes get raised when removing an `<img>` element's `src=""` attribute. (atsikov)
-* Fixed `"abort"` events on `AbortSignal`s to have their `isTrusted` set to true.
+* Fixed `abort` events on `AbortSignal`s to have their `isTrusted` set to true.
 * Fixed some argument conversions in `XMLHttpRequest`'s `open()` method.
 * Improved MIME type and `data:` URL parsing throughout jsdom, by using the new [`whatwg-mimetype`](https://www.npmjs.com/package/whatwg-mimetype) and [`data-urls`](https://www.npmjs.com/package/data-urls) packages.
 * Removed some unnecessary `.webidl` files that were included in the npm package.
 
 ## 11.6.2
 
-* Fixed another regression (since v11.6.0) in `<style>` elements, where they would omit a series of parsing `"jsdomError"`s for any style sheet text containing spaces.
+* Fixed another regression (since v11.6.0) in `<style>` elements, where they would omit a series of parsing `jsdomError` events for any style sheet text containing spaces.
 * Generally improved the spec-conformance of when `<style>` and `<script>` elements are evaluated; for example, `<script>` elements inserted by `innerHTML` are no longer evaluated.
 
 ## 11.6.1
@@ -191,7 +209,7 @@ Other changes:
 * Fixed one regression (since v11.6.0) in `<style>` elements, where their `sheet` property would sometimes be `null` when it should not be.
 * Fixed a case where a `<style>` element's `sheet` property would be left as a `CSSStyleSheet` despite it not being in the document.
 
-Another regression remains where we are emitting spurious CSS-parsing `"jsdomError"` events; see [#2123](https://github.com/tmpvar/jsdom/issues/2123). We also discovered a large amount of preexisting brokenness around `<style>`, `<link>`, and `@import`; see [#2124](https://github.com/tmpvar/jsdom/issues/2124) for more details.
+Another regression remains where we are emitting spurious CSS-parsing `jsdomError` events; see [#2123](https://github.com/tmpvar/jsdom/issues/2123). We also discovered a large amount of preexisting brokenness around `<style>`, `<link>`, and `@import`; see [#2124](https://github.com/tmpvar/jsdom/issues/2124) for more details.
 
 We'll try to fix these soon, especially the regression.
 
@@ -346,7 +364,7 @@ Other changes:
 * Changed `XMLHttpRequest` to pre-allocate a 1 MiB buffer, which it grows exponentially as needed, in order to avoid frequent buffer allocation and concatenation. (skygon)
 * Fixed a variety of properties that were meant to always return the same object, to actually do so. (Zirro)
 * Fixed inheritance of the `runScripts` and `resources` options into iframes.
-* Fixed an uncaught exception that occurred if you called `xhr.abort()` during a `"readystatechange"` event.
+* Fixed an uncaught exception that occurred if you called `xhr.abort()` during a `readystatechange` event.
 
 ## 10.0.0
 
@@ -360,7 +378,7 @@ Apart from the new API, the following changes were made, with breaking changes b
 * **Changed the `omitJsdomErrors` option to `omitJSDOMErrors`**, for consistency [with web platform APIs](https://w3ctag.github.io/design-principles/#casing-rules).
 * Added `document.dir`. (Zirro)
 * Updated the `<a>` and `<area>` APIs to the latest specification, and fixed a few bugs with them. (makana)
-* Fixed `<img>` elements to no longer fire `"load"` events unless their image data is actually loaded (which generally only occurs when the `canvas` package is installed).
+* Fixed `<img>` elements to no longer fire `load` events unless their image data is actually loaded (which generally only occurs when the `canvas` package is installed).
 * Fixed `XMLHttpRequest` preflights to forward approved preflight headers to the actual request. (mbroadst)
 * Fixed `htmlElement.dir` to properly restrict its values to `"ltr"`, `"rtl"`, or `"auto"`. (Zirro)
 * Fixed setting `innerHTML` to the empty string to no longer be a no-op. (Zirro)
@@ -456,7 +474,7 @@ Apart from the new API, the following changes were made, with breaking changes b
 
 ## 9.4.5
 
-* Fixed `"error"` events from failed resource loads going missing since v9.4.3. I really should have tested that release better.
+* Fixed `error` events from failed resource loads going missing since v9.4.3. I really should have tested that release better.
 
 ## 9.4.4
 
@@ -751,7 +769,7 @@ This major release has as its headlining feature a completely re-written `XMLHtt
 * Added a fully spec-compliant implementation of `window.atob` and `window.btoa`. (jeffcarp)
 * Fixed many issues with our `<canvas>` implementation:
   - With the `canvas` npm package installed, `<canvas>` elements are now properly `instanceof HTMLCanvasElement` and `instanceof HTMLElement`.
-  - `<canvas>` elements now present the same uniform spec-compliant API both with and without the `canvas` npm package installed. If the package is not installed, some of the methods will cause not-implemented `"jsdomError"` events to be emitted on the virtual console.
+  - `<canvas>` elements now present the same uniform spec-compliant API both with and without the `canvas` npm package installed. If the package is not installed, some of the methods will cause not-implemented `jsdomError` events to be emitted on the virtual console.
   - The `width` and `height` properties now correctly reflect the `width` and `height` attributes, and have the appropriate default values of `300` and `150`.
   - With the `canvas` npm package installed, `<canvas>` elements now generally play better with other parts of jsdom, e.g., `document.getElementById` actually works with them.
 * Introduced and upated many of our element classes, so that at least every tag name/element class pair is now correct, even if some of the classes are stubs. In particular:
@@ -775,7 +793,7 @@ This major release has as its headlining feature a completely re-written `XMLHtt
 * Made `virtualConsole.sendTo(console)` forward `"jsdomError"`s to `console` by calling `console.error`. This can be turned off by doing `virtualConsole.sendTo(console, { omitJsdomErrors: true })`.
 * Fixed errors when trying to parse invalid doctype declarations, like `<!DOCTYPE>`.
 * Fixed spurious `"jsdomError"`s that were emitted after calling `window.close()`.
-* Fixed the `"DOMSubtreeModified"` event to fire in more cases. Note that our mutation events implementation remains incomplete, and will eventually be removed (in a major release) once we implement mutation observers. (selam)
+* Fixed the `DOMSubtreeModified` event to fire in more cases. Note that our mutation events implementation remains incomplete, and will eventually be removed (in a major release) once we implement mutation observers. (selam)
 
 ## 6.1.0
 
@@ -812,7 +830,7 @@ This release also welcomes [long-time contributer](https://github.com/tmpvar/jsd
 * Added the `XMLHttpRequest.prototype.response` getter.
 * Fixed `StyleSheetList.prototype.item` to actually work. (chad3814)
 * Fixed the browser `vm` shim to properly add the built-in global properties (`Object`, `Array`, etc.) to the sandbox. If you were running jsdom inside a web worker and most of your scripts were broken, this should fix that.
-* Fixed the `"hashchange"` event to correctly fire `HashChangeEvent` instances, with correct properties `newURL` and `oldURL` (instead of the incorrect `newUrl` and `oldUrl` used previously).
+* Fixed the `hashchange` event to correctly fire `HashChangeEvent` instances, with correct properties `newURL` and `oldURL` (instead of the incorrect `newUrl` and `oldUrl` used previously).
 * Removed usage of the setimmediate library, as it required `eval` and thus did not work in CSP scenarios.
 
 Finally, if you're a loyal jsdom fan whose made it this far into the changelog, I'd urge you to come join us in [#1139](https://github.com/tmpvar/jsdom/issues/1139), where we are brainstorming a modernized jsdom API that could get rid of many of the warts in the current one.
@@ -1347,7 +1365,7 @@ This release owes a special thanks to [@Sebmaster](https://github.com/Sebmaster)
 ## 0.6.4
 
  * Fix: CSS selectors which contain commas inside quotes are no longer misinterpreted. (chad3814)
- * Add: `<img>` elements now fire `"load"` events when their `src` attributes are changed. (kapouer)
+ * Add: `<img>` elements now fire `load` events when their `src` attributes are changed. (kapouer)
 
 ## 0.6.3
 
