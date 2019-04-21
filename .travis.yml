@@ -8,6 +8,9 @@ sudo: false
 git:
   submodules: false
 
+install:
+  - yarn --frozen-lockfile
+
 script:
   - yarn lint
   - yarn test --retries 1
