@@ -395,7 +395,7 @@ The returned promise will fulfill with a `JSDOM` instance if the given file can 
 The options provided to `fromFile()` are similar to those provided to the `JSDOM` constructor, with the following additional defaults:
 
 - The `url` option will default to a file URL corresponding to the given filename, instead of to `"about:blank"`.
-- The `contentType` option will default to `"application/xhtml+xml"` if the given filename ends in `.xhtml` or `.xml`; otherwise it will continue to default to `"text/html"`.
+- The `contentType` option will default to `"application/xhtml+xml"` if the given filename ends in `.xht`, `.xhtml`, or `.xml`; otherwise it will continue to default to `"text/html"`.
 
 ### `fragment()`
 

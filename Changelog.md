@@ -23,6 +23,14 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 15.0.0
+
+Several potentially-breaking changes, each of them fairly unlikely to actually break anything:
+
+* `JSOM.fromFile()` now treats `.xht` files as `application/xhtml+xml`, the same as it does for `.xhtml` and `.xml`. Previously, it would treat them as `text/html`.
+* If the `JSDOM` constructor's `contentType` option has a `charset` parameter, and the first argument to the constructor is a binary data type (e.g. `Buffer` or `ArrayBuffer`), then the `charset` will override any sniffed encoding in the same way as a `Content-Type` header would in browser scenarios. Previously, the `charset` parameter was ignored.
+* When using the `Blob` or `File` constructor with the `endings: "native"` option, jsdom will now convert line endings to `\n` on all operating systems, for consistency. Previously, on Windows, it would convert line endings to `\r\n`.
+
 ## 14.1.0
 
 * Added activation behavior for `<a>` and `<area>` elements whose `href=""` points to a `javascript:` URL or fragment.
