@@ -1,7 +1,7 @@
 "use strict";
 const fs = require("fs");
 
-const EXPECTED_MANIFEST_VERSION = 5;
+const EXPECTED_MANIFEST_VERSION = 6;
 
 exports.getPossibleTestFilePaths = manifest => {
   const testharnessTests = manifest.items.testharness;
@@ -17,14 +17,12 @@ exports.getPossibleTestFilePaths = manifest => {
         continue;
       }
 
-      allPaths.push(exports.stripPrefix(testFilePath, "/"));
+      allPaths.push(testFilePath);
     }
   }
 
   return allPaths;
 };
-
-exports.stripPrefix = (string, prefix) => string.substring(prefix.length);
 
 exports.readManifest = filename => {
   const manifestString = fs.readFileSync(filename, { encoding: "utf-8" });

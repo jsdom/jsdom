@@ -12,7 +12,7 @@ const manifestFilename = path.resolve(__dirname, "tuwpt-manifest.json");
 // We can afford to re-generate the manifest each time; we have few enough files that it's cheap.
 const testsRootArg = path.relative(wptPath, testsPath);
 const pathArg = path.relative(wptPath, manifestFilename);
-const args = ["./wpt.py", "manifest", "--tests-root", testsRootArg, "--path", pathArg, "--work"];
+const args = ["./wpt.py", "manifest", "--tests-root", testsRootArg, "--path", pathArg];
 spawnSync("python", args, { cwd: wptPath, stdio: "inherit" });
 
 const manifest = readManifest(manifestFilename);
