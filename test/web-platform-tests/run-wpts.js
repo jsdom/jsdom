@@ -4,7 +4,7 @@ const fs = require("fs");
 const jsYAML = require("js-yaml");
 const { Minimatch } = require("minimatch");
 const { describe, specify, before } = require("mocha-sugar-free");
-const { readManifest, getPossibleTestFilePaths, stripPrefix } = require("./wpt-manifest-utils.js");
+const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const startWPTServer = require("./start-wpt-server.js");
 
 const validReasons = new Set([
@@ -50,7 +50,7 @@ describe("web-platform-tests", () => {
             return matcher.match(testFilePath);
           });
 
-          const testFile = stripPrefix(testFilePath, toRunDoc.DIR + "/");
+          const testFile = testFilePath.slice((toRunDoc.DIR + "/").length);
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
           const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason);
           const expectFail = (reason === "fail") ||
