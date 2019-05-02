@@ -99,8 +99,6 @@ DIR: dom/collections
 
 DIR: dom/events
 
-Event-dispatch-handlers-changed.html: [fail, Unknown]
-Event-dispatch-listener-order.window.html: [fail, Unknown]
 Event-dispatch-on-disabled-elements.html: [timeout, Uses testdriver.js]
 Event-isTrusted.any.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
@@ -855,8 +853,6 @@ Element-interface-attachShadow-custom-element.html: [fail, CustomElement.define 
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
 Range-prototype-insertNode.html: [fail, Range is not implemented]
 ShadowRoot-interface.html: [fail, shadowRoot.styleSheet and shadowRoot.activeElement are not yet implemented]
-capturing-and-bubbling-event-listeners-across-shadow-trees.html: [fail, Unknown]
-event-dispatch-order.tentative.html: [fail, Unknown]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]

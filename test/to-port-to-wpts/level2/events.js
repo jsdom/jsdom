@@ -377,7 +377,7 @@ describe("level2/events", () => {
       this.plist.addEventListener("foo",  this.monitor.handleEvent, true);
       this.plist.addEventListener("foo",  this.monitor.handleEvent, false);
       this.plist.dispatchEvent(this.event);
-      assert.equal(this.monitor.atEvents.length, 4, 'should be at 4 events');
+      assert.equal(this.monitor.atEvents.length, 2, 'should be at 2 events'); // Changed from 4 to 2 after https://github.com/whatwg/dom/commit/98564fc5284439d2555f545fa04288e230a37a03
       assert.equal(this.monitor.bubbledEvents.length, 0, 'should have no bubbled events');
       assert.equal(this.monitor.capturedEvents.length, 0, 'should have no captured events');
     });
