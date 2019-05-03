@@ -4,7 +4,7 @@ interface HTMLElement : Element {
   // metadata attributes
   [CEReactions, Reflect] attribute DOMString title;
   [CEReactions, Reflect] attribute DOMString lang;
-//  [CEReactions] attribute boolean translate;
+  [CEReactions] attribute boolean translate;
   [CEReactions] attribute DOMString dir;
   [SameObject] readonly attribute DOMStringMap dataset;
 
