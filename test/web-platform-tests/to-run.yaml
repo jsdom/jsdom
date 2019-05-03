@@ -360,12 +360,6 @@ the-lang-attribute-007.html: [fail, Unknown]
 the-lang-attribute-008.html: [fail, Unknown]
 the-lang-attribute-009.html: [fail, Unknown]
 the-lang-attribute-010.html: [fail, Unknown]
-the-translate-attribute-007.html: [fail, Unknown]
-the-translate-attribute-008.html: [fail, Unknown]
-the-translate-attribute-009.html: [fail, Unknown]
-the-translate-attribute-010.html: [fail, Unknown]
-the-translate-attribute-011.html: [fail, Unknown]
-the-translate-attribute-012.html: [fail, Unknown]
 
 ---
 
