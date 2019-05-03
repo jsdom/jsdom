@@ -102,9 +102,9 @@ matrix:
     - node_js: 8
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
-    - node_js: stable
-      env: TEST_SUITE=node-canvas
-      script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
+    # - node_js: stable
+    #   env: TEST_SUITE=node-canvas
+    #   script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
     - node_js: stable
       env: TEST_SUITE=browser
       script: '[ "${TRAVIS_PULL_REQUEST}" != "false" ] || (yarn pretest && yarn test-browser)'
