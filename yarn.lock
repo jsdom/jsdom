@@ -3643,9 +3643,9 @@ preserve@^0.2.0:
   integrity sha1-gV7R9uvGWSb4ZbMQwHE7yzMVzks=
 
 prettier@^1.14.0:
-  version "1.15.3"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
-  integrity sha512-gAU9AGAPMaKb3NNSUUuhhFAS7SCO4ALTN4nRIn6PJ075Qd28Yn2Ig2ahEJWdJwJmlEBTUfC7mMUSFy8MwsOCfg==
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.17.0.tgz#53b303676eed22cc14a9f0cec09b477b3026c008"
+  integrity sha512-sXe5lSt2WQlCbydGETgfm1YBShgOX4HxQkFPvbxkcwgDvGDeqVau8h+12+lmSVlP3rHPz0oavfddSZg/q+Szjw==
 
 process-nextick-args@~2.0.0:
   version "2.0.0"
@@ -4874,9 +4874,9 @@ webidl2@^10.3.3:
   integrity sha512-C3rxCpkX2XQ9FW1EIllN0nW2zlN21S+PgE59xQ6ErI5awVaXYm3TTsDDsdCYIfwjVwNZZIpKjcW1xJF89ZlAew==
 
 webidl2js@^9.2.1:
-  version "9.2.1"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-9.2.1.tgz#f7bbf3e2956d99e9c9437971545b3695c6b5234d"
-  integrity sha512-2NMaYDjyCYugmqhMGMCilwtWmoRGDLa43Ws28Vzbf9VjB6Djr9Biu88D0JRvUicigl67OT2GnyEfXcSz5V+A/w==
+  version "9.2.2"
+  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-9.2.2.tgz#d3eba3786418843a1b859c210fffa66461205993"
+  integrity sha512-TwMERJZIv866OWwNX0UPZOcdld6POsyRZIBEKjs4jWq0HWk/iqA/nh+lW+2GjGyz+imDsJs8UrggOVMK+Sc1aw==
   dependencies:
     co "^4.6.0"
     pn "^1.1.0"
