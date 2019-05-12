@@ -161,7 +161,7 @@ header-values-normalize.html: [fail, fetch is not defined]
 header-values.html: [fail, fetch is not defined]
 headers-basic.html: [fail, iterator prototype is wrong]
 headers-no-cors.window.html: [fail, Request is not defined]
-headers-record.html: [fail, V8 does not error on duplicate keys in ownKeys]
+headers-record.html: [fail, needs-node12, V8 bug fixed in Node 12 onward]
 
 ---
 
