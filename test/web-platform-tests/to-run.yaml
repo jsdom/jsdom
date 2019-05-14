@@ -817,6 +817,8 @@ DIR: html/webappapis/dynamic-markup-insertion/document-writeln
 
 DIR: html/webappapis/scripting/event-loops
 
+fully_active_document.window.html: [timeout, Unknown]
+
 ---
 
 DIR: html/webappapis/scripting/events
@@ -884,13 +886,11 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, Range is 
 
 DIR: uievents
 
-click/auxclick_event.html: [timeout, Uses testdriver.js]
-click/click_event_target.html: [timeout, Uses testdriver.js]
-click/mouse-dblclick-event.html: [timeout, Uses testdriver.js]
+click/**: [timeout, Uses testdriver.js]
 idlharness.window.html: [fail, Depends on fetch]
-legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Unknown]
-legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Unknown]
-mouse/mouse_buttons_back_forward.html: [timeout, Uses testdriver.js]
+legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Mutation Events not implemented]
+legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events not implemented]
+mouse/**: [timeout, Uses testdriver.js]
 order-of-events/**: [timeout, Unknown]
 
 ---
@@ -937,9 +937,9 @@ symbol-props.window.html: [fail, Unknown]
 
 DIR: xhr
 
-abort-after-stop.htm: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
-abort-during-loading.htm: [fail, Unknown]
-access-control-basic-allow-preflight-cache.htm: [fail, Unknown]
+abort-after-stop.any.html: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
+abort-during-loading.window.html: [fail, Unknown]
+access-control-basic-allow-preflight-cache.any.html: [fail, Unknown]
 access-control-basic-non-cors-safelisted-content-type.htm: [fail, Unknown]
 access-control-basic-post-with-non-cors-safelisted-content-type.htm: [fail, Unknown]
 access-control-preflight-async-method-denied.htm: [fail, Unknown]
