@@ -53,7 +53,7 @@
     "benchmark": "1.0.0",
     "browserify": "^16.2.3",
     "chai": "^4.2.0",
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "eslint-find-rules": "^3.3.1",
     "eslint-plugin-html": "^5.0.5",
     "eslint-plugin-jsdom-internal": "link:./scripts/eslint-plugin",
