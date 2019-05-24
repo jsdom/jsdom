@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Charset included into the content-type</title>
+    <script src="/resources/testharness.js"></script>
+    <script src="/resources/testharnessreport.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+    async_test(function(test) {
+      const xhr = new XMLHttpRequest;
+
+      xhr.open("POST", "resources/content-type-without-charset.py");
+      xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
+
+      xhr.onerror = test.unreached_func("Error occurred.");
+
+      xhr.onload = test.step_func_done(function() {
+        assert_equals(xhr.status, 200);
+        assert_equals(xhr.responseText, "application/json; charset=UTF-8");
+      });
+      xhr.send("{ \"x\":\"a\"}");
+    });
+    </script>
+  </body>
+</html>
