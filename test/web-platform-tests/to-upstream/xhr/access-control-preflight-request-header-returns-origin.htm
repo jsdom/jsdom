@@ -8,22 +8,40 @@
   </head>
   <body>
     <script type="text/javascript">
-    async_test(function(test) {
-      const xhr = new XMLHttpRequest;
+      "use strict";
 
-      xhr.open("GET", get_host_info().HTTP_REMOTE_ORIGIN + "/xhr/resources/access-control-preflight-request-header-returns-origin.py");
+      // duplicated from wpt/tests/cors/support.js
+      function corsUrl(path) {
+        function dirname(dirPath) {
+          return dirPath.replace(/\/[^/]*$/, "/");
+        }
 
-      xhr.setRequestHeader("X-Test", "foobar");
+        /* This subdomain should point to this same location */
+        const SUBDOMAIN = "www1";
 
-      xhr.onerror = test.unreached_func("Error occurred.");
+        /* Changes http://example.com/abc/def/cool.htm to http://www1.example.com/abc/def/ */
+        const CROSSDOMAIN = dirname(location.href).replace("://", "://" + SUBDOMAIN + ".");
 
-      xhr.onload = test.step_func_done(function() {
-        assert_equals(xhr.status, 200);
-        assert_equals(xhr.responseText, "PASS");
-      });
+        const url = CROSSDOMAIN + path;
+        return url
+      }
 
-      xhr.send();
-    }, "Receives different origin values from preflight and actual request");
+      async_test(function(test) {
+        const xhr = new XMLHttpRequest;
+
+        xhr.open("GET", corsUrl("resources/access-control-preflight-request-header-returns-origin.py"));
+
+        xhr.setRequestHeader("X-Test", "foobar");
+
+        xhr.onerror = test.unreached_func("Error occurred.");
+
+        xhr.onload = test.step_func_done(function() {
+          assert_equals(xhr.status, 200);
+          assert_equals(xhr.responseText, "PASS");
+        });
+
+        xhr.send();
+      }, "Receives different origin values from preflight and actual request");
     </script>
   </body>
 </html>
