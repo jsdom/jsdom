@@ -1,8 +1,7 @@
-[Exposed=Window,
- NoInterfaceObject]
-interface ElementCSSInlineStyle {
+// https://drafts.csswg.org/cssom/#elementcssinlinestyle
+interface mixin ElementCSSInlineStyle {
   [SameObject, PutForwards=cssText] readonly attribute CSSStyleDeclaration style;
 };
 
-HTMLElement implements ElementCSSInlineStyle;
-SVGElement implements ElementCSSInlineStyle;
+HTMLElement includes ElementCSSInlineStyle;
+SVGElement includes ElementCSSInlineStyle;

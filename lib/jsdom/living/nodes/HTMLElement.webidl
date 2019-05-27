@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/#htmlelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLElement : Element {
@@ -24,9 +25,10 @@ interface HTMLElement : Element {
 //  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString innerText;
 };
 
-HTMLElement implements GlobalEventHandlers;
-// HTMLElement implements DocumentAndElementEventHandlers;
-HTMLElement implements ElementContentEditable;
+HTMLElement includes GlobalEventHandlers;
+// HTMLElement includes DocumentAndElementEventHandlers;
+HTMLElement includes ElementContentEditable;
+// HTMLElement includes HTMLOrSVGElement;
 
 // https://drafts.csswg.org/cssom-view/#extensions-to-the-htmlelement-interface
 partial interface HTMLElement {

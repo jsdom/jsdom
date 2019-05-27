@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/#htmlstyleelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLStyleElement : HTMLElement {
@@ -6,8 +7,9 @@ interface HTMLStyleElement : HTMLElement {
 
   // also has obsolete members
 };
-HTMLStyleElement implements LinkStyle;
+HTMLStyleElement includes LinkStyle;
 
+// https://html.spec.whatwg.org/#HTMLStyleElement-partial
 partial interface HTMLStyleElement {
   [CEReactions, Reflect] attribute DOMString type;
 };

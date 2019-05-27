@@ -1,6 +1,5 @@
-[NoInterfaceObject,
- Exposed=Window]
-interface ParentNode {
+// https://dom.spec.whatwg.org/#parentnode
+interface mixin ParentNode {
   [SameObject] readonly attribute HTMLCollection children;
   readonly attribute Element? firstElementChild;
   readonly attribute Element? lastElementChild;
@@ -12,6 +11,6 @@ interface ParentNode {
   Element? querySelector(DOMString selectors);
   [NewObject] NodeList querySelectorAll(DOMString selectors);
 };
-Document implements ParentNode;
-DocumentFragment implements ParentNode;
-Element implements ParentNode;
+Document includes ParentNode;
+DocumentFragment includes ParentNode;
+Element includes ParentNode;

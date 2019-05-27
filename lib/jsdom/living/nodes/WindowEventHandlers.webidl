@@ -1,6 +1,4 @@
-[Exposed=Window,
- NoInterfaceObject]
-interface WindowEventHandlers {
+interface mixin WindowEventHandlers {
   attribute EventHandler onafterprint;
   attribute EventHandler onbeforeprint;
   attribute OnBeforeUnloadEventHandler onbeforeunload;
