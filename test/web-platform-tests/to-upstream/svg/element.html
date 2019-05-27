@@ -30,7 +30,7 @@ test(() => {
   assert_true(svg.style instanceof CSSStyleDeclaration);
   assert_equals(svg.getAttribute("style"), "font-size: 100px");
   assert_equals(svg.style.fontSize, "100px");
-  svg.setAttribute("style", "background-color: yellow;")
+  svg.setAttribute("style", "background-color: yellow;");
   assert_equals(svg.getAttribute("style"), "background-color: yellow;");
   assert_equals(svg.style.backgroundColor, "yellow");
   assert_equals(svg.style.fontSize, "");
