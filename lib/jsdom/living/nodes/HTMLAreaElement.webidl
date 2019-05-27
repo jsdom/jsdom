@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/#htmlareaelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLAreaElement : HTMLElement {
@@ -13,7 +14,7 @@ interface HTMLAreaElement : HTMLElement {
 
   // also has obsolete members
 };
-HTMLAreaElement implements HTMLHyperlinkElementUtils;
+HTMLAreaElement includes HTMLHyperlinkElementUtils;
 
 partial interface HTMLAreaElement {
   [CEReactions, Reflect] attribute boolean noHref;

@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/#htmllinkelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLLinkElement : HTMLElement {
@@ -12,15 +13,15 @@ interface HTMLLinkElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString hreflang;
   [CEReactions, Reflect] attribute DOMString type;
 //  [SameObject, PutForwards=value] readonly attribute DOMTokenList sizes;
+//  [CEReactions] attribute USVString imageSrcset;
+//  [CEReactions] attribute DOMString imageSizes;
 //  [CEReactions] attribute DOMString referrerPolicy;
-//  [CEReactions] attribute USVString scope;
-//  [CEReactions] attribute DOMString workerType;
-//  [CEReactions] attribute DOMString updateViaCache;
 
   // also has obsolete members
 };
-HTMLLinkElement implements LinkStyle;
+HTMLLinkElement includes LinkStyle;
 
+// https://html.spec.whatwg.org/#HTMLLinkElement-partial
 partial interface HTMLLinkElement {
   [CEReactions, Reflect] attribute DOMString charset;
   [CEReactions, Reflect] attribute DOMString rev;

@@ -1,7 +1,6 @@
-[NoInterfaceObject,
- Exposed=Window]
-interface NonElementParentNode {
+// https://dom.spec.whatwg.org/#nonelementparentnode
+interface mixin NonElementParentNode {
   Element? getElementById(DOMString elementId);
 };
-Document implements NonElementParentNode;
-DocumentFragment implements NonElementParentNode;
+Document includes NonElementParentNode;
+DocumentFragment includes NonElementParentNode;

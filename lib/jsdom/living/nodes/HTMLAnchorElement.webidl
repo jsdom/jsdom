@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/#htmlanchorelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLAnchorElement : HTMLElement {
@@ -15,7 +16,7 @@ interface HTMLAnchorElement : HTMLElement {
 
   // also has obsolete members
 };
-HTMLAnchorElement implements HTMLHyperlinkElementUtils;
+HTMLAnchorElement includes HTMLHyperlinkElementUtils;
 
 partial interface HTMLAnchorElement {
   [CEReactions, Reflect] attribute DOMString coords;

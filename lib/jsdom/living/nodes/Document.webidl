@@ -1,3 +1,4 @@
+// https://dom.spec.whatwg.org/#document
 [Constructor,
  Exposed=Window]
 interface Document : Node {
@@ -101,8 +102,8 @@ partial interface Document {
   // special event handler IDL attributes that only apply to Document objects
   [LenientThis] attribute EventHandler onreadystatechange;
 };
-Document implements GlobalEventHandlers;
-// Document implements DocumentAndElementEventHandlers;
+Document includes GlobalEventHandlers;
+// Document includes DocumentAndElementEventHandlers;
 
 // https://html.spec.whatwg.org/#Document-partial
 partial interface Document {

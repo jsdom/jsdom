@@ -1,3 +1,4 @@
+// https://dom.spec.whatwg.org/#element
 [Exposed=Window]
 interface Element : Node {
   readonly attribute DOMString? namespaceURI;
@@ -88,5 +89,3 @@ partial interface Element {
   readonly attribute long clientWidth;
   readonly attribute long clientHeight;
 };
-
-Element implements Slotable;

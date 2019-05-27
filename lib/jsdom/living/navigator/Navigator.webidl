@@ -1,17 +1,18 @@
+// https://html.spec.whatwg.org/#navigator
 [Exposed=Window]
 interface Navigator {
   // objects implementing this interface also implement the interfaces given below
 };
-Navigator implements NavigatorID;
-Navigator implements NavigatorLanguage;
-Navigator implements NavigatorOnLine;
-// Navigator implements NavigatorContentUtils;
-Navigator implements NavigatorCookies;
-Navigator implements NavigatorPlugins;
-Navigator implements NavigatorConcurrentHardware;
+Navigator includes NavigatorID;
+Navigator includes NavigatorLanguage;
+Navigator includes NavigatorOnLine;
+// Navigator includes NavigatorContentUtils;
+Navigator includes NavigatorCookies;
+Navigator includes NavigatorPlugins;
+Navigator includes NavigatorConcurrentHardware;
 
-[NoInterfaceObject, Exposed=(Window,Worker)]
-interface NavigatorID {
+// https://html.spec.whatwg.org/#navigatorid
+interface mixin NavigatorID {
   readonly attribute DOMString appCodeName; // constant "Mozilla"
   readonly attribute DOMString appName; // constant "Netscape"
   readonly attribute DOMString appVersion;
@@ -21,35 +22,32 @@ interface NavigatorID {
   readonly attribute DOMString userAgent;
   [Exposed=Window] readonly attribute DOMString vendor;
   [Exposed=Window] readonly attribute DOMString vendorSub; // constant ""
-
-  // also has additional members in a partial interface
 };
 
-[NoInterfaceObject, Exposed=(Window,Worker)]
-interface NavigatorLanguage {
+// https://html.spec.whatwg.org/#navigatorlanguage
+interface mixin NavigatorLanguage {
   readonly attribute DOMString language;
   readonly attribute FrozenArray<DOMString> languages;
 };
 
-[NoInterfaceObject, Exposed=(Window,Worker)]
-interface NavigatorOnLine {
+// https://html.spec.whatwg.org/#navigatoronline
+interface mixin NavigatorOnLine {
   readonly attribute boolean onLine;
 };
 
-[Exposed=Window,
- NoInterfaceObject]
-interface NavigatorCookies {
+// https://html.spec.whatwg.org/#navigatorcookies
+interface mixin NavigatorCookies {
   readonly attribute boolean cookieEnabled;
 };
 
-[Exposed=Window,
- NoInterfaceObject]
-interface NavigatorPlugins {
+// https://html.spec.whatwg.org/#navigatorplugins
+interface mixin NavigatorPlugins {
   [SameObject] readonly attribute PluginArray plugins;
   [SameObject] readonly attribute MimeTypeArray mimeTypes;
   boolean javaEnabled();
 };
 
+// https://html.spec.whatwg.org/#pluginarray
 [Exposed=Window,
  LegacyUnenumerableNamedProperties]
 interface PluginArray {
@@ -59,6 +57,7 @@ interface PluginArray {
   [WebIDL2JSValueAsUnsupported=_null] getter Plugin? namedItem(DOMString name);
 };
 
+// https://html.spec.whatwg.org/#mimetypearray
 [Exposed=Window,
  LegacyUnenumerableNamedProperties]
 interface MimeTypeArray {
@@ -67,6 +66,7 @@ interface MimeTypeArray {
   [WebIDL2JSValueAsUnsupported=_null] getter MimeType? namedItem(DOMString name);
 };
 
+// https://html.spec.whatwg.org/#dom-plugin
 [Exposed=Window,
  LegacyUnenumerableNamedProperties]
 interface Plugin {
@@ -78,6 +78,7 @@ interface Plugin {
   [WebIDL2JSValueAsUnsupported=_null] getter MimeType? namedItem(DOMString name);
 };
 
+// https://html.spec.whatwg.org/#mimetype
 [Exposed=Window]
 interface MimeType {
   readonly attribute DOMString type;
@@ -86,7 +87,7 @@ interface MimeType {
   readonly attribute Plugin enabledPlugin;
 };
 
-[NoInterfaceObject, Exposed=(Window,Worker)]
-interface NavigatorConcurrentHardware {
+// https://html.spec.whatwg.org/#navigatorconcurrenthardware
+interface mixin NavigatorConcurrentHardware {
   readonly attribute unsigned long long hardwareConcurrency;
 };

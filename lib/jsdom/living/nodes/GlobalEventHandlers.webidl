@@ -1,6 +1,5 @@
-[Exposed=Window,
- NoInterfaceObject]
-interface GlobalEventHandlers {
+// https://html.spec.whatwg.org/#globaleventhandlers
+interface mixin GlobalEventHandlers {
   attribute EventHandler onabort;
   attribute EventHandler onauxclick;
   attribute EventHandler onblur;
