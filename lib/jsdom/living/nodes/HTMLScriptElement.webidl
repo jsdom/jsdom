@@ -8,7 +8,6 @@ interface HTMLScriptElement : HTMLElement {
   [CEReactions, Reflect] attribute boolean defer;
   [CEReactions, Reflect] attribute DOMString? crossOrigin;
   [CEReactions] attribute DOMString text;
-  [CEReactions, Reflect] attribute DOMString nonce;
 //  [CEReactions, Reflect] attribute DOMString integrity;
 
 
