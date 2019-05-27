@@ -55,16 +55,16 @@ interface NavigatorPlugins {
 interface PluginArray {
   void refresh(optional boolean reload = false);
   readonly attribute unsigned long length;
-  [WebIDL2JSValueAsUnsupported=null] getter Plugin? item(unsigned long index);
-  [WebIDL2JSValueAsUnsupported=null] getter Plugin? namedItem(DOMString name);
+  [WebIDL2JSValueAsUnsupported=_null] getter Plugin? item(unsigned long index);
+  [WebIDL2JSValueAsUnsupported=_null] getter Plugin? namedItem(DOMString name);
 };
 
 [Exposed=Window,
  LegacyUnenumerableNamedProperties]
 interface MimeTypeArray {
   readonly attribute unsigned long length;
-  [WebIDL2JSValueAsUnsupported=null] getter MimeType? item(unsigned long index);
-  [WebIDL2JSValueAsUnsupported=null] getter MimeType? namedItem(DOMString name);
+  [WebIDL2JSValueAsUnsupported=_null] getter MimeType? item(unsigned long index);
+  [WebIDL2JSValueAsUnsupported=_null] getter MimeType? namedItem(DOMString name);
 };
 
 [Exposed=Window,
@@ -74,8 +74,8 @@ interface Plugin {
   readonly attribute DOMString description;
   readonly attribute DOMString filename;
   readonly attribute unsigned long length;
-  [WebIDL2JSValueAsUnsupported=null] getter MimeType? item(unsigned long index);
-  [WebIDL2JSValueAsUnsupported=null] getter MimeType? namedItem(DOMString name);
+  [WebIDL2JSValueAsUnsupported=_null] getter MimeType? item(unsigned long index);
+  [WebIDL2JSValueAsUnsupported=_null] getter MimeType? namedItem(DOMString name);
 };
 
 [Exposed=Window]
