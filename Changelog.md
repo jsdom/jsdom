@@ -23,6 +23,14 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 15.1.1
+
+* Moved the `nonce` property from `HTMLScriptElement` and `HTMLStyleElement` to `HTMLElement`. Note that it is still just a simple reflection of the attribute, and has not been updated for the rest of the changes in [whatwg/html#2373](https://github.com/whatwg/html/pull/2373).
+* Fixed the `style` and `on<event>` properties to properly track their related attributes for SVG elements. (kbruneel)
+* Fixed `XMLHttpRequest` merging preflight and response headers. (thiagohirata)
+* Fixed `XMLHttpRequest` reserializing `content-type` request headers unnecessarily. See [whatwg/mimesniff#84](https://github.com/whatwg/mimesniff/issues/84) for more details. (thiagohirata)
+* Fixed `element.tagName` to be the ASCII uppercase of the element's qualified name, instead of the Unicode uppercase.
+
 ## 15.1.0
 
 * Added the `Headers` class from the Fetch standard.
@@ -36,7 +44,7 @@ Other guidelines:
 
 Several potentially-breaking changes, each of them fairly unlikely to actually break anything:
 
-* `JSOM.fromFile()` now treats `.xht` files as `application/xhtml+xml`, the same as it does for `.xhtml` and `.xml`. Previously, it would treat them as `text/html`.
+* `JSDOM.fromFile()` now treats `.xht` files as `application/xhtml+xml`, the same as it does for `.xhtml` and `.xml`. Previously, it would treat them as `text/html`.
 * If the `JSDOM` constructor's `contentType` option has a `charset` parameter, and the first argument to the constructor is a binary data type (e.g. `Buffer` or `ArrayBuffer`), then the `charset` will override any sniffed encoding in the same way as a `Content-Type` header would in browser scenarios. Previously, the `charset` parameter was ignored.
 * When using the `Blob` or `File` constructor with the `endings: "native"` option, jsdom will now convert line endings to `\n` on all operating systems, for consistency. Previously, on Windows, it would convert line endings to `\r\n`.
 
@@ -800,7 +808,7 @@ This major release has as its headlining feature a completely re-written `XMLHtt
   - Added `Node.prototype.baseURI` property to get the node's owner document's base URL.
   - `HTMLBaseElement`'s `href` getter now contains appropriate fallbacks and always returns an absolute URL, per spec.
   - If there are no `base` elements in an `"about:blank"` iframe document, the base URL correctly falls back to the parent window's base URL.
-* When you provide a `url: ...` option to `jsdom.jsom()` or `jsdom.env()`, the given string is now attempted to be resolved as a URL before it is installed as `document.URL`.
+* When you provide a `url: ...` option to `jsdom.jsdom()` or `jsdom.env()`, the given string is now attempted to be resolved as a URL before it is installed as `document.URL`.
   - So for example, providing `url: "http://example.com"` will mean `document.URL` returns `"http://example.com/"`, with a trailing slash.
   - In a future major release, we will start throwing if strings that cannot be parsed as valid absolute URL are provided for this option.
 
@@ -1164,7 +1172,7 @@ This release is largely a refactoring release to remove the defunct concept of "
 
 * Fix: temporarily pin `cssstyle` dependency to at most 0.2.18 until [chad3814/CSSStyleDeclaration#20](https://github.com/chad3814/CSSStyleDeclaration/issues/20) is fixed.
 * Fix: browserifying jsdom should work better now that the required packages are included as `dependencies` instead of `devDependencies`. (Sebmaster)
-* Fix: using `jsom.env` in a browser environment now correctly defaults `options.url` to `location.href` instead of trying to infer a reasonable `fil://` URL using techniques that fail in the browser. (rattrayalex)
+* Fix: using `jsdom.env` in a browser environment now correctly defaults `options.url` to `location.href` instead of trying to infer a reasonable `fil://` URL using techniques that fail in the browser. (rattrayalex)
 
 ## 1.0.1
 

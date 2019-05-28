@@ -136,6 +136,7 @@ Julien Guimont <julien@porkepic.com>
 Jürg Lehni <juerg@scratchdisk.com>
 justinmchase <justin.m.chase@gmail.com>
 kangax <kangax@gmail.com>
+Karel Bruneel <1569717+kbruneel@users.noreply.github.com>
 Karl Horky <karl.horky@gmail.com>
 Karl Norling <karlnorling@users.noreply.github.com>
 Karuna Sagar <karunasagark@gmail.com>
@@ -245,6 +246,7 @@ steve <steve@goddamnbugs.com>
 Steve Conover <sconover@gmail.com>
 Sven Müller <sven.mueller@breathless-code.de>
 Swizec Teller <swizec@swizec.com>
+Thiago Hirata <hirata@devcase.com.br>
 Thomas Chung <thomas@nomology.id.au>
 Tiago Rodrigues <tmcrodrigues@gmail.com>
 Timothy Gu <timothygu99@gmail.com>
