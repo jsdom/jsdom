@@ -25,10 +25,16 @@ function createCORSServer() {
         res.end();
       } else if (Object.prototype.hasOwnProperty.call(routes, req.url)) {
         const route = routes[req.url];
-        res.writeHead(200, { "Content-Length": route.length });
+        res.writeHead(200, {
+          "Content-Length": route.length,
+          "Access-Control-Allow-Origin": "*"
+        });
         res.end(route);
       } else {
-        res.writeHead(200, { "Content-Length": 0 });
+        res.writeHead(200, {
+          "Content-Length": 0,
+          "Access-Control-Allow-Origin": "*"
+        });
         res.end();
       }
     }, 200);
