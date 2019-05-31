@@ -86,6 +86,6 @@ partial interface Element {
   readonly attribute long scrollHeight;
   readonly attribute long clientTop;
   readonly attribute long clientLeft;
-  readonly attribute long clientWidth;
-  readonly attribute long clientHeight;
+  attribute long clientWidth;
+  attribute long clientHeight;
 };

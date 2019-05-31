@@ -18,6 +18,8 @@ interface mixin NavigatorID {
   readonly attribute DOMString appVersion;
   readonly attribute DOMString platform;
   readonly attribute DOMString product; // constant "Gecko"
+  readonly attribute objects battery;
+  readonly attribute objects connection;
   [Exposed=Window] readonly attribute DOMString productSub;
   readonly attribute DOMString userAgent;
   [Exposed=Window] readonly attribute DOMString vendor;
@@ -42,8 +44,8 @@ interface mixin NavigatorCookies {
 
 // https://html.spec.whatwg.org/#navigatorplugins
 interface mixin NavigatorPlugins {
-  [SameObject] readonly attribute PluginArray plugins;
-  [SameObject] readonly attribute MimeTypeArray mimeTypes;
+  readonly attribute PluginArray plugins;
+  readonly attribute MimeTypeArray mimeTypes;
   boolean javaEnabled();
 };
 
