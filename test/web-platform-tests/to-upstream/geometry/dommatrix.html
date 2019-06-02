@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<title>DOMMatrixReadOnly interface</title>
+<link rel="author" title="David Campion" href="mailto:me@davecampion.com">
+<link rel="help" href="https://www.w3.org/TR/geometry-1/#dommatrixreadonly">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+  "use strict";
+  function arrayFromDm(dm) {
+    return ["m11", "m12", "m13", "m14", "m21", "m22", "m23", "m24", "m31", "m32", "m33", "m34", "m41", "m42", "m43", "m44"].map(x => dm[x]);
+  }
+
+  function domMatricesApproxEqual(dma, dmb) {
+    dma = dma instanceof DOMMatrix ? dma : DOMMatrix.fromMatrix(dma);
+    dmb = dmb instanceof DOMMatrix ? dmb : DOMMatrix.fromMatrix(dmb);
+
+    assert_array_approx_equals(arrayFromDm(dma), arrayFromDm(dmb), 0.00000000001);
+  }
+
+  test(() => {
+    const dmA = new DOMMatrix([2, 2, 2, 2, 2, 2]);
+    const dmB = new DOMMatrix([2, 2, 2, 2, 2, 2]);
+    const expectedResult = new DOMMatrix([8, 8, 8, 8, 10, 10]);
+
+    assert_object_equals(dmA.multiplySelf(dmB).toJSON(), expectedResult.toJSON());
+  }, "Multiply Self 2D");
+
+  test(() => {
+    const dmA = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+    const dmB = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+    const expectedResult = new DOMMatrix([
+      276, 304, 332, 360,
+      304, 336, 368, 400,
+      332, 368, 404, 440,
+      360, 400, 440, 480
+    ]);
+    assert_object_equals(dmA.multiplySelf(dmB).toJSON(), expectedResult.toJSON());
+  }, "Multiply self 3d");
+
+  test(() => {
+    const dmA = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+    const dmB = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+    const expectedResult = new DOMMatrix([
+      276, 304, 332, 360,
+      304, 336, 368, 400,
+      332, 368, 404, 440,
+      360, 400, 440, 480
+    ]);
+
+    assert_object_equals(dmA.preMultiplySelf(dmB).toJSON(), expectedResult.toJSON());
+  }, "preMultiplySelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+    const expectedResult = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      3813, 4414, 5015, 5616
+    ]);
+
+    dm.translateSelf(100, 200, 300);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "translateSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+    const expectedResult = new DOMMatrix([
+      77, 0, 0, 0,
+      0, 88, 0, 0,
+      0, 0, 99, 0,
+      0, 0, 0, 1
+    ]);
+
+    dm.scaleSelf(77, 88, 99);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "scaleSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+    const expectedResult = new DOMMatrix([
+      6, 0, 0, 0,
+      0, 7, 0, 0,
+      0, 0, 8, 0,
+      -50, -120, -210, 1
+    ]);
+
+    dm.scaleSelf(6, 7, 8, 10, 20, 30);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "scaleSelf with origins");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      20, 100, 180, 260,
+      40, 120, 200, 280,
+      60, 140, 220, 300,
+      4, 8, 12, 16
+    ]);
+
+    dm.scale3dSelf(20);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "scale3dSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      20, 100, 180, 260,
+      40, 120, 200, 280,
+      60, 140, 220, 300,
+      -3454, -12874, -22294, -31714
+    ]);
+
+    dm.scale3dSelf(20, 89, 12, 23);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "scale3dSelf with origins");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+    const expectedResult = new DOMMatrix([
+      0.8654978445076765, 0.03022385072365709, -0.49999999999999994, 0,
+      0.13811109742723254, 0.9450883508630621, 0.29619813272602386, 0,
+      0.4814964235796683, -0.3254143941351886, 0.8137976813493738,
+      0, 0, 0, 0, 1
+    ]);
+
+    dm.rotateSelf(20, 30, 2);
+
+    domMatricesApproxEqual(dm, expectedResult);
+  }, "rotateSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      4.6, 6.000000000000001, 7.4, 8.8,
+      2.2, 1.9999999999999996, 1.7999999999999998, 1.5999999999999996,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+
+    dm.rotateFromVectorSelf(3, 4);
+
+    domMatricesApproxEqual(dm, expectedResult);
+
+  }, "rotateFromVectorSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      0.5021803117274577, 2.671956022740467, 4.841731733753477, 7.011507444766486,
+      2.039564308493662, 3.5501760370414877, 5.060787765589314, 6.5713994941371405,
+      3.0964483470634674, 9.500363209822943, 15.90427807258242, 22.308192935341896,
+      4, 8, 12, 16
+    ]);
+    dm.rotateAxisAngleSelf(2.3, 7, 9, 85);
+
+    domMatricesApproxEqual(dm, expectedResult);
+
+  }, "rotateAxisAngleSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      1, 0, 0, 0,
+      0.17632698070846498, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+
+    dm.skewXSelf(10);
+    domMatricesApproxEqual(dm, expectedResult);
+  }, "skewXSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      1.7615355016222511, 2.913842601946701, 4.066149702271152, 5.218456802595602,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+  ]);
+
+    dm.skewYSelf(8.66);
+    domMatricesApproxEqual(dm, expectedResult);
+  }, "skewYSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([0.2, 0.3, 0.4, 0.5, 0.6, 0.7]);
+
+    const expectedResult = new DOMMatrix([
+      -25.000000000000014, 15.000000000000007, 0, 0,
+      20.00000000000001, -10.000000000000005, 0, 0,
+      0, 0, 1, 0,
+      1.0000000000000013, -2.0000000000000013, 0, 1
+    ]);
+
+    dm.invertSelf();
+
+    domMatricesApproxEqual(dm, expectedResult);
+  }, "successful inverse");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 1, 1, 1,
+      1, 1, 1, 1,
+      1, 1, 1, 1,
+      1, 1, 1, 1
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      NaN, NaN, NaN, NaN,
+      NaN, NaN, NaN, NaN,
+      NaN, NaN, NaN, NaN,
+      NaN, NaN, NaN, NaN
+    ]);
+
+    dm.invertSelf();
+
+    assert_array_equals(arrayFromDm(dm), arrayFromDm(expectedResult));
+    assert_false(dm.is2D);
+    assert_false(dm.is2D);
+  }, "unsuccessfull inverse");
+</script>

@@ -30,6 +30,7 @@ addDir("../../lib/jsdom/living/mutation-observer");
 addDir("../../lib/jsdom/living/navigator");
 addDir("../../lib/jsdom/living/nodes");
 addDir("../../lib/jsdom/living/svg");
+addDir("../../lib/jsdom/living/geometry");
 addDir("../../lib/jsdom/living/traversal");
 addDir("../../lib/jsdom/living/websockets");
 addDir("../../lib/jsdom/living/webstorage");
