@@ -81,6 +81,8 @@ with linebreaks set to CRLF</textarea>
 
   <!-- this generates two form data entries! -->
   <input type="text" name="dirname-is-special" dirname="submit-me-17" value="dirname-value">
+
+  <input type="text" name="submit-me-21">
 </form>
 
 <script>
@@ -126,7 +128,8 @@ test(() => {
     ["dirname-is-special", "dirname-value"],
     ["submit-me-17", "ltr"],
     ["submit-me-18-\uFFFD", "value-\uFFFD"],
-    ["submit-me-\r\n19\r\n", "value"]
+    ["submit-me-\r\n19\r\n", "value"],
+    ["submit-me-21", ""]
   ];
 
   for (const t of expected) {
