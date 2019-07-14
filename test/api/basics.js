@@ -43,4 +43,13 @@ describe("JSDOM() constructor first argument", () => {
 
     assert.strictEqual(document1.innerHTML, document2.innerHTML);
   });
+
+  describe("error reporting", () => {
+    it("should include the URL when reporting an XML parse error", () => {
+      assert.throws(() => new JSDOM("<doc><!-- ... ---></doc>", {
+        url: "https://example.com/",
+        contentType: "text/xml"
+      }), "https://example.com/:1:17: malformed comment.");
+    });
+  });
 });
