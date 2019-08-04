@@ -516,6 +516,13 @@ Currently jsdom has dummy behaviors for some aspects of these features, such as 
 
 Note that other tools in the same space, such as PhantomJS, do support these features. On the wiki, we have a more complete writeup about [jsdom vs. PhantomJS](https://github.com/jsdom/jsdom/wiki/jsdom-vs.-PhantomJS).
 
+## Supporting jsdom
+
+jsdom is a community-driven project maintained by a team of [volunteers](https://github.com/orgs/jsdom/people). You could support jsdom by:
+
+- [Getting professional support for jsdom](https://tidelift.com/subscription/pkg/npm-jsdom?utm_source=npm-jsdom&utm_medium=referral&utm_campaign=readme) as part of a Tidelift subscription. Tidelift helps making open source sustainable for us while giving teams assurances for maintenance, licensing, and security.
+- [Contributing](https://github.com/jsdom/jsdom/blob/master/Contributing.md) directly to the project.
+
 ## Getting help
 
 If you need help with jsdom, please feel free to use any of the following venues:
