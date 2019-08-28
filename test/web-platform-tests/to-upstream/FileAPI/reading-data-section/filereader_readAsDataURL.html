@@ -16,7 +16,7 @@ async_test(t => {
   const fileReader = new FileReader();
   fileReader.addEventListener('load', () => {
      // false, result is 'data:text/plain;charset=undefined,Hello'
-     assert_equals(fileReader.result, 'data:text/plain;charset=utf-8;base64,SGVsbG8=', "Initial blob should have a size of 4");
+     assert_equals(fileReader.result, 'data:text/plain;charset=utf-8;base64,SGVsbG8=', "should FileReader result property is dataURL.");
      t.done();
   });
 
