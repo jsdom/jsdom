@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>File's lastModified</title>
+<link rel=help href="https://w3c.github.io/FileAPI/#dfn-lastModified">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+async_test(t => {
+  const blob = new Blob(['Hello'], {
+   type: 'text/plain;charset=utf-8',
+  });
+
+  const fileReader = new FileReader();
+  fileReader.addEventListener('load', () => {
+     // false, result is 'data:text/plain;charset=undefined,Hello'
+     assert_equals(fileReader.result, 'data:text/plain;charset=utf-8;base64,SGVsbG8=', "Initial blob should have a size of 4");
+     t.done();
+  });
+
+  fileReader.readAsDataURL(blob);
+});
+</script>
