@@ -3,7 +3,7 @@
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
-const { JSDOM, ResourceLoader } = require("../..");
+const { JSDOM } = require("../..");
 const { injectIFrame, injectIFrameWithScript, todo } = require("../util.js");
 
 // Tests for window.postMessage(message, targetOrigin, transfer)
@@ -143,59 +143,5 @@ describe("post-message", () => {
         window.parent.iframeReceiver.contentWindow.postMessage("ack", "/");
       `);
     });
-  });
-
-  specify("postMessage attaches from event source 'origin' and 'source'", t => {
-    const emptyHtml = "<html><head></head><body></body></html>";
-
-    class DummyResourceLoader extends ResourceLoader {
-      fetch() {
-        return Promise.resolve(Buffer.from(emptyHtml));
-      }
-    }
-
-    const { window } = new JSDOM(emptyHtml, {
-      url: "http://post-message-test.parent",
-      runScripts: "dangerously",
-      resources: new DummyResourceLoader()
-    });
-
-    const receivedEvents = [];
-    const childFrames = [];
-
-    window.addEventListener("message", event => {
-      receivedEvents.push(event);
-      if (receivedEvents.length === 5) {
-        childFrames.forEach((f, i) => {
-          const e = receivedEvents[i];
-          // assert.strictEqual(f.contentWindow, e.source);
-          assert.strictEqual(f.contentDocument.origin, e.origin);
-        });
-        t.done();
-      }
-    });
-
-    for (let i = 0; i < 5; i++) {
-      const expectedOrigin = `http://post-message-test.child-${i}`;
-      const { document } = window;
-      const iframe = document.createElement("iframe");
-
-      childFrames.push(iframe);
-      iframe.src = `${expectedOrigin}/post-message`;
-
-      document.body.appendChild(iframe);
-
-      const script = iframe.contentWindow.document.createElement("script");
-      script.textContent = `
-        setTimeout(() => {
-          parent.postMessage('ack', '*', '1');
-        }, ${i * 50});
-      `;
-      iframe.onload = function () {
-        iframe.contentWindow.document.body.appendChild(script);
-      };
-    }
-  }, {
-    async: true
   });
 });
