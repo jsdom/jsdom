@@ -19,7 +19,6 @@
     assert_equals(domMatrixReadOnly.d, 1);
     assert_equals(domMatrixReadOnly.e, 0);
     assert_equals(domMatrixReadOnly.f, 0);
-
   }, "Default Constructor");
 
   test(() => {
@@ -56,12 +55,36 @@
     assert_equals(domMatrixReadOnly.m44, 4);
   }, "3d Matrix Constructor");
 
-  // Todo: Implement support for DOMString Constructor.
-  // test(() => {
-  //   const domMatrixReadOnly = new DOMMatrixReadOnly("matrix(1,2,3,4,5,6)");
-  //
-  //   assert_equals(...)
-  // }, "DOMString Constructor");
+  test(() => {
+    const domMatrixReadOnly = new DOMMatrixReadOnly("matrix(1,2,3,4,5,6)");
+
+    assert_object_equals(domMatrixReadOnly.toJSON(), {
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4,
+      e: 5,
+      f: 6,
+      m11: 1,
+      m12: 2,
+      m13: 0,
+      m14: 0,
+      m21: 3,
+      m22: 4,
+      m23: 0,
+      m24: 0,
+      m31: 0,
+      m32: 0,
+      m33: 1,
+      m34: 0,
+      m41: 5,
+      m42: 6,
+      m43: 0,
+      m44: 1,
+      is2D: true,
+      isIdentity: false
+    });
+  }, "DOMString Constructor");
 
   test(() => {
     assert_throws(new TypeError(), () => {
@@ -129,7 +152,7 @@
     assert_equals(domMatrixReadOnly.m42, 0);
     assert_equals(domMatrixReadOnly.m43, 0);
     assert_equals(domMatrixReadOnly.m44, 1);
-  });
+  }, "Valid Matrix Initialization");
 
   test(() => {
     assert_throws(new TypeError(), () => {
@@ -141,7 +164,6 @@
       const invalid = Object.assign({}, matrixInit, { m13: 1 });
       DOMMatrixReadOnly.fromMatrix(invalid);
     });
-
   }, "Invalid 2d state");
 
   test(() => {
@@ -317,41 +339,41 @@
   const domMatrixTransform = new DOMMatrixReadOnly();
   test(() => {
     assert_true(domMatrixTransform.translate() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.translate instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.scale() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.scale instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.scaleNonUniform() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.scaleNonUniform instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.scale3d() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.scale3d instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.rotate() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.rotate instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.rotateFromVector() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.rotateFromVector instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.rotateAxisAngle() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.rotateAxisAngle instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.skewX() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.skewX instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.skewY() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.skewY instanceof DOMMatrix");
 
   test(() => {
     assert_true(domMatrixTransform.multiply() instanceof DOMMatrix);
-  });
+  }, "DOMMatrixReadonly.multiply instanceof DOMMatrix");
 </script>
