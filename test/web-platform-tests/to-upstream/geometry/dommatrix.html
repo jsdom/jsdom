@@ -9,14 +9,19 @@
 <script>
   "use strict";
   function arrayFromDm(dm) {
-    return ["m11", "m12", "m13", "m14", "m21", "m22", "m23", "m24", "m31", "m32", "m33", "m34", "m41", "m42", "m43", "m44"].map(x => dm[x]);
+    return [
+      "m11", "m12", "m13", "m14",
+      "m21", "m22", "m23", "m24",
+      "m31", "m32", "m33", "m34",
+      "m41", "m42", "m43", "m44"
+    ].map(x => dm[x]);
   }
 
   function domMatricesApproxEqual(dma, dmb) {
     dma = dma instanceof DOMMatrix ? dma : DOMMatrix.fromMatrix(dma);
     dmb = dmb instanceof DOMMatrix ? dmb : DOMMatrix.fromMatrix(dmb);
 
-    assert_array_approx_equals(arrayFromDm(dma), arrayFromDm(dmb), 0.000001);
+    assert_array_approx_equals(arrayFromDm(dma), arrayFromDm(dmb), 0.000001); // eslint-disable-line no-undef
   }
 
   test(() => {
@@ -261,7 +266,7 @@
       5, 6, 7, 8,
       9, 10, 11, 12,
       13, 14, 15, 16
-  ]);
+    ]);
 
     dm.skewYSelf(8.66);
     domMatricesApproxEqual(dm, expectedResult);
@@ -866,7 +871,9 @@
       });
     }, "DOMString - skewY");
     test(() => {
-      domMatricesApproxEqual(new DOMMatrix("skew(50deg) perspective(45px) translate(4px, 4px) scale3d(4, 8, 10) rotate3d(8.2, 3.4, 5.6, 10.10rad)"), {
+      const longTransformList = "skew(50deg) perspective(45px) translate(4px, 4px) " +
+        "scale3d(4, 8, 10) rotate3d(8.2, 3.4, 5.6, 10.10rad)";
+      domMatricesApproxEqual(new DOMMatrix(longTransformList), {
         a: 2.3417802350529544,
         b: 0.9370438153327196,
         c: -2.523949213106225,
@@ -925,12 +932,8 @@
       domMatricesApproxEqual(new DOMMatrix(""), identity);
     }, "DOMString - none");
     test(() => {
-      assert_throws("SyntaxError", () => {
-        const dm = new DOMMatrix("trans late(50)");
-      });
-      assert_throws("SyntaxError", () => {
-        const dm = new DOMMatrix("rotateX(50px)");
-      });
+      assert_throws("SyntaxError", () => new DOMMatrix("trans late(50)"));
+      assert_throws("SyntaxError", () => new DOMMatrix("rotateX(50px)"));
     }, "DOMString - parse error");
   }, "DOMString Tests");
 
