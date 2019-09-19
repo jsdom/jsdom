@@ -1,4 +1,4 @@
-interface mixin HTMLOrSVGElement {
+interface mixin HTMLOrForeignElement {
   [SameObject] readonly attribute DOMStringMap dataset;
 // TODO: Shouldn't be directly [Reflect]ed
   [Reflect] attribute DOMString nonce; // intentionally no [CEReactions]

@@ -11,4 +11,4 @@ interface SVGElement : Element {
 SVGElement includes GlobalEventHandlers;
 // SVGElement includes DocumentAndElementEventHandlers;
 // SVGElement includes SVGElementInstance;
-SVGElement includes HTMLOrSVGElement;
+SVGElement includes HTMLOrForeignElement;

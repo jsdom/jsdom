@@ -25,7 +25,7 @@ interface HTMLElement : Element {
 HTMLElement includes GlobalEventHandlers;
 // HTMLElement includes DocumentAndElementEventHandlers;
 HTMLElement includes ElementContentEditable;
-HTMLElement includes HTMLOrSVGElement;
+HTMLElement includes HTMLOrForeignElement;
 
 // https://drafts.csswg.org/cssom-view/#extensions-to-the-htmlelement-interface
 partial interface HTMLElement {
