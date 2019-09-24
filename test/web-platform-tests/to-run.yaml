@@ -57,21 +57,28 @@ elementFromPoint-001.html: [fail, Not implemented]
 elementFromPoint-002.html: [fail, Not implemented]
 elementFromPoint-003.html: [fail, Not implemented]
 elementFromPoint-dynamic-anon-box.html: [fail, Not implemented]
+elementFromPoint-list-001.html: [fail, Not implemented]
 elementFromPoint-mixed-font-sizes.html: [fail, Not implemented]
+elementFromPoint-subpixel.html: [fail, Not implemented]
 elementFromPoint.html: [fail, Not implemented]
 elementFromPosition.html: [fail, Unknown]
 elementScroll.html: [fail, Unknown]
 elementsFromPoint**: [fail, Not implemented]
+getBoundingClientRect-empty-inline.html: [fail, document.fonts is not implemented]
 getClientRects**: [fail, Not implemented]
-interfaces.html: [fail, Depends on Fetch]
+idlharness.html: [fail, Depends on Fetch]
+inheritance.html: [fail, inherit not implemented (or not properly implemented)]
 matchMedia-display-none-iframe.html: [fail, Not implemented]
 matchMedia.xht: [timeout, Not implemented]
 matchMediaAddListener.html: [fail, Not implemented]
 mouseEvent.html: [fail, Unknown]
 negativeMargins.html: [fail, Unknown]
 offsetParent_element_test.html: [fail, Unknown]
+offsetTopLeft-border-box.html: [fail, Unknown]
 offsetTopLeftInScrollableParent.html: [fail, Unknown]
 outer-svg.html: [fail, clientTop not implemented]
+parsing/scroll-behavior-invalid.html: [fail, scroll-behavior not implemented]
+position-sticky-root-scroller-with-scroll-behavior.html: [fail, Unknown]
 scroll-**: [timeout, Scroll methods not implemented]
 scrollIntoView**: [fail, Scroll methods not implemented]
 scrollWidthHeight.xht: [fail, Unknown]
@@ -111,6 +118,7 @@ document-level-touchmove-event-listener-passive-by-default.html: [timeout, Uses 
 event-global-extra.window.html: [timeout, Not implemented]
 event-global.html: [fail, Not implemented]
 relatedTarget.window.html: [fail, Unknown]
+scrolling/**: [fail, Scroll methods not implemented]
 
 ---
 
@@ -140,6 +148,7 @@ Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
 MutationObserver-characterData.html: [fail, Range is not implemented]
 MutationObserver-childList.html: [fail, Range is not implemented]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+MutationObserver-sanity.html: [fail, TypeError is not instanceof TypeError]
 Node-childNodes.html: [fail, Unknown]
 Node-contains-xml.xml: [fail, Unknown]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
@@ -147,6 +156,8 @@ ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not sup
 ParentNode-querySelector-All.html: [fail, ::slotted() pseudo-class is not supported]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 Text-constructor.html: [fail, Unknown]
+aria-element-reflection.tentative.html: [fail, WAI-ARIA not implemented]
+remove-and-adopt-crash.html: [fail, Unknown]
 
 ---
 
@@ -163,8 +174,8 @@ DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD val
 DOMParser-parseFromString-xml.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 XMLSerializer-serializeToString.html: [fail, Unknown]
 createContextualFragment.html: [fail, Range is not implemented]
+idlharness.window.html: [fail, Depends on fetch]
 innerhtml-05.xhtml: [fail, Unknown]
-interfaces.any.html: [fail, Depends on fetch]
 
 ---
 
@@ -191,6 +202,7 @@ window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
 DIR: html/browsers/browsing-the-web/history-traversal
 
 001.html: [timeout, Unknown]
+api-availability.html: [timeout, window.open not implemented]
 browsing_context_name.html: [timeout, Unknown]
 browsing_context_name_cross_origin.html: [timeout, Unknown]
 browsing_context_name_cross_origin_2.html: [fail, window.name not implemented]
@@ -202,12 +214,7 @@ persisted-user-state-restoration/scroll-restoration-navigation-cross-origin.html
 persisted-user-state-restoration/scroll-restoration-navigation-samedoc.html: [fail, scrollX not implemented]
 same-url.html: [timeout, Unknown]
 scroll-restoration-order.html: [fail, Not implemented]
-window-name-after-cross-origin-aux-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-cross-origin-main-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-cross-origin-sub-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-same-origin-aux-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-same-origin-main-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-same-origin-sub-frame-navigation.sub.html: [timeout, Unknown]
+window-name-after-**: [timeout, window.open not implemented]
 
 ---
 
@@ -332,6 +339,7 @@ auxiliary-browsing-contexts/opener-setter.window.html: [fail, Not implemented]
 auxiliary-browsing-contexts/opener.html: [timeout, Unknown]
 browsing-context-names/**: [timeout, Not implemented]
 browsing-context.html: [fail, Unknown]
+document-access/**: [fail, Not implemented]
 embedded-opener-a-form.html: [timeout, Opener not implemented]
 embedded-opener-remove-frame.html: [timeout, Opener not implemented]
 embedded-opener.html: [timeout, Opener not implemented]
@@ -377,7 +385,6 @@ DIR: html/dom/elements/global-attributes
 
 dataset-binding.window.html: [fail, Unknown]
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
-dataset-set.html: [fail, Buggy(?) test for \uF900]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
 the-lang-attribute-003.html: [fail, Unknown]
@@ -408,10 +415,6 @@ the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
 DIR: html/infrastructure/urls/terminology-0
 
 document-base-url.html: [fail, We don't support srcdoc <base> correctly]
-
----
-
-DIR: html/input
 
 ---
 
@@ -450,6 +453,7 @@ DIR: html/semantics/disabled-elements
 DIR: html/semantics/document-metadata/the-base-element
 
 base_multiple.html: [timeout, We don't support navigation via <a target>]
+base_target_does_not_affect_location_assignment.html: [timeout, We don't support navigation via location]
 
 ---
 
@@ -537,6 +541,7 @@ form-elements-interfaces-01.html: [fail, Unknown]
 form-elements-nameditem-01.html: [fail, Unknown]
 form-indexed-element.html: [fail, Unknown]
 form-nameditem.html: [fail, Unknown]
+form-requestsubmit.html: [timeout, form.elements doesn't include listed elements outside the form element]
 
 ---
 
@@ -729,6 +734,7 @@ execution-timing/149.html: [fail, Unknown]
 fetch-src/empty-with-base.html: [timeout, Unknown]
 fetch-src/empty.html: [timeout, Unknown]
 fetch-src/failure.html: [timeout, Unknown]
+json-module/**: [timeout, Not implemented]
 load-error-events-1.html: [timeout, Unknown]
 load-error-events-2.html: [timeout, Unknown]
 load-error-events-3.html: [timeout, Unknown]
@@ -797,7 +803,6 @@ serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/
 
 DIR: html/webappapis/animation-frames
 
-idlharness.html: [fail, The methods do not always throw when expected to]
 same-dispatch-time.html: [fail, Probably https://github.com/tmpvar/jsdom/pull/1994#discussion_r147567274]
 
 ---
@@ -853,6 +858,8 @@ Element-interface-attachShadow-custom-element.html: [fail, CustomElement.define 
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
 Range-prototype-insertNode.html: [fail, Range is not implemented]
 ShadowRoot-interface.html: [fail, shadowRoot.styleSheet is not yet implemented]
+focus/focus-selector-delegatesFocus.html: [fail, 'https://github.com/dperini/nwsapi/issues/31']
+focus/focus-tabindex-order-*: [fail, Uses testdriver.js]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]
@@ -909,8 +916,11 @@ DIR: websockets
 Create-Secure-extensions-empty.any.html: [timeout, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
 cookies/006.html?wss: [fail, Unknown]
+cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
 interfaces/WebSocket/close/close-basic.html*: [mutates-globals]
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
+remove-own-iframe-during-onerror.window.html: [timeout, iframe.srcdoc not implemented]
+stream-tentative/*: [timeout, Not implemented]
 unload-a-document/*: [timeout, Requires window.open]
 
 ---
@@ -930,7 +940,7 @@ symbol-props.window.html: [fail, Unknown]
 
 DIR: xhr
 
-abort-after-stop.any.html: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
+abort-after-stop.window.html: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
 abort-during-loading.window.html: [fail, Unknown]
 access-control-basic-allow-preflight-cache.any.html: [fail, Unknown]
 access-control-basic-non-cors-safelisted-content-type.htm: [fail, Unknown]
