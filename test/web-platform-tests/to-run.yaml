@@ -366,7 +366,6 @@ DIR: html/dom/documents/resource-metadata-management
 document-cookie.html: [fail, Unknown]
 document-lastModified-01.html: [fail, Unknown]
 document-lastModified.html: [fail, Unknown]
-document-readyState.html: [timeout, Unknown]
 
 ---
 
@@ -693,7 +692,6 @@ execution-timing/091.html: [fail, Unknown]
 execution-timing/094.html: [fail, Unknown]
 execution-timing/099.html: [fail, Unknown]
 execution-timing/103.html: [fail, Unknown]
-execution-timing/104.html: [fail, Unknown]
 execution-timing/106-import.html: [fail, Unknown]
 execution-timing/107-import.html: [fail, Unknown]
 execution-timing/107-noimport.html: [fail, Unknown]
