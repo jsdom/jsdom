@@ -89,7 +89,6 @@ partial interface Document {
 
   // user interaction
   readonly attribute WindowProxy? defaultView;
-  readonly attribute Element? activeElement;
   boolean hasFocus();
 //  [CEReactions] attribute DOMString designMode;
 //  [CEReactions] boolean execCommand(DOMString commandId, optional boolean showUI = false, optional DOMString value = "");
