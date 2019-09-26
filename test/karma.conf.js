@@ -2,7 +2,6 @@
 "use strict";
 
 const nodePath = require("path");
-const applyCIOptions = require("./karma-ci");
 
 module.exports = config => {
   const options = {
@@ -52,13 +51,9 @@ module.exports = config => {
     logLevel: config.LOG_INFO,
     autoWatch: true,
 
-    browsers: ["Chrome"],
+    browsers: ["ChromeHeadless"],
     singleRun: true
   };
-
-  if (process.env.TEST_SUITE === "browser") {
-    applyCIOptions(options);
-  }
 
   config.set(options);
 };

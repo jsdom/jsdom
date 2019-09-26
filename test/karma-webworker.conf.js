@@ -2,7 +2,6 @@
 "use strict";
 
 const path = require("path");
-const applyCIOptions = require("./karma-ci");
 
 module.exports = config => {
   const options = {
@@ -51,7 +50,7 @@ module.exports = config => {
       mochaWebWorker: {
         // The "karma-browserify" plugin injects a script which contains the generated bundle, with an url
         // that looks like:
-        //   /absoluteC:/Users/JORIS_~1/AppData/Local/Temp/6b4966e7ca75e6aaf594c1d334b1ce0f.browserify
+        //   /absoluteC:/Users/JORIS_~1/AppData/Local/Temp/6b4966e7ca75e6aaf594c1d334b1ce0f.browserify.js
         // The plugin then replaces our script (test/index.js) with a single `require()` call.
         //
         // Currently, chrome can not display a stack for errors that occur during importScripts():
@@ -64,7 +63,7 @@ module.exports = config => {
         // "karma-browserify" is now no longer used. Instead we use the `client.mochaWebWorker.evaluate.beforeRun`
         // setting, which "karma-mocha-webworker" passes to eval() just before starting the mocha run.
 
-        pattern: ["*browserify"],
+        pattern: ["*browserify.js"],
         evaluate: {
           beforeRun:
             "require(" +
@@ -81,13 +80,9 @@ module.exports = config => {
     logLevel: config.LOG_INFO,
     autoWatch: true,
 
-    browsers: ["Chrome"],
+    browsers: ["ChromeHeadless"],
     singleRun: true
   };
-
-  if (process.env.TEST_SUITE === "browser") {
-    applyCIOptions(options);
-  }
 
   config.set(options);
 };
