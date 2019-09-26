@@ -883,7 +883,7 @@ pointerevent_element_haspointercapture.html: [fail-slow, Unknown testharness tim
 pointerevent_lostpointercapture_for_disconnected_node.html: [fail-slow, Unknown testharness timeout]
 pointerevent_lostpointercapture_is_first.html: [fail-slow, action_sequence is unimplemented]
 pointerevent_mouse_capture_change_hover.html: [fail, Unknown testharness timeout]
-pointerevent_on_event_handlers.html: [fail-slow, Not implemented]
+#pointerevent_on_event_handlers.html: [pass]
 pointerevent_pointercancel_touch.html: [fail-slow, Unknown testharness timeout]
 pointerevent_pointercapture_in_frame.html: [fail-slow, Unknown testharness timeout]
 pointerevent_pointerenter_does_not_bubble.html: [fail-slow, action_sequence is unimplemented]
