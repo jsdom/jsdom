@@ -860,7 +860,7 @@ extension/pointerevent_pointerrawupdate.html: [timeout, Pointer Lock not impleme
 extension/pointerevent_touch-action-*: [timeout, touch-action not implemented]
 
 idlharness.window.html: [fail, fetch is not defined]
-inheritance.html: [fail, TBD]
+inheritance.html: [fail, getComputedStyle does not implement initial value of touch-action]
 
 parsing/touch-action-computed.html: [fail, touch-action not implemented]
 #parsing/touch-action-invalid.html: [pass]
