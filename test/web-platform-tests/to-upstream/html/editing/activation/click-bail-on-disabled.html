@@ -30,6 +30,16 @@ async_test(t => {
 
 async_test(t => {
 
+  const element = document.querySelector("#el1");
+  element.addEventListener("click", t.unreached_func("click event should never happen"));
+
+  element.dispatchEvent(new MouseEvent('click'));
+  t.step_timeout(() => t.done(), 500);
+
+}, "dispatchEvent should not cause a click event");
+
+async_test(t => {
+
   const element = document.querySelector("#el2");
   element.addEventListener("click", t.unreached_func("click event should never happen"));
 
