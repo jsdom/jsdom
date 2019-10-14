@@ -5,6 +5,7 @@
 <script src="/resources/testharnessreport.js"></script>
 
 <script>
+"use strict";
 test(() => {
   const div = document.createElement("div");
   const calls = [];
@@ -22,8 +23,9 @@ test(() => {
     calls.push("setAttributeNS");
   };
 
+  // eslint-disable-next-line no-unused-expressions
   div.title;
-  div.title = 'foo';
+  div.title = "foo";
 
   assert_array_equals(calls, []);
 });
