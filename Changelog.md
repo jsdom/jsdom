@@ -7,6 +7,7 @@
 * Refer to attributes via `attr=""`.
 * Refer to elements via `<element>`.
 * Refer to events via `eventname`.
+* Refer to CSS properties via `'propname'`.
 * Never use the IDL terms "interface", "attribute", or "operation".
 * URL schemes are in `code`, e.g. `data:`.
 * Except in the headings, all version numbers get a "v" prefix, e.g. v12.2.0.
@@ -22,6 +23,21 @@ Other guidelines:
 * Group in the order "Added", "Removed", "Changed", "Fixed".
 * Roughly order changes within those groupings by impact.
 -->
+
+## 15.2.0
+
+* Added basic style inheritance in `getComputedStyle()` for the `'visibility'` property. This sets the foundation for further work on inheritance, cascading, and specificity. (eps1lon)
+* Added `shadowRoot.activeElement`.
+* Added `readystatechange` events during document loading.
+* Added a stub for `form.requestSubmit()`, to match our existing stub for `form.submit()`.
+* Changed `el.tabIndex`'s default value, when no `tabindex=""` attribute was set, to reflect the updated specification.
+* Changed the exception thrown by `el.attachShadow()` on something that's already a shadow host, to reflect the updated specification.
+* Fixed the validation logic for `<input type="range">`.
+* Fixed `selectEl.value` when no `<option>` is selected to return the empty string, instead of the value of the first option. (tgohn)
+* Fixed various correctness issues with `new FormData(formElement)`. (brendo)
+* Fixed error messages when parsing XML to include the filename, instead of using `"undefined"`. (papandreou)
+* Fixed the logic for reflected properties to not be affected by overwriting of `el.getAttributeNS()` or `el.setAttributeNS()`.
+* Set `canvas` as an optional ``peerDependency`, which apparently helps with Yarn PnP support.
 
 ## 15.1.1
 

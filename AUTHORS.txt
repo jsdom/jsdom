@@ -14,6 +14,7 @@ Alvaro Dias <alvarod@microsoft.com>
 Ammar Khaku <ammar.khaku@gmail.com>
 Andrea Bogazzi <andreabogazzi79@gmail.com>
 Andreas Fleig <andreasfleig@gmail.com>
+Andreas Lind <andreaslindpetersen@gmail.com>
 Andreas Lind Petersen <andreas@one.com>
 andrew morton <drewish@katherinehouse.com>
 Andrew Patton <andrew@acusti.ca>
@@ -31,6 +32,7 @@ Avi Deitcher <avi@deitcher.net>
 Behind The Math <aryehb412@gmail.com>
 Brandon Bethke <brandon.bethke@neudesic.com>
 Brandon Paton <brandon@localizejs.com>
+Brendan Abbott <brendan@bloodbone.ws>
 Brian Donovan <donovan@squareup.com>
 Brian Maissy <brian.maissy@gmail.com>
 Brian McDaniel <brianmcd05@gmail.com>
@@ -120,6 +122,7 @@ Jimmy Mabey <jimmy@velsoft.com>
 Joe Lencioni <joe.lencioni@gmail.com>
 Johan Sköld <johan@pingdom.com>
 John Hurliman <jhurliman@jhurliman.org>
+John Nguyen <tgohn@users.noreply.github.com>
 John Roberts <jroberts@logitech.com>
 Jon Sakas <jon.sakas@gmail.com>
 Jonathan Commins <joncom@gmail.com>
@@ -217,6 +220,7 @@ Robin Berjon <robin@berjon.com>
 Rodrigo Flores <rodrigo.flores@plataformatec.com.br>
 Rolf Timmermans <rolftimmermans@voormedia.com>
 Ronald Rey <reyronald@gmail.com>
+Rondinelly <rondinelly-ribeiro@outlook.com>
 Ryan Gasparini <ryan@rxgx.com>
 Ryan Grove <ryan@wonko.com>
 Ryan Seddon <rseddon@zendesk.com>
@@ -233,6 +237,7 @@ Scott Ashton <scottmortonashton@gmail.com>
 Sean Jacke <seanineurope@gmail.com>
 Sebastian Mayr <github@smayr.name>
 Sebastian McKenzie <sebmck@gmail.com>
+Sebastian Silbermann <silbermann.sebastian@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
 Simen Bekkhus <sbekkhus91@gmail.com>
