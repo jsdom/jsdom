@@ -1,6 +1,5 @@
 enum BinaryType { "blob", "arraybuffer" };
-[WebIDL2JSFactory,
- Constructor(USVString url, optional (DOMString or sequence<DOMString>) protocols = []), Exposed=(Window,Worker)]
+[Constructor(USVString url, optional (DOMString or sequence<DOMString>) protocols = []), Exposed=(Window,Worker)]
 interface WebSocket : EventTarget {
   readonly attribute USVString url;
 
