@@ -23,6 +23,7 @@
     "acorn": "^7.1.0",
     "acorn-globals": "^4.3.2",
     "array-equal": "^1.0.0",
+    "css-what": "^3.2.0",
     "cssom": "^0.4.1",
     "cssstyle": "^2.0.0",
     "data-urls": "^1.1.0",
