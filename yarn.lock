@@ -4860,20 +4860,19 @@ webidl-conversions@^4.0.0, webidl-conversions@^4.0.2:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webidl2@^10.3.3:
-  version "10.3.3"
-  resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-10.3.3.tgz#9e6562df1ecd466dba0cdb713a0db073bbe1039a"
-  integrity sha512-C3rxCpkX2XQ9FW1EIllN0nW2zlN21S+PgE59xQ6ErI5awVaXYm3TTsDDsdCYIfwjVwNZZIpKjcW1xJF89ZlAew==
+webidl2@^23.10.1:
+  version "23.10.1"
+  resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.10.1.tgz#2d2786fdff7b72c6b4a9a43e70f1611ded8ec8e6"
+  integrity sha512-SK/KzMGgkPLN73HNqyU9tWPduireSzV6p/WAsmYYweI/ED19FC8+ymsi2InMX80+VjSvsfc3vA7UbMjXYWNPhA==
 
-webidl2js@^10.0.0:
+"webidl2js@https://github.com/pmdartus/webidl2js.git#pmdartus/constructor-reform-pt2":
   version "10.0.0"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-10.0.0.tgz#3558755fff5398ae0b6c87e332dccb6549307671"
-  integrity sha512-Ymp1gdm45Hx6bLjlxBnyDmkRDMZwTkiEvH81H662qU8V0YoWRpx6ty2OUWV6OmpH2G5KECiHMP0+zbPikG4hWw==
+  resolved "https://github.com/pmdartus/webidl2js.git#0220d3d2d8cad8f01cc67f1c93aeb45698165947"
   dependencies:
     pn "^1.1.0"
     prettier "^1.18.2"
     webidl-conversions "^4.0.0"
-    webidl2 "^10.3.3"
+    webidl2 "^23.10.1"
 
 whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.5:
   version "1.0.5"
