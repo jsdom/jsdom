@@ -156,6 +156,22 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
         });
       });
 
+      it("should preserve full request URL", () => {
+        const url = simpleServer(200, { "Content-Type": "text/html" });
+        const path = "t";
+        const search = "?a=1";
+        const fragment = "#fragment";
+        const fullURL = url + path + search + fragment;
+
+        return JSDOM.fromURL(fullURL).then(dom => {
+          assert.strictEqual(dom.window.document.URL, fullURL);
+          assert.strictEqual(dom.window.location.href, fullURL);
+          assert.strictEqual(dom.window.location.pathname, "/" + path);
+          assert.strictEqual(dom.window.location.search, search);
+          assert.strictEqual(dom.window.location.hash, fragment);
+        });
+      });
+
       it("should use the ultimate response URL after a redirect", () => {
         const [requestURL, responseURL] = redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
