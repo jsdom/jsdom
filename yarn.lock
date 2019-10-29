@@ -4867,7 +4867,7 @@ webidl2@^23.10.1:
 
 "webidl2js@https://github.com/pmdartus/webidl2js.git#pmdartus/constructor-reform-pt2":
   version "10.0.0"
-  resolved "https://github.com/pmdartus/webidl2js.git#0220d3d2d8cad8f01cc67f1c93aeb45698165947"
+  resolved "https://github.com/pmdartus/webidl2js.git#74ddc14b09cb8e20e32b4d2171e1132116c35e5a"
   dependencies:
     pn "^1.1.0"
     prettier "^1.18.2"
