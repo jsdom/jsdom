@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Focus events fire at correct targets in correct order in simple case</title>
+  <link rel="help" href="https://html.spec.whatwg.org/#focusing-steps">
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+"use strict";
+test(() => {
+  // cleanup
+  const container = document.getElementById("container");
+  container.innerHTML = "";
+  document.activeElement.blur();
+
+  const input = document.createElement("button");
+  let handleFocusCallCount = 0;
+  input.addEventListener("focus", () => {
+    handleFocusCallCount += 1;
+  });
+  let handleBlurCallCount = 0;
+  input.addEventListener("blur", () => {
+    handleBlurCallCount += 1;
+  });
+
+  container.appendChild(input);
+
+  input.focus();
+  document.activeElement.focus();
+
+  assert_equals(handleBlurCallCount, 0);
+  assert_equals(handleFocusCallCount, 1);
+}, "focusing a focused element does not dispatch focus events");
+  </script>
+</body>
+</html>
