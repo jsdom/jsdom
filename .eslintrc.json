@@ -30,10 +30,8 @@
     "no-extra-boolean-cast": "error",
     "no-extra-parens": [
       "error",
-      "functions" // Should be "all", but https://github.com/eslint/eslint/issues/12428.
-                  // TODO: update this when that gets settled. (If they reject the feature request then
-                  // we'll just update our code, I guess.)
-                  // { "conditionalAssign": false, "nestedBinaryExpressions": false, "returnAssign": false }
+      "all",
+      { "conditionalAssign": false, "nestedBinaryExpressions": false, "returnAssign": false, "enforceForNewInMemberExpressions": false }
     ],
     "no-extra-semi": "error",
     "no-func-assign": "error",
