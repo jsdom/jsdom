@@ -86,6 +86,7 @@ Francis Saul <francis@mummybot.com>
 Francisco Requena <frarees@gmail.com>
 Frederic Hemberger <mail@frederic-hemberger.de>
 FrozenCow <frozencow@gmail.com>
+Fumiaki MATSUSHIMA <mtsmfm@gmail.com>
 Futtetennista <futtetennista@gmail.com>
 Gary Court <gary.court@gmail.com>
 Gianluca Guarini <gianluca.guarini@gmail.com>
@@ -205,6 +206,7 @@ Péter <peter.perenyi@gmail.com>
 Peter Lyons <pete@peterlyons.com>
 Phil Dokas <pdokas@organic.com>
 Pierre-Marie Dartus <dartus.pierremarie@gmail.com>
+Rafał Chłodnicki <rchl2k@gmail.com>
 Rainer Eli <claushellsing@gmail.com>
 Ralph Holzmann <ralphholzmann@gmail.com>
 Ra'Shaun Stovall <help@sneakyhead.com>

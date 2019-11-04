@@ -24,6 +24,13 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 15.2.1
+
+* Fixed `JSDOM.fromURL()` handling of URLs with hashes in them, to no longer send the hash to the server and append an extra copy of it when constructing the `Document`. (rchl)
+* Fixed focusing an already-focused element to correctly do nothing, instead of firing additional `focus` events. (eps1lon)
+* Fixed typo in the not-implemented message for `mediaElement.addTextTrack()`. (mtsmfm)
+* Upgraded `nwsapi` minimum version to 2.2.0, which fixes issues with `::-webkit-` prefixed pseudo-elements and namespaced attribute selectors.
+
 ## 15.2.0
 
 * Added basic style inheritance in `getComputedStyle()` for the `'visibility'` property. This sets the foundation for further work on inheritance, cascading, and specificity. (eps1lon)
