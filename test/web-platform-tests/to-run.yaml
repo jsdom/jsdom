@@ -755,9 +755,6 @@ script-type-and-language-js.html: [fail, Our script execution timing is off; see
 
 DIR: html/semantics/scripting-1/the-template-element
 
-additions-to-parsing-xhtml-documents/node-document.html: [timeout, Templates in XHTML are totally messed up]
-additions-to-parsing-xhtml-documents/template-child-nodes.html: [timeout, Templates in XHTML are totally messed up]
-
 ---
 
 DIR: html/semantics/selectors
