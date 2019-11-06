@@ -33,7 +33,7 @@
     "parse5": "5.1.0",
     "pn": "^1.1.0",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.7",
+    "request-promise-native": "^1.0.8",
     "saxes": "^3.1.9",
     "symbol-tree": "^3.2.2",
     "tough-cookie": "^3.0.1",
