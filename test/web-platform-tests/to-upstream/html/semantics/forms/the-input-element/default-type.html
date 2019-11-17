@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Input default type</title>
+<link
+  rel="help"
+  href="https://html.spec.whatwg.org/multipage/input.html#attr-input-type"
+/>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<input id="no-type" />
+<input id="valid-type" type="password" />
+<input id="invalid-type" type="foo" />
+
+<script>
+  "use strict";
+
+  test(() => {
+    const input = document.getElementById("no-type");
+    assert_true(input.type === "text");
+  }, "No input type defaults to text");
+
+  test(() => {
+    const input = document.getElementById("valid-type");
+    assert_true(input.type === "password");
+  }, "Sets valid input type");
+
+  test(() => {
+    const input = document.getElementById("invalid-type");
+    assert_true(input.type === "text");
+  }, "Sets invalid input types to text");
+</script>
