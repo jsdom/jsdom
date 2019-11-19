@@ -334,7 +334,7 @@ dom.window.ran === 3;
 
 This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
 
-`runVMScript()` also takes an `options` object as its second argument. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options) for details. (This functionality does not work when [using jsdom in a web browser](running-jsdom-inside-a-web-browser).)
+`runVMScript()` also takes an `options` object as its second argument. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options) for details. (This functionality does not work when [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).)
 
 ### Reconfiguring the jsdom with `reconfigure(settings)`
 
