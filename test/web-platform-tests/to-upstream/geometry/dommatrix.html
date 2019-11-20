@@ -1,0 +1,941 @@
+<!DOCTYPE HTML>
+<title>DOMMatrixReadOnly interface</title>
+<link rel="author" title="David Campion" href="mailto:me@davecampion.com">
+<link rel="help" href="https://www.w3.org/TR/geometry-1/#dommatrixreadonly">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+  "use strict";
+  function arrayFromDm(dm) {
+    return [
+      "m11", "m12", "m13", "m14",
+      "m21", "m22", "m23", "m24",
+      "m31", "m32", "m33", "m34",
+      "m41", "m42", "m43", "m44"
+    ].map(x => dm[x]);
+  }
+
+  function domMatricesApproxEqual(dma, dmb) {
+    dma = dma instanceof DOMMatrix ? dma : DOMMatrix.fromMatrix(dma);
+    dmb = dmb instanceof DOMMatrix ? dmb : DOMMatrix.fromMatrix(dmb);
+
+    assert_array_approx_equals(arrayFromDm(dma), arrayFromDm(dmb), 0.000001); // eslint-disable-line no-undef
+  }
+
+  test(() => {
+    const dmA = new DOMMatrix([2, 2, 2, 2, 2, 2]);
+    const dmB = new DOMMatrix([2, 2, 2, 2, 2, 2]);
+    const expectedResult = new DOMMatrix([8, 8, 8, 8, 10, 10]);
+
+    assert_object_equals(dmA.multiplySelf(dmB).toJSON(), expectedResult.toJSON());
+  }, "Multiply Self 2D");
+
+  test(() => {
+    const dmA = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+    const dmB = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+    const expectedResult = new DOMMatrix([
+      276, 304, 332, 360,
+      304, 336, 368, 400,
+      332, 368, 404, 440,
+      360, 400, 440, 480
+    ]);
+    assert_object_equals(dmA.multiplySelf(dmB).toJSON(), expectedResult.toJSON());
+  }, "Multiply self 3d");
+
+  test(() => {
+    const dmA = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+    const dmB = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+    const expectedResult = new DOMMatrix([
+      276, 304, 332, 360,
+      304, 336, 368, 400,
+      332, 368, 404, 440,
+      360, 400, 440, 480
+    ]);
+
+    assert_object_equals(dmA.preMultiplySelf(dmB).toJSON(), expectedResult.toJSON());
+  }, "preMultiplySelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+    const expectedResult = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      3813, 4414, 5015, 5616
+    ]);
+
+    dm.translateSelf(100, 200, 300);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "translateSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+    const expectedResult = new DOMMatrix([
+      77, 0, 0, 0,
+      0, 88, 0, 0,
+      0, 0, 99, 0,
+      0, 0, 0, 1
+    ]);
+
+    dm.scaleSelf(77, 88, 99);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "scaleSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+    const expectedResult = new DOMMatrix([
+      6, 0, 0, 0,
+      0, 7, 0, 0,
+      0, 0, 8, 0,
+      -50, -120, -210, 1
+    ]);
+
+    dm.scaleSelf(6, 7, 8, 10, 20, 30);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "scaleSelf with origins");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      20, 100, 180, 260,
+      40, 120, 200, 280,
+      60, 140, 220, 300,
+      4, 8, 12, 16
+    ]);
+
+    dm.scale3dSelf(20);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "scale3dSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      20, 100, 180, 260,
+      40, 120, 200, 280,
+      60, 140, 220, 300,
+      -3454, -12874, -22294, -31714
+    ]);
+
+    dm.scale3dSelf(20, 89, 12, 23);
+
+    assert_object_equals(dm.toJSON(), expectedResult.toJSON());
+  }, "scale3dSelf with origins");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+    const expectedResult = new DOMMatrix([
+      0.8654978445076765, 0.03022385072365709, -0.49999999999999994, 0,
+      0.13811109742723254, 0.9450883508630621, 0.29619813272602386, 0,
+      0.4814964235796683, -0.3254143941351886, 0.8137976813493738,
+      0, 0, 0, 0, 1
+    ]);
+
+    dm.rotateSelf(20, 30, 2);
+
+    domMatricesApproxEqual(dm, expectedResult);
+  }, "rotateSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      4.6, 6.000000000000001, 7.4, 8.8,
+      2.2, 1.9999999999999996, 1.7999999999999998, 1.5999999999999996,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+
+    dm.rotateFromVectorSelf(3, 4);
+
+    domMatricesApproxEqual(dm, expectedResult);
+
+  }, "rotateFromVectorSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 5, 9, 13,
+      2, 6, 10, 14,
+      3, 7, 11, 15,
+      4, 8, 12, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      0.5021803117274577, 2.671956022740467, 4.841731733753477, 7.011507444766486,
+      2.039564308493662, 3.5501760370414877, 5.060787765589314, 6.5713994941371405,
+      3.0964483470634674, 9.500363209822943, 15.90427807258242, 22.308192935341896,
+      4, 8, 12, 16
+    ]);
+    dm.rotateAxisAngleSelf(2.3, 7, 9, 85);
+
+    domMatricesApproxEqual(dm, expectedResult);
+
+  }, "rotateAxisAngleSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      1, 0, 0, 0,
+      0.17632698070846498, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+
+    dm.skewXSelf(10);
+    domMatricesApproxEqual(dm, expectedResult);
+  }, "skewXSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      1.7615355016222511, 2.913842601946701, 4.066149702271152, 5.218456802595602,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ]);
+
+    dm.skewYSelf(8.66);
+    domMatricesApproxEqual(dm, expectedResult);
+  }, "skewYSelf");
+
+  test(() => {
+    const dm = new DOMMatrix([0.2, 0.3, 0.4, 0.5, 0.6, 0.7]);
+
+    const expectedResult = new DOMMatrix([
+      -25.000000000000014, 15.000000000000007, 0, 0,
+      20.00000000000001, -10.000000000000005, 0, 0,
+      0, 0, 1, 0,
+      1.0000000000000013, -2.0000000000000013, 0, 1
+    ]);
+
+    dm.invertSelf();
+
+    domMatricesApproxEqual(dm, expectedResult);
+  }, "successful inverse");
+
+  test(() => {
+    const dm = new DOMMatrix([
+      1, 1, 1, 1,
+      1, 1, 1, 1,
+      1, 1, 1, 1,
+      1, 1, 1, 1
+    ]);
+
+    const expectedResult = new DOMMatrix([
+      NaN, NaN, NaN, NaN,
+      NaN, NaN, NaN, NaN,
+      NaN, NaN, NaN, NaN,
+      NaN, NaN, NaN, NaN
+    ]);
+
+    dm.invertSelf();
+
+    assert_array_equals(arrayFromDm(dm), arrayFromDm(expectedResult));
+    assert_false(dm.is2D);
+    assert_false(dm.is2D);
+  }, "unsuccessfull inverse");
+
+  test(() => {
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("translate(2px, 2px)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 2,
+        f: 2,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 2,
+        m42: 2,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - translate");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("translateX(10pc)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 160,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 160,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - translateX");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("translateY(33.2pt)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 44.266666412353516,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 44.266666412353516,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - translateY");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("translateZ(54.1pc)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 865.6,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - translateZ");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("scale3d(1, 2, 3)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 2,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 2,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 3,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - scale3d");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("scale(2.5)"), {
+        a: 2.5,
+        b: 0,
+        c: 0,
+        d: 2.5,
+        e: 0,
+        f: 0,
+        m11: 2.5,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 2.5,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - scale, 1 param");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("scale(3.4, 5.6)"), {
+        a: 3.4,
+        b: 0,
+        c: 0,
+        d: 5.6,
+        e: 0,
+        f: 0,
+        m11: 3.4,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 5.6,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - scale, 2 param");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("scaleX(99.99)"), {
+        a: 99.99,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 99.99,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - scaleX");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("scaleY(42.24)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 42.24,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 42.24,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - scaleY");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("scaleZ(1337)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1337,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - scaleZ");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("rotate3d(2,3,4,5deg)"), {
+        a: 0.9967195673204703,
+        b: 0.0655249643374812,
+        c: -0.06395035665130694,
+        d: 0.9973756538563763,
+        e: 0,
+        f: 0,
+        m11: 0.9967195673204703,
+        m12: 0.0655249643374812,
+        m13: -0.04750350691334605,
+        m14: 0,
+        m21: -0.06395035665130694,
+        m22: 0.9973756538563763,
+        m23: 0.03394343793337129,
+        m24: 0,
+        m31: 0.04960298382824506,
+        m32: -0.030794222561022776,
+        m33: 0.9982941750066445,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - rotate3d, deg");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("rotate3d(2,3,4,5rad)"), {
+        a: 0.38246740126140194,
+        b: -0.5640632461817592,
+        c: 0.8604788935762862,
+        d: 0.5059739210091216,
+        e: 0,
+        f: 0,
+        m11: 0.38246740126140194,
+        m12: -0.5640632461817592,
+        m13: 0.7318137340056183,
+        m14: 0,
+        m21: 0.8604788935762862,
+        m22: 0.5059739210091216,
+        m23: -0.05971988754498425,
+        m24: 0,
+        m31: -0.33659287081291556,
+        m32: 0.6525511823340384,
+        m33: 0.678883048655929,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - rotate3d, rad");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("rotateX(32.5deg)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 0.8433914458128857,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 0.8433914458128857,
+        m23: 0.5372996083468239,
+        m24: 0,
+        m31: 0,
+        m32: -0.5372996083468239,
+        m33: 0.8433914458128857,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - rotateX");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("rotateY(54.7turn)"), {
+        a: -0.30901699437497704,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: -0.30901699437497704,
+        m12: 0,
+        m13: 0.951056516295144,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: -0.951056516295144,
+        m32: 0,
+        m33: -0.30901699437497704,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - rotateY");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("rotateZ(43110rad)"), {
+        a: 0.48397273984362715,
+        b: 0.8750830743925132,
+        c: -0.8750830743925132,
+        d: 0.48397273984362715,
+        e: 0,
+        f: 0,
+        m11: 0.48397273984362715,
+        m12: 0.8750830743925132,
+        m13: 0,
+        m14: 0,
+        m21: -0.8750830743925132,
+        m22: 0.48397273984362715,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - rotateZ");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("perspective(200px)"), {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: -0.005,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - perspective");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("skew(200deg)"), {
+        a: 1,
+        b: 0,
+        c: 0.3639702342662023,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0.3639702342662023,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - skew, 1 param");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("skew(200deg, 43rad)"), {
+        a: 1,
+        b: -1.4983873388551476,
+        c: 0.3639702342662023,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: -1.4983873388551476,
+        m13: 0,
+        m14: 0,
+        m21: 0.3639702342662023,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - skew, 2 params");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("skewX(2turn)"), {
+        a: 1,
+        b: 0,
+        c: -4.898587196589413e-16,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: -4.898587196589413e-16,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - skewX");
+    test(() => {
+      domMatricesApproxEqual(new DOMMatrix("skewY(2turn)"), {
+        a: 1,
+        b: -4.898587196589413e-16,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: -4.898587196589413e-16,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: false
+      });
+    }, "DOMString - skewY");
+    test(() => {
+      const longTransformList = "skew(50deg) perspective(45px) translate(4px, 4px) " +
+        "scale3d(4, 8, 10) rotate3d(8.2, 3.4, 5.6, 10.10rad)";
+      domMatricesApproxEqual(new DOMMatrix(longTransformList), {
+        a: 2.3417802350529544,
+        b: 0.9370438153327196,
+        c: -2.523949213106225,
+        d: -4.749747330944418,
+        e: 8.76701437037684,
+        f: 4,
+        m11: 2.3417802350529544,
+        m12: 0.9370438153327196,
+        m13: 9.447131743890601,
+        m14: -0.20993626097534673,
+        m21: -2.523949213106225,
+        m22: -4.749747330944418,
+        m23: -1.805972368866603,
+        m24: 0.040132719308146735,
+        m31: 9.749023014122645,
+        m32: 6.368818507410388,
+        m33: -2.736816693983152,
+        m34: 0.060818148755181156,
+        m41: 8.76701437037684,
+        m42: 4,
+        m43: 0,
+        m44: 1,
+        is2D: false,
+        isIdentity: false
+      });
+    }, "DOMString - chaining");
+    test(() => {
+      const identity = {
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 0,
+        m11: 1,
+        m12: 0,
+        m13: 0,
+        m14: 0,
+        m21: 0,
+        m22: 1,
+        m23: 0,
+        m24: 0,
+        m31: 0,
+        m32: 0,
+        m33: 1,
+        m34: 0,
+        m41: 0,
+        m42: 0,
+        m43: 0,
+        m44: 1,
+        is2D: true,
+        isIdentity: true
+      };
+
+      domMatricesApproxEqual(new DOMMatrix("none"), identity);
+      domMatricesApproxEqual(new DOMMatrix(""), identity);
+    }, "DOMString - none");
+    test(() => {
+      assert_throws("SyntaxError", () => new DOMMatrix("trans late(50)"));
+      assert_throws("SyntaxError", () => new DOMMatrix("rotateX(50px)"));
+    }, "DOMString - parse error");
+  }, "DOMString Tests");
+
+
+</script>

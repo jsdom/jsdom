@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<title>DOMMatrixReadOnly interface</title>
+<link rel="author" title="David Campion" href="mailto:me@davecampion.com">
+<link rel="help" href="https://www.w3.org/TR/geometry-1/#dommatrixreadonly">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+  "use strict";
+
+  test(() => {
+    const domMatrixReadOnly = new DOMMatrixReadOnly();
+
+    assert_true(domMatrixReadOnly.is2D);
+    assert_equals(domMatrixReadOnly.a, 1);
+    assert_equals(domMatrixReadOnly.b, 0);
+    assert_equals(domMatrixReadOnly.c, 0);
+    assert_equals(domMatrixReadOnly.d, 1);
+    assert_equals(domMatrixReadOnly.e, 0);
+    assert_equals(domMatrixReadOnly.f, 0);
+  }, "Default Constructor");
+
+  test(() => {
+    const domMatrixReadOnly = new DOMMatrixReadOnly([1, 1, 1, 1, 1, 1]);
+
+    assert_true(domMatrixReadOnly.is2D);
+    assert_equals(domMatrixReadOnly.a, 1);
+    assert_equals(domMatrixReadOnly.b, 1);
+    assert_equals(domMatrixReadOnly.c, 1);
+    assert_equals(domMatrixReadOnly.d, 1);
+    assert_equals(domMatrixReadOnly.e, 1);
+    assert_equals(domMatrixReadOnly.f, 1);
+  }, "2d Matrix constructor");
+
+  test(() => {
+    const domMatrixReadOnly = new DOMMatrixReadOnly([1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4]);
+
+    assert_false(domMatrixReadOnly.is2D);
+    assert_equals(domMatrixReadOnly.m11, 1);
+    assert_equals(domMatrixReadOnly.m12, 1);
+    assert_equals(domMatrixReadOnly.m13, 1);
+    assert_equals(domMatrixReadOnly.m14, 1);
+    assert_equals(domMatrixReadOnly.m21, 2);
+    assert_equals(domMatrixReadOnly.m22, 2);
+    assert_equals(domMatrixReadOnly.m23, 2);
+    assert_equals(domMatrixReadOnly.m24, 2);
+    assert_equals(domMatrixReadOnly.m31, 3);
+    assert_equals(domMatrixReadOnly.m32, 3);
+    assert_equals(domMatrixReadOnly.m33, 3);
+    assert_equals(domMatrixReadOnly.m34, 3);
+    assert_equals(domMatrixReadOnly.m41, 4);
+    assert_equals(domMatrixReadOnly.m42, 4);
+    assert_equals(domMatrixReadOnly.m43, 4);
+    assert_equals(domMatrixReadOnly.m44, 4);
+  }, "3d Matrix Constructor");
+
+  test(() => {
+    const domMatrixReadOnly = new DOMMatrixReadOnly("matrix(1,2,3,4,5,6)");
+
+    assert_object_equals(domMatrixReadOnly.toJSON(), {
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4,
+      e: 5,
+      f: 6,
+      m11: 1,
+      m12: 2,
+      m13: 0,
+      m14: 0,
+      m21: 3,
+      m22: 4,
+      m23: 0,
+      m24: 0,
+      m31: 0,
+      m32: 0,
+      m33: 1,
+      m34: 0,
+      m41: 5,
+      m42: 6,
+      m43: 0,
+      m44: 1,
+      is2D: true,
+      isIdentity: false
+    });
+  }, "DOMString Constructor");
+
+  test(() => {
+    assert_throws(new TypeError(), () => {
+      // eslint-disable-next-line no-new
+      new DOMMatrixReadOnly([1, 2, 5]);
+    });
+  }, "Invalid constructor");
+
+  test(() => {
+    const isIdentity = new DOMMatrixReadOnly([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+    const isntIdentity = new DOMMatrixReadOnly([0, 0, 0, 1, 1, 0]);
+
+    assert_true(isIdentity.isIdentity);
+    assert_false(isntIdentity.isIdentity);
+  }, "isIdentity");
+
+  const matrixInit = {
+    m11: 1,
+    m12: 0,
+    m13: 0,
+    m14: 0,
+    m21: 0,
+    m22: 1,
+    m23: 0,
+    m24: 0,
+    m31: 0,
+    m32: 0,
+    m33: 1,
+    m34: 0,
+    m41: 0,
+    m42: 0,
+    m43: 0,
+    m44: 1,
+    is2D: true
+  };
+
+  test(() => {
+    const validMatrixInit = Object.assign({}, matrixInit);
+    const domMatrixReadOnly = DOMMatrixReadOnly.fromMatrix(validMatrixInit);
+    assert_equals(domMatrixReadOnly.a, 1);
+    assert_equals(domMatrixReadOnly.b, 0);
+    assert_equals(domMatrixReadOnly.c, 0);
+    assert_equals(domMatrixReadOnly.d, 1);
+    assert_equals(domMatrixReadOnly.e, 0);
+    assert_equals(domMatrixReadOnly.f, 0);
+
+    assert_equals(domMatrixReadOnly.m11, 1);
+    assert_equals(domMatrixReadOnly.m12, 0);
+    assert_equals(domMatrixReadOnly.m13, 0);
+    assert_equals(domMatrixReadOnly.m14, 0);
+    assert_equals(domMatrixReadOnly.m21, 0);
+    assert_equals(domMatrixReadOnly.m22, 1);
+    assert_equals(domMatrixReadOnly.m23, 0);
+    assert_equals(domMatrixReadOnly.m24, 0);
+    assert_equals(domMatrixReadOnly.m31, 0);
+    assert_equals(domMatrixReadOnly.m32, 0);
+    assert_equals(domMatrixReadOnly.m33, 1);
+    assert_equals(domMatrixReadOnly.m34, 0);
+    assert_equals(domMatrixReadOnly.m41, 0);
+    assert_equals(domMatrixReadOnly.m42, 0);
+    assert_equals(domMatrixReadOnly.m43, 0);
+    assert_equals(domMatrixReadOnly.m44, 1);
+  }, "Valid Matrix Initialization");
+
+  test(() => {
+    assert_throws(new TypeError(), () => {
+      const invalid = Object.assign({}, matrixInit, { m33: 0 });
+      DOMMatrixReadOnly.fromMatrix(invalid);
+    });
+
+    assert_throws(new TypeError(), () => {
+      const invalid = Object.assign({}, matrixInit, { m13: 1 });
+      DOMMatrixReadOnly.fromMatrix(invalid);
+    });
+  }, "Invalid 2d state");
+
+  test(() => {
+    const matrix = Object.assign({}, matrixInit);
+    delete matrix.is2D;
+
+    matrix.m34 = 1;
+
+    const dm = DOMMatrixReadOnly.fromMatrix(matrix);
+
+    assert_false(dm.is2D);
+
+  }, "Non specified dimension conversion");
+
+  test(() => {
+    const f32arr = new Float32Array([0.25, 0.654, 0.158, 0.1, 0.001, 1.0]);
+    const dmRo = DOMMatrixReadOnly.fromFloat32Array(f32arr);
+
+    assert_equals(dmRo.a, f32arr[0]);
+    assert_equals(dmRo.b, f32arr[1]);
+    assert_equals(dmRo.c, f32arr[2]);
+    assert_equals(dmRo.d, f32arr[3]);
+    assert_equals(dmRo.e, f32arr[4]);
+    assert_equals(dmRo.f, f32arr[5]);
+  }, "fromFloat32Array");
+
+  test(() => {
+    const f64arr = new Float32Array([0.25, 0.654, 0.158, 0.1, 0.001, 1.0]);
+    const dmRo = DOMMatrixReadOnly.fromFloat32Array(f64arr);
+
+    assert_equals(dmRo.a, f64arr[0]);
+    assert_equals(dmRo.b, f64arr[1]);
+    assert_equals(dmRo.c, f64arr[2]);
+    assert_equals(dmRo.d, f64arr[3]);
+    assert_equals(dmRo.e, f64arr[4]);
+    assert_equals(dmRo.f, f64arr[5]);
+  }, "fromFloat64Array");
+
+  test(() => {
+    const f32arr = new Float32Array([0.25, 0.654, 0.158, 0.1, 0.001, 1.0]);
+    const dmRo = new DOMMatrixReadOnly([0.25, 0.654, 0.158, 0.1, 0.001, 1.0]);
+    const convertedArr = dmRo.toFloat32Array();
+
+    assert_array_equals(convertedArr, f32arr);
+  }, "toFloat32Array");
+
+  test(() => {
+    const f64arr = new Float64Array([0.325, 0.123, 0.87, 0.234, 0.654, 0.123]);
+    const dmRo = new DOMMatrixReadOnly(Array.from(f64arr));
+    const convertedArr = dmRo.toFloat64Array();
+
+    assert_array_equals(convertedArr, f64arr);
+
+  }, "toFloat64Array");
+
+  test(() => {
+    const expectedResult = {
+      a: 1,
+      b: 0,
+      c: 0,
+      d: 1,
+      e: 0,
+      f: 0,
+      m11: 1,
+      m12: 0,
+      m13: 0,
+      m14: 0,
+      m21: 0,
+      m22: 1,
+      m23: 0,
+      m24: 0,
+      m31: 0,
+      m32: 0,
+      m33: 1,
+      m34: 0,
+      m41: 0,
+      m42: 0,
+      m43: 0,
+      m44: 1,
+      is2D: false,
+      isIdentity: true
+    };
+    const dmRo = new DOMMatrixReadOnly([
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    ]);
+
+    assert_object_equals(dmRo.toJSON(), expectedResult);
+  }, "toJSON");
+
+  test(() => {
+    assert_equals(String(new DOMMatrixReadOnly([1, 1, 0, 0, 1, 0])), "matrix(1, 1, 0, 0, 1, 0)");
+
+    assert_equals(String(new DOMMatrixReadOnly([
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    ])), "matrix3d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)");
+  }, "toString");
+
+  test(() => {
+    const dmRo = new DOMMatrixReadOnly();
+    const expectedResult = {
+      a: -1,
+      b: 0,
+      c: 0,
+      d: 1,
+      e: 0,
+      f: 0,
+      m11: -1,
+      m12: 0,
+      m13: 0,
+      m14: 0,
+      m21: 0,
+      m22: 1,
+      m23: 0,
+      m24: 0,
+      m31: 0,
+      m32: 0,
+      m33: 1,
+      m34: 0,
+      m41: 0,
+      m42: 0,
+      m43: 0,
+      m44: 1,
+      is2D: true,
+      isIdentity: false
+    };
+
+    assert_object_equals(dmRo.flipX().toJSON(), expectedResult);
+  }, "flipX");
+
+  test(() => {
+    const dmRo = new DOMMatrixReadOnly();
+    const expectedResult = {
+      a: 1,
+      b: 0,
+      c: 0,
+      d: -1,
+      e: 0,
+      f: 0,
+      m11: 1,
+      m12: 0,
+      m13: 0,
+      m14: 0,
+      m21: 0,
+      m22: -1,
+      m23: 0,
+      m24: 0,
+      m31: 0,
+      m32: 0,
+      m33: 1,
+      m34: 0,
+      m41: 0,
+      m42: 0,
+      m43: 0,
+      m44: 1,
+      is2D: true,
+      isIdentity: false
+    };
+
+    assert_object_equals(dmRo.flipY().toJSON(), expectedResult);
+
+  }, "flipY");
+
+
+  // These tests should just assert that the returned value is an instance of DOMMatrix
+  // Actual implementation tests exist in DOMMatrix wpts
+
+  const domMatrixTransform = new DOMMatrixReadOnly();
+  test(() => {
+    assert_true(domMatrixTransform.translate() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.translate instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.scale() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.scale instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.scaleNonUniform() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.scaleNonUniform instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.scale3d() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.scale3d instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.rotate() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.rotate instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.rotateFromVector() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.rotateFromVector instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.rotateAxisAngle() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.rotateAxisAngle instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.skewX() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.skewX instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.skewY() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.skewY instanceof DOMMatrix");
+
+  test(() => {
+    assert_true(domMatrixTransform.multiply() instanceof DOMMatrix);
+  }, "DOMMatrixReadonly.multiply instanceof DOMMatrix");
+</script>
