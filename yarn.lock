@@ -3608,10 +3608,10 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prettier@^1.18.2:
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
-  integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
+prettier@^1.19.1:
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
+  integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -4865,12 +4865,13 @@ webidl2@^23.10.1:
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.10.1.tgz#2d2786fdff7b72c6b4a9a43e70f1611ded8ec8e6"
   integrity sha512-SK/KzMGgkPLN73HNqyU9tWPduireSzV6p/WAsmYYweI/ED19FC8+ymsi2InMX80+VjSvsfc3vA7UbMjXYWNPhA==
 
-"webidl2js@https://github.com/pmdartus/webidl2js.git#pmdartus/constructor-reform-pt2":
-  version "10.0.0"
-  resolved "https://github.com/pmdartus/webidl2js.git#19bd4bef2fad9dfc0fa88c3782fc7ee67f3ef79f"
+webidl2js@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-11.0.0.tgz#102fc91f4b4a73d4b40648f46fb85e7e9ea7e490"
+  integrity sha512-Kv+WVa6i/eXtcvO+SJGULu91CjQE3befNq+kBcaYvIHCTttczK2RxxzZqc+fA9r76tVr0HCe0kYlpfvIlSCbsg==
   dependencies:
     pn "^1.1.0"
-    prettier "^1.18.2"
+    prettier "^1.19.1"
     webidl-conversions "^4.0.0"
     webidl2 "^23.10.1"
 
