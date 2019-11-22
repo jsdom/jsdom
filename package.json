@@ -82,7 +82,7 @@
     "st": "^1.2.2",
     "watchify": "^3.11.1",
     "wd": "^1.11.2",
-    "webidl2js": "https://github.com/pmdartus/webidl2js.git#pmdartus/constructor-reform-pt2"
+    "webidl2js": "^11.0.0"
   },
   "browser": {
     "canvas": false,
