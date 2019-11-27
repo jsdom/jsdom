@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Inherited visibility can be overridden</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<style>
+  button span {
+    /* precaution once we check if text-align can even apply to inline containers */
+    display: block;
+  }
+
+  em {
+    text-align: right;
+  }
+
+  .left-align {
+    text-align: left;
+  }
+
+  .important-right-align {
+    text-align: right !important;
+  }
+</style>
+
+<body>
+  <div id="initial"></div>
+  <button id="parent">
+    <span id="child-inherit"></span>
+    <span id="style-inline" style="text-align: end">
+      Hello, World!
+      <span id="inherit-inline"></span>
+    </span>
+    <em id="tag-selector"></em>
+    <span class="left-align" id="class-selector"></span>
+    <span
+      class="important-right-align"
+      style="text-align: left;"
+      id="important-author-over-author"
+    ></span>
+    <input
+      type="file"
+      id="important-author-rule"
+      style="text-align: left !important;"
+    />
+    <span class="left-align" style="text-align: right;" id="inline-over-sheet"></span>
+  </button>
+</body>
+
+<script>
+  "use strict";
+  /*
+  test(() => {
+    const element = document.querySelector("#initial");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "start"
+    );
+  }, "initial value");
+
+  test(() => {
+    const element = document.querySelector("#parent");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "center"
+    );
+  }, "user agent declaration");
+
+  test(() => {
+    const element = document.querySelector("#child-inherit");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "center"
+    );
+  }, "inherits");
+
+  test(() => {
+    const element = document.querySelector("#style-inline");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "end"
+    );
+  }, "inline styles are considered");
+
+  test(() => {
+    const element = document.querySelector("#inherit-inline");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "end"
+    );
+  }, "inline styles get inherited");
+
+  test(() => {
+    const element = document.querySelector("#tag-selector");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "right"
+    );
+  }, "tag selectors work");
+
+  test(() => {
+    const element = document.querySelector("#class-selector");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "left"
+    );
+  }, "class rules are more specific than tag rules"); */
+
+  test(() => {
+    const element = document.querySelector("#important-author-over-author");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "right"
+    );
+  }, "import author > author");
+
+  test(() => {
+    const element = document.querySelector("#important-author-rule");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "start"
+    );
+  }, "import user agent > important author");
+
+  test(() => {
+    const element = document.querySelector("#inline-over-sheet");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "right"
+    );
+  }, "inline style > sheet style");
+
+
+</script>

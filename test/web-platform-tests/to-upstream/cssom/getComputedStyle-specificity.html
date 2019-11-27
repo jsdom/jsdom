@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Inherited visibility can be overridden</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<style>
+  #foo > #test1 {
+    text-align: left;
+  }
+
+  #test1 {
+    text-align: right;
+  }
+
+  #test2.center {
+    text-align: center;
+  }
+
+  #test2 {
+    text-align: left;
+  }
+
+  .test3--left.test3--right {
+    text-align: right;
+  }
+
+  .test3--left {
+    text-align: left;
+  }
+
+  .test4--left {
+    text-align: left;
+  }
+
+  .test4--right {
+    text-align: right;
+  }
+
+  #test5[data-align="right"] {
+    text-align: right;
+  }
+
+  #test5 {
+    text-align: left;
+  }
+
+  #test6.specific {
+    text-align: left;
+  }
+
+  #test6.very.specific, #test6 {
+    text-align: right;
+  }
+</style>
+
+<body>
+  <div id="foo">
+    <div id="test1"></div>
+  </div>
+  <div id="test2" class="center"></div>
+  <div id="test3" class="test3--left test3--right"></div>
+  <div id="test4" class="test4--left test4--right"></div>
+  <div id="test5" data-align="right"></div>
+  <div id="test6" class="very specific"></div>
+</body>
+
+<script>
+  "use strict";
+
+  test(() => {
+    const element = document.querySelector("#test1");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "left"
+    );
+  }, "2 ids vs 1 id selector");
+
+  test(() => {
+    const element = document.querySelector("#test2");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "center"
+    );
+  }, "1 id vs 1 id + classname");
+
+  test(() => {
+    const element = document.querySelector("#test3");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "right"
+    );
+  }, "1 vs 2 classnames");
+
+  test(() => {
+    const element = document.querySelector("#test4");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "right"
+    );
+  }, "1 vs 1 classnames");
+
+  test(() => {
+    const element = document.querySelector("#test5");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "right"
+    );
+  }, "id vs attrs");
+
+  test(() => {
+    const element = document.querySelector("#test6");
+    assert_equals(
+      getComputedStyle(element).getPropertyValue("text-align"),
+      "right"
+    );
+  }, "highest specificity of matching");
+</script>
