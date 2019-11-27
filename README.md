@@ -487,22 +487,6 @@ If you do not control the page, you could try workarounds such as polling for th
 
 For more details, see the discussion in [#640](https://github.com/jsdom/jsdom/issues/640), especially [@matthewkastor](https://github.com/matthewkastor)'s [insightful comment](https://github.com/jsdom/jsdom/issues/640#issuecomment-22216965).
 
-### Shared constructors and prototypes
-
-At the present time, for most web platform APIs, jsdom shares the same class definition between multiple seemingly-independent jsdoms. That means that, for example, the following situation can occur:
-
-```js
-const dom1 = new JSDOM();
-const dom2 = new JSDOM();
-
-dom1.window.Element.prototype.expando = "blah";
-console.log(dom2.window.document.createElement("frameset").expando); // logs "blah"
-```
-
-This is done mainly for performance and memory reasons: creating separate copies of all the many classes on the web platform, each time we create a jsdom, would be rather expensive.
-
-Nevertheless, we remain interested in one day providing an option to create an "independent" jsdom, at the cost of some performance.
-
 ### Unimplemented parts of the web platform
 
 Although we enjoy adding new features to jsdom and keeping it up to date with the latest web specs, it has many missing APIs. Please feel free to file an issue for anything missing, but we're a small and busy team, so a pull request might work even better.

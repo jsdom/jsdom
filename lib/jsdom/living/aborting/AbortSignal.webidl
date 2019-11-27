@@ -1,5 +1,4 @@
-[WebIDL2JSFactory,
- Exposed=(Window,Worker)]
+[Exposed=(Window,Worker)]
 interface AbortSignal : EventTarget {
   readonly attribute boolean aborted;
 
