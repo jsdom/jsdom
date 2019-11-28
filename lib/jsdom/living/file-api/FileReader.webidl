@@ -1,4 +1,4 @@
-[Constructor, Exposed=(Window,Worker), WebIDL2JSFactory]
+[Constructor, Exposed=(Window,Worker)]
 interface FileReader: EventTarget {
 
   // async read methods

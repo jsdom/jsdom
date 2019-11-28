@@ -6,7 +6,7 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 
-<svg>
+<svg style="font-size: 100px" onclick="onClickTestVar = 1">
   <unknownElement/>
 </svg>
 
@@ -15,7 +15,7 @@
 
 test(() => {
   const svg = document.querySelector("svg");
-  assert_true(svg instanceof SVGElement);
+  assert_true(svg instanceof SVGSVGElement);
   const unknownElement = svg.children[0];
   assert_true(unknownElement instanceof SVGElement);
   assert_equals(unknownElement.namespaceURI, "http://www.w3.org/2000/svg");
@@ -25,13 +25,34 @@ test(() => {
 }, "Inheritance");
 
 test(() => {
+  const svg = document.querySelector("svg");
+  assert_true(svg instanceof SVGSVGElement);
+  assert_true(svg.style instanceof CSSStyleDeclaration);
+  assert_equals(svg.getAttribute("style"), "font-size: 100px");
+  assert_equals(svg.style.fontSize, "100px");
+  svg.setAttribute("style", "background-color: yellow;");
+  assert_equals(svg.getAttribute("style"), "background-color: yellow;");
+  assert_equals(svg.style.backgroundColor, "yellow");
+  assert_equals(svg.style.fontSize, "");
+}, "style data attribute");
+
+test(() => {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   assert_true(svg.style instanceof CSSStyleDeclaration);
   assert_equals(svg.style.backgroundColor, "");
   svg.style.backgroundColor = "black";
   assert_equals(svg.style.backgroundColor, "black");
   assert_equals(svg.getAttribute("style"), "background-color: black;");
-}, "style attribute");
+}, "style IDL attribute");
+
+test(() => {
+  const svg = document.querySelector("svg");
+  assert_true(svg instanceof SVGSVGElement);
+  assert_true(typeof svg.onclick === "function");
+  window.onClickTestVar = 0;
+  svg.onclick();
+  assert_equals(window.onClickTestVar, 1);
+}, "event handler data attribute");
 
 test(() => {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");

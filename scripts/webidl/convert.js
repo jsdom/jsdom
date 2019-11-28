@@ -23,6 +23,7 @@ addDir("../../lib/jsdom/living/attributes");
 addDir("../../lib/jsdom/living/constraint-validation");
 addDir("../../lib/jsdom/living/domparsing");
 addDir("../../lib/jsdom/living/events");
+addDir("../../lib/jsdom/living/fetch");
 addDir("../../lib/jsdom/living/file-api");
 addDir("../../lib/jsdom/living/hr-time");
 addDir("../../lib/jsdom/living/mutation-observer");

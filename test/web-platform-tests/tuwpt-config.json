@@ -6,8 +6,8 @@
   "ports": {
     "http": [10000, "auto"],
     "https": [10443],
-    "ws": ["auto"],
-    "wss": ["auto"]
+    "ws": [10001],
+    "wss": [10444]
   },
   "check_subdomains": true,
   "log_level": "info",

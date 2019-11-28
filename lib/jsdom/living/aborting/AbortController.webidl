@@ -1,5 +1,4 @@
-[WebIDL2JSFactory,
- Constructor,
+[Constructor,
  Exposed=(Window,Worker)]
 interface AbortController {
   [SameObject] readonly attribute AbortSignal signal;

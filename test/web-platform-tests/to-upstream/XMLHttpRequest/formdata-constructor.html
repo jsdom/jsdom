@@ -81,6 +81,8 @@ with linebreaks set to CRLF</textarea>
 
   <!-- this generates two form data entries! -->
   <input type="text" name="dirname-is-special" dirname="submit-me-17" value="dirname-value">
+
+  <input type="text" name="submit-me-21">
 </form>
 
 <script>
@@ -113,7 +115,6 @@ test(() => {
     ["submit-me-5", "on"],
     ["submit-me-6", "radio-1"],
     ["submit-me-7", "on"],
-    ["file-1", ""],
     ["submit-me-8", ["text-1", "text-2"]],
     ["submit-me-9", "search-1"],
     ["submit-me-10", "url-1"],
@@ -126,7 +127,8 @@ test(() => {
     ["dirname-is-special", "dirname-value"],
     ["submit-me-17", "ltr"],
     ["submit-me-18-\uFFFD", "value-\uFFFD"],
-    ["submit-me-\r\n19\r\n", "value"]
+    ["submit-me-\r\n19\r\n", "value"],
+    ["submit-me-21", ""]
   ];
 
   for (const t of expected) {
@@ -135,6 +137,14 @@ test(() => {
     const values = Array.isArray(valueOrValues) ? valueOrValues : [valueOrValues];
     assert_array_equals(formData.getAll(field), values, field);
   }
+
+  const fileEntry = formData.getAll("file-1");
+  assert_equals(fileEntry.length, 1);
+  assert_equals(fileEntry[0], formData.get("file-1"));
+  assert_equals(fileEntry[0].constructor, File);
+  assert_equals(fileEntry[0].size, 0);
+  assert_equals(fileEntry[0].name, "");
+  assert_equals(fileEntry[0].type, "application/octet-stream");
 
 }, "test that FormData is correctly constructed from the form data set");
 </script>

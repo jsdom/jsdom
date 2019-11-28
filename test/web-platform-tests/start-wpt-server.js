@@ -29,8 +29,6 @@ module.exports = ({ toUpstream = false } = {}) => {
   const configPath = configPaths[configType];
   const config = configs[configType];
 
-  const urlPrefix = `http://${config.browser_host}:${config.ports.http[0]}/`;
-
   return dnsLookup("web-platform.test").then(
     () => {
       const configArg = path.relative(path.resolve(wptDir), configPath);
@@ -45,7 +43,12 @@ module.exports = ({ toUpstream = false } = {}) => {
           reject(new Error("Error starting python server process:", e.message));
         });
 
-        resolve(pollForServer(urlPrefix));
+        resolve(Promise.all([
+          pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
+          pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
+          pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
+          pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
+        ]));
 
         process.on("exit", () => {
           // Python doesn't register a default handler for SIGTERM and it doesn't run __exit__() methods of context
@@ -58,11 +61,11 @@ module.exports = ({ toUpstream = false } = {}) => {
       throw new Error("Host entries not present for web platform tests. See " +
                       "https://github.com/w3c/web-platform-tests#running-the-tests");
     }
-  );
+  ).then(([firstURL]) => firstURL);
 };
 
 function pollForServer(url) {
-  return requestHead(url)
+  return requestHead(url, { strictSSL: false })
     .then(() => {
       console.log(`WPT server at ${url} is up!`);
       return url;

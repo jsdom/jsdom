@@ -1,6 +1,5 @@
-[Exposed=Window,
- NoInterfaceObject]
-interface HTMLHyperlinkElementUtils {
+// https://html.spec.whatwg.org/#htmlhyperlinkelementutils
+interface mixin HTMLHyperlinkElementUtils {
   [CEReactions] stringifier attribute USVString href;
   readonly attribute USVString origin;
   [CEReactions] attribute USVString protocol;

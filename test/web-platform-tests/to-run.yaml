@@ -1,6 +1,7 @@
 DIR: FileAPI
 
 FileReader/workers.html: [fail, Needs Worker implementation]
+blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
 blob/Blob-constructor.html: [fail, "- Blob is not a function
                                     - a date is not instanceof Date
                                     - a regexp is not instanceof Regexp
@@ -8,6 +9,8 @@ blob/Blob-constructor.html: [fail, "- Blob is not a function
                                     - HTMLSelectElement does not have indexed properties
                                     - MessageChannel not implemented
                                     - element attributes does not have indexed properties"]
+blob/Blob-stream.any.html: [fail, Unknown]
+blob/Blob-text.any.html: [fail, Depends on TextEncoder]
 file/send-file-form*: [fail, DataTransfer not implemented]
 filelist-section/filelist.html: [fail, function is not instanceof Function]
 historical.https.html: [fail, Needs Service Worker implementation]
@@ -21,15 +24,18 @@ DIR: cors
 
 304.htm: [fail-slow, Unknown]
 access-control-expose-headers-parsing.window.html: [fail, Depends on fetch]
-client-hint-request-headers.htm: [fail-slow, Not implemented]
+basic.htm: [fail, Unknown]
+client-hint-request-headers-2.tentative.htm: [fail, Client Hints not implemented]
+client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
 cors-safelisted-request-header.any.html: [fail, Depends on fetch]
-credentials-flag.htm: [fail, Unknown]
+credentials-flag.htm: [needs-node12, Unknown]
 image-tainting-in-cross-origin-iframe.sub.html: [timeout, Unknown]
 origin.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 preflight-cache.htm: [timeout, Cache should probably be implemented for simple requests before]
 redirect-preflight-2.htm: [fail, Preflight should also be done before redirected requests but request module redirects cannot be paused while doing preflight]
 remote-origin.htm: [timeout, postMessage event does not contain source]
 response-headers.htm: [timeout, I don't find a spec about combining same value response headers; also https://github.com/tmpvar/jsdom/issues/1833]
+simple-requests-ch.tentative.htm: [fail, Client Hints not implemented]
 simple-requests.htm: [timeout, Maybe https://github.com/tmpvar/jsdom/issues/1833 but it fails locally too]
 
 ---
@@ -51,19 +57,28 @@ elementFromPoint-001.html: [fail, Not implemented]
 elementFromPoint-002.html: [fail, Not implemented]
 elementFromPoint-003.html: [fail, Not implemented]
 elementFromPoint-dynamic-anon-box.html: [fail, Not implemented]
+elementFromPoint-list-001.html: [fail, Not implemented]
 elementFromPoint-mixed-font-sizes.html: [fail, Not implemented]
+elementFromPoint-subpixel.html: [fail, Not implemented]
 elementFromPoint.html: [fail, Not implemented]
 elementFromPosition.html: [fail, Unknown]
 elementScroll.html: [fail, Unknown]
 elementsFromPoint**: [fail, Not implemented]
+getBoundingClientRect-empty-inline.html: [fail, document.fonts is not implemented]
 getClientRects**: [fail, Not implemented]
-interfaces.html: [fail, Depends on Fetch]
+idlharness.html: [fail, Depends on Fetch]
+inheritance.html: [fail, inherit not implemented (or not properly implemented)]
+matchMedia-display-none-iframe.html: [fail, Not implemented]
 matchMedia.xht: [timeout, Not implemented]
 matchMediaAddListener.html: [fail, Not implemented]
 mouseEvent.html: [fail, Unknown]
 negativeMargins.html: [fail, Unknown]
 offsetParent_element_test.html: [fail, Unknown]
+offsetTopLeft-border-box.html: [fail, Unknown]
 offsetTopLeftInScrollableParent.html: [fail, Unknown]
+outer-svg.html: [fail, clientTop not implemented]
+parsing/scroll-behavior-invalid.html: [fail, scroll-behavior not implemented]
+position-sticky-root-scroller-with-scroll-behavior.html: [fail, Unknown]
 scroll-**: [timeout, Scroll methods not implemented]
 scrollIntoView**: [fail, Scroll methods not implemented]
 scrollWidthHeight.xht: [fail, Unknown]
@@ -91,15 +106,19 @@ DIR: dom/collections
 
 DIR: dom/events
 
-Event-dispatch-on-disabled-elements.html: [fail, Unknown]
+Event-dispatch-on-disabled-elements.html: [timeout, Uses testdriver.js]
+Event-isTrusted.any.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
+EventListener-handleEvent.html: [fail, Unknown]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
 EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
 EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
 EventTarget-dispatchEvent.html: [fail, We don't support every event interface yet]
+document-level-touchmove-event-listener-passive-by-default.html: [timeout, Uses testdriver.js]
 event-global-extra.window.html: [timeout, Not implemented]
 event-global.html: [fail, Not implemented]
 relatedTarget.window.html: [fail, Unknown]
+scrolling/**: [fail, Scroll methods not implemented]
 
 ---
 
@@ -115,12 +134,11 @@ DIR: dom/nodes
 Comment-constructor.html: [fail, Unknown]
 DOMImplementation-createDocument.html: [fail, Unknown]
 Document-URL.html: [fail, Unknown]
-Document-characterSet-normalization.html: [fail, Some encodings are not supported - see the whatwg-encoding module]
+Document-characterSet-normalization.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-constructor-svg.svg: [fail, Unknown]
 Document-constructor-xml.xml: [fail, Unknown]
 Document-constructor.html: [fail, new Document().origin should inherit from current Document]
-Document-createElement.html: [fail, Unknown]
-Document-createEvent.html: [fail, Unknown]
+Document-createEvent.https.html: [fail, We don't support every event interface yet]
 Document-getElementById.html: [fail, We cache IDs in insertion order]
 Document-importNode.html: [fail, Attr should be a Node, https://github.com/jsdom/jsdom/issues/1641]
 Element-closest.html: [fail, :has is not supported (by all major browsers as well)]
@@ -130,11 +148,16 @@ Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
 MutationObserver-characterData.html: [fail, Range is not implemented]
 MutationObserver-childList.html: [fail, Range is not implemented]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+MutationObserver-sanity.html: [fail, TypeError is not instanceof TypeError]
 Node-childNodes.html: [fail, Unknown]
 Node-contains-xml.xml: [fail, Unknown]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
+ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
+ParentNode-querySelector-All.html: [fail, ::slotted() pseudo-class is not supported]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 Text-constructor.html: [fail, Unknown]
+aria-element-reflection.tentative.html: [fail, WAI-ARIA not implemented]
+remove-and-adopt-crash.html: [fail, Unknown]
 
 ---
 
@@ -147,11 +170,22 @@ NodeIterator-removal.html: [fail, Unknown]
 DIR: domparsing
 
 DOMParser-parseFromString-html.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
-DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support  DTD validation]
+DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD validation]
 DOMParser-parseFromString-xml.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
+XMLSerializer-serializeToString.html: [fail, Unknown]
 createContextualFragment.html: [fail, Range is not implemented]
+idlharness.window.html: [fail, Depends on fetch]
 innerhtml-05.xhtml: [fail, Unknown]
-interfaces.any.html: [fail, Depends on fetch]
+
+---
+
+DIR: fetch/api/headers
+
+header-values-normalize.html: [fail, fetch is not defined]
+header-values.html: [fail, fetch is not defined]
+headers-basic.html: [fail, iterator prototype is wrong]
+headers-no-cors.window.html: [fail, Request is not defined]
+headers-record.html: [needs-node12, V8 bug fixed in Node 12 onward]
 
 ---
 
@@ -168,6 +202,7 @@ window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
 DIR: html/browsers/browsing-the-web/history-traversal
 
 001.html: [timeout, Unknown]
+api-availability.html: [timeout, window.open not implemented]
 browsing_context_name.html: [timeout, Unknown]
 browsing_context_name_cross_origin.html: [timeout, Unknown]
 browsing_context_name_cross_origin_2.html: [fail, window.name not implemented]
@@ -179,12 +214,7 @@ persisted-user-state-restoration/scroll-restoration-navigation-cross-origin.html
 persisted-user-state-restoration/scroll-restoration-navigation-samedoc.html: [fail, scrollX not implemented]
 same-url.html: [timeout, Unknown]
 scroll-restoration-order.html: [fail, Not implemented]
-window-name-after-cross-origin-aux-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-cross-origin-main-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-cross-origin-sub-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-same-origin-aux-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-same-origin-main-frame-navigation.sub.html: [timeout, Unknown]
-window-name-after-same-origin-sub-frame-navigation.sub.html: [timeout, Unknown]
+window-name-after-**: [timeout, window.open not implemented]
 
 ---
 
@@ -269,6 +299,7 @@ DIR: html/browsers/history/the-location-interface
 allow_prototype_cycle_through_location.sub.html: [fail, Unknown]
 assign_after_load.html: [timeout, Unknown]
 assign_before_load.html: [timeout, Unknown]
+document_location.html: [fail, Unknown]
 location-pathname-setter-question-mark.html: [timeout, Unknown]
 location-protocol-setter-non-broken.html: [fail, Channel Messaging API not implemented]
 location-protocol-setter-with-colon.sub.html: [timeout, Unknown]
@@ -308,7 +339,12 @@ auxiliary-browsing-contexts/opener-setter.window.html: [fail, Not implemented]
 auxiliary-browsing-contexts/opener.html: [timeout, Unknown]
 browsing-context-names/**: [timeout, Not implemented]
 browsing-context.html: [fail, Unknown]
+document-access/**: [fail, Not implemented]
+embedded-opener-a-form.html: [timeout, Opener not implemented]
+embedded-opener-remove-frame.html: [timeout, Opener not implemented]
+embedded-opener.html: [timeout, Opener not implemented]
 nested-browsing-contexts/frameElement.sub.html: [timeout, Nested browsing contexts for embed/object; cross-origin handling; MessageEvent' source...]
+nested-browsing-contexts/name-attribute.window.html: [timeout, Unknown]
 nested-browsing-contexts/window-parent-null.html: [fail, Unknown]
 nested-browsing-contexts/window-top-null.html: [fail, Unknown]
 noreferrer-null-opener.html: [timeout, Unknown]
@@ -338,7 +374,6 @@ DIR: html/dom/documents/resource-metadata-management
 document-cookie.html: [fail, Unknown]
 document-lastModified-01.html: [fail, Unknown]
 document-lastModified.html: [fail, Unknown]
-document-readyState.html: [timeout, Unknown]
 
 ---
 
@@ -348,8 +383,8 @@ DIR: html/dom/elements/elements-in-the-dom
 
 DIR: html/dom/elements/global-attributes
 
+dataset-binding.window.html: [fail, Unknown]
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
-dataset-set.html: [fail, Buggy(?) test for \uF900]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
 the-lang-attribute-003.html: [fail, Unknown]
@@ -360,12 +395,6 @@ the-lang-attribute-007.html: [fail, Unknown]
 the-lang-attribute-008.html: [fail, Unknown]
 the-lang-attribute-009.html: [fail, Unknown]
 the-lang-attribute-010.html: [fail, Unknown]
-the-translate-attribute-007.html: [fail, Unknown]
-the-translate-attribute-008.html: [fail, Unknown]
-the-translate-attribute-009.html: [fail, Unknown]
-the-translate-attribute-010.html: [fail, Unknown]
-the-translate-attribute-011.html: [fail, Unknown]
-the-translate-attribute-012.html: [fail, Unknown]
 
 ---
 
@@ -386,10 +415,6 @@ the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
 DIR: html/infrastructure/urls/terminology-0
 
 document-base-url.html: [fail, We don't support srcdoc <base> correctly]
-
----
-
-DIR: html/input
 
 ---
 
@@ -421,10 +446,6 @@ the-marquee-element-0/marquee-scrolldelay.html: [fail, <marquee> is not implemen
 
 ---
 
-DIR: html/scripting
-
----
-
 DIR: html/semantics/disabled-elements
 
 ---
@@ -432,6 +453,7 @@ DIR: html/semantics/disabled-elements
 DIR: html/semantics/document-metadata/the-base-element
 
 base_multiple.html: [timeout, We don't support navigation via <a target>]
+base_target_does_not_affect_location_assignment.html: [timeout, We don't support navigation via location]
 
 ---
 
@@ -443,6 +465,7 @@ link-rel-attribute.html: [fail, CSS computed style computation]
 link-style-error-01.html: [fail, We don't fire error events]
 link-style-error-limited-quirks.html: [fail, We don't fire error events]
 link-style-error-quirks.html: [fail, We don't fire error events]
+stylesheet-not-removed-until-next-stylesheet-loads.html: [fail, Unknown]
 
 ---
 
@@ -515,10 +538,10 @@ form-action-submission.html: [timeout, Unknown]
 form-autocomplete.html: [fail, Unknown]
 form-elements-filter.html: [fail, Unknown]
 form-elements-interfaces-01.html: [fail, Unknown]
-form-elements-matches.html: [fail, Unknown]
 form-elements-nameditem-01.html: [fail, Unknown]
 form-indexed-element.html: [fail, Unknown]
 form-nameditem.html: [fail, Unknown]
+form-requestsubmit.html: [timeout, form.elements doesn't include listed elements outside the form element]
 
 ---
 
@@ -571,6 +594,8 @@ option-text-recurse.html: [fail, Our impl is wrong; see comments in HTMLOptionEl
 
 DIR: html/semantics/forms/the-output-element
 
+mutations.window.html: [fail, Needs to reflect changes made in https://github.com/whatwg/html/pull/4447]
+
 ---
 
 DIR: html/semantics/forms/the-progress-element
@@ -605,8 +630,13 @@ DIR: html/semantics/interactive-elements/the-summary-element
 DIR: html/semantics/links
 
 following-hyperlinks/activation-behavior.window.html: [fail, We don't support navigating to new locations]
-links-created-by-a-and-area-elements/htmlanchorelement_noopener.html: [timeout, Unknown]
-links-created-by-a-and-area-elements/target_blank_implicit_noopener.tentative.html: [fail, Depends on BroadcastChannel]
+links-created-by-a-and-area-elements/htmlanchorelement_noopener.html: [timeout, noopener is not supported]
+links-created-by-a-and-area-elements/target_blank_implicit_noopener.html: [fail, Depends on BroadcastChannel]
+links-created-by-a-and-area-elements/target_blank_implicit_noopener_base.html: [fail, Depends on BroadcastChannel]
+
+---
+
+DIR: html/semantics/scripting-1/the-noscript-element
 
 ---
 
@@ -667,7 +697,6 @@ execution-timing/091.html: [fail, Unknown]
 execution-timing/094.html: [fail, Unknown]
 execution-timing/099.html: [fail, Unknown]
 execution-timing/103.html: [fail, Unknown]
-execution-timing/104.html: [fail, Unknown]
 execution-timing/106-import.html: [fail, Unknown]
 execution-timing/107-import.html: [fail, Unknown]
 execution-timing/107-noimport.html: [fail, Unknown]
@@ -705,6 +734,7 @@ execution-timing/149.html: [fail, Unknown]
 fetch-src/empty-with-base.html: [timeout, Unknown]
 fetch-src/empty.html: [timeout, Unknown]
 fetch-src/failure.html: [timeout, Unknown]
+json-module/**: [timeout, Not implemented]
 load-error-events-1.html: [timeout, Unknown]
 load-error-events-2.html: [timeout, Unknown]
 load-error-events-3.html: [timeout, Unknown]
@@ -724,9 +754,6 @@ script-type-and-language-js.html: [fail, Our script execution timing is off; see
 ---
 
 DIR: html/semantics/scripting-1/the-template-element
-
-additions-to-parsing-xhtml-documents/node-document.html: [timeout, Templates in XHTML are totally messed up]
-additions-to-parsing-xhtml-documents/template-child-nodes.html: [timeout, Templates in XHTML are totally messed up]
 
 ---
 
@@ -773,7 +800,6 @@ serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/
 
 DIR: html/webappapis/animation-frames
 
-idlharness.html: [fail, The methods do not always throw when expected to]
 same-dispatch-time.html: [fail, Probably https://github.com/tmpvar/jsdom/pull/1994#discussion_r147567274]
 
 ---
@@ -789,6 +815,8 @@ DIR: html/webappapis/dynamic-markup-insertion/document-writeln
 ---
 
 DIR: html/webappapis/scripting/event-loops
+
+fully_active_document.window.html: [timeout, Unknown]
 
 ---
 
@@ -810,6 +838,7 @@ messageevent-constructor.https.html: [fail, uses MessageChannel]
 
 DIR: html/webappapis/system-state-and-capabilities/the-navigator-object
 
+navigator_user_agent.tentative.https.html: [fail, Not implemented]
 protocol.https.html: [fail, registerProtocolHandler() is not implemented]
 
 ---
@@ -825,30 +854,27 @@ DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not imple
 Element-interface-attachShadow-custom-element.html: [fail, CustomElement.define is not implemented]
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
 Range-prototype-insertNode.html: [fail, Range is not implemented]
-ShadowRoot-interface.html: [fail, shadowRoot.styleSheet and shadowRoot.activeElement are not yet implemented]
-event-dispatch-order.tentative.html: [fail, Unknown]
+ShadowRoot-interface.html: [fail, shadowRoot.styleSheet is not yet implemented]
+focus/focus-selector-delegatesFocus.html: [fail, 'https://github.com/dperini/nwsapi/issues/31']
+focus/focus-tabindex-order-*: [fail, Uses testdriver.js]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
 slotchange-customelements.html: [fail, CustomElement.define is not implemented]
-untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/activeElement-confirm-return-null.html: [fail, ShadowRoot.activeElement is not implemented]
-untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-007.html: [fail, ShadowRoot.activeElement is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, Range is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html: [fail, Range is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-007.html: [fail, Range is not implemented]
 untriaged/events/event-dispatch/test-003.html: [timeout, Iframe related timeout issue]
-untriaged/html-elements-in-shadow-trees/html-forms/test-003.html: [fail, HTMLFormElemement.submit is not implemented]
+untriaged/html-elements-in-shadow-trees/html-forms/test-003.html: [timeout, HTMLFormElement.submit is not implemented]
 untriaged/html-elements-in-shadow-trees/inert-html-elements/test-001.html: [fail, Unknown]
 untriaged/shadow-trees/upper-boundary-encapsulation/dom-tree-accessors-001.html: [fail, Document.all is not implemented]
 untriaged/styles/test-001.html: [fail, offsetTop not implemented]
 untriaged/styles/test-003.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/styles/test-005.html: [fail, offsetTop not implemented]
 untriaged/styles/test-008.html: [fail, offsetTop and offsetHeight not implemented]
-untriaged/user-interaction/active-element/test-001.html: [fail, ShadowRoot.activeElement is not implemented]
-untriaged/user-interaction/active-element/test-002.html: [fail, ShadowRoot.activeElement is not implemented]
 untriaged/user-interaction/editing/inheritance-of-content-editable-001.html: [fail, contentEditable is not implemented]
 untriaged/user-interaction/ranges-and-selections/test-001.html: [fail, Range is not implemented]
 untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, Range is not implemented]
@@ -857,10 +883,11 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, Range is 
 
 DIR: uievents
 
+click/**: [timeout, Uses testdriver.js]
 idlharness.window.html: [fail, Depends on fetch]
-legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Unknown]
-legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Unknown]
-mouse/mouse_buttons_back_forward.html: [timeout, Unknown]
+legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Mutation Events not implemented]
+legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events not implemented]
+mouse/**: [timeout, Uses testdriver.js]
 order-of-events/**: [timeout, Unknown]
 
 ---
@@ -886,8 +913,11 @@ DIR: websockets
 Create-Secure-extensions-empty.any.html: [timeout, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
 cookies/006.html?wss: [fail, Unknown]
+cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
 interfaces/WebSocket/close/close-basic.html*: [mutates-globals]
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
+remove-own-iframe-during-onerror.window.html: [timeout, iframe.srcdoc not implemented]
+stream-tentative/*: [timeout, Not implemented]
 unload-a-document/*: [timeout, Requires window.open]
 
 ---
@@ -896,19 +926,20 @@ DIR: webstorage
 
 event_no_duplicates.html: [needs-node11, Earlier Node.js timers did not match browser behaviour, https://github.com/nodejs/node/pull/22842]
 idlharness.window.html: [fail, Depends on fetch]
+set.window.html: [fail, Unknown]
 storage_local_window_open.html: [timeout, Depends on window.open()]
 storage_session_window_noopener.html: [fail, Depends on BroadcastChannel]
 storage_session_window_open.html: [timeout, Depends on window.open()]
 storage_string_conversion.html: [needs-node10, function.toString() does not use correct formatting in earlier versions, https://github.com/nodejs/node/issues/20459]
+symbol-props.window.html: [fail, Unknown]
 
 ---
 
 DIR: xhr
 
-abort-after-stop.htm: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
-abort-during-loading.htm: [fail, Unknown]
-access-control-basic-allow-preflight-cache.htm: [fail, Unknown]
-access-control-basic-cors-safelisted-request-headers.htm: [fail, Unknown]
+abort-after-stop.window.html: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
+abort-during-loading.window.html: [fail, Unknown]
+access-control-basic-allow-preflight-cache.any.html: [fail, Unknown]
 access-control-basic-non-cors-safelisted-content-type.htm: [fail, Unknown]
 access-control-basic-post-with-non-cors-safelisted-content-type.htm: [fail, Unknown]
 access-control-preflight-async-method-denied.htm: [fail, Unknown]
@@ -925,7 +956,7 @@ anonymous-mode-unsupported.htm: [fail, need way to set cookie header with origin
 close-worker-with-xhr-in-progress.html: [fail, Needs Worker implementation]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
-event-timeout-order.htm: [fail, Unknown]
+event-timeout-order.any.html: [fail, Unknown]
 formdata.htm: [fail, FormDataEvent is not implemented]
 getallresponseheaders.htm: [fail, Unknown]
 getresponseheader.any.html: [fail, Unknown]
@@ -946,6 +977,7 @@ open-url-worker-origin.htm: [fail, Needs Worker implementation]
 open-url-worker-simple.htm: [timeout, Needs Worker implementation]
 overridemimetype-blob.html: [fail, Unknown]
 overridemimetype-edge-cases.window.html: [fail, Unknown]
+response-method.htm: [flaky, Usually fails with a parse error in Node.js v12 but occasionally passes as it did in previous versions]
 responseType-document-in-worker.html: [fail, Needs Worker implementation]
 responseXML-unavailable-in-worker.html: [fail, Needs Worker implementation]
 responsedocument-decoding.htm: [fail, Unknown]
@@ -973,5 +1005,6 @@ send-sync-response-event-order.htm: [fail-slow, not sure; sync is special]
 setrequestheader-content-type.htm: [fail-slow, we don't implement ReadableStream; also unsure we can get request() to send no content-type for ArrayBuffer]
 status-basic.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 sync-no-progress.any.html: [fail, Unknown]
-xmlhttprequest-sync-default-feature-policy.sub.html: [timeout, we don't support Feature Policy]
+sync-xhr-supported-by-feature-policy.html: [fail, We don't support Feature Policy]
+xmlhttprequest-sync-default-feature-policy.sub.html: [timeout, We don't support Feature Policy]
 xmlhttprequest-timeout-**: [timeout, Needs Worker implementation / Unknown]

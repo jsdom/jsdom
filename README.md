@@ -334,7 +334,7 @@ dom.window.ran === 3;
 
 This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
 
-`runVMScript()` also takes an `options` object as its second argument. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options) for details. (This functionality does not work when [using jsdom in a web browser](running-jsdom-inside-a-web-browser).)
+`runVMScript()` also takes an `options` object as its second argument. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options) for details. (This functionality does not work when [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).)
 
 ### Reconfiguring the jsdom with `reconfigure(settings)`
 
@@ -487,22 +487,6 @@ If you do not control the page, you could try workarounds such as polling for th
 
 For more details, see the discussion in [#640](https://github.com/jsdom/jsdom/issues/640), especially [@matthewkastor](https://github.com/matthewkastor)'s [insightful comment](https://github.com/jsdom/jsdom/issues/640#issuecomment-22216965).
 
-### Shared constructors and prototypes
-
-At the present time, for most web platform APIs, jsdom shares the same class definition between multiple seemingly-independent jsdoms. That means that, for example, the following situation can occur:
-
-```js
-const dom1 = new JSDOM();
-const dom2 = new JSDOM();
-
-dom1.window.Element.prototype.expando = "blah";
-console.log(dom2.window.document.createElement("frameset").expando); // logs "blah"
-```
-
-This is done mainly for performance and memory reasons: creating separate copies of all the many classes on the web platform, each time we create a jsdom, would be rather expensive.
-
-Nevertheless, we remain interested in one day providing an option to create an "independent" jsdom, at the cost of some performance.
-
 ### Unimplemented parts of the web platform
 
 Although we enjoy adding new features to jsdom and keeping it up to date with the latest web specs, it has many missing APIs. Please feel free to file an issue for anything missing, but we're a small and busy team, so a pull request might work even better.
@@ -515,6 +499,13 @@ Beyond just features that we haven't gotten to yet, there are two major features
 Currently jsdom has dummy behaviors for some aspects of these features, such as sending a "not implemented" `"jsdomError"` to the virtual console for navigation, or returning zeros for many layout-related properties. Often you can work around these limitations in your code, e.g. by creating new `JSDOM` instances for each page you "navigate" to during a crawl, or using `Object.defineProperty()` to change what various layout-related getters and methods return.
 
 Note that other tools in the same space, such as PhantomJS, do support these features. On the wiki, we have a more complete writeup about [jsdom vs. PhantomJS](https://github.com/jsdom/jsdom/wiki/jsdom-vs.-PhantomJS).
+
+## Supporting jsdom
+
+jsdom is a community-driven project maintained by a team of [volunteers](https://github.com/orgs/jsdom/people). You could support jsdom by:
+
+- [Getting professional support for jsdom](https://tidelift.com/subscription/pkg/npm-jsdom?utm_source=npm-jsdom&utm_medium=referral&utm_campaign=readme) as part of a Tidelift subscription. Tidelift helps making open source sustainable for us while giving teams assurances for maintenance, licensing, and security.
+- [Contributing](https://github.com/jsdom/jsdom/blob/master/Contributing.md) directly to the project.
 
 ## Getting help
 

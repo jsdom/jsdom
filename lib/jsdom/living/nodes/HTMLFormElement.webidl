@@ -20,6 +20,7 @@ interface HTMLFormElement : HTMLElement {
 //  getter (RadioNodeList or Element) (DOMString name);
 
   void submit();
+  void requestSubmit(optional HTMLElement submitter);
   [CEReactions] void reset();
   boolean checkValidity();
   boolean reportValidity();

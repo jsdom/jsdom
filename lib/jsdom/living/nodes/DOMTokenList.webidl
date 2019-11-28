@@ -1,7 +1,7 @@
 [Exposed=Window]
 interface DOMTokenList {
   readonly attribute unsigned long length;
-  [WebIDL2JSValueAsUnsupported=null] getter DOMString? item(unsigned long index);
+  [WebIDL2JSValueAsUnsupported=_null] getter DOMString? item(unsigned long index);
   boolean contains(DOMString token);
   [CEReactions] void add(DOMString... tokens);
   [CEReactions] void remove(DOMString... tokens);

@@ -1,8 +1,7 @@
-[NoInterfaceObject,
- Exposed=Window]
-interface NonDocumentTypeChildNode {
+// https://dom.spec.whatwg.org/#nondocumenttypechildnode
+interface mixin NonDocumentTypeChildNode {
   readonly attribute Element? previousElementSibling;
   readonly attribute Element? nextElementSibling;
 };
-Element implements NonDocumentTypeChildNode;
-CharacterData implements NonDocumentTypeChildNode;
+Element includes NonDocumentTypeChildNode;
+CharacterData includes NonDocumentTypeChildNode;

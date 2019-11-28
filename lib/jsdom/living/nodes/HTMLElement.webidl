@@ -1,32 +1,31 @@
+// https://html.spec.whatwg.org/#htmlelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLElement : Element {
   // metadata attributes
   [CEReactions, Reflect] attribute DOMString title;
   [CEReactions, Reflect] attribute DOMString lang;
-//  [CEReactions] attribute boolean translate;
+  [CEReactions] attribute boolean translate;
   [CEReactions] attribute DOMString dir;
-  [SameObject] readonly attribute DOMStringMap dataset;
 
   // user interaction
   [CEReactions, Reflect] attribute boolean hidden;
   void click();
-  [CEReactions] attribute long tabIndex;
-//  We don't support FocusOptions yet
-//  void focus(optional FocusOptions options);
-  void focus();
-  void blur();
   [CEReactions, Reflect] attribute DOMString accessKey;
 //  readonly attribute DOMString accessKeyLabel;
   [CEReactions] attribute boolean draggable;
 //  [CEReactions] attribute boolean spellcheck;
+//  [CEReactions] attribute DOMString autocapitalize;
 
 //  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString innerText;
+
+//  ElementInternals attachInternals();
 };
 
-HTMLElement implements GlobalEventHandlers;
-// HTMLElement implements DocumentAndElementEventHandlers;
-HTMLElement implements ElementContentEditable;
+HTMLElement includes GlobalEventHandlers;
+// HTMLElement includes DocumentAndElementEventHandlers;
+HTMLElement includes ElementContentEditable;
+HTMLElement includes HTMLOrSVGElement;
 
 // https://drafts.csswg.org/cssom-view/#extensions-to-the-htmlelement-interface
 partial interface HTMLElement {

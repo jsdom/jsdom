@@ -14,7 +14,7 @@ interface HTMLSelectElement : HTMLElement {
 
   [SameObject] readonly attribute HTMLOptionsCollection options;
   [CEReactions] attribute unsigned long length;
-  [WebIDL2JSValueAsUnsupported=null] getter Element? item(unsigned long index);
+  [WebIDL2JSValueAsUnsupported=_null] getter Element? item(unsigned long index);
   HTMLOptionElement? namedItem(DOMString name);
   [CEReactions] void add((HTMLOptionElement or HTMLOptGroupElement) element, optional (HTMLElement or long)? before = null);
   [CEReactions] void remove(); // ChildNode overload
