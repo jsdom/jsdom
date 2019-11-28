@@ -26,6 +26,7 @@
     "cssom": "^0.3.4",
     "cssstyle": "^1.1.1",
     "data-urls": "^1.1.0",
+    "decimal.js": "^10.2.0",
     "domexception": "^1.0.1",
     "escodegen": "^1.11.0",
     "html-encoding-sniffer": "^1.0.2",
