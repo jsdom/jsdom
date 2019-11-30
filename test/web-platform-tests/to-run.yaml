@@ -15,7 +15,9 @@ file/send-file-form*: [fail, DataTransfer not implemented]
 filelist-section/filelist.html: [fail, function is not instanceof Function]
 historical.https.html: [fail, Needs Service Worker implementation]
 idlharness.html: [fail, URL.createObjectURL not implemented]
-reading-data-section/**: [timeout, Unknown]
+reading-data-section/FileReader-multiple-reads.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
+reading-data-section/filereader_events.any.html: [fail, Unknown]
+reading-data-section/filereader_result.html: [fail, Unknown]
 url/**: [timeout, blob URLs not implemented]
 
 ---
