@@ -191,6 +191,83 @@ describe("API: JSDOM class's methods", () => {
     });
   });
 
+  describe("compileFunction", () => {
+    it("should throw when runScripts is left as the default", () => {
+      const dom = new JSDOM();
+      const code = "this.ran = true;";
+
+      assert.throws(() => dom.compileFunction(code), TypeError);
+    });
+
+    it("should work when runScripts is set to \"outside-only\"", () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const code = "this.ran = true;";
+
+      const compiledFunction = dom.compileFunction(code);
+
+      assert.strictEqual(dom.window.ran, undefined);
+
+      compiledFunction();
+
+      assert.strictEqual(dom.window.ran, true);
+    });
+
+    it("should work when runScripts is set to \"dangerously\"", () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const code = "this.ran = true;";
+
+      const compiledFunction = dom.compileFunction(code);
+
+      assert.strictEqual(dom.window.ran, undefined);
+
+      compiledFunction();
+
+      assert.strictEqual(dom.window.ran, true);
+    });
+
+    it("should return the result of the invocation", () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const code = "return 5;";
+
+      const compiledFunction = dom.compileFunction(code);
+
+      const result = compiledFunction();
+
+      assert.strictEqual(result, 5);
+    });
+
+    it("should work with the same script multiple times", () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const code = "if (!this.ran) { this.ran = 0; } ++this.ran;";
+
+      const compiledFunction = dom.compileFunction(code);
+
+      compiledFunction();
+      compiledFunction();
+      compiledFunction();
+
+      assert.strictEqual(dom.window.ran, 3);
+    });
+
+    it("should allow passing through options", { skipIfBrowser: true }, () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const code = "throw new Error('some error')";
+
+      const compiledFunction = dom.compileFunction(code, [], { filename: "fakeFileName.js" });
+
+      let threw = false;
+
+      try {
+        compiledFunction();
+      } catch (err) {
+        threw = true;
+        assert.include(err.stack, "fakeFileName");
+      }
+
+      assert.strictEqual(threw, true);
+    });
+  });
+
   describe("reconfigure", () => {
     describe("windowTop", () => {
       it("should reconfigure the window.top property (tested from the outside)", () => {
