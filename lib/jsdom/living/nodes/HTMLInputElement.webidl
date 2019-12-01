@@ -36,12 +36,12 @@ interface HTMLInputElement : HTMLElement {
   [CEReactions] attribute DOMString type;
   [CEReactions, Reflect=value] attribute DOMString defaultValue;
   [CEReactions] attribute [TreatNullAs=EmptyString] DOMString value;
-//  attribute object? valueAsDate;
-//  attribute unrestricted double valueAsNumber;
+  attribute object? valueAsDate;
+  attribute unrestricted double valueAsNumber;
 //  [CEReactions] attribute unsigned long width;
 
-//  void stepUp(optional long n = 1);
-//  void stepDown(optional long n = 1);
+  void stepUp(optional long n = 1);
+  void stepDown(optional long n = 1);
 
   readonly attribute boolean willValidate;
   readonly attribute ValidityState validity;
