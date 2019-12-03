@@ -36,7 +36,7 @@ interface HTMLInputElement : HTMLElement {
   [CEReactions] attribute DOMString type;
   [CEReactions, Reflect=value] attribute DOMString defaultValue;
   [CEReactions] attribute [TreatNullAs=EmptyString] DOMString value;
-//  attribute object? valueAsDate;
+  attribute object? valueAsDate;
 //  attribute unrestricted double valueAsNumber;
 //  [CEReactions] attribute unsigned long width;
 
