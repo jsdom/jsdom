@@ -191,7 +191,6 @@ describe("htmlinputelement", () => {
       assert.equal(monthValueAsDate.getMilliseconds(), expectedValueForMonth.getMilliseconds());
 
 
-
       input.type = "week";
       input.valueAsDate = date;
       assert.equal(input.value, "2019-W49");
@@ -223,5 +222,4 @@ describe("htmlinputelement", () => {
       assert.equal(timeValueAsDate.getMilliseconds(), expectedValueForTime.getMilliseconds());
     }
   );
-
 });
