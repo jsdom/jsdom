@@ -54,4 +54,21 @@ describe("Living Helpers: dates-and-times.js", () => {
     assert.equal(timeResults.getSeconds(), timeExpectedResults.getSeconds());
     assert.equal(timeResults.getMilliseconds(), timeExpectedResults.getMilliseconds());
   });
+  specify("getWeekNumber from a date object", () => {
+    assert.deepEqual(utils.getWeekNumber(new Date(2019, 0, 1)), { year: 2019, week: 1 });
+    assert.deepEqual(utils.getWeekNumber(new Date(2019, 11, 25)), { year: 2019, week: 52 });
+    assert.deepEqual(utils.getWeekNumber(new Date(2019, 11, 31)), { year: 2020, week: 1 });
+  });
+  specify("getDateOfWeek from a week formatted string", () => {
+    const lastWeekDate = new Date(2019, 11, 23);
+    const firstWeekResults = utils.getDateOfWeek(52, 2019);
+    assert.equal(firstWeekResults.getFullYear(), lastWeekDate.getFullYear());
+    assert.equal(firstWeekResults.getMonth(), lastWeekDate.getMonth());
+    assert.equal(firstWeekResults.getDate(), lastWeekDate.getDate());
+    assert.equal(firstWeekResults.getHours(), lastWeekDate.getHours());
+    assert.equal(firstWeekResults.getMinutes(), lastWeekDate.getMinutes());
+    assert.equal(firstWeekResults.getSeconds(), lastWeekDate.getSeconds());
+    assert.equal(firstWeekResults.getMilliseconds(), lastWeekDate.getMilliseconds());
+    assert.equal(utils.getDateOfWeek(76, 2019), null);
+  });
 });
