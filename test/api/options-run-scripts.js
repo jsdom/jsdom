@@ -4,6 +4,7 @@ const { describe, it } = require("mocha-sugar-free");
 const { delay } = require("../util.js");
 
 const { JSDOM, VirtualConsole } = require("../..");
+const jsGlobals = require("../../lib/jsdom/browser/js-globals.json");
 
 describe("API: runScripts constructor option", () => {
   describe("<script>s and eval()", () => {
@@ -13,7 +14,6 @@ describe("API: runScripts constructor option", () => {
       </body>`);
 
       assert.strictEqual(dom.window.document.body.children.length, 1);
-      assert.strictEqual(dom.window.eval, undefined);
     });
 
     it("should not execute any scripts, even in iframes, by default (GH-1821)", () => {
@@ -25,7 +25,6 @@ describe("API: runScripts constructor option", () => {
       frameWindow.document.close();
 
       assert.strictEqual(dom.window.prop, undefined);
-      assert.strictEqual(frameWindow.eval, undefined);
     });
 
     it("should execute <script>s and eval when set to \"dangerously\"", () => {
@@ -90,6 +89,38 @@ describe("API: runScripts constructor option", () => {
 
       assert.strictEqual(dom.window.prop, "i was executed");
     });
+  });
+
+  describe("JS spec globals", () => {
+    it("should include aliased globals by default", () => {
+      // Sanity check that our global-generation process hasn't broken.
+      assert.include(jsGlobals, "TypeError");
+      assert.include(jsGlobals, "Math");
+      assert.include(jsGlobals, "Function");
+
+      const dom = new JSDOM();
+      for (const globalName of jsGlobals) {
+        assert.property(dom.window, globalName);
+        assert.strictEqual(Object.is(dom.window[globalName], global[globalName]), true, `${globalName} equality`);
+      }
+    });
+
+    for (const optionValue of ["outside-only", "dangerously"]) {
+      it(`should include fresh globals when set to "${optionValue}"`, () => {
+        const dom = new JSDOM(undefined, { runScripts: optionValue });
+        for (const globalName of jsGlobals) {
+          assert.property(dom.window, globalName);
+          assert.equal(typeof dom.window[globalName], typeof global[globalName], `${globalName} typeof`);
+          if (isObject(global[globalName])) {
+            assert.strictEqual(
+              Object.is(dom.window[globalName], global[globalName]),
+              false,
+              `${globalName} inequality`
+            );
+          }
+        }
+      });
+    }
   });
 
   describe("event handlers", () => {
@@ -470,4 +501,8 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
 
 function formatOptionValue(optionValue) {
   return typeof optionValue === "string" ? `"${optionValue}"` : optionValue;
+}
+
+function isObject(value) {
+  return typeof value === "function" || (typeof value === "object" && value !== null);
 }
