@@ -157,7 +157,7 @@ describe("htmlinputelement", () => {
   specify(
     "input types that accepts valueAsDate shoutld be able to handle setting and getting it correctly",
     () => {
-      const date = new Date("Mon Dec 05 2019 08:15:00 GMT+0200 (Eastern European Standard Time)");
+      const date = new Date(2019, 11, 5, 8, 15);
 
       const input = (new JSDOM()).window.document.createElement("input");
       input.type = "date";
@@ -165,7 +165,7 @@ describe("htmlinputelement", () => {
       assert.equal(input.value, "2019-12-05");
 
       const dateInputValueAsDate = input.valueAsDate;
-      const expectedValueForDate = new Date("Mon Dec 05 2019 02:00:00 GMT+0200 (Eastern European Standard Time)");
+      const expectedValueForDate = new Date(2019, 11, 5,2);
       assert.equal(dateInputValueAsDate.getFullYear(), expectedValueForDate.getFullYear());
       assert.equal(dateInputValueAsDate.getMonth(), expectedValueForDate.getMonth());
       assert.equal(dateInputValueAsDate.getDate(), expectedValueForDate.getDate());
@@ -180,7 +180,7 @@ describe("htmlinputelement", () => {
       assert.equal(input.value, "2019-12");
 
       const monthValueAsDate = input.valueAsDate;
-      const expectedValueForMonth = new Date("Sun Dec 01 2019 02:00:00 GMT+0200 (Eastern European Standard Time)");
+      const expectedValueForMonth = new Date(2019, 11, 1);
 
       assert.equal(monthValueAsDate.getFullYear(), expectedValueForMonth.getFullYear());
       assert.equal(monthValueAsDate.getMonth(), expectedValueForMonth.getMonth());
@@ -191,12 +191,13 @@ describe("htmlinputelement", () => {
       assert.equal(monthValueAsDate.getMilliseconds(), expectedValueForMonth.getMilliseconds());
 
 
+
       input.type = "week";
       input.valueAsDate = date;
       assert.equal(input.value, "2019-W49");
 
       const weekValueAsDate = input.valueAsDate;
-      const expectedValueForWeek = new Date("Mon Dec 02 2019 00:00:00 GMT+0200 (Eastern European Standard Time)");
+      const expectedValueForWeek = new Date(2019, 11, 2);
 
       assert.equal(weekValueAsDate.getFullYear(), expectedValueForWeek.getFullYear());
       assert.equal(weekValueAsDate.getMonth(), expectedValueForWeek.getMonth());
@@ -211,7 +212,7 @@ describe("htmlinputelement", () => {
       assert.equal(input.value, "08:15");
 
       const timeValueAsDate = input.valueAsDate;
-      const expectedValueForTime = new Date("Thu Jan 01 1970 08:15:00 GMT+0200 (Eastern European Standard Time)");
+      const expectedValueForTime = new Date(1970, 0, 1, 8, 15);
 
       assert.equal(timeValueAsDate.getFullYear(), expectedValueForTime.getFullYear());
       assert.equal(timeValueAsDate.getMonth(), expectedValueForTime.getMonth());
