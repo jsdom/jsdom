@@ -165,7 +165,7 @@ describe("htmlinputelement", () => {
       assert.equal(input.value, "2019-12-05");
 
       const dateInputValueAsDate = input.valueAsDate;
-      const expectedValueForDate = new Date(2019, 11, 5, 2);
+      const expectedValueForDate = new Date(2019, 11, 5);
       assert.equal(dateInputValueAsDate.getFullYear(), expectedValueForDate.getFullYear());
       assert.equal(dateInputValueAsDate.getMonth(), expectedValueForDate.getMonth());
       assert.equal(dateInputValueAsDate.getDate(), expectedValueForDate.getDate());
