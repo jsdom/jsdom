@@ -4,7 +4,7 @@ const { describe, it } = require("mocha-sugar-free");
 const { delay } = require("../util.js");
 
 const { JSDOM, VirtualConsole } = require("../..");
-const jsGlobals = require("../../lib/jsdom/browser/js-globals.json");
+const jsGlobals = Object.keys(require("../../lib/jsdom/browser/js-globals.json"));
 
 describe("API: runScripts constructor option", () => {
   describe("<script>s and eval()", () => {
@@ -100,8 +100,7 @@ describe("API: runScripts constructor option", () => {
 
       const dom = new JSDOM();
       for (const globalName of jsGlobals) {
-        assert.property(dom.window, globalName);
-        assert.strictEqual(Object.is(dom.window[globalName], global[globalName]), true, `${globalName} equality`);
+        assertAliasedGlobal(dom.window, globalName);
       }
     });
 
@@ -109,15 +108,7 @@ describe("API: runScripts constructor option", () => {
       it(`should include fresh globals when set to "${optionValue}"`, () => {
         const dom = new JSDOM(undefined, { runScripts: optionValue });
         for (const globalName of jsGlobals) {
-          assert.property(dom.window, globalName);
-          assert.equal(typeof dom.window[globalName], typeof global[globalName], `${globalName} typeof`);
-          if (isObject(global[globalName])) {
-            assert.strictEqual(
-              Object.is(dom.window[globalName], global[globalName]),
-              false,
-              `${globalName} inequality`
-            );
-          }
+          assertFreshGlobal(dom.window, globalName);
         }
       });
     }
@@ -505,4 +496,28 @@ function formatOptionValue(optionValue) {
 
 function isObject(value) {
   return typeof value === "function" || (typeof value === "object" && value !== null);
+}
+
+function assertAliasedGlobal(window, globalName) {
+  const windowPropDesc = Object.getOwnPropertyDescriptor(window);
+  const globalPropDesc = Object.getOwnPropertyDescriptor(global);
+
+  assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value`);
+  assert.strictEqual(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
+  assert.strictEqual(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
+  assert.strictEqual(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
+}
+
+function assertFreshGlobal(window, globalName) {
+  const windowPropDesc = Object.getOwnPropertyDescriptor(window);
+  const globalPropDesc = Object.getOwnPropertyDescriptor(global);
+
+  if (isObject(globalPropDesc.value)) {
+    assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), false, `${globalName} value inequality`);
+  } else {
+    assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value equality`);
+  }
+  assert.strictEqual(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
+  assert.strictEqual(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
+  assert.strictEqual(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
 }
