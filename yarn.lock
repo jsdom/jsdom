@@ -4832,24 +4832,28 @@ wd@^1.11.2:
     request "2.88.0"
     vargs "^0.1.0"
 
-webidl-conversions@^4.0.0, webidl-conversions@^4.0.2:
+webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
+
+webidl-conversions@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-5.0.0.tgz#ae59c8a00b121543a2acc65c0434f57b0fc11aff"
+  integrity sha512-VlZwKPCkYKxQgeSbH5EyngOmRp7Ww7I9rQLERETtf5ofd9pGeswWiOtogpEO850jziPRarreGxn5QIiTqpb2wA==
 
 webidl2@^23.10.1:
   version "23.10.1"
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.10.1.tgz#2d2786fdff7b72c6b4a9a43e70f1611ded8ec8e6"
   integrity sha512-SK/KzMGgkPLN73HNqyU9tWPduireSzV6p/WAsmYYweI/ED19FC8+ymsi2InMX80+VjSvsfc3vA7UbMjXYWNPhA==
 
-webidl2js@^11.0.0:
+webidl2js@jsdom/webidl2js#master:
   version "11.0.0"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-11.0.0.tgz#102fc91f4b4a73d4b40648f46fb85e7e9ea7e490"
-  integrity sha512-Kv+WVa6i/eXtcvO+SJGULu91CjQE3befNq+kBcaYvIHCTttczK2RxxzZqc+fA9r76tVr0HCe0kYlpfvIlSCbsg==
+  resolved "https://codeload.github.com/jsdom/webidl2js/tar.gz/33b4f5201b3e1a01afd09a29ba4c08712bd7982a"
   dependencies:
     pn "^1.1.0"
     prettier "^1.19.1"
-    webidl-conversions "^4.0.0"
+    webidl-conversions "^5.0.0"
     webidl2 "^23.10.1"
 
 whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.5:
