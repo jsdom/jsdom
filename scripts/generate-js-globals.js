@@ -15,6 +15,9 @@ const globals = vm.runInContext("Object.getOwnPropertyNames(this)", context);
 
 // I guess VM contexts have a console, from V8? That isn't a JS global and JSDOM will install its own, so don't include
 // that.
-globals.splice(globals.indexOf("console"), 1);
+const consoleIndex = globals.indexOf("console");
+if (consoleIndex !== -1) {
+  globals.splice(consoleIndex, 1);
+}
 
-fs.writeFileSync(dest, JSON.stringify(globals, undefined, 2));
+fs.writeFileSync(dest, JSON.stringify(globals, undefined, 2) + "\n");
