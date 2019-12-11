@@ -65,7 +65,6 @@ testMatched("outOfRange\u{fffd}", "#outOfRange\\555555");
 testMatched("outOfRange\u{fffd}", "#outOfRange\\ffffff");
 
 // - escape EOF
-testMatched("eof\u{fffd}", "#eof\\");
 testNeverMatched("eof\\", "#eof\\");
 
 // - escape anythong else

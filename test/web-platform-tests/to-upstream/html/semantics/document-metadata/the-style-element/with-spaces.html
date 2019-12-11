@@ -20,6 +20,8 @@
 <script>
 "use strict";
 
+setup({ single_test: true });
+
 const el = document.querySelector(".cool-class");
 assert_equals(window.getComputedStyle(el).fontFamily, `"Helvetica Neue", Helvetica, Arial, sans-serif`);
 
