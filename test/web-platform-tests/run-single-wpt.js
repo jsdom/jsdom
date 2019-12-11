@@ -113,7 +113,9 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
               window.close();
             });
 
-            if (harnessStatus.status === 2) {
+            if (harnessStatus.status === harnessStatus.ERROR) {
+              errors.push(new Error(`test harness should not error: ${testPath}\n${harnessStatus.message}`));
+            } else if (harnessStatus.status === harnessStatus.TIMEOUT) {
               errors.push(new Error(`test harness should not timeout: ${testPath}`));
             }
 
