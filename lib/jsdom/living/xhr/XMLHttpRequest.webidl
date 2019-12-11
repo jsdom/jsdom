@@ -1,3 +1,8 @@
+// https://fetch.spec.whatwg.org/#bodyinit
+// TODO: Add support for URLSearchParams or ReadableStream
+typedef (Blob or BufferSource or FormData /* or URLSearchParams or ReadableStream */ or USVString) BodyInit;
+
+// https://xhr.spec.whatwg.org/#xmlhttprequestresponsetype
 enum XMLHttpRequestResponseType {
   "",
   "arraybuffer",
@@ -7,6 +12,7 @@ enum XMLHttpRequestResponseType {
   "text"
 };
 
+// https://xhr.spec.whatwg.org/#xmlhttprequest
 [Constructor,
  Exposed=(Window,DedicatedWorker,SharedWorker)]
 interface XMLHttpRequest : XMLHttpRequestEventTarget {
