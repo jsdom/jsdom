@@ -4847,9 +4847,10 @@ webidl2@^23.10.1:
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.10.1.tgz#2d2786fdff7b72c6b4a9a43e70f1611ded8ec8e6"
   integrity sha512-SK/KzMGgkPLN73HNqyU9tWPduireSzV6p/WAsmYYweI/ED19FC8+ymsi2InMX80+VjSvsfc3vA7UbMjXYWNPhA==
 
-webidl2js@jsdom/webidl2js#master:
-  version "11.0.0"
-  resolved "https://codeload.github.com/jsdom/webidl2js/tar.gz/33b4f5201b3e1a01afd09a29ba4c08712bd7982a"
+webidl2js@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-12.0.0.tgz#974b48f1fda5b24669a0ed4bdc4c9849ca2e81b9"
+  integrity sha512-81Dpw+91iCOIi81ygTUKrH5mHyueglfR0Z3DSiTtW9xDq8ZFrAnqb3ifXaiBBqE02YUlhpJBnblmE3njvTf2Og==
   dependencies:
     pn "^1.1.0"
     prettier "^1.19.1"
