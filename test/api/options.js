@@ -193,50 +193,6 @@ describe("API: constructor options", () => {
 
       assert.strictEqual(windowPassed, dom.window);
     });
-
-    it("should not have built-ins on the window by default", () => {
-      let windowPassed;
-
-      const dom = new JSDOM(``, {
-        beforeParse(window) {
-          assert.strictEqual(window.Array, undefined);
-
-          windowPassed = window;
-        }
-      });
-
-      assert.strictEqual(windowPassed, dom.window);
-    });
-
-    it("should have built-ins on the window when running scripts outside-only", () => {
-      let windowPassed;
-
-      const dom = new JSDOM(``, {
-        runScripts: "outside-only",
-        beforeParse(window) {
-          assert.typeOf(window.Array, "function");
-
-          windowPassed = window;
-        }
-      });
-
-      assert.strictEqual(windowPassed, dom.window);
-    });
-
-    it("should have built-ins on the window when running scripts dangerously", () => {
-      let windowPassed;
-
-      const dom = new JSDOM(``, {
-        runScripts: "dangerously",
-        beforeParse(window) {
-          assert.typeOf(window.Array, "function");
-
-          windowPassed = window;
-        }
-      });
-
-      assert.strictEqual(windowPassed, dom.window);
-    });
   });
 
   describe("pretendToBeVisual", () => {
