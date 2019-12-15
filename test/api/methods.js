@@ -213,7 +213,7 @@ describe("API: JSDOM class's methods", () => {
     });
 
     it("should work when runScripts is set to \"dangerously\"", () => {
-      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const dom = new JSDOM(``, { runScripts: "dangerously" });
       const code = "this.ran = true;";
 
       const compiledFunction = dom.compileFunction(code);
