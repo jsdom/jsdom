@@ -135,75 +135,19 @@ describe("API: JSDOM class's methods", () => {
     });
   });
 
-  describe("runVMScript", () => {
-    it("should throw when runScripts is left as the default", () => {
-      const dom = new JSDOM();
-      const script = new vm.Script("this.ran = true;");
-
-      assert.throws(() => dom.runVMScript(script), TypeError);
-
-      assert.strictEqual(dom.window.ran, undefined);
-    });
-
-    it("should work when runScripts is set to \"outside-only\"", () => {
-      const dom = new JSDOM(``, { runScripts: "outside-only" });
-      const script = new vm.Script("this.ran = true;");
-
-      dom.runVMScript(script);
-
-      assert.strictEqual(dom.window.ran, true);
-    });
-
-    it("should work when runScripts is set to \"dangerously\"", () => {
-      const dom = new JSDOM(``, { runScripts: "dangerously" });
-      const script = new vm.Script("this.ran = true;");
-
-      dom.runVMScript(script);
-
-      assert.strictEqual(dom.window.ran, true);
-    });
-
-    it("should return the result of the evaluation", () => {
-      const dom = new JSDOM(``, { runScripts: "outside-only" });
-      const script = new vm.Script("5;");
-
-      const result = dom.runVMScript(script);
-
-      assert.strictEqual(result, 5);
-    });
-
-    it("should work with the same script multiple times", () => {
-      const dom = new JSDOM(``, { runScripts: "outside-only" });
-      const script = new vm.Script("if (!this.ran) { this.ran = 0; } ++this.ran;");
-
-      dom.runVMScript(script);
-      dom.runVMScript(script);
-      dom.runVMScript(script);
-
-      assert.strictEqual(dom.window.ran, 3);
-    });
-
-    it("should allow passing through options", { skipIfBrowser: true }, () => {
-      const dom = new JSDOM(``, { runScripts: "outside-only" });
-      const script = new vm.Script("while(true) {}");
-
-      assert.throws(() => dom.runVMScript(script, { timeout: 50 }), /Script execution timed out(?: after 50ms|\.)/);
-    });
-  });
-
-  describe("compileFunction", () => {
+  describe("compileVMFunction", () => {
     it("should throw when runScripts is left as the default", () => {
       const dom = new JSDOM();
       const code = "this.ran = true;";
 
-      assert.throws(() => dom.compileFunction(code), TypeError);
+      assert.throws(() => dom.compileVMFunction(code), TypeError);
     });
 
     it("should work when runScripts is set to \"outside-only\"", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "this.ran = true;";
 
-      const compiledFunction = dom.compileFunction(code);
+      const compiledFunction = dom.compileVMFunction(code);
 
       assert.strictEqual(dom.window.ran, undefined);
 
@@ -216,7 +160,7 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "dangerously" });
       const code = "this.ran = true;";
 
-      const compiledFunction = dom.compileFunction(code);
+      const compiledFunction = dom.compileVMFunction(code);
 
       assert.strictEqual(dom.window.ran, undefined);
 
@@ -229,7 +173,7 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "return 5;";
 
-      const compiledFunction = dom.compileFunction(code);
+      const compiledFunction = dom.compileVMFunction(code);
 
       const result = compiledFunction();
 
@@ -240,7 +184,7 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "if (!this.ran) { this.ran = 0; } ++this.ran;";
 
-      const compiledFunction = dom.compileFunction(code);
+      const compiledFunction = dom.compileVMFunction(code);
 
       compiledFunction();
       compiledFunction();
@@ -253,7 +197,7 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "throw new Error('some error')";
 
-      const compiledFunction = dom.compileFunction(code, [], { filename: "fakeFileName.js" });
+      const compiledFunction = dom.compileVMFunction(code, [], { filename: "fakeFileName.js" });
 
       let threw = false;
 

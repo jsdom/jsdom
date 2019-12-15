@@ -104,7 +104,7 @@ This is turned off by default for performance reasons, but is safe to enable.
 
 Note that we strongly advise against trying to "execute scripts" by mashing together the jsdom and Node global environments (e.g. by doing `global.window = dom.window`), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using `window.eval` or `runScripts: "dangerously"`. This might require, for example, creating a browserify bundle to execute as a `<script>` element—just like you would in a browser.
 
-Finally, for advanced use cases you can use the `dom.runVMScript(script)` or `dom.compileFunction(code)` methods, documented below.
+Finally, for advanced use cases you can use the `dom.compileVMFunction(code)` method, documented below.
 
 ### Pretending to be a visual browser
 
@@ -309,40 +309,11 @@ console.log(dom.nodeLocation(imgEl));    // { startOffset: 13, endOffset: 32 }
 
 Note that this feature only works if you have set the `includeNodeLocations` option; node locations are off by default for performance reasons.
 
-### Running vm-created scripts with `runVMScript(script[, options])`
+### Compiling a function with `compileVMFunction(code[, params[, options]])`
 
-The built-in `vm` module of Node.js allows you to create `Script` instances, which can be compiled ahead of time and then run multiple times on a given "VM context". Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `runVMScript()` method:
-
-```js
-const { Script } = require("vm");
-
-const dom = new JSDOM(``, { runScripts: "outside-only" });
-const s = new Script(`
-  if (!this.ran) {
-    this.ran = 0;
-  }
-
-  ++this.ran;
-`);
-
-dom.runVMScript(s);
-dom.runVMScript(s);
-dom.runVMScript(s);
-
-dom.window.ran === 3;
-```
-
-This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
-
-`runVMScript()` also takes an `options` object as its second argument. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options) for details. (This functionality does not work when [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).)
-
-### Compiling a function with `compileFunction(code[, params[, options]])`
-
-The built-in `vm` module of Node.js allows you to compile functions ahead of time within a "VM Context", which can then run multiple times. Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `compileFunction()` method:
+The built-in `vm` module of Node.js allows you to compile functions ahead of time within a "VM Context", which can then run multiple times. Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `compileVMFunction()` method:
 
 ```js
-const { Script } = require("vm");
-
 const dom = new JSDOM(``, { runScripts: "outside-only" });
 const c = `
   if (!this.ran) {
@@ -352,7 +323,7 @@ const c = `
   ++this.ran;
 `;
 
-const compiledCode = dom.compileFunction(c)
+const compiledCode = dom.compileVMFunction(c)
 
 compiledCode();
 compiledCode();
@@ -361,7 +332,7 @@ compiledCode();
 dom.window.ran === 3;
 ```
 
-`compileFunction`, like `runVMScript` documented above, is advanced functionality, and you probably don't need to use it.
+This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
 
 `compileFunction()` also takes the `param` and `options` arguments. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_vm_compilefunction_code_params_options) for details. (This functionality does not work when [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).)
 
