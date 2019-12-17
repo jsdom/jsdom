@@ -1,4 +1,5 @@
 "use strict";
+const vm = require("vm");
 const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
 
@@ -217,6 +218,16 @@ describe("API: JSDOM class's methods", () => {
       const doubleFunction = dom.compileVMFunction(c, ['input'])
 
       assert.strictEqual(doubleFunction(2), 4);
+    });
+
+    it("should throw if passed a parsingContext", { skipIfBrowser: true }, () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const c = 'return input * 2;'
+
+      assert.throws(
+        () => dom.compileVMFunction(c, [], {parsingContext: vm.createContext()}),
+        'You cannot pass a parsing context to compileVMFunction'
+      );
     });
   });
 
