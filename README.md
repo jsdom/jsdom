@@ -332,6 +332,19 @@ compiledCode();
 dom.window.ran === 3;
 ```
 
+You can also pass arguments.
+
+```js
+const dom = new JSDOM(``, { runScripts: "outside-only" });
+const c = `
+  return input * 2;
+`;
+
+const doubleFunction = dom.compileVMFunction(c, ['input'])
+
+doubleFunction(2); // 4
+```
+
 This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
 
 `compileFunction()` also takes the `param` and `options` arguments. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_vm_compilefunction_code_params_options) for details. (This functionality does not work when [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).)

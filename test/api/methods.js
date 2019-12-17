@@ -209,6 +209,15 @@ describe("API: JSDOM class's methods", () => {
 
       assert.strictEqual(threw, true);
     });
+
+    it("should allow passing through arguments", { skipIfBrowser: true }, () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const c = 'return input * 2;'
+
+      const doubleFunction = dom.compileVMFunction(c, ['input'])
+
+      assert.strictEqual(doubleFunction(2), 4);
+    });
   });
 
   describe("reconfigure", () => {
