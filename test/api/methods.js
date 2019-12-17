@@ -1,5 +1,4 @@
 "use strict";
-const vm = require("vm");
 const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
 
