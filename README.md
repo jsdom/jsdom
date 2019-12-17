@@ -340,7 +340,7 @@ const c = `
   return input * 2;
 `;
 
-const doubleFunction = dom.compileVMFunction(c, ['input'])
+const doubleFunction = dom.compileVMFunction(c, ["input"])
 
 doubleFunction(2); // 4
 ```
