@@ -136,14 +136,14 @@ describe("API: JSDOM class's methods", () => {
   });
 
   describe("compileVMFunction", () => {
-    it("should throw when runScripts is left as the default", () => {
+    it("should throw when runScripts is left as the default", { skipIfBrowser: true }, () => {
       const dom = new JSDOM();
       const code = "this.ran = true;";
 
       assert.throws(() => dom.compileVMFunction(code), TypeError);
     });
 
-    it("should work when runScripts is set to \"outside-only\"", () => {
+    it("should work when runScripts is set to \"outside-only\"", { skipIfBrowser: true }, () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "this.ran = true;";
 
@@ -156,7 +156,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(dom.window.ran, true);
     });
 
-    it("should work when runScripts is set to \"dangerously\"", () => {
+    it("should work when runScripts is set to \"dangerously\"", { skipIfBrowser: true }, () => {
       const dom = new JSDOM(``, { runScripts: "dangerously" });
       const code = "this.ran = true;";
 
@@ -169,7 +169,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(dom.window.ran, true);
     });
 
-    it("should return the result of the invocation", () => {
+    it("should return the result of the invocation", { skipIfBrowser: true }, () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "return 5;";
 
@@ -180,7 +180,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(result, 5);
     });
 
-    it("should work with the same script multiple times", () => {
+    it("should work with the same script multiple times", { skipIfBrowser: true }, () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "if (!this.ran) { this.ran = 0; } ++this.ran;";
 
