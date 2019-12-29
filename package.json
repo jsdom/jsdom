@@ -26,7 +26,7 @@
     "cssom": "^0.4.4",
     "cssstyle": "^2.0.0",
     "data-urls": "^1.1.0",
-    "domexception": "^1.0.1",
+    "domexception": "^2.0.1",
     "escodegen": "^1.11.1",
     "html-encoding-sniffer": "^1.0.2",
     "nwsapi": "^2.2.0",
