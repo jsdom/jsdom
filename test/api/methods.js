@@ -135,15 +135,15 @@ describe("API: JSDOM class's methods", () => {
     });
   });
 
-  describe("compileVMFunction", () => {
-    it("should throw when runScripts is left as the default", { skipIfBrowser: true }, () => {
+  describe("compileVMFunction", { skipIfBrowser: true }, () => {
+    it("should throw when runScripts is left as the default", () => {
       const dom = new JSDOM();
       const code = "this.ran = true;";
 
       assert.throws(() => dom.compileVMFunction(code), TypeError);
     });
 
-    it("should work when runScripts is set to \"outside-only\"", { skipIfBrowser: true }, () => {
+    it("should work when runScripts is set to \"outside-only\"", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "this.ran = true;";
 
@@ -156,7 +156,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(dom.window.ran, true);
     });
 
-    it("should work when runScripts is set to \"dangerously\"", { skipIfBrowser: true }, () => {
+    it("should work when runScripts is set to \"dangerously\"", () => {
       const dom = new JSDOM(``, { runScripts: "dangerously" });
       const code = "this.ran = true;";
 
@@ -169,7 +169,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(dom.window.ran, true);
     });
 
-    it("should return the result of the invocation", { skipIfBrowser: true }, () => {
+    it("should return the result of the invocation", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "return 5;";
 
@@ -180,7 +180,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(result, 5);
     });
 
-    it("should work with the same script multiple times", { skipIfBrowser: true }, () => {
+    it("should work with the same script multiple times", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "if (!this.ran) { this.ran = 0; } ++this.ran;";
 
@@ -193,7 +193,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(dom.window.ran, 3);
     });
 
-    it("should allow passing through options", { skipIfBrowser: true }, () => {
+    it("should allow passing through options", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const code = "throw new Error('some error')";
 
@@ -211,7 +211,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(threw, true);
     });
 
-    it("should allow passing through arguments", { skipIfBrowser: true }, () => {
+    it("should allow passing through arguments", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const c = "return input * 2;";
 
@@ -220,7 +220,7 @@ describe("API: JSDOM class's methods", () => {
       assert.strictEqual(doubleFunction(2), 4);
     });
 
-    it("should throw if passed a parsingContext", { skipIfBrowser: true }, () => {
+    it("should throw if passed a parsingContext", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const c = "return input * 2;";
 
@@ -228,6 +228,20 @@ describe("API: JSDOM class's methods", () => {
         () => dom.compileVMFunction(c, [], { parsingContext: vm.createContext() }),
         "You cannot pass a parsing context to compileVMFunction"
       );
+    });
+
+    it("should not attempt to mutate the options object", () => {
+      const dom = new JSDOM(``, { runScripts: "outside-only" });
+      const options = Object.freeze({});
+
+      // This would throw if we tried to mutate options.
+      const compiledFunction = dom.compileVMFunction("this.ran = true;", undefined, options);
+
+      assert.strictEqual(dom.window.ran, undefined);
+
+      compiledFunction();
+
+      assert.strictEqual(dom.window.ran, true);
     });
   });
 

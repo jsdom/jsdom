@@ -5,7 +5,7 @@
 
 jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG [DOM](https://dom.spec.whatwg.org/) and [HTML](https://html.spec.whatwg.org/multipage/) Standards, for use with Node.js. In general, the goal of the project is to emulate enough of a subset of a web browser to be useful for testing and scraping real-world web applications.
 
-The latest versions of jsdom require Node.js v8 or newer. (Versions of jsdom below v12 still work with Node.js v6, but are unsupported.)
+The latest versions of jsdom require Node.js v10.10 or newer. (Versions of jsdom below v16 still work with previous Node.js versions, but are unsupported.)
 
 ## Basic usage
 
@@ -311,19 +311,17 @@ Note that this feature only works if you have set the `includeNodeLocations` opt
 
 ### Compiling a function with `compileVMFunction(code[, params[, options]])`
 
-The built-in `vm` module of Node.js allows you to compile functions ahead of time within a "VM Context", which can then run multiple times. Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `compileVMFunction()` method:
+The built-in `vm` module of Node.js allows you to compile functions ahead of time within a "VM context", which can then run multiple times. Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `compileVMFunction()` method:
 
 ```js
 const dom = new JSDOM(``, { runScripts: "outside-only" });
-const c = `
+const compiledCode = dom.compileVMFunction(`
   if (!this.ran) {
     this.ran = 0;
   }
 
   ++this.ran;
-`;
-
-const compiledCode = dom.compileVMFunction(c)
+`);
 
 compiledCode();
 compiledCode();
@@ -347,7 +345,9 @@ doubleFunction(2); // 4
 
 This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
 
-`compileFunction()` also takes the `param` and `options` arguments. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_vm_compilefunction_code_params_options) for details. (This functionality does not work when [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).)
+`compileFunction()` also takes the `param` and `options` arguments. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_vm_compilefunction_code_params_options) for details (although note that the `parsingContext` option cannot be supplied).
+
+Note that this functionality does not work when [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).
 
 ### Reconfiguring the jsdom with `reconfigure(settings)`
 
