@@ -1,6 +1,7 @@
-[Constructor, Exposed=(Window,Worker)]
+// https://w3c.github.io/FileAPI/#APIASynch
+[Exposed=(Window,Worker)]
 interface FileReader: EventTarget {
-
+  constructor();
   // async read methods
   void readAsArrayBuffer(Blob blob);
   void readAsBinaryString(Blob blob);

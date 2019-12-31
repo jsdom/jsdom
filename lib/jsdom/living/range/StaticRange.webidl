@@ -1,3 +1,4 @@
+// https://dom.spec.whatwg.org/#interface-staticrange
 dictionary StaticRangeInit {
   required Node startContainer;
   required unsigned long startOffset;
@@ -5,5 +6,7 @@ dictionary StaticRangeInit {
   required unsigned long endOffset;
 };
 
-[Constructor(StaticRangeInit init), Exposed=Window]
-interface StaticRange : AbstractRange {};
+[Exposed=Window]
+interface StaticRange : AbstractRange {
+  constructor(StaticRangeInit init);
+};

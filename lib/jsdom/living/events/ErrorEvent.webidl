@@ -1,5 +1,8 @@
-[Constructor(DOMString type, optional ErrorEventInit eventInitDict), Exposed=(Window,Worker)]
+// https://html.spec.whatwg.org/multipage/webappapis.html#the-errorevent-interface
+[Exposed=(Window,Worker)]
 interface ErrorEvent : Event {
+  constructor(DOMString type, optional ErrorEventInit eventInitDict = {});
+
   readonly attribute DOMString message;
   readonly attribute USVString filename;
   readonly attribute unsigned long lineno;

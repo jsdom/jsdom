@@ -1,6 +1,7 @@
-[Exposed=Window,
- Constructor(DOMString type, optional StorageEventInit eventInitDict)]
+// https://html.spec.whatwg.org/multipage/webstorage.html#the-storageevent-interface
+[Exposed=Window]
 interface StorageEvent : Event {
+  constructor(DOMString type, optional StorageEventInit eventInitDict = {});
   readonly attribute DOMString? key;
   readonly attribute DOMString? oldValue;
   readonly attribute DOMString? newValue;

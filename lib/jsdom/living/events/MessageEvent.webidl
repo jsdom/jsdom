@@ -1,5 +1,8 @@
-[Constructor(DOMString type, optional MessageEventInit eventInitDict), Exposed=(Window,Worker,AudioWorklet)]
+// https://html.spec.whatwg.org/multipage/comms.html#the-messageevent-interface
+[Exposed=(Window,Worker,AudioWorklet)]
 interface MessageEvent : Event {
+  constructor(DOMString type, optional MessageEventInit eventInitDict = {});
+
   readonly attribute any data;
   readonly attribute USVString origin;
   readonly attribute DOMString lastEventId;

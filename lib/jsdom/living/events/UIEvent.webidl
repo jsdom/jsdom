@@ -1,14 +1,18 @@
-[Constructor(DOMString type, optional UIEventInit eventInitDict), Exposed=Window]
+// https://w3c.github.io/uievents/#idl-uievent
+[Exposed=Window]
 interface UIEvent : Event {
+  constructor(DOMString type, optional UIEventInit eventInitDict = {});
   readonly attribute Window? view;
   readonly attribute long detail;
 };
 
+// https://w3c.github.io/uievents/#idl-uieventinit
 dictionary UIEventInit : EventInit {
   Window? view = null;
   long detail = 0;
 };
 
+// https://w3c.github.io/uievents/#event-modifier-initializers
 dictionary EventModifierInit : UIEventInit {
   boolean ctrlKey = false;
   boolean shiftKey = false;

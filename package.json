@@ -82,7 +82,7 @@
     "st": "^2.0.0",
     "watchify": "^3.11.1",
     "wd": "^1.11.2",
-    "webidl2js": "^12.0.0"
+    "webidl2js": "https://github.com/jsdom/webidl2js.git#master"
   },
   "browser": {
     "canvas": false,

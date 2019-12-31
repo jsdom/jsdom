@@ -1,5 +1,8 @@
-[Constructor(DOMString type, optional MouseEventInit eventInitDict), Exposed=Window]
+// https://w3c.github.io/uievents/#idl-mouseevent
+[Exposed=Window]
 interface MouseEvent : UIEvent {
+  constructor(DOMString type, optional MouseEventInit eventInitDict = {});
+
   readonly attribute long screenX;
   readonly attribute long screenY;
   readonly attribute long clientX;
@@ -18,6 +21,7 @@ interface MouseEvent : UIEvent {
   boolean getModifierState(DOMString keyArg);
 };
 
+// https://w3c.github.io/uievents/#idl-mouseeventinit
 dictionary MouseEventInit : EventModifierInit {
   long screenX = 0;
   long screenY = 0;
