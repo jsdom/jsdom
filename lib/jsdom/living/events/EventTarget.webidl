@@ -1,6 +1,8 @@
-[Constructor,
- Exposed=(Window,Worker,AudioWorklet)]
+// https://dom.spec.whatwg.org/#interface-eventtarget
+[Exposed=(Window,Worker,AudioWorklet)]
 interface EventTarget {
+  constructor();
+
   void addEventListener(DOMString type, EventListener? callback, optional (AddEventListenerOptions or boolean) options);
   void removeEventListener(DOMString type, EventListener? callback, optional (EventListenerOptions or boolean) options);
   boolean dispatchEvent(Event event);

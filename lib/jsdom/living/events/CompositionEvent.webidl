@@ -1,6 +1,8 @@
 // https://w3c.github.io/uievents/#interface-compositionevent
-[Constructor(DOMString type, optional CompositionEventInit eventInitDict), Exposed=Window]
+[Exposed=Window]
 interface CompositionEvent : UIEvent {
+  constructor(DOMString type, optional CompositionEventInit eventInitDict = {});
+
   readonly attribute DOMString data;
 };
 

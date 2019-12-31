@@ -1,5 +1,8 @@
-[Constructor(DOMString type, optional CloseEventInit eventInitDict), Exposed=(Window,Worker)]
+// https://html.spec.whatwg.org/multipage/web-sockets.html#the-closeevent-interface
+[Exposed=(Window,Worker)]
 interface CloseEvent : Event {
+  constructor(DOMString type, optional CloseEventInit eventInitDict);
+
   readonly attribute boolean wasClean;
   readonly attribute unsigned short code;
   readonly attribute USVString reason;

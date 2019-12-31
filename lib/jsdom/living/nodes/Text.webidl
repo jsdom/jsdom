@@ -1,7 +1,8 @@
 // https://dom.spec.whatwg.org/#text
-[Constructor(optional DOMString data = ""),
- Exposed=Window]
+[Exposed=Window]
 interface Text : CharacterData {
+  constructor(optional DOMString data = "");
+
   [NewObject] Text splitText(unsigned long offset);
   readonly attribute DOMString wholeText;
 };
