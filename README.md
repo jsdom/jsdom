@@ -104,7 +104,7 @@ This is turned off by default for performance reasons, but is safe to enable.
 
 Note that we strongly advise against trying to "execute scripts" by mashing together the jsdom and Node global environments (e.g. by doing `global.window = dom.window`), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using `window.eval` or `runScripts: "dangerously"`. This might require, for example, creating a browserify bundle to execute as a `<script>` element—just like you would in a browser.
 
-Finally, for advanced use cases you can use the `dom.runVMScript(script)` method, documented below.
+Finally, for advanced use cases you can use the `dom.getInternalVMContext()` method, documented below.
 
 ### Pretending to be a visual browser
 
@@ -309,15 +309,17 @@ console.log(dom.nodeLocation(imgEl));    // { startOffset: 13, endOffset: 32 }
 
 Note that this feature only works if you have set the `includeNodeLocations` option; node locations are off by default for performance reasons.
 
-### Running vm-created scripts with `runVMScript(script[, options])`
+### Interfacing with the Node.js `vm` module using `getInternalVMContext()`
 
-The built-in `vm` module of Node.js allows you to create `Script` instances, which can be compiled ahead of time and then run multiple times on a given "VM context". Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `runVMScript()` method:
+The built-in [`vm`](https://nodejs.org/api/vm.html) module of Node.js is what underpins jsdom's script-running magic. Some advanced use cases, like pre-compiling a script and then running it multiple times, benefit from using the `vm` module directly with a jsdom-created `Window`.
+
+To get access to the [contextified global object](https://nodejs.org/api/vm.html#vm_what_does_it_mean_to_contextify_an_object), suitable for use with the `vm` APIs, you can use the `getInternalVMContext()` method:
 
 ```js
 const { Script } = require("vm");
 
 const dom = new JSDOM(``, { runScripts: "outside-only" });
-const s = new Script(`
+const script = new Script(`
   if (!this.ran) {
     this.ran = 0;
   }
@@ -325,16 +327,18 @@ const s = new Script(`
   ++this.ran;
 `);
 
-dom.runVMScript(s);
-dom.runVMScript(s);
-dom.runVMScript(s);
+const vmContext = dom.getInternalVMContext();
 
-dom.window.ran === 3;
+script.runInContext(vmContext);
+script.runInContext(vmContext);
+script.runInContext(vmContext);
+
+console.assert(dom.window.ran === 3);
 ```
 
 This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
 
-`runVMScript()` also takes an `options` object as its second argument. See the [Node.js docs](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options) for details. (This functionality does not work when [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).)
+Note that this method will throw an exception if the `JSDOM` instance was created without `runScripts` set, or if you are [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).
 
 ### Reconfiguring the jsdom with `reconfigure(settings)`
 
