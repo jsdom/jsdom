@@ -1,5 +1,5 @@
 // https://fetch.spec.whatwg.org/#bodyinit
-// TODO: Add support for URLSearchParams or ReadableStream
+// TODO: Add support for URLSearchParams and ReadableStream
 typedef (Blob or BufferSource or FormData /* or URLSearchParams or ReadableStream */ or USVString) BodyInit;
 
 // https://xhr.spec.whatwg.org/#xmlhttprequestresponsetype
