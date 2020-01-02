@@ -1,7 +1,7 @@
 // https://dom.spec.whatwg.org/#interface-attr
 
 [Exposed=Window]
-interface Attr {
+interface Attr : Node {
   readonly attribute DOMString? namespaceURI;
   readonly attribute DOMString? prefix;
   readonly attribute DOMString localName;
