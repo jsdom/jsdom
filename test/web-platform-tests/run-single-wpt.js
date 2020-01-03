@@ -44,7 +44,7 @@ class CustomResourceLoader extends ResourceLoader {
       // When running to-upstream tests, the server doesn't have a /resources/ directory.
       // So, always go to the one in ./tests.
       // The path replacement accounts for a rewrite performed by the WPT server:
-      // https://github.com/w3c/web-platform-tests/blob/master/tools/serve/serve.py#L271
+      // https://github.com/web-platform-tests/wpt/blob/master/tools/serve/serve.py#L271
       const filePath = path.resolve(__dirname, "tests" + url.pathname)
         .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
 

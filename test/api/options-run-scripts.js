@@ -41,7 +41,7 @@ describe("API: runScripts constructor option", () => {
     });
 
     // In the browser, vm-shim uses Function() on the code to be evaluated, which inserts an extra first line. So we are
-    // always off by one there. See https://github.com/tmpvar/jsdom/issues/2004.
+    // always off by one there. See https://github.com/jsdom/jsdom/issues/2004.
     it("should execute <script>s with correct location when set to \"dangerously\" and " +
        "includeNodeLocations", { skipIfBrowser: true }, () => {
       const virtualConsole = new VirtualConsole();
