@@ -40,7 +40,7 @@ Other specs might pop up from time to time, especially in regard to CSS stuff. I
 
 ### Running the tests
 
-First you'll want to run `yarn` to install all dependencies. Then, configure your system to run the web platform tests as described in [their README](https://github.com/web-platform-tests/wpt/blob/master/README.md). If you can't get that set up correctly, the test runner will make a best-faith effort to run the tests hosted on http://w3c-test.org/, but this is pretty slow and fragile.
+First you'll want to run `yarn` to install all dependencies. Then, configure your system to run the web platform tests as described in [their README](https://github.com/web-platform-tests/wpt/blob/master/README.md).
 
 **To run all the tests:** `yarn test`
 
