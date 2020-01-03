@@ -7,7 +7,7 @@ const { JSDOM, VirtualConsole } = require("../..");
 const jsGlobals = Object.keys(require("../../lib/jsdom/browser/js-globals.json"));
 
 // Node 10 has a bug with the vm module that causes some global-related tests to fail.
-const hasNode10 = process.versions.node && Number(process.versions.node.split(".")[0]) >= 10;
+const hasNode10 = process.versions.node && Number(process.versions.node.split(".")[0]) === 10;
 
 
 describe("API: runScripts constructor option", () => {
