@@ -32,13 +32,13 @@ client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
 cors-safelisted-request-header.any.html: [fail, Depends on fetch]
 credentials-flag.htm: [needs-node12, Unknown]
 image-tainting-in-cross-origin-iframe.sub.html: [timeout, Unknown]
-origin.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
+origin.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 preflight-cache.htm: [timeout, Cache should probably be implemented for simple requests before]
 redirect-preflight-2.htm: [fail, Preflight should also be done before redirected requests but request module redirects cannot be paused while doing preflight]
 remote-origin.htm: [timeout, postMessage event does not contain source]
-response-headers.htm: [timeout, I don't find a spec about combining same value response headers; also https://github.com/tmpvar/jsdom/issues/1833]
+response-headers.htm: [timeout, I don't find a spec about combining same value response headers; also https://github.com/jsdom/jsdom/issues/1833]
 simple-requests-ch.tentative.htm: [fail, Client Hints not implemented]
-simple-requests.htm: [timeout, Maybe https://github.com/tmpvar/jsdom/issues/1833 but it fails locally too]
+simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 but it fails locally too]
 
 ---
 
@@ -815,7 +815,7 @@ script-onerror-insertion-point-1.html: [timeout, Unknown]
 script-onerror-insertion-point-2.html: [flaky]
 script-onload-insertion-point.html: [fail, Unknown]
 script-text-modifications.html: [fail, Unknown]
-script-type-and-language-js.html: [fail, Our script execution timing is off; see discussion in https://github.com/tmpvar/jsdom/pull/1406]
+script-type-and-language-js.html: [fail, Our script execution timing is off; see discussion in https://github.com/jsdom/jsdom/pull/1406]
 
 ---
 
@@ -869,7 +869,7 @@ serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/
 
 DIR: html/webappapis/animation-frames
 
-same-dispatch-time.html: [fail, Probably https://github.com/tmpvar/jsdom/pull/1994#discussion_r147567274]
+same-dispatch-time.html: [fail, Probably https://github.com/jsdom/jsdom/pull/1994#discussion_r147567274]
 
 ---
 
@@ -1018,7 +1018,7 @@ symbol-props.window.html: [fail, Unknown]
 
 DIR: xhr
 
-abort-after-stop.window.html: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
+abort-after-stop.window.html: [fail, https://github.com/web-platform-tests/wpt/issues/6942]
 abort-during-loading.window.html: [fail, Unknown]
 access-control-basic-allow-preflight-cache.any.html: [fail, Unknown]
 access-control-basic-non-cors-safelisted-content-type.htm: [fail, Unknown]
@@ -1049,7 +1049,7 @@ open-during-abort-processing.htm: [fail, Unknown]
 open-method-case-sensitive.htm: [fail-slow, request module forces upper case]
 open-send-during-abort.htm: [fail, Unknown]
 open-url-encoding.htm: [fail, URL parser should use the encoding of the document - https://bugzilla.mozilla.org/show_bug.cgi?id=1405696]
-open-url-multi-window-4.htm: [timeout, https://github.com/w3c/web-platform-tests/issues/6941]
+open-url-multi-window-4.htm: [timeout, https://github.com/web-platform-tests/wpt/issues/6941]
 open-url-multi-window-5.htm: [timeout, location.reload is not implemented]
 open-url-multi-window-6.htm: [timeout, Unknown]
 open-url-redirected-sharedworker-origin.htm: [fail, Needs Shared Worker implementation]
@@ -1064,8 +1064,8 @@ responseXML-unavailable-in-worker.html: [fail, Needs Worker implementation]
 responsedocument-decoding.htm: [fail, Unknown]
 responsetext-decoding.htm: [fail, Unknown]
 responsetype.any.html: [timeout, Unknown]
-responsexml-document-properties.htm: [fail, https://github.com/w3c/web-platform-tests/issues/2668]
-responsexml-media-type.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
+responsexml-document-properties.htm: [fail, https://github.com/web-platform-tests/wpt/issues/2668]
+responsexml-media-type.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 send-after-setting-document-domain.htm: [timeout, document.domain not implemented]
 send-authentication-competing-names-passwords.htm: [fail-slow, Unknown]
 send-authentication-cors-setrequestheader-no-cred.htm: [fail, Unknown]
@@ -1073,7 +1073,7 @@ send-blob-with-no-mime-type.html: [fail, Unknown]
 send-conditional-cors.htm: [timeout, Unknown]
 send-content-type-charset.htm: [fail-slow, bad test because not-yet-updated spec https://github.com/whatwg/xhr/issues/188]
 send-data-readablestream.any.html: [fail, ReadableStream not implemented]
-send-entity-body-document.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
+send-entity-body-document.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 send-entity-body-empty.htm: [fail, hard to get Node to not send Content-Length]
 send-entity-body-get-head-async.htm: [fail, hard to get Node to not send Content-Length]
 send-entity-body-get-head.htm: [fail, hard to get Node to not send Content-Length]
@@ -1084,7 +1084,7 @@ send-redirect.htm: [fail, request module remove content-type header on redirect]
 send-response-event-order.htm: [fail, why no readystatechange for headers received? Test seems wrong maybe?]
 send-sync-response-event-order.htm: [fail-slow, not sure; sync is special]
 setrequestheader-content-type.htm: [fail-slow, we don't implement ReadableStream; also unsure we can get request() to send no content-type for ArrayBuffer]
-status-basic.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
+status-basic.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 sync-no-progress.any.html: [fail, Unknown]
 sync-xhr-supported-by-feature-policy.html: [fail, We don't support Feature Policy]
 xmlhttprequest-sync-default-feature-policy.sub.html: [timeout, We don't support Feature Policy]

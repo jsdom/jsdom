@@ -257,7 +257,7 @@ Other changes:
 * Fixed one regression (since v11.6.0) in `<style>` elements, where their `sheet` property would sometimes be `null` when it should not be.
 * Fixed a case where a `<style>` element's `sheet` property would be left as a `CSSStyleSheet` despite it not being in the document.
 
-Another regression remains where we are emitting spurious CSS-parsing `jsdomError` events; see [#2123](https://github.com/tmpvar/jsdom/issues/2123). We also discovered a large amount of preexisting brokenness around `<style>`, `<link>`, and `@import`; see [#2124](https://github.com/tmpvar/jsdom/issues/2124) for more details.
+Another regression remains where we are emitting spurious CSS-parsing `jsdomError` events; see [#2123](https://github.com/jsdom/jsdom/issues/2123). We also discovered a large amount of preexisting brokenness around `<style>`, `<link>`, and `@import`; see [#2124](https://github.com/jsdom/jsdom/issues/2124) for more details.
 
 We'll try to fix these soon, especially the regression.
 
@@ -276,7 +276,7 @@ We'll try to fix these soon, especially the regression.
 * Fixed the firing of `popstate` and `hashchange` events during fragment navigation to make them trusted events.
 * Fixed `data:` URL parsing to not include the fragment portions.
 * Fixed all URL-accepting properties to properly perform [scalar value string conversion](https://infra.spec.whatwg.org/#javascript-string-convert) and URL resolution.
-* Fixed many other small edge-case conformance issues in the API surface of various web APIs; see [#2053](https://github.com/tmpvar/jsdom/pull/2053) and [#2081](https://github.com/tmpvar/jsdom/pull/2081) for more information.
+* Fixed many other small edge-case conformance issues in the API surface of various web APIs; see [#2053](https://github.com/jsdom/jsdom/pull/2053) and [#2081](https://github.com/jsdom/jsdom/pull/2081) for more information.
 * Fixed various APIs to use ASCII lowercasing, instead of Unicode lowercasing, for element and attribute names.
 * Fixed the encoding of a document created via `new Document()` to be UTF-8.
 * Fixed event handler properties behavior when given non-callable objects.
@@ -293,10 +293,10 @@ We'll try to fix these soon, especially the regression.
 
 ## 11.4.0
 
-For this release we'd like to welcome [@Zirro](https://github.com/tmpvar/jsdom/commits?author=Zirro) to the core team; his contributions over the course of this year have enhanced jsdom immensely.
+For this release we'd like to welcome [@Zirro](https://github.com/jsdom/jsdom/commits?author=Zirro) to the core team; his contributions over the course of this year have enhanced jsdom immensely.
 
 * Added a rudimentary set of SVG element classes, namely `SVGElement`, `SVGGraphicsElement`, `SVGSVGElement`, `SVGTests`, `SVGAnimatedString`, `SVGNumber`, and `SVGStringList`. The main impact here is that SVG elements are now instances of `SVGElement`, instead of being simply `Element` (as they were in v11.3.0) or `HTMLUnknownElement` (as they were in v11.2.0 and previously). The only concrete subclass that is implemented is `SVGSVGElement`, for `<svg>` itself; other tags will not map to their correct classes, because those classes are not yet implemented.
-* Added the new `pretendToBeVisual` option, which controls the presence of the new `requestAnimationFrame()` and `cancelAnimationFrame()` methods, and the new values of `document.hidden`/`document.visibilityState`. [See the README](https://github.com/tmpvar/jsdom#pretending-to-be-a-visual-browser) for more information. (SimenB)
+* Added the new `pretendToBeVisual` option, which controls the presence of the new `requestAnimationFrame()` and `cancelAnimationFrame()` methods, and the new values of `document.hidden`/`document.visibilityState`. [See the README](https://github.com/jsdom/jsdom#pretending-to-be-a-visual-browser) for more information. (SimenB)
 * Added the `append()` and `prepend()` methods to `Document`, `DocumentFragment`, and `Element`. (caub)
 * Added the `before()`, `after()`, and `replaceWith()` methods to `DocumentType`, `Element`, and `CharacterData`. (caub)
 * Added `node.isConnected`.
@@ -315,7 +315,7 @@ For this release we'd like to welcome [@Zirro](https://github.com/tmpvar/jsdom/c
 
 ## 11.3.0
 
-For this release we'd like to formally welcome [@TimothyGu](https://github.com/tmpvar/jsdom/commits?author=TimothyGu) to the core team, as a prolific contributor. He will join the illustrious ranks of those who do so much work on jsdom that we no longer note their names in the changelog.
+For this release we'd like to formally welcome [@TimothyGu](https://github.com/jsdom/jsdom/commits?author=TimothyGu) to the core team, as a prolific contributor. He will join the illustrious ranks of those who do so much work on jsdom that we no longer note their names in the changelog.
 
 * Added `table.tHead`, `table.tFoot`, and `table.caption` setters, and the `table.createTBody()` method.
 * Added `CompositionEvent` and `WheelEvent` classes.
@@ -346,7 +346,7 @@ This release brings with it a much-awaited infrastructure change, as part of [we
 * Added suport for `FileList` indexed properties, i.e. `fileList[i]`.
 * Made `select.options` an instance of the newly-implemented `HTMLOptionsCollection`, instead of just a `HTMLCollection`.
 
-This infrastructure will allow us to improve and implement many other similar behaviors; that work is being tracked in [#1129](https://github.com/tmpvar/jsdom/issues/1129).
+This infrastructure will allow us to improve and implement many other similar behaviors; that work is being tracked in [#1129](https://github.com/jsdom/jsdom/issues/1129).
 
 In addition to these improvements to the object model, we have more work to share:
 
@@ -607,7 +607,7 @@ This major release removes jsdom's support for mutation events. Mutation events 
 
 However, recent performance investigations revealed that mutation events were the major bottleneck in most jsdom operations; tools like [ecmarkup](https://github.com/bterlson/ecmarkup) which make heavy use of jsdom had their running time halved by removing mutation events, which add serious overhead to every DOM mutation. As such, we are doing a major release with them removed, so that jsdom users can benefit from this massive performance gain.
 
-Mutation observer support is [in progress](https://github.com/tmpvar/jsdom/issues/639); please use the GitHub reactions feature to vote on that issue if you are impacted by this removal and are hoping for mutation observer support to replace it.
+Mutation observer support is [in progress](https://github.com/jsdom/jsdom/issues/639); please use the GitHub reactions feature to vote on that issue if you are impacted by this removal and are hoping for mutation observer support to replace it.
 
 Your normal change log follows:
 
@@ -738,7 +738,7 @@ Although normally jsdom does not mark a new major release for changes that simpl
 ## 7.2.0
 
 * Added support for text selection APIs on `<input>` and `<textarea>`! (sjelin and yaycmyk)
-* Replaced our default XML parser with [sax](https://www.npmjs.com/package/sax), thus fixing many (but not all) issues with XML and XHTML parsing. To get a flavor of the issues fixed, check out these now-closed bugs: [#393](https://github.com/tmpvar/jsdom/issues/393), [#651](https://github.com/tmpvar/jsdom/issues/651), [#415](https://github.com/tmpvar/jsdom/issues/415), [#1276](https://github.com/tmpvar/jsdom/issues/1276).
+* Replaced our default XML parser with [sax](https://www.npmjs.com/package/sax), thus fixing many (but not all) issues with XML and XHTML parsing. To get a flavor of the issues fixed, check out these now-closed bugs: [#393](https://github.com/jsdom/jsdom/issues/393), [#651](https://github.com/jsdom/jsdom/issues/651), [#415](https://github.com/jsdom/jsdom/issues/415), [#1276](https://github.com/jsdom/jsdom/issues/1276).
 * Fixed the `<canvas>` tag to reset its contents when its width or height changed, including the change from the default 300 × 150 canvas. (Applies only when using the `canvas` npm package.)
 * Fixed an issue where `HTMLCollection`s would get confused when they contained elements with numeric `id`s or `name`s.
 * Fixed an issue with doctype parsing confusing the system ID and public ID.
@@ -856,7 +856,7 @@ This major release has as its headlining feature a completely re-written `XMLHtt
 
 This major release is focused on massive improvements in speed, URL parsing, and error handling. The potential breaking changes are highlighted in bold below; the largest ones are around the `jsdom.env` error-handling paradigm.
 
-This release also welcomes [long-time contributer](https://github.com/tmpvar/jsdom/commits/master?author=Joris-van-der-Wel) [@Joris-van-der-Wel](https://github.com/Joris-van-der-Wel/) to the core team. You may recognize him from earlier changelogs. We're very happy to have his help in making jsdom awesome!
+This release also welcomes [long-time contributer](https://github.com/jsdom/jsdom/commits/master?author=Joris-van-der-Wel) [@Joris-van-der-Wel](https://github.com/Joris-van-der-Wel/) to the core team. You may recognize him from earlier changelogs. We're very happy to have his help in making jsdom awesome!
 
 * **io.js 2.0 onward is now required**, as we have begun using ES2015 features only present there.
 * Improved performance dramatically, by ~10000x in some cases, due to the following changes:
@@ -865,7 +865,7 @@ This release also welcomes [long-time contributer](https://github.com/tmpvar/jsd
   - Sped up `node.compareDocumentPosition` and anything that used it (like `node.contains`) by doing more intelligent tree traversal instead of directly implementing the specced algorithm.
 * Overhauled how error handling works in jsdom:
   - `window.onerror` (or `window.addEventListener("error", ...)`) now work, and will catch all script errors, similar to in browsers. This also introduces the `ErrorEvent` class, incidentally.
-  - The virtual console is now the destination for several types of errors from jsdom, using [the new event `"jsdomError"`](https://github.com/tmpvar/jsdom#virtual-console-jsdomerror-error-reporting). This includes: errors loading external resources; script execution errors unhandled by `window.onerror`; and not-implemented warnings resulting from calling methods like `window.alert` which jsdom explicitly does not support.
+  - The virtual console is now the destination for several types of errors from jsdom, using [the new event `"jsdomError"`](https://github.com/jsdom/jsdom#virtual-console-jsdomerror-error-reporting). This includes: errors loading external resources; script execution errors unhandled by `window.onerror`; and not-implemented warnings resulting from calling methods like `window.alert` which jsdom explicitly does not support.
   - Since script errors are now handled by `window.onerror` and the virtual console, they are no longer included in the initialization process. This results in two changes to `jsdom.env` and the initialization lifecycle:
     + **The `load(errors, window)` callback was changed to `onload(window)`**, to reflect that it is now just sugar for setting a `window.onload` handler.
     + **The `done(errors, window)` callback (i.e., the default callback for `jsdom.env`) has become `done(error, window)`**, and like every other io.js callback now simply gives you a single error object, instead of an array of them.
@@ -881,7 +881,7 @@ This release also welcomes [long-time contributer](https://github.com/tmpvar/jsd
 * Fixed the `hashchange` event to correctly fire `HashChangeEvent` instances, with correct properties `newURL` and `oldURL` (instead of the incorrect `newUrl` and `oldUrl` used previously).
 * Removed usage of the setimmediate library, as it required `eval` and thus did not work in CSP scenarios.
 
-Finally, if you're a loyal jsdom fan whose made it this far into the changelog, I'd urge you to come join us in [#1139](https://github.com/tmpvar/jsdom/issues/1139), where we are brainstorming a modernized jsdom API that could get rid of many of the warts in the current one.
+Finally, if you're a loyal jsdom fan whose made it this far into the changelog, I'd urge you to come join us in [#1139](https://github.com/jsdom/jsdom/issues/1139), where we are brainstorming a modernized jsdom API that could get rid of many of the warts in the current one.
 
 ## 5.6.1
 
@@ -892,13 +892,13 @@ Finally, if you're a loyal jsdom fan whose made it this far into the changelog, 
 
 ## 5.6.0
 
-* `virtualConsole.sendTo` now returns `this`, allowing for [a nice shorthand](https://github.com/tmpvar/jsdom/tree/60ccb9b318d0bae8fe37e19af5af444b9c98ddac#forward-a-windows-console-output-to-the-iojs-console). (jeffcarp)
+* `virtualConsole.sendTo` now returns `this`, allowing for [a nice shorthand](https://github.com/jsdom/jsdom/tree/60ccb9b318d0bae8fe37e19af5af444b9c98ddac#forward-a-windows-console-output-to-the-iojs-console). (jeffcarp)
 
 ## 5.5.0
 
 * Added `postMessage` support, for communicating between parent windows, iframes, and combinations thereof. It's missing a few semantics, especially around origins, as well as MessageEvent source. Objects are not yet structured cloned, but instead passed by reference. But it's working, and awesome! (jeffcarp)
 * Rewrote cloning code (underlying `cloneNode` and `importNode`), fixing a number of issues:
-  - Elements with weird tag names, of the type that only the parser can normally create, can now be cloned ([#1142](https://github.com/tmpvar/jsdom/issues/1142))
+  - Elements with weird tag names, of the type that only the parser can normally create, can now be cloned ([#1142](https://github.com/jsdom/jsdom/issues/1142))
   - Doctypes can now be cloned, per the latest spec.
   - Attrs cannot be cloned, per the latest spec (although they still have a `cloneNode` method for now due to legacy).
   - Document clones now correctly copy over the URL and content-type.
@@ -907,7 +907,7 @@ Finally, if you're a loyal jsdom fan whose made it this far into the changelog, 
 * Fixed clicking on submit `<button>`s to submit their containing form; previously only `<input type="submit">` worked. (rxgx)
 * Fixed `document.open()` to return `this`, per spec. (ryanseddon)
 
-Additionally, Joris-van-der-Wel added [a benchmarking framework](https://github.com/tmpvar/jsdom/blob/master/Contributing.md#running-the-benchmarks), and a number of benchmarks, which should help us avoid performance regressions going forward, and also make targeted performance fixes. We're already investigating [some real-world issues](https://github.com/tmpvar/jsdom/issues/1156) using this framework. Very exciting!
+Additionally, Joris-van-der-Wel added [a benchmarking framework](https://github.com/jsdom/jsdom/blob/master/Contributing.md#running-the-benchmarks), and a number of benchmarks, which should help us avoid performance regressions going forward, and also make targeted performance fixes. We're already investigating [some real-world issues](https://github.com/jsdom/jsdom/issues/1156) using this framework. Very exciting!
 
 ## 5.4.3
 
@@ -926,7 +926,7 @@ Additionally, Joris-van-der-Wel added [a benchmarking framework](https://github.
 This is a pretty exciting release! It includes a couple features I never really anticipated jsdom being awesome enough to have, but our wonderful contributors powered through and made them happen anyway:
 
 * Added support for the default HTML stylesheet when using `window.getComputedStyle`! (akhaku)
-  - Notably, this makes jQuery's `show()` and `hide()` methods now work correctly; see [#994](https://github.com/tmpvar/jsdom/issues/994).
+  - Notably, this makes jQuery's `show()` and `hide()` methods now work correctly; see [#994](https://github.com/jsdom/jsdom/issues/994).
 * Added support for named properties on `window`: any elements with an `id` attribute, or certain elements with a `name` attribute, will cause properties to show up on the `window`, and thus as global variables within the jsdom. (Joris-van-der-Wel)
   - Although this is fairly unfortunate browser behavior, it's standardized and supported everywhere, so the fact that jsdom now supports this too means we can run a lot of scripts that would previously fail.
   - Previously, we only supported this for `<iframe>`s, and our implementation was quite buggy: e.g., `<iframe name="addEventListener">` would override `window.addEventListener`.
@@ -938,7 +938,7 @@ We also have a bunch more fixes and additions:
 * Updated `StyleSheetList` to inherit from `Array`, as per the latest CSSOM spec.
 * Overhauled the handling of attributes throughout the DOM, to follow the spec more exactly.
   - Our `NamedNodeMap` implementation is up to date, as are the various `Element` methods; other places in the code that deal with attributes now all go through a spec-compliant set of helpers.
-  - Some weirdnesses around the `style` attribute were fixed along the way; see e.g. [#1109](https://github.com/tmpvar/jsdom/issues/1109).
+  - Some weirdnesses around the `style` attribute were fixed along the way; see e.g. [#1109](https://github.com/jsdom/jsdom/issues/1109).
   - However, `Attr` objects themselves are not yet spec-compliant (e.g., they still inherit from `Node`). That's coming soon.
 * Fixed an unfortunate bug where `getElementById` would fail to work correctly on `<img>` elements whose `id` attributes were modified. (Joris-van-der-Wel)
 * Fixed the `virtualConsole` option to work with `jsdom.env`, not just `jsdom.jsdom`. (jeffcarp)
@@ -946,7 +946,7 @@ We also have a bunch more fixes and additions:
 
 ## 5.3.0
 
-* Added a `virtualConsole` option to the document creation methods, along with the `jsdom.createVirtualConsole` factory. (See [examples in the readme](https://github.com/tmpvar/jsdom/blob/dbf88666d1152576237ed1c741263f5516bb4005/README.md#capturing-console-output).) With this option you can install a virtual console before the document is even created, thus allowing you to catch any virtual console events that occur during initialization. (jeffcarp)
+* Added a `virtualConsole` option to the document creation methods, along with the `jsdom.createVirtualConsole` factory. (See [examples in the readme](https://github.com/jsdom/jsdom/blob/dbf88666d1152576237ed1c741263f5516bb4005/README.md#capturing-console-output).) With this option you can install a virtual console before the document is even created, thus allowing you to catch any virtual console events that occur during initialization. (jeffcarp)
 
 ## 5.2.0
 
@@ -990,7 +990,7 @@ In addition to these changes to the public API, the following new cookie-related
 * Implemented automatic cookie-jar sharing with descendant `<iframe>`s. (So, if the iframe is same-domain, it can automatically access the appropriate cookies.)
 * Let `options.document.cookie` accept arrays, instead of just strings, for if you want to set multiple cookies at once.
 
-Finally, it's worth noting that we now delegate our cookie handling in general to the [tough-cookie](https://www.npmjs.com/package/tough-cookie) package, which should hopefully mean that it now captures many of the behaviors that were previously missing (for example [#1027](https://github.com/tmpvar/jsdom/issues/1027)). @inikulin is working on [a large pull request to fix tough-cookie to be more spec compliant](https://github.com/goinstant/tough-cookie/pull/30), which should automatically be picked up by jsdom installs once it is merged.
+Finally, it's worth noting that we now delegate our cookie handling in general to the [tough-cookie](https://www.npmjs.com/package/tough-cookie) package, which should hopefully mean that it now captures many of the behaviors that were previously missing (for example [#1027](https://github.com/jsdom/jsdom/issues/1027)). @inikulin is working on [a large pull request to fix tough-cookie to be more spec compliant](https://github.com/goinstant/tough-cookie/pull/30), which should automatically be picked up by jsdom installs once it is merged.
 
 ## 4.5.1
 
@@ -1058,7 +1058,7 @@ _Note:_ this probably should have been a minor version number increment (i.e. 4.
 
 This release relies on the newly-overhauled `vm` module of io.js to eliminate the Contextify native module dependency. jsdom should now be much easier to use and install, without requiring a C++ compiler toolchain!
 
-Note that as of this release, jsdom no longer works with Node.js™, and instead requires io.js. You are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you are stuck on legacy technology like Node.js™.
+Note that as of this release, jsdom no longer works with Node.js™, and instead requires io.js. You are still welcome to install a release in [the 3.x series](https://github.com/jsdom/jsdom/tree/3.x) if you are stuck on legacy technology like Node.js™.
 
 In the process of rewriting parts of jsdom to use `vm`, a number of related fixes were made regarding the `Window` object:
 
@@ -1077,11 +1077,11 @@ In the process of rewriting parts of jsdom to use `vm`, a number of related fixe
 
 * Updated `Node.prototype.isEqualNode` to the algorithm of the DOM Standard, fixing a bug where it would throw an error along the way.
 * Removed `Node.prototype.isSameNode`, which is not present in the DOM Standard (and was just a verbose `===` check anyway).
-* Fixed a couple small issues while browserifying, mainly around `jsdom.env`. However, while doing so discovered that `<script>`s in general don't work too well in a browserified jsdom; see [#1023](https://github.com/tmpvar/jsdom/issues/1023).
+* Fixed a couple small issues while browserifying, mainly around `jsdom.env`. However, while doing so discovered that `<script>`s in general don't work too well in a browserified jsdom; see [#1023](https://github.com/jsdom/jsdom/issues/1023).
 
 ## 3.1.0
 
-* Added support for [custom external resource loading](https://github.com/tmpvar/jsdom#custom-external-resource-loader). (tobie)
+* Added support for [custom external resource loading](https://github.com/jsdom/jsdom#custom-external-resource-loader). (tobie)
 
 ## 3.0.3
 
@@ -1104,7 +1104,7 @@ This release updates large swathes of the DOM APIs to conform to the standard, m
 3.0.x will be the last release of jsdom to support Node.js. All future releases (starting with 4.0.0) will require [io.js](https://iojs.org/), whose [new `vm` module](https://github.com/iojs/io.js/blob/v1.x/CHANGELOG.md#vm) will allow us to remove our contextify native-module dependency. (Given that I submitted the relevant patch to joyent/node [1.5 years ago](https://github.com/joyent/node/commit/7afdba6e0bc3b69c2bf5fdbd59f938ac8f7a64c5), I'm very excited that we can finally use it!)
 
 * By default documents now use `about:blank` as their URL, instead of trying to infer some type of file URL from the call site (in Node.js) or using `location.href` (in browsers).
-* Introduced a new "virtual console" abstraction for capturing console output from inside the page. [See the readme for more information.](https://github.com/tmpvar/jsdom#capturing-console-output) Note that `console.error` will no longer contribute to the (non-standard, and likely dying in the future) `window.errors` array. (jeffcarp)
+* Introduced a new "virtual console" abstraction for capturing console output from inside the page. [See the readme for more information.](https://github.com/jsdom/jsdom#capturing-console-output) Note that `console.error` will no longer contribute to the (non-standard, and likely dying in the future) `window.errors` array. (jeffcarp)
 * Added the named `new Image(width, height)` constructor. (vinothkr)
 * Fixed an exception when using `querySelector` with selectors like `div:last-child > span[title]`.
 * Removed all traces of entities, entity types, notations, default attributes, and CDATA sections.
@@ -1122,7 +1122,7 @@ This release updates large swathes of the DOM APIs to conform to the standard, m
 
 ## 2.0.0
 
-This release is largely a refactoring release to remove the defunct concept of "levels" from jsdom, in favor of the [living standard model](https://wiki.whatwg.org/wiki/FAQ#What_does_.22Living_Standard.22_mean.3F) that browsers follow. Although the code is still organized that way, that's now [noted as a historical artifact](https://github.com/tmpvar/jsdom/blob/2ff5747488ad4b518fcef97a026c82eab42a0a14/lib/README.md). The public API changes while doing so were fairly minimal, but this sets the stage for a cleaner jsdom code structure going forward.
+This release is largely a refactoring release to remove the defunct concept of "levels" from jsdom, in favor of the [living standard model](https://wiki.whatwg.org/wiki/FAQ#What_does_.22Living_Standard.22_mean.3F) that browsers follow. Although the code is still organized that way, that's now [noted as a historical artifact](https://github.com/jsdom/jsdom/blob/2ff5747488ad4b518fcef97a026c82eab42a0a14/lib/README.md). The public API changes while doing so were fairly minimal, but this sets the stage for a cleaner jsdom code structure going forward.
 
 * Removed: `jsdom.level`, and the `level` option from `jsdom.jsdom`.
 * Change: the nonstandard `Element.prototype.matchesSelector` method was replaced with the standard `Element.prototype.matches`. (KenPowers)
@@ -1130,7 +1130,7 @@ This release is largely a refactoring release to remove the defunct concept of "
 
 ## 1.5.0
 
-* Add: missing `window.console` methods, viz. `assert`, `clear`, `count`, `debug`, `group`, `groupCollapse`, `groupEnd`, `table`, `time`, `timeEnd`, and `trace`. All except `assert` do nothing for now, but see [#979](https://github.com/tmpvar/jsdom/issues/979) for future plans. (jeffcarp)
+* Add: missing `window.console` methods, viz. `assert`, `clear`, `count`, `debug`, `group`, `groupCollapse`, `groupEnd`, `table`, `time`, `timeEnd`, and `trace`. All except `assert` do nothing for now, but see [#979](https://github.com/jsdom/jsdom/issues/979) for future plans. (jeffcarp)
 * Tweak: make `childNodes`, and the many places in jsdom that use it, much faster. (Joris-van-der-Wel)
 
 ## 1.4.1
@@ -1203,7 +1203,7 @@ This release is largely a refactoring release to remove the defunct concept of "
 
 ## 1.0.0
 
-For a consolidated list of changes from 0.11.1 to 1.0.0, see [this wiki page](https://github.com/tmpvar/jsdom/wiki/Changes-from-0.11.1-to-1.0.0).
+For a consolidated list of changes from 0.11.1 to 1.0.0, see [this wiki page](https://github.com/jsdom/jsdom/wiki/Changes-from-0.11.1-to-1.0.0).
 
 * Remove: nonstandard `EventTarget.getListeners`; `EventTarget.forwardIterator`; `EventTarget.backwardIterator`; `EventTarget.singleIterator`.
 * Remove: nonstandard `document.innerHTML`. (jorendorff)
@@ -1239,16 +1239,16 @@ For a consolidated list of changes from 0.11.1 to 1.0.0, see [this wiki page](ht
 
 ## 1.0.0-pre.1
 
-This is a prerelease of jsdom's first major version. It incorporates several great additions, as well as a general cleanup of the API surface, which make it more backward-incompatible than usual. Starting with the 1.0.0 release, we will be following semantic versioning, so that you can depend on stability within major version ranges. But we still have [a few more issues](https://github.com/tmpvar/jsdom/issues?q=is%3Aopen+is%3Aissue+milestone%3A1.0) before we can get there, so I don't want to do 1.0.0 quite yet.
+This is a prerelease of jsdom's first major version. It incorporates several great additions, as well as a general cleanup of the API surface, which make it more backward-incompatible than usual. Starting with the 1.0.0 release, we will be following semantic versioning, so that you can depend on stability within major version ranges. But we still have [a few more issues](https://github.com/jsdom/jsdom/issues?q=is%3Aopen+is%3Aissue+milestone%3A1.0) before we can get there, so I don't want to do 1.0.0 quite yet.
 
 This release owes a special thanks to [@Sebmaster](https://github.com/Sebmaster), for his amazing work taking on some of the hardest problems in jsdom and solving them with gusto.
 
 ### Major changes
 
 * jsdom now can be browserified into a bundle that works in web workers! This is highly experimental, but also highly exciting! (lawnsea)
-* An overhaul of the [initialization lifecycle](https://github.com/tmpvar/jsdom#initialization-lifecycle), to bring more control and address common use cases. (Sebmaster)
+* An overhaul of the [initialization lifecycle](https://github.com/jsdom/jsdom#initialization-lifecycle), to bring more control and address common use cases. (Sebmaster)
 * The excellent [parse5](https://npmjs.org/package/parse5) HTML parser is now the default parser, fixing many parsing bugs and giving us full, official-test-suite-passing HTML parsing support. This especially impacts documents that didn't include optional tags like `<html>`, `<head>`, or `<body>` in their source. We also use parse5 for serialization, fixing many bugs there. (Sebmaster)
-* As part of the new parser story, we are not supporting XML for now. It might work if you switch to a different parser (e.g. htmlparser2), but in the end, HTML and XML are very different, and we are not attempting to be an XML DOM. That said, we eventually want to support XML to the same extent browsers do (i.e., support XHTML and SVG, with an appropriate MIME type switch); this is being planned in [#820](https://github.com/tmpvar/jsdom/issues/820).
+* As part of the new parser story, we are not supporting XML for now. It might work if you switch to a different parser (e.g. htmlparser2), but in the end, HTML and XML are very different, and we are not attempting to be an XML DOM. That said, we eventually want to support XML to the same extent browsers do (i.e., support XHTML and SVG, with an appropriate MIME type switch); this is being planned in [#820](https://github.com/jsdom/jsdom/issues/820).
 
 ### Removed jsdom APIs
 

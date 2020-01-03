@@ -31,7 +31,7 @@ describe("xhr-requires-server", { skipIfBrowser: true }, () => {
   });
 
   specify("Getting a non-file URL should not fail for getAllResponseHeaders", t => {
-    // From https://github.com/tmpvar/jsdom/pull/1183
+    // From https://github.com/jsdom/jsdom/pull/1183
     const { window } = new JSDOM(``, { url: testHost + "/TestPath/get-headers" });
 
     const xhr = new window.XMLHttpRequest();
