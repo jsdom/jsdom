@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Text constructor</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-text-text">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  const text = new Text();
+  assert_equals(text.data, "");
+}, "Text constructor with no parameter");
+
+test(() => {
+  const text = new Text("I am a text node");
+  assert_equals(text.data, "I am a text node");
+}, "Text constructor with 1 parameter");
+
+</script>
