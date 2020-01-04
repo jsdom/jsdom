@@ -167,12 +167,6 @@ remove-and-adopt-thcrash.html: [fail, window.open not implemented]
 
 ---
 
-DIR: dom/ranges
-
-StaticRange-constructor.html: [fail, Attr interface doesn't extends from Node interface]
-
----
-
 DIR: dom/traversal
 
 NodeIterator-removal.html: [fail, Unknown]
