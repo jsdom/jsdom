@@ -16,9 +16,9 @@ In general, a web platform class (like `Window`, or `Node`, or `Location`, or `C
 
 As such, most web platform classes present in jsdom are implemented in two parts:
 
-- An IDL file, such as [`Attr.webidl`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/attributes/Attr.webidl), drawn more or less straight from the spec
+- An IDL file, such as [`Attr.webidl`](https://github.com/jsdom/jsdom/blob/master/lib/jsdom/living/attributes/Attr.webidl), drawn more or less straight from the spec
 
-- An implementation file, such as [`Attr-impl.js`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/attributes/Attr-impl.js), containing the relevant implementation logic
+- An implementation file, such as [`Attr-impl.js`](https://github.com/jsdom/jsdom/blob/master/lib/jsdom/living/attributes/Attr-impl.js), containing the relevant implementation logic
 
 Our build step (`yarn prepare`) then generates a public API file (e.g. `Attr.js`) which takes care of all the Web IDL-derived boilerplate, delegating to the implementation file for the important stuff. We then wire it together with a line in `lib/jsdom/living/index.js` that exposes the generated class on all jsdom windows.
 
@@ -40,7 +40,7 @@ Other specs might pop up from time to time, especially in regard to CSS stuff. I
 
 ### Running the tests
 
-First you'll want to run `yarn` to install all dependencies. Then, configure your system to run the web platform tests as described in [their README](https://github.com/w3c/web-platform-tests/blob/master/README.md). If you can't get that set up correctly, the test runner will make a best-faith effort to run the tests hosted on http://w3c-test.org/, but this is pretty slow and fragile.
+First you'll want to run `yarn` to install all dependencies. Then, configure your system to run the web platform tests as described in [their README](https://github.com/web-platform-tests/wpt/blob/master/README.md).
 
 **To run all the tests:** `yarn test`
 
@@ -50,9 +50,9 @@ In the following sections, we'll give commands for running a subset of the tests
 
 ### Web platform feature tests
 
-All tests for web platform features (as opposed to features of jsdom itself, such as the `JSDOM()` constructor) should be in [web-platform-tests](https://github.com/w3c/web-platform-tests) format. We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browse the web-platform-tests repository and find the test covering your work, and then just enable it in [the `to-run.yaml` file](https://github.com/tmpvar/jsdom/blob/master/test/web-platform-tests/to-run.yaml). These tests are HTML files which use a special library called [testharness.js](http://testthewebforward.org/docs/testharness-library.html) to report their results.
+All tests for web platform features (as opposed to features of jsdom itself, such as the `JSDOM()` constructor) should be in [web-platform-tests](https://github.com/web-platform-tests/wpt) format. We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browse the web-platform-tests repository and find the test covering your work, and then just enable it in [the `to-run.yaml` file](https://github.com/jsdom/jsdom/blob/master/test/web-platform-tests/to-run.yaml). These tests are HTML files which use a special library called [testharness.js](https://web-platform-tests.org/writing-tests/testharness-api.html) to report their results.
 
-However, the web-platform-tests project is not fully comprehensive. If you need to write your own test for a web platform feature, place it in our [to-upstream](https://github.com/tmpvar/jsdom/tree/master/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new directory structure, paralleling that of the main [web-platform-tests](https://github.com/w3c/web-platform-tests) repository.
+However, the web-platform-tests project is not fully comprehensive. If you need to write your own test for a web platform feature, place it in our [to-upstream](https://github.com/jsdom/jsdom/tree/master/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new directory structure, paralleling that of the main [web-platform-tests](https://github.com/web-platform-tests/wpt) repository.
 
 **To run all web-platform-tests:** `yarn test-wpt`
 
@@ -102,4 +102,4 @@ You can also run the benchmarks using the native DOM implementation of Chrome. A
 
 ## Issues
 
-If you've read this far, you should know everything there is to know about contributing to jsdom. We have [an active and full issue tracker](https://github.com/tmpvar/jsdom/issues) that we'd love you to help with. Go find something broken or missing, and fix it!
+If you've read this far, you should know everything there is to know about contributing to jsdom. We have [an active and full issue tracker](https://github.com/jsdom/jsdom/issues) that we'd love you to help with. Go find something broken or missing, and fix it!

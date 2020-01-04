@@ -383,7 +383,7 @@ describe("jsdom/miscellaneous", () => {
     assert.ok(dom.serialize().match(/0: *color/) === null);
   });
 
-  // see: https://github.com/tmpvar/jsdom/issues/262
+  // see: https://github.com/jsdom/jsdom/issues/262
   specify("issue_262", () => {
     const { document } = (new JSDOM()).window;
     const a = document.createElement("a");
@@ -392,7 +392,7 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(a.outerHTML.match(/style="/g).length, 1, "style attribute must not be serialized twice");
   });
 
-  // see: https://github.com/tmpvar/jsdom/issues/267
+  // see: https://github.com/jsdom/jsdom/issues/267
   specify("issue_267", () => {
     const { document } = (new JSDOM()).window;
     const a = document.createElement("a");
@@ -404,7 +404,7 @@ describe("jsdom/miscellaneous", () => {
   // TODO this currently fails!?
   specify.skip("test_body_event_handler_inline", { skipIfBrowser: true, async: true }, t => {
     // currently skipped in browsers because of an issue:
-    // TODO: https://github.com/tmpvar/jsdom/issues/1379
+    // TODO: https://github.com/jsdom/jsdom/issues/1379
     const html = `
       <html>
         <head>

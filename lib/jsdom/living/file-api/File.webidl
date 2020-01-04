@@ -1,8 +1,9 @@
-[Constructor(sequence<BlobPart> fileBits,
-             USVString fileName,
-             optional FilePropertyBag options),
- Exposed=(Window,Worker), Serializable]
+// https://w3c.github.io/FileAPI/#file-section
+[Exposed=(Window,Worker), Serializable]
 interface File : Blob {
+  constructor(sequence<BlobPart> fileBits,
+              USVString fileName,
+              optional FilePropertyBag options = {});
   readonly attribute DOMString name;
   readonly attribute long long lastModified;
 };

@@ -12,7 +12,7 @@ describe("node-clone-node", () => {
   specify(
     "Should be able to clone elements with strange names containing colons",
     () => {
-      // https://github.com/tmpvar/jsdom/issues/1142#issuecomment-108122608
+      // https://github.com/jsdom/jsdom/issues/1142#issuecomment-108122608
       const doc = (new JSDOM("KSL.com <http://KSL.com> has not verified the accuracy of the information provided with")).window.document;
 
       // Parses as <http: ksl.com=""> has not verified ...</http:>
@@ -29,7 +29,7 @@ describe("node-clone-node", () => {
   specify(
     "Should be able to clone elements with strange names containing angle brackets",
     () => {
-      // https://github.com/tmpvar/jsdom/issues/1142#issuecomment-108122608
+      // https://github.com/jsdom/jsdom/issues/1142#issuecomment-108122608
       const html = "<p>Blah blah blah<p><Home-Schooling</b><p><p>In talking with parents who home-school";
       const doc = (new JSDOM(html)).window.document;
 

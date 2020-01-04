@@ -8,6 +8,8 @@
 <script>
 "use strict";
 
+setup({ single_test: true });
+
 const button = document.createElement("button");
 
 assert_equals(button.querySelector("*"), null, "querySelector, '*', before modification");

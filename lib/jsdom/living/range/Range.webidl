@@ -1,7 +1,8 @@
 // https://dom.spec.whatwg.org/#range
-[Constructor,
- Exposed=Window]
+[Exposed=Window]
 interface Range : AbstractRange {
+  constructor();
+
   readonly attribute Node commonAncestorContainer;
 
   void setStart(Node node, unsigned long offset);

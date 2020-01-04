@@ -409,7 +409,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
-    assert.equal(nodeList.item(0).pathname, '/tmpvar/jsdom', 'a.pathname absolute');
+    assert.equal(nodeList.item(0).pathname, '/jsdom/jsdom', 'a.pathname absolute');
   });
 
   /**

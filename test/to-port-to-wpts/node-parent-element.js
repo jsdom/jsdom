@@ -5,7 +5,7 @@ const { describe, specify } = require("mocha-sugar-free");
 
 const load = require("../util.js").load(__dirname);
 
-// Tests adapted from https://github.com/w3c/web-platform-tests/blob/master/dom/nodes/Node-parentElement.html
+// Tests adapted from https://github.com/web-platform-tests/wpt/blob/master/dom/nodes/Node-parentElement.html
 // Spec: http://dom.spec.whatwg.org/#dom-node-parentelement
 
 describe("node-parent-element", { skipIfBrowser: true }, () => {

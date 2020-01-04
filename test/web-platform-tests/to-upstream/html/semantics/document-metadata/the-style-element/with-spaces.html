@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>Spaces inside style sheet properties should work fine</title>
 <link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
-<!-- Regression test for https://github.com/tmpvar/jsdom/issues/2123 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2123 -->
 
 <style>
 .cool-class {
@@ -19,6 +19,8 @@
 
 <script>
 "use strict";
+
+setup({ single_test: true });
 
 const el = document.querySelector(".cool-class");
 assert_equals(window.getComputedStyle(el).fontFamily, `"Helvetica Neue", Helvetica, Arial, sans-serif`);

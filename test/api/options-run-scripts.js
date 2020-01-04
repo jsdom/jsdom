@@ -7,7 +7,7 @@ const { JSDOM, VirtualConsole } = require("../..");
 const jsGlobals = Object.keys(require("../../lib/jsdom/browser/js-globals.json"));
 
 // Node 10 has a bug with the vm module that causes some global-related tests to fail.
-const hasNode10 = process.versions.node && Number(process.versions.node.split(".")[0]) >= 10;
+const hasNode10 = process.versions.node && Number(process.versions.node.split(".")[0]) === 10;
 
 
 describe("API: runScripts constructor option", () => {
@@ -41,7 +41,7 @@ describe("API: runScripts constructor option", () => {
     });
 
     // In the browser, vm-shim uses Function() on the code to be evaluated, which inserts an extra first line. So we are
-    // always off by one there. See https://github.com/tmpvar/jsdom/issues/2004.
+    // always off by one there. See https://github.com/jsdom/jsdom/issues/2004.
     it("should execute <script>s with correct location when set to \"dangerously\" and " +
        "includeNodeLocations", { skipIfBrowser: true }, () => {
       const virtualConsole = new VirtualConsole();

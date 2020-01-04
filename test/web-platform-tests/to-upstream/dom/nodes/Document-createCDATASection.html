@@ -8,6 +8,8 @@
 <script>
 "use strict";
 
+setup({ single_test: true });
+
 assert_throws("NotSupportedError", () => document.createCDATASection("foo"));
 
 done();
