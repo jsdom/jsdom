@@ -6,10 +6,7 @@ interface Attr : Node {
   readonly attribute DOMString? prefix;
   readonly attribute DOMString localName;
   readonly attribute DOMString name;
-  readonly attribute DOMString nodeName; // historical alias of .name
            attribute DOMString value;
-  [TreatNullAs=EmptyString] attribute DOMString nodeValue; // historical alias of .value
-  [TreatNullAs=EmptyString] attribute DOMString textContent; // historical alias of .value
 
   readonly attribute Element? ownerElement;
 
