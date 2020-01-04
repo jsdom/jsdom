@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<title>textarea cols</title>
+<link rel=help href="https://html.spec.whatwg.org/#attr-textarea-cols">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<textarea id="none"></textarea>
+<textarea id="negative" cols=-5></textarea>
+<textarea id="zero" cols=0></textarea>
+<textarea id="non-numeric" cols="not-a-number"></textarea>
+<textarea id="assign-negative" cols=10></textarea>
+<textarea id="assign-zero" cols=10></textarea>
+
+<script>
+  "use strict";
+
+  test(() => {
+    assert_equals(document.getElementById("none").cols, 20);
+  }, "Unset cols is 20");
+
+  test(() => {
+    assert_equals(document.getElementById("negative").cols, 20);
+  }, "Negative cols is always 20");
+
+  test(() => {
+    assert_equals(document.getElementById("zero").cols, 20);
+  }, "Zero cols is always 20");
+
+  test(() => {
+    assert_equals(document.getElementById("non-numeric").cols, 20);
+  }, "Non-numeric cols is 20");
+
+  test(() => {
+    assert_equals(document.getElementById("assign-negative").cols, 10);
+    document.getElementById("assign-negative").cols = -10;
+    assert_equals(document.getElementById("assign-negative").cols, 20);
+    assert_equals(document.getElementById("assign-negative").getAttributeNS(null, "cols"), "20");
+  }, "Assigning negative integer sets 20");
+
+  test(() => {
+    assert_equals(document.getElementById("assign-zero").cols, 10);
+    document.getElementById("assign-zero").cols = 0;
+    assert_equals(document.getElementById("assign-zero").cols, 20);
+    assert_equals(document.getElementById("assign-zero").getAttributeNS(null, "cols"), "20");
+  }, "Assigning zero sets 20");
+</script>

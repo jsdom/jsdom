@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<title>textarea rows</title>
+<link rel=help href="https://html.spec.whatwg.org/#attr-textarea-rows">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<textarea id="none"></textarea>
+<textarea id="negative" rows=-5></textarea>
+<textarea id="zero" rows=0></textarea>
+<textarea id="non-numeric" rows="not-a-number"></textarea>
+<textarea id="assign-negative" rows=1></textarea>
+<textarea id="assign-zero" rows=1></textarea>
+
+<script>
+  "use strict";
+
+  test(() => {
+    assert_equals(document.getElementById("none").rows, 2);
+  }, "Unset rows is 2");
+
+  test(() => {
+    assert_equals(document.getElementById("negative").rows, 2);
+  }, "Negative rows is always 2");
+
+  test(() => {
+    assert_equals(document.getElementById("zero").rows, 2);
+  }, "Zero rows is always 2");
+
+  test(() => {
+    assert_equals(document.getElementById("non-numeric").rows, 2);
+  }, "Non-numeric rows is 2");
+
+  test(() => {
+    assert_equals(document.getElementById("assign-negative").rows, 1);
+    document.getElementById("assign-negative").rows = -1;
+    assert_equals(document.getElementById("assign-negative").rows, 2);
+    assert_equals(document.getElementById("assign-negative").getAttributeNS(null, "rows"), "2");
+  }, "Assigning negative integer sets 2");
+
+  test(() => {
+    assert_equals(document.getElementById("assign-zero").rows, 1);
+    document.getElementById("assign-zero").rows = 0;
+    assert_equals(document.getElementById("assign-zero").rows, 2);
+    assert_equals(document.getElementById("assign-zero").getAttributeNS(null, "rows"), "2");
+  }, "Assigning zero sets 2");
+</script>
