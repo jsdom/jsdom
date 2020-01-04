@@ -13,9 +13,10 @@ enum XMLHttpRequestResponseType {
 };
 
 // https://xhr.spec.whatwg.org/#xmlhttprequest
-[Constructor,
- Exposed=(Window,DedicatedWorker,SharedWorker)]
+[Exposed=(Window,DedicatedWorker,SharedWorker)]
 interface XMLHttpRequest : XMLHttpRequestEventTarget {
+  constructor();
+
   // event handler
   attribute EventHandler onreadystatechange;
 
