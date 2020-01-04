@@ -613,8 +613,6 @@ checkbox.html: [fail, Events weirdness]
 datetime-local.html: [fail, min/max constraints not implemented]
 image-click-form-data.html: [timeout, Unknown]
 input-type-button.html: [fail, Depends on offsetWidth]
-maxlength.html: [fail, Reflection not implemented correctly]
-minlength.html: [fail, Reflection not implemented correctly]
 range-2.html: [fail, step attribute not yet implemented]
 range.html: [fail, step attribute and range semantics not yet implemented]
 reset.html: [fail, Reset semantics not yet implemented]
@@ -659,9 +657,6 @@ DIR: html/semantics/forms/the-select-element
 ---
 
 DIR: html/semantics/forms/the-textarea-element
-
-textarea-maxlength.html: [fail, Unknown]
-textarea-minlength.html: [fail, Unknown]
 
 ---
 

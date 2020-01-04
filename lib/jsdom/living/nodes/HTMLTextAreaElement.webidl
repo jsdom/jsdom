@@ -8,8 +8,8 @@ interface HTMLTextAreaElement : HTMLElement {
   [CEReactions, Reflect] attribute boolean disabled;
   readonly attribute HTMLFormElement? form;
   [CEReactions, Reflect] attribute DOMString inputMode;
-  [CEReactions, Reflect] attribute long maxLength; // TODO limited to only non-negative numbers
-  [CEReactions, Reflect] attribute long minLength; // TODO limited to only non-negative numbers
+  [CEReactions] attribute long maxLength;
+  [CEReactions] attribute long minLength;
   [CEReactions, Reflect] attribute DOMString name;
   [CEReactions, Reflect] attribute DOMString placeholder;
   [CEReactions, Reflect] attribute boolean readOnly;
