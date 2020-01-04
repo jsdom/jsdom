@@ -1,33 +1,87 @@
 <!DOCTYPE html>
-<meta charset="utf-8" />
+<meta charset=utf-8>
 <!-- This test should not be upstreamed, as it tests the same thing as html/dom/reflection-forms.html. -->
 <title>Input default type</title>
-<link
-  rel="help"
-  href="https://html.spec.whatwg.org/multipage/input.html#attr-input-type"
-/>
+<link rel=help href="https://html.spec.whatwg.org/multipage/input.html#attr-input-type">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 
-<input id="no-type" />
-<input id="valid-type" type="password" />
-<input id="invalid-type" type="foo" />
+<input id=no-type>
+<input id=valid-type-hidden type=hidden>
+<input id=valid-type-text type=text>
+<input id=valid-type-search type=search>
+<input id=valid-type-tel type=tel>
+<input id=valid-type-url type=url>
+<input id=valid-type-email type=email>
+<input id=valid-type-password type=password>
+<input id=valid-type-date type=date>
+<input id=valid-type-month type=month>
+<input id=valid-type-week type=week>
+<input id=valid-type-time type=time>
+<input id=valid-type-datetime-local type=datetime-local>
+<input id=valid-type-number type=number>
+<input id=valid-type-range type=range>
+<input id=valid-type-color type=color>
+<input id=valid-type-checkbox type=checkbox>
+<input id=valid-type-radio type=radio>
+<input id=valid-type-file type=file>
+<input id=valid-type-submit type=submit>
+<input id=valid-type-image type=image>
+<input id=valid-type-reset type=reset>
+<input id=valid-type-button type=button>
+<input id=valid-type-BUTTON type=BUTTON>
+<input id=invalid-type-foo type=foo>
+<input id=invalid-type-datetime type=datetime>
+<input id=invalid-type-weeK type=weeK>
 
 <script>
   "use strict";
 
   test(() => {
     const input = document.getElementById("no-type");
-    assert_true(input.type === "text");
-  }, "No input type defaults to text");
+    assert_equals(input.type, "text");
+  }, "No input type defaults to text (HTML)");
 
   test(() => {
-    const input = document.getElementById("valid-type");
-    assert_true(input.type === "password");
-  }, "Sets valid input type");
+    const input = document.createElement("input");
+    assert_equals(input.type, "text");
+    assert_equals(input.getAttributeNS(null, "type"), null);
+  }, "No input type defaults to text (DOM)");
 
-  test(() => {
-    const input = document.getElementById("invalid-type");
-    assert_true(input.type === "text");
-  }, "Sets invalid input types to text");
+  const validTypeTests = ["hidden", "text", "search", "tel", "url", "email", "password", "date", "month", "week", "time", "datetime-local", "number", "range", "color", "checkbox", "radio", "file", "submit", "image", "reset", "button", "BUTTON"];
+  for (const type of validTypeTests) {
+    test(() => {
+      const input = document.getElementById(`valid-type-${type}`);
+      assert_equals(input.type, type.toLowerCase());
+    }, `${type} should be recognized as a valid input type (HTML)`);
+
+    test(() => {
+      const input = document.createElement("input");
+      input.type = type;
+      assert_equals(input.type, type.toLowerCase());
+      assert_equals(input.getAttributeNS(null, "type"), type);
+    }, `${type} should be recognized as a valid input type (DOM)`);
+  }
+
+  const invalidTypeTests = [
+    "foo",
+    "datetime", // datetime used to be a valid type, but not anymore.
+    "weeK" // This uses KELVIN SIGN, which should not get lowercased to k during comparison
+  ];
+  for (const type of invalidTypeTests) {
+    test(() => {
+      const input = document.getElementById(`invalid-type-${type}`);
+      assert_equals(input.type, "text");
+      assert_equals(input.getAttributeNS(null, "type"), type);
+    }, `Invalid type ${type} is treated as text (HTML)`);
+
+    test(() => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      assert_equals(input.type, "hidden");
+      input.type = type;
+      assert_equals(input.type, "text");
+      assert_equals(input.getAttributeNS(null, "type"), type);
+    }, `Invalid type ${type} is treated as text (DOM)`);
+  }
 </script>
