@@ -117,7 +117,7 @@ describe("level2/style", { skipIfBrowser: true }, () => {
   });
 
   specify("getComputedStyleFromDefaultStylesheet1", () => {
-    // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
+    // browsers have default stylesheets, see https://github.com/jsdom/jsdom/issues/994
     var { window } = new JSDOM("<html><head></head><body><div></div></body></html>");
     var div = window.document.getElementsByTagName("div")[0];
     var cs = window.getComputedStyle(div);
@@ -125,7 +125,7 @@ describe("level2/style", { skipIfBrowser: true }, () => {
   });
 
   specify("getComputedStyleFromDefaultStylesheet2", () => {
-    // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
+    // browsers have default stylesheets, see https://github.com/jsdom/jsdom/issues/994
     var { window } = new JSDOM("<html><head></head><body><ul></ul></body></html>");
     var ul = window.document.getElementsByTagName("ul")[0];
     var cs = window.getComputedStyle(ul);
@@ -172,7 +172,7 @@ describe("level2/style", { skipIfBrowser: true }, () => {
   });
 
   specify("getComputedStyleFromEmbeddedSheet3", () => {
-    // use grouping with embedded quotes and commas, see https://github.com/tmpvar/jsdom/pull/541#issuecomment-18114747
+    // use grouping with embedded quotes and commas, see https://github.com/jsdom/jsdom/pull/541#issuecomment-18114747
     const { window } = new JSDOM(`
         <html><head><style>#id1 .clazz, button[onclick="ga(this, event)"],
         #id2 .clazz { margin-left: 100px; }</style></head><body>
@@ -325,7 +325,7 @@ describe("level2/style", { skipIfBrowser: true }, () => {
   });
 
   specify("parseStyleWithBogusComment", () => {
-    // https://github.com/tmpvar/jsdom/issues/1214
+    // https://github.com/jsdom/jsdom/issues/1214
     const { window } = new JSDOM(`<style>.block-title .block-title-inner a:visited { color: #48484d; } // MAIN MENU - (used to keep mobile menu options hidden and keep weather/search and menu on one line) // #tncms-region-nav-main-nav-right-nav { float:left; }</style>`);
 
     // Should not hang forever

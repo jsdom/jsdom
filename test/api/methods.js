@@ -135,12 +135,11 @@ describe("API: JSDOM class's methods", () => {
     });
   });
 
-  describe("runVMScript", () => {
+  describe("getInternalVMContext", { skipIfBrowser: true }, () => {
     it("should throw when runScripts is left as the default", () => {
       const dom = new JSDOM();
-      const script = new vm.Script("this.ran = true;");
 
-      assert.throws(() => dom.runVMScript(script), TypeError);
+      assert.throws(() => dom.getInternalVMContext(), TypeError);
 
       assert.strictEqual(dom.window.ran, undefined);
     });
@@ -149,7 +148,7 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const script = new vm.Script("this.ran = true;");
 
-      dom.runVMScript(script);
+      script.runInContext(dom.getInternalVMContext());
 
       assert.strictEqual(dom.window.ran, true);
     });
@@ -158,7 +157,7 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "dangerously" });
       const script = new vm.Script("this.ran = true;");
 
-      dom.runVMScript(script);
+      script.runInContext(dom.getInternalVMContext());
 
       assert.strictEqual(dom.window.ran, true);
     });
@@ -167,7 +166,7 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const script = new vm.Script("5;");
 
-      const result = dom.runVMScript(script);
+      const result = script.runInContext(dom.getInternalVMContext());
 
       assert.strictEqual(result, 5);
     });
@@ -176,18 +175,21 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const script = new vm.Script("if (!this.ran) { this.ran = 0; } ++this.ran;");
 
-      dom.runVMScript(script);
-      dom.runVMScript(script);
-      dom.runVMScript(script);
+      script.runInContext(dom.getInternalVMContext());
+      script.runInContext(dom.getInternalVMContext());
+      script.runInContext(dom.getInternalVMContext());
 
       assert.strictEqual(dom.window.ran, 3);
     });
 
-    it("should allow passing through options", { skipIfBrowser: true }, () => {
+    it("should allow passing through options", () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const script = new vm.Script("while(true) {}");
 
-      assert.throws(() => dom.runVMScript(script, { timeout: 50 }), /Script execution timed out(?: after 50ms|\.)/);
+      assert.throws(
+        () => script.runInContext(dom.getInternalVMContext(), { timeout: 50 }),
+        /Script execution timed out(?: after 50ms|\.)/
+      );
     });
   });
 

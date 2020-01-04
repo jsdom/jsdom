@@ -10,7 +10,7 @@ const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
 describe("xhr-file-urls", { skipIfBrowser: true }, () => {
   specify("Getting a file URL should work (from the same file URL)", t => {
-    // From https://github.com/tmpvar/jsdom/pull/1180
+    // From https://github.com/jsdom/jsdom/pull/1180
     const { window } = new JSDOM(``, { url: toFileUrl(__filename) });
 
     const xhr = new window.XMLHttpRequest();
@@ -28,7 +28,7 @@ describe("xhr-file-urls", { skipIfBrowser: true }, () => {
   specify(
     "Getting a file URL should have valid default response without setting responseType",
     t => {
-      // From https://github.com/tmpvar/jsdom/pull/1183
+      // From https://github.com/jsdom/jsdom/pull/1183
       const { window } = new JSDOM(``, { url: toFileUrl(__filename) });
 
       const xhr = new window.XMLHttpRequest();
@@ -46,7 +46,7 @@ describe("xhr-file-urls", { skipIfBrowser: true }, () => {
   );
 
   specify("Getting a file URL should not throw for getResponseHeader", t => {
-    // From https://github.com/tmpvar/jsdom/pull/1180
+    // From https://github.com/jsdom/jsdom/pull/1180
     const { window } = new JSDOM(``, { url: toFileUrl(__filename) });
 
     const xhr = new window.XMLHttpRequest();
@@ -64,7 +64,7 @@ describe("xhr-file-urls", { skipIfBrowser: true }, () => {
   });
 
   specify("Getting a file URL should not throw for getAllResponseHeaders", t => {
-    // From https://github.com/tmpvar/jsdom/pull/1183
+    // From https://github.com/jsdom/jsdom/pull/1183
     const { window } = new JSDOM(``, { url: toFileUrl(__filename) });
 
     const xhr = new window.XMLHttpRequest();
