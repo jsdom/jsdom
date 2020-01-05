@@ -1,5 +1,8 @@
-[Constructor(DOMString type, optional KeyboardEventInit eventInitDict), Exposed=Window]
+// https://w3c.github.io/uievents/#idl-keyboardevent
+[Exposed=Window]
 interface KeyboardEvent : UIEvent {
+  constructor(DOMString type, optional KeyboardEventInit eventInitDict = {});
+
   // KeyLocationCode
   const unsigned long DOM_KEY_LOCATION_STANDARD = 0x00;
   const unsigned long DOM_KEY_LOCATION_LEFT = 0x01;
@@ -21,6 +24,7 @@ interface KeyboardEvent : UIEvent {
   boolean getModifierState(DOMString keyArg);
 };
 
+// https://w3c.github.io/uievents/#idl-keyboardeventinit
 dictionary KeyboardEventInit : EventModifierInit {
   DOMString key = "";
   DOMString code = "";
@@ -43,12 +47,14 @@ partial interface KeyboardEvent {
                          optional boolean metaKey = false);
 };
 
+// https://w3c.github.io/uievents/#legacy-interface-KeyboardEvent
 partial interface KeyboardEvent {
   // The following support legacy user agents
   readonly attribute unsigned long charCode;
   readonly attribute unsigned long keyCode;
 };
 
+// https://w3c.github.io/uievents/#legacy-dictionary-KeyboardEventInit
 partial dictionary KeyboardEventInit {
   // The following support legacy user agents
   unsigned long charCode = 0;

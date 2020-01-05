@@ -1,7 +1,8 @@
 // https://dom.spec.whatwg.org/#document
-[Constructor,
- Exposed=Window]
+[Exposed=Window]
 interface Document : Node {
+  constructor();
+
   [SameObject] readonly attribute DOMImplementation implementation;
   readonly attribute USVString URL;
   readonly attribute USVString documentURI;
@@ -37,7 +38,7 @@ interface Document : Node {
 
   [NewObject] Event createEvent(DOMString interface);
 
-//  [NewObject] Range createRange();
+  [NewObject] Range createRange();
 
   // NodeFilter.SHOW_ALL = 0xFFFFFFFF
   [NewObject] NodeIterator createNodeIterator(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
@@ -134,4 +135,9 @@ partial interface Document {
   readonly attribute boolean hidden;
   readonly attribute VisibilityState visibilityState;
   attribute EventHandler onvisibilitychange;
+};
+
+// https://w3c.github.io/selection-api/#extensions-to-document-interface
+partial interface Document {
+  Selection? getSelection();
 };

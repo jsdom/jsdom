@@ -1,6 +1,8 @@
-[Constructor(DOMString type, optional EventInit eventInitDict),
- Exposed=(Window,Worker,AudioWorklet)]
+// https://dom.spec.whatwg.org/#interface-event
+[Exposed=(Window,Worker,AudioWorklet)]
 interface Event {
+  constructor(DOMString type, optional EventInit eventInitDict = {});
+
   readonly attribute DOMString type;
   readonly attribute EventTarget? target;
   readonly attribute EventTarget? srcElement; // historical

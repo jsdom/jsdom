@@ -4,6 +4,11 @@ const { describe, it } = require("mocha-sugar-free");
 const { delay } = require("../util.js");
 
 const { JSDOM, VirtualConsole } = require("../..");
+const jsGlobals = Object.keys(require("../../lib/jsdom/browser/js-globals.json"));
+
+// Node 10 has a bug with the vm module that causes some global-related tests to fail.
+const hasNode10 = process.versions.node && Number(process.versions.node.split(".")[0]) === 10;
+
 
 describe("API: runScripts constructor option", () => {
   describe("<script>s and eval()", () => {
@@ -13,7 +18,6 @@ describe("API: runScripts constructor option", () => {
       </body>`);
 
       assert.strictEqual(dom.window.document.body.children.length, 1);
-      assert.strictEqual(dom.window.eval, undefined);
     });
 
     it("should not execute any scripts, even in iframes, by default (GH-1821)", () => {
@@ -25,7 +29,6 @@ describe("API: runScripts constructor option", () => {
       frameWindow.document.close();
 
       assert.strictEqual(dom.window.prop, undefined);
-      assert.strictEqual(frameWindow.eval, undefined);
     });
 
     it("should execute <script>s and eval when set to \"dangerously\"", () => {
@@ -38,7 +41,7 @@ describe("API: runScripts constructor option", () => {
     });
 
     // In the browser, vm-shim uses Function() on the code to be evaluated, which inserts an extra first line. So we are
-    // always off by one there. See https://github.com/tmpvar/jsdom/issues/2004.
+    // always off by one there. See https://github.com/jsdom/jsdom/issues/2004.
     it("should execute <script>s with correct location when set to \"dangerously\" and " +
        "includeNodeLocations", { skipIfBrowser: true }, () => {
       const virtualConsole = new VirtualConsole();
@@ -90,6 +93,30 @@ describe("API: runScripts constructor option", () => {
 
       assert.strictEqual(dom.window.prop, "i was executed");
     });
+  });
+
+  const jsSpecGlobalsDescribe = hasNode10 ? describe.skip : describe;
+  jsSpecGlobalsDescribe("JS spec globals", () => {
+    it("should include aliased globals by default", () => {
+      // Sanity check that our global-generation process hasn't broken.
+      assert.include(jsGlobals, "TypeError");
+      assert.include(jsGlobals, "Math");
+      assert.include(jsGlobals, "Function");
+
+      const dom = new JSDOM();
+      for (const globalName of jsGlobals) {
+        assertAliasedGlobal(dom.window, globalName);
+      }
+    });
+
+    for (const optionValue of ["outside-only", "dangerously"]) {
+      it(`should include fresh globals when set to "${optionValue}"`, () => {
+        const dom = new JSDOM(undefined, { runScripts: optionValue });
+        for (const globalName of jsGlobals) {
+          assertFreshGlobal(dom.window, globalName);
+        }
+      });
+    }
   });
 
   describe("event handlers", () => {
@@ -470,4 +497,32 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
 
 function formatOptionValue(optionValue) {
   return typeof optionValue === "string" ? `"${optionValue}"` : optionValue;
+}
+
+function isObject(value) {
+  return typeof value === "function" || (typeof value === "object" && value !== null);
+}
+
+function assertAliasedGlobal(window, globalName) {
+  const windowPropDesc = Object.getOwnPropertyDescriptor(window);
+  const globalPropDesc = Object.getOwnPropertyDescriptor(global);
+
+  assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value`);
+  assert.strictEqual(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
+  assert.strictEqual(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
+  assert.strictEqual(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
+}
+
+function assertFreshGlobal(window, globalName) {
+  const windowPropDesc = Object.getOwnPropertyDescriptor(window);
+  const globalPropDesc = Object.getOwnPropertyDescriptor(global);
+
+  if (isObject(globalPropDesc.value)) {
+    assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), false, `${globalName} value inequality`);
+  } else {
+    assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value equality`);
+  }
+  assert.strictEqual(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
+  assert.strictEqual(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
+  assert.strictEqual(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
 }

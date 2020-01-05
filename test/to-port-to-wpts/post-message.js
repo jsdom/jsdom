@@ -127,7 +127,7 @@ describe("post-message", () => {
   specify("postMessage respects '/' targetOrigin option", () => {
     todo(assert, tt => {
       // This would require knowledge of the source window
-      // See: https://github.com/tmpvar/jsdom/pull/1140#issuecomment-111587499
+      // See: https://github.com/jsdom/jsdom/pull/1140#issuecomment-111587499
 
       const { window } = new JSDOM();
       const { document } = window;

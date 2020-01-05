@@ -6,21 +6,25 @@ const { Minimatch } = require("minimatch");
 const { describe, specify, before } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const startWPTServer = require("./start-wpt-server.js");
+const { Canvas } = require("../../lib/jsdom/utils.js");
 
 const validReasons = new Set([
   "fail",
   "fail-slow",
+  "fail-with-canvas",
   "timeout",
   "flaky",
   "mutates-globals",
   "needs-node10",
   "needs-node11",
-  "needs-node12"
+  "needs-node12",
+  "needs-canvas"
 ]);
 
 const hasNode10 = Number(process.versions.node.split(".")[0]) >= 10;
 const hasNode11 = Number(process.versions.node.split(".")[0]) >= 11;
 const hasNode12 = Number(process.versions.node.split(".")[0]) >= 12;
+const hasCanvas = Boolean(Canvas);
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
 const manifest = readManifest(manifestFilename);
@@ -54,8 +58,10 @@ describe("web-platform-tests", () => {
 
           const testFile = testFilePath.slice((toRunDoc.DIR + "/").length);
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
-          const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason);
+          const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason) ||
+                             (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas);
           const expectFail = (reason === "fail") ||
+                             (reason === "fail-with-canvas" && hasCanvas) ||
                              (reason === "needs-node10" && !hasNode10) ||
                              (reason === "needs-node11" && !hasNode11) ||
                              (reason === "needs-node12" && !hasNode12);

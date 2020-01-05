@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Comment constructor</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-comment-comment">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  const comment = new Comment();
+  assert_equals(comment.data, "");
+}, "Comment constructor with no parameter");
+
+test(() => {
+  const comment = new Comment("I am a comment node");
+  assert_equals(comment.data, "I am a comment node");
+}, "Comment constructor with 1 parameter");
+
+</script>

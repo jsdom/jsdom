@@ -1,7 +1,8 @@
-[Constructor(optional sequence<BlobPart> blobParts,
-             optional BlobPropertyBag options),
- Exposed=(Window,Worker), Serializable]
+[Exposed=(Window,Worker), Serializable]
 interface Blob {
+  constructor(optional sequence<BlobPart> blobParts,
+              optional BlobPropertyBag options = {});
+
 
   readonly attribute unsigned long long size;
   readonly attribute DOMString type;

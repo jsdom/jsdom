@@ -13,6 +13,8 @@
 <script>
 "use strict";
 
+setup({ single_test: true });
+
 assert_not_equals(document.querySelector("style").sheet, null);
 assert_true(document.querySelector("style").sheet instanceof CSSStyleSheet);
 

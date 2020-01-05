@@ -59,7 +59,7 @@ module.exports = ({ toUpstream = false } = {}) => {
     },
     () => {
       throw new Error("Host entries not present for web platform tests. See " +
-                      "https://github.com/w3c/web-platform-tests#running-the-tests");
+                      "https://github.com/web-platform-tests/wpt#running-the-tests");
     }
   ).then(([firstURL]) => firstURL);
 };

@@ -2,7 +2,7 @@
 const suite = require("../document-suite");
 
 // Based on the hard part of
-// https://github.com/w3c/web-platform-tests/blob/3b19057653a313f4ee7d6ff90c01456962d87d12/html/semantics/tabular-data/processing-model-1/span-limits.html
+// https://github.com/web-platform-tests/wpt/blob/3b19057653a313f4ee7d6ff90c01456962d87d12/html/semantics/tabular-data/processing-model-1/span-limits.html
 // which was noticed to be slow.
 
 exports.tables = suite(document => {

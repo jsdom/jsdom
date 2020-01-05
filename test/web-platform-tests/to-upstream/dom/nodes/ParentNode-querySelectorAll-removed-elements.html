@@ -10,6 +10,8 @@
 <script>
 "use strict";
 
+setup({ single_test: true });
+
 const container = document.querySelector("#container");
 function getIDs() {
   return [...container.querySelectorAll("a.test")].map(el => el.id);
