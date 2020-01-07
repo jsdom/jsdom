@@ -557,9 +557,6 @@ formaction.html: [fail, Unknown]
 
 DIR: html/semantics/forms/constraints
 
-form-validation-validity-valid.html: [fail, To be fixed]
-form-validation-validity-valueMissing.html: [fail, To be fixed]
-form-validation-willValidate.html: [fail, To be fixed]
 infinite_backtracking.html: [timeout, We cannot restrict duration of regex matching from JavaScript]
 
 ---
