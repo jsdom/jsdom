@@ -558,7 +558,6 @@ formaction.html: [fail, Unknown]
 
 DIR: html/semantics/forms/constraints
 
-form-validation-validity-stepMismatch.html: [fail, High precision modulo operation needed]
 infinite_backtracking.html: [timeout, We cannot restrict duration of regex matching from JavaScript]
 
 ---
