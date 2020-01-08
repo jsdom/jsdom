@@ -1,12 +1,13 @@
 "use strict";
 /* eslint-disable no-console, global-require */
-const path = require("path");
 const dns = require("dns");
+const path = require("path");
+const util = require("util");
 const childProcess = require("child_process");
-const q = require("q");
+const request = require("request");
 const { inBrowserContext } = require("../util.js");
-const requestHead = require("request-promise-native").head;
-const dnsLookup = q.denodeify(dns.lookup);
+
+const dnsLookup = util.promisify(dns.lookup);
 
 const wptDir = path.resolve(__dirname, "tests");
 
@@ -65,13 +66,15 @@ module.exports = ({ toUpstream = false } = {}) => {
 };
 
 function pollForServer(url) {
-  return requestHead(url, { strictSSL: false })
-    .then(() => {
-      console.log(`WPT server at ${url} is up!`);
-      return url;
-    })
-    .catch(err => {
-      console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
-      return q.delay(500).then(() => pollForServer(url));
+  return new Promise(resolve => {
+    request.head(url, { strictSSL: false }, (err, response) => {
+      if (err || response.statusCode !== 200) {
+        console.log(`WPT server at ${url} is not up yet; trying again`);
+        setTimeout(() => resolve(pollForServer(url)), 500);
+      } else {
+        console.log(`WPT server at ${url} is up!`);
+        resolve(url);
+      }
     });
+  });
 }
