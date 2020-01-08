@@ -32,7 +32,6 @@
     "html-encoding-sniffer": "^2.0.0",
     "nwsapi": "^2.2.0",
     "parse5": "5.1.1",
-    "pn": "^1.1.0",
     "request": "^2.88.0",
     "saxes": "^4.0.2",
     "symbol-tree": "^3.2.2",
