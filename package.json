@@ -22,7 +22,6 @@
     "abab": "^2.0.3",
     "acorn": "^7.1.0",
     "acorn-globals": "^4.3.2",
-    "array-equal": "^1.0.0",
     "cssom": "^0.4.4",
     "cssstyle": "^2.0.0",
     "data-urls": "^2.0.0",
