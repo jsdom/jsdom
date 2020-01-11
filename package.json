@@ -32,6 +32,7 @@
     "nwsapi": "^2.2.0",
     "parse5": "5.1.1",
     "request": "^2.88.0",
+    "request-promise-native": "^1.0.8",
     "saxes": "^4.0.2",
     "symbol-tree": "^3.2.2",
     "tough-cookie": "^3.0.1",

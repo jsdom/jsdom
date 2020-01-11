@@ -4,7 +4,7 @@ const dns = require("dns");
 const path = require("path");
 const util = require("util");
 const childProcess = require("child_process");
-const request = require("request");
+const requestHead = require("request-promise-native").head;
 const { inBrowserContext } = require("../util.js");
 
 const dnsLookup = util.promisify(dns.lookup);
@@ -66,15 +66,15 @@ module.exports = ({ toUpstream = false } = {}) => {
 };
 
 function pollForServer(url) {
-  return new Promise(resolve => {
-    request.head(url, { strictSSL: false }, (err, response) => {
-      if (err || response.statusCode !== 200) {
-        console.log(`WPT server at ${url} is not up yet; trying again`);
+  return requestHead(url, { strictSSL: false })
+    .then(() => {
+      console.log(`WPT server at ${url} is up!`);
+      return url;
+    })
+    .catch(err => {
+      console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
+      return new Promise(resolve => {
         setTimeout(() => resolve(pollForServer(url)), 500);
-      } else {
-        console.log(`WPT server at ${url} is up!`);
-        resolve(url);
-      }
+      });
     });
-  });
 }
