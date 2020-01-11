@@ -24,6 +24,35 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.0.0
+
+For this release we'd like to welcome [@pmdartus](https://github.com/jsdom/jsdom/commits?author=pmdartus) to the core team. Among other work, he's driven the heroic effort of constructor prototype and reform in jsdom and its dependencies over the last few months, to allow us to move away from shared constructors and prototypes, and set the groundwork for custom elements support ([coming soon](https://github.com/jsdom/jsdom/pull/2548)!).
+
+Breaking changes:
+
+* Node v10 is now the minimum supported version.
+* The `dom.runVMScript()` API has been replaced with the more general `dom.getInternalVMContext()` API.
+* Each jsdom `Window` now creates new instances of all the web platform globals. That is, our old [shared constructor and prototypes](https://github.com/jsdom/jsdom/blob/35894a6703ed1f4de98942780bd99244ac27f600/README.md#shared-constructors-and-prototypes) caveat is no longer in play.
+* Each jsdom `Window` now exposes all JavaScript-spec-defined globals uniformly. When `runScripts` is disabled, it exposes them as aliases of the ones from the outer Node.js environment. Whereas when `runScripts` is enabled, it exposes fresh copies of each global from the new scripting environment. (Previously, a few typed array classes would always be aliased, and with `runScripts` disabled, the other classes would not be exposed at all.)
+
+Other changes:
+
+* Added the `AbstractRange`, `Range`, `StaticRange`, `Selection`, and `window.getSelection()` APIs.
+* Added working constructors for `Comment`, `Text`, and `DocumentFragment`.
+* Added `valueAsDate`, `valueAsNumber`, `stepUp()` and `stepDown()` to `<input>` elements. (kraynel)
+* Added `window.origin`.
+* Removed `document.origin`.
+* Fixed `<template>` to work correctly inside XML documents.
+* Fixed some bugs which would cause jsdom to choose the wrong character encoding because it was failing to detect `<meta charset>` or `<meta http-equiv="charset">` elements.
+* Fixed `input.type` to default to `"text"`. (connormeredith)
+* Fixed incorrect validation errors for `<input>` with fractional values for their `step=""` attribute. (kontomondo)
+* Fixed incorrect validation errors on readonly `<input>` elements.
+* Fixed `<input type="email" multiple pattern="...">` validation.
+* Fixed `fileReader.readAsDataURL()` to always base64-encode the result. (ytetsuro)
+* Fixed inserting `<img>` elements into documents without a browsing context to no longer crash when the `canvas` package is installed.
+* Fixed a memory leak when using `window.setTimeout()` or `window.setInterval()`.
+* Improved the performance of `getComputedStyle()`. (eps1lon)
+
 ## 15.2.1
 
 * Fixed `JSDOM.fromURL()` handling of URLs with hashes in them, to no longer send the hash to the server and append an extra copy of it when constructing the `Document`. (rchl)

@@ -46,6 +46,7 @@ Christof Marti <chrmarti@microsoft.com>
 Christoph Pojer <christoph.pojer@gmail.com>
 Christophe Coevoet <stof@notk.org>
 cjroebuck <tophtfc@gmail.com>
+Connor Meredith <4907463+connormeredith@users.noreply.github.com>
 Cyril Auburtin <cyril.auburtin@gmail.com>
 daishi <daishi@axlight.com>
 Damian Janowski <damian.janowski@gmail.com>
@@ -75,6 +76,7 @@ Eugene Ware <eugene@noblesamurai.com>
 Evan Haas <evan@fictivekin.com>
 Evan Jacobs <evan.jacobs@enigma.io>
 Evan Jones <evan.q.jones@gmail.com>
+ExE Boss <3889017+ExE-Boss@users.noreply.github.com>
 Federico Galassi <federico.galassi@gmail.com>
 fegs <ang0123dev@gmail.com>
 Felix Böhm <me@feedic.com>
@@ -148,7 +150,9 @@ Kasper Isager <kasperisager@gmail.com>
 kblomquist <kblomquist@groupon.com>
 Ken "Elf" Mathieu Sternberg <elf@pendorwright.com>
 Kenneth Powers <ken@kenpowers.net>
+Kevin Raynel <kraynel@users.noreply.github.com>
 King Koopa <bbyholm@abo.fi>
+Konto Mondo <kontomondo@gmail.com>
 kontomondo <kontomondo@gmail.com>
 Koushik Challa <challakoushik@gmail.com>
 Kuriyama hibiya <kuriyama@hibiya.moe>
@@ -274,6 +278,7 @@ Wei Dai <x@wei23.net>
 William Cunningham <w.a.cunningham.ii@gmail.com>
 Xavi <xavi.rmz@gmail.com>
 Yonathan <yonathan@gmail.com>
+ytetsuro <phper.0o0@gmail.com>
 Yun Cui <ycui@microstrategy.com>
 Yunlei Liu <yunlei.liu@appfolio.com>
 Zach Bjornson <zbbjornson@gmail.com>
