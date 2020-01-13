@@ -321,4 +321,37 @@ describe("API: constructor options", () => {
       });
     });
   });
+
+  describe("scriptingEnabled", () => {
+    describe("is enabled", () => {
+      it("should get noscript child as text", () => {
+        const { document } = new JSDOM(`<body><noscript><div></div></noscript></body>`).window;
+
+        assert.strictEqual(document.querySelector("noscript").children.length, 0);
+        assert.strictEqual(document.querySelector("noscript").innerHTML, "<div></div>");
+      });
+
+      it("should get noscript child as text", () => {
+        const { document } = new JSDOM(
+          `<body><noscript><div></div></noscript></body>`,
+          { scriptingEnabled: true }
+        ).window;
+
+        assert.strictEqual(document.querySelector("noscript").children.length, 0);
+        assert.strictEqual(document.querySelector("noscript").innerHTML, "<div></div>");
+      });
+    });
+
+    describe("is disabled", () => {
+      it("should get noscript child as Node", () => {
+        const dom = new JSDOM(
+          `<body><noscript><div></div></noscript></body>`,
+          { scriptingEnabled: false }
+        ).window;
+        const { document } = dom.window;
+        assert.strictEqual(document.querySelector("noscript").children.length, 1);
+        assert.instanceOf(document.querySelector("noscript").children[0], dom.window.HTMLDivElement);
+      });
+    });
+  });
 });
