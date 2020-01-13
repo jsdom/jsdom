@@ -55,7 +55,7 @@ const dom = new JSDOM(``, {
 - `contentType` affects the value read from `document.contentType`, as well as how the document is parsed: as HTML or as XML. Values that are not a [HTML mime type](https://mimesniff.spec.whatwg.org/#html-mime-type) or an [XML mime type](https://mimesniff.spec.whatwg.org/#xml-mime-type) will throw. It defaults to `"text/html"`. If a `charset` parameter is present, it can affect [binary data processing](#encoding-sniffing).
 - `includeNodeLocations` preserves the location info produced by the HTML parser, allowing you to retrieve it with the `nodeLocation()` method (described below). It also ensures that line numbers reported in exception stack traces for code running inside `<script>` elements are correct. It defaults to `false` to give the best performance, and cannot be used with an XML content type since our XML parser does not support location info.
 - `storageQuota` is the maximum size in code units for the separate storage areas used by ``localStorage` and `sessionStorage`. Attempts to store data larger than this limit will cause a `DOMException` to be thrown. By default, it is set to 5,000,000 code units per origin, as inspired by the HTML specification.
-- `scriptingEnabled` If set to true, noscript element content will be parsed as text. ( default: `true)
+- `scriptingEnabled` If set to true, noscript element content will be parsed as text. ( default: `true`)
 
 Note that both `url` and `referrer` are canonicalized before they're used, so e.g. if you pass in `"https:example.com"`, jsdom will interpret that as if you had given `"https://example.com/"`. If you pass an unparseable URL, the call will throw. (URLs are parsed and serialized according to the [URL Standard](http://url.spec.whatwg.org/).)
 
