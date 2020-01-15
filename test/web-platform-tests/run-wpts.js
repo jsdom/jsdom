@@ -58,16 +58,16 @@ describe("web-platform-tests", () => {
                              (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas);
           const needsNodeVersion = reason.startsWith("needs-node") ?
             Number(reason.substring(10 /* "needs-node".length */)) :
-            false;
+            null;
           const expectFail = (reason === "fail") ||
                              (reason === "fail-with-canvas" && hasCanvas) ||
-                             (needsNodeVersion !== false && nodeMajor < needsNodeVersion);
+                             (needsNodeVersion !== null && nodeMajor < needsNodeVersion);
 
           if (matchingPattern && shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);
           } else if (expectFail) {
             let failReason = "";
-            if (needsNodeVersion !== false) {
+            if (needsNodeVersion !== null) {
               failReason = `: ${reason}`;
             } else if (reason === "fail-with-canvas") {
               failReason = ": canvas bug";
