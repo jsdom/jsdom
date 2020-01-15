@@ -56,7 +56,7 @@ describe("web-platform-tests", () => {
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
           const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason) ||
                              (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas);
-          const needsNodeVersion = reason.startsWith("needs-node") ?
+          const needsNodeVersion = typeof reason === "string" && reason.startsWith("needs-node") ?
             Number(reason.substring(10 /* "needs-node".length */)) :
             null;
           const expectFail = (reason === "fail") ||
