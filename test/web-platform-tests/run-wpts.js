@@ -15,15 +15,11 @@ const validReasons = new Set([
   "timeout",
   "flaky",
   "mutates-globals",
-  "needs-node10",
-  "needs-node11",
-  "needs-node12",
   "needs-canvas"
 ]);
+const validReasonNeedsNode = /^needs-node(\d+)$/u;
 
-const hasNode10 = Number(process.versions.node.split(".")[0]) >= 10;
-const hasNode11 = Number(process.versions.node.split(".")[0]) >= 11;
-const hasNode12 = Number(process.versions.node.split(".")[0]) >= 12;
+const nodeMajor = Number(process.versions.node.split(".")[0]);
 const hasCanvas = Boolean(Canvas);
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
@@ -60,16 +56,23 @@ describe("web-platform-tests", () => {
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
           const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason) ||
                              (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas);
+          const needsNodeVersion = reason.startsWith("needs-node") ?
+            Number(reason.substring(10 /* "needs-node".length */)) :
+            false;
           const expectFail = (reason === "fail") ||
                              (reason === "fail-with-canvas" && hasCanvas) ||
-                             (reason === "needs-node10" && !hasNode10) ||
-                             (reason === "needs-node11" && !hasNode11) ||
-                             (reason === "needs-node12" && !hasNode12);
+                             (needsNodeVersion !== false && nodeMajor < needsNodeVersion);
 
           if (matchingPattern && shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);
           } else if (expectFail) {
-            runSingleWPT(testFilePath, `[expected fail] ${testFile}`, expectFail);
+            let failReason = "";
+            if (needsNodeVersion !== false) {
+              failReason = `: ${reason}`;
+            } else if (reason === "fail-with-canvas") {
+              failReason = ": canvas bug";
+            }
+            runSingleWPT(testFilePath, `[expected fail${failReason}] ${testFile}`, expectFail);
           } else {
             runSingleWPT(testFilePath, testFile, expectFail);
           }
@@ -111,7 +114,7 @@ function checkToRun() {
       lastPattern = pattern;
 
       const reason = doc[pattern][0];
-      if (!validReasons.has(reason)) {
+      if (!validReasons.has(reason) && !validReasonNeedsNode.test(reason)) {
         throw new Error(`Bad reason "${reason}" for expectation ${pattern}`);
       }
 
