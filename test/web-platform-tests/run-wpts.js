@@ -15,11 +15,18 @@ const validReasons = new Set([
   "timeout",
   "flaky",
   "mutates-globals",
+  "needs-node10",
+  "needs-node11",
+  "needs-node12",
+  "needs-node13",
   "needs-canvas"
 ]);
-const validReasonNeedsNode = /^needs-node(\d+)$/u;
 
 const nodeMajor = Number(process.versions.node.split(".")[0]);
+const hasNode10 = nodeMajor >= 10;
+const hasNode11 = nodeMajor >= 11;
+const hasNode12 = nodeMajor >= 12;
+const hasNode13 = nodeMajor >= 13;
 const hasCanvas = Boolean(Canvas);
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
@@ -56,18 +63,18 @@ describe("web-platform-tests", () => {
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
           const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason) ||
                              (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas);
-          const needsNodeVersion = typeof reason === "string" && reason.startsWith("needs-node") ?
-            Number(reason.substring(10 /* "needs-node".length */)) :
-            null;
           const expectFail = (reason === "fail") ||
                              (reason === "fail-with-canvas" && hasCanvas) ||
-                             (needsNodeVersion !== null && nodeMajor < needsNodeVersion);
+                             (reason === "needs-node10" && !hasNode10) ||
+                             (reason === "needs-node11" && !hasNode11) ||
+                             (reason === "needs-node12" && !hasNode12) ||
+                             (reason === "needs-node13" && !hasNode13);
 
           if (matchingPattern && shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);
           } else if (expectFail) {
             let failReason = "";
-            if (needsNodeVersion !== null) {
+            if (reason.startsWith("needs-node")) {
               failReason = `: ${reason}`;
             } else if (reason === "fail-with-canvas") {
               failReason = ": canvas bug";
@@ -114,7 +121,7 @@ function checkToRun() {
       lastPattern = pattern;
 
       const reason = doc[pattern][0];
-      if (!validReasons.has(reason) && !validReasonNeedsNode.test(reason)) {
+      if (!validReasons.has(reason)) {
         throw new Error(`Bad reason "${reason}" for expectation ${pattern}`);
       }
 
