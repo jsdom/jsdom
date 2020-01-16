@@ -574,6 +574,17 @@ DIR: html/semantics/forms/resetting-a-form
 
 ---
 
+DIR: html/semantics/forms/textfieldselection
+
+select-event.html: [fail, not yet implemented]
+selection-after-content-change.html: [fail, not yet implemented]
+selection-not-application-textarea.html: [fail, not yet implemented]
+selection-start-end-extra.html: [fail, not yet implemented]
+textfieldselection-setRangeText.html: [fail, not yet implemented]
+textfieldselection-setSelectionRange.html: [fail, not yet implemented]
+
+---
+
 DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, iframe onload needs to run after synchronous script]
