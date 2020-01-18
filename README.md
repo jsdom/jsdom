@@ -33,8 +33,6 @@ const { document } = (new JSDOM(`...`)).window;
 
 Full documentation on everything you can do with the `JSDOM` class is below, in the section "`JSDOM` Object API".
 
-_Important note: in the default configuration, JavaScript globals like `window.Date` or `window.Map` will not exist. Read the "Executing scripts" section below for more._
-
 ## Customizing jsdom
 
 The `JSDOM` constructor accepts a second parameter which can be used to customize your jsdom in the following ways.
@@ -89,12 +87,12 @@ Again we emphasize to only use this when feeding jsdom code you know is safe. If
 
 If you want to execute _external_ scripts, included via `<script src="">`, you'll also need to ensure that they load them. To do this, add the option `resources: "usable"` [as described below](#loading-subresources).
 
-Note that event handler attributes, like `<div onclick="">`, will also not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
+Event handler attributes, like `<div onclick="">`, are also governed by this setting; they will not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
 
-If you are simply trying to execute script "from the outside", instead of letting `<script>` elements (and inline event handlers) run "from the inside", you can use the `runScripts: "outside-only"` option, which enables all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
+If you are simply trying to execute script "from the outside", instead of letting `<script>` elements and event handlers attributes run "from the inside", you can use the `runScripts: "outside-only"` option, which enables fresh copies of all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
 
 ```js
-const window = (new JSDOM(``, { runScripts: "outside-only" })).window;
+const { window } = new JSDOM(``, { runScripts: "outside-only" });
 
 window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`);
 window.document.body.children.length === 1;
@@ -102,7 +100,9 @@ window.document.body.children.length === 1;
 
 This is turned off by default for performance reasons, but is safe to enable.
 
-Note that we strongly advise against trying to "execute scripts" by mashing together the jsdom and Node global environments (e.g. by doing `global.window = dom.window`), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using `window.eval` or `runScripts: "dangerously"`. This might require, for example, creating a browserify bundle to execute as a `<script>` element—just like you would in a browser.
+(Note that in the default configuration, without setting `runScripts`, the values of `window.Array`, `window.eval`, etc. will be the same as those provided by the outer Node.js environment. That is, `window.eval === eval` will hold, so `window.eval` will not run scripts in a useful way.)
+
+We strongly advise against trying to "execute scripts" by mashing together the jsdom and Node global environments (e.g. by doing `global.window = dom.window`), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using `window.eval` or `runScripts: "dangerously"`. This might require, for example, creating a browserify bundle to execute as a `<script>` element—just like you would in a browser.
 
 Finally, for advanced use cases you can use the `dom.getInternalVMContext()` method, documented below.
 

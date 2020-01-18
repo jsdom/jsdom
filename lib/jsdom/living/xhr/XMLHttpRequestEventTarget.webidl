@@ -1,3 +1,4 @@
+// https://xhr.spec.whatwg.org/#xmlhttprequesteventtarget
 [Exposed=(Window,DedicatedWorker,SharedWorker)]
 interface XMLHttpRequestEventTarget : EventTarget {
   // event handlers

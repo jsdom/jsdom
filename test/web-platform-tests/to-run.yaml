@@ -70,7 +70,8 @@ elementFromPosition.html: [fail, Unknown]
 elementScroll.html: [fail, Unknown]
 elementsFromPoint**: [fail, Not implemented]
 getBoundingClientRect-empty-inline.html: [fail, document.fonts is not implemented]
-getClientRects**: [fail, Not implemented]
+getClientRects-br-*: [fail, Not implemented]
+getClientRects-inline-atomic-child.html: [fail, Not implemented]
 idlharness.html: [fail, Depends on Fetch]
 inheritance.html: [fail, inherit not implemented (or not properly implemented)]
 matchMedia-display-none-iframe.html: [fail, Not implemented]
@@ -142,9 +143,6 @@ Comment-constructor.html: [fail, Unknown]
 DOMImplementation-createDocument.html: [fail, Unknown]
 Document-URL.html: [fail, Unknown]
 Document-characterSet-normalization.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
-Document-constructor-svg.svg: [fail, Unknown]
-Document-constructor-xml.xml: [fail, Unknown]
-Document-constructor.html: [fail, new Document().origin should inherit from current Document]
 Document-createEvent.https.html: [fail, We don't support every event interface yet]
 Document-getElementById.html: [fail, We cache IDs in insertion order]
 Document-importNode.html: [fail, Attr should be a Node, https://github.com/jsdom/jsdom/issues/1641]
@@ -154,6 +152,7 @@ Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 MutationObserver-sanity.html: [fail, TypeError is not instanceof TypeError]
+Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not implemented]
 Node-childNodes.html: [fail, Unknown]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
@@ -552,7 +551,7 @@ formaction.html: [fail, Unknown]
 
 DIR: html/semantics/forms/constraints
 
-form-validation-validity-stepMismatch.html: [fail, High precision modulo operation needed]
+form-validation-validity-valueMissing.html: [fail, 'Spec unclear (see https://github.com/whatwg/html/issues/5202)']
 infinite_backtracking.html: [timeout, We cannot restrict duration of regex matching from JavaScript]
 
 ---
@@ -572,7 +571,9 @@ DIR: html/semantics/forms/resetting-a-form
 DIR: html/semantics/forms/the-button-element
 
 button-activate.html: [fail, iframe onload needs to run after synchronous script]
-button-submit-children.html: [fail, We do not support form target yet]
+button-submit-children.html: [fail-slow, We do not support form target yet]
+button-submit-remove-children-jssubmit.html: [fail-slow, We do not support form target yet]
+button-submit-remove-children.html: [fail-slow, We do not support form target yet]
 
 ---
 
@@ -604,23 +605,13 @@ DIR: html/semantics/forms/the-input-element
 
 checkbox.html: [fail, Events weirdness]
 datetime-local.html: [fail, min/max constraints not implemented]
-datetime.html: [fail, step is not implemented]
-hidden.html: [fail, step/valueAsDate/valueAsNumber not implemented]
 image-click-form-data.html: [timeout, Unknown]
-input-stepdown.html: [fail, stepDown()-method is not implemented]
-input-stepup.html: [fail, stepUp()-method is not implemented]
 input-type-button.html: [fail, Depends on offsetWidth]
-input-valueasdate-invalidstateerr.html: [fail, valueAsDate not implemented]
-input-valueasnumber-invalidstateerr.html: [timeout, valueAsNumber not implemented]
 maxlength.html: [fail, Reflection not implemented correctly]
 minlength.html: [fail, Reflection not implemented correctly]
-month.html: [fail, step attribute not yet implemented]
 range-2.html: [fail, step attribute not yet implemented]
 range.html: [fail, step attribute and range semantics not yet implemented]
 reset.html: [fail, Reset semantics not yet implemented]
-text.html: [fail, step attribute not yet implemented]
-time.html: [fail, step attribute not yet implemented]
-type-change-state.html: [fail, type attribute state switching not yet implemented]
 
 ---
 
@@ -827,7 +818,6 @@ pseudo-classes/focus.html: [timeout, Unknown]
 pseudo-classes/indeterminate-radio.html: [fail, CSS computed style computation]
 pseudo-classes/indeterminate-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/inrange-outofrange-type-change.html: [fail, CSS computed style computation]
-pseudo-classes/inrange-outofrange.html: [fail, Unknown]
 pseudo-classes/placeholder-shown-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/readwrite-readonly-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/readwrite-readonly.html: [fail, Unknown]

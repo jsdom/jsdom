@@ -1,7 +1,7 @@
 ### Basic info:
 
-- **Node.js version:** <!-- only v8 and above are supported -->
-- **jsdom version:** <!-- only v12 and above are supported -->
+- **Node.js version:** <!-- only v10 and above are supported -->
+- **jsdom version:** <!-- only v16 and above are supported -->
 
 ### Minimal reproduction case
 
@@ -29,4 +29,4 @@ issue, as we cannot debug whatever toolchain you are using.
 
 ### How does similar code behave in browsers?
 
-(Link to a jsbin or similar suggested.)
+(Link to a jsbin or similar strongly suggested.)
