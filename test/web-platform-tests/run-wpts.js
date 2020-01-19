@@ -70,13 +70,8 @@ describe("web-platform-tests", () => {
           if (matchingPattern && shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);
           } else if (expectFail) {
-            runSingleWPT(
-              testFilePath,
-              `[expected fail${
-                reason !== "fail" ? `: ${reason}` : ""
-              }] ${testFile}`,
-              expectFail
-            );
+            const failReason = reason !== "fail" ? `: ${reason}` : "";
+            runSingleWPT(testFilePath, `[expected fail${failReason}] ${testFile}`, expectFail);
           } else {
             runSingleWPT(testFilePath, testFile, expectFail);
           }
