@@ -21,9 +21,10 @@ const validReasons = new Set([
   "needs-canvas"
 ]);
 
-const hasNode10 = Number(process.versions.node.split(".")[0]) >= 10;
-const hasNode11 = Number(process.versions.node.split(".")[0]) >= 11;
-const hasNode12 = Number(process.versions.node.split(".")[0]) >= 12;
+const nodeMajor = Number(process.versions.node.split(".")[0]);
+const hasNode10 = nodeMajor >= 10;
+const hasNode11 = nodeMajor >= 11;
+const hasNode12 = nodeMajor >= 12;
 const hasCanvas = Boolean(Canvas);
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
@@ -69,7 +70,8 @@ describe("web-platform-tests", () => {
           if (matchingPattern && shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);
           } else if (expectFail) {
-            runSingleWPT(testFilePath, `[expected fail] ${testFile}`, expectFail);
+            const failReason = reason !== "fail" ? `: ${reason}` : "";
+            runSingleWPT(testFilePath, `[expected fail${failReason}] ${testFile}`, expectFail);
           } else {
             runSingleWPT(testFilePath, testFile, expectFail);
           }
