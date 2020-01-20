@@ -577,9 +577,8 @@ DIR: html/semantics/forms/resetting-a-form
 DIR: html/semantics/forms/textfieldselection
 
 select-event.html: [fail, not yet implemented]
-selection-after-content-change.html: [fail, not yet implemented]
 selection-not-application-textarea.html: [fail, not yet implemented]
-selection-start-end-extra.html: [fail, not yet implemented]
+selection-start-end-extra.html: [fail, not yet implemented. Shortening value by turning input type into url - fix would cause the-input-element type-change-state.html to fail.]
 textfieldselection-setRangeText.html: [fail, not yet implemented]
 textfieldselection-setSelectionRange.html: [fail, not yet implemented]
 
