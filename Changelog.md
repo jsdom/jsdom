@@ -24,6 +24,12 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.0.1
+
+* Fixed Node v10 and v11 support when `runScripts` was set.
+* Fixed the behavior when changing an `<input>`'s `type=""` attribute.
+* Fixed input validation behavior for `<input type="range">` when `max=""` is less than `min=""`.
+
 ## 16.0.0
 
 For this release we'd like to welcome [@pmdartus](https://github.com/jsdom/jsdom/commits?author=pmdartus) to the core team. Among other work, he's driven the heroic effort of constructor prototype and reform in jsdom and its dependencies over the last few months, to allow us to move away from shared constructors and prototypes, and set the groundwork for custom elements support ([coming soon](https://github.com/jsdom/jsdom/pull/2548)!).
