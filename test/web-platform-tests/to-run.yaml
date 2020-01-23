@@ -165,6 +165,10 @@ remove-and-adopt-thcrash.html: [fail, window.open not implemented]
 
 ---
 
+DIR: dom/ranges
+
+---
+
 DIR: dom/traversal
 
 NodeIterator-removal.html: [fail, Unknown]
