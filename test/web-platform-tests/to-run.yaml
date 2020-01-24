@@ -985,7 +985,6 @@ Create-Secure-extensions-empty.any.html: [timeout, Buggy test as the test does n
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
 cookies/006.html?wss: [fail, Unknown]
 cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
-interfaces/WebSocket/close/close-basic.html*: [mutates-globals]
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 remove-own-iframe-during-onerror.window.html: [timeout, iframe.srcdoc not implemented]
 stream-tentative/*: [timeout, Not implemented]

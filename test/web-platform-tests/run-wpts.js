@@ -14,7 +14,6 @@ const validReasons = new Set([
   "fail-with-canvas",
   "timeout",
   "flaky",
-  "mutates-globals",
   "needs-node10",
   "needs-node11",
   "needs-node12",
@@ -59,7 +58,7 @@ describe("web-platform-tests", () => {
 
           const testFile = testFilePath.slice((toRunDoc.DIR + "/").length);
           const reason = matchingPattern && toRunDoc[matchingPattern][0];
-          const shouldSkip = ["fail-slow", "timeout", "flaky", "mutates-globals"].includes(reason) ||
+          const shouldSkip = ["fail-slow", "timeout", "flaky"].includes(reason) ||
                              (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas);
           const expectFail = (reason === "fail") ||
                              (reason === "fail-with-canvas" && hasCanvas) ||
