@@ -95,17 +95,27 @@ describe("API: runScripts constructor option", () => {
     });
   });
 
-  describe("<noscript> childs", () => {
-    it("should be considered as Text when runScripts is set to \"dangerously\"", () => {
+  describe("<noscript> children", () => {
+    it("should be considered text when runScripts is set to \"dangerously\"", () => {
       const { document } = new JSDOM(
         `<body><noscript><div></div></noscript></body>`,
         { runScripts: "dangerously" }
       ).window;
 
       assert.strictEqual(document.querySelector("noscript").children.length, 0);
-      assert.strictEqual(document.querySelector("noscript").innerHTML, "<div></div>");
+      assert.strictEqual(document.querySelector("noscript").textContent, "<div></div>");
     });
-    it("should be reachable when runScripts is not set to \"dangerously\"", () => {
+    it("should be considered nodes when runScripts is set to \"outside-only\"", () => {
+      const dom = new JSDOM(
+        `<body><noscript><div></div></noscript></body>`,
+        { runScripts: "outside-only" }
+      );
+      const { document } = dom.window;
+
+      assert.strictEqual(document.querySelector("noscript").children.length, 1);
+      assert.instanceOf(document.querySelector("noscript").children[0], dom.window.HTMLDivElement);
+    });
+    it("should be considered nodes when runScripts is left undefined", () => {
       const dom = new JSDOM(`<body><noscript><div></div></noscript></body>`).window;
       const { document } = dom.window;
 
