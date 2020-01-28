@@ -17,13 +17,13 @@ interface SVGSVGElement : SVGGraphicsElement {
   // void deselectAll();
 
   SVGNumber createSVGNumber();
-  // SVGLength createSVGLength();
-  // SVGAngle createSVGAngle();
-  // DOMPoint createSVGPoint();
-  // DOMMatrix createSVGMatrix();
-  // DOMRect createSVGRect();
-  // SVGTransform createSVGTransform();
-  // SVGTransform createSVGTransformFromMatrix(DOMMatrixReadOnly matrix);
+  SVGLength createSVGLength();
+  SVGAngle createSVGAngle();
+  DOMPoint createSVGPoint();
+  DOMMatrix createSVGMatrix();
+  DOMRect createSVGRect();
+  SVGTransform createSVGTransform();
+  SVGTransform createSVGTransformFromMatrix(DOMMatrixReadOnly matrix);
 
   Element getElementById(DOMString elementId);
 
