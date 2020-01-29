@@ -17,5 +17,5 @@ interface HTMLScriptElement : HTMLElement {
 partial interface HTMLScriptElement {
   [CEReactions, Reflect] attribute DOMString charset;
   [CEReactions, Reflect] attribute DOMString event;
-  [CEReactions, Reflect=for] attribute DOMString htmlFor;
+  [CEReactions, Reflect="for"] attribute DOMString htmlFor;
 };

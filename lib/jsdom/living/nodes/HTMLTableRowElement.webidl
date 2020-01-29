@@ -12,8 +12,8 @@ interface HTMLTableRowElement : HTMLElement {
 
 partial interface HTMLTableRowElement {
   [CEReactions, Reflect] attribute DOMString align;
-  [CEReactions, Reflect=char] attribute DOMString ch;
-  [CEReactions, Reflect=charoff] attribute DOMString chOff;
+  [CEReactions, Reflect="char"] attribute DOMString ch;
+  [CEReactions, Reflect="charoff"] attribute DOMString chOff;
   [CEReactions, Reflect] attribute DOMString vAlign;
 
   [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString bgColor;

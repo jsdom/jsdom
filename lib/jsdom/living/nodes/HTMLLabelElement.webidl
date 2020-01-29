@@ -2,6 +2,6 @@
  HTMLConstructor]
 interface HTMLLabelElement : HTMLElement {
   readonly attribute HTMLFormElement? form;
-  [CEReactions, Reflect=for] attribute DOMString htmlFor;
+  [CEReactions, Reflect="for"] attribute DOMString htmlFor;
   readonly attribute HTMLElement? control;
 };

@@ -3432,11 +3432,6 @@ platform@^1.3.3:
   resolved "https://registry.yarnpkg.com/platform/-/platform-1.3.5.tgz#fb6958c696e07e2918d2eeda0f0bc9448d733444"
   integrity sha512-TuvHS8AOIZNAlE77WUDiR4rySV/VMptyMfcfeoMgs4P8apaZM3JrnbzBiixKUv+XR6i+BXrQh8WAnjaSPFO65Q==
 
-pn@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
-  integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
-
 portfinder@^1.0.25:
   version "1.0.25"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.25.tgz#254fd337ffba869f4b9d37edc298059cb4d35eca"
@@ -3456,10 +3451,10 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prettier@^1.19.1:
-  version "1.19.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
-  integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
+prettier@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.1.tgz#3f00ac71263be34684b2b2c8d7e7f63737592dac"
+  integrity sha512-piXGBcY1zoFOG0MvHpNE5reAGseLmaCRifQ/fmfF49BcYkInEs/naD/unxGNAeOKFA5+JxVrPyMvMlpzcd20UA==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -4737,20 +4732,24 @@ webidl-conversions@^5.0.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-5.0.0.tgz#ae59c8a00b121543a2acc65c0434f57b0fc11aff"
   integrity sha512-VlZwKPCkYKxQgeSbH5EyngOmRp7Ww7I9rQLERETtf5ofd9pGeswWiOtogpEO850jziPRarreGxn5QIiTqpb2wA==
 
-webidl2@^23.10.1:
+webidl-conversions@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-6.0.0.tgz#ff41d921371f43e772dba311b146ab6c0ef0ead4"
+  integrity sha512-jTZAeJnc6D+yAOjygbJOs33kVQIk5H6fj9SFDOhIKjsf9HiAzL/c+tAJsc8ASWafvhNkH+wJZms47pmajkhatA==
+
+webidl2@^23.11.0:
   version "23.11.0"
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.11.0.tgz#3c3d492877c6b90171de4174e16b1e2b87f99267"
   integrity sha512-JLWqpTKJZ9xMwool+DFLuDA+BPu44FRJunsmZeiPH2y2xRZwN8TGa7yryA5L2lTha+0C2PwLeROsWE2SDePjFw==
 
-webidl2js@^14.0.0:
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-14.0.0.tgz#8c58eb0afe50bea9bb22ee5922ea4d3215ccee58"
-  integrity sha512-ECN+ezkiSS8kQti5lEICj7iiELm/MbyBkyB/uP2awN5bX38Qy/Oa+xboWAFmYE7W0SvZwwzFm7EnQWexbLfxTg==
+webidl2js@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-15.0.0.tgz#7482c437cfb6584d68e766c7df33637d671a3ba2"
+  integrity sha512-OqJOTmw3PTvRyrtDoa7iUYQxxKXD1GQpkc/sX1WlLthLuWSVcePiaC9ANYN7yRJdJwtboOXGxiByZRofF2A1CQ==
   dependencies:
-    pn "^1.1.0"
-    prettier "^1.19.1"
-    webidl-conversions "^5.0.0"
-    webidl2 "^23.10.1"
+    prettier "^2.0.1"
+    webidl-conversions "^6.0.0"
+    webidl2 "^23.11.0"
 
 whatwg-encoding@^1.0.5:
   version "1.0.5"
