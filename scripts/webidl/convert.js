@@ -43,6 +43,32 @@ const transformer = new Webidl2js({
     const reflectAttr = idl.extAttrs.find(attr => attr.name === "Reflect");
     const attrName = (reflectAttr && reflectAttr.rhs && JSON.parse(reflectAttr.rhs.value)) || idl.name.toLowerCase();
 
+    if (idl.extAttrs.find(attr => attr.name === "ReflectURL")) {
+      // Allow DOMString also due to https://github.com/whatwg/html/issues/5241.
+      if (!isSimpleIDLType(idl.idlType, "USVString") && !isSimpleIDLType(idl.idlType, "DOMString")) {
+        throw new Error("[ReflectURL] specified on non-USV/DOMString attribute");
+      }
+      const parseURLToResultingURLRecord =
+        this.addImport("../helpers/document-base-url", "parseURLToResultingURLRecord");
+      const serializeURL = this.addImport("whatwg-url", "serializeURL");
+      return {
+        get: `
+          const value = ${implObj}.getAttributeNS(null, "${attrName}");
+          if (value === null) {
+            return "";
+          }
+          const urlRecord = ${parseURLToResultingURLRecord}(value, ${implObj}._ownerDocument);
+          if (urlRecord !== null) {
+            return ${serializeURL}(urlRecord);
+          }
+          return conversions.USVString(value);
+        `,
+        set: `
+          ${implObj}.setAttributeNS(null, "${attrName}", V);
+        `
+      };
+    }
+
     if (isSimpleIDLType(idl.idlType, "DOMString")) {
       return {
         get: `

@@ -2,7 +2,7 @@
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLLinkElement : HTMLElement {
-  [CEReactions] attribute USVString href;
+  [CEReactions, ReflectURL] attribute USVString href;
   [CEReactions, Reflect] attribute DOMString? crossOrigin;
   [CEReactions, Reflect] attribute DOMString rel;
 //  [CEReactions] attribute DOMString as; // (default "")

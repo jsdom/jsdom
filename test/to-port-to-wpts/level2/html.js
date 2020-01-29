@@ -7816,7 +7816,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(7);
     vsrc = testNode.src;
-    assert.equal(vsrc, './pix/submit.gif', 'srcLink');
+    assert.isTrue(vsrc.endsWith('/pix/submit.gif'), 'srcLink');
   });
 
   /**
@@ -8737,7 +8737,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assert.equal(vcite, './files/ins-reasons.html', 'citeLink');
+    assert.isTrue(vcite.endsWith('/files/ins-reasons.html'), 'citeLink');
   });
 
   /**
@@ -8790,7 +8790,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assert.equal(vcite, './files/del-reasons.html', 'citeLink');
+    assert.isTrue(vcite.endsWith('/files/del-reasons.html'), 'citeLink');
   });
 
   /**
@@ -10263,7 +10263,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assert.equal(vcite, './files/Q.html', 'citeLink');
+    assert.isTrue(vcite.endsWith('/files/Q.html'), 'citeLink');
   });
 
   /**
@@ -10291,7 +10291,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assert.equal(vcite, './files/BLOCKQUOTE.html', 'citeLink');
+    assert.isTrue(vcite.endsWith('/files/BLOCKQUOTE.html'), 'citeLink');
   });
 
   /**

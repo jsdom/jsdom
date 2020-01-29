@@ -8,7 +8,7 @@ interface HTMLMediaElement : HTMLElement {
 //  readonly attribute MediaError? error;
 
   // network state
-  [CEReactions] attribute USVString src;
+  [CEReactions, ReflectURL] attribute USVString src;
 //  attribute MediaProvider? srcObject;
   readonly attribute USVString currentSrc;
   [CEReactions, Reflect] attribute DOMString? crossOrigin;
