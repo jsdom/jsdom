@@ -140,7 +140,6 @@ DOMTokenList-iteration.html: [fail, The test checks a builtin method is from the
 DIR: dom/nodes
 
 Comment-constructor.html: [fail, Unknown]
-DOMImplementation-createDocument.html: [fail, Unknown]
 Document-URL.html: [fail, Unknown]
 Document-characterSet-normalization.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-createEvent.https.html: [fail, We don't support every event interface yet]
