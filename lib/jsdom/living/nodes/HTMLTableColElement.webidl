@@ -8,8 +8,8 @@ interface HTMLTableColElement : HTMLElement {
 
 partial interface HTMLTableColElement {
   [CEReactions, Reflect] attribute DOMString align;
-  [CEReactions, Reflect=char] attribute DOMString ch;
-  [CEReactions, Reflect=charoff] attribute DOMString chOff;
+  [CEReactions, Reflect="char"] attribute DOMString ch;
+  [CEReactions, Reflect="charoff"] attribute DOMString chOff;
   [CEReactions, Reflect] attribute DOMString vAlign;
   [CEReactions, Reflect] attribute DOMString width;
 };
