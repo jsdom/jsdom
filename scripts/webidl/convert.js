@@ -69,11 +69,12 @@ const transformer = new Webidl2js({
       };
     }
 
-    if (isSimpleIDLType(idl.idlType, "DOMString")) {
+    if (isSimpleIDLType(idl.idlType, "DOMString") || isSimpleIDLType(idl.idlType, "USVString")) {
+      const isUSV = isSimpleIDLType(idl.idlType, "USVString");
       return {
         get: `
           const value = ${implObj}.getAttributeNS(null, "${attrName}");
-          return value === null ? "" : value;
+          return value === null ? "" : ${isUSV ? "conversions.USVString(value)" : "value"};
         `,
         set: `
           ${implObj}.setAttributeNS(null, "${attrName}", V);
