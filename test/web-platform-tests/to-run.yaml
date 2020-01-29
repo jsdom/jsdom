@@ -866,8 +866,6 @@ serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/
 
 DIR: html/webappapis/animation-frames
 
-same-dispatch-time.html: [fail, Probably https://github.com/jsdom/jsdom/pull/1994#discussion_r147567274]
-
 ---
 
 DIR: html/webappapis/atob
