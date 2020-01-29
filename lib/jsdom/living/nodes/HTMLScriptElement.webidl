@@ -1,7 +1,7 @@
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLScriptElement : HTMLElement {
-  [CEReactions] attribute USVString src;
+  [CEReactions, ReflectURL] attribute USVString src;
   [CEReactions, Reflect] attribute DOMString type;
 //  [CEReactions, Reflect] attribute boolean noModule;
 //  [CEReactions] attribute boolean async;
