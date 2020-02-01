@@ -20,6 +20,7 @@ const consoleMethods = [
   "log",
   "table",
   "time",
+  "timeLog",
   "timeEnd",
   "trace",
   "warn"
