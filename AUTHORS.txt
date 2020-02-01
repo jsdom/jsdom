@@ -8,6 +8,7 @@ Alex Coles <alex@alexbcoles.com>
 Alex Pearson <alex@alexpear.com>
 Alex Rattray <rattray.alex@gmail.com>
 Alexander Flatter <flatter@gmail.com>
+Alexis CHAPPRON <bullrot-10@hotmail.fr>
 Alistair Brown <github@alistairjcbrown.com>
 Alistair MacDonald <amacdonald@aisquared.com>
 Alvaro Dias <alvarod@microsoft.com>
@@ -177,6 +178,7 @@ Mariusz Nowak <mariusz@medikoo.com>
 Martin Naumann <mr.avgp@gmail.com>
 Matt Broadstone <mbroadst@gmail.com>
 Matthew Crinklaw-Vogt <mlaw@fb.com>
+Matthew Goldberg <matthew.goldberg@appian.com>
 Matthew King <mking@borderstylo.com>
 Matthew Pflueger <matthew.pflueger@gmail.com>
 Matthew Phillips <matthew@matthewphillips.info>
