@@ -168,6 +168,7 @@ Lucian Buzzo <LucianBuzzo@users.noreply.github.com>
 Ludovico Fischer <livrerie@gmail.com>
 Luis Silva <fetzpt@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
+Magne Andersson <code@zirro.se>
 makana <mamas-albtraum@web.de>
 Manuel Lopez <jmlopez.rod@gmail.com>
 Marak Squires <marak.squires@gmail.com>
@@ -283,4 +284,3 @@ Yun Cui <ycui@microstrategy.com>
 Yunlei Liu <yunlei.liu@appfolio.com>
 Zach Bjornson <zbbjornson@gmail.com>
 Zach Smith <zach@amicushq.com>
-Zirro <code@zirro.se>
