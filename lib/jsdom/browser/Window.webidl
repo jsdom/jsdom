@@ -1,3 +1,36 @@
+/*
+[
+  'addEventListener',   'alert',            'atob',
+  'blur',               'btoa',             'captureEvents',
+  'clearInterval',      'clearTimeout',     'close',
+  'confirm',            'console',          'decodeURI',
+  'decodeURIComponent', 'devicePixelRatio',
+  'document',           'encodeURI',        'encodeURIComponent',
+  'escape',             'eval',             'external',
+  'focus',              'frameElement',     'frames',
+  'getComputedStyle',   'getSelection',     'globalThis',
+  'history',            'innerHeight',      'innerWidth',
+  'length',
+  'localStorage',       'location',         'locationbar',
+  'menubar',            'moveBy',           'moveTo',
+  'name',               'navigator',        'open',
+  'origin',             'outerHeight',      'outerWidth',
+  'pageXOffset',        'pageYOffset',      'parent',
+  'performance',
+  'personalbar',        'postMessage',      'print',
+  'prompt',             'releaseEvents',    'removeEventListener',
+  'resizeBy',           'resizeTo',         'screen',
+  'screenLeft',         'screenTop',        'screenX',
+  'screenY',            'scroll',           'scrollBy',
+  'scrollTo',           'scrollX',          'scrollY',
+  'scrollbars',         'self',             'sessionStorage',
+  'setInterval',        'setTimeout',       'status',
+  'statusbar',          'stop',             'toolbar',
+  'top',                'undefined',        'unescape',
+  'window'
+]
+*/
+
 // https://html.spec.whatwg.org/multipage/window-object.html#the-window-object
 [Global=Window,
  Exposed=Window,
