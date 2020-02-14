@@ -4843,7 +4843,7 @@ webidl2@^23.10.1:
 
 webidl2js@EB-Forks/webidl2js#refactor/window/use-impl-and-wrapper:
   version "13.0.0"
-  resolved "https://codeload.github.com/EB-Forks/webidl2js/tar.gz/afe4ac83e0d07d7a1ac03781002fe5ddbc8a4128"
+  resolved "https://codeload.github.com/EB-Forks/webidl2js/tar.gz/d4467ba037c05ca3715b6878af370edf7d1a044b"
   dependencies:
     pn "^1.1.0"
     prettier "^1.19.1"
