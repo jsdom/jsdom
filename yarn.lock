@@ -4841,10 +4841,9 @@ webidl2@^23.10.1:
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.10.1.tgz#2d2786fdff7b72c6b4a9a43e70f1611ded8ec8e6"
   integrity sha512-SK/KzMGgkPLN73HNqyU9tWPduireSzV6p/WAsmYYweI/ED19FC8+ymsi2InMX80+VjSvsfc3vA7UbMjXYWNPhA==
 
-webidl2js@^13.0.0:
+webidl2js@EB-Forks/webidl2js#refactor/window/use-impl-and-wrapper:
   version "13.0.0"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-13.0.0.tgz#005f705056e117429f26a0f937dc1e14aa0f0e46"
-  integrity sha512-NxVXmRz/I/3vKyMlpRIuiT1hUu0DPTBx4Ig6LN1YF+NtUiDaK7B/3VV7RjAGVVYG7n8oOlRkvkusFdTa5WJatQ==
+  resolved "https://codeload.github.com/EB-Forks/webidl2js/tar.gz/afe4ac83e0d07d7a1ac03781002fe5ddbc8a4128"
   dependencies:
     pn "^1.1.0"
     prettier "^1.19.1"

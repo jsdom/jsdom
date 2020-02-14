@@ -81,7 +81,7 @@
     "st": "^2.0.0",
     "watchify": "^3.11.1",
     "wd": "^1.11.2",
-    "webidl2js": "^13.0.0"
+    "webidl2js": "EB-Forks/webidl2js#refactor/window/use-impl-and-wrapper"
   },
   "browser": {
     "canvas": false,
