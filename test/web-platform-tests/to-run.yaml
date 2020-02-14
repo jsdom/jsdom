@@ -30,7 +30,6 @@ basic.htm: [fail, Unknown]
 client-hint-request-headers-2.tentative.htm: [fail, Client Hints not implemented]
 client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
 cors-safelisted-request-header.any.html: [fail, Depends on fetch]
-credentials-flag.htm: [needs-node12, Unknown]
 image-tainting-in-cross-origin-iframe.sub.html: [timeout, Unknown]
 origin.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 preflight-cache.htm: [timeout, Cache should probably be implemented for simple requests before]
@@ -752,7 +751,6 @@ execution-timing/074.html: [fail, Unknown]
 execution-timing/076.html: [fail, Unknown]
 execution-timing/077.html: [fail, Unknown]
 execution-timing/078.html: [fail, Unknown]
-execution-timing/079.html: [fail, Unknown]
 execution-timing/080.html: [fail, Unknown]
 execution-timing/082.html: [fail, Unknown]
 execution-timing/083.html: [fail, Unknown]
@@ -1078,6 +1076,22 @@ send-redirect.htm: [fail, request module remove content-type header on redirect]
 send-response-event-order.htm: [fail, why no readystatechange for headers received? Test seems wrong maybe?]
 send-sync-response-event-order.htm: [fail-slow, not sure; sync is special]
 setrequestheader-content-type.htm: [fail-slow, we don't implement ReadableStream; also unsure we can get request() to send no content-type for ArrayBuffer]
+status-async.htm: [fail, '
+TypeError: status is not a function
+    at http://web-platform.test:9000/xhr/status-async.htm:51:7
+    at Script.runInContext (vm.js:133:20)
+    at Object.runInContext (vm.js:311:6)
+    at processJavaScript (jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:241:10)
+    at HTMLScriptElementImpl._innerEval (jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:168:5)
+    at document._queue.push (jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12)
+    at Object.check (jsdom/lib/jsdom/browser/resources/resource-queue.js:76:23)
+    at Promise.resolve.then (jsdom/lib/jsdom/browser/resources/resource-queue.js:83:27)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+See: https://github.com/web-platform-tests/wpt/blob/master/xhr/status-async.htm
+
+Oddly, other tests that use function declaractions pass.
+']
 status-basic.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 sync-no-progress.any.html: [fail, Unknown]
 sync-xhr-supported-by-feature-policy.html: [fail, We don't support Feature Policy]
