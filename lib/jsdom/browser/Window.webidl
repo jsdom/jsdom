@@ -43,7 +43,8 @@ interface Window : EventTarget {
   attribute DOMString name;
   [PutForwards=href, Unforgeable] readonly attribute Location location;
   readonly attribute History history;
-  readonly attribute CustomElementRegistry customElements;
+  // PR: https://github.com/jsdom/jsdom/pull/2548
+  // readonly attribute CustomElementRegistry customElements;
   [Replaceable] readonly attribute BarProp locationbar;
   [Replaceable] readonly attribute BarProp menubar;
   [Replaceable] readonly attribute BarProp personalbar;
@@ -72,7 +73,7 @@ interface Window : EventTarget {
 
   // the user agent
   readonly attribute Navigator navigator;
-  [SecureContext] readonly attribute ApplicationCache applicationCache;
+  // [SecureContext] readonly attribute ApplicationCache applicationCache;
 
   // user prompts
   void alert();
