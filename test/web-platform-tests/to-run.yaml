@@ -1088,9 +1088,7 @@ TypeError: status is not a function
     at Promise.resolve.then (jsdom/lib/jsdom/browser/resources/resource-queue.js:83:27)
     at process._tickCallback (internal/process/next_tick.js:68:7)
 
-See: https://github.com/web-platform-tests/wpt/blob/master/xhr/status-async.htm
-
-Oddly, other tests that use function declaractions pass.
+See: https://github.com/nodejs/node/issues/31808
 ']
 status-basic.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 sync-no-progress.any.html: [fail, Unknown]
