@@ -97,6 +97,70 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
             oldSetup(options);
           };
 
+          // Overriding assert_throws_js and friends in order to allow us to throw exceptions from another realm. See
+          // https://github.com/jsdom/jsdom/issues/2727 for more information.
+
+          function assertThrowsJSImpl(constructor, func, description, assertionType) {
+            try {
+              func.call(this);
+              window.assert_true(false, `${assertionType}: ${description}: ${func} did not throw`);
+            } catch (e) {
+              if (e instanceof window.AssertionError) {
+                throw e;
+              }
+
+              // Basic sanity-checks on the thrown exception.
+              window.assert_true(
+                typeof e === "object",
+                `${assertionType}: ${description}: ${func} threw ${e} with type ${typeof e}, not an object`
+              );
+
+              window.assert_true(
+                e !== null,
+                `${assertionType}: ${description}: ${func} threw null, not an object`
+              );
+
+              // Basic sanity-check on the passed-in constructor
+              window.assert_true(
+                typeof constructor === "function",
+                `${assertionType}: ${description}: ${constructor} is not a constructor`
+              );
+              let obj = constructor;
+              while (obj) {
+                if (typeof obj === "function" &&
+                          obj.name === "Error") {
+                  break;
+                }
+                obj = Object.getPrototypeOf(obj);
+              }
+              window.assert_true(
+                obj !== null && obj !== undefined,
+                `${assertionType}: ${description}: ${constructor} is not an Error subtype`
+              );
+
+              // And checking that our exception is reasonable
+              window.assert_equals(
+                e.name,
+                constructor.name,
+                `${assertionType}: ${description}: ${func} threw ${e} (${e.name}) ` +
+                `expected instance of ${constructor.name}`
+              );
+            }
+          }
+
+          // eslint-disable-next-line camelcase
+          window.assert_throws_js = (constructor, func, description) => {
+            assertThrowsJSImpl(constructor, func, description, "assert_throws_js");
+          };
+          // eslint-disable-next-line camelcase
+          window.promise_rejects_js = (test, expected, promise, description) => {
+            return promise.then(test.unreached_func("Should have rejected: " + description)).catch(e => {
+              assertThrowsJSImpl(expected, () => {
+                throw e;
+              }, description, "promise_reject_js");
+            });
+          };
+
           window.add_result_callback(test => {
             if (test.status === 1) {
               errors.push(`Failed in "${test.name}": \n${test.message}\n\n${test.stack}`);

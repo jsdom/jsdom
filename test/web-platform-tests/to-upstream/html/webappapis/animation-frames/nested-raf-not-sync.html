@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>requestAnimationFrame from inside requestAnimationFrame must be delayed, not sync</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#dom-window-requestanimationframe">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+async_test(t => {
+  let calledSync = false;
+  requestAnimationFrame(t.step_func(() => {
+    requestAnimationFrame(t.step_func(() => {
+      calledSync = true;
+    }));
+
+    // The failure mode we're testing is where the inner requestAnimationFrame call above inserts onto the queue,
+    // and the queue is drained completely this "run animation frame callbacks" cycle, instead of snapshotted.
+    // So, we need to run code after this outer requestAnimationFrame callback completes and the queue would have
+    // finished. setTimeout(, 0) is the best way to do that, under the assumption that 0 milliseconds is sooner than
+    // the next frame.
+    setTimeout(t.step_func_done(() => {
+      assert_false(calledSync);
+    }), 0);
+  }));
+});
+</script>

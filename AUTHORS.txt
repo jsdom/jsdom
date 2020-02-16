@@ -8,6 +8,7 @@ Alex Coles <alex@alexbcoles.com>
 Alex Pearson <alex@alexpear.com>
 Alex Rattray <rattray.alex@gmail.com>
 Alexander Flatter <flatter@gmail.com>
+Alexis CHAPPRON <bullrot-10@hotmail.fr>
 Alistair Brown <github@alistairjcbrown.com>
 Alistair MacDonald <amacdonald@aisquared.com>
 Alvaro Dias <alvarod@microsoft.com>
@@ -168,6 +169,7 @@ Lucian Buzzo <LucianBuzzo@users.noreply.github.com>
 Ludovico Fischer <livrerie@gmail.com>
 Luis Silva <fetzpt@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
+Magne Andersson <code@zirro.se>
 makana <mamas-albtraum@web.de>
 Manuel Lopez <jmlopez.rod@gmail.com>
 Marak Squires <marak.squires@gmail.com>
@@ -176,6 +178,7 @@ Mariusz Nowak <mariusz@medikoo.com>
 Martin Naumann <mr.avgp@gmail.com>
 Matt Broadstone <mbroadst@gmail.com>
 Matthew Crinklaw-Vogt <mlaw@fb.com>
+Matthew Goldberg <matthew.goldberg@appian.com>
 Matthew King <mking@borderstylo.com>
 Matthew Pflueger <matthew.pflueger@gmail.com>
 Matthew Phillips <matthew@matthewphillips.info>
@@ -283,4 +286,3 @@ Yun Cui <ycui@microstrategy.com>
 Yunlei Liu <yunlei.liu@appfolio.com>
 Zach Bjornson <zbbjornson@gmail.com>
 Zach Smith <zach@amicushq.com>
-Zirro <code@zirro.se>

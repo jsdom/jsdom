@@ -24,6 +24,15 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.1.0
+
+* Added `console.timeLog()`.
+* Changed `Attr` to extend `Node`, to align with specifications. (ExE-Boss)
+* Changed `<noscript>` children to be parsed as nodes, instead of as text, when `runScripts` is left as the default of `undefined`. (ACHP)
+* Upgraded `cssstyle` to v2.1.0, which brings along fixes to handling of `rgba()` and `hsl()` colors. (kraynel)
+* Fixed some selection-related issues when manipulating the value of `<input>`s and `<textarea>`s. (Matthew-Goldberg)
+* Fixed various issues with `setTimeout()`, `setInterval()`, and `requestAnimationFrame()`, particularly around window closing and recursive calls.
+
 ## 16.0.1
 
 * Fixed Node v10 and v11 support when `runScripts` was set.
