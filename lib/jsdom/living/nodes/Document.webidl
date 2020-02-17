@@ -18,11 +18,8 @@ interface Document : Node {
   HTMLCollection getElementsByTagNameNS(DOMString? namespace, DOMString localName);
   HTMLCollection getElementsByClassName(DOMString classNames);
 
-//  We don't support the last argument yet
-//  [CEReactions, NewObject] Element createElement(DOMString localName, optional ElementCreationOptions options);
-//  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName, optional ElementCreationOptions options);
-  [CEReactions, NewObject] Element createElement(DOMString localName);
-  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName);
+  [CEReactions, NewObject] Element createElement(DOMString localName, optional (DOMString or ElementCreationOptions) options);
+  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName, optional (DOMString or ElementCreationOptions) options);
   [NewObject] DocumentFragment createDocumentFragment();
   [NewObject] Text createTextNode(DOMString data);
   [NewObject] CDATASection createCDATASection(DOMString data);

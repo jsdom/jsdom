@@ -30,7 +30,6 @@ basic.htm: [fail, Unknown]
 client-hint-request-headers-2.tentative.htm: [fail, Client Hints not implemented]
 client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
 cors-safelisted-request-header.any.html: [fail, Depends on fetch]
-credentials-flag.htm: [needs-node12, Unknown]
 image-tainting-in-cross-origin-iframe.sub.html: [timeout, Unknown]
 origin.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 preflight-cache.htm: [timeout, Cache should probably be implemented for simple requests before]
@@ -103,6 +102,39 @@ window-screen-width.html: [fail, Test not applicable - no output device]
 
 ---
 
+DIR: custom-elements
+
+CustomElementRegistry.html: [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
+Document-createElement.html: [fail, :defined is not defined and throws]
+HTMLElement-attachInternals.html: [fail, Not implemented]
+HTMLElement-constructor.html: [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
+adopted-callback.html: [fail, "Failing test due to https://github.com/whatwg/dom/issues/813"]
+attribute-changed-callback.html: [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration, https://github.com/jsdom/cssstyle/issues/113]
+custom-element-reaction-queue.html: [fail, document.write() implementation is not spec compliant]
+custom-element-registry/per-global.html: [fail, iframe location related issue]
+form-associated/**: [fail, Not implemented]
+htmlconstructor/newtarget.html: [fail, Currently impossible to get the active function associated realm]
+microtasks-and-constructors.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+parser/parser-constructs-custom-element-synchronously.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+parser/parser-fallsback-to-unknown-element.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+parser/parser-sets-attributes-and-children.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+parser/parser-uses-constructed-element.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+perform-microtask-checkpoint-before-construction.html: [fail, impossible to implement microtask checkpoint without patching Promise]
+pseudo-class-defined.html: [timeout, :defined is not defined and throws]
+reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using wedidl2js]
+reactions/Document.html: [fail,
+  document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539
+  document.write() implementation is not spec compliant]
+reactions/ElementContentEditable.html: [fail, contentEditable is not implemented]
+reactions/HTMLAreaElement.html: [fail, HTMLAreaElement doesn't implement download ping and referrerPolicy]
+reactions/HTMLButtonElement.html: [fail, HTMLButtonElement doesn't implement formAction formEnctype and formMethod]
+reactions/HTMLElement.html: [fail, translate and spellcheck attributes are not implemented on HTMLElement]
+reactions/HTMLImageElement.html: [fail, HTMLImageElement doesn't implement referrerPolicy and decoder]
+throw-on-dynamic-markup-insertion-counter-construct.html: [timeout, document.open() and document.close() implementation is not spec compliant]
+throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.open() and document.close() implementation is not spec compliant]
+
+---
+
 DIR: dom/abort
 
 ---
@@ -127,6 +159,10 @@ event-global-extra.window.html: [timeout, Not implemented]
 event-global.html: [fail, Not implemented]
 relatedTarget.window.html: [fail, Unknown]
 scrolling/**: [fail, Scroll methods not implemented]
+webkit-animation-end-event.html: [fail, WebKit-prefixed events not implemented]
+webkit-animation-iteration-event.html: [fail, WebKit-prefixed events not implemented]
+webkit-animation-start-event.html: [fail, WebKit-prefixed events not implemented]
+webkit-transition-end-event.html: [fail, WebKit-prefixed events not implemented]
 
 ---
 
@@ -150,7 +186,6 @@ Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
-MutationObserver-sanity.html: [fail, TypeError is not instanceof TypeError]
 Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not implemented]
 Node-childNodes.html: [fail, Unknown]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
@@ -178,6 +213,10 @@ NodeIterator-removal.html: [fail, Unknown]
 DIR: domparsing
 
 DOMParser-parseFromString-html.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
+DOMParser-parseFromString-url-base-pushstate.html: [fail, iframe onload timing]
+DOMParser-parseFromString-url-base.html: [fail, iframe onload timing]
+DOMParser-parseFromString-url-pushstate.html: [fail, iframe onload timing]
+DOMParser-parseFromString-url.html: [fail, iframe onload timing]
 DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD validation]
 DOMParser-parseFromString-xml.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 XMLSerializer-serializeToString.html: [fail, Unknown]
@@ -321,6 +360,7 @@ location-symbol-toprimitive.html: [fail, Unknown]
 location-valueof.html: [fail, Unknown]
 location_hash.html: [fail, Needs <iframe srcdoc>]
 location_reload.html: [timeout, Unknown]
+location_reload_javascript_url.html: [timeout, Unknown]
 no-browsing-context.window.html: [fail, Unknown]
 per-global.window.html: [fail, Unknown]
 reload_document_open_write.html: [timeout, Unknown]
@@ -431,6 +471,7 @@ DIR: html/interaction/focus
 
 focus-01.html: [timeout, scrollIntoView() not implemented]
 focus-02.html: [timeout, scrollIntoView() not implemented]
+focus-input-type-switch.html: [fail, Uses testdriver.js]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-negative.html: [fail, scrollIntoView() not implemented]
@@ -499,6 +540,7 @@ style-error-01.html: [timeout, Unknown]
 style_disabled.html: [fail, Not implemented]
 style_events.html: [timeout, Unknown]
 style_load_async.html: [timeout, Unknown]
+style_load_event.html: [timeout, Unknown]
 style_media.html: [fail, Not implemented]
 style_media_change.html: [fail, Not implemented]
 style_type_change.html: [fail, Spec mismatches tests https://github.com/whatwg/html/issues/3391]
@@ -684,12 +726,11 @@ toggleEvent.html: [fail, The ninth test requires a streaming HTML parser to pass
 
 DIR: html/semantics/interactive-elements/the-summary-element
 
-anchor-with-inline-element.html: [fail, SVGAElement needed for last two tests]
-
 ---
 
 DIR: html/semantics/links
 
+downloading-resources/*: [fail, Depends on fetch]
 following-hyperlinks/activation-behavior.window.html: [fail, We don't support navigating to new locations]
 links-created-by-a-and-area-elements/htmlanchorelement_noopener.html: [timeout, noopener is not supported]
 links-created-by-a-and-area-elements/target_blank_implicit_noopener.html: [fail, Depends on BroadcastChannel]
@@ -761,7 +802,13 @@ execution-timing/091.html: [fail, Unknown]
 execution-timing/094.html: [fail, Unknown]
 execution-timing/099.html: [fail, Unknown]
 execution-timing/103.html: [fail, Unknown]
+execution-timing/106-defer-import.html: [fail, Unknown]
+execution-timing/106-external-import.html: [fail, Unknown]
+execution-timing/106-external-module-import.html: [fail, Unknown]
+execution-timing/106-external-module-noimport.html: [fail, Unknown]
 execution-timing/106-import.html: [fail, Unknown]
+execution-timing/106-module-import.html: [fail, Unknown]
+execution-timing/106-module-noimport.html: [fail, Unknown]
 execution-timing/107-import.html: [fail, Unknown]
 execution-timing/107-noimport.html: [fail, Unknown]
 execution-timing/108.html: [fail, Unknown]
@@ -826,6 +873,7 @@ template-element/template-content-hierarcy.html: [fail, "We do not implement htt
 DIR: html/semantics/selectors
 
 pseudo-classes/checked-type-change.html: [fail, CSS computed style computation]
+pseudo-classes/dir.html: [fail, "Fixed by https://github.com/web-platform-tests/wpt/pull/21588"]
 pseudo-classes/focus-autofocus.html: [timeout, Unknown]
 pseudo-classes/focus.html: [timeout, Unknown]
 pseudo-classes/indeterminate-radio.html: [fail, CSS computed style computation]
@@ -925,7 +973,6 @@ DIR: shadow-dom
 
 Document-prototype-currentScript.html: [timeout, Test not up to date next with updating wpt it should work]
 DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
-Element-interface-attachShadow-custom-element.html: [fail, CustomElement.define is not implemented]
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
 ShadowRoot-interface.html: [fail, shadowRoot.styleSheet is not yet implemented]
 focus/click-focus-delegatesFocus-tabindex-varies.html: [fail, element.scrollIntoView is not implemented]
@@ -934,12 +981,10 @@ focus/focus-method-delegatesFocus.html: [fail, delegatesFocus is not implemented
 focus/focus-selector-delegatesFocus.html: [fail, 'https://github.com/dperini/nwsapi/issues/31']
 focus/focus-tabindex-order-*: [fail, Uses testdriver.js]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
-innerHTML-setter.xhtml: [fail, customElements is not implemented]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
-slotchange-customelements.html: [fail, CustomElement.define is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, https://github.com/w3c/selection-api/issues/114]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html: [fail, DocumentOrShadowRoot.elementFromPoint() is not implemented. Needs layout engine]
