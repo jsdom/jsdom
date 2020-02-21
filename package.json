@@ -1,6 +1,6 @@
 {
   "name": "jsdom",
-  "version": "16.1.0",
+  "version": "16.2.0",
   "description": "A JavaScript implementation of many web standards",
   "keywords": [
     "dom",
@@ -30,6 +30,7 @@
     "domexception": "^2.0.1",
     "escodegen": "^1.13.0",
     "html-encoding-sniffer": "^2.0.0",
+    "is-potential-custom-element-name": "^1.0.0",
     "nwsapi": "^2.2.0",
     "parse5": "5.1.1",
     "request": "^2.88.0",
@@ -81,7 +82,7 @@
     "st": "^2.0.0",
     "watchify": "^3.11.1",
     "wd": "^1.12.1",
-    "webidl2js": "^13.0.0"
+    "webidl2js": "^14.0.0"
   },
   "browser": {
     "canvas": false,
