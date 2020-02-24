@@ -22,6 +22,6 @@ test(() => {
 
 test(() => {
   const element = document.querySelector("#child");
-  assert_equals(getComputedStyle(element).visibility, "visible");
+  assert_equals(getComputedStyle(element).visibility, "hidden");
 }, "Children inherit visibility from their parents inline styles");
 </script>
