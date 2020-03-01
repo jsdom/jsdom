@@ -35,7 +35,7 @@
     "parse5": "5.1.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
-    "saxes": "^4.0.2",
+    "saxes": "^5.0.0",
     "symbol-tree": "^3.2.4",
     "tough-cookie": "^3.0.1",
     "w3c-hr-time": "^1.0.1",
