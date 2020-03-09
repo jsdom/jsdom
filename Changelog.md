@@ -24,6 +24,11 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.2.1
+
+* Updated saxes, to bring in some BOM-related fixes
+* Updated Acorn-related packages to squelch `npm audit` warnings
+
 ## 16.2.0
 
 * Added support for custom elements! Congratulations and thanks to [@pmdartus](https://github.com/jsdom/jsdom/commits?author=pmdartus) for making this happen, after ten months of hard work and lots of effort poured into the complex architectural prerequisites in jsdom and supporting packages.
