@@ -133,6 +133,18 @@ exports.inBrowserContext = () => {
 };
 
 /**
+ * The port on which the karma server is running.
+ * @type {number | null}
+ */
+exports.karmaPort = (() => {
+  if (exports.inBrowserContext()) {
+    return exports.inWebWorkerContext() ? 9877 : 9876;
+  }
+
+  return null;
+})();
+
+/**
  * Resolves a path to a static fixture file to a file or http URL.
  * If running tests from node, a valid file url will be returned.
  * If running tests using karma, a http url to the file be returned (this file is served by karma)
