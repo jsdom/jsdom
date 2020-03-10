@@ -37,15 +37,17 @@ if (require.main === module) {
     startWPTServer(query).then(
       url => {
         res.status(200).send(url);
+        console.log(`Sending '200 OK' response with payload:`, url);
       },
       reason => {
         res.status(500).send(reason);
+        console.error(`Sending '500 Internal Server Error': Failed to start WPT server:`, reason);
       }
     );
   });
 
   app.get("/*", (req, res) => res.sendStatus(404));
-  app.listen(8000);
+  app.listen(8000, "0.0.0.0");
 
-  console.log(`Serving JSDOM Web Platform Tests API on \`http://localhost:8000/\``);
+  console.log(`Serving JSDOM Web Platform Tests API on \`http://0.0.0.0:8000/\``);
 }

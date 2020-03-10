@@ -17,7 +17,7 @@ module.exports = ({ toUpstream = false } = {}) => {
     return fetch(`http://web-platform.test:8000/start-wpt-server?to-upstream=${toUpstream}`)
       .then(response => response.text())
       .then(url => {
-        console.log(`WPT server at ${url} is up!`);
+        console.log(`Received response: WPT server at ${url} is up!`);
         return url;
       });
   }
