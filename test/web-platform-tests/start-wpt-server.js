@@ -13,7 +13,9 @@ const wptDir = path.resolve(__dirname, "tests");
 
 module.exports = ({ toUpstream = false } = {}) => {
   if (inBrowserContext()) {
-    return request.get(`http://web-platform.test:8000/start-wpt-server?to-upstream=${toUpstream}`)
+    // eslint-disable-next-line no-undef
+    return fetch(`http://web-platform.test:8000/start-wpt-server?to-upstream=${toUpstream}`)
+      .then(response => response.text())
       .then(url => {
         console.log(`WPT server at ${url} is up!`);
         return url;
