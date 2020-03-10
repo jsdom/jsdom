@@ -55,7 +55,7 @@ module.exports = config => {
 
     client: {
       childProcess: {
-        path: "test/web-platform-test/karma-server.js",
+        path: "test/web-platform-tests/karma-server.js",
         args: [],
         options: {}
       },

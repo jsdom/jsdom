@@ -111,7 +111,7 @@ function checkToRun() {
       throw new Error(`DIR entries must not end with a slash: saw "${doc.DIR}"`);
     }
 
-    if (!fs.existsSync(path.resolve(__dirname, "tests", doc.DIR))) {
+    if (!isInBrowser && !fs.existsSync(path.resolve(__dirname, "tests", doc.DIR))) {
       throw new Error(`The directory "${doc.DIR}" does not exist`);
     }
 
