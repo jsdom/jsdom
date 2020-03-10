@@ -13,7 +13,7 @@ const wptDir = path.resolve(__dirname, "tests");
 
 module.exports = ({ toUpstream = false } = {}) => {
   if (inBrowserContext()) {
-    return pollForServer("http://localhost:8000/")
+    return pollForServer("http://localhost:8000/", 30 * 1000)
       .then(() => {
         return request.get(`http://localhost:8000/start-wpt-server?to-upstream=${toUpstream}`);
       })
@@ -62,15 +62,34 @@ module.exports = ({ toUpstream = false } = {}) => {
   ).then(([firstURL]) => firstURL);
 };
 
-function pollForServer(url) {
-  return request.head(url, { strictSSL: false })
+function pollForServer(url, maxTimeout = null) {
+  let retryTimeoutId;
+  const req = request.head(url, { strictSSL: false })
     .then(() => {
       console.log(`WPT server at ${url} is up!`);
       return url;
     }, err => {
       console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
       return new Promise(resolve => {
-        setTimeout(() => resolve(pollForServer(url)), 500);
+        retryTimeoutId = setTimeout(() => resolve(pollForServer(url)), 500);
       });
     });
+
+  if (maxTimeout !== null) {
+    return new Promise((resolve, reject) => {
+      const maxTimeoutId = setTimeout(
+        () => reject(new Error(`Maximum timeout of ${maxTimeout}ms exceeded`)),
+        maxTimeout
+      );
+
+      req.finally(() => {
+        if (retryTimeoutId !== undefined) {
+          clearTimeout(retryTimeoutId);
+        }
+        clearTimeout(maxTimeoutId);
+      }).then(resolve, reject);
+    });
+  }
+
+  return req;
 }

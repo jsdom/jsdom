@@ -19,6 +19,8 @@ if (require.main === module) {
 
   const app = express();
 
+  app.get("/", (req, res) => res.sendStatus(200));
+
   app.head("/start-wpt-server", (req, res) => {
     const query = parseQuery(req.query);
     console.log(`HEAD for WPT server with query ${JSON.stringify(query)}`);
