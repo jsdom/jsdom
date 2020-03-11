@@ -34,6 +34,7 @@ if (require.main === module) {
     console.log(`Starting WPT server with query ${JSON.stringify(query)}`);
 
     res.setHeader("X-JSDOM-WPT-Directory", query.toUpstream ? "to-upstream" : "tests");
+    res.contentType("text/plain");
     startWPTServer(query).then(
       url => {
         res.status(200).send(url);

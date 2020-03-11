@@ -13,13 +13,27 @@ const wptDir = path.resolve(__dirname, "tests");
 
 module.exports = ({ toUpstream = false } = {}) => {
   if (inBrowserContext()) {
-    // eslint-disable-next-line no-undef
-    return fetch(`http://web-platform.test:8000/start-wpt-server?to-upstream=${toUpstream}`)
-      .then(response => response.text())
-      .then(url => {
-        console.log(`Received response: WPT server at ${url} is up!`);
-        return url;
+    return new Promise((resolve, reject) => {
+      // eslint-disable-next-line no-undef
+      const xhr = new XMLHttpRequest();
+
+      console.log(`Sending request to start WPT server`);
+      xhr.open("GET", `http://web-platform.test:8000/start-wpt-server?to-upstream=${toUpstream}`);
+
+      xhr.addEventListener("load", () => {
+        const { responseText } = xhr;
+
+        if (xhr.status >= 300) {
+          reject(new Error(`Received response: Failed to start server: ${responseText}`));
+          return;
+        }
+
+        console.log(`Received response: WPT server at ${responseText} is up!`);
+        resolve(responseText);
       });
+      xhr.addEventListener("error", reject);
+      xhr.send();
+    });
   }
 
   const configType = toUpstream ? "toUpstream" : "default";
