@@ -1,4 +1,6 @@
 "use strict";
+const { join } = require("path");
+const { spawnSync } = require("child_process");
 const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM } = require("../..");
@@ -38,5 +40,16 @@ describe("Test cases only possible to test from the outside", () => {
     await delay(50);
 
     assert.equal(window.counter, counterBeforeSecondDelay);
+  });
+
+  it("frees up callback handles passed to setTimeout", { skipIfBrowser: true }, () => {
+    const timeoutWithGcFixturePath = join(__dirname, "./fixtures/timeout-with-gc");
+    const { status, stdout } = spawnSync("node", ["--expose-gc", timeoutWithGcFixturePath], { encoding: "utf8" });
+
+    assert.equal(status, 0, stdout);
+    const diffInBytes = Number(stdout);
+    assert.isNotNaN(diffInBytes, stdout);
+    const diffInMb = diffInBytes / 1024 / 1024;
+    assert.isBelow(diffInMb, 2, stdout);
   });
 });

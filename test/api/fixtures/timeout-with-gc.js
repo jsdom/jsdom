@@ -1,6 +1,6 @@
 "use strict";
 
-const { JSDOM } = require("../../..");
+const { JSDOM } = require("../../../lib/api");
 const { window } = new JSDOM("");
 
 function registerTimerWithClosure() {
@@ -19,5 +19,5 @@ global.gc();
 setTimeout(() => {
   global.gc();
   const headTotalAfterTimer = process.memoryUsage().heapTotal;
-  console.log(`${Math.floor((headTotalAfterTimer - headTotalBeforeTimer) / 1024 / 1024)}`);
+  console.log(`${headTotalAfterTimer - headTotalBeforeTimer}`);
 }, 20);
