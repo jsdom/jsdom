@@ -19,5 +19,5 @@ global.gc();
 setTimeout(() => {
   global.gc();
   const { heapTotal : heapTotalAfterTimer } = process.memoryUsage();
-  console.log(`${heapTotalAfterTimer - heapTotalBeforeTimer}`);
+  console.log(heapTotalAfterTimer - heapTotalBeforeTimer);
 }, 20);
