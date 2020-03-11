@@ -19,6 +19,8 @@ require("./api/virtual-console.js");
 require("./helper-unit-tests/named-properties-tracker.js");
 require("./helper-unit-tests/utils.js");
 
+require("./memory/timeout-cleanup.js");
+
 require("./to-port-to-wpts/class-list.js");
 require("./to-port-to-wpts/compare-document-position.js");
 require("./to-port-to-wpts/cors.js");
