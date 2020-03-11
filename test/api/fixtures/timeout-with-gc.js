@@ -4,7 +4,7 @@ const { JSDOM } = require("../../../lib/api");
 const { window } = new JSDOM("");
 
 function registerTimerWithClosure() {
-  const hugeArray = Array(5000000)
+  const hugeArray = Array(10000000)
     .fill(0)
     .map((_, idx) => idx);
 
@@ -12,12 +12,12 @@ function registerTimerWithClosure() {
 }
 
 global.gc();
-const headTotalBeforeTimer = process.memoryUsage().heapTotal;
+const { heapTotal : heapTotalBeforeTimer } = process.memoryUsage();
 registerTimerWithClosure();
 global.gc();
 
 setTimeout(() => {
   global.gc();
-  const headTotalAfterTimer = process.memoryUsage().heapTotal;
-  console.log(`${headTotalAfterTimer - headTotalBeforeTimer}`);
+  const { heapTotal : heapTotalAfterTimer } = process.memoryUsage();
+  console.log(`${heapTotalAfterTimer - heapTotalBeforeTimer}`);
 }, 20);
