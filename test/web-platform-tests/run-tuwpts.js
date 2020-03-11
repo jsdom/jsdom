@@ -28,13 +28,13 @@ if (!inBrowserContext()) {
 
 let wptServerURL;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-const wptServerPromise = startWPTServer({ toUpstream: false }).then(url => {
-  wptServerURL = url;
+before({ timeout: wptServerTimeout }, () => {
+  return startWPTServer({ toUpstream: true }).then(url => {
+    wptServerURL = url;
+  });
 });
 
 describe("Local tests in web-platform-test format (to-upstream)", () => {
-  before({ timeout: wptServerTimeout }, () => wptServerPromise);
-
   for (const test of possibleTestFilePaths) {
     runSingleWPT(test);
   }
