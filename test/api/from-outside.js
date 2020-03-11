@@ -50,6 +50,6 @@ describe("Test cases only possible to test from the outside", () => {
     const diffInBytes = Number(stdout);
     assert.isNotNaN(diffInBytes, stdout);
     const diffInMb = diffInBytes / 1024 / 1024;
-    assert.isBelow(diffInMb, 2, stdout);
+    assert.isBelow(diffInMb, 5, stdout);
   });
 });
