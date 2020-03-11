@@ -144,6 +144,8 @@ exports.karmaPort = (() => {
   return null;
 })();
 
+exports.wptServerTimeout = 30 * 1000 * (exports.inBrowserContext() ? 10 : 1);
+
 /**
  * Resolves a path to a static fixture file to a file or http URL.
  * If running tests from node, a valid file url will be returned.

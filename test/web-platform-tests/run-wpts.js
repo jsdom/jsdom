@@ -6,7 +6,7 @@ const { Minimatch } = require("minimatch");
 const { describe, specify, before } = require("mocha-sugar-free");
 const { readManifest, parseManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const startWPTServer = require("./start-wpt-server.js");
-const { inBrowserContext, karmaPort } = require("../util.js");
+const { inBrowserContext, karmaPort, wptServerTimeout } = require("../util.js");
 const { Canvas } = require("../../lib/jsdom/utils.js");
 
 const isInBrowser = inBrowserContext();
@@ -61,13 +61,13 @@ checkToRun();
 
 let wptServerURL;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-before({ timeout: 30 * 1000 }, () => {
-  return startWPTServer({ toUpstream: false }).then(url => {
-    wptServerURL = url;
-  });
+const wptServerPromise = startWPTServer({ toUpstream: false }).then(url => {
+  wptServerURL = url;
 });
 
 describe("web-platform-tests", () => {
+  before({ timeout: wptServerTimeout }, () => wptServerPromise);
+
   for (const toRunDoc of toRunDocs) {
     describe(toRunDoc.DIR, () => {
       for (const testFilePath of possibleTestFilePaths) {

@@ -3,7 +3,7 @@ const path = require("path");
 const { describe, before } = require("mocha-sugar-free");
 const { spawnSync } = require("child_process");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
-const { inBrowserContext } = require("../util.js");
+const { inBrowserContext, wptServerTimeout } = require("../util.js");
 const startWPTServer = require("./start-wpt-server.js");
 
 let manifest;
@@ -28,13 +28,13 @@ if (!inBrowserContext()) {
 
 let wptServerURL;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-before({ timeout: 30 * 1000 }, () => {
-  return startWPTServer({ toUpstream: true }).then(url => {
-    wptServerURL = url;
-  });
+const wptServerPromise = startWPTServer({ toUpstream: false }).then(url => {
+  wptServerURL = url;
 });
 
 describe("Local tests in web-platform-test format (to-upstream)", () => {
+  before({ timeout: wptServerTimeout }, () => wptServerPromise);
+
   for (const test of possibleTestFilePaths) {
     runSingleWPT(test);
   }
