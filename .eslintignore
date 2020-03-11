@@ -15,6 +15,7 @@ test/*.js
 !test/util.js
 
 test/api/fixtures
+test/memory/fixtures
 test/jquery-fixtures
 test/to-port-to-wpts/files
 test/to-port-to-wpts/frame.js

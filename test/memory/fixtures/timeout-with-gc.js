@@ -19,6 +19,5 @@ global.gc();
 setTimeout(() => {
   global.gc();
   const headTotalAfterTimer = process.memoryUsage().heapTotal;
-  // eslint-disable-next-line no-console
   console.log(`${Math.floor((headTotalAfterTimer - headTotalBeforeTimer) / 1024 / 1024)}`);
 }, 1000);
