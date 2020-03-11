@@ -42,7 +42,7 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(window.counter, counterBeforeSecondDelay);
   });
 
-  it("frees up callback handles passed to setTimeout", { skipIfBrowser: true }, () => {
+  it("frees up callback handles passed to setTimeout", { skipIfBrowser: true, timeout: 5000 }, () => {
     const timeoutWithGcFixturePath = join(__dirname, "./fixtures/timeout-with-gc");
     const { status, stdout } = spawnSync("node", ["--expose-gc", timeoutWithGcFixturePath], { encoding: "utf8" });
 
