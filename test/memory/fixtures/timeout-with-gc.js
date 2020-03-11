@@ -8,7 +8,7 @@ function registerTimerWithClosure() {
     .fill(0)
     .map((_, idx) => idx);
 
-  window.setTimeout(() => hugeArray, 100);
+  window.setTimeout(() => hugeArray, 10);
 }
 
 global.gc();
@@ -20,4 +20,4 @@ setTimeout(() => {
   global.gc();
   const headTotalAfterTimer = process.memoryUsage().heapTotal;
   console.log(`${Math.floor((headTotalAfterTimer - headTotalBeforeTimer) / 1024 / 1024)}`);
-}, 1000);
+}, 20);
