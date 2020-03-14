@@ -3432,11 +3432,6 @@ platform@^1.3.3:
   resolved "https://registry.yarnpkg.com/platform/-/platform-1.3.5.tgz#fb6958c696e07e2918d2eeda0f0bc9448d733444"
   integrity sha512-TuvHS8AOIZNAlE77WUDiR4rySV/VMptyMfcfeoMgs4P8apaZM3JrnbzBiixKUv+XR6i+BXrQh8WAnjaSPFO65Q==
 
-pn@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
-  integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
-
 portfinder@^1.0.25:
   version "1.0.25"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.25.tgz#254fd337ffba869f4b9d37edc298059cb4d35eca"
@@ -4737,20 +4732,18 @@ webidl-conversions@^5.0.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-5.0.0.tgz#ae59c8a00b121543a2acc65c0434f57b0fc11aff"
   integrity sha512-VlZwKPCkYKxQgeSbH5EyngOmRp7Ww7I9rQLERETtf5ofd9pGeswWiOtogpEO850jziPRarreGxn5QIiTqpb2wA==
 
-webidl2@^23.10.1:
+webidl2@^23.11.0:
   version "23.11.0"
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.11.0.tgz#3c3d492877c6b90171de4174e16b1e2b87f99267"
   integrity sha512-JLWqpTKJZ9xMwool+DFLuDA+BPu44FRJunsmZeiPH2y2xRZwN8TGa7yryA5L2lTha+0C2PwLeROsWE2SDePjFw==
 
-webidl2js@^14.0.0:
+"webidl2js@github:jsdom/webidl2js#refs/pull/166/merge":
   version "14.0.0"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-14.0.0.tgz#8c58eb0afe50bea9bb22ee5922ea4d3215ccee58"
-  integrity sha512-ECN+ezkiSS8kQti5lEICj7iiELm/MbyBkyB/uP2awN5bX38Qy/Oa+xboWAFmYE7W0SvZwwzFm7EnQWexbLfxTg==
+  resolved "https://codeload.github.com/jsdom/webidl2js/tar.gz/817d8fe7ef824ba002b5ac64e326bfb1fb868344"
   dependencies:
-    pn "^1.1.0"
     prettier "^1.19.1"
     webidl-conversions "^5.0.0"
-    webidl2 "^23.10.1"
+    webidl2 "^23.11.0"
 
 whatwg-encoding@^1.0.5:
   version "1.0.5"
