@@ -41,6 +41,7 @@ function addDir(dir) {
 addDir("../../lib/jsdom/living/aborting");
 addDir("../../lib/jsdom/living/attributes");
 addDir("../../lib/jsdom/living/constraint-validation");
+addDir("../../lib/jsdom/living/cssom");
 addDir("../../lib/jsdom/living/custom-elements");
 addDir("../../lib/jsdom/living/domparsing");
 addDir("../../lib/jsdom/living/events");
