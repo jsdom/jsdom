@@ -1,7 +1,7 @@
 "use strict";
 
-const { JSDOM } = require("../../../lib/api");
-const { window } = new JSDOM("");
+const { JSDOM } = require("../../..");
+const { window } = new JSDOM();
 
 function registerTimerWithClosure() {
   const hugeArray = Array(10000000)
@@ -12,12 +12,12 @@ function registerTimerWithClosure() {
 }
 
 global.gc();
-const { heapTotal : heapTotalBeforeTimer } = process.memoryUsage();
+const heapTotalBeforeTimer = process.memoryUsage().heapTotal;
 registerTimerWithClosure();
 global.gc();
 
 setTimeout(() => {
   global.gc();
-  const { heapTotal : heapTotalAfterTimer } = process.memoryUsage();
+  const heapTotalAfterTimer = process.memoryUsage().heapTotal;
   console.log(heapTotalAfterTimer - heapTotalBeforeTimer);
 }, 10);
