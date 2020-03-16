@@ -4737,9 +4737,9 @@ webidl2@^23.11.0:
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.11.0.tgz#3c3d492877c6b90171de4174e16b1e2b87f99267"
   integrity sha512-JLWqpTKJZ9xMwool+DFLuDA+BPu44FRJunsmZeiPH2y2xRZwN8TGa7yryA5L2lTha+0C2PwLeROsWE2SDePjFw==
 
-"webidl2js@github:jsdom/webidl2js#refs/pull/166/merge":
+"webidl2js@github:jsdom/webidl2js#master":
   version "14.0.0"
-  resolved "https://codeload.github.com/jsdom/webidl2js/tar.gz/817d8fe7ef824ba002b5ac64e326bfb1fb868344"
+  resolved "https://codeload.github.com/jsdom/webidl2js/tar.gz/2a2a0999a950106094e83ec9d12ea91bad51b0e2"
   dependencies:
     prettier "^1.19.1"
     webidl-conversions "^5.0.0"
