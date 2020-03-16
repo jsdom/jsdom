@@ -41,17 +41,15 @@ checkToRun();
 let wptServerURL;
 let serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-before({ timeout: 30 * 1000 }, async () => {
+const wptServerPromise = (async () => {
   const { urls, subprocess } = await startWPTServer({ toUpstream: false });
   wptServerURL = urls[0];
   serverProcess = subprocess;
-});
-
-after(() => {
-  serverProcess.kill();
-});
+})();
 
 describe("web-platform-tests", () => {
+  before({ timeout: 30 * 1000 }, () => wptServerPromise);
+
   for (const toRunDoc of toRunDocs) {
     describe(toRunDoc.DIR, () => {
       for (const testFilePath of possibleTestFilePaths) {
@@ -83,6 +81,10 @@ describe("web-platform-tests", () => {
       }
     });
   }
+
+  after(() => {
+    serverProcess.kill();
+  });
 });
 
 function checkToRun() {
