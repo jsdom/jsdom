@@ -41,14 +41,14 @@ module.exports = ({ toUpstream = false } = {}) => {
 
       return new Promise((resolve, reject) => {
         subprocess.on("error", e => {
-          reject(new Error("Error starting python server process:", e.message));
+          reject(new Error(`Error starting python server process: ${e.message}`));
         });
 
-        resolve(Promise.all([
-          pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
-          pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
-          pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
-          pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
+        resolve(pollForServers([
+          `http://${config.browser_host}:${config.ports.http[0]}/`,
+          `https://${config.browser_host}:${config.ports.https[0]}/`,
+          `http://${config.browser_host}:${config.ports.ws[0]}/`,
+          `https://${config.browser_host}:${config.ports.wss[0]}/`
         ]).then(urls => ({ urls, subprocess })));
 
         process.on("exit", () => {
@@ -65,16 +65,15 @@ module.exports = ({ toUpstream = false } = {}) => {
   );
 };
 
-function pollForServer(url) {
-  return requestHead(url, { strictSSL: false })
+function pollForServers(urls) {
+  return Promise.all(urls.map(url => requestHead(url, { strictSSL: false })))
     .then(() => {
-      console.log(`WPT server at ${url} is up!`);
-      return url;
-    })
-    .catch(err => {
-      console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
+      console.log(`WPT servers at ${JSON.stringify(urls, null, 2)} are up!`);
+      return urls;
+    }, err => {
+      console.log(`WPT servers at ${JSON.stringify(urls, null, 2)} are not up yet (${err.message}); trying again`);
       return new Promise(resolve => {
-        setTimeout(() => resolve(pollForServer(url)), 500);
+        setTimeout(() => resolve(pollForServers(urls)), 500);
       });
     });
 }
