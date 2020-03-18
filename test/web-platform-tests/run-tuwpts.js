@@ -19,22 +19,22 @@ const manifest = readManifest(manifestFilename);
 const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 
 let wptServerURL;
-let serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-const wptServerPromise = (async () => {
-  const { urls, subprocess } = await startWPTServer({ toUpstream: true });
-  wptServerURL = urls[0];
-  serverProcess = subprocess;
-})();
+const wptServerPromise = startWPTServer({ toUpstream: true });
+const serverProcess = wptServerPromise.child;
 
 describe("Local tests in web-platform-test format (to-upstream)", () => {
-  before({ timeout: 30 * 1000 }, () => wptServerPromise);
+  before({ timeout: 30 * 1000 }, async () => {
+    wptServerURL = await wptServerPromise;
+  });
 
   for (const test of possibleTestFilePaths) {
     runSingleWPT(test);
   }
+});
 
-  after(() => {
-    serverProcess.kill();
-  });
+after(() => {
+  // Python doesn't register a default handler for SIGTERM and it doesn't run __exit__() methods of context
+  // managers when it gets that signal. Using SIGINT avoids this problem.
+  serverProcess.kill("SIGINT");
 });

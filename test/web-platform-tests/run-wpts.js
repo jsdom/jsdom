@@ -39,16 +39,14 @@ const minimatchers = new Map();
 checkToRun();
 
 let wptServerURL;
-let serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-const wptServerPromise = (async () => {
-  const { urls, subprocess } = await startWPTServer({ toUpstream: false });
-  wptServerURL = urls[0];
-  serverProcess = subprocess;
-})();
+const wptServerPromise = startWPTServer({ toUpstream: false });
+const serverProcess = wptServerPromise.child;
 
 describe("web-platform-tests", () => {
-  before({ timeout: 30 * 1000 }, () => wptServerPromise);
+  before({ timeout: 30 * 1000 }, async () => {
+    wptServerURL = await wptServerPromise;
+  });
 
   for (const toRunDoc of toRunDocs) {
     describe(toRunDoc.DIR, () => {
@@ -81,10 +79,12 @@ describe("web-platform-tests", () => {
       }
     });
   }
+});
 
-  after(() => {
-    serverProcess.kill();
-  });
+after(() => {
+  // Python doesn't register a default handler for SIGTERM and it doesn't run __exit__() methods of context
+  // managers when it gets that signal. Using SIGINT avoids this problem.
+  serverProcess.kill("SIGINT");
 });
 
 function checkToRun() {
