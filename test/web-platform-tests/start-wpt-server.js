@@ -52,14 +52,12 @@ module.exports = ({ toUpstream = false } = {}) => {
 
     dnsLookup("web-platform.test")
       .then(
-        () => {
-          return Promise.all([
-            pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
-            pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
-            pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
-            pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
-          ]);
-        },
+        () => Promise.all([
+          pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
+          pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
+          pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
+          pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
+        ]),
         () => {
           throw new Error("Host entries not present for web platform tests. See " +
                           "https://github.com/web-platform-tests/wpt#running-the-tests");
