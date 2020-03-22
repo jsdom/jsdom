@@ -10,7 +10,27 @@ const Webidl2js = require("webidl2js");
 
 const transformer = new Webidl2js({
   implSuffix: "-impl",
-  suppressErrors: true
+  suppressErrors: true,
+  processCEReactions(code) {
+    const preSteps = this.addImport("../helpers/custom-elements", "ceReactionsPreSteps");
+    const postSteps = this.addImport("../helpers/custom-elements", "ceReactionsPostSteps");
+
+    return `
+      ${preSteps}(globalObject);
+      try {
+        ${code}
+      } finally {
+        ${postSteps}(globalObject);
+      }
+    `;
+  },
+  processHTMLConstructor() {
+    const identifier = this.addImport("../helpers/html-constructor", "HTMLConstructor");
+
+    return `
+      return ${identifier}(globalObject, interfaceName, new.target);
+    `;
+  }
 });
 
 function addDir(dir) {
@@ -22,6 +42,8 @@ addDir("../../lib/jsdom/browser");
 addDir("../../lib/jsdom/living/aborting");
 addDir("../../lib/jsdom/living/attributes");
 addDir("../../lib/jsdom/living/constraint-validation");
+addDir("../../lib/jsdom/living/cssom");
+addDir("../../lib/jsdom/living/custom-elements");
 addDir("../../lib/jsdom/living/domparsing");
 addDir("../../lib/jsdom/living/events");
 addDir("../../lib/jsdom/living/fetch");

@@ -10,8 +10,7 @@ interface Window : EventTarget {
   attribute DOMString name;
   [PutForwards=href, Unforgeable] readonly attribute Location location;
   readonly attribute History history;
-  // PR: https://github.com/jsdom/jsdom/pull/2548
-  // readonly attribute CustomElementRegistry customElements;
+  readonly attribute CustomElementRegistry customElements;
   [Replaceable] readonly attribute BarProp locationbar;
   [Replaceable] readonly attribute BarProp menubar;
   [Replaceable] readonly attribute BarProp personalbar;

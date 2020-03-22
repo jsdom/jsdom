@@ -24,6 +24,18 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.2.1
+
+* Updated saxes, to bring in some BOM-related fixes
+* Updated Acorn-related packages to squelch `npm audit` warnings
+
+## 16.2.0
+
+* Added support for custom elements! Congratulations and thanks to [@pmdartus](https://github.com/jsdom/jsdom/commits?author=pmdartus) for making this happen, after ten months of hard work and lots of effort poured into the complex architectural prerequisites in jsdom and supporting packages.
+* Fixed some issues when trying to use `Attr` as a `Node`, e.g. by checking its `baseURI` property or calling `attr.cloneNode()`.
+* Fixed a memory leak during parsing that was introduced in v14.0.0.
+* Fixed edge cases in number/string conversion used for certain element properties that reflected integer attributes.
+
 ## 16.1.0
 
 * Added `console.timeLog()`.
