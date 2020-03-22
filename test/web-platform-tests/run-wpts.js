@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const jsYAML = require("js-yaml");
 const { Minimatch } = require("minimatch");
-const { describe, specify, before } = require("mocha-sugar-free");
+const { describe, specify, before, after } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const startWPTServer = require("./start-wpt-server.js");
 const { Canvas } = require("../../lib/jsdom/utils.js");
@@ -39,11 +39,16 @@ const minimatchers = new Map();
 checkToRun();
 
 let wptServerURL;
+let serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-before({ timeout: 30 * 1000 }, () => {
-  return startWPTServer({ toUpstream: false }).then(url => {
-    wptServerURL = url;
-  });
+before({ timeout: 30 * 1000 }, async () => {
+  const { urls, subprocess } = await startWPTServer({ toUpstream: false });
+  wptServerURL = urls[0];
+  serverProcess = subprocess;
+});
+
+after(() => {
+  serverProcess.kill();
 });
 
 describe("web-platform-tests", () => {

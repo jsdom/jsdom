@@ -55,7 +55,6 @@ require("./to-port-to-wpts/script.js");
 require("./to-port-to-wpts/selectors.js");
 require("./to-port-to-wpts/serialization.js");
 require("./to-port-to-wpts/xhr-file-urls.js");
-require("./to-port-to-wpts/xhr-requires-server.js");
 require("./to-port-to-wpts/xml.js");
 
 require("./to-port-to-wpts/level1/core.js");
