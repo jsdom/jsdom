@@ -8,7 +8,7 @@ interface HTMLMediaElement : HTMLElement {
 //  readonly attribute MediaError? error;
 
   // network state
-  [CEReactions] attribute USVString src;
+  [CEReactions, ReflectURL] attribute USVString src;
 //  attribute MediaProvider? srcObject;
   readonly attribute USVString currentSrc;
   [CEReactions, Reflect] attribute DOMString? crossOrigin;
@@ -51,7 +51,7 @@ interface HTMLMediaElement : HTMLElement {
   [CEReactions, Reflect] attribute boolean controls;
   attribute double volume;
   attribute boolean muted;
-  [CEReactions, Reflect=muted] attribute boolean defaultMuted;
+  [CEReactions, Reflect="muted"] attribute boolean defaultMuted;
 
   // tracks
   [SameObject] readonly attribute AudioTrackList audioTracks;

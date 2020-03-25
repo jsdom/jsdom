@@ -1,7 +1,7 @@
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLEmbedElement : HTMLElement {
-  [CEReactions] attribute USVString src;
+  [CEReactions, ReflectURL] attribute USVString src;
   [CEReactions, Reflect] attribute DOMString type;
   [CEReactions, Reflect] attribute DOMString width;
   [CEReactions, Reflect] attribute DOMString height;

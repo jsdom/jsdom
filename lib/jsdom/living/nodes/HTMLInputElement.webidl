@@ -5,7 +5,7 @@ interface HTMLInputElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString alt;
   [CEReactions, Reflect] attribute DOMString autocomplete;
   [CEReactions, Reflect] attribute boolean autofocus;
-  [CEReactions, Reflect=checked] attribute boolean defaultChecked;
+  [CEReactions, Reflect="checked"] attribute boolean defaultChecked;
   attribute boolean checked;
   [CEReactions, Reflect] attribute DOMString dirName;
   [CEReactions, Reflect] attribute boolean disabled;
@@ -31,10 +31,10 @@ interface HTMLInputElement : HTMLElement {
   [CEReactions, Reflect] attribute boolean readOnly;
   [CEReactions, Reflect] attribute boolean required;
   [CEReactions] attribute unsigned long size;
-  [CEReactions] attribute USVString src;
+  [CEReactions, ReflectURL] attribute USVString src;
   [CEReactions, Reflect] attribute DOMString step;
   [CEReactions] attribute DOMString type;
-  [CEReactions, Reflect=value] attribute DOMString defaultValue;
+  [CEReactions, Reflect="value"] attribute DOMString defaultValue;
   [CEReactions] attribute [TreatNullAs=EmptyString] DOMString value;
   attribute object? valueAsDate;
   attribute unrestricted double valueAsNumber;

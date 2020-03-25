@@ -4,7 +4,7 @@
 // LegacyUnenumerableNamedProperties,
  HTMLConstructor]
 interface HTMLFormElement : HTMLElement {
-  [CEReactions, Reflect=accept_charset] attribute DOMString acceptCharset;
+  [CEReactions, Reflect="accept-charset"] attribute DOMString acceptCharset;
   [CEReactions] attribute USVString action;
 //  [CEReactions] attribute DOMString autocomplete;
   [CEReactions] attribute DOMString enctype;
