@@ -1,7 +1,7 @@
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLScriptElement : HTMLElement {
-  [CEReactions] attribute USVString src;
+  [CEReactions, ReflectURL] attribute USVString src;
   [CEReactions, Reflect] attribute DOMString type;
 //  [CEReactions, Reflect] attribute boolean noModule;
 //  [CEReactions] attribute boolean async;
@@ -17,5 +17,5 @@ interface HTMLScriptElement : HTMLElement {
 partial interface HTMLScriptElement {
   [CEReactions, Reflect] attribute DOMString charset;
   [CEReactions, Reflect] attribute DOMString event;
-  [CEReactions, Reflect=for] attribute DOMString htmlFor;
+  [CEReactions, Reflect="for"] attribute DOMString htmlFor;
 };

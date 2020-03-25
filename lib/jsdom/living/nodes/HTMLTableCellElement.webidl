@@ -18,8 +18,8 @@ partial interface HTMLTableCellElement {
   [CEReactions, Reflect] attribute DOMString height;
   [CEReactions, Reflect] attribute DOMString width;
 
-  [CEReactions, Reflect=char] attribute DOMString ch;
-  [CEReactions, Reflect=charoff] attribute DOMString chOff;
+  [CEReactions, Reflect="char"] attribute DOMString ch;
+  [CEReactions, Reflect="charoff"] attribute DOMString chOff;
   [CEReactions, Reflect] attribute boolean noWrap;
   [CEReactions, Reflect] attribute DOMString vAlign;
 

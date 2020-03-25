@@ -3,8 +3,8 @@
  NamedConstructor=Image(optional unsigned long width, optional unsigned long height)]
 interface HTMLImageElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString alt;
-  [CEReactions] attribute USVString src;
-  [CEReactions] attribute USVString srcset;
+  [CEReactions, ReflectURL] attribute USVString src;
+  [CEReactions, Reflect] attribute USVString srcset;
   [CEReactions, Reflect] attribute DOMString sizes;
   [CEReactions, Reflect] attribute DOMString? crossOrigin;
   [CEReactions, Reflect] attribute DOMString useMap;
@@ -24,11 +24,11 @@ interface HTMLImageElement : HTMLElement {
 
 partial interface HTMLImageElement {
   [CEReactions, Reflect] attribute DOMString name;
-  [CEReactions] attribute USVString lowsrc;
+  [CEReactions, ReflectURL] attribute USVString lowsrc;
   [CEReactions, Reflect] attribute DOMString align;
   [CEReactions, Reflect] attribute unsigned long hspace;
   [CEReactions, Reflect] attribute unsigned long vspace;
-  [CEReactions] attribute USVString longDesc;
+  [CEReactions, ReflectURL] attribute USVString longDesc;
 
   [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString border;
 };

@@ -4732,17 +4732,22 @@ webidl-conversions@^5.0.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-5.0.0.tgz#ae59c8a00b121543a2acc65c0434f57b0fc11aff"
   integrity sha512-VlZwKPCkYKxQgeSbH5EyngOmRp7Ww7I9rQLERETtf5ofd9pGeswWiOtogpEO850jziPRarreGxn5QIiTqpb2wA==
 
+webidl-conversions@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-6.0.0.tgz#ff41d921371f43e772dba311b146ab6c0ef0ead4"
+  integrity sha512-jTZAeJnc6D+yAOjygbJOs33kVQIk5H6fj9SFDOhIKjsf9HiAzL/c+tAJsc8ASWafvhNkH+wJZms47pmajkhatA==
+
 webidl2@^23.11.0:
   version "23.11.0"
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.11.0.tgz#3c3d492877c6b90171de4174e16b1e2b87f99267"
   integrity sha512-JLWqpTKJZ9xMwool+DFLuDA+BPu44FRJunsmZeiPH2y2xRZwN8TGa7yryA5L2lTha+0C2PwLeROsWE2SDePjFw==
 
 "webidl2js@github:EB-Forks/webidl2js#refactor/window/use-impl-and-wrapper":
-  version "14.0.0"
-  resolved "https://codeload.github.com/EB-Forks/webidl2js/tar.gz/e28b89c8807b9ed46733c6e8c01f860a52f55b22"
+  version "15.0.0"
+  resolved "https://codeload.github.com/EB-Forks/webidl2js/tar.gz/5e13028b2c8ac95b3472f78b32e7fbe4eeb5294a"
   dependencies:
     prettier "^2.0.1"
-    webidl-conversions "^5.0.0"
+    webidl-conversions "^6.0.0"
     webidl2 "^23.11.0"
 
 whatwg-encoding@^1.0.5:
