@@ -1,5 +1,5 @@
 "use strict";
-const fs = require("pn/fs");
+const fs = require("fs");
 const path = require("path");
 const { assert } = require("chai");
 const { describe, it, before, after } = require("mocha-sugar-free");
@@ -12,19 +12,21 @@ function fixturePath(fixture) {
 }
 
 function readFixture(fixture) {
-  return fs.readFile(fixturePath(fixture));
+  return fs.promises.readFile(fixturePath(fixture));
 }
 
 const factories = {
   Buffer: fixture => readFixture(fixture),
   Uint8Array: fixture => readFixture(fixture).then(buffer => Uint8Array.from(buffer)),
-  ArrayBuffer: fixture => readFixture(fixture).then(buffer => buffer.buffer),
-  DataView: fixture => readFixture(fixture).then(buffer => new DataView(buffer.buffer)),
+  ArrayBuffer: fixture => readFixture(fixture).then(buffer => Uint8Array.from(buffer).buffer),
+  DataView: fixture => readFixture(fixture).then(buffer =>
+    new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength)),
   Int8Array: fixture => readFixture(fixture).then(buffer => {
-    // Test a view that is indexing into a larger ArrayBuffer
-    const target = new Int8Array(buffer.buffer);
+    // Test a view that is indexing into a larger ArrayBuffer. (buffer may already be such a view, but make sure we
+    // test at least one in case it's not.)
+    const target = new Int8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
     const bigger = new Int8Array([0, 0, 0, ...target, 0, 0, 0]);
-    const subView = new Int8Array(bigger.buffer, 3, buffer.buffer.byteLength);
+    const subView = new Int8Array(bigger.buffer, 3, buffer.byteLength);
 
     return subView;
   })

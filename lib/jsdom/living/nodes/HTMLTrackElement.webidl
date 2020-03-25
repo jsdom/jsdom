@@ -2,7 +2,7 @@
  HTMLConstructor]
 interface HTMLTrackElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString kind; // TODO limited to only known values
-  [CEReactions] attribute USVString src; // TODO could use URL reflection
+  [CEReactions, ReflectURL] attribute USVString src;
   [CEReactions, Reflect] attribute DOMString srclang;
   [CEReactions, Reflect] attribute DOMString label;
   [CEReactions, Reflect] attribute boolean default;
