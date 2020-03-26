@@ -516,7 +516,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
       it("should abort an image request when closing the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
-        const dom = new JSDOM();
+        const dom = new JSDOM("", { resources: "usable" });
 
         const element = dom.window.document.createElement("img");
         setUpLoadingAsserts(element);
