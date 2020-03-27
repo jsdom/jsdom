@@ -22,7 +22,7 @@ interface SVGSVGElement : SVGGraphicsElement {
   // SVGAngle createSVGAngle();
   // DOMPoint createSVGPoint();
   // DOMMatrix createSVGMatrix();
-  // DOMRect createSVGRect();
+  DOMRect createSVGRect();
   // SVGTransform createSVGTransform();
   // SVGTransform createSVGTransformFromMatrix(DOMMatrixReadOnly matrix);
 
@@ -36,6 +36,6 @@ interface SVGSVGElement : SVGGraphicsElement {
   void forceRedraw();
 };
 
-// SVGSVGElement includes SVGFitToViewBox;
+SVGSVGElement includes SVGFitToViewBox;
 // SVGSVGElement includes SVGZoomAndPan;
 SVGSVGElement includes WindowEventHandlers;
