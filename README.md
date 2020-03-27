@@ -253,10 +253,10 @@ jsdom allows you to intervene in the creation of a jsdom very early: after the `
 
 ```js
 const dom = new JSDOM(`<p>Hello</p>`, {
-  beforeParse(window, main) {
+  beforeParse(window, options) {
     window.document.childNodes.length === 0;
     window.someCoolAPI = () => { /* ... */ };
-    if (!main){
+    if (!options.isMain){
       console.log(`It's a frame window!`);
     }
   }
