@@ -203,8 +203,8 @@ describe("API: constructor options", () => {
       const calls = [];
 
       const dom = new JSDOM(`<iframe src="https://example.com/page.html"></iframe>`, {
-        beforeParse(window, main) {
-          calls.push({ window, main });
+        beforeParse(window, opt) {
+          calls.push({ window, opt });
         },
         resources: new MockResourceLoader()
       });
@@ -212,11 +212,11 @@ describe("API: constructor options", () => {
       assert.strictEqual(calls.length, 2);
 
       const mainWindowCall = calls.shift();
-      assert.strictEqual(mainWindowCall.main, true);
+      assert.strictEqual(mainWindowCall.opt.isMain, true);
       assert.strictEqual(mainWindowCall.window._globalProxy, dom.window);
 
       const frameWindowCall = calls.shift();
-      assert.strictEqual(frameWindowCall.main, false);
+      assert.strictEqual(frameWindowCall.opt.isMain, false);
       assert.notStrictEqual(frameWindowCall.window._globalProxy, dom.window);
     });
   });
