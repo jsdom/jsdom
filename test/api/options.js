@@ -3,7 +3,7 @@ const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
 
 const jsdom = require("../..");
-const { JSDOM } = require("../..");
+const { JSDOM, ResourceLoader } = require("../..");
 
 describe("API: constructor options", () => {
   describe("(general tests)", () => {
@@ -192,6 +192,32 @@ describe("API: constructor options", () => {
       });
 
       assert.strictEqual(windowPassed, dom.window);
+    });
+    it("should execute with frame windows", () => {
+      class MockResourceLoader extends ResourceLoader {
+        fetch() {
+          return Promise.resolve('<html><p>Inside frame</p></script></html>');
+        }
+      }
+
+      let calls = [];
+
+      const dom = new JSDOM(`<iframe src="https://example.com/page.html"></iframe>`, {
+        beforeParse(window, main) {
+          calls.push({window, main});
+        },
+        resources: new MockResourceLoader(),
+      });
+
+      assert.strictEqual(calls.length, 2);
+
+      let mainWindowCall = calls.shift();
+      assert.strictEqual(mainWindowCall.main, true);
+      assert.strictEqual(mainWindowCall.window._globalProxy, dom.window);
+
+      let frameWindowCall = calls.shift();
+      assert.strictEqual(frameWindowCall.main, false);
+      assert.notStrictEqual(frameWindowCall.window._globalProxy, dom.window);
     });
   });
 
