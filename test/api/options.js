@@ -196,7 +196,7 @@ describe("API: constructor options", () => {
     it("should execute with frame windows", () => {
       class MockResourceLoader extends ResourceLoader {
         fetch() {
-          return Promise.resolve('<p>Inside frame</p>');
+          return Promise.resolve("<p>Inside frame</p>");
         }
       }
 
