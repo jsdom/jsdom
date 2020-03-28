@@ -159,6 +159,7 @@ addDir("../../lib/jsdom/living/nodes");
 addDir("../../lib/jsdom/living/range");
 addDir("../../lib/jsdom/living/selection");
 addDir("../../lib/jsdom/living/svg");
+addDir("../../lib/jsdom/living/encoding");
 addDir("../../lib/jsdom/living/traversal");
 addDir("../../lib/jsdom/living/websockets");
 addDir("../../lib/jsdom/living/webstorage");

@@ -37,6 +37,7 @@
     "request-promise-native": "^1.0.8",
     "saxes": "^5.0.0",
     "symbol-tree": "^3.2.4",
+    "text-encoding": "^0.7.0",
     "tough-cookie": "^3.0.1",
     "w3c-hr-time": "^1.0.2",
     "w3c-xmlserializer": "^2.0.0",
