@@ -514,6 +514,37 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         assert.isFalse(xhr.abortFired);
       });
 
+      it("should abort an image request when closing the window", async () => {
+        const [url, neverRequestedPromise] = await neverRequestedServer();
+        const dom = new JSDOM("", { resources: "usable" });
+
+        const element = dom.window.document.createElement("img");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
+
+        dom.window.close();
+
+        return Promise.all([
+          assertNotLoaded(element),
+          neverRequestedPromise
+        ]);
+      });
+
+      it("should abort a data: image request when closing the window", () => {
+        const dom = new JSDOM("", { resources: "usable" });
+
+        const element = dom.window.document.createElement("img");
+        setUpLoadingAsserts(element);
+        element.src = "data:image/png;base64," +
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=";
+        dom.window.document.body.appendChild(element);
+
+        dom.window.close();
+
+        return assertNotLoaded(element);
+      });
+
       // TODO: the "with no events" part of these tests may be wrong. Test what browsers do and fix if necessary.
 
       it("should abort a script request (with no events) when stopping the window", async () => {
