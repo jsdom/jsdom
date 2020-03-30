@@ -24,10 +24,27 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.2.2
+
+* Updated `StyleSheetList` for better spec compliance; notably it no longer inherits from `Array.prototype`. (ExE-Boss)
+* Fixed `requestAnimationFrame()` from preventing process exit. This likely regressed in v16.1.0.
+* Fixed `setTimeout()` to no longer leak the closures passed in to it. This likely regressed in v16.1.0. (AviVahl)
+* Fixed infinite recursion that could occur when calling `click()` on a `<label>` element, or one of its descendants.
+* Fixed `getComputedStyle()` to consider inline `style=""` attributes. (eps1lon)
+* Fixed several issues with `<input type="number">`'s `stepUp()` and `stepDown()` functions to be properly decimal-based, instead of floating point-based.
+* Fixed various issues where updating `selectEl.value` would not invalidate properties such as `selectEl.selectedOptions`. (ExE-Boss)
+* Fixed `<input>`'s `src` property, and `<ins>`/`<del>`'s `cite` property, to properly reflect as URLs.
+* Fixed `window.addEventLister`, `window.removeEventListener`, and `window.dispatchEvent` to properly be inherited from `EventTarget`, instead of being distinct functions. (ExE-Boss)
+* Fixed errors that would occur if attempting to use a DOM object, such as a custom element, as an argument to `addEventListener`.
+* Fixed errors that would occur when closing a window with outstanding requests to `data:` URLs.
+* Fixed sporadic issues with the value of `<input type="month">` that could occur in some time zones and for some times.
+* Fixed `document.implementation.createDocument()` to return an `XMLDocument`, instead of a `Document`. (ExE-Boss)
+* Fixed running jsdom in a browser to detect globals more reliably. (ExE-Boss)
+
 ## 16.2.1
 
-* Updated saxes, to bring in some BOM-related fixes
-* Updated Acorn-related packages to squelch `npm audit` warnings
+* Updated `saxes`, to bring in some BOM-related fixes.
+* Updated Acorn-related packages to squelch `npm audit` warnings.
 
 ## 16.2.0
 
