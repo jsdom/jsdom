@@ -143,6 +143,7 @@ function addDir(dir) {
   transformer.addSource(resolved, resolved);
 }
 
+addDir("../../lib/jsdom/browser");
 addDir("../../lib/jsdom/living/aborting");
 addDir("../../lib/jsdom/living/attributes");
 addDir("../../lib/jsdom/living/constraint-validation");
