@@ -137,6 +137,8 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 * Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
 * Images, via `<img>`, but only if the `canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
 
+Resources must have a fully-qualified URL or `url` option must be set in `JSDOM` constructor if URLs are relative.
+
 #### Advanced configuration
 
 _This resource loader system is new as of jsdom v12.0.0, and we'd love your feedback on whether it meets your needs and how easy it is to use. Please file an issue to discuss!_
