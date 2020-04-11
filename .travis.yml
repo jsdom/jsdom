@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 10
+  - 10.0
   - 12
   - stable
 
@@ -20,7 +20,7 @@ branches:
 
 matrix:
   include:
-    - node_js: 10
+    - node_js: 10.0
       env: TEST_SUITE=node-canvas
       addons:
         apt:
