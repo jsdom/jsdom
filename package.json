@@ -82,7 +82,7 @@
     "st": "^2.0.0",
     "watchify": "^3.11.1",
     "wd": "^1.12.1",
-    "webidl2js": "github:EB-Forks/webidl2js#fix/callback-interface/ensure-this-arg-is-wrapper"
+    "webidl2js": "github:jsdom/webidl2js#master"
   },
   "browser": {
     "canvas": false,

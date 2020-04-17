@@ -4761,9 +4761,9 @@ webidl2@^23.11.0:
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.11.0.tgz#3c3d492877c6b90171de4174e16b1e2b87f99267"
   integrity sha512-JLWqpTKJZ9xMwool+DFLuDA+BPu44FRJunsmZeiPH2y2xRZwN8TGa7yryA5L2lTha+0C2PwLeROsWE2SDePjFw==
 
-"webidl2js@github:EB-Forks/webidl2js#fix/callback-interface/ensure-this-arg-is-wrapper":
+"webidl2js@github:jsdom/webidl2js#master":
   version "15.1.0"
-  resolved "https://codeload.github.com/EB-Forks/webidl2js/tar.gz/056cc73a20e5aa62ffe942affccb77c03044cbd1"
+  resolved "https://codeload.github.com/jsdom/webidl2js/tar.gz/1455648f2dd6c2ca776779387079bd6e6d615cfe"
   dependencies:
     prettier "^2.0.2"
     webidl-conversions "^6.0.0"
