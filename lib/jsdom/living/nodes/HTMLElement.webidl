@@ -1,4 +1,4 @@
-// https://html.spec.whatwg.org/#htmlelement
+// https://html.spec.whatwg.org/multipage/dom.html#htmlelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLElement : Element {
