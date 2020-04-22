@@ -1,3 +1,4 @@
+// https://dom.spec.whatwg.org/#interface-nodefilter
 [Exposed=Window]
 callback interface NodeFilter {
   // Constants for acceptNode()
