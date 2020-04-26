@@ -656,7 +656,6 @@ DIR: html/semantics/forms/constraints
 
 form-validation-validity-valueMissing.html: [fail, 'Spec unclear (see https://github.com/whatwg/html/issues/5202)']
 infinite_backtracking.html: [timeout, We cannot restrict duration of regex matching from JavaScript]
-radio-valueMissing.html: [fail, fix https://github.com/zjffun/jsdom/commits/fix/radio-value-missing]
 
 ---
 
