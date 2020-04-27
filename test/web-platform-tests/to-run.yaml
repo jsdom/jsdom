@@ -476,7 +476,6 @@ sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-negative.h
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-order.html: [fail, scrollIntoView() not implemented]
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-positive.html: [fail, scrollIntoView() not implemented]
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-zero.html: [fail, scrollIntoView() not implemented]
-tabindex-focus-flag.html: [fail, contentEditable is not implemented; has dont-upstream version]
 the-autofocus-attribute/autofocus-on-stable-document.html: [fail, Not implemented]
 the-autofocus-attribute/first-reconnected.html: [fail, Not implemented]
 the-autofocus-attribute/first-when-later-but-before.html: [fail, Not implemented]
