@@ -34,5 +34,5 @@ partial interface HTMLObjectElement {
   [CEReactions, ReflectURL] attribute DOMString codeBase;
   [CEReactions, Reflect] attribute DOMString codeType;
 
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString border;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString border;
 };

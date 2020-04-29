@@ -36,8 +36,8 @@ interface mixin GlobalEventHandlers {
   attribute EventHandler onloadend;
   attribute EventHandler onloadstart;
   attribute EventHandler onmousedown;
-  [LenientThis] attribute EventHandler onmouseenter;
-  [LenientThis] attribute EventHandler onmouseleave;
+  [LegacyLenientThis] attribute EventHandler onmouseenter;
+  [LegacyLenientThis] attribute EventHandler onmouseleave;
   attribute EventHandler onmousemove;
   attribute EventHandler onmouseout;
   attribute EventHandler onmouseover;

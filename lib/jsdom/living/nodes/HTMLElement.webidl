@@ -17,7 +17,7 @@ interface HTMLElement : Element {
 //  [CEReactions] attribute boolean spellcheck;
 //  [CEReactions] attribute DOMString autocapitalize;
 
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString innerText;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString innerText;
 
 //  ElementInternals attachInternals();
 };

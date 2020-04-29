@@ -1,18 +1,19 @@
+// https://html.spec.whatwg.org/multipage/history.html#location
 [Exposed=Window]
 interface Location { // but see also additional creation steps and overridden internal methods
-  [Unforgeable] stringifier attribute USVString href;
-  [Unforgeable] readonly attribute USVString origin;
-  [Unforgeable] attribute USVString protocol;
-  [Unforgeable] attribute USVString host;
-  [Unforgeable] attribute USVString hostname;
-  [Unforgeable] attribute USVString port;
-  [Unforgeable] attribute USVString pathname;
-  [Unforgeable] attribute USVString search;
-  [Unforgeable] attribute USVString hash;
+  [LegacyUnforgeable] stringifier attribute USVString href;
+  [LegacyUnforgeable] readonly attribute USVString origin;
+  [LegacyUnforgeable] attribute USVString protocol;
+  [LegacyUnforgeable] attribute USVString host;
+  [LegacyUnforgeable] attribute USVString hostname;
+  [LegacyUnforgeable] attribute USVString port;
+  [LegacyUnforgeable] attribute USVString pathname;
+  [LegacyUnforgeable] attribute USVString search;
+  [LegacyUnforgeable] attribute USVString hash;
 
-  [Unforgeable] void assign(USVString url);
-  [Unforgeable] void replace(USVString url);
-  [Unforgeable] void reload();
+  [LegacyUnforgeable] void assign(USVString url);
+  [LegacyUnforgeable] void replace(USVString url);
+  [LegacyUnforgeable] void reload();
 
-//  [Unforgeable, SameObject] readonly attribute DOMStringList ancestorOrigins;
+//  [LegacyUnforgeable, SameObject] readonly attribute DOMStringList ancestorOrigins;
 };

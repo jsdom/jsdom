@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/multipage/tables.html#htmltablerowelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLTableRowElement : HTMLElement {
@@ -10,11 +11,12 @@ interface HTMLTableRowElement : HTMLElement {
   // also has obsolete members
 };
 
+// https://html.spec.whatwg.org/multipage/obsolete.html#HTMLTableRowElement-partial
 partial interface HTMLTableRowElement {
   [CEReactions, Reflect] attribute DOMString align;
   [CEReactions, Reflect="char"] attribute DOMString ch;
   [CEReactions, Reflect="charoff"] attribute DOMString chOff;
   [CEReactions, Reflect] attribute DOMString vAlign;
 
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString bgColor;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString bgColor;
 };

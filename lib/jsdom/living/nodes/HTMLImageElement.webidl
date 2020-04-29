@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/multipage/embedded-content.html#htmlimageelement
 [Exposed=Window,
  HTMLConstructor,
  NamedConstructor=Image(optional unsigned long width, optional unsigned long height)]
@@ -22,6 +23,7 @@ interface HTMLImageElement : HTMLElement {
   // also has obsolete members
 };
 
+// https://html.spec.whatwg.org/multipage/obsolete.html#HTMLImageElement-partial
 partial interface HTMLImageElement {
   [CEReactions, Reflect] attribute DOMString name;
   [CEReactions, ReflectURL] attribute USVString lowsrc;
@@ -30,5 +32,5 @@ partial interface HTMLImageElement {
   [CEReactions, Reflect] attribute unsigned long vspace;
   [CEReactions, ReflectURL] attribute USVString longDesc;
 
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString border;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString border;
 };

@@ -26,7 +26,7 @@ interface Event {
   readonly attribute boolean defaultPrevented;
   readonly attribute boolean composed;
 
-  [Unforgeable] readonly attribute boolean isTrusted;
+  [LegacyUnforgeable] readonly attribute boolean isTrusted;
   // Modified - No support for DOMHighResTimeStamp usage in Event-impl
   // readonly attribute DOMHighResTimeStamp timeStamp;
   readonly attribute DOMTimeStamp timeStamp;

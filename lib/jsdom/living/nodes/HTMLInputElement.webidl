@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/multipage/input.html#htmlinputelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLInputElement : HTMLElement {
@@ -35,7 +36,7 @@ interface HTMLInputElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString step;
   [CEReactions] attribute DOMString type;
   [CEReactions, Reflect="value"] attribute DOMString defaultValue;
-  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString value;
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString value;
   attribute object? valueAsDate;
   attribute unrestricted double valueAsNumber;
 //  [CEReactions] attribute unsigned long width;
@@ -63,11 +64,13 @@ interface HTMLInputElement : HTMLElement {
   // also has obsolete members
 };
 
+// https://html.spec.whatwg.org/multipage/obsolete.html#HTMLInputElement-partial
 partial interface HTMLInputElement {
   [CEReactions, Reflect] attribute DOMString align;
   [CEReactions, Reflect] attribute DOMString useMap;
 };
 
+// https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#selectionmode
 enum SelectionMode {
   "select",
   "start",
