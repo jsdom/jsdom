@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/multipage/tables.html#htmltablecellelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLTableCellElement : HTMLElement {
@@ -12,6 +13,7 @@ interface HTMLTableCellElement : HTMLElement {
   // also has obsolete members
 };
 
+// https://html.spec.whatwg.org/multipage/obsolete.html#HTMLTableCellElement-partial
 partial interface HTMLTableCellElement {
   [CEReactions, Reflect] attribute DOMString align;
   [CEReactions, Reflect] attribute DOMString axis;
@@ -23,5 +25,5 @@ partial interface HTMLTableCellElement {
   [CEReactions, Reflect] attribute boolean noWrap;
   [CEReactions, Reflect] attribute DOMString vAlign;
 
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString bgColor;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString bgColor;
 };

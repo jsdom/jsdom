@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/multipage/obsolete.html#htmlframeelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLFrameElement : HTMLElement {
@@ -10,6 +11,6 @@ interface HTMLFrameElement : HTMLElement {
   readonly attribute Document? contentDocument;
   readonly attribute WindowProxy? contentWindow;
 
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString marginHeight;
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString marginWidth;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString marginHeight;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString marginWidth;
 };

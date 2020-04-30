@@ -1,6 +1,7 @@
+// https://html.spec.whatwg.org/multipage/forms.html#htmlformelement
 [Exposed=Window,
 // We haven't made named/indexed getters work for HTMLFormElement yet, so don't include these until we do.
-// OverrideBuiltins,
+// LegacyOverrideBuiltins,
 // LegacyUnenumerableNamedProperties,
  HTMLConstructor]
 interface HTMLFormElement : HTMLElement {

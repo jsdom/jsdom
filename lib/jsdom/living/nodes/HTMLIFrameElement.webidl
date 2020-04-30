@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLIFrameElement : HTMLElement {
@@ -18,12 +19,13 @@ interface HTMLIFrameElement : HTMLElement {
   // also has obsolete members
 };
 
+// https://html.spec.whatwg.org/multipage/obsolete.html#HTMLIFrameElement-partial
 partial interface HTMLIFrameElement {
   [CEReactions, Reflect] attribute DOMString align;
   [CEReactions, Reflect] attribute DOMString scrolling;
   [CEReactions, Reflect] attribute DOMString frameBorder;
   [CEReactions, ReflectURL] attribute USVString longDesc;
 
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString marginHeight;
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString marginWidth;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString marginHeight;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString marginWidth;
 };
