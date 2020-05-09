@@ -3,7 +3,7 @@
 interface MutationObserver {
   constructor(MutationCallback callback);
 
-  void observe(Node target, optional MutationObserverInit options);
+  void observe(Node target, optional MutationObserverInit options = {});
   void disconnect();
   sequence<MutationRecord> takeRecords();
 };
