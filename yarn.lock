@@ -4697,19 +4697,19 @@ webidl-conversions@^6.1.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-6.1.0.tgz#9111b4d7ea80acd40f5270d666621afa78b69514"
   integrity sha512-qBIvFLGiBpLjfwmYAaHPXsn+ho5xZnGvyGvsarywGNc8VyQJUMHJ8OBKGGrPER0okBeMDaan4mNBlgBROxuI8w==
 
-webidl2@^23.11.0:
-  version "23.11.0"
-  resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.11.0.tgz#3c3d492877c6b90171de4174e16b1e2b87f99267"
-  integrity sha512-JLWqpTKJZ9xMwool+DFLuDA+BPu44FRJunsmZeiPH2y2xRZwN8TGa7yryA5L2lTha+0C2PwLeROsWE2SDePjFw==
+webidl2@^23.12.1:
+  version "23.13.1"
+  resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-23.13.1.tgz#e95aa32e40b2ef71c0f683ea16ddac9202956d98"
+  integrity sha512-u5njf3ZyqPr/4K8D6Cxm3B6MwSgwAdtrzxqHklwKaUdP1aQTmtKN5b65k4wlweJ/pRM6fpKUKYz8RlCJ9tka+w==
 
-webidl2js@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-16.0.0.tgz#21f304313e7665e24427f648ec46ac2346445f08"
-  integrity sha512-cgboeEe6297x9QSRp8CXKLKjADWHDIyTxFYs9ky63Ztui8tMOJxGpEpvYmHDikBkCHNwzeRBWSF40Dc0uCZMEg==
+webidl2js@^16.2.0:
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-16.2.0.tgz#70ec1e6877d42fd79ada24b574f60210bb7cc410"
+  integrity sha512-+ujeVqKYxe1efW1xmhS0rM4O1rqtoXOqBM3J96v/8SqID65Chwc9QotVaqCJtaIYqGa0B7lBn1kqUIXk52mgPw==
   dependencies:
     prettier "^2.0.4"
     webidl-conversions "^6.1.0"
-    webidl2 "^23.11.0"
+    webidl2 "^23.12.1"
 
 whatwg-encoding@^1.0.5:
   version "1.0.5"

@@ -468,7 +468,6 @@ DIR: html/dom/elements/elements-in-the-dom
 
 DIR: html/dom/elements/global-attributes
 
-dataset-binding.window.html: [fail, Unknown]
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
@@ -1133,7 +1132,6 @@ unload-a-document/*: [timeout, Requires window.open]
 DIR: webstorage
 
 event_no_duplicates.html: [needs-node11, Earlier Node.js timers did not match browser behaviour, https://github.com/nodejs/node/pull/22842]
-set.window.html: [fail, Unknown]
 storage_local_window_open.html: [timeout, Depends on window.open()]
 storage_session_window_noopener.html: [fail, Depends on BroadcastChannel]
 storage_session_window_open.html: [timeout, Depends on window.open()]

@@ -10,7 +10,7 @@ dictionary SVGBoundingBoxOptions {
 interface SVGGraphicsElement : SVGElement {
   // [SameObject] readonly attribute SVGAnimatedTransformList transform;
 
-  // DOMRect getBBox(optional SVGBoundingBoxOptions options);
+  // DOMRect getBBox(optional SVGBoundingBoxOptions options = {});
   // DOMMatrix? getCTM();
   // DOMMatrix? getScreenCTM();
 };
