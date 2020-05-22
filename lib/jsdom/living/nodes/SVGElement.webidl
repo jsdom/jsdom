@@ -1,4 +1,5 @@
 // https://svgwg.org/svg2-draft/types.html#InterfaceSVGElement
+[Exposed=Window]
 interface SVGElement : Element {
 
   // TODO: implement reflection in webidl2js

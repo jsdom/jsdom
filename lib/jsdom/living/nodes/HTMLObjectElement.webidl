@@ -1,7 +1,7 @@
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLObjectElement : HTMLElement {
-  [CEReactions] attribute USVString data;
+  [CEReactions, ReflectURL] attribute USVString data;
   [CEReactions, Reflect] attribute DOMString type;
 //  [CEReactions] attribute boolean typeMustMatch;
   [CEReactions, Reflect] attribute DOMString name;
@@ -31,8 +31,8 @@ partial interface HTMLObjectElement {
   [CEReactions, Reflect] attribute unsigned long hspace;
   [CEReactions, Reflect] attribute DOMString standby;
   [CEReactions, Reflect] attribute unsigned long vspace;
-  [CEReactions] attribute DOMString codeBase;
+  [CEReactions, ReflectURL] attribute DOMString codeBase;
   [CEReactions, Reflect] attribute DOMString codeType;
 
-  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString border;
+  [CEReactions, Reflect] attribute [LegacyNullToEmptyString] DOMString border;
 };

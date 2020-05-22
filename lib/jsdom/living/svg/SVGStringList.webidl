@@ -1,4 +1,5 @@
 // https://svgwg.org/svg2-draft/types.html#InterfaceSVGStringList
+[Exposed=Window]
 interface SVGStringList {
 
   readonly attribute unsigned long length;

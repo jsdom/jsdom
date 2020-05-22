@@ -1,3 +1,4 @@
+// https://html.spec.whatwg.org/multipage/form-elements.html#htmltextareaelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLTextAreaElement : HTMLElement {
@@ -19,7 +20,7 @@ interface HTMLTextAreaElement : HTMLElement {
 
   readonly attribute DOMString type;
   [CEReactions] attribute DOMString defaultValue;
-  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString value;
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString value;
   readonly attribute unsigned long textLength;
 
   readonly attribute boolean willValidate;

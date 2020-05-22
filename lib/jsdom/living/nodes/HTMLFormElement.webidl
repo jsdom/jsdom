@@ -1,10 +1,11 @@
+// https://html.spec.whatwg.org/multipage/forms.html#htmlformelement
 [Exposed=Window,
 // We haven't made named/indexed getters work for HTMLFormElement yet, so don't include these until we do.
-// OverrideBuiltins,
+// LegacyOverrideBuiltins,
 // LegacyUnenumerableNamedProperties,
  HTMLConstructor]
 interface HTMLFormElement : HTMLElement {
-  [CEReactions, Reflect=accept_charset] attribute DOMString acceptCharset;
+  [CEReactions, Reflect="accept-charset"] attribute DOMString acceptCharset;
   [CEReactions] attribute USVString action;
 //  [CEReactions] attribute DOMString autocomplete;
   [CEReactions] attribute DOMString enctype;

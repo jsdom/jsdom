@@ -50,10 +50,10 @@ enum DocumentReadyState { "loading", "interactive", "complete" };
 // We don't support SVGScriptElement yet
 // typedef (HTMLScriptElement or SVGScriptElement) HTMLOrSVGScriptElement;
 
-[OverrideBuiltins]
+[LegacyOverrideBuiltins]
 partial interface Document {
   // resource metadata management
-  [PutForwards=href, Unforgeable] readonly attribute Location? location;
+  [PutForwards=href, LegacyUnforgeable] readonly attribute Location? location;
 //  attribute USVString domain;
   readonly attribute USVString referrer;
   attribute USVString cookie;
@@ -96,18 +96,18 @@ partial interface Document {
 //  DOMString queryCommandValue(DOMString commandId);
 
   // special event handler IDL attributes that only apply to Document objects
-  [LenientThis] attribute EventHandler onreadystatechange;
+  [LegacyLenientThis] attribute EventHandler onreadystatechange;
 };
 Document includes GlobalEventHandlers;
 // Document includes DocumentAndElementEventHandlers;
 
 // https://html.spec.whatwg.org/#Document-partial
 partial interface Document {
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString fgColor;
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString linkColor;
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString vlinkColor;
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString alinkColor;
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString bgColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString fgColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString linkColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString vlinkColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString alinkColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString bgColor;
 
   [SameObject] readonly attribute HTMLCollection anchors;
   [SameObject] readonly attribute HTMLCollection applets;

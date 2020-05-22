@@ -30,6 +30,7 @@ Arrix <arrixzhou@gmail.com>
 Aryan Arora <aryanarora278@gmail.com>
 Avery Fay <avery@mixpanel.com>
 Avi Deitcher <avi@deitcher.net>
+Avi Vahl <avi.vahl@wix.com>
 Behind The Math <aryehb412@gmail.com>
 Brandon Bethke <brandon.bethke@neudesic.com>
 Brandon Paton <brandon@localizejs.com>
@@ -59,6 +60,7 @@ Daniel Cousens <github@dcousens.com>
 Daniël van de Burgt <daniel.vandeburgt@serialssolutions.com>
 d-ash <andrey.shubin@gmail.com>
 Dav Glass <davglass@gmail.com>
+Dave Clark <dave@dcwarwick.org.uk>
 Dave Methvin <dave.methvin@gmail.com>
 Davide P. Cervone <dpvc@union.edu>
 Derek Lindahl <dlindahl@customink.com>

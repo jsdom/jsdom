@@ -1,4 +1,4 @@
-// https://html.spec.whatwg.org/#htmlelement
+// https://html.spec.whatwg.org/multipage/dom.html#htmlelement
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLElement : Element {
@@ -17,7 +17,7 @@ interface HTMLElement : Element {
 //  [CEReactions] attribute boolean spellcheck;
 //  [CEReactions] attribute DOMString autocapitalize;
 
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString innerText;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString innerText;
 
 //  ElementInternals attachInternals();
 };

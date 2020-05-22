@@ -1,4 +1,5 @@
 // https://svgwg.org/svg2-draft/struct.html#InterfaceSVGSVGElement
+[Exposed=Window]
 interface SVGSVGElement : SVGGraphicsElement {
 
   // [SameObject] readonly attribute SVGAnimatedLength x;

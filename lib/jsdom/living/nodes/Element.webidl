@@ -7,7 +7,7 @@ interface Element : Node {
   readonly attribute DOMString tagName;
 
   [CEReactions, Reflect] attribute DOMString id;
-  [CEReactions, Reflect=class] attribute DOMString className;
+  [CEReactions, Reflect="class"] attribute DOMString className;
   [SameObject, PutForwards=value] readonly attribute DOMTokenList classList;
   [CEReactions, Unscopable, Reflect] attribute DOMString slot;
 
@@ -51,8 +51,8 @@ dictionary ShadowRootInit {
 
 // https://w3c.github.io/DOM-Parsing/#extensions-to-the-element-interface
 partial interface Element {
-  [CEReactions, TreatNullAs=EmptyString] attribute DOMString innerHTML;
-  [CEReactions, TreatNullAs=EmptyString] attribute DOMString outerHTML;
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString innerHTML;
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString outerHTML;
   [CEReactions] void insertAdjacentHTML(DOMString position, DOMString text);
 };
 
