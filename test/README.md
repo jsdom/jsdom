@@ -2,7 +2,7 @@
 
 The jsdom project uses two different test frameworks:
 
-* [**web-platform-tests**](http://www.web-platform-tests.org/). They come in the form of `.html` files which are run inside the jsdom. This is part of a large cross-browser testing effort that jsdom is participating in.
+* [**web-platform-tests**](https://web-platform-tests.org/). They come in the form of `.html` files which are run inside the jsdom. This is part of a large cross-browser testing effort that jsdom is participating in.
 * **[Mocha](https://mochajs.org/) tests**
 
 ## For new tests
