@@ -32,7 +32,8 @@ const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 
 const toRunFilename = path.resolve(__dirname, "to-run.yaml");
 const toRunString = fs.readFileSync(toRunFilename, { encoding: "utf-8" });
-const toRunDocs = jsYAML.safeLoadAll(toRunString, { filename: toRunFilename });
+const toRunDocs = jsYAML.loadAll(toRunString, null, { filename: toRunFilename,
+  schema: jsYAML.DEFAULT_SAFE_SCHEMA });
 
 const minimatchers = new Map();
 
@@ -62,7 +63,14 @@ describe("web-platform-tests", () => {
           });
 
           const testFile = testFilePath.slice((toRunDoc.DIR + "/").length);
-          const reason = matchingPattern && toRunDoc[matchingPattern][0];
+          let reason;
+
+          if (matchingPattern) {
+            reason = toRunDoc[matchingPattern][0];
+          } else if (toRunDoc.DIR.startsWith("html/canvas/")) {
+            reason = "needs-canvas";
+          }
+
           const shouldSkip = ["fail-slow", "timeout", "flaky"].includes(reason) ||
                              (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas);
           const expectFail = (reason === "fail") ||
@@ -71,7 +79,7 @@ describe("web-platform-tests", () => {
                              (reason === "needs-node11" && !hasNode11) ||
                              (reason === "needs-node12" && !hasNode12);
 
-          if (matchingPattern && shouldSkip) {
+          if (shouldSkip) {
             specify.skip(`[${reason}] ${testFile}`);
           } else if (expectFail) {
             const failReason = reason !== "fail" ? `: ${reason}` : "";

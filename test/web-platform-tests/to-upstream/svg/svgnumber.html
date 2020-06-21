@@ -19,10 +19,10 @@ test(() => {
 test(() => {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   const svgNum = svg.createSVGNumber();
-  assert_throws(new TypeError(), () => {
+  assert_throws_js(TypeError, () => {
     svgNum.value = 3.402824e38;
   });
-  assert_throws(new TypeError(), () => {
+  assert_throws_js(TypeError, () => {
     svgNum.value = -3.402824e38;
   });
 }, "Supported range");

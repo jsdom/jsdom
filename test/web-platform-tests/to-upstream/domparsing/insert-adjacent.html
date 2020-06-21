@@ -13,7 +13,7 @@
 test(() => {
   const el = document.querySelector("#element");
 
-  assert_throws("SYNTAX_ERR", () => {
+  assert_throws_dom("SyntaxError", () => {
     el.insertAdjacentHTML("invalid", "test");
   });
 }, "Throws when given an invalid position");
@@ -21,7 +21,7 @@ test(() => {
 test(() => {
   const el = document.createElement("span");
 
-  assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
+  assert_throws_dom("NoModificationAllowedError", () => {
     el.insertAdjacentHTML("beforebegin", "test");
   });
 }, "Throws when inserting using \"beforebegin\" into an element whose parent is null");
@@ -29,7 +29,7 @@ test(() => {
 test(() => {
   const el = document.createElement("span");
 
-  assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
+  assert_throws_dom("NoModificationAllowedError", () => {
     el.insertAdjacentHTML("afterend", "test");
   });
 }, "Throws when inserting using \"afterend\" into an element whose parent is null");
@@ -46,7 +46,7 @@ test(() => {
 test(() => {
   const el = document.querySelector("html");
 
-  assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
+  assert_throws_dom("NoModificationAllowedError", () => {
     el.insertAdjacentHTML("beforebegin", "test");
   });
 }, "Throws when inserting using \"beforebegin\" into an element whose parent is a document");
@@ -54,7 +54,7 @@ test(() => {
 test(() => {
   const el = document.querySelector("html");
 
-  assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
+  assert_throws_dom("NoModificationAllowedError", () => {
     el.insertAdjacentHTML("afterend", "test");
   });
 }, "Throws when inserting using \"afterend\" into an element whose parent is a document");
