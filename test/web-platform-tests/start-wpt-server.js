@@ -4,7 +4,8 @@ const dns = require("dns");
 const path = require("path");
 const util = require("util");
 const childProcess = require("child_process");
-const requestHead = require("request-promise-native").head;
+const fetch = require("node-fetch");
+const https = require("https");
 const { inBrowserContext } = require("../util.js");
 
 const dnsLookup = util.promisify(dns.lookup);
@@ -66,8 +67,12 @@ module.exports = ({ toUpstream = false } = {}) => {
 };
 
 function pollForServer(url) {
-  return requestHead(url, { strictSSL: false })
-    .then(() => {
+  const agent = url.startsWith("https") ? new https.Agent({ rejectUnauthorized: false }) : null;
+  return fetch(url, { method: "HEAD", agent })
+    .then(({ ok, status }) => {
+      if (!ok) {
+        throw new Error(`Unexpected status=${status}`);
+      }
       console.log(`WPT server at ${url} is up!`);
       return url;
     })

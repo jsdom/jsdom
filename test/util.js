@@ -4,7 +4,6 @@ const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const enableDestroy = require("server-destroy");
-const request = require("request");
 const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
 
@@ -156,18 +155,19 @@ exports.getTestFixtureUrl = relativePath => {
  * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
  */
 exports.readTestFixture = relativePath => {
-  const useRequest = exports.inBrowserContext();
-
-  return exports.nodeResolverPromise(nodeResolver => {
-    if (useRequest) {
-      request.get(exports.getTestFixtureUrl(relativePath), { timeout: 5000 }, nodeResolver);
-    } else {
+  if (exports.inBrowserContext()) {
+    // Since we're in a browser context, the browser's fetch instance is being used, not node-fetch.
+    return fetch(exports.getTestFixtureUrl(relativePath)).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
+      }
+      return response.text();
+    });
+  } else {
+    return exports.nodeResolverPromise(nodeResolver => {
       fs.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" }, nodeResolver);
-    }
-  })
-  // request passes (error, response, content) to the callback
-  // we are only interested in the `content`
-    .then(result => useRequest ? result[1] : result);
+    });
+  }
 };
 
 exports.isCanvasInstalled = (t, done) => {
