@@ -26,6 +26,14 @@ test(() => {
   input.addEventListener("blur", () => {
     handleBlurCallCount += 1;
   });
+  let handleFocusInCallCount = 0;
+  input.addEventListener("focusin", () => {
+    handleFocusInCallCount += 1;
+  });
+  let handleFocusOutCallCount = 0;
+  input.addEventListener("focusout", () => {
+    handleFocusOutCallCount += 1;
+  });
 
   container.appendChild(input);
 
@@ -33,7 +41,9 @@ test(() => {
   document.activeElement.focus();
 
   assert_equals(handleBlurCallCount, 0);
+  assert_equals(handleFocusOutCallCount, 0);
   assert_equals(handleFocusCallCount, 1);
+  assert_equals(handleFocusInCallCount, 1);
 }, "focusing a focused element does not dispatch focus events");
   </script>
 </body>
