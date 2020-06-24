@@ -62,7 +62,7 @@ describe("Cookie processing", { skipIfBrowser: true }, () => {
       ]);
     });
 
-    it.only("reflects back cookies set from the server while requesting the page", () => {
+    it("reflects back cookies set from the server while requesting the page", () => {
       return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server").then(({ window }) => {
         assertCookies(window.document.cookie, [
           "Test1=Basic",
