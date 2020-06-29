@@ -547,7 +547,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
       // TODO: the "with no events" part of these tests may be wrong. Test what browsers do and fix if necessary.
 
-      it.only("should abort a script request (with no events) when stopping the window", async () => {
+      it("should abort a script request (with no events) when stopping the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
         const dom = new JSDOM(`<script>window.y = 6;</script>`, { resources: "usable", runScripts: "dangerously" });
 
