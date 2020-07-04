@@ -32,8 +32,7 @@ const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 
 const toRunFilename = path.resolve(__dirname, "to-run.yaml");
 const toRunString = fs.readFileSync(toRunFilename, { encoding: "utf-8" });
-const toRunDocs = jsYAML.loadAll(toRunString, null, { filename: toRunFilename,
-  schema: jsYAML.DEFAULT_SAFE_SCHEMA });
+const toRunDocs = jsYAML.loadAll(toRunString, null, { filename: toRunFilename, schema: jsYAML.DEFAULT_SAFE_SCHEMA });
 
 const minimatchers = new Map();
 
