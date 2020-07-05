@@ -32,6 +32,8 @@
     "escodegen": "^1.14.1",
     "fetch-cookie": "^0.8.0",
     "html-encoding-sniffer": "^2.0.1",
+    "http-proxy-agent": "^4.0.1",
+    "https-proxy-agent": "^5.0.0",
     "is-potential-custom-element-name": "^1.0.0",
     "node-fetch": "^2.6.0",
     "nwsapi": "^2.2.0",
