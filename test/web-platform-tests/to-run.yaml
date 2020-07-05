@@ -1088,6 +1088,7 @@ idlharness.window.html: [fail, Depends on fetch]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Mutation Events not implemented]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events not implemented]
 mouse/**: [timeout, Uses testdriver.js]
+order-of-events-/focus-events/focus-management-expectations.html: [timeout, Uses testdriver.js]
 order-of-events/mouse-events/*: [timeout, Unknown]
 
 ---
