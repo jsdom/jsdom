@@ -417,7 +417,6 @@ targeting-with-embedded-null-in-target.html: [timeout, Unknown]
 DIR: html/canvas/element/drawing-images-to-the-canvas
 
 2d.drawImage.broken.html: [fail, Not implemented]
-2d.drawImage.canvas.html: [fail, https://github.com/jsdom/jsdom/pull/2948]
 2d.drawImage.incomplete.*.html: [fail, Not implemented]
 2d.drawImage.negativedest.html: [fail, Not implemented]
 2d.drawImage.negativedir.html: [fail, Not implemented]
