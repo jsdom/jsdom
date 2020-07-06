@@ -85,7 +85,7 @@ dom.window.document.body.children.length === 2;
 
 Again we emphasize to only use this when feeding jsdom code you know is safe. If you use it on arbitrary user-supplied code, or code from the Internet, you are effectively running untrusted Node.js code, and your machine could be compromised.
 
-If you want to execute _external_ scripts, included via `<script src="">`, you'll also need to ensure that they load them. To do this, add the option `resources: "usable"` [as described below](#loading-subresources).
+If you want to execute _external_ scripts, included via `<script src="">`, (apart from setting set a valid `url` in the `JSDOM` constructor, so the scripts may be correctly resolved), you'll need to ensure that they load. To do this, add the option `resources: "usable"` [as described below](#loading-subresources).
 
 Event handler attributes, like `<div onclick="">`, are also governed by this setting; they will not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
 
