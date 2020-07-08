@@ -52,7 +52,8 @@ MediaQueryList-addListener-removeListener.html: [fail, Unknown]
 MediaQueryList-extends-EventTarget-interop.html: [fail, Unknown]
 MediaQueryList-extends-EventTarget.html: [fail, Unknown]
 MediaQueryListEvent.html: [fail, Unknown]
-cssom-getBoundingClientRect-002.html: [fail, Unknown]
+cssom-getBoundingClientRect-002.html: [fail, Not implemeneted]
+cssom-getBoundingClientRect-003.html: [fail, Not implemeneted]
 cssom-getBoxQuads-001.html: [fail, Not implemented]
 cssom-getClientRects-002.html: [fail, Unknown]
 cssom-view-img-attributes-001.html: [fail, Unknown]
@@ -61,6 +62,7 @@ elementFromPoint-001.html: [fail, Not implemented]
 elementFromPoint-002.html: [fail, Not implemented]
 elementFromPoint-003.html: [fail, Not implemented]
 elementFromPoint-dynamic-anon-box.html: [fail, Not implemented]
+elementFromPoint-float-in-table.html: [fail, Not implemented]
 elementFromPoint-list-001.html: [fail, Not implemented]
 elementFromPoint-mixed-font-sizes.html: [fail, Not implemented]
 elementFromPoint-subpixel.html: [fail, Not implemented]
@@ -130,6 +132,7 @@ reactions/HTMLAreaElement.html: [fail, HTMLAreaElement doesn't implement downloa
 reactions/HTMLButtonElement.html: [fail, HTMLButtonElement doesn't implement formAction formEnctype and formMethod]
 reactions/HTMLElement.html: [fail, translate and spellcheck attributes are not implemented on HTMLElement]
 reactions/HTMLImageElement.html: [fail, HTMLImageElement doesn't implement referrerPolicy and decoder]
+state.tentative/**: [fail, Not implemented]
 throw-on-dynamic-markup-insertion-counter-construct.html: [timeout, document.open() and document.close() implementation is not spec compliant]
 throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.open() and document.close() implementation is not spec compliant]
 
@@ -145,6 +148,9 @@ DIR: dom/collections
 
 DIR: dom/events
 
+Event-dispatch-detached-input-and-change.html: [fail,
+  Need implement connected and use it in https://github.com/jsdom/jsdom/blob/master/lib/jsdom/living/nodes/HTMLInputElement-impl.js#L199
+  See https://html.spec.whatwg.org/multipage/input.html#checkbox-state-(type=checkbox)]
 Event-dispatch-on-disabled-elements.html: [timeout, Uses testdriver.js]
 Event-dispatch-redispatch.html: [fail, Unknown]
 Event-isTrusted.any.html: [fail, Unknown]
@@ -189,6 +195,7 @@ Node-childNodes.html: [fail, Unknown]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
 ParentNode-querySelector-All.html: [fail, ::slotted() pseudo-class is not supported]
+ParentNode-replaceChildren.html: [fail, Not implemented]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 Text-constructor.html: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
@@ -199,6 +206,7 @@ remove-and-adopt-thcrash.html: [fail, window.open not implemented]
 ---
 
 DIR: dom/ranges
+Range-insertNode.html: [fail, Unknown]
 
 ---
 
@@ -213,6 +221,7 @@ DIR: domparsing
 DOMParser-parseFromString-html.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 DOMParser-parseFromString-url-base-pushstate.html: [fail, iframe onload timing]
 DOMParser-parseFromString-url-base.html: [fail, iframe onload timing]
+DOMParser-parseFromString-url-moretests.html: [fail, Unknown]
 DOMParser-parseFromString-url-pushstate.html: [fail, iframe onload timing]
 DOMParser-parseFromString-url.html: [fail, iframe onload timing]
 DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD validation]
@@ -279,6 +288,9 @@ DIR: html/browsers/browsing-the-web/navigating-across-documents
 013.html: [fail, Unknown]
 014.html: [fail, Unknown]
 015.html: [fail, Unknown]
+abort-document-load.html: [fail, Unknown]
+anchor-fragment-**.html: [timeout, Unknown]
+anchor-jsurl-form-submit.html: [timeout, Unknown]
 child_navigates_parent_location.html: [timeout, Unknown]
 child_navigates_parent_submit.html: [timeout, Unknown]
 empty_fragment.html: [fail, Unknown]
@@ -290,6 +302,7 @@ refresh/navigate.window.html: [timeout, Unknown]
 refresh/subresource.any.html: [fail, Depends on fetch]
 source/navigate-child-function-parent.html: [timeout, Unknown]
 source/navigate-child-function.html: [timeout, Unknown]
+top-level-data-url.window.html: [fail, window.open() not implemented]
 
 ---
 
@@ -401,6 +414,17 @@ targeting-with-embedded-null-in-target.html: [timeout, Unknown]
 
 ---
 
+DIR: html/canvas/element/drawing-images-to-the-canvas
+
+2d.drawImage.broken.html: [fail, Not implemented]
+2d.drawImage.incomplete.*.html: [fail, Not implemented]
+2d.drawImage.negativedest.html: [fail, Not implemented]
+2d.drawImage.negativedir.html: [fail, Not implemented]
+2d.drawImage.zerocanvas.html: [fail, Not implemented]
+2d.drawImage.zerosource.image.html: [fail, Not implemented]
+
+---
+
 DIR: html/dom/documents/dom-tree-accessors
 
 Document.currentScript.html: [timeout, Unknown]
@@ -413,6 +437,7 @@ nameditem-05.html: [fail, Unknown]
 nameditem-06.html: [fail, Unknown]
 nameditem-07.html: [fail, Unknown]
 nameditem-08.html: [fail, Unknown]
+nameditem-names.html: [fail, Unknown]
 
 ---
 
@@ -432,6 +457,7 @@ DIR: html/dom/elements/global-attributes
 
 dataset-binding.window.html: [fail, Unknown]
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
+mapped-attribute-adopt-001.html: [fail, Hidden attribute not implemented https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
 the-lang-attribute-003.html: [fail, Unknown]
@@ -442,6 +468,7 @@ the-lang-attribute-007.html: [fail, Unknown]
 the-lang-attribute-008.html: [fail, Unknown]
 the-lang-attribute-009.html: [fail, Unknown]
 the-lang-attribute-010.html: [fail, Unknown]
+translate-enumerated-ascii-case-insensitive.html: [fail, https://github.com/zjffun/jsdom/commits/fix/ascii-case-insensitivity]
 
 ---
 
@@ -455,6 +482,7 @@ datastore/datatransfer-constructor-001.html: [fail, DataTransfer not implemented
 datastore/datatransfer-types.html: [fail, DataTransfer not implemented]
 synthetic/001.html: [fail, DragEvent not implemented]
 target-origin/202.html: [fail, DragEvent not implemented]
+the-draggable-attribute/draggable-enumerated-ascii-case-insensitive.html: [fail, https://github.com/zjffun/jsdom/commits/fix/ascii-case-insensitivity]
 the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
 
 ---
@@ -476,12 +504,14 @@ sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-negative.h
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-order.html: [fail, scrollIntoView() not implemented]
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-positive.html: [fail, scrollIntoView() not implemented]
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-zero.html: [fail, scrollIntoView() not implemented]
+tabindex-focus-flag.html: [fail, https://github.com/jsdom/jsdom/pull/2965]
 the-autofocus-attribute/autofocus-on-stable-document.html: [fail, Not implemented]
 the-autofocus-attribute/first-reconnected.html: [fail, Not implemented]
 the-autofocus-attribute/first-when-later-but-before.html: [fail, Not implemented]
 the-autofocus-attribute/first-when-later.html: [fail, Not implemented]
 the-autofocus-attribute/first.html: [fail, Not implemented]
 the-autofocus-attribute/focusable-area-in-top-document.html: [fail, Not implemented]
+the-autofocus-attribute/no-autofocus-on-changing-input-type.html: [fail, Not implemented]
 the-autofocus-attribute/queue-non-focusable.html: [fail, Not implemented]
 the-autofocus-attribute/same-origin-autofocus.html: [fail, Not implemented]
 the-autofocus-attribute/skip-another-top-level-browsing-context.html: [fail, Not implemented]
@@ -541,6 +571,7 @@ style_load_event.html: [timeout, Unknown]
 style_media.html: [fail, Not implemented]
 style_media_change.html: [fail, Not implemented]
 style_type_change.html: [fail, Spec mismatches tests https://github.com/whatwg/html/issues/3391]
+style_type_svg.svg: [fail, Unknown]
 
 ---
 
@@ -560,19 +591,48 @@ DIR: html/semantics/embedded-content/the-img-element
 Image-constructor.html: [fail-with-canvas, wrong-Realm Function, https://github.com/jsdom/jsdom/issues/2727]
 adoption.html: [timeout, Unknown]
 available-images-onload.html: [needs-canvas]
+below-viewport-image-loading-lazy-load-event.html: [timeout, Unknown]
 current-pixel-density/**: [fail-with-canvas, Unimplemented]
+currentSrc-blob-cache.html: [fail, (needs-canvas) URL.createObjectURL not implemented]
 data-url.html: [needs-canvas]
 decode/**: [timeout, Unimplemented]
 delay-load-event-detached.html: [needs-canvas]
 delay-load-event.html: [timeout, Unknown]
+disconnected-image-loading-lazy.html: [fail, loading attr not implemented]
 environment-changes/**: [timeout, Unimplemented]
 historical-progress-event.window.html: [needs-canvas]
+image-base-url.html: [timeout, <base> not implemented]
+image-loading-eager.html: [needs-canvas, Unimplemented and pass with canvas]
+image-loading-lazy-base-url-2.html: [fail, loading attr not implemented]
+image-loading-lazy-base-url.html: [fail, loading attr not implemented]
+image-loading-lazy-below-viewport-dynamic.html: [fail, loading attr not implemented]
+image-loading-lazy-crossorigin-change.sub.html: [fail, loading attr not implemented]
+image-loading-lazy-in-cross-origin-iframe-001.sub.html: [fail, loading attr not implemented]
+image-loading-lazy-in-cross-origin-iframe-002.sub.html: [fail, loading attr not implemented]
+image-loading-lazy-in-script-disabled-iframe.html: [fail, loading attr not implemented]
+image-loading-lazy-in-viewport-dynamic.html: [fail, loading attr not implemented]
+image-loading-lazy-load-event.html: [fail, loading attr not implemented]
+image-loading-lazy-move-document.html: [fail, loading attr not implemented]
+image-loading-lazy-move-into-script-disabled-iframe.html: [fail, loading attr not implemented]
+image-loading-lazy-multicol.html: [fail, loading attr not implemented]
+image-loading-lazy-multiple-times.html: [fail, loading attr not implemented]
+image-loading-lazy-referrerpolicy-change.sub.html:  [fail, loading attr not implemented]
+image-loading-lazy-relevant-mutations.html: [fail-with-canvas, loading attr not implemented]
+image-loading-lazy-srcset.html: [fail, loading attr not implemented]
+image-loading-lazy.html: [fail, loading attr not implemented]
 img.complete.html: [timeout, Unknown]
 invalid-src.html: [timeout, Resource loader doesn't catch bad URLs at the right point in the process]
+invisible-image.html: [fail, images block the window load event not implemented (images not in _queue)]
+move-element-and-scroll.html: [fail, scrollIntoView not implemented]
+natural-size-orientation.html: [timeout, image-orientation CSS property not implemented]
 nonexistent-image.html: [needs-canvas]
+not-rendered-below-viewport-image-loading-lazy.html: [fail, scrollIntoView not implemented, loading attr not implemented]
 not-rendered-dimension-getter.html: [needs-canvas]
+not-rendered-image-loading-lazy.html: [fail-with-canvas, loading attr not implemented]
 null-image-source.html: [timeout, Unknown]
+picture-loading-lazy.html: [fail, scrollIntoView not implemented, loading attr not implemented]
 relevant-mutations.html: [timeout, Unknown]
+remove-element-and-scroll.html: [timeout, scrollIntoView not implemented]
 sizes/**: [timeout, Unimplemented]
 srcset/**: [timeout, Unimplemented]
 update-media.html: [timeout, Unimplemented]
@@ -586,6 +646,8 @@ usemap-casing.html: [fail-with-canvas, Can't seem to handle onload = () => ...]
 DIR: html/semantics/forms/attributes-common-to-form-controls
 
 dirname-ltr.html: [timeout, Unknown]
+dirname-rtl-auto.html: [timeout, Unknown]
+dirname-rtl-inherited.html: [timeout, Unknown]
 formAction_document_address.html: [fail, Unknown]
 formaction.html: [fail, Unknown]
 
@@ -595,6 +657,7 @@ DIR: html/semantics/forms/constraints
 
 form-validation-validity-valueMissing.html: [fail, 'Spec unclear (see https://github.com/whatwg/html/issues/5202)']
 infinite_backtracking.html: [timeout, We cannot restrict duration of regex matching from JavaScript]
+radio-valueMissing.html: [fail, fix https://github.com/zjffun/jsdom/commits/fix/radio-value-missing]
 
 ---
 
@@ -657,8 +720,11 @@ DIR: html/semantics/forms/the-input-element
 
 checkbox.html: [fail, Events weirdness]
 datetime-local.html: [fail, min/max constraints not implemented]
+hidden-charset-case-sensitive.html: [timeout, Unknown]
 image-click-form-data.html: [timeout, Unknown]
+input-seconds-leading-zeroes.html: [fail, Unknown]
 input-type-button.html: [fail, Depends on offsetWidth]
+maxlength-number.html: [fail, element.scrollIntoView is not a function]
 maxlength.html: [fail, Reflection not implemented correctly]
 minlength.html: [fail, Reflection not implemented correctly]
 range-2.html: [fail, step attribute not yet implemented]
@@ -669,6 +735,8 @@ reset.html: [fail, Reset semantics not yet implemented]
 
 DIR: html/semantics/forms/the-label-element
 
+clicking-noninteractive-unlabelable-content.html: [fail, Need fix activation behavior and interactive content]
+forward-focus-to-associated-element.html: [fail, focus label not implemented correctly]
 label-attributes.sub.html: [fail, Unknown]
 
 ---
@@ -708,6 +776,7 @@ DIR: html/semantics/forms/the-textarea-element
 
 textarea-maxlength.html: [fail, Unknown]
 textarea-minlength.html: [fail, Unknown]
+wrap-enumerated-ascii-case-insensitive.html: [timeout, Unknown]
 
 ---
 
@@ -722,6 +791,8 @@ toggleEvent.html: [fail, The ninth test requires a streaming HTML parser to pass
 ---
 
 DIR: html/semantics/interactive-elements/the-summary-element
+anchor-with-inline-element.html: [timeout, Unknown]
+click-behavior-optional.tentative.html: [fail, element.scrollIntoView is not implemented]
 
 ---
 
@@ -803,6 +874,7 @@ execution-timing/106-defer-import.html: [fail, Unknown]
 execution-timing/106-external-import.html: [fail, Unknown]
 execution-timing/106-external-module-import.html: [fail, Unknown]
 execution-timing/106-external-module-noimport.html: [fail, Unknown]
+execution-timing/106-import-xhtml.xhtml: [fail, Unknown]
 execution-timing/106-import.html: [fail, Unknown]
 execution-timing/106-module-import.html: [fail, Unknown]
 execution-timing/106-module-noimport.html: [fail, Unknown]
@@ -839,6 +911,8 @@ execution-timing/144.html: [fail, Unknown]
 execution-timing/145.html: [fail, Unknown]
 execution-timing/146.html: [fail, Unknown]
 execution-timing/149.html: [fail, Unknown]
+execution-timing/150-import-xhtml.xhtml: [fail, Unknown]
+execution-timing/150-import.html: [fail, Unknown]
 fetch-src/empty-with-base.html: [timeout, Unknown]
 fetch-src/empty.html: [timeout, Unknown]
 fetch-src/failure.html: [timeout, Unknown]
@@ -847,8 +921,10 @@ load-error-events-1.html: [timeout, Unknown]
 load-error-events-2.html: [timeout, Unknown]
 load-error-events-3.html: [timeout, Unknown]
 module/**: [timeout, Not implemented]
+moving-between-documents/**-classic.html: [fail, Unknown]
 muted-errors.sub.html: [fail, Muted errors not implemented]
 nomodule-**: [fail, Not implemented]
+script-crossorigin-network.sub.html: [fail, fix https://github.com/zjffun/jsdom/commits/feature/crossorigin-attr]
 script-crossorigin.html: [fail, Unknown]
 script-for-event-xhtml.xhtml: [fail, Not implemented]
 script-for-event.html: [fail, Not implemented]
@@ -870,7 +946,7 @@ template-element/template-content-hierarcy.html: [fail, "We do not implement htt
 DIR: html/semantics/selectors
 
 pseudo-classes/checked-type-change.html: [fail, CSS computed style computation]
-pseudo-classes/dir.html: [fail, "Fixed by https://github.com/web-platform-tests/wpt/pull/21588"]
+pseudo-classes/dir-html-input-dynamic-text.html: [fail, need nwsapi fix]
 pseudo-classes/focus-autofocus.html: [timeout, Unknown]
 pseudo-classes/focus.html: [timeout, Unknown]
 pseudo-classes/indeterminate-radio.html: [fail, CSS computed style computation]
@@ -941,13 +1017,15 @@ event-handler-processing-algorithm-error/script-element.html: [timeout, Unknown]
 event-handler-processing-algorithm-error/synthetic-errorevent-click.html: [fail, Needs Worker implementation]
 event-handler-processing-algorithm-error/worker.html: [fail, Needs Worker implementation]
 event-handler-removal.window.html: [fail, Unknown]
+event-handler-sourcetext.html: [fail, Must return the specified format]
 messageevent-constructor.https.html: [fail, uses MessageChannel]
 
 ---
 
 DIR: html/webappapis/system-state-and-capabilities/the-navigator-object
 
-navigator_user_agent.tentative.https.html: [fail, Not implemented]
+historical.https.window.html: [fail, Not implemented]
+navigator_user_agent.https.html: [fail, Not implemented]
 protocol.https.html: [fail, registerProtocolHandler() is not implemented]
 
 ---
@@ -972,6 +1050,7 @@ Document-prototype-currentScript.html: [timeout, Test not up to date next with u
 DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
 ShadowRoot-interface.html: [fail, shadowRoot.styleSheet is not yet implemented]
+declarative/**: [fail, Not implemented]
 focus/click-focus-delegatesFocus-tabindex-varies.html: [fail, element.scrollIntoView is not implemented]
 focus/click-focus-delegatesFocus-tabindex-zero.html: [fail, element.scrollIntoView is not implemented]
 focus/focus-method-delegatesFocus.html: [fail, delegatesFocus is not implemented]
@@ -982,6 +1061,8 @@ leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
+slots-imperative-api-slotchange.tentative.html: [fail, Unknown]
+slots-imperative-slot-api.tentative.html: [fail, Unknown (browsers also fail now)]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, https://github.com/w3c/selection-api/issues/114]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html: [fail, DocumentOrShadowRoot.elementFromPoint() is not implemented. Needs layout engine]
@@ -1006,7 +1087,8 @@ idlharness.window.html: [fail, Depends on fetch]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Mutation Events not implemented]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events not implemented]
 mouse/**: [timeout, Uses testdriver.js]
-order-of-events/**: [timeout, Unknown]
+order-of-events/focus-events/focus-management-expectations.html: [timeout, Uses testdriver.js]
+order-of-events/mouse-events/*: [timeout, Unknown]
 
 ---
 
@@ -1021,6 +1103,7 @@ idlharness.any.html: [fail, Depends on fetch]
 toascii.window.html: [fail, Depends on fetch]
 url-constructor.html: [fail, Depends on fetch]
 url-origin.html: [fail, Depends on fetch]
+url-setters-stripping.any.html: [fail, Unknown]
 url-setters.html: [fail, Depends on fetch]
 urlencoded-parser.any.html: [fail, Depends on fetch]
 
@@ -1034,7 +1117,7 @@ cookies/006.html?wss: [fail, Unknown]
 cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 remove-own-iframe-during-onerror.window.html: [timeout, iframe.srcdoc not implemented]
-stream-tentative/*: [timeout, Not implemented]
+stream.tentative/*: [fail, This is not yet standardised and browsers should not be expected to pass these tests.]
 unload-a-document/*: [timeout, Requires window.open]
 
 ---
@@ -1071,6 +1154,7 @@ access-control-sandboxed-iframe-denied-without-wildcard.htm: [fail, we don't imp
 access-control-sandboxed-iframe-denied.htm: [fail, we don't implement sandboxed iframes]
 anonymous-mode-unsupported.htm: [fail, need way to set cookie header with original casing]
 close-worker-with-xhr-in-progress.html: [fail, Needs Worker implementation]
+cors-expose-star.sub.any.html: [fail, Unknown]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.any.html: [fail, Unknown]
@@ -1108,7 +1192,8 @@ send-authentication-cors-setrequestheader-no-cred.htm: [fail, Unknown]
 send-blob-with-no-mime-type.html: [fail, Unknown]
 send-conditional-cors.htm: [timeout, Unknown]
 send-content-type-charset.htm: [fail-slow, bad test because not-yet-updated spec https://github.com/whatwg/xhr/issues/188]
-send-data-readablestream.any.html: [fail, ReadableStream not implemented]
+send-data-es-object.any.html: [fail, Unknown]
+send-data-sharedarraybuffer.any.html: [fail, Unknown]
 send-entity-body-document.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 send-entity-body-empty.htm: [fail, hard to get Node to not send Content-Length]
 send-entity-body-get-head-async.htm: [fail, hard to get Node to not send Content-Length]
