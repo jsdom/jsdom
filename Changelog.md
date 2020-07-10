@@ -1,3 +1,5 @@
+# jsdom Changelog
+
 <!-- Style guide:
 
 * Use past tense verbs to start the sentence, e.g. "Fixed", "Added", "Removed", ...
@@ -23,6 +25,15 @@ Other guidelines:
 * Group in the order "Added", "Removed", "Changed", "Fixed".
 * Roughly order changes within those groupings by impact.
 -->
+
+## 16.3.0
+
+* Added firing of `focusin` and `focusout` when using `el.focus()` and `el.blur()`. (trueadm)
+* Fixed elements with the `contenteditable=""` attribute to be considered as focusable. (jamieliu386)
+* Fixed `window.NodeFilter` to be per-`Window`, instead of shared across all `Window`s. (ExE-Boss)
+* Fixed edge-case behavior involving use of objects with `handleEvent` properties as event listeners. (ExE-Boss)
+* Fixed a second failing image load sometimes firing a `load` event instead of an `error` event, when the `canvas` package is installed. (strager)
+* Fixed drawing an empty canvas into another canvas. (zjffun)
 
 ## 16.2.2
 
