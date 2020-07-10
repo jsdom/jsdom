@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Form.elements should update on form.id change</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id=log></div>
+
+<form name="test">
+  <input name="internal" form="testForm" type="hidden" />
+</form>
+<input name="external" form="testForm" type="hidden" />
+
+<script>
+"use strict";
+
+test(() => {
+  const form = document.querySelector("form");
+
+  assert_equals(form.elements.length, 0);
+}, "`form.elements` should not contain elements inside form with different form owner");
+
+test(() => {
+  const form = document.querySelector("form");
+
+  assert_equals(form.elements.length, 0, "pre-condition");
+
+  form.id = "testForm";
+
+  assert_equals(form.elements.length, 2);
+}, "`form.elements` should update on form.id change");
+
+</script>
