@@ -85,7 +85,7 @@ dom.window.document.body.children.length === 2;
 
 Again we emphasize to only use this when feeding jsdom code you know is safe. If you use it on arbitrary user-supplied code, or code from the Internet, you are effectively running untrusted Node.js code, and your machine could be compromised.
 
-If you want to execute _external_ scripts, included via `<script src="">`, you'll also need to ensure that they load them. To do this, add the option `resources: "usable"` [as described below](#loading-subresources).
+If you want to execute _external_ scripts, included via `<script src="">`, you'll also need to ensure that they load them. To do this, add the option `resources: "usable"` [as described below](#loading-subresources). (You'll likely also want to set the `url` option, for the reasons discussed there.)
 
 Event handler attributes, like `<div onclick="">`, are also governed by this setting; they will not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
 
@@ -136,6 +136,8 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 * Stylesheets, via `<link rel="stylesheet">`
 * Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
 * Images, via `<img>`, but only if the `canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
+
+When attempting to load resources, recall that the default value for the `url` option is `"about:blank"`, which means that any resources included via relative URLs will fail to load. (The result of trying to parse the URL `/something` against the URL `about:blank` is an error.) So, you'll likely want to set a non-default value for the `url` option in those cases, or use one of the [convenience APIs](#convenience-apis) that do so automatically.
 
 #### Advanced configuration
 
