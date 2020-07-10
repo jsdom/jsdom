@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Focusing an unconnected node is a no-op</title>
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+</head>
+<body>
+  <script>
+"use strict";
+test(() => {
+  const button = document.createElement("button");
+  let handleFocusCallCount = 0;
+  button.addEventListener("focus", () => {
+    handleFocusCallCount += 1;
+  });
+
+  button.focus();
+
+  assert_equals(handleFocusCallCount, 0);
+  assert_equals(document.activeElement, document.body);
+}, "focusing a focused element does not dispatch focus events");
+  </script>
+</body>
+</html>
