@@ -249,15 +249,17 @@ Cookie jars are provided by the [tough-cookie](https://www.npmjs.com/package/tou
 
 ### Intervening before parsing
 
-jsdom allows you to intervene in the creation of a jsdom very early: after the `Window` and `Document` objects are created, but before any HTML is parsed to populate the document with nodes. The callback is also called with new `Window` objects created for each frame:
+jsdom allows you to intervene in the creation of a jsdom very early: after the `Window` and `Document` objects are created, but before any HTML is parsed to populate the document with nodes. The callback is also called with new `Window` objects created for each frame, and an `options` object which indicates whether the `Window` is being created as a top-level `Window` or a frame `Window`:
 
 ```js
 const dom = new JSDOM(`<p>Hello</p>`, {
   beforeParse(window, options) {
     window.document.childNodes.length === 0;
+
     window.someCoolAPI = () => { /* ... */ };
-    if (!options.isMain){
-      console.log(`It's a frame window!`);
+
+    if (!options.isTopLevel) {
+      console.log("It's a frame Window!");
     }
   }
 });

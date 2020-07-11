@@ -193,7 +193,8 @@ describe("API: constructor options", () => {
 
       assert.strictEqual(windowPassed, dom.window);
     });
-    it("should execute with frame windows", () => {
+
+    it("should execute for iframe windows", () => {
       class MockResourceLoader extends ResourceLoader {
         fetch() {
           return Promise.resolve("<p>Inside frame</p>");
@@ -202,7 +203,8 @@ describe("API: constructor options", () => {
 
       const calls = [];
 
-      const dom = new JSDOM(`<iframe src="https://example.com/page.html"></iframe>`, {
+      // eslint-disable-next-line no-new
+      new JSDOM(`<iframe src="https://example.com/page.html"></iframe>`, {
         beforeParse(window, opt) {
           calls.push({ window, opt });
         },
@@ -211,13 +213,11 @@ describe("API: constructor options", () => {
 
       assert.strictEqual(calls.length, 2);
 
-      const mainWindowCall = calls.shift();
-      assert.strictEqual(mainWindowCall.opt.isMain, true);
-      assert.strictEqual(mainWindowCall.window._globalProxy, dom.window);
+      assert.deepEqual(calls[0].opt, { isTopLevel: true });
+      assert.strictEqual(calls[0].window.location.href, "about:blank");
 
-      const frameWindowCall = calls.shift();
-      assert.strictEqual(frameWindowCall.opt.isMain, false);
-      assert.notStrictEqual(frameWindowCall.window._globalProxy, dom.window);
+      assert.deepEqual(calls[1].opt, { isTopLevel: false });
+      assert.strictEqual(calls[1].window.location.href, "https://example.com/page.html");
     });
   });
 
