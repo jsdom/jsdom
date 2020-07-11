@@ -707,7 +707,6 @@ DIR: html/semantics/forms/the-form-element
 form-action-submission-with-base-url.html: [timeout, Unknown]
 form-action-submission.html: [timeout, Unknown]
 form-autocomplete.html: [fail, Unknown]
-form-elements-filter.html: [fail, Unknown]
 form-elements-interfaces-01.html: [fail, Unknown]
 form-elements-nameditem-01.html: [fail, Unknown]
 form-indexed-element.html: [fail, Unknown]
