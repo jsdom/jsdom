@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSSOM: getComputedStyle() throws on Shadow DOM pseudo-elements</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="test"></div>
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("test");
+  assert_throws_js(
+    TypeError,
+    () => getComputedStyle(div, "::part(foo)"),
+    "getComputedStyle with ::part(...) throws"
+  );
+}, "Shadow DOM ::part(...) pseudo-element throws");
+
+test(() => {
+  const div = document.getElementById("test");
+  assert_throws_js(
+    TypeError,
+    () => getComputedStyle(div, "::slotted(foo)"),
+    "getComputedStyle with ::slotted(...) throws"
+  );
+}, "Shadow DOM ::slotted(...) pseudo-element throws");
+
+</script>
