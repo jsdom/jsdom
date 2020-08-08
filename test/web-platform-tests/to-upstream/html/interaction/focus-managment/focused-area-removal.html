@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Focused area removal</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+test(() => {
+  const button = document.createElement("button");
+  document.body.appendChild(button);
+  button.focus();
+
+  assert_equals(document.activeElement, button);
+  assert_equals(document.hasFocus(), true);
+
+  button.remove();
+
+  assert_equals(document.activeElement, document.body);
+  assert_equals(document.hasFocus(), true);
+}, "removing the activeElement keeps focus on its document");
+</script>
