@@ -468,7 +468,6 @@ the-lang-attribute-007.html: [fail, Unknown]
 the-lang-attribute-008.html: [fail, Unknown]
 the-lang-attribute-009.html: [fail, Unknown]
 the-lang-attribute-010.html: [fail, Unknown]
-translate-enumerated-ascii-case-insensitive.html: [fail, https://github.com/zjffun/jsdom/commits/fix/ascii-case-insensitivity]
 
 ---
 
@@ -482,7 +481,6 @@ datastore/datatransfer-constructor-001.html: [fail, DataTransfer not implemented
 datastore/datatransfer-types.html: [fail, DataTransfer not implemented]
 synthetic/001.html: [fail, DragEvent not implemented]
 target-origin/202.html: [fail, DragEvent not implemented]
-the-draggable-attribute/draggable-enumerated-ascii-case-insensitive.html: [fail, https://github.com/zjffun/jsdom/commits/fix/ascii-case-insensitivity]
 the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
 
 ---
