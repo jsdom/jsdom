@@ -26,6 +26,20 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.4.0
+
+* Added a not-implemented warning if you try to use the second pseudo-element argument to `getComputedStyle()`, unless you pass a `::part` or `::slotted` pseudo-element, in which case we throw an error per the spec. (ExE-Boss)
+* Improved the performance of repeated access to `el.tagName`, which also indirectly improves performance of selector matching and style computation. (eps1lon)
+* Fixed `form.elements` to respect the `form=""` attribute, so that it can contain non-descendant form controls. (ccwebdesign)
+* Fixed `el.focus()` to do nothing on disconnected elements. (eps1lon)
+* Fixed `el.focus()` to work on SVG elements. (zjffun)
+* Fixed removing the currently-focused element to move focus to the `<body>` element. (eps1lon)
+* Fixed `imgEl.complete` to return true for `<img>` elements with empty or unset `src=""` attributes. (strager)
+* Fixed `imgEl.complete` to return true if an error occurs loading the `<img>`, when canvas is enabled. (strager)
+* Fixed `imgEl.complete` to return false if the `<img>` element's `src=""` attribute is reset. (strager)
+* Fixed the `valueMissing` validation check for `<input type="radio">`. (zjffun)
+* Fixed `translate=""` and `draggable=""` attribute processing to use ASCII case-insensitivity, instead of Unicode case-insensitivity. (zjffun)
+
 ## 16.3.0
 
 * Added firing of `focusin` and `focusout` when using `el.focus()` and `el.blur()`. (trueadm)
