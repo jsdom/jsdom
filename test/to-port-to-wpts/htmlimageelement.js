@@ -33,10 +33,11 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
     assert.strictEqual(image.height, 0, "before loading, height should be 0");
     assert.strictEqual(image.naturalWidth, 0, "before loading, naturalWidth should be 0");
     assert.strictEqual(image.naturalHeight, 0, "before loading, naturalHeight should be 0");
-    assert.strictEqual(image.complete, false, "before loading, complete should be false");
+    assert.strictEqual(image.complete, true, "before loading or setting src, complete should be true");
     assert.strictEqual(image.src, "", "before loading, src should be an empty string");
     assert.strictEqual(image.currentSrc, "", "before loading, currentSrc should be an empty string");
     image.src = src;
+    assert.strictEqual(image.complete, false, "before loading and after setting src, complete should be false");
     image.onload = () => {
       assert.ok(true, "onload should be triggered when loading from valid URL.");
       assert.strictEqual(image.width, 168, "after loading, width should be 168");
