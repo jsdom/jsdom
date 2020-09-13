@@ -12,7 +12,7 @@ You can probably get away with using npm for most contributions, as long as you 
 
 jsdom is a blend of old and new code. Some of its older and less-touched corners may look different from newer work. Here we'll describe the modern setup, but you might encounter parts of the codebase that don't fit this model, or that seem unnecessarily baroque (like the directory structure in `lib/`).
 
-In general, a web platform class (like `Window`, or `Node`, or `Location`, or `CSSStyleSheet`) is specified using a language called [Web IDL](https://heycam.github.io/webidl/). Web IDL abstracts away a lot of the boilerplate involved in creating such classes, like type conversions, argument validation, and [attribute/property reflection](https://html.spec.whatwg.org/multipage/infrastructure.html#reflect).
+In general, a web platform class (like [`Window`](lib/jsdom/living/nodes/WindowEventHandlers.webidl), or [`Node`](lib/jsdom/living/nodes/Node.webidl), or [`Location`](lib/jsdom/living/window/Location.webidl), or `CSSStyleSheet`) is specified using a language called [Web IDL](https://heycam.github.io/webidl/). Web IDL abstracts away a lot of the boilerplate involved in creating such classes, like type conversions, argument validation, and [attribute/property reflection](https://html.spec.whatwg.org/multipage/infrastructure.html#reflect).
 
 As such, most web platform classes present in jsdom are implemented in two parts:
 
@@ -20,7 +20,7 @@ As such, most web platform classes present in jsdom are implemented in two parts
 
 - An implementation file, such as [`Attr-impl.js`](https://github.com/jsdom/jsdom/blob/master/lib/jsdom/living/attributes/Attr-impl.js), containing the relevant implementation logic
 
-Our build step (`yarn prepare`) then generates a public API file (e.g. `Attr.js`) which takes care of all the Web IDL-derived boilerplate, delegating to the implementation file for the important stuff. We then wire it together with a line in `lib/jsdom/living/index.js` that exposes the generated class on all jsdom windows.
+Our build step (`yarn prepare`) then generates a public API file (e.g. `lib/jsdom/living/generated/Attr.js`) which takes care of all the Web IDL-derived boilerplate, delegating to the implementation file for the important stuff. We then wire it together with a line in [`lib/jsdom/living/interfaces.js`](lib/jsdom/living/interfaces.js) that exposes the generated class on all jsdom windows.
 
 ## Contribution overview
 
