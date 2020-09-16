@@ -84,6 +84,12 @@ console.log('comp._defaultStyle: '+JSON.stringify(comp._defaultStyle))
 
 // these tests fail ....
 
+console.log('add stylesheet');
+const styleElm = o.window.document.createElement('style');
+styleElm.innerText = 'div { font-weight: bold }';
+o.window.document.head.appendChild(styleElm);
+test(() => comp.fontWeight == 'bold');
+
 console.log('remove element');
 e.remove();
 // display was reset to default or empty
