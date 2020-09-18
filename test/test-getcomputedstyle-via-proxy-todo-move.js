@@ -20,68 +20,82 @@ function test(testFn) {
   console.log(res+': '+testFn.toString().replace(/^\(\) ?=> ?/, ''));
 }
 
+function stringOfStyle(style) {
+  return JSON.stringify(Object.values(style).reduce((acc, key) => {
+    acc[key] = style[key];
+    return acc;
+  }, {}))
+}
+
 const e = o.window.document.querySelector('div');
-const prop = e.style;
-const comp = o.window.getComputedStyle(e);
+const inlineStyle = e.style;
+const computedStyle = o.window.getComputedStyle(e);
 
-test(() => prop.constructor.name == 'CSSStyleDeclaration');
-test(() => comp.constructor.name == 'CSSStyleDeclaration');
-test(() => comp.display == 'block');
-test(() => comp['display'] == 'block');
+test(() => inlineStyle.constructor.name == 'CSSStyleDeclaration');
+test(() => computedStyle.constructor.name == 'CSSStyleDeclaration');
+test(() => computedStyle.display == 'block');
+test(() => computedStyle['display'] == 'block');
 
-console.log("set prop.display = 'inline'");
-prop.display = 'inline';
+console.log("set inlineStyle.display = 'inline'");
+inlineStyle.display = 'inline';
 
-test(() => comp.display == 'inline');
-test(() => comp['display'] == 'inline');
+test(() => computedStyle.display == 'inline');
+test(() => computedStyle['display'] == 'inline');
 
-console.log("set e.style = 'color: red; font-size: 20px'");
+console.log("set inlineStyle = 'color: red; font-size: 20px'");
 e.style = 'color: red; font-size: 20px';
 
-test(() => comp.color == 'red');
-test(() => comp['color'] == 'red');
-test(() => comp.fontSize == '20px');
-test(() => comp['font-size'] == '20px');
+test(() => computedStyle.color == 'red');
+test(() => computedStyle['color'] == 'red');
+test(() => computedStyle.fontSize == '20px');
+test(() => computedStyle['font-size'] == '20px');
 // display was reset to default
 // TODO is this right?
-test(() => comp.display == 'block');
-test(() => comp['display'] == 'block');
+test(() => computedStyle.display == 'block');
+test(() => computedStyle['display'] == 'block');
 
 // test interface. keys should be strings of numbers
-test(() => Object.keys(comp).find(s => s !== String(parseInt(s, 10))) == undefined);
+test(() => Object.keys(computedStyle).find(s => s !== String(parseInt(s, 10))) == undefined);
 
-console.log("set e.style = 'display: inline'");
+console.log("set inlineStyle = 'display: inline'");
 e.style = 'display: inline';
 
-test(() => comp.display == 'inline');
+test(() => computedStyle.display == 'inline');
+test(() => computedStyle.color != 'red');
 
-// write to computed style
+// write to computedStyle style
 try {
-  comp.display = 'flex';
+  computedStyle.display = 'flex';
 }
 catch (e) {
-  console.log("pass: comp throws error on write: comp.display = 'flex'")
+  console.log("pass: computedStyle throws error on write: computedStyle.display = 'flex'")
   console.dir(e);
 }
 
 console.log('test interface. values should be strings');
-test(() => Object.values(comp).filter(s => typeof(s) !== 'string').length == 0);
+test(() => Object.values(computedStyle).filter(s => typeof(s) !== 'string').length == 0);
 
-console.log('test interface. values should be kebab-case propName strings');
+console.log('test interface. values should be kebab-case inlineStyleName strings');
 try {
-  test(() => Object.values(comp).find(s => s !== s.toLowerCase()) == undefined);
+  test(() => Object.values(computedStyle).find(s => s !== s.toLowerCase()) == undefined);
 }
 catch (e) {
-  console.log('fail: Object.values(comp):')
-  console.dir(Object.values(comp));
+  console.log('fail: Object.values(computedStyle):')
+  console.dir(Object.values(computedStyle));
   throw e;
 }
 
 console.log('JSON.stringify:');
-console.log('comp: '+JSON.stringify(comp))
-console.log('comp._inlineStyle: '+JSON.stringify(comp._inlineStyle))
-console.log('comp._customStyle: '+JSON.stringify(comp._customStyle))
-console.log('comp._defaultStyle: '+JSON.stringify(comp._defaultStyle))
+console.log('computedStyle: '+JSON.stringify(computedStyle))
+console.log('computedStyle._inlineStyle: '+JSON.stringify(computedStyle._inlineStyle))
+console.log('computedStyle._sheetStyle: '+JSON.stringify(computedStyle._sheetStyle))
+console.log('computedStyle._defaultStyle: '+JSON.stringify(computedStyle._defaultStyle))
+
+console.log('stringOfStyle:');
+console.log('computedStyle = '+stringOfStyle(computedStyle));
+console.log('computedStyle._inlineStyle: '+stringOfStyle(computedStyle._inlineStyle))
+console.log('computedStyle._sheetStyle: '+stringOfStyle(computedStyle._sheetStyle))
+console.log('computedStyle._defaultStyle: '+stringOfStyle(computedStyle._defaultStyle))
 
 console.log('add stylesheet');
 const styleElm = o.window.document.createElement('style');
@@ -89,14 +103,20 @@ const styleElm = o.window.document.createElement('style');
 //styleElm.innerText = 'div { font-weight: bold }';
 styleElm.innerHTML = 'div { font-weight: bold }';
 o.window.document.head.appendChild(styleElm);
-test(() => comp.fontWeight == 'bold');
+test(() => computedStyle.fontWeight == 'bold');
+test(() => Object.values(computedStyle).includes('font-weight'));
 
 // these tests fail ....
 
 console.log('remove element');
 e.remove();
 // display was reset to default or empty
-test(() => comp.display != 'inline');
+test(() => computedStyle.display != 'inline');
+console.log('computedStyle.display = '+computedStyle.display);
+console.log('computedStyle = '+stringOfStyle(computedStyle));
+console.log('computedStyle._inlineStyle: '+stringOfStyle(computedStyle._inlineStyle))
+console.log('computedStyle._sheetStyle: '+stringOfStyle(computedStyle._sheetStyle))
+console.log('computedStyle._defaultStyle: '+stringOfStyle(computedStyle._defaultStyle))
 
 console.log('call getComputedStyle without window');
 o = new jsd.JSDOM(`
@@ -105,19 +125,19 @@ o = new jsd.JSDOM(`
       <div>hello</div>
       <script>
         const e = document.querySelector('div');
-        window.compWindow = window.getComputedStyle(e);
-        window.compNoWindow = getComputedStyle(e);
+        window.computedStyleWindow = window.getComputedStyle(e);
+        window.computedStyleNoWindow = getComputedStyle(e);
       </script>
     </body>
   </html>
 `, {runScripts: 'dangerously'});
-const {compWindow, compNoWindow} = o.window;
-test(() => compWindow.display == compNoWindow.display);
+const {computedStyleWindow, computedStyleNoWindow} = o.window;
+test(() => computedStyleWindow.display == computedStyleNoWindow.display);
 
-if (compWindow.display == compNoWindow.display) {
+if (computedStyleWindow.display == computedStyleNoWindow.display) {
   console.log('pass');
 } else {
   console.log('fail');
-  console.log('compWindow:'); console.dir(compWindow);
-  console.log('compNoWindow:'); console.dir(compNoWindow);
+  console.log('computedStyleWindow:'); console.dir(computedStyleWindow);
+  console.log('computedStyleNoWindow:'); console.dir(computedStyleNoWindow);
 }
