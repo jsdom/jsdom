@@ -1,6 +1,7 @@
 const jsd = require('../');
+let o;
 
-const o = new jsd.JSDOM(`
+o = new jsd.JSDOM(`
   <html>
     <head>
       <style>
@@ -82,15 +83,41 @@ console.log('comp._inlineStyle: '+JSON.stringify(comp._inlineStyle))
 console.log('comp._customStyle: '+JSON.stringify(comp._customStyle))
 console.log('comp._defaultStyle: '+JSON.stringify(comp._defaultStyle))
 
-// these tests fail ....
-
 console.log('add stylesheet');
 const styleElm = o.window.document.createElement('style');
-styleElm.innerText = 'div { font-weight: bold }';
+// innerText currently not working, see issue #3052
+//styleElm.innerText = 'div { font-weight: bold }';
+styleElm.innerHTML = 'div { font-weight: bold }';
 o.window.document.head.appendChild(styleElm);
 test(() => comp.fontWeight == 'bold');
+
+// these tests fail ....
 
 console.log('remove element');
 e.remove();
 // display was reset to default or empty
 test(() => comp.display != 'inline');
+
+console.log('call getComputedStyle without window');
+o = new jsd.JSDOM(`
+  <html>
+    <body>
+      <div>hello</div>
+      <script>
+        const e = document.querySelector('div');
+        window.compWindow = window.getComputedStyle(e);
+        window.compNoWindow = getComputedStyle(e);
+      </script>
+    </body>
+  </html>
+`, {runScripts: 'dangerously'});
+const {compWindow, compNoWindow} = o.window;
+test(() => compWindow.display == compNoWindow.display);
+
+if (compWindow.display == compNoWindow.display) {
+  console.log('pass');
+} else {
+  console.log('fail');
+  console.log('compWindow:'); console.dir(compWindow);
+  console.log('compNoWindow:'); console.dir(compNoWindow);
+}
