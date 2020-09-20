@@ -1,23 +1,39 @@
-const jsd = require('../');
-let o;
+const { JSDOM } = require('../');
+let dom;
 
-o = new jsd.JSDOM(`
+dom = new JSDOM(`
   <html>
     <head>
       <style>
-        div { font-size: 80px; }
+        div { font-size: 1px }
+        #id-2 { font-size: 2px }
+        #id-4 { font-size: 4px }
+        .class-8 { font-size: 8px }
+        .class-16 { font-size: 16px }
+        #id-32 { font-size: 32px }
+        #id-64 { font-size: 64px }
       </style>
     </head>
     <body>
       <div style="color:red">hello</div>
+      <script>
+        const e = document.querySelector('div');
+
+        window.computedStyleWindow = window.getComputedStyle(e);
+        window.computedStyleNoWindow = getComputedStyle(e);
+      </script>
     </body>
   </html>
-`);
+`, {runScripts: 'dangerously'});
 
-function test(testFn) {
+function test(testFn, failMsg = (() => '')) {
   const res = (testFn() === true)
     ? 'pass' : 'fail';
   console.log(res+': '+testFn.toString().replace(/^\(\) ?=> ?/, ''));
+  if (res == 'fail') {
+    const msg = failMsg();
+    if (msg) console.log('  '+msg.replace(/\n/g, '\n  '));
+  }
 }
 
 function stringOfStyle(style) {
@@ -27,9 +43,10 @@ function stringOfStyle(style) {
   }, {}))
 }
 
-const e = o.window.document.querySelector('div');
+const e = dom.window.document.querySelector('div');
+
 const inlineStyle = e.style;
-const computedStyle = o.window.getComputedStyle(e);
+const computedStyle = dom.window.getComputedStyle(e);
 
 test(() => inlineStyle.constructor.name == 'CSSStyleDeclaration');
 test(() => computedStyle.constructor.name == 'CSSStyleDeclaration');
@@ -67,9 +84,33 @@ test(() => computedStyle.color != 'red');
 try {
   computedStyle.display = 'flex';
 }
-catch (e) {
+catch (err) {
   console.log("pass: computedStyle throws error on write: computedStyle.display = 'flex'")
-  console.dir(e);
+
+  // test standard API of DOMException
+  // https://developer.mozilla.org/en-US/docs/Web/API/DOMException
+  test(() => err.code === 7);
+  test(() => err.name === 'NoModificationAllowedError');
+  test(() => typeof err.message == 'string');
+  console.log('err.message = '+err.message);
+
+  // jsdom internal
+  test(() => err.stack.match(/^NoModificationAllowedError: /) != null)
+  console.log('err.stack:');
+  console.dir(err.stack);
+
+  console.log('error object in console.dir:');
+  console.dir(err);
+
+  console.log('error object props:');
+  console.dir(Object.getOwnPropertyNames(err));
+  // props should be: code, name, message
+  const propsNow = Object.getOwnPropertyNames(err);
+  const propsShould = ['code', 'name', 'message'];
+  test(() => propsNow.length == propsShould.length);
+  propsShould.forEach(p => {
+    test(eval(`() => propsNow.includes("${p}")`));
+  })
 }
 
 console.log('test interface. values should be strings');
@@ -85,6 +126,7 @@ catch (e) {
   throw e;
 }
 
+/*
 console.log('JSON.stringify:');
 console.log('computedStyle: '+JSON.stringify(computedStyle))
 console.log('computedStyle._inlineStyle: '+JSON.stringify(computedStyle._inlineStyle))
@@ -96,48 +138,47 @@ console.log('computedStyle = '+stringOfStyle(computedStyle));
 console.log('computedStyle._inlineStyle: '+stringOfStyle(computedStyle._inlineStyle))
 console.log('computedStyle._sheetStyle: '+stringOfStyle(computedStyle._sheetStyle))
 console.log('computedStyle._defaultStyle: '+stringOfStyle(computedStyle._defaultStyle))
+*/
 
 console.log('add stylesheet');
-const styleElm = o.window.document.createElement('style');
+const styleElm = dom.window.document.createElement('style');
 // innerText currently not working, see issue #3052
 //styleElm.innerText = 'div { font-weight: bold }';
 styleElm.innerHTML = 'div { font-weight: bold }';
-o.window.document.head.appendChild(styleElm);
+dom.window.document.head.appendChild(styleElm);
 test(() => computedStyle.fontWeight == 'bold');
 test(() => Object.values(computedStyle).includes('font-weight'));
 
-// these tests fail ....
+console.log('change id');
+e.id = 'id-2';
+test(() => computedStyle.fontSize == '2px');
+e.id = 'id-4';
+test(() => computedStyle.fontSize == '4px');
+
+// FAIL. id-style has precedence over class-style
+// fontSize should stay at 4px
+// instead, the last matching rule wins
+console.log('change className');
+e.className = 'class-8';
+test(() => computedStyle.fontSize == '4px',
+  () => 'computedStyle.fontSize = '+computedStyle.fontSize);
+e.className = 'class-16';
+test(() => computedStyle.fontSize == '4px',
+  () => 'computedStyle.fontSize = '+computedStyle.fontSize);
+
+console.log('change id');
+e.id = 'id-32';
+test(() => computedStyle.fontSize == '32px');
+// FAIL. last matching class-style (class-16) wins over id-style
+e.id = 'id-2';
+test(() => computedStyle.fontSize == '2px',
+  () => 'computedStyle.fontSize = '+computedStyle.fontSize);
 
 console.log('remove element');
 e.remove();
 // display was reset to default or empty
 test(() => computedStyle.display != 'inline');
-console.log('computedStyle.display = '+computedStyle.display);
-console.log('computedStyle = '+stringOfStyle(computedStyle));
-console.log('computedStyle._inlineStyle: '+stringOfStyle(computedStyle._inlineStyle))
-console.log('computedStyle._sheetStyle: '+stringOfStyle(computedStyle._sheetStyle))
-console.log('computedStyle._defaultStyle: '+stringOfStyle(computedStyle._defaultStyle))
 
 console.log('call getComputedStyle without window');
-o = new jsd.JSDOM(`
-  <html>
-    <body>
-      <div>hello</div>
-      <script>
-        const e = document.querySelector('div');
-        window.computedStyleWindow = window.getComputedStyle(e);
-        window.computedStyleNoWindow = getComputedStyle(e);
-      </script>
-    </body>
-  </html>
-`, {runScripts: 'dangerously'});
-const {computedStyleWindow, computedStyleNoWindow} = o.window;
+const {computedStyleWindow, computedStyleNoWindow} = dom.window;
 test(() => computedStyleWindow.display == computedStyleNoWindow.display);
-
-if (computedStyleWindow.display == computedStyleNoWindow.display) {
-  console.log('pass');
-} else {
-  console.log('fail');
-  console.log('computedStyleWindow:'); console.dir(computedStyleWindow);
-  console.log('computedStyleNoWindow:'); console.dir(computedStyleNoWindow);
-}
