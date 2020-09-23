@@ -13,7 +13,7 @@ const manifestFilename = path.resolve(__dirname, "tuwpt-manifest.json");
 const testsRootArg = path.relative(wptPath, testsPath);
 const pathArg = path.relative(wptPath, manifestFilename);
 const args = ["./wpt.py", "manifest", "--tests-root", testsRootArg, "--path", pathArg];
-spawnSync("python", args, { cwd: wptPath, stdio: "inherit" });
+spawnSync("python2", args, { cwd: wptPath, stdio: "inherit" });
 
 const manifest = readManifest(manifestFilename);
 const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
