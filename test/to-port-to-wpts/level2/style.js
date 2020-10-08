@@ -282,6 +282,22 @@ describe("level2/style", { skipIfBrowser: true }, () => {
     });
   });
 
+  specify("getComputedStyleWithColorInheritance1", () => {
+    const { window } = new JSDOM(`
+      <html><head><style>div { color: green; }</style></head>
+      <body><div><span>hello</span></div></body></html>`);
+    var style = window.getComputedStyle(window.document.querySelector("span"));
+    assert.equal(style.color, "green", "computed color of span is green");
+  });
+
+  specify("getComputedStyleWithColorInheritance2", () => {
+    const { window } = new JSDOM(`
+      <html><head><style>div { color: green; }</style></head>
+      <body><div><a href="foobar"><span>hello</span></a></div></body></html>`);
+    var style = window.getComputedStyle(window.document.querySelector("span"));
+    assert.equal(style.color, "rgb(0, 0, 238)", "computed color of span is default link color");
+  });
+
   specify("setStyleToInvalidCSSSyntax", () => {
     const node = (new JSDOM()).window.document.createElement("div");
 
