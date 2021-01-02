@@ -30,7 +30,7 @@
     "decimal.js": "^10.2.0",
     "domexception": "^2.0.1",
     "escodegen": "^1.14.1",
-    "fetch-cookie": "^0.8.0",
+    "fetch-cookie": "^0.11.0",
     "form-data": "^3.0.0",
     "html-encoding-sniffer": "^2.0.1",
     "http-proxy-agent": "^4.0.1",

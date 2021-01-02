@@ -1775,10 +1775,10 @@ fd@~0.0.2:
   resolved "https://registry.yarnpkg.com/fd/-/fd-0.0.3.tgz#b3240de86dbf5a345baae7382a07d4713566ff0c"
   integrity sha512-iAHrIslQb3U68OcMSP0kkNWabp7sSN6d2TBSb2JO3gcLJVDd4owr/hKM4SFJovFOUeeXeItjYgouEDTMWiVAnA==
 
-fetch-cookie@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/fetch-cookie/-/fetch-cookie-0.8.0.tgz#f31ebb534a7ab55453287e6a5d9dbf6c5d5ab95e"
-  integrity sha512-3EzzY298LQL2Iau5VvmnbOXw1/gvAHD/Jm4wDCUn0RFrEijp+1RoJkeKmAyi2oXC32374p7cPBI+QmmD9hg+Xg==
+fetch-cookie@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/fetch-cookie/-/fetch-cookie-0.11.0.tgz#e046d2abadd0ded5804ce7e2cae06d4331c15407"
+  integrity sha512-BQm7iZLFhMWFy5CZ/162sAGjBfdNWb7a8LEqqnzsHFhxT/X/SVj/z2t2nu3aJvjlbQkrAlTUApplPRjWyH4mhA==
   dependencies:
     tough-cookie "^2.3.3 || ^3.0.1 || ^4.0.0"
 
