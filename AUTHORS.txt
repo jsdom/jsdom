@@ -43,6 +43,7 @@ Carlos Serrano <carlos.pastor@mailonline.co.uk>
 Chad Walker <chad@chad-cat-lore-eddie.com>
 Chris Buckley <chris@cmbuckley.co.uk>
 Chris Carpita <ccarpita@gmail.com>
+Chris Richard <webmaster@cc-web-design.com>
 Christian Bewernitz <coder@karfau.de>
 Christof Marti <chrmarti@microsoft.com>
 Christoph Pojer <christoph.pojer@gmail.com>
@@ -65,6 +66,7 @@ Dave Methvin <dave.methvin@gmail.com>
 Davide P. Cervone <dpvc@union.edu>
 Derek Lindahl <dlindahl@customink.com>
 Domenic Denicola <d@domenic.me>
+Dominic Gannaway <trueadm@users.noreply.github.com>
 dxgriffiths <dxgriffiths@gmail.com>
 Dylan Marriott <info@d-32.com>
 Edward O'Connor <hober0@gmail.com>
@@ -112,6 +114,7 @@ James Kyle <me@thejameskyle.com>
 James McMath <mcmathja@mediant.co>
 James Treworgy <jamietre@gmail.com>
 Jameson Little <t.jameson.little@gmail.com>
+Jamie Liu <jamie.liu386@gmail.com>
 Jared Deckard <jared.deckard@gmail.com>
 Jason Davies <jason@jasondavies.com>
 Jason Orendorff <jason.orendorff@gmail.com>
@@ -141,6 +144,7 @@ José Valim <jose.valim@gmail.com>
 Joseph Frazier <1212jtraceur@gmail.com>
 Josh Marshall <catchjosh@gmail.com>
 Joshua Peek <josh@joshpeek.com>
+JuFeng Zhang <zjffun@gmail.com>
 Julien Guimont <julien@porkepic.com>
 Jürg Lehni <juerg@scratchdisk.com>
 justinmchase <justin.m.chase@gmail.com>
@@ -180,6 +184,7 @@ Mariusz Nowak <mariusz@medikoo.com>
 Martin Naumann <mr.avgp@gmail.com>
 Matt Broadstone <mbroadst@gmail.com>
 Matthew Crinklaw-Vogt <mlaw@fb.com>
+Matthew Glazar <strager.nds@gmail.com>
 Matthew Goldberg <matthew.goldberg@appian.com>
 Matthew King <mking@borderstylo.com>
 Matthew Pflueger <matthew.pflueger@gmail.com>
@@ -196,6 +201,7 @@ Mike Bostock <mbostock@gmail.com>
 Mike Schreifels <mike@schreifels.org>
 Mitar <mitar.git@tnode.com>
 Nao Iizuka <iizuka@kyu-mu.net>
+Nick McCurdy <nick@nickmccurdy.com>
 Nick Oliver <github@pixnbits.org>
 Nick Stenning <nick@whiteink.com>
 Nicklas Gummesson <nicklas.gummesson@gmail.com>

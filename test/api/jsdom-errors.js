@@ -6,7 +6,7 @@ const { JSDOM, VirtualConsole } = require("../..");
 
 describe("API: virtual console jsdomErrors", () => {
   // Note that web-platform-tests do not log CSS parsing errors, so this has to be an API test.
-  it("should not omit invalid stylesheet errors due to spaces (GH-2123)", () => {
+  it("should not emit invalid stylesheet errors due to spaces (GH-2123)", () => {
     const virtualConsole = new VirtualConsole();
 
     const errors = [];

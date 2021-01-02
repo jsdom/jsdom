@@ -36,7 +36,7 @@ test(() => {
 
   assert_equals(list.getItem(0), "abc");
   assert_equals(list.getItem(1), "def");
-  assert_throws("IndexSizeError", () => {
+  assert_throws_dom("IndexSizeError", () => {
     list.getItem(2);
   });
 }, "getItem()");
@@ -49,7 +49,7 @@ test(() => {
   assert_equals(list.removeItem(0), "abc");
   assert_equals(list.numberOfItems, 1);
   assert_array_equals(list, ["def"]);
-  assert_throws("IndexSizeError", () => {
+  assert_throws_dom("IndexSizeError", () => {
     list.removeItem(1);
   });
   assert_equals(svg.getAttribute("requiredExtensions"), "def");
@@ -86,7 +86,7 @@ test(() => {
   assert_equals(list.numberOfItems, 2);
   assert_array_equals(list, ["abc", "ghi"]);
   assert_equals(svg.getAttribute("requiredExtensions"), "abc ghi");
-  assert_throws("IndexSizeError", () => {
+  assert_throws_dom("IndexSizeError", () => {
     list.replaceItem("oob", 3);
   });
 }, "replaceItem()");
@@ -100,7 +100,7 @@ test(() => {
   assert_equals(list.numberOfItems, 2);
   assert_array_equals(list, ["abc", "ghi"]);
   assert_equals(svg.getAttribute("requiredExtensions"), "abc ghi");
-  assert_throws("IndexSizeError", () => {
+  assert_throws_dom("IndexSizeError", () => {
     list[3] = "oob";
   });
 }, "setter");
