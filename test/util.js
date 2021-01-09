@@ -157,17 +157,16 @@ exports.getTestFixtureUrl = relativePath => {
 exports.readTestFixture = relativePath => {
   if (exports.inBrowserContext()) {
     // Since we're in a browser context, the browser's fetch instance is being used, not node-fetch.
-    return fetch(exports.getTestFixtureUrl(relativePath)).then((response) => {
+    return window.fetch(exports.getTestFixtureUrl(relativePath)).then(response => {
       if (!response.ok) {
         throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
       }
       return response.text();
     });
-  } else {
-    return exports.nodeResolverPromise(nodeResolver => {
-      fs.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" }, nodeResolver);
-    });
   }
+  return exports.nodeResolverPromise(nodeResolver => {
+    fs.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" }, nodeResolver);
+  });
 };
 
 exports.isCanvasInstalled = (t, done) => {
