@@ -157,7 +157,8 @@ exports.getTestFixtureUrl = relativePath => {
 exports.readTestFixture = relativePath => {
   if (exports.inBrowserContext()) {
     // Since we're in a browser context, the browser's fetch instance is being used, not node-fetch.
-    return window.fetch(exports.getTestFixtureUrl(relativePath)).then(response => {
+    // eslint-disable-next-line no-undef
+    return fetch(exports.getTestFixtureUrl(relativePath)).then(response => {
       if (!response.ok) {
         throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
       }
