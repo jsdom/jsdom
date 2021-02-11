@@ -15,7 +15,7 @@ jobs:
   build-with-canvas:
     env:
       TEST_SUITE: 'node-canvas'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,7 +35,7 @@ jobs:
   build-with-browser:
     env:
       TEST_SUITE: 'browser'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -43,7 +43,7 @@ jobs:
       - name: Run web browser tests
         uses: actions/setup-node@v2
         with:
-          node-version: '15'
+          node-version: 'stable'
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
@@ -51,14 +51,13 @@ jobs:
       - name: Run tests
         run: yarn test-browser
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version:
           - 10
           - 12
           - 14
-          - 15
         architecture:
           - x64
     steps:
