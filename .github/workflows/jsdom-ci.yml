@@ -43,7 +43,7 @@ jobs:
       - name: Run web browser tests
         uses: actions/setup-node@v2
         with:
-          node-version: 'stable'
+          node-version: '15'
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
@@ -58,6 +58,7 @@ jobs:
           - 10
           - 12
           - 14
+          - 15
         architecture:
           - x64
     steps:
