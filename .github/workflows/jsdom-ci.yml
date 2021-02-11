@@ -25,7 +25,7 @@ jobs:
       - name: Install required image manipulation packages with APT
         run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Setup HOSTS file for Web Platform Test server
-        run: test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
+        run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
         run: yarn --frozen-lockfile
       - name: Run tests
@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: 'stable'
       - name: Setup HOSTS file for Web Platform Test server
-        run: test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
+        run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
         run: yarn --frozen-lockfile
       - name: Run tests
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node_version:
+        node-version:
           - 10
           - 12
           - 14
@@ -65,7 +65,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         architecture: ${{ matrix.architecture }}
     - name: Setup HOSTS file for Web Platform Test server
-      run: test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
+      run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
     - name: Install dependencies
       run: yarn --frozen-lockfile
     - name: Run tests
