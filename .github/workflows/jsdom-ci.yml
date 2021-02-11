@@ -24,6 +24,8 @@ jobs:
           node-version: '10'
       - name: Install required image manipulation packages with APT
         run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Print directory information
+        run: pwd && locate wpt
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
@@ -40,6 +42,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 'stable'
+      - name: Print directory information
+        run: pwd && locate wpt
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
@@ -64,6 +68,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         architecture: ${{ matrix.architecture }}
+    - name: Print directory information
+      run: pwd && locate wpt
     - name: Setup HOSTS file for Web Platform Test server
       run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
     - name: Install dependencies
