@@ -18,14 +18,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
       - name: Run Canvas tests with Node 10
         uses: actions/setup-node@v2
         with:
           node-version: '10'
       - name: Install required image manipulation packages with APT
         run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      - name: Print directory information
-        run: ls test/web-platform-tests/tests
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
@@ -38,10 +38,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
       - name: Run web browser tests
         uses: actions/setup-node@v2
         with:
-          node-version: 'stable'
+          node-version: '15'
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
@@ -56,11 +58,13 @@ jobs:
           - 10
           - 12
           - 14
-          - stable
+          - 15
         architecture:
           - x64
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
     - name: Run tests with Node ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
