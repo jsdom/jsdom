@@ -16,6 +16,7 @@ jobs:
     env:
       TEST_SUITE: 'node-canvas'
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
         with:
@@ -36,6 +37,7 @@ jobs:
     env:
       TEST_SUITE: 'browser'
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
         with:
@@ -52,7 +54,9 @@ jobs:
         run: yarn test-browser
   build:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         node-version:
           - 10
