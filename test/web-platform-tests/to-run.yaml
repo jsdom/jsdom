@@ -457,7 +457,6 @@ DIR: html/dom/elements/global-attributes
 
 dataset-binding.window.html: [fail, Unknown]
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
-mapped-attribute-adopt-001.html: [fail, Hidden attribute not implemented https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
 the-lang-attribute-003.html: [fail, Unknown]
