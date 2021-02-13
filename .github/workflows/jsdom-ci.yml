@@ -12,11 +12,26 @@ on:
      - master
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Run linter
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15'
+      - name: Setup HOSTS file for Web Platform Test server
+        run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Run syntax rules check with ESLint
+        run: yarn lint
   build-with-canvas:
     env:
       TEST_SUITE: 'node-canvas'
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
         with:
@@ -37,7 +52,6 @@ jobs:
     env:
       TEST_SUITE: 'browser'
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
         with:
@@ -54,7 +68,6 @@ jobs:
         run: yarn test-browser
   build:
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -79,4 +92,4 @@ jobs:
     - name: Install dependencies
       run: yarn --frozen-lockfile
     - name: Run tests
-      run: yarn lint && yarn test --retries 1
+      run: yarn test --retries 1
