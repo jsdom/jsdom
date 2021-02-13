@@ -94,3 +94,19 @@ jobs:
       run: yarn --frozen-lockfile
     - name: Run tests
       run: yarn test --retries 1
+
+  release:
+    if: github.event_name == 'push'
+    needs:
+      - lint
+      - build-with-canvas
+      - build-with-browser
+      - build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: bahmutov/npm-install@v1
+    - uses: ph-fritsche/action-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
