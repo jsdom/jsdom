@@ -26,7 +26,7 @@ jobs:
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        uses: bahmutov/npm-install@v1
       - name: Run syntax rules check with ESLint
         run: yarn lint
   build-with-canvas:
@@ -46,7 +46,7 @@ jobs:
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        uses: bahmutov/npm-install@v1
       - name: Run tests
         run: yarn add canvas && yarn test --retries 1
   build-with-browser:
@@ -64,7 +64,7 @@ jobs:
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        uses: bahmutov/npm-install@v1
       - name: Run tests
         run: yarn test-browser
   build:
@@ -91,6 +91,6 @@ jobs:
     - name: Setup HOSTS file for Web Platform Test server
       run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
     - name: Install dependencies
-      run: yarn --frozen-lockfile
+      uses: bahmutov/npm-install@v1
     - name: Run tests
       run: yarn test --retries 1
