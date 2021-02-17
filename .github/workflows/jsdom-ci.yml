@@ -7,7 +7,7 @@ name: JSDOM-CI
 on:
   push:
     branches:
-     - master
+     - pr
   pull_request:
     branches:
      - master
