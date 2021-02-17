@@ -1,0 +1,96 @@
+# This workflow will do a clean install of node dependencies, build the source code and
+# run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: JSDOM-CI
+
+on:
+  push:
+    branches:
+     - master
+  pull_request:
+    branches:
+     - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Run linter
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15'
+      - name: Setup HOSTS file for Web Platform Test server
+        run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Run syntax rules check with ESLint
+        run: yarn lint
+  build-with-canvas:
+    env:
+      TEST_SUITE: 'node-canvas'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Run Canvas tests with Node 10
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10'
+      - name: Install required image manipulation packages with APT
+        run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Setup HOSTS file for Web Platform Test server
+        run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Run tests
+        run: yarn add canvas && yarn test --retries 1
+  build-with-browser:
+    env:
+      TEST_SUITE: 'browser'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Run web browser tests
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15'
+      - name: Setup HOSTS file for Web Platform Test server
+        run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Run tests
+        run: yarn test-browser
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 10
+          - 12
+          - 14
+          - 15
+        architecture:
+          - x64
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    - name: Run tests with Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        architecture: ${{ matrix.architecture }}
+    - name: Setup HOSTS file for Web Platform Test server
+      run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+    - name: Run tests
+      run: yarn test --retries 1
