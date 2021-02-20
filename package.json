@@ -43,6 +43,7 @@
     "saxes": "^5.0.0",
     "symbol-tree": "^3.2.4",
     "tough-cookie": "^3.0.1",
+    "tunnel-agent": "^0.6.0",
     "w3c-hr-time": "^1.0.2",
     "w3c-xmlserializer": "^2.0.0",
     "webidl-conversions": "^6.1.0",
