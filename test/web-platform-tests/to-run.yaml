@@ -2,7 +2,7 @@ DIR: FileAPI
 
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
-blob/Blob-constructor.html: [fail, "- Blob is not a function
+blob/Blob-constructor-endings.html: [fail, "- Blob is not a function
                                     - a date is not instanceof Date
                                     - a regexp is not instanceof Regexp
                                     - strange v8 behaviour when error triggered in overridden array length
@@ -133,7 +133,7 @@ reactions/HTMLAreaElement.html: [fail, HTMLAreaElement doesn't implement downloa
 reactions/HTMLButtonElement.html: [fail, HTMLButtonElement doesn't implement formAction formEnctype and formMethod]
 reactions/HTMLElement.html: [fail, translate and spellcheck attributes are not implemented on HTMLElement]
 reactions/HTMLImageElement.html: [fail, HTMLImageElement doesn't implement referrerPolicy and decoder]
-state.tentative/**: [fail, Not implemented]
+state/tentative/**: [fail, Not implemented]
 throw-on-dynamic-markup-insertion-counter-construct.html: [timeout, document.open() and document.close() implementation is not spec compliant]
 throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.open() and document.close() implementation is not spec compliant]
 
@@ -236,11 +236,11 @@ innerhtml-05.xhtml: [fail, Unknown]
 
 DIR: fetch/api/headers
 
-header-values-normalize.html: [fail, fetch is not defined]
-header-values.html: [fail, fetch is not defined]
-headers-basic.html: [fail, iterator prototype is wrong]
-headers-no-cors.window.html: [fail, Request is not defined]
-headers-record.html: [needs-node12, V8 bug fixed in Node 12 onward]
+header-values-normalize.any.html: [fail, fetch is not defined]
+header-values.any.html: [fail, fetch is not defined]
+headers-basic.any.html: [fail, iterator prototype is wrong]
+headers-no-cors.any.html: [fail, Request is not defined]
+headers-record.any.html: [needs-node12, V8 bug fixed in Node 12 onward]
 
 ---
 
@@ -503,6 +503,10 @@ sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-order.html
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-positive.html: [fail, scrollIntoView() not implemented]
 sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-zero.html: [fail, scrollIntoView() not implemented]
 the-autofocus-attribute/autofocus-on-stable-document.html: [fail, Not implemented]
+the-autofocus-attribute/document-with-fragment-empty.html: [fail, Not implemented]
+the-autofocus-attribute/document-with-fragment-nonexistent.html: [fail, Not implemented]
+the-autofocus-attribute/document-with-fragment-top.html: [fail, Not implemented]
+the-autofocus-attribute/document-with-fragment-valid.html: [fail, Not implemented]
 the-autofocus-attribute/first-reconnected.html: [fail, Not implemented]
 the-autofocus-attribute/first-when-later-but-before.html: [fail, Not implemented]
 the-autofocus-attribute/first-when-later.html: [fail, Not implemented]
@@ -512,7 +516,6 @@ the-autofocus-attribute/no-autofocus-on-changing-input-type.html: [fail, Not imp
 the-autofocus-attribute/queue-non-focusable.html: [fail, Not implemented]
 the-autofocus-attribute/same-origin-autofocus.html: [fail, Not implemented]
 the-autofocus-attribute/skip-another-top-level-browsing-context.html: [fail, Not implemented]
-the-autofocus-attribute/skip-document-with-fragment.html: [fail, Not implemented]
 the-autofocus-attribute/skip-non-focusable.html: [fail, Not implemented]
 the-autofocus-attribute/spin-by-blocking-style-sheet.html: [fail, Not implemented]
 the-autofocus-attribute/supported-elements.html: [fail, Not implemented]
@@ -527,7 +530,7 @@ other-elements-attributes-and-apis/document-color-01.html: [fail, Legacy color a
 other-elements-attributes-and-apis/document-color-02.html: [fail, Legacy color attributes not implemented]
 other-elements-attributes-and-apis/document-color-03.html: [fail, Legacy color attributes not implemented]
 other-elements-attributes-and-apis/document-color-04.html: [fail, Legacy color attributes not implemented]
-the-marquee-element-0/marquee-events.html: [timeout, <marquee> is not implemented]
+the-marquee-element-0/marquee-events-historical.html: [timeout, <marquee> is not implemented]
 the-marquee-element-0/marquee-loop.html: [fail, <marquee> is not implemented]
 the-marquee-element-0/marquee-scrollamount.html: [fail, <marquee> is not implemented]
 the-marquee-element-0/marquee-scrolldelay.html: [fail, <marquee> is not implemented]
@@ -608,7 +611,6 @@ image-loading-lazy-in-cross-origin-iframe-001.sub.html: [fail, loading attr not 
 image-loading-lazy-in-cross-origin-iframe-002.sub.html: [fail, loading attr not implemented]
 image-loading-lazy-in-script-disabled-iframe.html: [fail, loading attr not implemented]
 image-loading-lazy-in-viewport-dynamic.html: [fail, loading attr not implemented]
-image-loading-lazy-load-event.html: [fail, loading attr not implemented]
 image-loading-lazy-move-document.html: [fail, loading attr not implemented]
 image-loading-lazy-move-into-script-disabled-iframe.html: [fail, loading attr not implemented]
 image-loading-lazy-multicol.html: [fail, loading attr not implemented]
@@ -986,7 +988,7 @@ DIR: html/webappapis/animation-frames
 
 DIR: html/webappapis/atob
 
-base64.html: [fail, Depends on fetch]
+base64.any.html: [fail, Depends on fetch]
 
 ---
 
@@ -1096,8 +1098,8 @@ a-element.html: [fail, Depends on fetch]
 failure.html: [fail, Depends on fetch]
 idlharness.any.html: [fail, Depends on fetch]
 toascii.window.html: [fail, Depends on fetch]
-url-constructor.html: [fail, Depends on fetch]
-url-origin.html: [fail, Depends on fetch]
+url-constructor.any.html: [fail, Depends on fetch]
+url-origin.any.html: [fail, Depends on fetch]
 url-setters-stripping.any.html: [fail, Unknown]
 url-setters.html: [fail, Depends on fetch]
 urlencoded-parser.any.html: [fail, Depends on fetch]
@@ -1112,7 +1114,7 @@ cookies/006.html?wss: [fail, Unknown]
 cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 remove-own-iframe-during-onerror.window.html: [timeout, iframe.srcdoc not implemented]
-stream.tentative/*: [fail, This is not yet standardised and browsers should not be expected to pass these tests.]
+stream/tentative/*: [fail, This is not yet standardised and browsers should not be expected to pass these tests.]
 unload-a-document/*: [timeout, Requires window.open]
 
 ---
@@ -1120,7 +1122,6 @@ unload-a-document/*: [timeout, Requires window.open]
 DIR: webstorage
 
 event_no_duplicates.html: [needs-node11, Earlier Node.js timers did not match browser behaviour, https://github.com/nodejs/node/pull/22842]
-idlharness.window.html: [fail, Depends on fetch]
 set.window.html: [fail, Unknown]
 storage_local_window_open.html: [timeout, Depends on window.open()]
 storage_session_window_noopener.html: [fail, Depends on BroadcastChannel]
