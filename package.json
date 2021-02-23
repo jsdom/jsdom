@@ -104,7 +104,7 @@
     "lint-is-complete": "eslint-find-rules --unused .eslintrc.json",
     "init-wpt": "git submodule update --init --recursive",
     "reset-wpt": "rimraf ./test/web-platform-tests/tests && yarn init-wpt",
-    "update-wpt": "git submodule update --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
+    "update-wpt": "git submodule update --recursive --remote && cd test/web-platform-tests/tests && python3 wpt.py manifest --path ../wpt-manifest.json",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt",
     "benchmark": "node ./benchmark/runner",
     "benchmark-browser": "node ./benchmark/runner --bundle",
