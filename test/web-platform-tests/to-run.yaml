@@ -2,7 +2,7 @@ DIR: FileAPI
 
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
-blob/Blob-constructor-endings.html: [fail, "- Blob is not a function
+blob/Blob-constructor.any.html: [fail, "- Blob is not a function
                                     - a date is not instanceof Date
                                     - a regexp is not instanceof Regexp
                                     - strange v8 behaviour when error triggered in overridden array length
