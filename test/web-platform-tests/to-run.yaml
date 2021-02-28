@@ -982,6 +982,13 @@ DIR: html/webappapis/dynamic-markup-insertion/document-writeln
 
 ---
 
+DIR: html/webappapis/microtask-queuing
+
+queue-microtask.any.html: [needs-node12, Node v10 doesn't have queueMicrotask so we use the nextTick queue there which has the wrong ordering semantics with regard to promises]
+queue-microtask.window.html: [fail-slow, Unknown interaction with Mutation Observers]
+
+---
+
 DIR: html/webappapis/scripting/event-loops
 
 fully_active_document.window.html: [timeout, Unknown]
