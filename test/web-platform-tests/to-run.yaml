@@ -152,19 +152,15 @@ DIR: dom/events
 Event-dispatch-detached-input-and-change.html: [fail,
   Need implement connected and use it in https://github.com/jsdom/jsdom/blob/master/lib/jsdom/living/nodes/HTMLInputElement-impl.js#L199
   See https://html.spec.whatwg.org/multipage/input.html#checkbox-state-(type=checkbox)]
-Event-dispatch-on-disabled-elements.html: [timeout, Uses testdriver.js]
-Event-dispatch-redispatch.html: [fail, Unknown]
 Event-isTrusted.any.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
 EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
 EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
 EventTarget-dispatchEvent.html: [fail, We don't support every event interface yet]
-document-level-touchmove-event-listener-passive-by-default.html: [timeout, Uses testdriver.js]
 event-global-extra.window.html: [timeout, Not implemented]
 event-global.html: [fail, Not implemented]
 relatedTarget.window.html: [fail, Unknown]
-scrolling/**: [fail, Scroll methods not implemented]
 webkit-animation-end-event.html: [fail, WebKit-prefixed events not implemented]
 webkit-animation-iteration-event.html: [fail, WebKit-prefixed events not implemented]
 webkit-animation-start-event.html: [fail, WebKit-prefixed events not implemented]
@@ -493,15 +489,8 @@ document-base-url.html: [fail, We don't support srcdoc <base> correctly]
 
 DIR: html/interaction/focus
 
-focus-01.html: [timeout, scrollIntoView() not implemented]
-focus-02.html: [timeout, scrollIntoView() not implemented]
-focus-input-type-switch.html: [fail, Uses testdriver.js]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
-sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-negative.html: [fail, scrollIntoView() not implemented]
-sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-order.html: [fail, scrollIntoView() not implemented]
-sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-positive.html: [fail, scrollIntoView() not implemented]
-sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-zero.html: [fail, scrollIntoView() not implemented]
 the-autofocus-attribute/autofocus-on-stable-document.html: [fail, Not implemented]
 the-autofocus-attribute/document-with-fragment-empty.html: [fail, Not implemented]
 the-autofocus-attribute/document-with-fragment-nonexistent.html: [fail, Not implemented]
@@ -514,7 +503,6 @@ the-autofocus-attribute/first.html: [fail, Not implemented]
 the-autofocus-attribute/focusable-area-in-top-document.html: [fail, Not implemented]
 the-autofocus-attribute/no-autofocus-on-changing-input-type.html: [fail, Not implemented]
 the-autofocus-attribute/queue-non-focusable.html: [fail, Not implemented]
-the-autofocus-attribute/same-origin-autofocus.html: [fail, Not implemented]
 the-autofocus-attribute/skip-another-top-level-browsing-context.html: [fail, Not implemented]
 the-autofocus-attribute/skip-non-focusable.html: [fail, Not implemented]
 the-autofocus-attribute/spin-by-blocking-style-sheet.html: [fail, Not implemented]
@@ -721,7 +709,6 @@ hidden-charset-case-sensitive.html: [timeout, Unknown]
 image-click-form-data.html: [timeout, Unknown]
 input-seconds-leading-zeroes.html: [fail, Unknown]
 input-type-button.html: [fail, Depends on offsetWidth]
-maxlength-number.html: [fail, element.scrollIntoView is not a function]
 maxlength.html: [fail, Reflection not implemented correctly]
 minlength.html: [fail, Reflection not implemented correctly]
 range-2.html: [fail, step attribute not yet implemented]
@@ -789,7 +776,6 @@ toggleEvent.html: [fail, The ninth test requires a streaming HTML parser to pass
 
 DIR: html/semantics/interactive-elements/the-summary-element
 anchor-with-inline-element.html: [timeout, Unknown]
-click-behavior-optional.tentative.html: [fail, element.scrollIntoView is not implemented]
 
 ---
 
@@ -1048,11 +1034,6 @@ DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not imple
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
 ShadowRoot-interface.html: [fail, shadowRoot.styleSheet is not yet implemented]
 declarative/**: [fail, Not implemented]
-focus/click-focus-delegatesFocus-tabindex-varies.html: [fail, element.scrollIntoView is not implemented]
-focus/click-focus-delegatesFocus-tabindex-zero.html: [fail, element.scrollIntoView is not implemented]
-focus/focus-method-delegatesFocus.html: [fail, delegatesFocus is not implemented]
-focus/focus-selector-delegatesFocus.html: [fail, 'https://github.com/dperini/nwsapi/issues/31']
-focus/focus-tabindex-order-*: [fail, Uses testdriver.js]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]
@@ -1079,13 +1060,9 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://g
 
 DIR: uievents
 
-click/**: [timeout, Uses testdriver.js]
 idlharness.window.html: [fail, Depends on fetch]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Mutation Events not implemented]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events not implemented]
-mouse/**: [timeout, Uses testdriver.js]
-order-of-events/focus-events/focus-management-expectations.html: [timeout, Uses testdriver.js]
-order-of-events/mouse-events/*: [timeout, Unknown]
 
 ---
 
