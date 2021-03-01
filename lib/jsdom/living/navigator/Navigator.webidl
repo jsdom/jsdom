@@ -40,51 +40,43 @@ interface mixin NavigatorCookies {
   readonly attribute boolean cookieEnabled;
 };
 
-// https://html.spec.whatwg.org/#navigatorplugins
 interface mixin NavigatorPlugins {
   [SameObject] readonly attribute PluginArray plugins;
   [SameObject] readonly attribute MimeTypeArray mimeTypes;
   boolean javaEnabled();
 };
 
-// https://html.spec.whatwg.org/#pluginarray
-[Exposed=Window,
- LegacyUnenumerableNamedProperties]
+[Exposed=Window]
 interface PluginArray {
-  void refresh(optional boolean reload = false);
+  undefined refresh();
   readonly attribute unsigned long length;
-  [WebIDL2JSValueAsUnsupported=_null] getter Plugin? item(unsigned long index);
-  [WebIDL2JSValueAsUnsupported=_null] getter Plugin? namedItem(DOMString name);
+  [WebIDL2JSValueAsUnsupported=_null] getter object? item(unsigned long index);
+  object? namedItem(DOMString name);
 };
 
-// https://html.spec.whatwg.org/#mimetypearray
-[Exposed=Window,
- LegacyUnenumerableNamedProperties]
+[Exposed=Window]
 interface MimeTypeArray {
   readonly attribute unsigned long length;
-  [WebIDL2JSValueAsUnsupported=_null] getter MimeType? item(unsigned long index);
-  [WebIDL2JSValueAsUnsupported=_null] getter MimeType? namedItem(DOMString name);
+  [WebIDL2JSValueAsUnsupported=_null] getter object? item(unsigned long index);
+  object? namedItem(DOMString name);
 };
 
-// https://html.spec.whatwg.org/#dom-plugin
-[Exposed=Window,
- LegacyUnenumerableNamedProperties]
+[Exposed=Window]
 interface Plugin {
-  readonly attribute DOMString name;
-  readonly attribute DOMString description;
-  readonly attribute DOMString filename;
-  readonly attribute unsigned long length;
-  [WebIDL2JSValueAsUnsupported=_null] getter MimeType? item(unsigned long index);
-  [WebIDL2JSValueAsUnsupported=_null] getter MimeType? namedItem(DOMString name);
+  readonly attribute undefined name;
+  readonly attribute undefined description;
+  readonly attribute undefined filename;
+  readonly attribute undefined length;
+  getter undefined item(unsigned long index);
+  undefined namedItem(DOMString name);
 };
 
-// https://html.spec.whatwg.org/#mimetype
 [Exposed=Window]
 interface MimeType {
-  readonly attribute DOMString type;
-  readonly attribute DOMString description;
-  readonly attribute DOMString suffixes; // comma-separated
-  readonly attribute Plugin enabledPlugin;
+  readonly attribute undefined type;
+  readonly attribute undefined description;
+  readonly attribute undefined suffixes;
+  readonly attribute undefined enabledPlugin;
 };
 
 // https://html.spec.whatwg.org/#navigatorconcurrenthardware
