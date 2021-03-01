@@ -22,6 +22,11 @@ exports.getPossibleTestFilePaths = manifest => {
               testPath.endsWith(".sharedworker.html")) {
             continue;
           }
+          // Globally disable testdriver tests
+          if (test[key][1][1].testdriver) {
+            continue;
+          }
+
           allPaths.push(testPath);
         }
       } else {
