@@ -78,7 +78,7 @@
     "karma-mocha": "^1.3.0",
     "karma-mocha-webworker": "^1.3.0",
     "minimatch": "^3.0.4",
-    "mocha": "^7.1.1",
+    "mocha": "^8.3.0",
     "mocha-sugar-free": "^1.4.0",
     "optimist": "0.6.1",
     "portfinder": "^1.0.25",
