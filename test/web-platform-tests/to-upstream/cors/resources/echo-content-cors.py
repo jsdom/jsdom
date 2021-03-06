@@ -1,22 +1,22 @@
 def main(request, response):
-    headers = [("X-Request-Method", request.method),
-               ("X-Request-Content-Length", request.headers.get("Content-Length", "NO")),
-               ("X-Request-Content-Type", request.headers.get("Content-Type", "NO")),
-               ("Access-Control-Allow-Credentials", "true"),
+    headers = [(b"X-Request-Method", request.method),
+               (b"X-Request-Content-Length", request.headers.get(b"Content-Length", b"NO")),
+               (b"X-Request-Content-Type", request.headers.get(b"Content-Type", b"NO")),
+               (b"Access-Control-Allow-Credentials", b"true"),
                # Avoid any kind of content sniffing on the response.
-               ("Content-Type", "text/plain")]
+               (b"Content-Type", b"text/plain")]
 
-    origin = request.GET.first("origin", request.headers.get('origin'))
+    origin = request.GET.first(b"origin", request.headers.get(b"origin"))
     if origin != None:
-        headers.append(("Access-Control-Allow-Origin", origin))
+        headers.append((b"Access-Control-Allow-Origin", origin))
 
-    request_headers = request.GET.first("origin", request.headers.get('access-control-request-headers'))
+    request_headers = request.GET.first(b"origin", request.headers.get(b"access-control-request-headers"))
     if request_headers != None:
-        headers.append(("Access-Control-Allow-Headers", request_headers))
+        headers.append((b"Access-Control-Allow-Headers", request_headers))
 
-    request_method = request.GET.first("origin", request.headers.get('access-control-request-method'))
+    request_method = request.GET.first(b"origin", request.headers.get(b"access-control-request-method"))
     if request_method != None:
-        headers.append(("Access-Control-Allow-Methods", "OPTIONS, " + request_method))
+        headers.append((b"Access-Control-Allow-Methods", b"OPTIONS, " + request_method))
 
     content = request.body
 
