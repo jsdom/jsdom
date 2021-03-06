@@ -65,16 +65,21 @@ module.exports = ({ toUpstream = false } = {}) => {
   );
 };
 
-function pollForServer(url) {
+function pollForServer(url, lastLogTime = Date.now()) {
   return requestHead(url, { strictSSL: false })
     .then(() => {
       console.log(`WPT server at ${url} is up!`);
       return url;
     })
     .catch(err => {
-      console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
+      // Only log every 5 seconds to be less spammy.
+      if (Date.now() - lastLogTime >= 5000) {
+        console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
+        lastLogTime = Date.now();
+      }
+
       return new Promise(resolve => {
-        setTimeout(() => resolve(pollForServer(url)), 500);
+        setTimeout(() => resolve(pollForServer(url, lastLogTime)), 500);
       });
     });
 }
