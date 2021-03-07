@@ -1110,7 +1110,6 @@ percent-encoding.window.html: [fail, Depends on fetch]
 toascii.window.html: [fail, Depends on fetch]
 url-constructor.any.html: [fail, Depends on fetch]
 url-origin.any.html: [fail, Depends on fetch]
-url-setters-stripping.any.html: [fail, Unknown]
 url-setters.html: [fail, Depends on fetch]
 urlencoded-parser.any.html: [fail, Depends on fetch]
 
