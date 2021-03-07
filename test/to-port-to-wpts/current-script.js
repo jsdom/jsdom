@@ -21,7 +21,8 @@ describe("current-script", { skipIfBrowser: true }, () => {
     const { document } = (new JSDOM(html, options)).window;
     document.onload = function () {
       assert.strictEqual(
-        document.getElementById("test").innerHTML, "true",
+        document.getElementById("test").innerHTML,
+        "true",
         "currentScript is the currently executing script element"
       );
       assert.strictEqual(document.currentScript, null, "currentScript is still null at top-level");

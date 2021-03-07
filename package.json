@@ -59,11 +59,11 @@
     }
   },
   "devDependencies": {
+    "@domenic/eslint-config": "^1.0.0",
     "benchmark": "^2.1.4",
     "browserify": "^17.0.0",
     "chai": "^4.3.3",
     "eslint": "^7.21.0",
-    "eslint-find-rules": "^3.6.1",
     "eslint-plugin-html": "^6.1.1",
     "eslint-plugin-jsdom-internal": "link:./scripts/eslint-plugin",
     "js-yaml": "^4.0.0",
@@ -100,7 +100,6 @@
     "test-browser-worker": "karma start test/karma-webworker.conf.js",
     "test-browser": "yarn test-browser-iframe && yarn test-browser-worker",
     "lint": "eslint . --cache --ext .js,.html",
-    "lint-is-complete": "eslint-find-rules --unused .eslintrc.json",
     "init-wpt": "git submodule update --init --recursive",
     "reset-wpt": "rimraf ./test/web-platform-tests/tests && yarn init-wpt",
     "update-wpt": "git submodule update --recursive --remote && cd test/web-platform-tests/tests && python3 wpt.py manifest --path ../wpt-manifest.json",

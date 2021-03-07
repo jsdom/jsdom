@@ -3,8 +3,7 @@ const suite = require("../document-suite");
 
 exports["setAttribute(): Remove a named property from window"] = function () {
   const NODES = 1000;
-  let nodes;
-  let parent;
+  let nodes, parent;
 
   return suite({
     setup(document) {

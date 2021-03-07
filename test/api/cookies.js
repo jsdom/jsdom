@@ -20,12 +20,10 @@ const testCookies = [
   "Malformed; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/"
 ];
 
-let testHost;
-let testSecuredHost;
+let testHost, testSecuredHost;
 
 describe("Cookie processing", { skipIfBrowser: true }, () => {
-  let server;
-  let securedServer;
+  let server, securedServer;
 
   before(() => {
     return setupServer().then(s => {
