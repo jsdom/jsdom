@@ -5,8 +5,7 @@ const { beforeEach, describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
 
-let el;
-let window;
+let el, window;
 
 describe("class-list", () => {
   beforeEach(() => {

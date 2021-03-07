@@ -192,17 +192,11 @@ describe("jsdom/miscellaneous", () => {
     const div = window.document.createElement("div");
     let text = window.document.createTextNode("bar");
     div.appendChild(text);
-    assert.strictEqual(
-      text, div.childNodes[0],
-      "childNodes NodeList should update after appendChild"
-    );
+    assert.strictEqual(text, div.childNodes[0], "childNodes NodeList should update after appendChild");
 
     text = window.document.createTextNode("bar");
     div.insertBefore(text, null);
-    assert.strictEqual(
-      text, div.childNodes[1],
-      "childNodes NodeList should update after insertBefore"
-    );
+    assert.strictEqual(text, div.childNodes[1], "childNodes NodeList should update after insertBefore");
   });
 
   specify("option_set_selected", () => {
@@ -242,10 +236,7 @@ describe("jsdom/miscellaneous", () => {
     const div = document.createElement("div");
     document.body.appendChild(div);
     div.appendChild(document.createTextNode("hello world"));
-    assert.strictEqual(
-      div.childNodes[0].nodeValue, "hello world",
-      "Nodelist children should be populated immediately"
-    );
+    assert.strictEqual(div.childNodes[0].nodeValue, "hello world", "Nodelist children should be populated immediately");
   });
 
   specify("parsing_and_serializing_entities", () => {
@@ -253,15 +244,9 @@ describe("jsdom/miscellaneous", () => {
     const { document } = (new JSDOM(html)).window;
     const anchor = document.getElementsByTagName("a")[0];
 
-    assert.strictEqual(
-      anchor.getAttribute("href"), "http://example.com/?a=b&c=d",
-      "href attribute value should be deentitified"
-    );
+    assert.strictEqual(anchor.getAttribute("href"), "http://example.com/?a=b&c=d", "href attribute value should be deentitified");
 
-    assert.strictEqual(
-      anchor.firstChild.nodeValue, "<æ☺foo",
-      "nodeValue of text node should be deentitified"
-    );
+    assert.strictEqual(anchor.firstChild.nodeValue, "<æ☺foo", "nodeValue of text node should be deentitified");
 
     assert.ok(
       anchor.outerHTML.indexOf("http://example.com/?a=b&amp;c=d") !== -1,
@@ -278,11 +263,13 @@ describe("jsdom/miscellaneous", () => {
     const html = "<html><body>&nowayjose;&#x263a;&#xblah;&#9q;</body></html>";
     const { document } = (new JSDOM(html)).window;
     assert.strictEqual(
-      document.body.firstChild.nodeValue, "&nowayjose;☺lah;\tq;",
+      document.body.firstChild.nodeValue,
+      "&nowayjose;☺lah;\tq;",
       "Unknown and unparsable entities should be handled like a browser would"
     );
     assert.strictEqual(
-      document.body.innerHTML, "&amp;nowayjose;☺lah;\tq;",
+      document.body.innerHTML,
+      "&amp;nowayjose;☺lah;\tq;",
       "Unknown and unparsable entities should be handled like a browser would"
     );
   });
@@ -299,25 +286,25 @@ describe("jsdom/miscellaneous", () => {
     const { document } = (new JSDOM(html)).window;
 
     assert.strictEqual(
-      document.title, "<b>Hello</b>",
-      `document.title should be the deentitified version of what was in
-      the original HTML`
+      document.title,
+      "<b>Hello</b>",
+      `document.title should be the deentitified version of what was in the original HTML`
     );
 
     document.title = "<b>World</b>";
     assert.strictEqual(
-      document.title, "<b>World</b>",
-      `When document.title is set programmatically to something looking like
-      HTML tags, then read again, it should have the exact same value, no
-      entification should take place`
+      document.title,
+      "<b>World</b>",
+      `When document.title is set programmatically to something looking like HTML tags, then read again, it should ` +
+      `have the exact same value, no entification should take place`
     );
 
     document.title = "&lt;b&gt;World&lt;/b&gt;";
     assert.strictEqual(
-      document.title, "&lt;b&gt;World&lt;/b&gt;",
-      `When document.title is set programmatically to something looking like
-      HTML entities, then read again, it should have the exact same value,
-      no deentification should take place`
+      document.title,
+      "&lt;b&gt;World&lt;/b&gt;",
+      `When document.title is set programmatically to something looking like HTML entities, then read again, it ` +
+      `should have the exact same value, no deentification should take place`
     );
   });
 
@@ -326,15 +313,12 @@ describe("jsdom/miscellaneous", () => {
                   <body>Hello<span><span>, </span>world</span>!</body></html>`;
     const { document } = (new JSDOM(html)).window;
 
-    assert.strictEqual(
-      document.textContent, null,
-      "textContent of document should be null"
-    );
+    assert.strictEqual(document.textContent, null, "textContent of document should be null");
 
     assert.strictEqual(
-      document.head.textContent, "\n<foo>",
-      "textContent of document.head should be the initial whitespace plus the textContent " +
-                       "of the document title"
+      document.head.textContent,
+      "\n<foo>",
+      "textContent of document.head should be the initial whitespace plus the textContent of the document title"
     );
 
     assert.strictEqual(
@@ -371,9 +355,10 @@ describe("jsdom/miscellaneous", () => {
                     "<span></span></span><span>&amp;lt;b&amp;gt;World&amp;lt;/b&amp;gt;</span>";
 
     assert.strictEqual(
-      div.textContent, "&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;World&lt;/b&gt;",
-      `textContent of complex programmatically created <div> should be the
-      concatenation of the textContent values of its child nodes`
+      div.textContent,
+      "&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;World&lt;/b&gt;",
+      `textContent of complex programmatically created <div> should be the concatenation of the textContent values ` +
+      `of its child nodes`
     );
   });
 
@@ -603,11 +588,13 @@ describe("jsdom/miscellaneous", () => {
                                  <option value="last">l</option></select></body></html>`);
 
         assert.equal(
-          window.document.querySelector("[value='first']").selected, true,
+          window.document.querySelector("[value='first']").selected,
+          true,
           "`selected` property should be `true` for first"
         );
         assert.equal(
-          window.document.querySelector("[value='last']").selected, false,
+          window.document.querySelector("[value='last']").selected,
+          false,
           "`selected` property should be `false` for last"
         );
 
@@ -619,11 +606,13 @@ describe("jsdom/miscellaneous", () => {
 
         window.$("#foo").val("last");
         assert.equal(
-          window.document.querySelector("[value='first']").selected, false,
+          window.document.querySelector("[value='first']").selected,
+          false,
           "`selected` property should be `false` for first"
         );
         assert.equal(
-          window.document.querySelector("[value='last']").selected, true,
+          window.document.querySelector("[value='last']").selected,
+          true,
           "`selected` property should be `true` for last"
         );
         assert.equal(window.$("#foo").val(), "last", "`val()` should return last <option>'s value");

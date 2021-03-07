@@ -57,10 +57,7 @@ function createBaseServer() {
 }
 
 describe("jsdom/cors", { skipIfBrowser: true }, () => {
-  let server;
-  let corsServer;
-  let host;
-  let corsHost;
+  let server, corsServer, host, corsHost;
 
   before(() => {
     return Promise.all([createBaseServer(), createCORSServer()])

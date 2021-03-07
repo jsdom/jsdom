@@ -6,15 +6,13 @@ function noop() {
 }
 
 module.exports = function jsdomBenchmark(optionsArg) {
-  const options = Object.assign(
-    {},
-    typeof optionsArg === "function" ? { fn: optionsArg } : optionsArg,
-    {
-      jsdomSetup: optionsArg.setup || noop,
-      jsdomFn: optionsArg.fn,
-      jsdomTeardown: optionsArg.teardown || noop
-    }
-  );
+  const options = {
+
+    ...typeof optionsArg === "function" ? { fn: optionsArg } : optionsArg,
+    jsdomSetup: optionsArg.setup || noop,
+    jsdomFn: optionsArg.fn,
+    jsdomTeardown: optionsArg.teardown || noop
+  };
 
   if (options.defer) {
     // `this` refers to a Benchmark.Deferred
