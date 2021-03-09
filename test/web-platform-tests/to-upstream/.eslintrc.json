@@ -50,6 +50,7 @@
     "assert_throws_dom": false,
     "assert_throws_js": false,
     "assert_unreached": false,
+    "assert_throws_exactly": false,
     "assert_any": false,
     "fetch_tests_from_worker": false,
     "timeout": false,
