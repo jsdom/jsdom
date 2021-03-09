@@ -290,7 +290,7 @@ test(() => {
   assert_throws_exactly(err, () => {
     customElements.define("element-with-throwing-callback", constructor);
   });
-  assert_array_equals(expectedCalls, "customElements.define must not get callbacks after one of the get throws");
+  assert_array_equals(calls, expectedCalls, "customElements.define must not get callbacks after one of the get throws");
 }, "customElements.define must rethrow an exception thrown while getting callbacks on the constructor prototype");
 
 test(() => {
