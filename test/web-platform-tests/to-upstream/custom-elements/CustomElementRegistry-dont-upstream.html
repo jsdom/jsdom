@@ -173,35 +173,35 @@ test(function () {
     customElements.define('constructor-calls-define', ConstructorCallsDefine);
 }, 'customElements.define unset the element definition is running flag before upgrading custom elements');
 
-(function () {
-    var testCase = async_test('customElements.define must not throw'
-        +' when defining another custom element in a different global object during Get(constructor, "prototype")');
+// (function () {
+//     var testCase = async_test('customElements.define must not throw'
+//         +' when defining another custom element in a different global object during Get(constructor, "prototype")');
 
-    var iframe = document.createElement('iframe');
-    iframe.onload = function () {
-        testCase.step(function () {
-            var InnerCustomElement = class extends iframe.contentWindow.HTMLElement {};
-            var calls = [];
-            var proxy = new Proxy(class extends HTMLElement { }, {
-                get: function (target, name) {
-                    calls.push(name);
-                    if (name === "prototype") {
-                        iframe.contentWindow.customElements.define('another-custom-element', InnerCustomElement);
-                    }
-                    return target[name];
-                }
-            })
-            customElements.define('element-with-inner-element-define', proxy);
-            assert_array_equals(calls, ['prototype', 'disabledFeatures', 'formAssociated'],
-                                'customElements.define must get "prototype", "disabledFeatures", and "formAssociated" on the constructor');
-            assert_true(iframe.contentDocument.createElement('another-custom-element') instanceof InnerCustomElement);
-        });
-        document.body.removeChild(iframe);
-        testCase.done();
-    }
+//     var iframe = document.createElement('iframe');
+//     iframe.onload = function () {
+//         testCase.step(function () {
+//             var InnerCustomElement = class extends iframe.contentWindow.HTMLElement {};
+//             var calls = [];
+//             var proxy = new Proxy(class extends HTMLElement { }, {
+//                 get: function (target, name) {
+//                     calls.push(name);
+//                     if (name === "prototype") {
+//                         iframe.contentWindow.customElements.define('another-custom-element', InnerCustomElement);
+//                     }
+//                     return target[name];
+//                 }
+//             })
+//             customElements.define('element-with-inner-element-define', proxy);
+//             assert_array_equals(calls, ['prototype', 'disabledFeatures', 'formAssociated'],
+//                                 'customElements.define must get "prototype", "disabledFeatures", and "formAssociated" on the constructor');
+//             assert_true(iframe.contentDocument.createElement('another-custom-element') instanceof InnerCustomElement);
+//         });
+//         document.body.removeChild(iframe);
+//         testCase.done();
+//     }
 
-    document.body.appendChild(iframe);
-})();
+//     document.body.appendChild(iframe);
+// })();
 
 test(function () {
     var calls = [];
