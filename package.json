@@ -31,7 +31,6 @@
     "domexception": "^2.0.1",
     "escodegen": "^1.14.1",
     "fetch-cookie": "^0.11.0",
-    "follow-redirects": "^1.13.3",
     "form-data": "^3.0.0",
     "html-encoding-sniffer": "^2.0.1",
     "http-proxy-agent": "^4.0.1",
