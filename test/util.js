@@ -106,15 +106,14 @@ exports.inBrowserContext = () => {
  * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
  * @returns {string} URL
  */
-function getTestFixtureUrl(relativePath) {
+exports.getTestFixtureUrl = relativePath => {
   /* globals location */
   if (exports.inBrowserContext()) {
     // location is a Location or WorkerLocation
     return location.origin + "/base/test" + (relativePath[0] === "/" ? "" : "/") + relativePath;
   }
-
   return toFileUrl(__dirname, relativePath);
-}
+};
 
 /**
  * Reads a static fixture file as utf8.
@@ -124,31 +123,26 @@ function getTestFixtureUrl(relativePath) {
  */
 exports.readTestFixture = relativePath => {
   if (exports.inBrowserContext()) {
-    let didTimeOut = false;
-    const timedFetch = new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        didTimeOut = true;
-        reject(new Error('Request timed out'));
-      }, 5000);
-      // eslint-disable-next-line no-undef
-      fetch(exports.getTestFixtureUrl(relativePath)).then((response) => {
-        clearTimeout(timeout);
-        if (!didTimeOut) {
-          resolve(response);
-        }
-      }).catch((err) => {
-        if (!didTimeOut) {
-          reject(err);
-        }
-      });
-    });
+    // eslint-disable-next-line no-undef
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    const timeout = setTimeout(() => {
+      abortController.abort();
+    }, 5000);
     // Since we're in a browser context, the browser's fetch instance is being used, not node-fetch.
-    return timedFetch.then(response => {
+    function res(response) {
       if (!response.ok) {
         throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
       }
+      clearTimeout(timeout);
       return response.text();
-    });
+    }
+    function fail(e) {
+      clearTimeout(timeout);
+      throw e;
+    }
+    // eslint-disable-next-line no-undef
+    return fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal }).then(res).catch(fail);
   }
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
 };
