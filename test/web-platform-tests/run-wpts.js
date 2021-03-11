@@ -6,7 +6,15 @@ const { Minimatch } = require("minimatch");
 const { describe, specify, before, after } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const startWPTServer = require("./start-wpt-server.js");
-const { Canvas } = require("../../lib/jsdom/utils.js");
+const { resolveReason } = require("./utils.js");
+
+const validInnerReasons = new Set([
+  "fail",
+  "fail-with-canvas",
+  "needs-node10",
+  "needs-node11",
+  "needs-node12"
+]);
 
 const validReasons = new Set([
   "fail",
@@ -19,12 +27,6 @@ const validReasons = new Set([
   "needs-node12",
   "needs-canvas"
 ]);
-
-const nodeMajor = Number(process.versions.node.split(".")[0]);
-const hasNode10 = nodeMajor >= 10;
-const hasNode11 = nodeMajor >= 11;
-const hasNode12 = nodeMajor >= 12;
-const hasCanvas = Boolean(Canvas);
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
 const manifest = readManifest(manifestFilename);
@@ -61,29 +63,48 @@ describe("web-platform-tests", () => {
           });
 
           const testFile = testFilePath.slice((toRunDoc.DIR + "/").length);
-          let reason;
+          let reason, data;
 
           if (matchingPattern) {
+            // The array case is when the failure affects the whole test file
+            // (ex.: testharness timeout or error, uncaught exception, etc.)
             reason = toRunDoc[matchingPattern][0];
+            if (!Array.isArray(toRunDoc[matchingPattern])) {
+              // The non-array case is when some subtests in the test file pass,
+              // but others fail, and testharness status is OK.
+              data = toRunDoc[matchingPattern];
+            }
           } else if (toRunDoc.DIR.startsWith("html/canvas/")) {
             reason = "needs-canvas";
           }
 
-          const shouldSkip = ["fail-slow", "timeout", "flaky"].includes(reason) ||
-                             (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas);
-          const expectFail = (reason === "fail") ||
-                             (reason === "fail-with-canvas" && hasCanvas) ||
-                             (reason === "needs-node10" && !hasNode10) ||
-                             (reason === "needs-node11" && !hasNode11) ||
-                             (reason === "needs-node12" && !hasNode12);
+          switch (resolveReason(reason)) {
+            case "skip": {
+              specify.skip(`[${reason}] ${testFile}`);
+              break;
+            }
 
-          if (shouldSkip) {
-            specify.skip(`[${reason}] ${testFile}`);
-          } else if (expectFail) {
-            const failReason = reason !== "fail" ? `: ${reason}` : "";
-            runSingleWPT(testFilePath, `[expected fail${failReason}] ${testFile}`, expectFail);
-          } else {
-            runSingleWPT(testFilePath, testFile, expectFail);
+            case "expect-fail": {
+              const failReason = reason !== "fail" ? `: ${reason}` : "";
+              runSingleWPT(testFilePath, `[expected fail${failReason}] ${testFile}`, true);
+              break;
+            }
+
+            default: {
+              let failCount = 0;
+              if (data) {
+                failCount = Object.values(data).reduce((count, innerReason) => {
+                  return resolveReason(innerReason) === "expect-fail" ? count + 1 : count;
+                }, 0);
+              }
+
+              let prefix = "";
+              if (failCount > 0) {
+                prefix = `[expected ${failCount} failures] `;
+              }
+
+              runSingleWPT(testFilePath, `${prefix}${testFile}`, data || false);
+            }
           }
         }
       }
@@ -122,9 +143,23 @@ function checkToRun() {
       }
       lastPattern = pattern;
 
-      const reason = doc[pattern][0];
-      if (!validReasons.has(reason)) {
-        throw new Error(`Bad reason "${reason}" for expectation ${pattern}`);
+      const data = doc[pattern];
+      if (Array.isArray(data)) {
+        const reason = data[0];
+        if (!validReasons.has(reason)) {
+          throw new Error(`Bad reason "${reason}" for expectation "${pattern}"`);
+        }
+      } else {
+        for (const [subtest, [innerReason]] of Object.entries(data)) {
+          if (!validInnerReasons.has(innerReason)) {
+            if (!validReasons.has(innerReason)) {
+              throw new Error(`Bad reason "${innerReason}" for expectation "${pattern}" and subtest "${subtest}"`);
+            } else {
+              throw new Error(`Reason "${innerReason}" is only supported for files, not subtests (expectation "${
+                pattern}", subtest "${subtest}")`);
+            }
+          }
+        }
       }
 
       const matcher = new Minimatch(doc.DIR + "/" + pattern);

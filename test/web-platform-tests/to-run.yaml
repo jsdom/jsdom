@@ -396,6 +396,124 @@ DIR: html/browsers/offline/browser-state
 
 ---
 
+DIR: html/browsers/the-window-object
+
+BarProp.window.html: [fail, Unknown]
+Window-document.html: [fail, Unknown]
+accessing-other-browsing-contexts/indexed-browsing-contexts-01.html: [fail, Unknown]
+accessing-other-browsing-contexts/indexed-browsing-contexts-02.html: [fail, Unknown]
+accessing-other-browsing-contexts/indexed-browsing-contexts-03.html: [fail, Unknown]
+accessing-other-browsing-contexts/window_length.html: [fail, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/close_beforeunload.html: [timeout, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/close_script_defer.html: [fail, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/close_unload.html: [timeout, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/creating_browsing_context_test_01.html: [fail, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/no_window_open_when_term_nesting_level_nonzero.window.html: [fail, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/open-features-**: [timeout, Unknown]
+close-method.window.html: [fail, Depends on window.open()]
+closed-attribute.window.html: [timeout, Unknown]
+document-attribute.window.html: [fail, Unknown]
+garbage-collection-and-browsing-contexts/**: [timeout, Unknown]
+length-attribute.window.html: [fail, Unknown]
+name-attribute.window.html: [fail, Unknown]
+named-access-on-the-window-object/cross-global-npo.html: [fail, Depends on the named properties object]
+named-access-on-the-window-object/named-objects.html: [fail, "Harness error: Fails to hoist the on_load() function"]
+named-access-on-the-window-object/navigated-named-objects.window.html: [fail, Depends on the named properties object]
+named-access-on-the-window-object/prototype.html: [fail, Depends on the named properties object]
+named-access-on-the-window-object/window-named-properties.html: [timeout, Unknown]
+navigate-to-about-blank-while-initial-load-pending.html: [fail, Depends on window.open()]
+noopener-noreferrer-BarProp.window.html: [fail, Depends on window.open()]
+noopener-noreferrer-sizing.window.html: [fail, Depends on window.open()]
+proxy-getOwnPropertyDescriptor.html:
+  'Window target, no trap, "name" attribute': [fail, Incorrectly implemented as a data property]
+security-window/window-security.https.html: [fail, Exoticness of Window not implemented]
+self-et-al.window.html: [fail, Depends on window.open() and window.closed]
+window-indexed-properties-strict.html: [flaky, "
+  Errors in `process.nextTick` callback:
+  Uncaught TypeError: this[i].close is not a function
+    at Window.close (lib/jsdom/browser/Window.js:752:15)
+    at test/web-platform-tests/run-single-wpt.js:192:22
+    at processTicksAndRejections (node:internal/process/task_queues:76:11)
+"]
+window-indexed-properties.html: [flaky, "
+  Errors in `process.nextTick` callback:
+  Uncaught TypeError: this[i].close is not a function
+    at Window.close (lib/jsdom/browser/Window.js:752:15)
+    at test/web-platform-tests/run-single-wpt.js:192:22
+    at processTicksAndRejections (node:internal/process/task_queues:76:11)
+"]
+window-open-defaults.window.html: [fail, Depends on window.open()]
+window-open-invalid-url.html: [fail, Unknown]
+window-open-noopener.html**: [fail-slow, Unknown]
+window-open-noreferrer.html: [fail, Depends on BroadcastChannel]
+window-properties.https.html:
+  "Value Property: NaN": [needs-node12, Unknown]
+  "Value Property: Infinity": [needs-node12, Unknown]
+  "Value Property: undefined": [needs-node12, Unknown]
+  "EventTarget method: addEventListener": [needs-node12, Unknown]
+  "EventTarget method: removeEventListener": [needs-node12, Unknown]
+  "EventTarget method: dispatchEvent": [needs-node12, Unknown]
+  "Window method: createImageBitmap": [fail, Not implemented]
+  "Window method: matchMedia": [fail, Not implemented]
+  "Window readonly attribute: applicationCache": [fail, Not implemented]
+  "Window attribute: name": [fail, Incorrectly implemented as a data property]
+  "Window attribute: status": [fail, Incorrectly implemented as a data property]
+  "Window attribute: opener": [fail, Not implemented]
+  "Window attribute: onmousewheel": [fail, Not implemented]
+  "Window unforgeable attribute: window": [fail, "Missing [LegacyUnforgeable]"]
+  "Window unforgeable attribute: document": [fail, "Missing [LegacyUnforgeable]"]
+  "Window unforgeable attribute: location": [fail, "Missing [LegacyUnforgeable]"]
+  "Window unforgeable attribute: top": [fail, "Missing [LegacyUnforgeable]"]
+  "Window replaceable attribute: self": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: locationbar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: menubar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: personalbar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: scrollbars": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: statusbar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: toolbar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: frames": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: parent": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: external": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: length": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: screen": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: scrollX": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: scrollY": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: pageXOffset": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: pageYOffset": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: innerWidth": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: innerHeight": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: screenLeft": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: screenTop": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: screenX": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: screenY": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: outerWidth": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: outerHeight": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: devicePixelRatio": [fail, Incorrectly implemented as a data property]
+  "constructor": [fail, Unknown]
+window-prototype-chain.html:
+  "Window.prototype": [fail, Unknown]
+  "Global scope polluter": [fail, Depends on the named properties object]
+  "EventTarget.prototype": [fail, Depends on the named properties object]
+  "Object.prototype": [fail, Depends on the named properties object]
+window-reuse-in-nested-browsing-contexts.tentative.html:
+  "synchronously navigate iframe with no initial src.": [fail, Unknown]
+  "after the first iframe load event, navigate iframe with no initial src.": [fail, Unknown]
+  'synchronously navigate iframe with initial src == "".': [fail, Unknown]
+  'synchronously navigate iframe with initial src == "about:blank".': [fail, Unknown]
+
+
+---
+
+DIR: html/browsers/the-windowproxy-exotic-object
+
+windowproxy-prototype-setting-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-cross-origin.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-goes-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-same-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-same-origin.html: [fail, Exoticness of Window not implemented]
+
+---
+
 DIR: html/browsers/windows
 
 auxiliary-browsing-contexts/opener-closed.html: [timeout, Unknown]
