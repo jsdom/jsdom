@@ -5,6 +5,7 @@ interface InputEvent : UIEvent {
 
   readonly attribute DOMString? data;
   readonly attribute boolean isComposing;
+  readonly attribute DOMString inputType;
 };
 
 // https://w3c.github.io/uievents/#idl-inputeventinit
@@ -13,4 +14,5 @@ dictionary InputEventInit : UIEventInit {
   // DOMString? data = "";
   DOMString? data = null;
   boolean isComposing = false;
+  DOMString inputType = "";
 };

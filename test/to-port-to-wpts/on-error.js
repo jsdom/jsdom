@@ -297,5 +297,5 @@ function docForTests(html = ``, options = {}) {
   // Purposefully not sent to the real console since we're expecting jsdomErrors
   const virtualConsole = new VirtualConsole();
 
-  return (new JSDOM(html, Object.assign({ virtualConsole, url: "http://example.com" }, options))).window.document;
+  return (new JSDOM(html, { virtualConsole, url: "http://example.com", ...options })).window.document;
 }

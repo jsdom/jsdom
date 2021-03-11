@@ -76,7 +76,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
     assert.strictEqual(it.root.nodeName, "BODY", "root was set to the <body>");
     assert.ok(it.referenceNode === it.root, "referenceNode should be set to root right after creation");
     assert.strictEqual(
-      it.pointerBeforeReferenceNode, true,
+      it.pointerBeforeReferenceNode,
+      true,
       "pointerBeforeReferenceNode should be true right after creation"
     );
     assert.strictEqual(it.whatToShow, 0xFFFFFFFF, "whatToShow is NodeFilter.SHOW_ALL by default");
@@ -148,7 +149,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
     assert.ok(node === it.root);
     assert.ok(it.referenceNode === it.root);
     assert.strictEqual(
-      it.pointerBeforeReferenceNode, false,
+      it.pointerBeforeReferenceNode,
+      false,
       "pointerBeforeReferenceNode should be false after nextNode()"
     );
   });
@@ -167,7 +169,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
         assert.ok(node === itNode);
         assert.ok(it.referenceNode === itNode);
         assert.strictEqual(
-          it.pointerBeforeReferenceNode, false,
+          it.pointerBeforeReferenceNode,
+          false,
           "pointerBeforeReferenceNode should be false after nextNode()"
         );
       }
@@ -179,7 +182,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
         "referenceNode should reference the last node even though nextNode() returns null"
       );
       assert.strictEqual(
-        it.pointerBeforeReferenceNode, false,
+        it.pointerBeforeReferenceNode,
+        false,
         "pointerBeforeReferenceNode should be false after nextNode()"
       );
     }
@@ -198,7 +202,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       assert.ok(node === itNode);
       assert.ok(it.referenceNode === itNode);
       assert.strictEqual(
-        it.pointerBeforeReferenceNode, false,
+        it.pointerBeforeReferenceNode,
+        false,
         "pointerBeforeReferenceNode should be false after nextNode()"
       );
     }
@@ -210,7 +215,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       "referenceNode should reference the last node even though nextNode() returns null"
     );
     assert.strictEqual(
-      it.pointerBeforeReferenceNode, false,
+      it.pointerBeforeReferenceNode,
+      false,
       "pointerBeforeReferenceNode should be false after nextNode()"
     );
   });
@@ -239,7 +245,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       assert.ok(node === it.root);
       assert.ok(it.referenceNode === it.root);
       assert.strictEqual(
-        it.pointerBeforeReferenceNode, true,
+        it.pointerBeforeReferenceNode,
+        true,
         "pointerBeforeReferenceNode should be true after previousNode()"
       );
     }
@@ -273,7 +280,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
         assert.ok(node === itNode);
         assert.ok(it.referenceNode === itNode);
         assert.strictEqual(
-          it.pointerBeforeReferenceNode, true,
+          it.pointerBeforeReferenceNode,
+          true,
           "pointerBeforeReferenceNode should be true after previousNode()"
         );
       }
@@ -282,7 +290,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       assert.ok(node === it.root);
       assert.ok(it.referenceNode === it.root);
       assert.strictEqual(
-        it.pointerBeforeReferenceNode, true,
+        it.pointerBeforeReferenceNode,
+        true,
         "pointerBeforeReferenceNode should be true after previousNode()"
       );
 
@@ -293,7 +302,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
         "referenceNode should reference root node even though previousNode() returns null"
       );
       assert.strictEqual(
-        it.pointerBeforeReferenceNode, true,
+        it.pointerBeforeReferenceNode,
+        true,
         "pointerBeforeReferenceNode should be true after previousNode()"
       );
     }
@@ -345,7 +355,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
 
     function acceptNode(node) {
       assert.strictEqual(
-        node.nodeType, 1,
+        node.nodeType,
+        1,
         "whatToShow should have filtered non element nodes before acceptNode() is called"
       );
 
@@ -376,7 +387,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
 
     function acceptNode(node) {
       assert.strictEqual(
-        node.nodeType, 1,
+        node.nodeType,
+        1,
         "whatToShow should have filtered non element nodes before acceptNode() is called"
       );
 
@@ -437,7 +449,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
     assert.ok(it.root === node);
     assert.ok(it.referenceNode === node, "referenceNode should be set to root right after creation");
     assert.strictEqual(
-      it.pointerBeforeReferenceNode, true,
+      it.pointerBeforeReferenceNode,
+      true,
       "pointerBeforeReferenceNode should be true right after creation"
     );
     assert.ok(it.referenceNode.parentNode === null);
@@ -523,7 +536,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
 
       assert.ok(it.referenceNode === it.root, "referenceNode should be root again");
       assert.strictEqual(
-        it.pointerBeforeReferenceNode, false,
+        it.pointerBeforeReferenceNode,
+        false,
         "should be false so that nextNode() will return the firstChild again"
       );
 
@@ -547,7 +561,8 @@ describe("node-contains", { skipIfBrowser: true }, () => {
 
       assert.ok(it.referenceNode === nextSibling, "referenceNode should be the nextSibling of the removed node");
       assert.strictEqual(
-        it.pointerBeforeReferenceNode, true,
+        it.pointerBeforeReferenceNode,
+        true,
         "should be true so that previousNode() will return the same node again"
       );
 

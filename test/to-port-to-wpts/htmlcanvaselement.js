@@ -101,9 +101,8 @@ describe("htmlcanvaselement", () => {
       const expected = fs.readFileSync(fullPath, { encoding: "utf-8" }).trim();
       assert.strictEqual(canvas.toDataURL(), expected);
       t.done();
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 
   specify(
@@ -131,9 +130,8 @@ describe("htmlcanvaselement", () => {
 
       assert.strictEqual(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
       t.done();
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 
   specify(
@@ -165,8 +163,7 @@ describe("htmlcanvaselement", () => {
         assert.ok(false, "onerror should not be triggered when loading from valid URL");
         t.done();
       };
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 });

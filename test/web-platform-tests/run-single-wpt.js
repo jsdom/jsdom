@@ -16,7 +16,7 @@ module.exports = urlPrefixFactory => {
     };
   }
 
-  return (testPath, title = testPath, expectFail) => {
+  return (testPath, title = testPath, expectFail = false) => {
     specify({
       title,
       expectPromise: true,

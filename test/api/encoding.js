@@ -19,8 +19,8 @@ const factories = {
   Buffer: fixture => readFixture(fixture),
   Uint8Array: fixture => readFixture(fixture).then(buffer => Uint8Array.from(buffer)),
   ArrayBuffer: fixture => readFixture(fixture).then(buffer => Uint8Array.from(buffer).buffer),
-  DataView: fixture => readFixture(fixture).then(buffer =>
-    new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength)),
+  DataView: fixture => readFixture(fixture)
+    .then(buffer => new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength)),
   Int8Array: fixture => readFixture(fixture).then(buffer => {
     // Test a view that is indexing into a larger ArrayBuffer. (buffer may already be such a view, but make sure we
     // test at least one in case it's not.)
@@ -127,7 +127,8 @@ describe("API: encoding detection", () => {
             it(`should sniff ${encodingFixture} as ${name}`, () => {
               return factory(encodingFixture).then(binaryData => {
                 assert.strictEqual(
-                  binaryData.constructor.name, binaryDataType,
+                  binaryData.constructor.name,
+                  binaryDataType,
                   "Sanity check: input binary data must be of the right type"
                 );
 
@@ -153,7 +154,8 @@ describe("API: encoding detection", () => {
             it(`should sniff ${encodingFixture} as ${nameWhenOverridden}`, () => {
               return factory(encodingFixture).then(binaryData => {
                 assert.strictEqual(
-                  binaryData.constructor.name, binaryDataType,
+                  binaryData.constructor.name,
+                  binaryDataType,
                   "Sanity check: input binary data must be of the right type"
                 );
 
@@ -187,8 +189,7 @@ describe("API: encoding detection", () => {
   });
 
   describe("fromURL", { skipIfBrowser: true }, () => {
-    let server;
-    let host;
+    let server, host;
     before(() => {
       return createServer((req, res) => {
         const [, fixture, query] = /^\/([^?]+)(\?.*)?$/.exec(req.url);

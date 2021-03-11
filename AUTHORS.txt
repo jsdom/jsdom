@@ -7,6 +7,7 @@ Aleksei Tsikov <alexey.tsikov@gmail.com>
 Alex Coles <alex@alexbcoles.com>
 Alex Pearson <alex@alexpear.com>
 Alex Rattray <rattray.alex@gmail.com>
+Alex Soncodi <asoncodi@gmail.com>
 Alexander Flatter <flatter@gmail.com>
 Alexis CHAPPRON <bullrot-10@hotmail.fr>
 Alistair Brown <github@alistairjcbrown.com>
@@ -100,6 +101,7 @@ Gianluca Guarini <gianluca.guarini@gmail.com>
 Godmar Back <godmar@gmail.com>
 Gord Tanner <gtanner@gmail.com>
 gregory80 <gregory.tomlinson@gmail.com>
+Haz <hazdiego@gmail.com>
 Henry Zhu <hi@henryzoo.com>
 hij1nx <fernmicro@gmail.com>
 i8-pi <thomas@nomology.id.au>
@@ -220,6 +222,7 @@ Pete Bevin <pete@petebevin.com>
 Péter <peter.perenyi@gmail.com>
 Peter Lyons <pete@peterlyons.com>
 Phil Dokas <pdokas@organic.com>
+Philipp Fritsche <ph.fritsche@gmail.com>
 Pierre-Marie Dartus <dartus.pierremarie@gmail.com>
 Rafał Chłodnicki <rchl2k@gmail.com>
 Rainer Eli <claushellsing@gmail.com>
@@ -258,6 +261,7 @@ Sebastian Silbermann <silbermann.sebastian@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
 Simen Bekkhus <sbekkhus91@gmail.com>
+Simon Müller <SimonMueller@users.noreply.github.com>
 sonnym <michaud.sonny@gmail.com>
 Soufiane Ghzal <sghzal@gmail.com>
 sporchia <print@blindchaos.net>
@@ -279,6 +283,7 @@ Tom Jenkinson <tjenkinson@users.noreply.github.com>
 Tom Taylor <tom@tomtaylor.co.uk>
 ulteriorlife <ulteriorlife@gmail.com>
 Vadim Baryshev <vadimbaryshev@gmail.com>
+Vegard B. Bugge <vegabug@live.no>
 Vincent Desjardins <vdesjardins@gmail.com>
 Vincent Siao <vincent@asana.com>
 VinothKumar Raman <vinoth@indix.com>

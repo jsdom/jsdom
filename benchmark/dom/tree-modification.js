@@ -2,9 +2,7 @@
 const suite = require("../document-suite");
 
 exports["appendChild: no siblings"] = function () {
-  let parent;
-  let children;
-  let it;
+  let parent, children, it;
 
   return suite({
     setup(document) {
@@ -27,9 +25,7 @@ exports["appendChild: no siblings"] = function () {
 
 exports["appendChild: many siblings"] = function () {
   const MIN_SIBLINGS = 10000;
-  let parent;
-  let children;
-  let it;
+  let parent, children, it;
 
   return suite({
     setup(document) {
@@ -55,8 +51,7 @@ exports["appendChild: many siblings"] = function () {
 
 exports["appendChild: many parents"] = function () {
   const DEPTH = 500;
-  let itData;
-  let it;
+  let itData, it;
 
   return suite({
     setup(document) {
@@ -88,9 +83,7 @@ exports["appendChild: many parents"] = function () {
 
 exports["insertBefore: many siblings"] = function () {
   const MIN_SIBLINGS = 10000;
-  let parent;
-  let children;
-  let it;
+  let parent, children, it;
 
   return suite({
     setup(document) {
@@ -116,9 +109,7 @@ exports["insertBefore: many siblings"] = function () {
 };
 
 exports["removeChild: no siblings"] = function () {
-  let parent;
-  let children;
-  let it;
+  let parent, children, it;
 
   return suite({
     setup(document) {
@@ -141,9 +132,7 @@ exports["removeChild: no siblings"] = function () {
 };
 
 exports["removeChild: many siblings"] = function () {
-  let parent;
-  let children;
-  let it;
+  let parent, children, it;
 
   return suite({
     setup(document) {
@@ -166,8 +155,7 @@ exports["removeChild: many siblings"] = function () {
 
 exports["removeChild: many parents"] = function () {
   const DEPTH = 100;
-  let itData;
-  let it;
+  let itData, it;
 
   return suite({
     setup(document) {

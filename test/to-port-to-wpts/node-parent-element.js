@@ -12,7 +12,8 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
   specify("When the parent is null parentElement should be null", () => {
     const document = load("test");
     assert.strictEqual(
-      document.parentElement, null,
+      document.parentElement,
+      null,
       "When the parent is null, parentElement is not null"
     );
   });
@@ -22,7 +23,8 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
     () => {
       const document = load("test");
       assert.strictEqual(
-        document.doctype.parentElement, null,
+        document.doctype.parentElement,
+        null,
         "When the parent is a document, parentElement is not null (doctype)"
       );
     }
@@ -33,7 +35,8 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
     () => {
       const document = load("test");
       assert.strictEqual(
-        document.documentElement.parentElement, null,
+        document.documentElement.parentElement,
+        null,
         "When the parent is a document, parentElement is not null (element)"
       );
     }
@@ -45,7 +48,8 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
       const document = load("test");
       const comment = document.appendChild(document.createComment("foo"));
       assert.strictEqual(
-        comment.parentElement, null,
+        comment.parentElement,
+        null,
         "When the parent is a document, parentElement is not null (comment)"
       );
     }
@@ -59,16 +63,19 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
       assert.strictEqual(df.parentElement, null, "parentElement of DocumentFragment does not return null");
       const el = document.createElement("div");
       assert.strictEqual(
-        el.parentElement, null,
+        el.parentElement,
+        null,
         "parentElement of Element that is not attached to the DOM does not return null"
       );
       df.appendChild(el);
       assert.strictEqual(
-        el.parentNode, df,
+        el.parentNode,
+        df,
         "parentNode does return null for an child Element of DocumentFragment"
       );
       assert.strictEqual(
-        el.parentElement, null,
+        el.parentElement,
+        null,
         "parentElement does not return null for children of DocumentFragments (element)"
       );
     }
@@ -83,16 +90,19 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
       assert.strictEqual(df.parentElement, null, "parentElement of DocumentFragment does not return null");
       const text = document.createTextNode("bar");
       assert.strictEqual(
-        text.parentElement, null,
+        text.parentElement,
+        null,
         "parentElement of Text that is not attached to the DOM does not return null"
       );
       df.appendChild(text);
       assert.strictEqual(
-        text.parentNode, df,
+        text.parentNode,
+        df,
         "parentNode does return null for an child Text node of DocumentFragment"
       );
       assert.strictEqual(
-        text.parentElement, null,
+        text.parentElement,
+        null,
         "parentElement doesn't return null for children of DocumentFragments (text)"
       );
     }
@@ -107,12 +117,14 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
       df.appendChild(parent);
       const el = document.createElement("div");
       assert.strictEqual(
-        el.parentElement, null,
+        el.parentElement,
+        null,
         "parentElement of Element that is not attached to the DOM does not return null"
       );
       parent.appendChild(el);
       assert.strictEqual(
-        el.parentElement, parent,
+        el.parentElement,
+        parent,
         "parentElement doesn't work correctly with DocumentFragments (element)"
       );
     }
@@ -127,12 +139,14 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
       df.appendChild(parent);
       const text = document.createTextNode("bar");
       assert.strictEqual(
-        text.parentElement, null,
+        text.parentElement,
+        null,
         "parentElement of Text that is not attached to the DOM does not return null"
       );
       parent.appendChild(text);
       assert.strictEqual(
-        text.parentElement, parent,
+        text.parentElement,
+        parent,
         "parentElement doesn't work correctly with DocumentFragments (text)"
       );
     }
@@ -145,12 +159,14 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
       const parent = document.createElement("div");
       const el = document.createElement("div");
       assert.strictEqual(
-        el.parentElement, null,
+        el.parentElement,
+        null,
         "parentElement of Element that is not attached to the DOM does not return null"
       );
       parent.appendChild(el);
       assert.strictEqual(
-        el.parentElement, parent,
+        el.parentElement,
+        parent,
         "parentElement doesn't work correctly in disconnected subtrees (element)"
       );
     }
@@ -163,12 +179,14 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
       const parent = document.createElement("div");
       const text = document.createTextNode("bar");
       assert.strictEqual(
-        text.parentElement, null,
+        text.parentElement,
+        null,
         "parentElement of Text that is not attached to the DOM does not return null"
       );
       parent.appendChild(text);
       assert.strictEqual(
-        text.parentElement, parent,
+        text.parentElement,
+        parent,
         "parentElement doesn't work correctly in disconnected subtrees (text)"
       );
     }
@@ -178,12 +196,14 @@ describe("node-parent-element", { skipIfBrowser: true }, () => {
     const document = load("test");
     const el = document.createElement("div");
     assert.strictEqual(
-      el.parentElement, null,
+      el.parentElement,
+      null,
       "parentElement of Element that is not attached to the DOM does not return null"
     );
     document.body.appendChild(el);
     assert.strictEqual(
-      el.parentElement, document.body,
+      el.parentElement,
+      document.body,
       "parentElement doesn't work correctly in a document (element)"
     );
   });
