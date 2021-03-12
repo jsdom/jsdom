@@ -94,12 +94,12 @@ describe("web-platform-tests", () => {
               let failCount = 0;
               if (data) {
                 failCount = Object.values(data)
-                  .filter(innerReason => resolveReason(innerReason) === "expect-fail").length;
+                  .filter(([innerReason]) => resolveReason(innerReason) === "expect-fail").length;
               }
 
               let prefix = "";
               if (failCount > 0) {
-                prefix = `[expected ${failCount} failures] `;
+                prefix = `[expected ${failCount} failure${failCount > 1 ? "s" : ""}] `;
               }
 
               runSingleWPT(testFilePath, `${prefix}${testFile}`, data || false);

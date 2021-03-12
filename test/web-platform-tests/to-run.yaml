@@ -552,47 +552,120 @@ DIR: html/canvas/element/drawing-images-to-the-canvas
 
 ---
 
-DIR: html/dom/documents/dom-tree-accessors
+DIR: html/dom
 
-Document.currentScript.html: [timeout, Unknown]
-document.getElementsByName/document.getElementsByName-namespace-xhtml.xhtml: [fail, Needs MathML support]
-document.getElementsByName/document.getElementsByName-namespace.html: [fail, Needs MathML support]
-nameditem-01.html: [fail, Unknown]
-nameditem-02.html: [fail, Unknown]
-nameditem-04.html: [fail, Unknown]
-nameditem-05.html: [fail, Unknown]
-nameditem-06.html: [fail, Unknown]
-nameditem-07.html: [fail, Unknown]
-nameditem-08.html: [fail, Unknown]
-nameditem-names.html: [fail, Unknown]
+documents/dom-tree-accessors/Document.currentScript.html: [timeout, Unknown]
+documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-namespace-xhtml.xhtml: [fail, Needs MathML support]
+documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-namespace.html: [fail, Needs MathML support]
+documents/dom-tree-accessors/nameditem-01.html:
+  "img elements that have a name and id attribute, should be accessible by both values.": [fail, Unknown]
+documents/dom-tree-accessors/nameditem-02.html:
+  "If the only named item is an iframe, the contentWindow should be returned.": [fail, Unknown]
+  "If there are two iframes, a collection should be returned.": [fail, Unknown]
+  "If there are an iframe and another element (iframe first), a collection should be returned.": [fail, Unknown]
+  "If there are an iframe and another element (iframe last), a collection should be returned.": [fail, Unknown]
+  "If an iframe has a name and a different id, it should be returned by its name.": [fail, Unknown]
+  "An iframe whose name looks like an array index should work.": [fail, Unknown]
+documents/dom-tree-accessors/nameditem-04.html:
+  "If there is one form, it should be returned (name)": [fail, Unknown]
+  "If there are two forms, a collection should be returned. (name)": [fail, Unknown]
+  "If there are two forms, a collection should be returned. (name and id)": [fail, Unknown]
+  "If there are two forms, a collection should be returned. (id and name)": [fail, Unknown]
+  "An id shouldn't affect getting an form by name": [fail, Unknown]
+documents/dom-tree-accessors/nameditem-05.html:
+  "If there is one embed, it should be returned (name)": [fail, Unknown]
+  "If there are two embeds, a collection should be returned. (name)": [fail, Unknown]
+  "If there are two embeds, a collection should be returned. (name and id)": [fail, Unknown]
+  "If there are two embeds, a collection should be returned. (id and name)": [fail, Unknown]
+  "An id shouldn't affect getting an embed by name": [fail, Unknown]
+documents/dom-tree-accessors/nameditem-06.html:
+  "If there is one img, it should be returned (name)": [fail, Unknown]
+  "If there are two imgs, a collection should be returned. (name)": [fail, Unknown]
+  "If there are two imgs, the one with a name should be returned. (name and id)": [fail, Unknown]
+  "If there are two imgs, the one with a name should be returned. (id and name)": [fail, Unknown]
+  "A name should affect getting an img by id": [fail, Unknown]
+  "An id shouldn't affect getting an img by name": [fail, Unknown]
+documents/dom-tree-accessors/nameditem-07.html:
+  "If there is one object, it should be returned (name)": [fail, Unknown]
+  "If there are two objects, a collection should be returned. (name)": [fail, Unknown]
+  "If there is one object, it should be returned (id)": [fail, Unknown]
+  "If there are two objects, a collection should be returned. (id)": [fail, Unknown]
+  "If there are two objects, a collection should be returned. (name and id)": [fail, Unknown]
+  "If there are two objects, a collection should be returned. (id and name)": [fail, Unknown]
+  "A name shouldn't affect getting an object by id": [fail, Unknown]
+  "An id shouldn't affect getting an object by name": [fail, Unknown]
+documents/dom-tree-accessors/nameditem-08.html:
+  "If there is a div and object with same id, the object should be returned": [fail, Unknown]
+  "If there is a div and img with same id, the img should be returned": [fail, Unknown]
+documents/dom-tree-accessors/nameditem-names.html:
+  "An embed name appears in a document's property names if the embed is exposed.": [fail, Unknown]
+  "A form name appears in a document's property names.": [fail, Unknown]
+  "An iframe name appears in a document's property names.": [fail, Unknown]
+  "An img name appears in a document's property names when the img has no id.": [fail, Unknown]
+  "An object name appears in a document's property names if the object is exposed.": [fail, Unknown]
+  "An object id appears in a document's property names if the object is exposed.": [fail, Unknown]
+  "An img name appears in a document's property names when the img has an id.": [fail, Unknown]
+  "An img id appears in a document's property names when the img has a name.": [fail, Unknown]
+  "A document's property names can include integer strings.": [fail, Unknown]
+  "A document's property names appear in tree order.": [fail, Unknown]
 
----
+documents/resource-metadata-management/document-cookie.html:
+  "document.cookie 1": [fail, Unknown]
+  "document.cookie 2": [fail, Unknown]
+  "getting cookie for a cookie-averse document returns empty string, setting does nothing": [fail, Unknown]
+documents/resource-metadata-management/document-lastModified-01.html:
+  "Date returned by lastModified is current after timeout.": [fail, Unknown]
+documents/resource-metadata-management/document-lastModified.html:
+  "lastModified should return the last modified date and time": [fail, Unknown]
 
-DIR: html/dom/documents/resource-metadata-management
+elements/global-attributes/dataset-prototype.html:
+  "Properties on Object.prototype should shine through.": [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
+elements/global-attributes/the-lang-attribute-001.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-002.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-003.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-004.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-005.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-006.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-007.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-008.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-009.html: [fail, Depends on :lang()]
+elements/global-attributes/the-lang-attribute-010.html: [fail, Depends on :lang()]
 
-document-cookie.html: [fail, Unknown]
-document-lastModified-01.html: [fail, Unknown]
-document-lastModified.html: [fail, Unknown]
+elements/images/bypass-cache-revalidation.html: [timeout, Unknown]
+elements/the-innertext-idl-attribute/**: [fail, Depends on innerText]
+elements/the-innertext-idl-attribute/getter.html: [fail, Depends on CSS namespace object]
 
----
-
-DIR: html/dom/elements/elements-in-the-dom
-
----
-
-DIR: html/dom/elements/global-attributes
-
-dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
-the-lang-attribute-001.html: [fail, Unknown]
-the-lang-attribute-002.html: [fail, Unknown]
-the-lang-attribute-003.html: [fail, Unknown]
-the-lang-attribute-004.html: [fail, Unknown]
-the-lang-attribute-005.html: [fail, Unknown]
-the-lang-attribute-006.html: [fail, Unknown]
-the-lang-attribute-007.html: [fail, Unknown]
-the-lang-attribute-008.html: [fail, Unknown]
-the-lang-attribute-009.html: [fail, Unknown]
-the-lang-attribute-010.html: [fail, Unknown]
+historical.html:
+  "document.all cannot find applet": [fail, Depends on document.all]
+  "applet is not styled": [fail, Unknown]
+idlharness.*: [fail, Depends on fetch]
+reflection-embedded.html: [fail-slow, 1422/8656 errors in test]
+reflection-forms.html: [fail-slow, 1241/8087 errors in test]
+reflection-grouping.html: [fail-slow, 570/5306 errors in test]
+reflection-metadata.html: [fail-slow, 672/3060 errors in test]
+reflection-misc.html: [fail-slow, 836/4891 errors in test]
+reflection-obsolete.html: [fail-slow, 281/2579 errors in test]
+reflection-sections.html: [fail-slow, 775/5574 errors in test]
+reflection-tabular.html: [fail-slow, 502/6048 errors in test]
+reflection-text.html: [fail-slow, 1297/10144 errors in test]
+self-origin.sub.html:
+  "Assigning blob url": [fail, Depends on URL.createObjectURL]
+  "blob: subframe origins": [fail, Unknown]
+  "Should have the right origin for cross-origin subframe after setting document.domain": [fail, Unknown]
+  "Should have the right origin for IDN subframe after setting document.domain": [fail, Unknown]
+  "Should have the right origin for sandboxed iframe": [fail, Unknown]
+usvstring-reflection.https.html:
+  "location.href : unpaired surrogate codepoint should be replaced with U+FFFD": [fail, Unknown]
+  "window.open : unpaired surrogate codepoint should be replaced with U+FFFD": [fail, Depends on window.open()]
+  "anchor : unpaired surrogate codepoint should be replaced with U+FFFD": [fail, Unknown]
+  "area : unpaired surrogate codepoint should be replaced with U+FFFD": [fail, Unknown]
+  "EventSource : unpaired surrogate codepoint should be replaced with U+FFFD": [fail, Depends on EventSource]
+  "websocket url : unpaired surrogate codepoint should be replaced with U+FFFD": [fail, Depends on EventSource]
+  "sendBeacon URL: unpaired surrogate codepoint should not make any exceptions.": [fail, Unknown]
+  "RegisterProtocolHandler URL: unpaired surrogate codepoint should not make any exceptions.": [fail, Depends on navigator.registerProtocolHandler()]
+  "UnregisterProtocolHandler URL: unpaired surrogate codepoint should not make any exceptions.": [fail, Depends on navigator.unregisterProtocolHandler()]
+  "Document URLs: unpaired surrogate codepoint should be replaced with U+FFFD": [fail, Unknown]
+  "RTCDataChannel.send: unpaired surrogate codepoint should be replaced with U+FFFD.": [fail, Depends on RTCPeerConnection]
 
 ---
 
