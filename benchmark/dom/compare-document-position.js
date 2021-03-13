@@ -3,9 +3,7 @@ const suite = require("../document-suite");
 
 exports["compare siblings"] = function () {
   const SIBLINGS = 10000;
-  let parent;
-  let children;
-  let it;
+  let parent, children, it;
 
   return suite({
     setup(document) {
@@ -32,8 +30,7 @@ exports["compare siblings"] = function () {
 exports["compare descendant"] = function () {
   const DEPTH = 1000;
   const JUNK_CHILDREN = 10;
-  let parent;
-  let deepest;
+  let parent, deepest;
 
   return suite({
     setup(document) {
@@ -59,8 +56,7 @@ exports["compare descendant"] = function () {
 exports["compare ancestor"] = function () {
   const DEPTH = 1000;
   const JUNK_CHILDREN = 10;
-  let parent;
-  let deepest;
+  let parent, deepest;
 
   return suite({
     setup(document) {

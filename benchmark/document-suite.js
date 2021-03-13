@@ -53,31 +53,31 @@ function benchmarkFunctions(document, { setup = noop, fn, teardown = noop, defer
 module.exports = function documentSuite(optionsArg) {
   const options = typeof optionsArg === "function" ?
                   { fn: optionsArg } :
-                  Object.assign({}, optionsArg);
+                  { ...optionsArg };
 
   // default to async because that is required for defer:true
   const suite = options.suite || new Benchmark.Suite({ async: true });
   delete options.suite; // do not pass to `Benchmark`
 
   if (nativeDoc) {
-    const newOptions = Object.assign(
-      {},
-      options,
-      benchmarkFunctions(nativeDoc, options),
-      { jsdomDocumentImplementation: "native" }
-    );
+    const newOptions = {
+
+      ...options,
+      ...benchmarkFunctions(nativeDoc, options),
+      jsdomDocumentImplementation: "native"
+    };
     const benchmark = jsdomBenchmark(newOptions);
     benchmark.name = benchmark.name ? benchmark.name + " :: native" : "native";
     addBenchmark(suite, benchmark);
   }
 
   if (jsdomDoc) {
-    const newOptions = Object.assign(
-      {},
-      options,
-      benchmarkFunctions(jsdomDoc, options),
-      { jsdomDocumentImplementation: "jsdom" }
-    );
+    const newOptions = {
+
+      ...options,
+      ...benchmarkFunctions(jsdomDoc, options),
+      jsdomDocumentImplementation: "jsdom"
+    };
     const benchmark = jsdomBenchmark(newOptions);
 
     // extra space in "jsdom " so that it aligns with "native"

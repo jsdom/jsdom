@@ -265,7 +265,7 @@ async function requestRecordingServer(recorder) {
 async function redirectServer(body, extraInitialResponseHeaders, ultimateResponseHeaders) {
   const server = await createServer((req, res) => {
     if (req.url.endsWith("/1")) {
-      res.writeHead(301, Object.assign({ Location: "/2" }, extraInitialResponseHeaders));
+      res.writeHead(301, { Location: "/2", ...extraInitialResponseHeaders });
       res.end();
     } else if (req.url.endsWith("/2")) {
       res.writeHead(200, ultimateResponseHeaders);

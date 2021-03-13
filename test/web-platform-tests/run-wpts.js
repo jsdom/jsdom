@@ -38,8 +38,7 @@ const minimatchers = new Map();
 
 checkToRun();
 
-let wptServerURL;
-let serverProcess;
+let wptServerURL, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
 before({ timeout: 30 * 1000 }, async () => {
   const { urls, subprocess } = await startWPTServer({ toUpstream: false });

@@ -49,15 +49,18 @@ optionA.disabled = true;
 optionA.defaultSelected = false;
 optionB.defaultSelected = false;
 assert_equals(
-  optionA.selected, false,
+  optionA.selected,
+  false,
   "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
 );
 assert_equals(
-  optionB.selected, true,
+  optionB.selected,
+  true,
   "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
 );
 assert_equals(
-  optionC.selected, false,
+  optionC.selected,
+  false,
   "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
 );
 optionA.disabled = false;
@@ -71,27 +74,33 @@ assert_equals(optionAC.selected, true, "options in a distached optgroup should n
 
 select.appendChild(optgroupA);
 assert_equals(
-  optionA.selected, false,
+  optionA.selected,
+  false,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 assert_equals(
-  optionB.selected, false,
+  optionB.selected,
+  false,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 assert_equals(
-  optionC.selected, false,
+  optionC.selected,
+  false,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 assert_equals(
-  optionAA.selected, false,
+  optionAA.selected,
+  false,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 assert_equals(
-  optionAB.selected, false,
+  optionAB.selected,
+  false,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 assert_equals(
-  optionAC.selected, true,
+  optionAC.selected,
+  true,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 
@@ -113,15 +122,18 @@ optionB.selected = true;
 optionC.selected = true;
 select.multiple = false;
 assert_equals(
-  optionA.selected, false,
+  optionA.selected,
+  false,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 assert_equals(
-  optionB.selected, false,
+  optionB.selected,
+  false,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 assert_equals(
-  optionC.selected, true,
+  optionC.selected,
+  true,
   "If 2 or more options are selected in an ask-for-a-reset, select the last option"
 );
 
@@ -132,15 +144,18 @@ optionB.selected = false;
 optionC.selected = false;
 select.size = 1;
 assert_equals(
-  optionA.selected, false,
+  optionA.selected,
+  false,
   "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
 );
 assert_equals(
-  optionB.selected, true,
+  optionB.selected,
+  true,
   "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
 );
 assert_equals(
-  optionC.selected, false,
+  optionC.selected,
+  false,
   "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
 );
 

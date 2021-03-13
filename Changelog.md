@@ -26,6 +26,25 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.5.0
+
+* Added `window.queueMicrotask()`.
+* Added `window.event`.
+* Added `inputEvent.inputType`. (diegohaz)
+* Removed `ondragexit` from `Window` and friends, per a spec update.
+* Fixed the URL of `about:blank` iframes. Previously it was getting set to the parent's URL. (SimonMueller)
+* Fixed the loading of subresources from the filesystem when they had non-ASCII filenames.
+* Fixed the `hidden=""` attribute to cause `display: none` per the user-agent stylesheet. (ph-fritsche)
+* Fixed the `new File()` constructor to no longer convert `/` to `:`, per [a pending spec update](https://github.com/w3c/FileAPI/issues/41).
+* Fixed mutation observer callbacks to be called with the `MutationObserver` instance as their `this` value.
+* Fixed `<input type=checkbox>` and `<input type=radio>` to be mutable even when disabled, per [a spec update](https://github.com/whatwg/html/pull/5805).
+* Fixed `XMLHttpRequest` to not fire a redundant final `progress` event if a `progress` event was previously fired with the same `loaded` value. This would usually occur with small files.
+* Fixed `XMLHttpRequest` to expose the `Content-Length` header on cross-origin responses.
+* Fixed `xhr.response` to return `null` for failures that occur during the middle of the download.
+* Fixed edge cases around passing callback functions or event handlers. (ExE-Boss)
+* Fixed edge cases around the properties of proxy-like objects such as `localStorage` or `dataset`. (ExE-Boss)
+* Fixed a potential memory leak with custom elements (although we could not figure out how to trigger it). (soncodi)
+
 ## 16.4.0
 
 * Added a not-implemented warning if you try to use the second pseudo-element argument to `getComputedStyle()`, unless you pass a `::part` or `::slotted` pseudo-element, in which case we throw an error per the spec. (ExE-Boss)

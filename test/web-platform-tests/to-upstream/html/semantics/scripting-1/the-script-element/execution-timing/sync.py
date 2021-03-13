@@ -1,9 +1,9 @@
 import time
 
 def main(request, response):
-    response.headers.append("Content-Type", "text/javascript")
+    response.headers.append(b"Content-Type", b"text/javascript")
     try:
-        delay = int(request.GET.first("sec"))
+        delay = int(request.GET.first(b"sec"))
     except:
         response.set_error(400, "Invalid parameter")
 

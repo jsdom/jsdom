@@ -18,8 +18,7 @@ spawnSync("python", args, { cwd: wptPath, stdio: "inherit" });
 const manifest = readManifest(manifestFilename);
 const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 
-let wptServerURL;
-let serverProcess;
+let wptServerURL, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
 before({ timeout: 30 * 1000 }, async () => {
   const { urls, subprocess } = await startWPTServer({ toUpstream: true });

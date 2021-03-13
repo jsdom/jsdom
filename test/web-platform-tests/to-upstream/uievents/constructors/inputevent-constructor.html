@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<title>InputEvent Constructor Tests</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+test(() => {
+  const event = new InputEvent("type");
+  assert_equals(event.data, null, ".data");
+  assert_false(event.isComposing, ".isComposing");
+  assert_equals(event.inputType, "", ".inputType");
+}, "InputEvent constructor without InputEventInit.");
+
+test(() => {
+  const event = new InputEvent("type", { inputType: "insertText" });
+  assert_equals(event.inputType, "insertText", ".inputType");
+}, "InputEvent construtor with InputEventInit where inputType is specified");
+</script>

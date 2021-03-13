@@ -26,6 +26,16 @@ describe("API: JSDOM.fromFile()", { skipIfBrowser: true }, () => {
     });
   });
 
+  it("should work even for Unicode main resource and subresource filenames (GH-3016)", async () => {
+    const dom = await fromFixtureFile("unicode-진 シーン-i 🥰 you.html", { resources: "usable" });
+
+    await new Promise(resolve => {
+      dom.window.onload = resolve;
+    });
+
+    assert.strictEqual(dom.window.getComputedStyle(dom.window.document.querySelector("p")).color, "red");
+  });
+
   describe("contentType option defaulting", () => {
     it("should default to text/html Content-Type even with no file extension", () => {
       return fromFixtureFile("no-extension").then(dom => {

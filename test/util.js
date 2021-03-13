@@ -81,38 +81,6 @@ exports.injectIFrameWithScript = (document, scriptStr) => {
 };
 
 /**
- * Create a new Promise and call the given function with a resolver function which can be passed as a node
- * style callback.
- *
- * Node style callbacks expect their first argument to be an Error object or null. The returned promise will
- * be rejected if this first argument is set. Otherwise the promise will be resolved with the second argument of
- * the callback, or with an array of arguments if there are more arguments.
- *
- * @example nodeResolverPromise(nodeResolver => fs.readFile('foo.png', nodeResolver)).then(content => {});
- * @param {Function} fn
- * @returns {Promise}
- */
-exports.nodeResolverPromise = fn => {
-  return new Promise((resolve, reject) => {
-    fn(function (error, result) {
-      if (error) {
-        reject(error);
-      } else if (arguments.length > 2) {
-        // pass all the arguments as an array,
-        // skipping the error param
-        const arrayResult = new Array(arguments.length - 1);
-        for (let i = 1; i < arguments.length; ++i) {
-          arrayResult[i - 1] = arguments[i];
-        }
-        resolve(arrayResult);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
-
-/**
  * Is this script currently running within a Web Worker context?
  * @returns {boolean}
  */
@@ -144,7 +112,6 @@ exports.getTestFixtureUrl = relativePath => {
     // location is a Location or WorkerLocation
     return location.origin + "/base/test" + (relativePath[0] === "/" ? "" : "/") + relativePath;
   }
-
   return toFileUrl(__dirname, relativePath);
 };
 
@@ -156,18 +123,28 @@ exports.getTestFixtureUrl = relativePath => {
  */
 exports.readTestFixture = relativePath => {
   if (exports.inBrowserContext()) {
-    // Since we're in a browser context, the browser's fetch instance is being used, not node-fetch.
     // eslint-disable-next-line no-undef
-    return fetch(exports.getTestFixtureUrl(relativePath)).then(response => {
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    const timeout = setTimeout(() => {
+      abortController.abort();
+    }, 5000);
+    // Since we're in a browser context, the browser's fetch instance is being used, not node-fetch.
+    function res(response) {
       if (!response.ok) {
         throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
       }
+      clearTimeout(timeout);
       return response.text();
-    });
+    }
+    function fail(e) {
+      clearTimeout(timeout);
+      throw e;
+    }
+    // eslint-disable-next-line no-undef
+    return fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal }).then(res).catch(fail);
   }
-  return exports.nodeResolverPromise(nodeResolver => {
-    fs.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" }, nodeResolver);
-  });
+  return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
 };
 
 exports.isCanvasInstalled = (t, done) => {
@@ -180,7 +157,9 @@ exports.isCanvasInstalled = (t, done) => {
   return true;
 };
 
-exports.delay = ms => new Promise(r => setTimeout(r, ms));
+exports.delay = ms => new Promise(r => {
+  setTimeout(r, ms);
+});
 
 exports.createServer = handler => {
   return new Promise(resolve => {

@@ -132,9 +132,8 @@ describe("history", () => {
           });
         }, 0);
       }, 0);
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 
   specify(
@@ -170,9 +169,8 @@ describe("history", () => {
 
         t.done();
       });
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 
   specify(
@@ -193,9 +191,8 @@ describe("history", () => {
       window.history.pushState(state, "title", "bar");
       window.history.pushState(null, "", "baz");
       window.history.back();
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 
   function waitForHistoryChange(fn) {
