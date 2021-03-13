@@ -83,6 +83,7 @@ Evan Haas <evan@fictivekin.com>
 Evan Jacobs <evan.jacobs@enigma.io>
 Evan Jones <evan.q.jones@gmail.com>
 ExE Boss <3889017+ExE-Boss@users.noreply.github.com>
+fdesforges <frederic.desforges@gmail.com>
 Federico Galassi <federico.galassi@gmail.com>
 fegs <ang0123dev@gmail.com>
 Felix Böhm <me@feedic.com>

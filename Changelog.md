@@ -26,6 +26,11 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.5.1
+
+* Fixed a regression that broke `customElements.get()` in v16.5.0. (fdesforges)
+* Fixed `window.event` to have a setter which overwrites the `window.event` property with the given value, per the specification. This fixes an issue where after upgrading to jsdom v16.5.0 you would no longer be able to set a global variable named `event` in the jsdom context.
+
 ## 16.5.0
 
 * Added `window.queueMicrotask()`.
