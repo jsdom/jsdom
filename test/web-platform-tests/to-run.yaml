@@ -740,8 +740,6 @@ DIR: html/semantics/forms/the-meter-element
 
 DIR: html/semantics/forms/the-option-element
 
-option-text-recurse.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
-
 ---
 
 DIR: html/semantics/forms/the-output-element
