@@ -93,9 +93,8 @@ describe("web-platform-tests", () => {
             default: {
               let failCount = 0;
               if (data) {
-                failCount = Object.values(data).reduce((count, innerReason) => {
-                  return resolveReason(innerReason) === "expect-fail" ? count + 1 : count;
-                }, 0);
+                failCount = Object.values(data)
+                  .filter(innerReason => resolveReason(innerReason) === "expect-fail").length;
               }
 
               let prefix = "";
