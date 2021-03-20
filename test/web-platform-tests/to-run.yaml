@@ -705,7 +705,6 @@ form-requestsubmit.html: [timeout, form.elements doesn't include listed elements
 
 DIR: html/semantics/forms/the-input-element
 
-checkbox.html: [fail, Events weirdness]
 datetime-local.html: [fail, min/max constraints not implemented]
 hidden-charset-case-sensitive.html: [timeout, Unknown]
 image-click-form-data.html: [timeout, Unknown]
