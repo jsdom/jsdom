@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>Access-Control-Request-Origin accept different origin between preflight and actual request</title>
-<script src="/resources/testharness.js"></script>
-<script src="/resources/testharnessreport.js"></script>
-<script src="/common/get-host-info.sub.js"></script>
-<script>
+// META: title=Access-Control-Allow-Headers supports *
 "use strict";
 
 async_test(t => {
@@ -29,4 +23,3 @@ function corsURL(path) {
   url.hostname = "www1." + url.hostname;
   return url.href;
 }
-</script>

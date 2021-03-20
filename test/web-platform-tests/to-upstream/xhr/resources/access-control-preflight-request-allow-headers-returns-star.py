@@ -1,12 +1,12 @@
 def main(request, response):
     if request.method == "OPTIONS":
-        response.headers.set("Access-Control-Allow-Origin", "*")
-        response.headers.set("Access-Control-Allow-Headers", "*")
+        response.headers.set(b"Access-Control-Allow-Origin", b"*")
+        response.headers.set(b"Access-Control-Allow-Headers", b"*")
         response.status = 200
     elif request.method == "GET":
-        response.headers.set("Access-Control-Allow-Origin", "*")
-        if request.headers.get("X-Test"):
-            response.headers.set("Content-Type", "text/plain")
-            response.content = "PASS"
+        response.headers.set(b"Access-Control-Allow-Origin", b"*")
+        if request.headers.get(b"X-Test"):
+            response.headers.set(b"Content-Type", b"text/plain")
+            response.content = b"PASS"
         else:
             response.status = 400
