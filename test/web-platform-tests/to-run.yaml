@@ -165,9 +165,6 @@ DIR: dom/events
 
 AddEventListenerOptions-signal.any.html: [fail, Not implemented]
 Event-dispatch-click.tentative.html: [fail, Test is wrong, https://github.com/web-platform-tests/wpt/issues/27819]
-Event-dispatch-detached-input-and-change.html: [fail,
-  Need implement connected and use it in https://github.com/jsdom/jsdom/blob/master/lib/jsdom/living/nodes/HTMLInputElement-impl.js#L199
-  See https://html.spec.whatwg.org/multipage/input.html#checkbox-state-(type=checkbox)]
 Event-isTrusted.any.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
