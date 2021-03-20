@@ -221,7 +221,6 @@ NodeIterator-removal.html: [fail, Unknown]
 
 DIR: domparsing
 
-DOMParser-parseFromString-html.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 DOMParser-parseFromString-url-base-pushstate.html: [fail, iframe onload timing]
 DOMParser-parseFromString-url-base.html: [fail, iframe onload timing]
 DOMParser-parseFromString-url-moretests.html: [fail, Unknown]
