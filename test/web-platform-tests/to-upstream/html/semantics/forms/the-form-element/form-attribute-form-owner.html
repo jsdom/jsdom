@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Clicking a button should submit the form</title>
+<title>Form owner association</title>
 <link rel="author" title="Jamie Treworgy" href="mailto:jamie@treworgy.com">
 <link rel="help" href="https://html.spec.whatwg.org/multipage/#attr-button-type-submit-state">
 <script src="/resources/testharness.js"></script>
@@ -21,7 +21,7 @@ test(() => {
   redherring.id = "form2";
   document.body.appendChild(redherring);
 
-  const elementNames = ["button", "input", "legend", "select", "textarea", "fieldset", "object", "output"];
+  const elementNames = ["button", "input", "select", "textarea", "fieldset", "object", "output"];
   elementNames.forEach(e => {
     const el = document.createElement(e);
     document.body.appendChild(el);

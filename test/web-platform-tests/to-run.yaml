@@ -728,9 +728,6 @@ label-attributes.sub.html: [fail, Unknown]
 
 DIR: html/semantics/forms/the-legend-element
 
-HTMLLegendElement.html: [fail, The form property is not implemented correctly]
-legend-form.html: [fail, The form property is not implemented correctly]
-
 ---
 
 DIR: html/semantics/forms/the-meter-element
