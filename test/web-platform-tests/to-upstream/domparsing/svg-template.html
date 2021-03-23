@@ -16,6 +16,7 @@ test(() => {
   const template = doc.querySelector("template");
   assert_equals(template.textContent, "text");
   assert_equals(template.namespaceURI, "http://www.w3.org/2000/svg");
+  assert_false("content" in template);
 }, "document");
 
 test(() => {
@@ -26,5 +27,6 @@ test(() => {
   const template = doc.querySelector("template");
   assert_equals(template.textContent, "text");
   assert_equals(template.namespaceURI, "http://www.w3.org/2000/svg");
+  assert_false("content" in template);
 }, "fragment");
 </script>
