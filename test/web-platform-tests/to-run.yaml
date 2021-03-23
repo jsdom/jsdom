@@ -69,6 +69,7 @@ elementFromPoint-float-in-table.html: [fail, Not implemented]
 elementFromPoint-list-001.html: [fail, Not implemented]
 elementFromPoint-mixed-font-sizes.html: [fail, Not implemented]
 elementFromPoint-subpixel.html: [fail, Not implemented]
+elementFromPoint-visibility-hidden-resizer.html: [fail, Not implemented]
 elementFromPoint.html: [fail, Not implemented]
 elementFromPosition.html: [fail, Unknown]
 elementScroll.html: [fail, Unknown]
@@ -144,6 +145,8 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 ---
 
 DIR: dom/abort
+
+event.any.html: [fail, AbortSignal.abort() not implemented]
 
 ---
 
@@ -245,10 +248,12 @@ headers-record.any.html: [needs-node12, V8 bug fixed in Node 12 onward]
 
 DIR: hr-time
 
+cross-origin-isolated-timing-attack.https.html: [fail, Not implemented]
 idlharness.any.html: [fail, Depends on fetch]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
+timing-attack.html: [fail, Not implemented]
 window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
 
 ---
@@ -292,8 +297,7 @@ DIR: html/browsers/browsing-the-web/navigating-across-documents
 abort-document-load.html: [fail, Unknown]
 anchor-fragment-**.html: [timeout, Unknown]
 anchor-jsurl-form-submit.html: [timeout, Unknown]
-child_navigates_parent_location.html: [timeout, Unknown]
-child_navigates_parent_submit.html: [timeout, Unknown]
+child-navigates-parent-same-origin.window.html: [fail-slow, Unknown]
 empty_fragment.html: [fail, Unknown]
 failure-check-sequence.https.html: [fail, Not implemented]
 javascript-url-abort/javascript-url-abort-return-value-string.tentative.html: [timeout, Unknown]
@@ -503,6 +507,8 @@ window-reuse-in-nested-browsing-contexts.tentative.html:
 
 DIR: html/browsers/the-windowproxy-exotic-object
 
+document-tree-child-browsing-context-name-property-set.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-define-own-property-unforgeable-same-origin.html: [fail, Exoticness of Window not implemented]
 windowproxy-prototype-setting-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
 windowproxy-prototype-setting-cross-origin.sub.html: [fail, Exoticness of Window not implemented]
 windowproxy-prototype-setting-goes-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
@@ -583,6 +589,7 @@ DIR: html/dom/elements/elements-in-the-dom
 DIR: html/dom/elements/global-attributes
 
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
+dir-slots-directionality.tentative.html: [fail, Unknown]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
 the-lang-attribute-003.html: [fail, Unknown]
@@ -820,6 +827,7 @@ form-requestsubmit.html: [timeout, form.elements doesn't include listed elements
 
 DIR: html/semantics/forms/the-input-element
 
+cloning-steps.html: [fail, Uses JS modules]
 datetime-local.html: [fail, min/max constraints not implemented]
 hidden-charset-case-sensitive.html: [timeout, Unknown]
 image-click-form-data.html: [timeout, Unknown]
@@ -854,8 +862,6 @@ DIR: html/semantics/forms/the-option-element
 ---
 
 DIR: html/semantics/forms/the-output-element
-
-mutations.window.html: [fail, Needs to reflect changes made in https://github.com/whatwg/html/pull/4447]
 
 ---
 
@@ -1021,6 +1027,7 @@ microtasks/checkpoint-after-window-onerror.html: [fail, Unknown]
 microtasks/checkpoint-after-workerglobalscope-onerror-module.html: [timeout, Workers and modules not implemented]
 microtasks/checkpoint-after-workerglobalscope-onerror.html: [timeout, Workers not implemented]
 module/**: [timeout, Not implemented]
+moving-between-documents-during-evaluation.html: [fail, Unknown]
 moving-between-documents/**-classic.html: [fail-slow, Unknown]
 moving-between-documents/**-module.html: [timeout, Modules not implemented]
 muted-errors.sub.html: [fail, Muted errors not implemented]
@@ -1155,6 +1162,7 @@ bidi/modify.tentative.html: [fail, Not implemented]
 contenteditable/collapse.html: [fail, No spec for how selection changes should impact focus, https://github.com/whatwg/html/issues/6179]
 contenteditable/modify.tentative.html: [fail, Not implemented]
 idlharness.window.html: [fail, Depends on fetch]
+modify-extend-word-trailing-inline-block.tentative.html: [fail, Not implemented]
 modify.tentative.html: [fail, Not implemented]
 script-and-style-elements.html: [fail,
   toString should return only the text within the selection that is visible to the user
@@ -1225,9 +1233,10 @@ urlencoded-parser.any.html: [fail, Depends on fetch]
 
 DIR: websockets
 
+"**/**?wpt_flags=h2": [fail-slow, HTTP/2 web sockets not implemented]
 Create-Secure-extensions-empty.any.html: [timeout, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
+Create-blocked-port.any.html: [fail-slow, Not implemented]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
-cookies/006.html?wss: [fail, Unknown]
 cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 remove-own-iframe-during-onerror.window.html: [timeout, iframe.srcdoc not implemented]
@@ -1239,10 +1248,10 @@ unload-a-document/*: [timeout, Requires window.open]
 DIR: webstorage
 
 event_no_duplicates.html: [needs-node11, Earlier Node.js timers did not match browser behaviour, https://github.com/nodejs/node/pull/22842]
-storage_local_window_open.html: [timeout, Depends on window.open()]
-storage_session_window_noopener.html: [fail, Depends on BroadcastChannel]
-storage_session_window_open.html: [timeout, Depends on window.open()]
-storage_string_conversion.html: [needs-node10, function.toString() does not use correct formatting in earlier versions, https://github.com/nodejs/node/issues/20459]
+storage_local_window_open.window.html: [timeout, Depends on window.open()]
+storage_session_window_noopener.window.html: [fail, Depends on BroadcastChannel]
+storage_session_window_open.window.html: [timeout, Depends on window.open()]
+storage_string_conversion.window.html: [needs-node10, function.toString() does not use correct formatting in earlier versions, https://github.com/nodejs/node/issues/20459]
 symbol-props.window.html: [fail, Unknown]
 
 ---
@@ -1271,6 +1280,7 @@ cors-expose-star.sub.any.html: [fail, Unknown]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.any.html: [fail, Unknown]
+event-upload-progress.any.html: [fail, Unknown]
 formdata.htm: [fail, FormDataEvent is not implemented]
 getallresponseheaders.htm: [fail, Unknown]
 getresponseheader.any.html: [fail, Unknown]
@@ -1291,6 +1301,7 @@ open-url-worker-origin.htm: [fail, Needs Worker implementation]
 open-url-worker-simple.htm: [timeout, Needs Worker implementation]
 overridemimetype-blob.html: [fail, Unknown]
 overridemimetype-edge-cases.window.html: [fail, Unknown]
+request-content-length.any.html: [fail, needs URL.createObjectURL]
 response-body-errors.any.html: [flaky, Somehow an error is escaping to be unhandled; not clear why we aren't catching it]
 response-method.htm: [flaky, Usually fails with a parse error in Node.js v12 but occasionally passes as it did in previous versions]
 responseType-document-in-worker.html: [fail, Needs Worker implementation]
