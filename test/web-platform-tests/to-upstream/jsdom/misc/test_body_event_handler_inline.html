@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Test inline event handlers set on the body.</title>
+<link rel="author" title="Timothy Gu" href="mailto:timothygu99@gmail.com">
+<link rel="help" href="https://github.com/jsdom/jsdom/issues/1379">
+<script src=/resources/testharness.js></script>
+<script src=/resources/testharnessreport.js></script>
+
+<script>
+  "use strict";
+  setup({ single_test: true });
+
+  // eslint-disable-next-line no-unused-vars
+  function onloadHandler() {
+    window.loader_called = true;
+  }
+</script>
+
+<body onload="onloadHandler()">
+  <div id=log></div>
+  <script>
+    "use strict";
+    window.addEventListener("load", () => {
+      assert_true(window.loader_called);
+      done();
+    });
+  </script>
+</body>
