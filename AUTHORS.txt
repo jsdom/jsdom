@@ -261,6 +261,7 @@ Sebastian McKenzie <sebmck@gmail.com>
 Sebastian Silbermann <silbermann.sebastian@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
+Silvio Tomatis <silviot@gmail.com>
 Simen Bekkhus <sbekkhus91@gmail.com>
 Simon Müller <SimonMueller@users.noreply.github.com>
 sonnym <michaud.sonny@gmail.com>
