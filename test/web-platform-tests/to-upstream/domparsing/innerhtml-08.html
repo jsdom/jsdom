@@ -11,8 +11,7 @@
   test(() => {
     const doc = document.createElement("html");
 
-    // Random templating is a workaround for https://github.com/BenoitZugmeyer/eslint-plugin-html/issues/141
-    doc.innerHTML = `<head><title>foo</title></head><${"body"}></body>`;
+    doc.innerHTML = `<head><title>foo</title></head><body></body>`;
 
     doc.innerHTML = "";
 
