@@ -2,22 +2,28 @@ DIR: FileAPI
 
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
-blob/Blob-constructor.any.html: [fail, "- Blob is not a function
-                                    - a date is not instanceof Date
-                                    - a regexp is not instanceof Regexp
-                                    - strange v8 behaviour when error triggered in overridden array length
-                                    - HTMLSelectElement does not have indexed properties
-                                    - MessageChannel not implemented
-                                    - element attributes does not have indexed properties"]
+blob/Blob-constructor.any.html:
+  "Blob interface object": [fail, "Blob is not a function"]
+  "Passing a FrozenArray as the blobParts array should work (FrozenArray<MessagePort>).": [fail, Depends on MessagePort]
 blob/Blob-stream.any.html: [fail, Unknown]
 blob/Blob-text.any.html: [fail, Depends on TextEncoder]
 file/send-file-form*: [fail, DataTransfer not implemented]
-filelist-section/filelist.html: [fail, function is not instanceof Function]
-historical.https.html: [fail, Needs Service Worker implementation]
+filelist-section/filelist.html:
+  "Check if item is a instanceof Function": [fail, function is not instanceof Function]
+historical.https.html:
+  "Service worker test setup": [fail, Needs Service Worker implementation]
 idlharness.html: [fail, URL.createObjectURL not implemented]
 reading-data-section/FileReader-multiple-reads.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
 reading-data-section/filereader_events.any.html: [fail, Unknown]
-reading-data-section/filereader_result.html: [fail, Unknown]
+reading-data-section/filereader_result.html:
+  'result is null during "loadstart" event for readAsText': [fail, Unknown]
+  'result is null during "loadstart" event for readAsDataURL': [fail, Unknown]
+  'result is null during "loadstart" event for readAsArrayBuffer': [fail, Unknown]
+  'result is null during "loadstart" event for readAsBinaryString': [fail, Unknown]
+  'result is null during "progress" event for readAsText': [fail, Unknown]
+  'result is null during "progress" event for readAsDataURL': [fail, Unknown]
+  'result is null during "progress" event for readAsArrayBuffer': [fail, Unknown]
+  'result is null during "progress" event for readAsBinaryString': [fail, Unknown]
 url/**: [timeout, blob URLs not implemented]
 
 ---
