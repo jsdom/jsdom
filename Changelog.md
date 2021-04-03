@@ -26,6 +26,27 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.5.2
+
+* Fixed `Access-Control-Allow-Headers: *` to work with `XMLHttpRequest`. (silviot)
+* Fixed `xhr.response` to strip any leading BOM when `xhr.responseType` is `"json"`.
+* Fixed `new Text()` and `new Comment()` constructors to properly set the resulting node's `ownerDocument`.
+* Fixed `customElements.whenDefined()` to resolve its returned promise with the custom element constructor, per recent spec updates. (ExE-Boss)
+* Fixed parsing to ensure that `<svg><template></template></svg>` does not throw an exception, but instead correctly produces a SVG-namespace `<template>` element.
+* Fixed `domParser.parseFromString()` to treat `<noscript>` elements appropriately.
+* Fixed form control validity checking when the control was outside the `<form>` element and instead associated using the `form=""` attribute.
+* Fixed `legendEl.form` to return the correct result based on its parent `<fieldset>`.
+* Fixed `optionEl.text` to exclude `<script>` descendants.
+* Fixed radio buttons and checkboxes to not fire `input` and `change` events when disconnected.
+* Fixed `inputEl.indeterminate` to reset to its previous value when canceling a `click` event on a checkbox or radio button.
+* Fixed the behavior of event handler attributes (e.g. `onclick="...code..."`) when there were global variables named `element` or `formOwner`. (ExE-Boss)
+* On Node.js v14.6.0+ where `WeakRef`s are available, fixed `NodeIterator` to no longer stop working when more than ten `NodeIterator` instances are created, and to use less memory due to inactive `NodeIterator`s sticking around. (ExE-Boss)
+
+## 16.5.1
+
+* Fixed a regression that broke `customElements.get()` in v16.5.0. (fdesforges)
+* Fixed `window.event` to have a setter which overwrites the `window.event` property with the given value, per the specification. This fixes an issue where after upgrading to jsdom v16.5.0 you would no longer be able to set a global variable named `event` in the jsdom context.
+
 ## 16.5.0
 
 * Added `window.queueMicrotask()`.

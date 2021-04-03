@@ -385,37 +385,6 @@ describe("jsdom/miscellaneous", () => {
     assert.ok(a.getAttribute("style").match(/^\s*width\s*:\s*100%\s*;?\s*$/), "style attribute must contain width");
   });
 
-  // Test inline event handlers set on the body.
-  // TODO this currently fails!?
-  specify.skip("test_body_event_handler_inline", { skipIfBrowser: true, async: true }, t => {
-    // currently skipped in browsers because of an issue:
-    // TODO: https://github.com/jsdom/jsdom/issues/1379
-    const html = `
-      <html>
-        <head>
-          <script>
-            function loader () {
-              window.loader_called = true;
-            }
-          </script>
-        </head>
-        <body onload="loader()"></body>
-      </html>`;
-    const doc = (new JSDOM(html, { runScripts: "dangerously" })).window.document;
-    const window = doc.defaultView;
-    // In JSDOM, listeners registered with addEventListener are called before
-    // "traditional" listeners, so listening for "load" will fire before our
-    // inline listener.  This means we have to check the value on the next
-    // tick.
-    window.addEventListener("load", () => {
-      process.nextTick(() => {
-        assert.equal(window.loader_called, true);
-        t.done();
-      });
-    });
-    doc.close();
-  });
-
   specify("get_element_by_id", () => {
     const doc = (new JSDOM()).window.document;
     const el = doc.createElement("div");

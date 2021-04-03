@@ -83,6 +83,7 @@ Evan Haas <evan@fictivekin.com>
 Evan Jacobs <evan.jacobs@enigma.io>
 Evan Jones <evan.q.jones@gmail.com>
 ExE Boss <3889017+ExE-Boss@users.noreply.github.com>
+fdesforges <frederic.desforges@gmail.com>
 Federico Galassi <federico.galassi@gmail.com>
 fegs <ang0123dev@gmail.com>
 Felix Böhm <me@feedic.com>
@@ -260,6 +261,7 @@ Sebastian McKenzie <sebmck@gmail.com>
 Sebastian Silbermann <silbermann.sebastian@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
+Silvio Tomatis <silviot@gmail.com>
 Simen Bekkhus <sbekkhus91@gmail.com>
 Simon Müller <SimonMueller@users.noreply.github.com>
 sonnym <michaud.sonny@gmail.com>

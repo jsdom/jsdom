@@ -69,6 +69,7 @@ elementFromPoint-float-in-table.html: [fail, Not implemented]
 elementFromPoint-list-001.html: [fail, Not implemented]
 elementFromPoint-mixed-font-sizes.html: [fail, Not implemented]
 elementFromPoint-subpixel.html: [fail, Not implemented]
+elementFromPoint-visibility-hidden-resizer.html: [fail, Not implemented]
 elementFromPoint.html: [fail, Not implemented]
 elementFromPosition.html: [fail, Unknown]
 elementScroll.html: [fail, Unknown]
@@ -109,7 +110,14 @@ window-screen-width.html: [fail, Test not applicable - no output device]
 
 DIR: custom-elements
 
-CustomElementRegistry.html: [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
+CustomElementRegistry.html:
+  'customElements.define must get "prototype", "disabledFeatures", and "formAssociated" property of the constructor': [fail, formAssociated not implemented]
+  'customElements.define must get "observedAttributes" property on the constructor prototype when "attributeChangedCallback" is present': [fail, formAssociated not implemented]
+  'customElements.define must rethrow an exception thrown while getting formAssociated on the constructor prototype': [fail, formAssociated not implemented]
+  'customElements.define must get four additional callbacks on the prototype if formAssociated is converted to true': [fail, formAssociated not implemented]
+  'customElements.define must rethrow an exception thrown while getting additional formAssociated callbacks on the constructor prototype': [fail, formAssociated not implemented]
+  'customElements.whenDefined must return a promise for a valid custom element name': [fail, Unknown]
+  'customElements.define must not throw when defining another custom element in a different global object during Get(constructor, "prototype")': [fail, Not supported]
 Document-createElement.html: [fail, :defined is not defined and throws]
 HTMLElement-attachInternals.html: [fail, Not implemented]
 HTMLElement-constructor.html: [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
@@ -145,6 +153,8 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 
 DIR: dom/abort
 
+event.any.html: [fail, AbortSignal.abort() not implemented]
+
 ---
 
 DIR: dom/collections
@@ -155,17 +165,13 @@ DIR: dom/events
 
 AddEventListenerOptions-signal.any.html: [fail, Not implemented]
 Event-dispatch-click.tentative.html: [fail, Test is wrong, https://github.com/web-platform-tests/wpt/issues/27819]
-Event-dispatch-detached-input-and-change.html: [fail,
-  Need implement connected and use it in https://github.com/jsdom/jsdom/blob/master/lib/jsdom/living/nodes/HTMLInputElement-impl.js#L199
-  See https://html.spec.whatwg.org/multipage/input.html#checkbox-state-(type=checkbox)]
 Event-isTrusted.any.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
 EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
 EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
 EventTarget-dispatchEvent.html: [fail, We don't support every event interface yet]
-event-global-extra.window.html: [timeout, Not implemented]
-event-global.html: [fail, Not implemented]
+event-global-extra.window.html: [fail, We're supposed to check the event listener's global (not the Event's global)]
 relatedTarget.window.html: [fail, Unknown]
 webkit-animation-end-event.html: [fail, WebKit-prefixed events not implemented]
 webkit-animation-iteration-event.html: [fail, WebKit-prefixed events not implemented]
@@ -183,7 +189,6 @@ DOMTokenList-iteration.html: [fail, The test checks a builtin method is from the
 
 DIR: dom/nodes
 
-Comment-constructor.html: [fail, Unknown]
 Document-URL.html: [fail, Unknown]
 Document-characterSet-normalization.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-createEvent.https.html: [fail, We don't support every event interface yet]
@@ -195,12 +200,12 @@ Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not implemented]
 Node-childNodes.html: [fail, Unknown]
+Node-cloneNode.html: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
 ParentNode-querySelector-All.html: [fail, ::slotted() pseudo-class is not supported]
 ParentNode-replaceChildren.html: [fail, Not implemented]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
-Text-constructor.html: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
 aria-attribute-reflection.tentative.html: [fail, Unknown]
 aria-element-reflection.tentative.html: [fail, WAI-ARIA not implemented]
@@ -222,7 +227,6 @@ NodeIterator-removal.html: [fail, Unknown]
 
 DIR: domparsing
 
-DOMParser-parseFromString-html.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 DOMParser-parseFromString-url-base-pushstate.html: [fail, iframe onload timing]
 DOMParser-parseFromString-url-base.html: [fail, iframe onload timing]
 DOMParser-parseFromString-url-moretests.html: [fail, Unknown]
@@ -249,10 +253,12 @@ headers-record.any.html: [needs-node12, V8 bug fixed in Node 12 onward]
 
 DIR: hr-time
 
+cross-origin-isolated-timing-attack.https.html: [fail, Not implemented]
 idlharness.any.html: [fail, Depends on fetch]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
+timing-attack.html: [fail, Not implemented]
 window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
 
 ---
@@ -296,8 +302,7 @@ DIR: html/browsers/browsing-the-web/navigating-across-documents
 abort-document-load.html: [fail, Unknown]
 anchor-fragment-**.html: [timeout, Unknown]
 anchor-jsurl-form-submit.html: [timeout, Unknown]
-child_navigates_parent_location.html: [timeout, Unknown]
-child_navigates_parent_submit.html: [timeout, Unknown]
+child-navigates-parent-same-origin.window.html: [fail-slow, Unknown]
 empty_fragment.html: [fail, Unknown]
 failure-check-sequence.https.html: [fail, Not implemented]
 javascript-url-abort/javascript-url-abort-return-value-string.tentative.html: [timeout, Unknown]
@@ -397,6 +402,126 @@ DIR: html/browsers/offline/browser-state
 
 ---
 
+DIR: html/browsers/the-window-object
+
+BarProp.window.html: [fail, Unknown]
+Window-document.html: [fail, Unknown]
+accessing-other-browsing-contexts/indexed-browsing-contexts-01.html: [fail, Unknown]
+accessing-other-browsing-contexts/indexed-browsing-contexts-02.html: [fail, Unknown]
+accessing-other-browsing-contexts/indexed-browsing-contexts-03.html: [fail, Unknown]
+accessing-other-browsing-contexts/window_length.html: [fail, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/close_beforeunload.html: [timeout, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/close_script_defer.html: [fail, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/close_unload.html: [timeout, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/creating_browsing_context_test_01.html: [fail, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/no_window_open_when_term_nesting_level_nonzero.window.html: [fail, Unknown]
+apis-for-creating-and-navigating-browsing-contexts-by-name/open-features-**: [timeout, Unknown]
+close-method.window.html: [fail, Depends on window.open()]
+closed-attribute.window.html: [timeout, Unknown]
+document-attribute.window.html: [fail, Unknown]
+garbage-collection-and-browsing-contexts/**: [timeout, Unknown]
+length-attribute.window.html: [fail, Unknown]
+name-attribute.window.html: [fail, Unknown]
+named-access-on-the-window-object/cross-global-npo.html: [fail, Depends on the named properties object]
+named-access-on-the-window-object/named-objects.html: [fail, "Harness error: Fails to hoist the on_load() function"]
+named-access-on-the-window-object/navigated-named-objects.window.html: [fail, Depends on the named properties object]
+named-access-on-the-window-object/prototype.html: [fail, Depends on the named properties object]
+named-access-on-the-window-object/window-named-properties.html: [timeout, Unknown]
+navigate-to-about-blank-while-initial-load-pending.html: [fail, Depends on window.open()]
+noopener-noreferrer-BarProp.window.html: [fail, Depends on window.open()]
+noopener-noreferrer-sizing.window.html: [fail, Depends on window.open()]
+proxy-getOwnPropertyDescriptor.html:
+  'Window target, no trap, "name" attribute': [fail, Incorrectly implemented as a data property]
+security-window/window-security.https.html: [fail, Exoticness of Window not implemented]
+self-et-al.window.html: [fail, Depends on window.open() and window.closed]
+window-indexed-properties-strict.html: [flaky, "
+  Errors in `process.nextTick` callback:
+  Uncaught TypeError: this[i].close is not a function
+    at Window.close (lib/jsdom/browser/Window.js:752:15)
+    at test/web-platform-tests/run-single-wpt.js:192:22
+    at processTicksAndRejections (node:internal/process/task_queues:76:11)
+"]
+window-indexed-properties.html: [flaky, "
+  Errors in `process.nextTick` callback:
+  Uncaught TypeError: this[i].close is not a function
+    at Window.close (lib/jsdom/browser/Window.js:752:15)
+    at test/web-platform-tests/run-single-wpt.js:192:22
+    at processTicksAndRejections (node:internal/process/task_queues:76:11)
+"]
+window-open-defaults.window.html: [fail, Depends on window.open()]
+window-open-invalid-url.html: [fail, Unknown]
+window-open-noopener.html**: [fail-slow, Unknown]
+window-open-noreferrer.html: [fail, Depends on BroadcastChannel]
+window-properties.https.html:
+  "Value Property: NaN": [needs-node12, Unknown]
+  "Value Property: Infinity": [needs-node12, Unknown]
+  "Value Property: undefined": [needs-node12, Unknown]
+  "EventTarget method: addEventListener": [needs-node12, Unknown]
+  "EventTarget method: removeEventListener": [needs-node12, Unknown]
+  "EventTarget method: dispatchEvent": [needs-node12, Unknown]
+  "Window method: createImageBitmap": [fail, Not implemented]
+  "Window method: matchMedia": [fail, Not implemented]
+  "Window readonly attribute: applicationCache": [fail, Not implemented]
+  "Window attribute: name": [fail, Incorrectly implemented as a data property]
+  "Window attribute: status": [fail, Incorrectly implemented as a data property]
+  "Window attribute: opener": [fail, Not implemented]
+  "Window attribute: onmousewheel": [fail, Not implemented]
+  "Window unforgeable attribute: window": [fail, "Missing [LegacyUnforgeable]"]
+  "Window unforgeable attribute: document": [fail, "Missing [LegacyUnforgeable]"]
+  "Window unforgeable attribute: location": [fail, "Missing [LegacyUnforgeable]"]
+  "Window unforgeable attribute: top": [fail, "Missing [LegacyUnforgeable]"]
+  "Window replaceable attribute: self": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: locationbar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: menubar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: personalbar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: scrollbars": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: statusbar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: toolbar": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: frames": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: parent": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: external": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: length": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: screen": [fail, "Missing [Replaceable]"]
+  "Window replaceable attribute: scrollX": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: scrollY": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: pageXOffset": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: pageYOffset": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: innerWidth": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: innerHeight": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: screenLeft": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: screenTop": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: screenX": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: screenY": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: outerWidth": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: outerHeight": [fail, Incorrectly implemented as a data property]
+  "Window replaceable attribute: devicePixelRatio": [fail, Incorrectly implemented as a data property]
+  "constructor": [fail, Unknown]
+window-prototype-chain.html:
+  "Window.prototype": [fail, Unknown]
+  "Global scope polluter": [fail, Depends on the named properties object]
+  "EventTarget.prototype": [fail, Depends on the named properties object]
+  "Object.prototype": [fail, Depends on the named properties object]
+window-reuse-in-nested-browsing-contexts.tentative.html:
+  "synchronously navigate iframe with no initial src.": [fail, Unknown]
+  "after the first iframe load event, navigate iframe with no initial src.": [fail, Unknown]
+  'synchronously navigate iframe with initial src == "".': [fail, Unknown]
+  'synchronously navigate iframe with initial src == "about:blank".': [fail, Unknown]
+
+
+---
+
+DIR: html/browsers/the-windowproxy-exotic-object
+
+document-tree-child-browsing-context-name-property-set.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-define-own-property-unforgeable-same-origin.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-cross-origin.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-goes-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-same-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prototype-setting-same-origin.html: [fail, Exoticness of Window not implemented]
+
+---
+
 DIR: html/browsers/windows
 
 auxiliary-browsing-contexts/opener-closed.html: [timeout, Unknown]
@@ -469,6 +594,7 @@ DIR: html/dom/elements/elements-in-the-dom
 DIR: html/dom/elements/global-attributes
 
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
+dir-slots-directionality.tentative.html: [fail, Unknown]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
 the-lang-attribute-003.html: [fail, Unknown]
@@ -706,7 +832,7 @@ form-requestsubmit.html: [timeout, form.elements doesn't include listed elements
 
 DIR: html/semantics/forms/the-input-element
 
-checkbox.html: [fail, Events weirdness]
+cloning-steps.html: [fail, Uses JS modules]
 datetime-local.html: [fail, min/max constraints not implemented]
 hidden-charset-case-sensitive.html: [timeout, Unknown]
 image-click-form-data.html: [timeout, Unknown]
@@ -730,9 +856,6 @@ label-attributes.sub.html: [fail, Unknown]
 
 DIR: html/semantics/forms/the-legend-element
 
-HTMLLegendElement.html: [fail, The form property is not implemented correctly]
-legend-form.html: [fail, The form property is not implemented correctly]
-
 ---
 
 DIR: html/semantics/forms/the-meter-element
@@ -741,13 +864,9 @@ DIR: html/semantics/forms/the-meter-element
 
 DIR: html/semantics/forms/the-option-element
 
-option-text-recurse.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
-
 ---
 
 DIR: html/semantics/forms/the-output-element
-
-mutations.window.html: [fail, Needs to reflect changes made in https://github.com/whatwg/html/pull/4447]
 
 ---
 
@@ -913,6 +1032,7 @@ microtasks/checkpoint-after-window-onerror.html: [fail, Unknown]
 microtasks/checkpoint-after-workerglobalscope-onerror-module.html: [timeout, Workers and modules not implemented]
 microtasks/checkpoint-after-workerglobalscope-onerror.html: [timeout, Workers not implemented]
 module/**: [timeout, Not implemented]
+moving-between-documents-during-evaluation.html: [fail, Unknown]
 moving-between-documents/**-classic.html: [fail-slow, Unknown]
 moving-between-documents/**-module.html: [timeout, Modules not implemented]
 muted-errors.sub.html: [fail, Muted errors not implemented]
@@ -1047,6 +1167,7 @@ bidi/modify.tentative.html: [fail, Not implemented]
 contenteditable/collapse.html: [fail, No spec for how selection changes should impact focus, https://github.com/whatwg/html/issues/6179]
 contenteditable/modify.tentative.html: [fail, Not implemented]
 idlharness.window.html: [fail, Depends on fetch]
+modify-extend-word-trailing-inline-block.tentative.html: [fail, Not implemented]
 modify.tentative.html: [fail, Not implemented]
 script-and-style-elements.html: [fail,
   toString should return only the text within the selection that is visible to the user
@@ -1117,9 +1238,10 @@ urlencoded-parser.any.html: [fail, Depends on fetch]
 
 DIR: websockets
 
+"**/**?wpt_flags=h2": [fail-slow, HTTP/2 web sockets not implemented]
 Create-Secure-extensions-empty.any.html: [timeout, Buggy test as the test does not take into account the mandatory permessage-deflate extension]
+Create-blocked-port.any.html: [fail-slow, Not implemented]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
-cookies/006.html?wss: [fail, Unknown]
 cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 remove-own-iframe-during-onerror.window.html: [timeout, iframe.srcdoc not implemented]
@@ -1131,10 +1253,10 @@ unload-a-document/*: [timeout, Requires window.open]
 DIR: webstorage
 
 event_no_duplicates.html: [needs-node11, Earlier Node.js timers did not match browser behaviour, https://github.com/nodejs/node/pull/22842]
-storage_local_window_open.html: [timeout, Depends on window.open()]
-storage_session_window_noopener.html: [fail, Depends on BroadcastChannel]
-storage_session_window_open.html: [timeout, Depends on window.open()]
-storage_string_conversion.html: [needs-node10, function.toString() does not use correct formatting in earlier versions, https://github.com/nodejs/node/issues/20459]
+storage_local_window_open.window.html: [timeout, Depends on window.open()]
+storage_session_window_noopener.window.html: [fail, Depends on BroadcastChannel]
+storage_session_window_open.window.html: [timeout, Depends on window.open()]
+storage_string_conversion.window.html: [needs-node10, function.toString() does not use correct formatting in earlier versions, https://github.com/nodejs/node/issues/20459]
 symbol-props.window.html: [fail, Unknown]
 
 ---
@@ -1163,6 +1285,7 @@ cors-expose-star.sub.any.html: [fail, Unknown]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.any.html: [fail, Unknown]
+event-upload-progress.any.html: [fail, Unknown]
 formdata.htm: [fail, FormDataEvent is not implemented]
 getallresponseheaders.htm: [fail, Unknown]
 getresponseheader.any.html: [fail, Unknown]
@@ -1183,6 +1306,7 @@ open-url-worker-origin.htm: [fail, Needs Worker implementation]
 open-url-worker-simple.htm: [timeout, Needs Worker implementation]
 overridemimetype-blob.html: [fail, Unknown]
 overridemimetype-edge-cases.window.html: [fail, Unknown]
+request-content-length.any.html: [fail, needs URL.createObjectURL]
 response-body-errors.any.html: [flaky, Somehow an error is escaping to be unhandled; not clear why we aren't catching it]
 response-method.htm: [flaky, Usually fails with a parse error in Node.js v12 but occasionally passes as it did in previous versions]
 responseType-document-in-worker.html: [fail, Needs Worker implementation]
