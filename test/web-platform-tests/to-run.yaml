@@ -32,7 +32,10 @@ DIR: cors
 
 304.htm: [fail-slow, Unknown]
 access-control-expose-headers-parsing.window.html: [fail, Depends on fetch]
-basic.htm: [fail, Unknown]
+basic.htm:
+  "Cross domain basic usage, origin: echo": [fail, Unknown]
+  "Cross domain different port, origin: echo": [fail, Unknown]
+  "Cross domain different protocol, origin: echo": [fail, Unknown]
 client-hint-request-headers-2.tentative.htm: [fail, Client Hints not implemented]
 client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
 cors-safelisted-request-header.any.html: [fail, Depends on fetch]
