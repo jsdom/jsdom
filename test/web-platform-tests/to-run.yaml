@@ -127,13 +127,22 @@ CustomElementRegistry.html:
   'customElements.define must rethrow an exception thrown while getting additional formAssociated callbacks on the constructor prototype': [fail, formAssociated not implemented]
   'customElements.whenDefined must return a promise for a valid custom element name': [fail, Unknown]
   'customElements.define must not throw when defining another custom element in a different global object during Get(constructor, "prototype")': [fail, Not supported]
-Document-createElement.html: [fail, :defined is not defined and throws]
+Document-createElement.html:
+  "document.createElement must create an instance of autonomous custom elements when it has is attribute": [fail, :defined is not defined and throws]
+  "document.createElement must report a NotSupportedError when the local name of the element does not match that of the custom element": [fail, throws TypeError instead]
+  "document.createElement must report an exception thrown by a custom built-in element constructor": [fail, Unknown]
 HTMLElement-attachInternals.html: [fail, Not implemented]
-HTMLElement-constructor.html: [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
+HTMLElement-constructor.html:
+  "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself": [fail, Unknown]
+  "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself via a Proxy object": [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
 adopted-callback.html: [fail, "Failing test due to https://github.com/whatwg/dom/issues/813"]
-attribute-changed-callback.html: [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration, https://github.com/jsdom/cssstyle/issues/113]
-custom-element-reaction-queue.html: [fail, document.write() implementation is not spec compliant]
-custom-element-registry/per-global.html: [fail, iframe location related issue]
+attribute-changed-callback.html:
+  "attributedChangedCallback must be enqueued for style attribute change by mutating inline style declaration": [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration, https://github.com/jsdom/cssstyle/issues/113]
+custom-element-reaction-queue.html:
+  "Upgrading a custom element must invoke attributeChangedCallback and connectedCallback before start upgrading another element": [fail, document.write() implementation is not spec compliant]
+  "Mutating a undefined custom element while upgrading a custom element must not enqueue or invoke reactions on the mutated element": [fail, document.write() implementation is not spec compliant]
+custom-element-registry/per-global.html:
+  "Navigating from the initial about:blank must not replace window.customElements": [fail, iframe location related issue]
 element-internals-shadowroot.html: [fail, Not implemented]
 form-associated/**: [fail, Not implemented]
 htmlconstructor/newtarget.html: [fail, Currently impossible to get the active function associated realm]
@@ -145,10 +154,10 @@ parser/parser-sets-attributes-and-children.html: [fail, Usage of external script
 parser/parser-uses-constructed-element.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 perform-microtask-checkpoint-before-construction.html: [fail, impossible to implement microtask checkpoint without patching Promise]
 pseudo-class-defined.html: [timeout, :defined is not defined and throws]
-reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using wedidl2js]
-reactions/Document.html: [fail,
-  document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539
-  document.write() implementation is not spec compliant]
+reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using webidl2js, https://github.com/jsdom/cssstyle/issues/113]
+reactions/Document.html:
+  "execCommand on Document must enqueue a disconnected reaction when deleting a custom element from a contenteditable element": [fail, document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539]
+  "write on Document must enqueue disconnectedCallback when removing a custom element": [fail, document.write() implementation is not spec compliant]
 reactions/ElementContentEditable.html: [fail, contentEditable is not implemented]
 reactions/HTMLAreaElement.html: [fail, HTMLAreaElement doesn't implement download ping and referrerPolicy]
 reactions/HTMLButtonElement.html: [fail, HTMLButtonElement doesn't implement formAction formEnctype and formMethod]
