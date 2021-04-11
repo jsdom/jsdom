@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.5.3
+
+* Fixed infinite recursion when using `MutationObserver`s to observe elements inside a `MutationObserver` callback.
+
 ## 16.5.2
 
 * Fixed `Access-Control-Allow-Headers: *` to work with `XMLHttpRequest`. (silviot)
