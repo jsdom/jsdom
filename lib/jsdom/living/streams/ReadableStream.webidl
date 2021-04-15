@@ -8,8 +8,8 @@ interface ReadableStream {
 
   Promise<undefined> cancel(optional any reason);
   ReadableStreamReader getReader(optional ReadableStreamGetReaderOptions options = {});
-  ReadableStream pipeThrough(ReadableWritablePair transform, optional StreamPipeOptions options = {});
-  Promise<undefined> pipeTo(WritableStream destination, optional StreamPipeOptions options = {});
+  // ReadableStream pipeThrough(ReadableWritablePair transform, optional StreamPipeOptions options = {});
+  // Promise<undefined> pipeTo(WritableStream destination, optional StreamPipeOptions options = {});
   sequence<ReadableStream> tee();
 
   async iterable<any>(optional ReadableStreamIteratorOptions options = {});
