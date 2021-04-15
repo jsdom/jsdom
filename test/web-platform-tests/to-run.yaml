@@ -222,7 +222,6 @@ Node-cloneNode.html: [timeout, Often takes more than 70 seconds to pass, https:/
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
 ParentNode-querySelector-All.html: [fail, ::slotted() pseudo-class is not supported]
-ParentNode-replaceChildren.html: [fail, Not implemented]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
 aria-attribute-reflection.tentative.html: [fail, Unknown]
