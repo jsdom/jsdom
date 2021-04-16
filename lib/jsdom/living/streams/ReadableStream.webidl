@@ -10,9 +10,9 @@ interface ReadableStream {
   ReadableStreamReader getReader(optional ReadableStreamGetReaderOptions options = {});
   // ReadableStream pipeThrough(ReadableWritablePair transform, optional StreamPipeOptions options = {});
   // Promise<undefined> pipeTo(WritableStream destination, optional StreamPipeOptions options = {});
-  sequence<ReadableStream> tee();
+  // sequence<ReadableStream> tee();
 
-  async iterable<any>(optional ReadableStreamIteratorOptions options = {});
+  // async iterable<any>(optional ReadableStreamIteratorOptions options = {});
 };
 
 typedef (ReadableStreamDefaultReader or ReadableStreamBYOBReader) ReadableStreamReader;
