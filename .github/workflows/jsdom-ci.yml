@@ -8,7 +8,6 @@ on:
   push:
     branches:
      - master
-     - replace-fetch
   pull_request:
     branches:
      - master
