@@ -123,6 +123,7 @@ exports.getTestFixtureUrl = relativePath => {
  */
 exports.readTestFixture = relativePath => {
   if (exports.inBrowserContext()) {
+    // eslint-disable-next-line no-undef
     const abortController = new AbortController();
     const { signal } = abortController;
     const timeout = setTimeout(() => {
@@ -140,6 +141,7 @@ exports.readTestFixture = relativePath => {
       clearTimeout(timeout);
       throw e;
     }
+    // eslint-disable-next-line no-undef
     return fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal }).then(res).catch(fail);
   }
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
