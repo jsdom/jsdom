@@ -123,7 +123,7 @@ exports.getTestFixtureUrl = relativePath => {
  */
 exports.readTestFixture = relativePath => {
   if (exports.inBrowserContext()) {
-    const abortController = new window.AbortController();
+    const abortController = new AbortController();
     const { signal } = abortController;
     const timeout = setTimeout(() => {
       abortController.abort();
@@ -140,7 +140,7 @@ exports.readTestFixture = relativePath => {
       clearTimeout(timeout);
       throw e;
     }
-    return window.fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal }).then(res).catch(fail);
+    return fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal }).then(res).catch(fail);
   }
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
 };
