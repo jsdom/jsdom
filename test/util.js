@@ -4,6 +4,8 @@ const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const enableDestroy = require("server-destroy");
+const AbortController = require("abort-controller");
+const { fetch } = require("whatwg-fetch");
 const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
 
@@ -123,13 +125,11 @@ exports.getTestFixtureUrl = relativePath => {
  */
 exports.readTestFixture = relativePath => {
   if (exports.inBrowserContext()) {
-    // eslint-disable-next-line no-undef
     const abortController = new AbortController();
     const { signal } = abortController;
     const timeout = setTimeout(() => {
       abortController.abort();
     }, 5000);
-    // Since we're in a browser context, the browser's fetch instance is being used, not node-fetch.
     function res(response) {
       if (!response.ok) {
         throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
@@ -141,7 +141,6 @@ exports.readTestFixture = relativePath => {
       clearTimeout(timeout);
       throw e;
     }
-    // eslint-disable-next-line no-undef
     return fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal }).then(res).catch(fail);
   }
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
