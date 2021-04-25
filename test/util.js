@@ -5,7 +5,7 @@ const http = require("http");
 const https = require("https");
 const enableDestroy = require("server-destroy");
 const AbortController = require("abort-controller");
-const { fetch } = require("whatwg-fetch");
+const fetch = require("node-fetch");
 const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
 
