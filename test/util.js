@@ -123,25 +123,24 @@ exports.getTestFixtureUrl = relativePath => {
  * If running tests using karma, a http request will be performed to retrieve the file using karma's server.
  * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
  */
-exports.readTestFixture = relativePath => {
+exports.readTestFixture = async relativePath => {
   if (exports.inBrowserContext()) {
     const abortController = new AbortController();
     const { signal } = abortController;
     const timeout = setTimeout(() => {
       abortController.abort();
     }, 5000);
-    function res(response) {
+    try {
+      const response = await fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal });
       if (!response.ok) {
         throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
       }
       clearTimeout(timeout);
       return response.text();
-    }
-    function fail(e) {
+    } catch (e) {
       clearTimeout(timeout);
       throw e;
     }
-    return fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal }).then(res).catch(fail);
   }
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
 };
