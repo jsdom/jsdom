@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>Throwing in event listeners</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+<script>
+    setup({ allow_uncaught_exception: true })
+
+    test(function () {
+        var errorEvents = 0;
+        document.defaultView.addEventListener("error", event => {
+            console.log(event);
+            assert_equals(event.message, null);
+            assert_equals(event.error, null);
+            ++errorEvents;
+        });
+
+        var element = document.createElement('div');
+
+        element.addEventListener('click', function () {
+            throw null;
+        });
+
+        element.dispatchEvent(new Event('click'));
+
+        assert_equals(errorEvents, 1);
+    }, "Throwing null in event listener");
+</script>
