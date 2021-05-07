@@ -183,6 +183,28 @@ describe("on-error", () => {
   );
 
   specify(
+    "onerror catches null value thrown from event handler",
+    t => {
+      const doc = docForTests();
+
+      doc.body.onclick = () => {
+        throw null;
+      };
+
+      doc.defaultView.addEventListener("error", event => {
+        assert.isNull(event.message);
+        assert.isNull(event.error);
+        t.done();
+      });
+
+      doc.body.click();
+    },
+    {
+      async: true
+    }
+  );
+
+  specify(
     "unhandled Errors thrown in sync script excecution during parsing go to the virtual console",
     t => {
       const virtualConsole = new VirtualConsole();
@@ -286,6 +308,27 @@ describe("on-error", () => {
       setTimeout(() => {
         t.done();
       }, 30);
+    },
+    {
+      async: true
+    }
+  );
+
+  specify(
+    "unhandled null value thrown in inline event handlers go to the virtual console",
+    t => {
+      const virtualConsole = new VirtualConsole();
+      virtualConsole.on("jsdomError", error => {
+        assert.ok(error instanceof Error);
+        assert.equal(error.message, "Uncaught null");
+        assert.isNull(error.detail);
+        t.done();
+      });
+
+      const html = `<body onclick="throw null"></body>`;
+      const doc = (new JSDOM(html, { virtualConsole, runScripts: "dangerously" })).window.document;
+
+      doc.body.click();
     },
     {
       async: true
