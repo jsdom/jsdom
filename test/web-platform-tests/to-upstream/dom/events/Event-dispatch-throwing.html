@@ -5,25 +5,26 @@
 <script src="/resources/testharnessreport.js"></script>
 <div id="log"></div>
 <script>
-    setup({ allow_uncaught_exception: true })
+  "use strict";
 
-    test(function () {
-        var errorEvents = 0;
-        document.defaultView.addEventListener("error", event => {
-            console.log(event);
-            assert_equals(event.message, null);
-            assert_equals(event.error, null);
-            ++errorEvents;
-        });
+  setup({ allow_uncaught_exception: true });
 
-        var element = document.createElement('div');
+  test(() => {
+    let errorEvents = 0;
+    document.defaultView.addEventListener("error", event => {
+      assert_equals(event.message, null);
+      assert_equals(event.error, null);
+      ++errorEvents;
+    });
 
-        element.addEventListener('click', function () {
-            throw null;
-        });
+    const element = document.createElement("div");
 
-        element.dispatchEvent(new Event('click'));
+    element.addEventListener("click", () => {
+      throw null; // eslint-disable-line no-throw-literal
+    });
 
-        assert_equals(errorEvents, 1);
-    }, "Throwing null in event listener");
+    element.dispatchEvent(new Event("click"));
+
+    assert_equals(errorEvents, 1);
+  }, "Throwing null in event listener");
 </script>

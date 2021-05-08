@@ -47,9 +47,7 @@ describe("API: virtual console jsdomErrors", () => {
     const doc = (new JSDOM(html, { virtualConsole, runScripts: "dangerously" })).window.document;
 
     doc.body.click();
-  },
-    {
-      async: true
-    }
-  );
+  }, {
+    async: true
+  });
 });
