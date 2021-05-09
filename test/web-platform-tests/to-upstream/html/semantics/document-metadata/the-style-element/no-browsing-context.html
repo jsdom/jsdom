@@ -27,6 +27,7 @@ test(() => {
   const style = doc.createElement("style");
   doc.head.appendChild(style);
   assert_not_equals(style.sheet, null);
+  assert_not_equals(style.sheet, undefined);
 }, "connected style elements with no browsing context should have a non-null sheet property");
 
 test(() => {
@@ -37,9 +38,7 @@ test(() => {
   `;
 
   doc.head.appendChild(style);
-  assert_equals(style.sheet.rules.length, 1);
-  assert_not_equals(style.sheet.rules[0].style, null);
-  assert_equals(style.sheet.rules[0].style.color, "red");
+  assert_equals(style.sheet.cssRules[0].style.color, "red");
 }, "connected style elements with no browsing context should have style rules");
 
 async_test(t => {
