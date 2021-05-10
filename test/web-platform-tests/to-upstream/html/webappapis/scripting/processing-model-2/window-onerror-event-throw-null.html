@@ -1,6 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <meta charset="UTF-8">
-<title>Throwing in event listeners</title>
+<title>window.onerror: throwing null in event listeners</title>
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <div id="log"></div>
@@ -11,7 +11,7 @@
 
   test(() => {
     let errorEvents = 0;
-    document.defaultView.addEventListener("error", event => {
+    window.addEventListener("error", event => {
       assert_equals(event.message, null);
       assert_equals(event.error, null);
       ++errorEvents;
