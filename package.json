@@ -61,7 +61,6 @@
   },
   "devDependencies": {
     "@domenic/eslint-config": "^1.1.0",
-    "abort-controller": "^3.0.0",
     "benchmark": "^2.1.4",
     "browserify": "^17.0.0",
     "chai": "^4.3.4",

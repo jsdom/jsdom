@@ -4,8 +4,6 @@ const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const enableDestroy = require("server-destroy");
-const AbortController = require("abort-controller");
-const fetch = require("node-fetch");
 const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
 
@@ -125,13 +123,13 @@ exports.getTestFixtureUrl = relativePath => {
  */
 exports.readTestFixture = async relativePath => {
   if (exports.inBrowserContext()) {
-    const abortController = new AbortController();
+    const abortController = new self.AbortController();
     const { signal } = abortController;
     const timeout = setTimeout(() => {
       abortController.abort();
     }, 5000);
     try {
-      const response = await fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal });
+      const response = await self.fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal });
       if (!response.ok) {
         throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
       }
