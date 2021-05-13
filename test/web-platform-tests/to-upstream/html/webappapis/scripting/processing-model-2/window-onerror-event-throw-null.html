@@ -11,9 +11,9 @@
 
   test(() => {
     let errorEvents = 0;
+    let errorEvent;
     window.addEventListener("error", event => {
-      assert_equals(event.message, null);
-      assert_equals(event.error, null);
+      errorEvent = event;
       ++errorEvents;
     });
 
@@ -26,5 +26,7 @@
     element.dispatchEvent(new Event("click"));
 
     assert_equals(errorEvents, 1);
+    assert_equals(errorEvent.message, "uncaught exception: null");
+    assert_equals(errorEvent.error, null);
   }, "Throwing null in event listener");
 </script>
