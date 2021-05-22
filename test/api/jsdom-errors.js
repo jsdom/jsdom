@@ -33,4 +33,21 @@ describe("API: virtual console jsdomErrors", () => {
 
     assert.isEmpty(errors);
   });
+
+  it("should emit unhandled null value thrown in inline event handlers", t => {
+    const virtualConsole = new VirtualConsole();
+    virtualConsole.on("jsdomError", error => {
+      assert.ok(error instanceof Error);
+      assert.equal(error.message, "Uncaught null");
+      assert.isNull(error.detail);
+      t.done();
+    });
+
+    const html = `<body onclick="throw null"></body>`;
+    const doc = (new JSDOM(html, { virtualConsole, runScripts: "dangerously" })).window.document;
+
+    doc.body.click();
+  }, {
+    async: true
+  });
 });
