@@ -76,7 +76,6 @@
     "minimatch": "^3.0.4",
     "mocha": "^8.4.0",
     "mocha-sugar-free": "^1.4.0",
-    "node-fetch": "^2.6.1",
     "optimist": "0.6.1",
     "rimraf": "^3.0.2",
     "server-destroy": "^1.0.1",

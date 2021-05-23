@@ -4,7 +4,7 @@ const dns = require("dns");
 const path = require("path");
 const util = require("util");
 const childProcess = require("child_process");
-const fetch = require("node-fetch");
+const http = require("http");
 const https = require("https");
 const { inBrowserContext } = require("../util.js");
 
@@ -68,23 +68,30 @@ module.exports = ({ toUpstream = false } = {}) => {
 
 function pollForServer(url, lastLogTime = Date.now()) {
   const agent = url.startsWith("https") ? new https.Agent({ rejectUnauthorized: false }) : null;
-  return fetch(url, { method: "HEAD", agent })
-    .then(({ ok, status }) => {
-      if (!ok) {
-        throw new Error(`Unexpected status=${status}`);
-      }
-      console.log(`WPT server at ${url} is up!`);
-      return url;
-    })
-    .catch(err => {
-      // Only log every 5 seconds to be less spammy.
-      if (Date.now() - lastLogTime >= 5000) {
-        console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
-        lastLogTime = Date.now();
-      }
+  const { request } = url.startsWith("https") ? https : http;
 
-      return new Promise(resolve => {
-        setTimeout(() => resolve(pollForServer(url, lastLogTime)), 500);
-      });
+  // Using raw Node.js http/https modules is gross, but it's not worth pulling in something like node-fetch for just
+  // this one part of the test codebase.
+  return new Promise((resolve, reject) => {
+    const req = request(url, { method: "HEAD", agent }, res => {
+      if (res.statusCode < 200 || res.statusCode > 299) {
+        reject(new Error(`Unexpected status=${res.statusCode}`));
+      } else {
+        resolve(url);
+      }
     });
+
+    req.on("error", reject);
+    req.end();
+  }).catch(err => {
+    // Only log every 5 seconds to be less spammy.
+    if (Date.now() - lastLogTime >= 5000) {
+      console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
+      lastLogTime = Date.now();
+    }
+
+    return new Promise(resolve => {
+      setTimeout(() => resolve(pollForServer(url, lastLogTime)), 500);
+    });
+  });
 }
