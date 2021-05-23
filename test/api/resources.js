@@ -306,7 +306,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
         return assertError(element);
       });
 
-      it("should fire an load event downloading via XHR", { slow: 500 }, async () => {
+      it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
         const url = await resourceServer404();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });

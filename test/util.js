@@ -4,7 +4,6 @@ const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const enableDestroy = require("server-destroy");
-const request = require("request-promise-native");
 const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
 
@@ -123,9 +122,23 @@ function getTestFixtureUrl(relativePath) {
  * If running tests using karma, a http request will be performed to retrieve the file using karma's server.
  * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
  */
-exports.readTestFixture = relativePath => {
+exports.readTestFixture = async relativePath => {
   if (exports.inBrowserContext()) {
-    return request(getTestFixtureUrl(relativePath), { timeout: 5000 });
+    const abortController = new self.AbortController();
+    const { signal } = abortController;
+    const timeout = setTimeout(() => {
+      abortController.abort();
+    }, 5000);
+
+    try {
+      const response = await self.fetch(getTestFixtureUrl(relativePath), { method: "GET", signal });
+      if (!response.ok) {
+        throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
+      }
+      return response.text();
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
