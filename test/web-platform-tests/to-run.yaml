@@ -2,22 +2,28 @@ DIR: FileAPI
 
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
-blob/Blob-constructor.any.html: [fail, "- Blob is not a function
-                                    - a date is not instanceof Date
-                                    - a regexp is not instanceof Regexp
-                                    - strange v8 behaviour when error triggered in overridden array length
-                                    - HTMLSelectElement does not have indexed properties
-                                    - MessageChannel not implemented
-                                    - element attributes does not have indexed properties"]
+blob/Blob-constructor.any.html:
+  "Blob interface object": [fail, "Blob is not a function"]
+  "Passing a FrozenArray as the blobParts array should work (FrozenArray<MessagePort>).": [fail, Depends on MessagePort]
 blob/Blob-stream.any.html: [fail, Unknown]
 blob/Blob-text.any.html: [fail, Depends on TextEncoder]
 file/send-file-form*: [fail, DataTransfer not implemented]
-filelist-section/filelist.html: [fail, function is not instanceof Function]
-historical.https.html: [fail, Needs Service Worker implementation]
+filelist-section/filelist.html:
+  "Check if item is a instanceof Function": [fail, function is not instanceof Function]
+historical.https.html:
+  "Service worker test setup": [fail, Needs Service Worker implementation]
 idlharness.html: [fail, URL.createObjectURL not implemented]
 reading-data-section/FileReader-multiple-reads.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
 reading-data-section/filereader_events.any.html: [fail, Unknown]
-reading-data-section/filereader_result.html: [fail, Unknown]
+reading-data-section/filereader_result.html:
+  'result is null during "loadstart" event for readAsText': [fail, Unknown]
+  'result is null during "loadstart" event for readAsDataURL': [fail, Unknown]
+  'result is null during "loadstart" event for readAsArrayBuffer': [fail, Unknown]
+  'result is null during "loadstart" event for readAsBinaryString': [fail, Unknown]
+  'result is null during "progress" event for readAsText': [fail, Unknown]
+  'result is null during "progress" event for readAsDataURL': [fail, Unknown]
+  'result is null during "progress" event for readAsArrayBuffer': [fail, Unknown]
+  'result is null during "progress" event for readAsBinaryString': [fail, Unknown]
 url/**: [timeout, blob URLs not implemented]
 
 ---
@@ -26,7 +32,10 @@ DIR: cors
 
 304.htm: [fail-slow, Unknown]
 access-control-expose-headers-parsing.window.html: [fail, Depends on fetch]
-basic.htm: [fail, Unknown]
+basic.htm:
+  "Cross domain basic usage, origin: echo": [fail, Unknown]
+  "Cross domain different port, origin: echo": [fail, Unknown]
+  "Cross domain different protocol, origin: echo": [fail, Unknown]
 client-hint-request-headers-2.tentative.htm: [fail, Client Hints not implemented]
 client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
 cors-safelisted-request-header.any.html: [fail, Depends on fetch]
@@ -118,13 +127,22 @@ CustomElementRegistry.html:
   'customElements.define must rethrow an exception thrown while getting additional formAssociated callbacks on the constructor prototype': [fail, formAssociated not implemented]
   'customElements.whenDefined must return a promise for a valid custom element name': [fail, Unknown]
   'customElements.define must not throw when defining another custom element in a different global object during Get(constructor, "prototype")': [fail, Not supported]
-Document-createElement.html: [fail, :defined is not defined and throws]
+Document-createElement.html:
+  "document.createElement must create an instance of autonomous custom elements when it has is attribute": [fail, :defined is not defined and throws]
+  "document.createElement must report a NotSupportedError when the local name of the element does not match that of the custom element": [fail, throws TypeError instead]
+  "document.createElement must report an exception thrown by a custom built-in element constructor": [fail, Unknown]
 HTMLElement-attachInternals.html: [fail, Not implemented]
-HTMLElement-constructor.html: [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
+HTMLElement-constructor.html:
+  "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself": [fail, Unknown]
+  "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself via a Proxy object": [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
 adopted-callback.html: [fail, "Failing test due to https://github.com/whatwg/dom/issues/813"]
-attribute-changed-callback.html: [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration, https://github.com/jsdom/cssstyle/issues/113]
-custom-element-reaction-queue.html: [fail, document.write() implementation is not spec compliant]
-custom-element-registry/per-global.html: [fail, iframe location related issue]
+attribute-changed-callback.html:
+  "attributedChangedCallback must be enqueued for style attribute change by mutating inline style declaration": [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration, https://github.com/jsdom/cssstyle/issues/113]
+custom-element-reaction-queue.html:
+  "Upgrading a custom element must invoke attributeChangedCallback and connectedCallback before start upgrading another element": [fail, document.write() implementation is not spec compliant]
+  "Mutating a undefined custom element while upgrading a custom element must not enqueue or invoke reactions on the mutated element": [fail, document.write() implementation is not spec compliant]
+custom-element-registry/per-global.html:
+  "Navigating from the initial about:blank must not replace window.customElements": [fail, iframe location related issue]
 element-internals-shadowroot.html: [fail, Not implemented]
 form-associated/**: [fail, Not implemented]
 htmlconstructor/newtarget.html: [fail, Currently impossible to get the active function associated realm]
@@ -136,10 +154,10 @@ parser/parser-sets-attributes-and-children.html: [fail, Usage of external script
 parser/parser-uses-constructed-element.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 perform-microtask-checkpoint-before-construction.html: [fail, impossible to implement microtask checkpoint without patching Promise]
 pseudo-class-defined.html: [timeout, :defined is not defined and throws]
-reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using wedidl2js]
-reactions/Document.html: [fail,
-  document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539
-  document.write() implementation is not spec compliant]
+reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using webidl2js, https://github.com/jsdom/cssstyle/issues/113]
+reactions/Document.html:
+  "execCommand on Document must enqueue a disconnected reaction when deleting a custom element from a contenteditable element": [fail, document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539]
+  "write on Document must enqueue disconnectedCallback when removing a custom element": [fail, document.write() implementation is not spec compliant]
 reactions/ElementContentEditable.html: [fail, contentEditable is not implemented]
 reactions/HTMLAreaElement.html: [fail, HTMLAreaElement doesn't implement download ping and referrerPolicy]
 reactions/HTMLButtonElement.html: [fail, HTMLButtonElement doesn't implement formAction formEnctype and formMethod]
@@ -204,7 +222,6 @@ Node-cloneNode.html: [timeout, Often takes more than 70 seconds to pass, https:/
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
 ParentNode-querySelector-All.html: [fail, ::slotted() pseudo-class is not supported]
-ParentNode-replaceChildren.html: [fail, Not implemented]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
 aria-attribute-reflection.tentative.html: [fail, Unknown]
@@ -559,7 +576,7 @@ DIR: html/canvas/element/drawing-images-to-the-canvas
 2d.drawImage.negativedir.html: [fail, Not implemented]
 2d.drawImage.nonexistent.html: [fail, The canvas package doesn't use jsdom DOMExceptions]
 2d.drawImage.zerocanvas.html: [fail, Not implemented]
-2d.drawImage.zerosource.image.html: [fail, Not implemented]
+2d.drawImage.zerosource.image.html: [timeout, Causes crash in canvas v2.8.0 (not v2.7.0)]
 
 ---
 
