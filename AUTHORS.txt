@@ -194,6 +194,7 @@ Matthew Pflueger <matthew.pflueger@gmail.com>
 Matthew Phillips <matthew@matthewphillips.info>
 Max Walker <maxwell.a.walker@gmail.com>
 Maxim Vorobjov <maxim.vorobjov@gmail.com>
+Michael Best <mbest@dasya.com>
 Michael Fleet <mofosho@fantasticmf.com>
 Michael Hayes <michael.hayes@urbanairship.com>
 Michael Mior <michael.mior@gmail.com>
@@ -211,6 +212,7 @@ Nicklas Gummesson <nicklas.gummesson@gmail.com>
 Nicolas HENRY <icewil@gmail.com>
 Nicolas LaCasse <nicolas.lacasse@gmail.com>
 Nik Nyby <niknyby@gmail.com>
+ninevra <ninevra@gmail.com>
 Ojek <ojek25@gmail.com>
 Olivier El Mekki <olivier@el-mekki.com>
 Ondřej Žára <ondras@zarovi.cz>

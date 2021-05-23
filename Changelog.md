@@ -26,6 +26,12 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.6.0
+
+* Added `parentNode.replaceChildren()`. (ninevra)
+* Fixed jsdom's handling of when code running inside the jsdom throws `null` or `undefined` as an exception. (mbest)
+* Removed the dependency on the deprecated [`request`](https://www.npmjs.com/package/request) package, in the process fixing several issues with the `XMLHttpRequest` implementation around header processing. Special thanks to vegardbb for completing this months-long effort!
+
 ## 16.5.3
 
 * Fixed infinite recursion when using `MutationObserver`s to observe elements inside a `MutationObserver` callback.
