@@ -576,7 +576,7 @@ DIR: html/canvas/element/drawing-images-to-the-canvas
 2d.drawImage.negativedir.html: [fail, Not implemented]
 2d.drawImage.nonexistent.html: [fail, The canvas package doesn't use jsdom DOMExceptions]
 2d.drawImage.zerocanvas.html: [fail, Not implemented]
-2d.drawImage.zerosource.image.html: [fail, Not implemented]
+2d.drawImage.zerosource.image.html: [timeout, Causes crash in canvas v2.8.0 (not v2.7.0)]
 
 ---
 
