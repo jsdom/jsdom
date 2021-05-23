@@ -112,6 +112,7 @@ function getTestFixtureUrl(relativePath) {
     // location is a Location or WorkerLocation
     return location.origin + "/base/test" + (relativePath[0] === "/" ? "" : "/") + relativePath;
   }
+
   return toFileUrl(__dirname, relativePath);
 }
 
@@ -128,6 +129,7 @@ exports.readTestFixture = async relativePath => {
     const timeout = setTimeout(() => {
       abortController.abort();
     }, 5000);
+
     try {
       const response = await self.fetch(getTestFixtureUrl(relativePath), { method: "GET", signal });
       if (!response.ok) {
@@ -138,6 +140,7 @@ exports.readTestFixture = async relativePath => {
       clearTimeout(timeout);
     }
   }
+
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
 };
 
