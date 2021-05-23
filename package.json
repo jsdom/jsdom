@@ -80,7 +80,6 @@
     "optimist": "0.6.1",
     "rimraf": "^3.0.2",
     "server-destroy": "^1.0.1",
-    "st": "^2.0.0",
     "watchify": "^4.0.0",
     "wd": "^1.14.0",
     "webidl2js": "^16.2.0"
