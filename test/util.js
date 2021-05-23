@@ -106,14 +106,14 @@ exports.inBrowserContext = () => {
  * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
  * @returns {string} URL
  */
-exports.getTestFixtureUrl = relativePath => {
+function getTestFixtureUrl(relativePath) {
   /* globals location */
   if (exports.inBrowserContext()) {
     // location is a Location or WorkerLocation
     return location.origin + "/base/test" + (relativePath[0] === "/" ? "" : "/") + relativePath;
   }
   return toFileUrl(__dirname, relativePath);
-};
+}
 
 /**
  * Reads a static fixture file as utf8.
@@ -129,15 +129,13 @@ exports.readTestFixture = async relativePath => {
       abortController.abort();
     }, 5000);
     try {
-      const response = await self.fetch(exports.getTestFixtureUrl(relativePath), { method: "GET", signal });
+      const response = await self.fetch(getTestFixtureUrl(relativePath), { method: "GET", signal });
       if (!response.ok) {
         throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
       }
-      clearTimeout(timeout);
       return response.text();
-    } catch (e) {
+    } finally {
       clearTimeout(timeout);
-      throw e;
     }
   }
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
