@@ -1227,19 +1227,27 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://g
 
 ---
 
-DIR: streams/readable-streams
+DIR: streams
 
-async-iterator.any.html: [fail, async iteration not implemented]
-bad-underlying-sources.any.html:
+idlharness.any.html: [fail, requires fetch]
+piping/**: [fail, not implemented?]
+queuing-strategies-size-function-per-global.window.html: [fail, requires QueueingStrategies]
+queuing-strategies.any.html: [fail, requires CountQueuingStrategy]
+readable-byte-streams/**: [fail, not implemented]
+readable-streams/async-iterator.any.html: [fail, async iteration not implemented]
+readable-streams/bad-underlying-sources.any.html:
   "read should not error if it dequeues and pull() throws": [fail, requires CountQueuingStrategy]
-count-queuing-strategy-integration.any.html: [fail, CountQueueingStrategy not implemented]
-patched-global.any.html: [fail, requires various]
-reentrant-strategies.any.html:
+readable-streams/count-queuing-strategy-integration.any.html: [fail, CountQueueingStrategy not implemented]
+readable-streams/patched-global.any.html: [fail, requires various]
+readable-streams/reentrant-strategies.any.html:
   "pipeTo() inside size() should behave as expected": [fail, requires WritableStream]
   "tee() inside size() should work": [fail, requires tee]
-tee.any.html: [fail, tee not implemented]
-templated.any.html:
+readable-streams/tee.any.html: [fail, tee not implemented]
+readable-streams/templated.any.html:
   "ReadableStream (empty): instances have the correct methods and properties": [fail, requires pipeThrough]
+transferable/**: [fail-slow, transfering anything is not implemeneted]
+transform-streams/**: [fail, not implemented]
+writable-streams/**: [fail, not implemented]
 
 ---
 
