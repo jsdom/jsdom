@@ -1232,12 +1232,8 @@ DIR: streams
 idlharness.any.html: [fail, requires fetch]
 piping/**: [fail, not implemented?]
 queuing-strategies-size-function-per-global.window.html: [fail, requires QueueingStrategies]
-queuing-strategies.any.html: [fail, requires CountQueuingStrategy]
 readable-byte-streams/**: [fail, not implemented]
 readable-streams/async-iterator.any.html: [fail, async iteration not implemented]
-readable-streams/bad-underlying-sources.any.html:
-  "read should not error if it dequeues and pull() throws": [fail, requires CountQueuingStrategy]
-readable-streams/count-queuing-strategy-integration.any.html: [fail, CountQueueingStrategy not implemented]
 readable-streams/patched-global.any.html: [fail, requires various]
 readable-streams/reentrant-strategies.any.html:
   "pipeTo() inside size() should behave as expected": [fail, requires WritableStream]
