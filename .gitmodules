@@ -1,0 +1,3 @@
+[submodule "reference-implementation/web-platform-tests"]
+	path = reference-implementation/web-platform-tests
+	url = https://github.com/web-platform-tests/wpt.git

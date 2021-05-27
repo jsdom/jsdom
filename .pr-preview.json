@@ -1,0 +1,9 @@
+{
+  "src_file": "index.bs",
+  "type": "bikeshed",
+  "params": {
+    "force": 1,
+    "md-status": "LS-PR",
+    "md-Text-Macro": "PR-NUMBER {{ pull_request.number }}"
+  }
+}

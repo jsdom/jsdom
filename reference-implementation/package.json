@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "description": "Reference implementation and tests for the WHATWG Streams Standard",
+  "scripts": {
+    "pretest": "node compile-idl.js",
+    "test": "npm run lint && npm run wpt",
+    "wpt": "npm run pretest && node --expose_gc run-web-platform-tests.js",
+    "sync-wpt": "git submodule update --init",
+    "lint": "eslint .",
+    "coverage": "nyc --reporter=lcov npm test && opener coverage/lcov-report/index.html"
+  },
+  "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
+  "license": "(CC0-1.0 OR MIT)",
+  "devDependencies": {
+    "browserify": "^16.5.1",
+    "debug": "^4.1.1",
+    "eslint": "^6.8.0",
+    "minimatch": "^3.0.4",
+    "nyc": "^15.0.1",
+    "opener": "^1.5.1",
+    "webidl2js": "^16.2.0",
+    "wpt-runner": "^3.2.1"
+  },
+  "nyc": {
+    "include": [
+      "**/lib/**/*.js"
+    ]
+  }
+}
