@@ -1229,6 +1229,10 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://g
 
 DIR: streams
 
+idlharness.any.html: [fail, Depends on fetch]
+readable-streams/async-iterator.any.html: [fail, AsyncIterator prototype is wrong]
+transferable/**: [fail, Depends on postMessage() supporting transferlists]
+
 ---
 
 DIR: uievents
