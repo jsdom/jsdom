@@ -1227,6 +1227,10 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://g
 
 ---
 
+DIR: streams
+
+---
+
 DIR: uievents
 
 idlharness.window.html: [fail, Depends on fetch]
