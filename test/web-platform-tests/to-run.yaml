@@ -1231,7 +1231,7 @@ DIR: streams
 
 idlharness.any.html: [fail, Depends on fetch]
 readable-streams/async-iterator.any.html: [fail, AsyncIterator prototype is wrong]
-transferable/**: [fail, Depends on postMessage() supporting transferlists]
+transferable/**: [fail-slow, Unknown and Depends on postMessage() supporting transferlists]
 
 ---
 
