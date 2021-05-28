@@ -1230,6 +1230,9 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://g
 DIR: streams
 
 idlharness.any.html: [fail, Depends on fetch]
+readable-byte-streams/bad-buffers-and-views.any.html:
+  "ReadableStream with byte source: respondWithNewView() throws if the supplied view's buffer is zero-length (in the closed state)": [fail, Implementation is ahead of the tests]
+  "ReadableStream with byte source: respondWithNewView() throws if the supplied view is zero-length on a non-zero-length buffer (in the closed state)": [fail, Implementation is ahead of the tests]
 readable-streams/async-iterator.any.html: [fail, AsyncIterator prototype is wrong]
 transferable/**: [fail-slow, Unknown and Depends on postMessage() supporting transferlists]
 
