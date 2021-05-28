@@ -1234,7 +1234,12 @@ readable-byte-streams/bad-buffers-and-views.any.html:
   "ReadableStream with byte source: respondWithNewView() throws if the supplied view's buffer is zero-length (in the closed state)": [fail, Implementation is ahead of the tests]
   "ReadableStream with byte source: respondWithNewView() throws if the supplied view is zero-length on a non-zero-length buffer (in the closed state)": [fail, Implementation is ahead of the tests]
 readable-streams/async-iterator.any.html: [fail, AsyncIterator prototype is wrong]
+readable-streams/tee.any.html: [fail, Very strange bug, not related to streams]
 transferable/**: [fail-slow, Unknown and Depends on postMessage() supporting transferlists]
+transform-streams/patched-global.any.html:
+  "TransformStream should use the original value of ReadableStream and WritableStream": [fail, Very strange bug, not related to streams]
+writable-streams/close.any.html:
+  "ready promise should be initialised as fulfilled for a writer on a closed stream": [fail, Promise prototype is wrong]
 
 ---
 
