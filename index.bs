@@ -1322,8 +1322,8 @@ the following [=struct/items=]:
 : <dfn export for="read-into request">chunk steps</dfn>
 :: An algorithm taking a [=chunk=], called when a chunk is available for reading
 : <dfn export for="read-into request">close steps</dfn>
-:: An algorithm taking a [=chunk=], called when no chunks are available because the stream is
-   closed
+:: An algorithm taking a [=chunk=] or undefined, called when no chunks are available because
+   the stream is closed
 : <dfn export for="read-into request">error steps</dfn>
 :: An algorithm taking a JavaScript value, called when no [=chunks=] are available because the
    stream is errored
@@ -1331,8 +1331,10 @@ the following [=struct/items=]:
 <p class="note">The [=read-into request/close steps=] take a [=chunk=] so that it can return the
 backing memory to the caller if possible. For example,
 {{ReadableStreamBYOBReader/read()|byobReader.read(chunk)}} will fulfill with <code highlight="js">{
-value: newViewOnSameMemory, done: true }</code> for closed streams, instead of the more traditional
-<code highlight="js">{ value: undefined, done: true }</code>.
+value: newViewOnSameMemory, done: true }</code> for closed streams. If the stream is
+[=cancel a readable stream|canceled=], the backing memory is discarded and
+{{ReadableStreamBYOBReader/read()|byobReader.read(chunk)}} fulfills with the more traditional
+<code highlight="js">{ value: undefined, done: true }</code> instead.
 
 <h4 id="byob-reader-prototype">Constructor, methods, and properties</h4>
 
@@ -1368,6 +1370,10 @@ value: newViewOnSameMemory, done: true }</code> for closed streams, instead of t
    [=ArrayBuffer/detached=] and no longer usable, but <code>theChunk</code> will be a new view (of
    the same type) onto the same backing memory region, with no modifications, to ensure the memory
    is returned to the caller.
+
+   <li>If the reader is [=cancel a readable stream|canceled=], the promise will be fulfilled with
+   an object of the form <code highlight="js">{ value: undefined, done: true }</code>. In this case,
+   the backing memory region of |view| is discarded and not returned to the caller.
 
    <li>If the stream becomes errored, the promise will be rejected with the relevant error.
   </ul>
@@ -1849,10 +1855,7 @@ counterparts for default controllers, as discussed in [[#rs-abstract-ops-used-by
  id="rbs-controller-private-cancel">\[[CancelSteps]](|reason|)</dfn> implements the
  [$ReadableStreamController/[[CancelSteps]]$] contract. It performs the following steps:
 
- 1. If [=this=].[=ReadableByteStreamController/[[pendingPullIntos]]=] is not [=list/is
-    empty|empty=],
-  1. Let |firstDescriptor| be [=this=].[=ReadableByteStreamController/[[pendingPullIntos]]=][0].
-  1. Set |firstDescriptor|'s [=pull-into descriptor/bytes filled=] to 0.
+ 1. Perform ! [$ReadableByteStreamControllerClearPendingPullIntos$]([=this=]).
  1. Perform ! [$ResetQueue$]([=this=]).
  1. Let |result| be the result of performing
     [=this=].[=ReadableByteStreamController/[[cancelAlgorithm]]=], passing in |reason|.
@@ -2361,6 +2364,11 @@ the {{ReadableStream}}'s public API.
  1. If |stream|.[=ReadableStream/[[state]]=] is "`errored`", return [=a promise rejected with=]
     |stream|.[=ReadableStream/[[storedError]]=].
  1. Perform ! [$ReadableStreamClose$](|stream|).
+ 1. Let |reader| be |stream|.[=ReadableStream/[[reader]]=].
+ 1. If |reader| is not undefined and |reader| [=implements=] {{ReadableStreamBYOBReader}},
+  1. [=list/For each=] |readIntoRequest| of |reader|.[=ReadableStreamBYOBReader/[[readIntoRequests]]=],
+   1. Perform |readIntoRequest|'s [=read-into request/close steps=], given undefined.
+  1. Set |reader|.[=ReadableStreamBYOBReader/[[readIntoRequests]]=] to an empty [=list=].
  1. Let |sourceCancelPromise| be !
     |stream|.[=ReadableStream/[[controller]]=].[$ReadableStreamController/[[CancelSteps]]$](|reason|).
  1. Return the result of [=reacting=] to |sourceCancelPromise| with a fulfillment step that returns

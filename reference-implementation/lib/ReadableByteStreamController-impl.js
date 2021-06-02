@@ -66,10 +66,7 @@ exports.implementation = class ReadableByteStreamControllerImpl {
   }
 
   [CancelSteps](reason) {
-    if (this._pendingPullIntos.length > 0) {
-      const firstDescriptor = this._pendingPullIntos[0];
-      firstDescriptor.bytesFilled = 0;
-    }
+    aos.ReadableByteStreamControllerClearPendingPullIntos(this);
 
     ResetQueue(this);
 

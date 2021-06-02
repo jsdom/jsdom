@@ -28,6 +28,7 @@ Object.assign(exports, {
   IsReadableStreamLocked,
   ReadableByteStreamControllerCallPullIfNeeded,
   ReadableByteStreamControllerClearAlgorithms,
+  ReadableByteStreamControllerClearPendingPullIntos,
   ReadableByteStreamControllerClose,
   ReadableByteStreamControllerEnqueue,
   ReadableByteStreamControllerError,
@@ -452,6 +453,14 @@ function ReadableStreamCancel(stream, reason) {
   }
 
   ReadableStreamClose(stream);
+
+  const reader = stream._reader;
+  if (reader !== undefined && ReadableStreamBYOBReader.isImpl(reader)) {
+    for (const readIntoRequest of reader._readIntoRequests) {
+      readIntoRequest.closeSteps(undefined);
+    }
+    reader._readIntoRequests = [];
+  }
 
   const sourceCancelPromise = stream._controller[CancelSteps](reason);
   return transformPromiseWith(sourceCancelPromise, () => undefined);
