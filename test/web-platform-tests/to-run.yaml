@@ -172,7 +172,7 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 
 DIR: dom/abort
 
-event.any.html: [fail, AbortSignal.abort() not implemented]
+AbortSignal.any.html: [fail, AbortSignal.abort() not implemented]
 
 ---
 
