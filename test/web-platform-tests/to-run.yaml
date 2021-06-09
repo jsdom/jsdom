@@ -13,6 +13,7 @@ filelist-section/filelist.html:
 historical.https.html:
   "Service worker test setup": [fail, Needs Service Worker implementation]
 idlharness.html: [fail, URL.createObjectURL not implemented]
+reading-data-section/FileReader-multiple-reads.any.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
 reading-data-section/filereader_events.any.html: [fail, Unknown]
 url/**: [timeout, blob URLs not implemented]
 
