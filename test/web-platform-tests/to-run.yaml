@@ -272,6 +272,8 @@ headers-record.any.html: [needs-node12, V8 bug fixed in Node 12 onward]
 
 DIR: hr-time
 
+clamped-time-origin-isolated.https.html: [fail, Needs crossOriginIsolated]
+clamped-time-origin.html: [fail, Needs crossOriginIsolated]
 cross-origin-isolated-timing-attack.https.html: [fail, Not implemented]
 idlharness.any.html: [fail, Depends on fetch]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
