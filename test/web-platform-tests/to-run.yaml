@@ -458,6 +458,7 @@ proxy-getOwnPropertyDescriptor.html:
   'Window target, no trap, "name" attribute': [fail, Incorrectly implemented as a data property]
 security-window/window-security.https.html: [fail, Exoticness of Window not implemented]
 self-et-al.window.html: [fail, Depends on window.open() and window.closed]
+window-indexed-properties-delete-no-cache.html: [fail-slow, deleting window indexed properties should fail to remove iframes]
 window-indexed-properties-strict.html: [flaky, "
   Errors in `process.nextTick` callback:
   Uncaught TypeError: this[i].close is not a function
