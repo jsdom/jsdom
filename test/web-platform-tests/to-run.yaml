@@ -1268,6 +1268,8 @@ percent-encoding.window.html: [fail, Depends on fetch]
 toascii.window.html: [fail, Depends on fetch]
 url-constructor.any.html: [fail, Depends on fetch]
 url-origin.any.html: [fail, Depends on fetch]
+url-setters-a-area.window.html: [fail, Depends on fetch]
+url-setters.any.html: [fail, Depends on fetch]
 urlencoded-parser.any.html: [fail, Depends on fetch]
 
 ---
