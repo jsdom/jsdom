@@ -759,6 +759,7 @@ historical-progress-event.window.html: [needs-canvas]
 image-base-url.html: [timeout, <base> not implemented]
 image-loading-eager.html: [needs-canvas, Unimplemented and pass with canvas]
 image-loading-lazy**: [fail-slow, loading attr not implemented]
+img-picture-ancestor.html: [fail, Unknown; possibly needs media queries?]
 img.complete.html: [timeout, Unknown]
 invalid-src.html: [timeout, Resource loader doesn't catch bad URLs at the right point in the process]
 invisible-image.html: [fail, images block the window load event not implemented (images not in _queue)]
@@ -774,6 +775,7 @@ picture-loading-lazy.html: [fail, scrollIntoView not implemented, loading attr n
 relevant-mutations.html: [timeout, Unknown]
 remove-element-and-scroll.html: [timeout, scrollIntoView not implemented]
 sizes/**: [timeout, Unimplemented]
+source-media-outside-doc.html: [fail, Unknown; possibly needs media queries?]
 srcset/**: [timeout, Unimplemented]
 update-media.html: [timeout, Unimplemented]
 update-src-complete.html: [needs-canvas]
@@ -907,6 +909,7 @@ DIR: html/semantics/forms/the-textarea-element
 textarea-maxlength.html: [fail, Unknown]
 textarea-minlength.html: [fail, Unknown]
 wrap-enumerated-ascii-case-insensitive.html: [timeout, Unknown]
+wrapping-transformation.window.html: [fail, Unknown; newline normalization doesn't seem to be applied to textContent]
 
 ---
 
