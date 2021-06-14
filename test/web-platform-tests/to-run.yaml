@@ -172,8 +172,6 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 
 DIR: dom/abort
 
-AbortSignal.any.html: [fail, AbortSignal.abort() not implemented]
-
 ---
 
 DIR: dom/collections
