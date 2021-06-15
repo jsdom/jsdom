@@ -519,4 +519,4 @@ If you need help with jsdom, please feel free to use any of the following venues
 
 - The [mailing list](https://groups.google.com/group/jsdom) (best for "how do I" questions)
 - The [issue tracker](https://github.com/jsdom/jsdom/issues) (best for bug reports)
-- The IRC channel: [#jsdom on freenode](irc://irc.freenode.net/jsdom)
+- The Matrix room: [#jsdom:matrix.org](https://matrix.to/#/#jsdom:matrix.org)
