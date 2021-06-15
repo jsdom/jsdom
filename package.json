@@ -76,6 +76,7 @@
     "minimatch": "^3.0.4",
     "mocha": "^8.4.0",
     "mocha-sugar-free": "^1.4.0",
+    "pngjs": "^6.0.0",
     "rimraf": "^3.0.2",
     "server-destroy": "^1.0.1",
     "watchify": "^4.0.0",
