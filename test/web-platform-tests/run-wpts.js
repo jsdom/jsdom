@@ -49,7 +49,7 @@ before({ timeout: 30 * 1000 }, async () => {
 });
 
 after(() => {
-  serverProcess.kill();
+  serverProcess.kill("SIGINT");
 });
 
 describe("web-platform-tests", () => {
