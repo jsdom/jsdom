@@ -55,7 +55,7 @@ const dom = new JSDOM(``, {
 - `includeNodeLocations` preserves the location info produced by the HTML parser, allowing you to retrieve it with the `nodeLocation()` method (described below). It also ensures that line numbers reported in exception stack traces for code running inside `<script>` elements are correct. It defaults to `false` to give the best performance, and cannot be used with an XML content type since our XML parser does not support location info.
 - `storageQuota` is the maximum size in code units for the separate storage areas used by `localStorage` and `sessionStorage`. Attempts to store data larger than this limit will cause a `DOMException` to be thrown. By default, it is set to 5,000,000 code units per origin, as inspired by the HTML specification.
 
-Note that both `url` and `referrer` are canonicalized before they're used, so e.g. if you pass in `"https:example.com"`, jsdom will interpret that as if you had given `"https://example.com/"`. If you pass an unparseable URL, the call will throw. (URLs are parsed and serialized according to the [URL Standard](http://url.spec.whatwg.org/).)
+Note that both `url` and `referrer` are canonicalized before they're used, so e.g. if you pass in `"https:example.com"`, jsdom will interpret that as if you had given `"https://example.com/"`. If you pass an unparseable URL, the call will throw. (URLs are parsed and serialized according to the [URL Standard](https://url.spec.whatwg.org/).)
 
 ### Executing scripts
 
@@ -517,6 +517,6 @@ jsdom is a community-driven project maintained by a team of [volunteers](https:/
 
 If you need help with jsdom, please feel free to use any of the following venues:
 
-- The [mailing list](http://groups.google.com/group/jsdom) (best for "how do I" questions)
+- The [mailing list](https://groups.google.com/group/jsdom) (best for "how do I" questions)
 - The [issue tracker](https://github.com/jsdom/jsdom/issues) (best for bug reports)
-- The IRC channel: [#jsdom on freenode](irc://irc.freenode.net/jsdom)
+- The Matrix room: [#jsdom:matrix.org](https://matrix.to/#/#jsdom:matrix.org)
