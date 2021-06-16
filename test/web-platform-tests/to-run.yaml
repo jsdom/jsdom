@@ -1250,7 +1250,7 @@ DIR: streams
 
 idlharness.any.html: [fail, Depends on fetch]
 readable-byte-streams/bad-buffers-and-views.any.html: [timeout, Requires ability to transfer ArrayBuffers]
-readable-byte-streams/enqueue-with-detached-buffer.window.html: [fail-slow, Requires ability to detect detached ArrayBuffers]
+readable-byte-streams/enqueue-with-detached-buffer.window.html: [fail-slow, Requires postMessage() as free function, Requires ability to detect detached ArrayBuffers]
 readable-byte-streams/general.any.html:
   "ReadableStream with byte source: read(view) with Uint32Array, then fill it by multiple respond() calls": [fail, Requires ability to transfer ArrayBuffers]
   "ReadableStream with byte source: read(view) with Uint32Array, then fill it by multiple enqueue() calls": [fail, Requires ability to transfer ArrayBuffers]
