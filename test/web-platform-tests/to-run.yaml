@@ -1255,10 +1255,7 @@ readable-byte-streams/enqueue-with-detached-buffer.window.html: [fail, Readable 
 readable-byte-streams/general.any.html: [fail, Readable byte streams not implemented]
 readable-byte-streams/non-transferable-buffers.any.html: [fail, Readable byte streams not implemented, Requires ability to detect non-transferable ArrayBuffers]
 readable-streams/async-iterator.any.html: [fail, AsyncIterator prototype is wrong]
-readable-streams/tee.any.html: [fail, VM bug, see https://github.com/nodejs/node/issues/38918]
 transferable/**: [fail-slow, Unknown and Depends on postMessage() supporting transferlists]
-transform-streams/patched-global.any.html:
-  "TransformStream should use the original value of ReadableStream and WritableStream": [fail, VM bug, see https://github.com/nodejs/node/issues/38918]
 writable-streams/close.any.html:
   "ready promise should be initialised as fulfilled for a writer on a closed stream": [fail, Promise prototype is wrong]
 
