@@ -1777,7 +1777,7 @@ This release is compatible with Node.js 0.6, whereas all future releases will re
 
 ## 0.2.6
  * Add: support for window.location.search and document.cookie (Derek Lindahl)
- * Add: jsdom.env now has a document configuation option which allows users to change the referer of the document (Derek Lindahl)
+ * Add: jsdom.env now has a document configuration option which allows users to change the referer of the document (Derek Lindahl)
  * Fix: allow users to use different jsdom levels in the same process (sinegar)
  * Fix: removeAttributeNS no longer has a return value (Jason Davies)
  * Add: support for encoding/decoding all html entities from html4/5 (papandreou)
