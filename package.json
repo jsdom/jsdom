@@ -94,7 +94,7 @@
     "test-wpt": "mocha test/web-platform-tests/run-wpts.js",
     "test-tuwpt": "mocha test/web-platform-tests/run-tuwpts.js",
     "test-mocha": "mocha",
-    "test-api": "mocha test/api",
+    "test-api": "mocha test/api && node ./test/api/js-globals-aggregateError.js && node ./test/api/js-globals-globalThis.js",
     "test": "mocha test/index.js",
     "test-browser-iframe": "karma start test/karma.conf.js",
     "test-browser-worker": "karma start test/karma-webworker.conf.js",
