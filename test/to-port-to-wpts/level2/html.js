@@ -10950,7 +10950,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
 
   /**
    *
-   Removes a non-existant option using HTMLSelectElement.remove.
+   Removes a non-existent option using HTMLSelectElement.remove.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33404570
    */
