@@ -30,7 +30,11 @@ test(() => {
   // Chrome and Firefox allow NaN and Infinity, but Firefox forbids them.
   // Follow Firefox as its behavior makes more sense according to
   // https://crbug.com/1230411.
-  assert_throws_js(TypeError, () => { rect.height = NaN; });
-  assert_throws_js(TypeError, () => { rect.height = Infinity; });
+  assert_throws_js(TypeError, () => {
+    rect.height = NaN;
+  });
+  assert_throws_js(TypeError, () => {
+    rect.height = Infinity;
+  });
 }, "SVGSVGElement.createSVGRect()");
 </script>
