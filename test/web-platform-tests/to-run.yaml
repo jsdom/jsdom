@@ -1245,6 +1245,20 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://g
 
 ---
 
+DIR: svg/types/scripted
+
+"**/*.svg": [timeout, We do not yet support running SVG WPTs]
+SVGAnimatedAngle*: [fail, Not implemented]
+SVGAnimatedBoolean*: [fail, Not implemented]
+SVGAnimatedEnumeration*: [fail, Not implemented]
+SVGAnimatedInteger*: [fail, Not implemented]
+SVGAnimatedLength*: [fail, Not implemented]
+SVGAnimatedNumber*: [fail, Not implemented]
+SVGGraphicsElement.getBBox-*: [fail, Not implemented]
+SVGLength*: [fail, Not implemented]
+
+---
+
 DIR: uievents
 
 idlharness.window.html: [fail, Depends on fetch]
