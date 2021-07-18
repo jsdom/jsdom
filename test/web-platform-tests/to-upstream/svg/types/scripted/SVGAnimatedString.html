@@ -3,6 +3,8 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <script>
+"use strict";
+
 test(() => {
   const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   assert_true(svgElement.className instanceof SVGAnimatedString);
@@ -21,13 +23,8 @@ test(() => {
   assert_equals(svgElement.className.baseVal, "");
   assert_equals(svgElement.className.animVal, "");
 
-  svgElement.className.animVal = "noop"; // animVal is read-only
-  assert_equals(svgElement.getAttribute("class"), "");
-  assert_equals(svgElement.className.baseVal, "");
-  assert_equals(svgElement.className.animVal, "");
-
+  // animVal is read-only
   assert_throws_js(TypeError, () => {
-    "use strict";
     svgElement.className.animVal = "fail";
   });
 });
