@@ -1,0 +1,34 @@
+<!doctype html>
+<title>SVGAnimatedString interface - utilizing the className property of SVGSVGElement</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+test(() => {
+  const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  assert_true(svgElement.className instanceof SVGAnimatedString);
+  assert_equals(svgElement.getAttribute("class"), null);
+  assert_equals(svgElement.className.baseVal, "");
+  assert_equals(svgElement.className.animVal, "");
+
+  const cls = "cls";
+  svgElement.className.baseVal = cls;
+  assert_equals(svgElement.getAttribute("class"), cls);
+  assert_equals(svgElement.className.baseVal, cls);
+  assert_equals(svgElement.className.animVal, cls);
+
+  svgElement.className.baseVal = "";
+  assert_equals(svgElement.getAttribute("class"), "");
+  assert_equals(svgElement.className.baseVal, "");
+  assert_equals(svgElement.className.animVal, "");
+
+  svgElement.className.animVal = "noop"; // animVal is read-only
+  assert_equals(svgElement.getAttribute("class"), "");
+  assert_equals(svgElement.className.baseVal, "");
+  assert_equals(svgElement.className.animVal, "");
+
+  assert_throws_js(TypeError, () => {
+    "use strict";
+    svgElement.className.animVal = "fail";
+  });
+});
+</script>
