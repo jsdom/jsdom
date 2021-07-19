@@ -1,7 +1,9 @@
 // https://drafts.fxtf.org/geometry/#domrect
+
+// Commented out for https://github.com/w3c/svgwg/issues/706
+// [LegacyWindowAlias=SVGRect]
 [Exposed=(Window,Worker),
- Serializable,
- LegacyWindowAlias=SVGRect]
+ Serializable]
 interface DOMRect : DOMRectReadOnly {
     constructor(optional unrestricted double x = 0, optional unrestricted double y = 0,
             optional unrestricted double width = 0, optional unrestricted double height = 0);
