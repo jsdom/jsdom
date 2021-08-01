@@ -81,7 +81,22 @@ module.exports = config => {
     autoWatch: true,
 
     browsers: ["ChromeHeadless"],
-    singleRun: true
+    singleRun: true,
+
+
+    // Allow SharedArrayBuffer: see https://web.dev/cross-origin-isolation-guide/
+    customHeaders: [
+      {
+        match: ".*",
+        name: "Cross-Origin-Opener-Policy",
+        value: "same-origin"
+      },
+      {
+        match: ".*",
+        name: "Cross-Origin-Embedder-Policy",
+        value: "require-corp"
+      }
+    ]
   };
 
   config.set(options);
