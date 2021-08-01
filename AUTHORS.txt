@@ -14,6 +14,7 @@ Alistair Brown <github@alistairjcbrown.com>
 Alistair MacDonald <amacdonald@aisquared.com>
 Alvaro Dias <alvarod@microsoft.com>
 Ammar Khaku <ammar.khaku@gmail.com>
+Anant Patni <anantpatni1@gmail.com>
 Andrea Bogazzi <andreabogazzi79@gmail.com>
 Andreas Fleig <andreasfleig@gmail.com>
 Andreas Lind <andreaslindpetersen@gmail.com>
@@ -73,6 +74,7 @@ Dylan Marriott <info@d-32.com>
 Edward O'Connor <hober0@gmail.com>
 Edward Pfremmer <epfremmer@users.noreply.github.com>
 Edwin Shin <eddies@users.noreply.github.com>
+eiko <kokumeiko@gmail.com>
 eleith <online@eleith.com>
 Elijah Insua <tmpvar@gmail.com>
 E̵̘̳̘̝ṃ̟͈͙̗̹͘i͖͇ḷ͚͔̱̰̠y͜ ̩̲͕R̮̜͓̫o͉̣̦̘̖̖ͅs̫̣͜e̼͖̹̩͉͉͠ <nexxy@symphonysubconscious.com>
@@ -107,6 +109,7 @@ Henry Zhu <hi@henryzoo.com>
 hij1nx <fernmicro@gmail.com>
 i8-pi <thomas@nomology.id.au>
 Ian Young <ian.greenleaf@gmail.com>
+Ikko Ashimine <eltociear@gmail.com>
 indexzero <charlie.robbins@gmail.com>
 isaacs <i@izs.me>
 isonmad <github2.nobled@spamgourmet.com>
@@ -151,6 +154,7 @@ JuFeng Zhang <zjffun@gmail.com>
 Julien Guimont <julien@porkepic.com>
 Jürg Lehni <juerg@scratchdisk.com>
 justinmchase <justin.m.chase@gmail.com>
+Kai <Schweinepriester@users.noreply.github.com>
 kangax <kangax@gmail.com>
 Karel Bruneel <1569717+kbruneel@users.noreply.github.com>
 Karl Horky <karl.horky@gmail.com>
@@ -165,6 +169,7 @@ King Koopa <bbyholm@abo.fi>
 Konto Mondo <kontomondo@gmail.com>
 kontomondo <kontomondo@gmail.com>
 Koushik Challa <challakoushik@gmail.com>
+Krystan Honour <krystan@gmail.com>
 Kuriyama hibiya <kuriyama@hibiya.moe>
 Kyle <halldirector@gmail.com>
 Kyle McFarland <kyle.mcfarland@formidablelabs.com>
@@ -242,6 +247,7 @@ Robin <fbzhong@gmail.com>
 Robin Berjon <robin@berjon.com>
 Rodrigo Flores <rodrigo.flores@plataformatec.com.br>
 Rolf Timmermans <rolftimmermans@voormedia.com>
+Romain Trotard <romain.trotard@mirakl.com>
 Ronald Rey <reyronald@gmail.com>
 Rondinelly <rondinelly-ribeiro@outlook.com>
 Ryan Gasparini <ryan@rxgx.com>

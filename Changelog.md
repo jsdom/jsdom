@@ -26,6 +26,14 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 16.7.0
+
+* Added `AbortSignal.abort()`. (ninevra)
+* Added dummy `x` and `y` properties to the return value of `getBoundingClientRect()`. (eiko)
+* Implemented wrapping for `textareaEl.value` if the `wrap=""` attribute is specified. (ninevra)
+* Changed newline normalization in `<textarea>`s according to [recent HTML Standard updates](https://blog.whatwg.org/newline-normalizations-in-form-submission). (ninevra)
+* Fixed some bad cascade computation in `getComputedStyle()`. (romain-trotard)
+
 ## 16.6.0
 
 * Added `parentNode.replaceChildren()`. (ninevra)
