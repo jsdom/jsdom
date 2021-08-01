@@ -104,7 +104,7 @@ describe("htmlcanvaselement", () => {
       const expectedImg = PNG.sync.read(expectedPNG);
 
       const gotDataURL = parseDataURL(canvas.toDataURL());
-      const gotPNG = gotDataURL.body;
+      const gotPNG = Buffer.from(gotDataURL.body);
       const gotImg = PNG.sync.read(gotPNG);
 
       assert.strictEqual(gotImg.width, expectedImg.width, "width");
