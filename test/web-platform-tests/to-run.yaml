@@ -1268,6 +1268,7 @@ DIR: websockets
 "*.any.sharedworker.html?wss": [fail-slow, Needs SharedWorker implementation]
 "*.any.worker.html?wss": [fail-slow, Needs Worker implementation]
 Create-blocked-port.any.html: [fail-slow, Not implemented]
+Create-blocked-port.any.html?wss: [fail-slow, Not implemented]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
 Send-data.worker.html?wss: [fail-slow, Needs Worker implementation]
 basic-auth.any.serviceworker.html?wss: [fail-slow, Unknown]
