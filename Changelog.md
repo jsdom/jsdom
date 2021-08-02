@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 17.0.0
+
+Breaking change: Node v12 is now the minimum supported version.
+
 ## 16.7.0
 
 * Added `AbortSignal.abort()`. (ninevra)
