@@ -183,7 +183,6 @@ DIR: dom/events
 
 AddEventListenerOptions-signal.any.html: [fail, Not implemented]
 Event-dispatch-click.tentative.html: [fail, Test is wrong, https://github.com/web-platform-tests/wpt/issues/27819]
-Event-isTrusted.any.html: [fail, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 Event-timestamp-high-resolution.https.html: [fail, Not implemented]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
@@ -202,7 +201,6 @@ webkit-transition-end-event.html: [fail, WebKit-prefixed events not implemented]
 DIR: dom/lists
 
 DOMTokenList-coverage-for-attributes.html: [fail, Several DOMTokenList attributes have not been implemented; has dont-upstream version]
-DOMTokenList-iteration.html: [fail, The test checks a builtin method is from the jsdom context]
 
 ---
 
@@ -218,7 +216,6 @@ Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not implemented]
-Node-childNodes.html: [fail, Unknown]
 Node-cloneNode.html: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
@@ -263,7 +260,6 @@ DIR: fetch/api/headers
 
 header-values-normalize.any.html: [fail, fetch is not defined]
 header-values.any.html: [fail, fetch is not defined]
-headers-basic.any.html: [fail, iterator prototype is wrong]
 headers-no-cors.any.html: [fail, Request is not defined]
 
 ---
@@ -392,7 +388,6 @@ DIR: html/browsers/history/the-location-interface
 allow_prototype_cycle_through_location.sub.html: [fail, Unknown]
 assign_after_load.html: [timeout, Unknown]
 assign_before_load.html: [timeout, Unknown]
-document_location.html: [fail, Unknown]
 location-non-configurable-toString-valueOf.html: [fail, Not implemented]
 location-pathname-setter-question-mark.html: [timeout, Unknown]
 location-prevent-extensions.html: [fail, exoticness of Location not implemented]
