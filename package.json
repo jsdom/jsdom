@@ -45,7 +45,7 @@
     "whatwg-encoding": "^1.0.5",
     "whatwg-mimetype": "^2.3.0",
     "whatwg-url": "^9.0.0",
-    "ws": "^8.0.0",
+    "ws": "^8.2.2",
     "xml-name-validator": "^3.0.0"
   },
   "_dependenciesComments": {
