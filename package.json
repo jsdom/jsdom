@@ -41,7 +41,7 @@
     "tough-cookie": "^4.0.0",
     "w3c-hr-time": "^1.0.2",
     "w3c-xmlserializer": "^2.0.0",
-    "webidl-conversions": "^6.1.0",
+    "webidl-conversions": "^7.0.0",
     "whatwg-encoding": "^1.0.5",
     "whatwg-mimetype": "^2.3.0",
     "whatwg-url": "^9.0.0",
@@ -80,7 +80,7 @@
     "rimraf": "^3.0.2",
     "server-destroy": "^1.0.1",
     "watchify": "^4.0.0",
-    "webidl2js": "^16.2.0",
+    "webidl2js": "jsdom/webidl2js#promise-error-realm",
     "yargs": "^17.0.1"
   },
   "browser": {

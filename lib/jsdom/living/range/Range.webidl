@@ -5,15 +5,15 @@ interface Range : AbstractRange {
 
   readonly attribute Node commonAncestorContainer;
 
-  void setStart(Node node, unsigned long offset);
-  void setEnd(Node node, unsigned long offset);
-  void setStartBefore(Node node);
-  void setStartAfter(Node node);
-  void setEndBefore(Node node);
-  void setEndAfter(Node node);
-  void collapse(optional boolean toStart = false);
-  void selectNode(Node node);
-  void selectNodeContents(Node node);
+  undefined setStart(Node node, unsigned long offset);
+  undefined setEnd(Node node, unsigned long offset);
+  undefined setStartBefore(Node node);
+  undefined setStartAfter(Node node);
+  undefined setEndBefore(Node node);
+  undefined setEndAfter(Node node);
+  undefined collapse(optional boolean toStart = false);
+  undefined selectNode(Node node);
+  undefined selectNodeContents(Node node);
 
   const unsigned short START_TO_START = 0;
   const unsigned short START_TO_END = 1;
@@ -21,14 +21,14 @@ interface Range : AbstractRange {
   const unsigned short END_TO_START = 3;
   short compareBoundaryPoints(unsigned short how, Range sourceRange);
 
-  [CEReactions] void deleteContents();
+  [CEReactions] undefined deleteContents();
   [CEReactions, NewObject] DocumentFragment extractContents();
   [CEReactions, NewObject] DocumentFragment cloneContents();
-  [CEReactions] void insertNode(Node node);
-  [CEReactions] void surroundContents(Node newParent);
+  [CEReactions] undefined insertNode(Node node);
+  [CEReactions] undefined surroundContents(Node newParent);
 
   [NewObject] Range cloneRange();
-  void detach();
+  undefined detach();
 
   boolean isPointInRange(Node node, unsigned long offset);
   short comparePoint(Node node, unsigned long offset);

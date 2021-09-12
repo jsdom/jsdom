@@ -4,22 +4,22 @@
 interface HTMLTableElement : HTMLElement {
   [CEReactions] attribute HTMLTableCaptionElement? caption;
   HTMLTableCaptionElement createCaption();
-  [CEReactions] void deleteCaption();
+  [CEReactions] undefined deleteCaption();
 
   [CEReactions] attribute HTMLTableSectionElement? tHead;
   HTMLTableSectionElement createTHead();
-  [CEReactions] void deleteTHead();
+  [CEReactions] undefined deleteTHead();
 
   [CEReactions] attribute HTMLTableSectionElement? tFoot;
   HTMLTableSectionElement createTFoot();
-  [CEReactions] void deleteTFoot();
+  [CEReactions] undefined deleteTFoot();
 
   [SameObject] readonly attribute HTMLCollection tBodies;
   HTMLTableSectionElement createTBody();
 
   [SameObject] readonly attribute HTMLCollection rows;
   HTMLTableRowElement insertRow(optional long index = -1);
-  [CEReactions] void deleteRow(long index);
+  [CEReactions] undefined deleteRow(long index);
 
   // also has obsolete members
 };

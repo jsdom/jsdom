@@ -15,14 +15,14 @@ interface Event {
   const unsigned short BUBBLING_PHASE = 3;
   readonly attribute unsigned short eventPhase;
 
-  void stopPropagation();
+  undefined stopPropagation();
            attribute boolean cancelBubble; // historical alias of .stopPropagation
-  void stopImmediatePropagation();
+  undefined stopImmediatePropagation();
 
   readonly attribute boolean bubbles;
   readonly attribute boolean cancelable;
            attribute boolean returnValue;  // historical
-  void preventDefault();
+  undefined preventDefault();
   readonly attribute boolean defaultPrevented;
   readonly attribute boolean composed;
 
@@ -31,7 +31,7 @@ interface Event {
   // readonly attribute DOMHighResTimeStamp timeStamp;
   readonly attribute DOMTimeStamp timeStamp;
 
-  void initEvent(DOMString type, optional boolean bubbles = false, optional boolean cancelable = false); // historical
+  undefined initEvent(DOMString type, optional boolean bubbles = false, optional boolean cancelable = false); // historical
 };
 
 dictionary EventInit {

@@ -6,9 +6,9 @@ interface History {
   readonly attribute unsigned long length;
 //  attribute ScrollRestoration scrollRestoration;
   readonly attribute any state;
-  void go(optional long delta = 0);
-  void back();
-  void forward();
-  void pushState(any data, DOMString title, optional USVString? url = null);
-  void replaceState(any data, DOMString title, optional USVString? url = null);
+  undefined go(optional long delta = 0);
+  undefined back();
+  undefined forward();
+  undefined pushState(any data, DOMString title, optional USVString? url = null);
+  undefined replaceState(any data, DOMString title, optional USVString? url = null);
 };

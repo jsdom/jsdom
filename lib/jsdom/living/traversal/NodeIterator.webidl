@@ -9,5 +9,5 @@ interface NodeIterator {
   Node? nextNode();
   Node? previousNode();
 
-  void detach();
+  undefined detach();
 };

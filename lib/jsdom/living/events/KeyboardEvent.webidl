@@ -35,7 +35,7 @@ dictionary KeyboardEventInit : EventModifierInit {
 
 partial interface KeyboardEvent {
   // Originally introduced (and deprecated) in this specification
-  void initKeyboardEvent(DOMString typeArg,
+  undefined initKeyboardEvent(DOMString typeArg,
                          optional boolean bubblesArg = false,
                          optional boolean cancelableArg = false,
                          optional Window? viewArg = null,

@@ -19,13 +19,13 @@ interface WebSocket : EventTarget {
   attribute EventHandler onclose;
   readonly attribute DOMString extensions;
   readonly attribute DOMString protocol;
-  void close(optional [Clamp] unsigned short code, optional USVString reason);
+  undefined close(optional [Clamp] unsigned short code, optional USVString reason);
 
   // messaging
   attribute EventHandler onmessage;
   attribute BinaryType binaryType;
-  void send(USVString data);
-  void send(Blob data);
-  void send(ArrayBuffer data);
-  void send(ArrayBufferView data);
+  undefined send(USVString data);
+  undefined send(Blob data);
+  undefined send(ArrayBuffer data);
+  undefined send(ArrayBufferView data);
 };

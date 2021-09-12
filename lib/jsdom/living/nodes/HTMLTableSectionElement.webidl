@@ -3,7 +3,7 @@
 interface HTMLTableSectionElement : HTMLElement {
   [SameObject] readonly attribute HTMLCollection rows;
   HTMLElement insertRow(optional long index = -1);
-  [CEReactions] void deleteRow(long index);
+  [CEReactions] undefined deleteRow(long index);
 
   // also has obsolete members
 };
