@@ -15,7 +15,7 @@ interface SVGSVGElement : SVGGraphicsElement {
   // boolean checkIntersection(SVGElement element, DOMRectReadOnly rect);
   // boolean checkEnclosure(SVGElement element, DOMRectReadOnly rect);
 
-  // void deselectAll();
+  // undefined deselectAll();
 
   SVGNumber createSVGNumber();
   // SVGLength createSVGLength();
@@ -31,9 +31,9 @@ interface SVGSVGElement : SVGGraphicsElement {
   // Deprecated methods that have no effect when called,
   // but which are kept for compatibility reasons.
   unsigned long suspendRedraw(unsigned long maxWaitMilliseconds);
-  void unsuspendRedraw(unsigned long suspendHandleID);
-  void unsuspendRedrawAll();
-  void forceRedraw();
+  undefined unsuspendRedraw(unsigned long suspendHandleID);
+  undefined unsuspendRedrawAll();
+  undefined forceRedraw();
 };
 
 // SVGSVGElement includes SVGFitToViewBox;

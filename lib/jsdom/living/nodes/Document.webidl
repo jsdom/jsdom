@@ -80,9 +80,9 @@ partial interface Document {
   // dynamic markup insertion
   [CEReactions] Document open(optional DOMString type = "text/html", optional DOMString replace = "");
 //  WindowProxy open(USVString url, DOMString name, DOMString features);
-  [CEReactions] void close();
-  [CEReactions] void write(DOMString... text);
-  [CEReactions] void writeln(DOMString... text);
+  [CEReactions] undefined close();
+  [CEReactions] undefined write(DOMString... text);
+  [CEReactions] undefined writeln(DOMString... text);
 
   // user interaction
   readonly attribute WindowProxy? defaultView;
@@ -112,9 +112,9 @@ partial interface Document {
   [SameObject] readonly attribute HTMLCollection anchors;
   [SameObject] readonly attribute HTMLCollection applets;
 
-  void clear();
-  void captureEvents();
-  void releaseEvents();
+  undefined clear();
+  undefined captureEvents();
+  undefined releaseEvents();
 
 //  [SameObject] readonly attribute HTMLAllCollection all;
 };

@@ -36,7 +36,7 @@ dictionary MouseEventInit : EventModifierInit {
 // https://github.com/w3c/uievents/issues/136
 partial interface MouseEvent {
     // Deprecated in this specification
-    void initMouseEvent(DOMString typeArg,
+    undefined initMouseEvent(DOMString typeArg,
                         optional boolean bubblesArg = false,
                         optional boolean cancelableArg = false,
                         optional Window? viewArg = null,

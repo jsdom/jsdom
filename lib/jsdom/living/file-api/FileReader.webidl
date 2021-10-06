@@ -3,12 +3,12 @@
 interface FileReader: EventTarget {
   constructor();
   // async read methods
-  void readAsArrayBuffer(Blob blob);
-  void readAsBinaryString(Blob blob);
-  void readAsText(Blob blob, optional DOMString label);
-  void readAsDataURL(Blob blob);
+  undefined readAsArrayBuffer(Blob blob);
+  undefined readAsBinaryString(Blob blob);
+  undefined readAsText(Blob blob, optional DOMString label);
+  undefined readAsDataURL(Blob blob);
 
-  void abort();
+  undefined abort();
 
   // states
   const unsigned short EMPTY = 0;

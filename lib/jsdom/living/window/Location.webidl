@@ -11,9 +11,9 @@ interface Location { // but see also additional creation steps and overridden in
   [LegacyUnforgeable] attribute USVString search;
   [LegacyUnforgeable] attribute USVString hash;
 
-  [LegacyUnforgeable] void assign(USVString url);
-  [LegacyUnforgeable] void replace(USVString url);
-  [LegacyUnforgeable] void reload();
+  [LegacyUnforgeable] undefined assign(USVString url);
+  [LegacyUnforgeable] undefined replace(USVString url);
+  [LegacyUnforgeable] undefined reload();
 
 //  [LegacyUnforgeable, SameObject] readonly attribute DOMStringList ancestorOrigins;
 };

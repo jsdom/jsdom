@@ -10,7 +10,7 @@ interface HTMLElement : Element {
 
   // user interaction
   [CEReactions, Reflect] attribute boolean hidden;
-  void click();
+  undefined click();
   [CEReactions, Reflect] attribute DOMString accessKey;
 //  readonly attribute DOMString accessKeyLabel;
   [CEReactions] attribute boolean draggable;

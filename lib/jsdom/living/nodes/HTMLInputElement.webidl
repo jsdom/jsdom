@@ -41,25 +41,25 @@ interface HTMLInputElement : HTMLElement {
   attribute unrestricted double valueAsNumber;
 //  [CEReactions] attribute unsigned long width;
 
-  void stepUp(optional long n = 1);
-  void stepDown(optional long n = 1);
+  undefined stepUp(optional long n = 1);
+  undefined stepDown(optional long n = 1);
 
   readonly attribute boolean willValidate;
   readonly attribute ValidityState validity;
   readonly attribute DOMString validationMessage;
   boolean checkValidity();
   boolean reportValidity();
-  void setCustomValidity(DOMString error);
+  undefined setCustomValidity(DOMString error);
 
   readonly attribute NodeList? labels;
 
-  void select();
+  undefined select();
   attribute unsigned long? selectionStart;
   attribute unsigned long? selectionEnd;
   attribute DOMString? selectionDirection;
-  void setRangeText(DOMString replacement);
-  void setRangeText(DOMString replacement, unsigned long start, unsigned long end, optional SelectionMode selectionMode = "preserve");
-  void setSelectionRange(unsigned long start, unsigned long end, optional DOMString direction);
+  undefined setRangeText(DOMString replacement);
+  undefined setRangeText(DOMString replacement, unsigned long start, unsigned long end, optional SelectionMode selectionMode = "preserve");
+  undefined setSelectionRange(unsigned long start, unsigned long end, optional DOMString direction);
 
   // also has obsolete members
 };

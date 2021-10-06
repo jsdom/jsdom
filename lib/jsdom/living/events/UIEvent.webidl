@@ -34,11 +34,11 @@ dictionary EventModifierInit : UIEventInit {
 // https://github.com/w3c/uievents/issues/133
 partial interface UIEvent {
     // Deprecated in this specification
-    void initUIEvent(DOMString typeArg,
-                     optional boolean bubblesArg = false,
-                     optional boolean cancelableArg = false,
-                     optional Window? viewArg = null,
-                     optional long detailArg = 0);
+    undefined initUIEvent(DOMString typeArg,
+                          optional boolean bubblesArg = false,
+                          optional boolean cancelableArg = false,
+                          optional Window? viewArg = null,
+                          optional long detailArg = 0);
 };
 
 // https://w3c.github.io/uievents/#legacy-interface-UIEvent

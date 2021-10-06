@@ -1,5 +1,5 @@
 [Exposed=Window]
 interface External {
-  void AddSearchProvider();
-  void IsSearchProviderInstalled();
+  undefined AddSearchProvider();
+  undefined IsSearchProviderInstalled();
 };

@@ -16,10 +16,10 @@ interface Element : Node {
   sequence<DOMString> getAttributeNames();
   DOMString? getAttribute(DOMString qualifiedName);
   DOMString? getAttributeNS(DOMString? namespace, DOMString localName);
-  [CEReactions] void setAttribute(DOMString qualifiedName, DOMString value);
-  [CEReactions] void setAttributeNS(DOMString? namespace, DOMString qualifiedName, DOMString value);
-  [CEReactions] void removeAttribute(DOMString qualifiedName);
-  [CEReactions] void removeAttributeNS(DOMString? namespace, DOMString localName);
+  [CEReactions] undefined setAttribute(DOMString qualifiedName, DOMString value);
+  [CEReactions] undefined setAttributeNS(DOMString? namespace, DOMString qualifiedName, DOMString value);
+  [CEReactions] undefined removeAttribute(DOMString qualifiedName);
+  [CEReactions] undefined removeAttributeNS(DOMString? namespace, DOMString localName);
   [CEReactions] boolean toggleAttribute(DOMString qualifiedName, optional boolean force);
   boolean hasAttribute(DOMString qualifiedName);
   boolean hasAttributeNS(DOMString? namespace, DOMString localName);
@@ -42,7 +42,7 @@ interface Element : Node {
   HTMLCollection getElementsByClassName(DOMString classNames);
 
   [CEReactions] Element? insertAdjacentElement(DOMString where, Element element); // historical
-  void insertAdjacentText(DOMString where, DOMString data); // historical
+  undefined insertAdjacentText(DOMString where, DOMString data); // historical
 };
 
 dictionary ShadowRootInit {
@@ -52,7 +52,7 @@ dictionary ShadowRootInit {
 // https://w3c.github.io/DOM-Parsing/#extensions-to-the-element-interface
 partial interface Element {
   [CEReactions] attribute [LegacyNullToEmptyString] DOMString outerHTML;
-  [CEReactions] void insertAdjacentHTML(DOMString position, DOMString text);
+  [CEReactions] undefined insertAdjacentHTML(DOMString position, DOMString text);
 };
 
 // https://drafts.csswg.org/cssom-view/#extension-to-the-element-interface
@@ -72,13 +72,13 @@ dictionary ScrollIntoViewOptions : ScrollOptions {
 partial interface Element {
   DOMRectList getClientRects();
   [NewObject] DOMRect getBoundingClientRect();
-//  void scrollIntoView(optional (boolean or ScrollIntoViewOptions) arg);
-//  void scroll(optional ScrollToOptions options = {});
-//  void scroll(unrestricted double x, unrestricted double y);
-//  void scrollTo(optional ScrollToOptions options = {});
-//  void scrollTo(unrestricted double x, unrestricted double y);
-//  void scrollBy(optional ScrollToOptions options = {});
-//  void scrollBy(unrestricted double x, unrestricted double y);
+//  undefined scrollIntoView(optional (boolean or ScrollIntoViewOptions) arg);
+//  undefined scroll(optional ScrollToOptions options = {});
+//  undefined scroll(unrestricted double x, unrestricted double y);
+//  undefined scrollTo(optional ScrollToOptions options = {});
+//  undefined scrollTo(unrestricted double x, unrestricted double y);
+//  undefined scrollBy(optional ScrollToOptions options = {});
+//  undefined scrollBy(unrestricted double x, unrestricted double y);
   attribute unrestricted double scrollTop;
   attribute unrestricted double scrollLeft;
   readonly attribute long scrollWidth;

@@ -9,8 +9,8 @@ interface HTMLCanvasElement : HTMLElement {
   RenderingContext? getContext(DOMString contextId, any... arguments);
 
   USVString toDataURL(optional DOMString type, optional any quality);
-  void toBlob(BlobCallback _callback, optional DOMString type, optional any quality);
+  undefined toBlob(BlobCallback _callback, optional DOMString type, optional any quality);
 //  OffscreenCanvas transferControlToOffscreen();
 };
 
-callback BlobCallback = void (Blob? blob);
+callback BlobCallback = undefined (Blob? blob);

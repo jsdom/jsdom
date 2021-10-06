@@ -1,9 +1,9 @@
 // https://dom.spec.whatwg.org/#childnode
 interface mixin ChildNode {
-  [CEReactions, Unscopable] void before((Node or DOMString)... nodes);
-  [CEReactions, Unscopable] void after((Node or DOMString)... nodes);
-  [CEReactions, Unscopable] void replaceWith((Node or DOMString)... nodes);
-  [CEReactions, Unscopable] void remove();
+  [CEReactions, Unscopable] undefined before((Node or DOMString)... nodes);
+  [CEReactions, Unscopable] undefined after((Node or DOMString)... nodes);
+  [CEReactions, Unscopable] undefined replaceWith((Node or DOMString)... nodes);
+  [CEReactions, Unscopable] undefined remove();
 };
 DocumentType includes ChildNode;
 Element includes ChildNode;

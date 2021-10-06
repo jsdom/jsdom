@@ -13,7 +13,7 @@ dictionary CompositionEventInit : UIEventInit {
 // https://github.com/w3c/uievents/issues/134
 partial interface CompositionEvent {
   // Originally introduced (and deprecated) in this specification
-  void initCompositionEvent(DOMString typeArg,
+  undefined initCompositionEvent(DOMString typeArg,
                             optional boolean bubblesArg = false,
                             optional boolean cancelableArg = false,
                             optional Window? viewArg = null,

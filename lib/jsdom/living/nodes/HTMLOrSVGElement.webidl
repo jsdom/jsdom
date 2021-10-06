@@ -5,7 +5,7 @@ interface mixin HTMLOrSVGElement {
 
   [CEReactions] attribute long tabIndex;
 //  We don't support FocusOptions yet
-//  void focus(optional FocusOptions options = {});
-  void focus();
-  void blur();
+//  undefined focus(optional FocusOptions options = {});
+  undefined focus();
+  undefined blur();
 };
