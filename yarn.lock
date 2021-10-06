@@ -970,9 +970,10 @@ domelementtype@^2.0.1, domelementtype@^2.2.0:
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-2.2.0.tgz#9a0b6c2782ed6a1c7323d42267183df9bd8b1d57"
   integrity sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A==
 
-domexception@jsdom/domexception#update-webidl2js:
-  version "3.0.0"
-  resolved "https://codeload.github.com/jsdom/domexception/tar.gz/d9aff857cb07ba5881ac97f183ae505bd1a0468e"
+domexception@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/domexception/-/domexception-4.0.0.tgz#4ad1be56ccadc86fc76d033353999a8037d03673"
+  integrity sha512-A2is4PLG+eeSfoTMA95/s4pvAoSo2mKtiM5jlHkAVewmiO8ISFTFKZjH7UAM1Atli/OT/7JHOrJRJiMKUZKYBw==
   dependencies:
     webidl-conversions "^7.0.0"
 
@@ -2406,10 +2407,10 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prettier@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.4.0.tgz#85bdfe0f70c3e777cf13a4ffff39713ca6f64cba"
-  integrity sha512-DsEPLY1dE5HF3BxCRBmD4uYZ+5DCbvatnolqTqcxEgKVZnL2kUfyu7b8pPQ5+hTBkdhU9SLUmK0/pHb07RE4WQ==
+prettier@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
+  integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -3178,11 +3179,12 @@ webidl2@^24.1.2:
   resolved "https://registry.yarnpkg.com/webidl2/-/webidl2-24.1.2.tgz#1467a01cf9e6d060ef7240d73b95f5f5627d729d"
   integrity sha512-AyfWN34VRdJCtcQYK4DAnwU0fFA0BHBEnbdly1PBW941QYN8O+oOx8lf4r1JuPRKuI/vimAzlRxtwTM+ACwnzg==
 
-webidl2js@jsdom/webidl2js#promise-error-realm:
-  version "16.2.0"
-  resolved "https://codeload.github.com/jsdom/webidl2js/tar.gz/1338d137dc8b2b164ea3eee85b005fbb3acf09d3"
+webidl2js@^17.0.0:
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/webidl2js/-/webidl2js-17.0.0.tgz#d0d0f6df2699006e0870ae4ad24f650b73cbca8f"
+  integrity sha512-nfaJ0L1/a4VKzjvLGLNM0Uwo7poXXEcHDcwSaJybcXkmwqCQ+X/58DD7MbgbpisfT/uyFovAGDh5OO7Kh1OkYw==
   dependencies:
-    prettier "^2.4.0"
+    prettier "^2.4.1"
     webidl-conversions "^7.0.0"
     webidl2 "^24.1.2"
 
@@ -3198,6 +3200,14 @@ whatwg-mimetype@^2.3.0:
   resolved "https://registry.yarnpkg.com/whatwg-mimetype/-/whatwg-mimetype-2.3.0.tgz#3d4b1e0312d2079879f826aff18dbeeca5960fbf"
   integrity sha512-M4yMwr6mAnQz76TbJm914+gPpB/nCwvZbJU28cUD6dR004SAxDLOOSUaB1JDRqLtaOV/vi0IC5lEAGFgrjGv/g==
 
+whatwg-url@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-10.0.0.tgz#37264f720b575b4a311bd4094ed8c760caaa05da"
+  integrity sha512-CLxxCmdUby142H5FZzn4D8ikO1cmypvXVQktsgosNy4a4BHrDHeciBBGZhb0bNoR5/MltoCatso+vFjjGx8t0w==
+  dependencies:
+    tr46 "^3.0.0"
+    webidl-conversions "^7.0.0"
+
 whatwg-url@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-9.0.0.tgz#7de99809eaaba2bff7e0a995a516b26aa789fb89"
@@ -3205,13 +3215,6 @@ whatwg-url@^9.0.0:
   dependencies:
     tr46 "^2.1.0"
     webidl-conversions "^6.1.0"
-
-whatwg-url@jsdom/whatwg-url#update-webidl2js:
-  version "9.1.0"
-  resolved "https://codeload.github.com/jsdom/whatwg-url/tar.gz/4c5befc1f969adc43b457b6e372d8224b15ce969"
-  dependencies:
-    tr46 "^3.0.0"
-    webidl-conversions "^7.0.0"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
