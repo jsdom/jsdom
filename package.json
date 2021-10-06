@@ -27,7 +27,7 @@
     "cssstyle": "^2.3.0",
     "data-urls": "^3.0.0",
     "decimal.js": "^10.3.1",
-    "domexception": "^2.0.1",
+    "domexception": "jsdom/domexception#update-webidl2js",
     "escodegen": "^2.0.0",
     "form-data": "^4.0.0",
     "html-encoding-sniffer": "^2.0.1",
@@ -44,7 +44,7 @@
     "webidl-conversions": "^7.0.0",
     "whatwg-encoding": "^1.0.5",
     "whatwg-mimetype": "^2.3.0",
-    "whatwg-url": "^9.0.0",
+    "whatwg-url": "jsdom/whatwg-url#update-webidl2js",
     "ws": "^8.2.2",
     "xml-name-validator": "^3.0.0"
   },
