@@ -183,6 +183,7 @@ Lucian Buzzo <LucianBuzzo@users.noreply.github.com>
 Ludovico Fischer <livrerie@gmail.com>
 Luis Silva <fetzpt@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
+lul-odoo <lucas.lefevre@hotmail.com>
 Magne Andersson <code@zirro.se>
 makana <mamas-albtraum@web.de>
 Manuel Lopez <jmlopez.rod@gmail.com>
@@ -231,6 +232,7 @@ Péter <peter.perenyi@gmail.com>
 Peter Lyons <pete@peterlyons.com>
 Phil Dokas <pdokas@organic.com>
 Philipp Fritsche <ph.fritsche@gmail.com>
+Philippe Ozil <5071767+pozil@users.noreply.github.com>
 Pierre-Marie Dartus <dartus.pierremarie@gmail.com>
 Rafał Chłodnicki <rchl2k@gmail.com>
 Rainer Eli <claushellsing@gmail.com>

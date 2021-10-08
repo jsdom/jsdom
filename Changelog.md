@@ -26,6 +26,18 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 18.0.0
+
+Potentially-breaking bug fixes:
+
+* Fixed SSL certificate checking for WebSocket connections. Previously, invalid SSL certificates were always accepted; now, they properly respect the `ResourceLoader`'s `strictSSL` option (which defaults to `true`).
+* Changed the global in which almost all `Promise` and `TypeError` instances are created to be the jsdom global, not the Node.js global. This could affect any code that uses `instanceof`.
+
+Other changes:
+
+* Fixed moving an element between HTML and XML documents to reset the `tagName` cache, allowing it to return a lowercase value once it's in the XML document. (LucasLefevre)
+* Fixed form submission to not happen when the form is invalid. (pozil)
+
 ## 17.0.0
 
 Breaking change: Node v12 is now the minimum supported version.
