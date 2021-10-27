@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>Element.tagName</title>
+<script src=/resources/testharness.js></script>
+<script src=/resources/testharnessreport.js></script>
+<body>
+<script>
+  test(() => {
+    var df = document.createDocumentFragment(),
+        p1 = document.createElement("p"),
+        p2 = document.createElement("p"),
+        t1 = document.createTextNode("1"),
+        t2 = document.createTextNode("2");
+    p1.appendChild(t1);
+    p2.appendChild(t2);
+    df.appendChild(p1);
+    df.appendChild(p2);
+    var r = document.createRange();
+    r.setStart(t1, 0);
+    r.setEnd(t2, 1);
+    assert_equals(r.toString(), "12");
+    p1.removeChild(t1);
+    assert_equals(r.toString(), "2");
+  });
+
+  test(() => {
+    var df = document.createDocumentFragment(),
+        p1 = document.createElement("p"),
+        p2 = document.createElement("p"),
+        t1 = document.createTextNode("1"),
+        t2 = document.createTextNode("2");
+    p1.appendChild(t1);
+    p2.appendChild(t2);
+    df.appendChild(p1);
+    df.appendChild(p2);
+    var r = document.createRange();
+    r.setStart(t1, 0);
+    r.setEnd(t2, 1);
+    assert_equals(r.toString(), "12");
+    p2.removeChild(t2);
+    assert_equals(r.toString(), "1");
+  });
+</script>
