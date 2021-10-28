@@ -1,0 +1,44 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>Element.tagName</title>
+<script src=/resources/testharness.js></script>
+<script src=/resources/testharnessreport.js></script>
+<body>
+<script>
+  "use strict";
+  test(() => {
+    const df = document.createDocumentFragment();
+    const p1 = document.createElement("p");
+    const p2 = document.createElement("p");
+    const t1 = document.createTextNode("1");
+    const t2 = document.createTextNode("2");
+    p1.appendChild(t1);
+    p2.appendChild(t2);
+    df.appendChild(p1);
+    df.appendChild(p2);
+    const r = document.createRange();
+    r.setStart(t1, 0);
+    r.setEnd(t2, 1);
+    assert_equals(r.toString(), "12");
+    p1.removeChild(t1);
+    assert_equals(r.toString(), "2");
+  }, "removeChild on the node containing a range's start boundary point will adjust range");
+
+  test(() => {
+    const df = document.createDocumentFragment();
+    const p1 = document.createElement("p");
+    const p2 = document.createElement("p");
+    const t1 = document.createTextNode("1");
+    const t2 = document.createTextNode("2");
+    p1.appendChild(t1);
+    p2.appendChild(t2);
+    df.appendChild(p1);
+    df.appendChild(p2);
+    const r = document.createRange();
+    r.setStart(t1, 0);
+    r.setEnd(t2, 1);
+    assert_equals(r.toString(), "12");
+    p2.removeChild(t2);
+    assert_equals(r.toString(), "1");
+  }, "removeChild on the node containing a range's end boundary point will adjust range");
+</script>
