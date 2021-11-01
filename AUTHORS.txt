@@ -103,8 +103,10 @@ Gary Court <gary.court@gmail.com>
 Gianluca Guarini <gianluca.guarini@gmail.com>
 Godmar Back <godmar@gmail.com>
 Gord Tanner <gtanner@gmail.com>
+Grant Gryczan <grantgryczan@gmail.com>
 gregory80 <gregory.tomlinson@gmail.com>
 Haz <hazdiego@gmail.com>
+Henrik Giesel <hengiesel@gmail.com>
 Henry Zhu <hi@henryzoo.com>
 hij1nx <fernmicro@gmail.com>
 i8-pi <thomas@nomology.id.au>
@@ -274,6 +276,7 @@ Shimon Doodkin <helpmepro1@gmail.com>
 Silvio Tomatis <silviot@gmail.com>
 Simen Bekkhus <sbekkhus91@gmail.com>
 Simon Müller <SimonMueller@users.noreply.github.com>
+Simon Weimann <simon.weimann@gmail.com>
 sonnym <michaud.sonny@gmail.com>
 Soufiane Ghzal <sghzal@gmail.com>
 sporchia <print@blindchaos.net>

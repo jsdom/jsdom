@@ -26,6 +26,13 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 18.0.1
+
+* Fixed live `Range`s to update correctly after calling `node.normalize()`. (hgiesel)
+* Fixed live `Range`s to update correctly after removing child nodes. (hgiesel)
+* Fixed setting `inputEl.valueAsDate = null` to no longer throw an exception, but instead set the value to the empty string. (simon-weimann)
+* Improved performance of node insertion and `node.contains()`. (GrandGryczan)
+
 ## 18.0.0
 
 Potentially-breaking bug fixes:
