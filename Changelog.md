@@ -31,7 +31,7 @@ Other guidelines:
 * Fixed live `Range`s to update correctly after calling `node.normalize()`. (hgiesel)
 * Fixed live `Range`s to update correctly after removing child nodes. (hgiesel)
 * Fixed setting `inputEl.valueAsDate = null` to no longer throw an exception, but instead set the value to the empty string. (simon-weimann)
-* Improved performance of node insertion and `node.contains()`. (GrandGryczan)
+* Improved performance of node insertion and `node.contains()`. (GrantGryczan)
 
 ## 18.0.0
 
