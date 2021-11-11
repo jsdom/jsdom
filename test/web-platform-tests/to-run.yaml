@@ -272,7 +272,6 @@ DIR: fetch/api/headers
 header-values-normalize.any.html: [fail, fetch is not defined]
 header-values.any.html: [fail, fetch is not defined]
 headers-no-cors.any.html: [fail, Request is not defined]
-headers-normalize.any.html: [fail, Unknown]
 
 ---
 
