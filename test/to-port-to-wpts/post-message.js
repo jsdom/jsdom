@@ -36,14 +36,16 @@ describe("post-message", () => {
     const { window } = new JSDOM();
     const { document } = window;
     const iframeWindow = injectIFrame(document).contentWindow;
+    const port = {};
 
     window.addEventListener("message", event => {
       assert.ok(event.data === "ack");
       assert.ok(event.type === "message");
+      assert.ok(event.ports[0] === port);
       t.done();
     });
 
-    iframeWindow.parent.postMessage("ack", "*");
+    iframeWindow.parent.postMessage("ack", "*", [port]);
   }, {
     async: true
   });
@@ -52,15 +54,17 @@ describe("post-message", () => {
     const { window } = new JSDOM();
     const { document } = window;
     const iframeWindow = injectIFrame(document).contentWindow;
+    const port = {};
 
     window.addEventListener("message", event => {
       assert.ok(typeof event.data === "object");
       assert.ok(event.data.foo === "bar");
       assert.ok(event.type === "message");
+      assert.ok(event.ports[0] === port);
       t.done();
     });
 
-    iframeWindow.parent.postMessage({ foo: "bar" }, "*");
+    iframeWindow.parent.postMessage({ foo: "bar" }, "*", [port]);
   }, {
     async: true
   });
@@ -68,14 +72,16 @@ describe("post-message", () => {
   specify("postMessage from parent to iframe", t => {
     const { document } = (new JSDOM()).window;
     const iframeWindow = injectIFrame(document).contentWindow;
+const port = {};
 
     iframeWindow.addEventListener("message", event => {
       assert.ok(event.data === "ack");
       assert.ok(event.type === "message");
+      assert.ok(event.ports[0] === port);
       t.done();
     });
 
-    iframeWindow.postMessage("ack", "*");
+    iframeWindow.postMessage("ack", "*", [port]);
   }, {
     async: true
   });
