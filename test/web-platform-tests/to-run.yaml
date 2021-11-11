@@ -14,6 +14,7 @@ filelist-section/filelist.html:
   "Check if item is a instanceof Function": [fail, function is not instanceof Function]
 historical.https.html:
   "Service worker test setup": [fail, Needs Service Worker implementation]
+idlharness.any.html: [fail, URL.createObjectURL not implemented]
 idlharness.html: [fail, URL.createObjectURL not implemented]
 reading-data-section/FileReader-multiple-reads.any.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
 reading-data-section/filereader_events.any.html: [fail, Unknown]
@@ -86,6 +87,7 @@ elementScroll.html: [fail, Unknown]
 elementsFromPoint**: [fail, Not implemented]
 getBoundingClientRect-empty-inline.html: [fail, document.fonts is not implemented]
 getBoundingClientRect-shy.html: [fail, Not implemented]
+getBoundingClientRect-svg.html: [fail, Not implemented]
 getClientRects-br-*: [fail, Not implemented]
 getClientRects-inline-atomic-child.html: [fail, Not implemented]
 idlharness.html: [fail, Depends on Fetch]
@@ -173,6 +175,14 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 
 DIR: dom/abort
 
+event.any.html:
+  "AbortController abort() should fire event synchronously": [fail, AbortSignal.reason is not implemented]
+  "AbortController abort(reason) should set signal.reason": [fail, AbortSignal.reason is not implemented]
+  "aborting AbortController without reason creates an \"AbortError\" DOMException": [fail, AbortSignal.reason is not implemented]
+  "AbortController abort(undefined) creates an \"AbortError\" DOMException": [fail, AbortSignal.reason is not implemented]
+  "static aborting signal should have right properties": [fail, AbortSignal.reason is not implemented]
+  "static aborting signal with reason should set signal.reason": [fail, AbortSignal.reason is not implemented]
+
 ---
 
 DIR: dom/collections
@@ -207,7 +217,8 @@ DOMTokenList-coverage-for-attributes.html: [fail, Several DOMTokenList attribute
 DIR: dom/nodes
 
 Document-URL.html: [fail, Unknown]
-Document-characterSet-normalization.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
+Document-characterSet-normalization-1.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
+Document-characterSet-normalization-2.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-createEvent.https.html: [fail, We don't support every event interface yet]
 Document-getElementById.html: [fail, We cache IDs in insertion order]
 Element-closest.html: [fail, :has is not supported (by all major browsers as well)]
@@ -261,6 +272,7 @@ DIR: fetch/api/headers
 header-values-normalize.any.html: [fail, fetch is not defined]
 header-values.any.html: [fail, fetch is not defined]
 headers-no-cors.any.html: [fail, Request is not defined]
+headers-normalize.any.html: [fail, Unknown]
 
 ---
 
@@ -285,6 +297,7 @@ api-availability.html: [timeout, window.open not implemented]
 browsing_context_name.html: [timeout, Unknown]
 browsing_context_name_cross_origin.html: [timeout, Unknown]
 browsing_context_name_cross_origin_2.html: [fail, window.name not implemented]
+history-traversal-navigates-multiple-frames.html: [fail, Unknown]
 persisted-user-state-restoration/resume-timer-on-history-back.html: [timeout, Unknown]
 persisted-user-state-restoration/scroll-restoration-basic.html: [fail, Not implemented]
 persisted-user-state-restoration/scroll-restoration-fragment-scrolling-cross-origin.html: [timeout, Unknown]
@@ -321,13 +334,22 @@ anchor-jsurl-form-submit.html: [timeout, Unknown]
 child-navigates-parent-same-origin.window.html: [fail-slow, Unknown]
 empty_fragment.html: [fail, Unknown]
 failure-check-sequence.https.html: [fail, Not implemented]
+initial-empty-document/*: [fail, Unknown]
 javascript-url-abort/javascript-url-abort-return-value-string.tentative.html: [timeout, Unknown]
 javascript-url-abort/javascript-url-abort-return-value-undefined.tentative.html: [timeout, Unknown]
 javascript-url-return-value-handling-dynamic.html: [fail, Unknown]
+javascript-url-security-check-failure.sub.html: [fail, Unknown]
+javascript-url-security-check-multi-globals.sub.html: [fail, Unknown]
+javascript-url-security-check-same-origin-domain.sub.html: [fail, Unknown]
+navigate-cross-origin-iframe-to-same-url-with-fragment.html: [fail, Unknown]
+navigate-cross-origin-iframe-to-same-url.html: [fail, Unknown]
 navigation-unload-form-submit.html: [timeout, Unknown]
 navigation-unload-same-origin-fragment.html: [timeout, Unknown]
+redirect-to-about.window.html: [fail, Unknown]
+redirect-to-data.html: [fail, Unknown]
 refresh/navigate.window.html: [timeout, Unknown]
 refresh/subresource.any.html: [fail, Depends on fetch]
+replace-before-load/*: [fail, Unknown]
 source/navigate-child-function-parent.html: [timeout, Unknown]
 source/navigate-child-function.html: [timeout, Unknown]
 source/navigate-child-src-about-blank.html: [fail, Unknown]
@@ -365,6 +387,7 @@ history_go_to_uri.html: [timeout, Unknown]
 history_go_undefined.html: [timeout, Unknown]
 history_go_zero.html: [timeout, Unknown]
 history_properties_only_fully_active.html: [fail, Unknown]
+history_pushstate_url_rewriting.html: [fail, needs URL.createObjectURL]
 iframe_history_go_0.html: [timeout, Unknown]
 joint_session_history/001.html: [timeout, Unknown]
 joint_session_history/002.html: [timeout, Unknown]
@@ -470,6 +493,7 @@ window-open-defaults.window.html: [fail, Depends on window.open()]
 window-open-invalid-url.html: [fail, Unknown]
 window-open-noopener.html**: [fail-slow, Unknown]
 window-open-noreferrer.html: [fail, Depends on BroadcastChannel]
+window-opener-unconfigurable.window.html: [fail, Not implemented]
 window-properties.https.html:
   "Window method: createImageBitmap": [fail, Not implemented]
   "Window method: matchMedia": [fail, Not implemented]
@@ -605,6 +629,7 @@ DIR: html/dom/elements/elements-in-the-dom
 DIR: html/dom/elements/global-attributes
 
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
+dir-bdi-script.html: [fail, Unknown]
 dir-slots-directionality.tentative.html: [fail, Unknown]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
@@ -750,6 +775,7 @@ img-picture-ancestor.html: [fail, Unknown; possibly needs media queries?]
 img.complete.html: [timeout, Unknown]
 invalid-src.html: [timeout, Resource loader doesn't catch bad URLs at the right point in the process]
 invisible-image.html: [fail, images block the window load event not implemented (images not in _queue)]
+list-of-available-images-does-not-coalesce-in-flight-requests.sub.tentative.html: [fail, Unknown]
 list-of-available-images-matching.https.html: [fail, Service worker not implemented]
 move-element-and-scroll.html: [fail, scrollIntoView not implemented]
 natural-size-orientation.html: [timeout, image-orientation CSS property not implemented]
@@ -817,6 +843,7 @@ button-activate.html: [fail, iframe onload needs to run after synchronous script
 button-submit-children.html: [fail-slow, We do not support form target yet]
 button-submit-remove-children-jssubmit.html: [fail-slow, We do not support form target yet]
 button-submit-remove-children.html: [fail-slow, We do not support form target yet]
+button-submit-remove-jssubmit.html: [fail-slow, We do not support form target yet]
 
 ---
 
@@ -850,12 +877,14 @@ datetime-local.html: [fail, min/max constraints not implemented]
 hidden-charset-case-sensitive.html: [timeout, Unknown]
 image-click-form-data.html: [timeout, Unknown]
 input-seconds-leading-zeroes.html: [fail, Unknown]
+input-submit-remove-jssubmit.html: [fail-slow, We do not support form target yet]
 input-type-button.html: [fail, Depends on offsetWidth]
 maxlength.html: [fail, Reflection not implemented correctly]
 minlength.html: [fail, Reflection not implemented correctly]
 range-2.html: [fail, step attribute not yet implemented]
 range.html: [fail, step attribute and range semantics not yet implemented]
 reset.html: [fail, Reset semantics not yet implemented]
+show-picker-cross-origin-iframe.tentative.html: [fail, Not implemented]
 
 ---
 
@@ -889,12 +918,15 @@ DIR: html/semantics/forms/the-progress-element
 
 DIR: html/semantics/forms/the-select-element
 
+select-validity.html: [fail, Unknown]
+
 ---
 
 DIR: html/semantics/forms/the-textarea-element
 
 textarea-maxlength.html: [fail, Unknown]
 textarea-minlength.html: [fail, Unknown]
+textarea-placeholder-lineheight.html: [fail, getBoundingClientRect() is not implemented]
 wrap-enumerated-ascii-case-insensitive.html: [timeout, Unknown]
 
 ---
@@ -905,6 +937,8 @@ DIR: html/semantics/grouping-content
 
 DIR: html/semantics/interactive-elements/the-details-element
 
+auto-expand-details-element-fragment.html: [fail, Ancestor details revealing algorithm is not implemented]
+closed-details-layout-apis.tentative.html: [fail, getBoundingClientRect() is not implemented]
 toggleEvent.html: [fail, The ninth test requires a streaming HTML parser to pass]
 
 ---
@@ -998,7 +1032,6 @@ execution-timing/107-import.html: [fail, Unknown]
 execution-timing/107-noimport.html: [fail, Unknown]
 execution-timing/108.html: [fail, Unknown]
 execution-timing/109.html: [fail, Unknown]
-execution-timing/116.html: [fail, Unknown]
 execution-timing/117.html: [fail, Unknown]
 execution-timing/118.html: [fail, Unknown]
 execution-timing/119.html: [fail, Unknown]
@@ -1025,7 +1058,7 @@ execution-timing/142.html: [fail, Unknown]
 execution-timing/143.html: [fail, Unknown]
 execution-timing/144.html: [fail, Unknown]
 execution-timing/145.html: [fail, Unknown]
-execution-timing/146.html: [fail, Unknown]
+execution-timing/146-href.html: [fail, Unknown]
 execution-timing/149.html: [fail, Unknown]
 execution-timing/150-import-xhtml.xhtml: [fail, Unknown]
 execution-timing/150-import.html: [fail, Unknown]
@@ -1055,6 +1088,7 @@ script-not-executed-after-shutdown.html: [fail-slow, Unknown]
 script-onerror-insertion-point-1.html: [timeout, Unknown]
 script-onerror-insertion-point-2.html: [flaky]
 script-onload-insertion-point.html: [fail, Unknown]
+script-supports.html: [fail, Not implemented]
 script-text-modifications.html: [fail, Unknown]
 script-type-and-language-js.html: [fail, Our script execution timing is off; see discussion in https://github.com/jsdom/jsdom/pull/1406]
 
@@ -1103,12 +1137,17 @@ DIR: html/syntax
 
 parsing-html-fragments/*: [timeout, Unknown]
 parsing/DOMContentLoaded-defer.html: [fail, Script execution timing]
+parsing/adoption_agency_check_the_end_tag_name.html: [fail, Unknown]
+parsing/ambiguous-ampersand.html: [fail, Unknown]
 parsing/html-integration-point.html: [fail, Incorrect handling of encoded entity references inside <noframes> element]
 parsing/html5lib*: [timeout, Unknown]
 parsing/html_content_in_foreign_context.html: [fail, Parser issues with foreign elements]
+parsing/the-end.html: [fail, Unknown]
 parsing/unclosed-svg-script.html: [fail, Unknown]
 serializing-html-fragments/escaping.html: [fail, https://github.com/inikulin/parse5/issues/332]
 serializing-html-fragments/serializing.html: [fail, https://github.com/inikulin/parse5/issues/289]
+speculative-parsing/generated/document-write/*: [fail-slow, Unknown]
+speculative-parsing/generated/page-load/*: [fail-slow, Unknown]
 xmldecl/xmldecl-1.html: [fail, Unknown; possibly iframes are inheriting encoding from their parent?]
 xmldecl/xmldecl-2.html: [fail, several encodings misdetected?]
 xmldecl/xmldecl-3.html: [fail, Unknown]
@@ -1160,9 +1199,12 @@ messageevent-constructor.https.html: [fail, uses MessageChannel]
 
 DIR: html/webappapis/system-state-and-capabilities/the-navigator-object
 
+clientinformation.window.html: [fail, window.clientInformation is not implemented]
 historical.https.window.html: [fail, Not implemented]
 navigator-window-controls-overlay.html: [fail, Not implemented]
 navigator_user_agent.https.html: [fail, Not implemented]
+per-global.window.html: [fail, window.clientInformation is not implemented]
+plugins-and-mimetypes.html: [fail, navigator.pdfViewerEnabled is not implemented]
 protocol.https.html: [fail, registerProtocolHandler() is not implemented]
 protocol.tentative.https.html: [fail, registerProtocolHandler() is not implemented]
 
@@ -1176,6 +1218,7 @@ DIR: selection
 
 bidi/modify.tentative.html: [fail, Not implemented]
 contenteditable/collapse.html: [fail, No spec for how selection changes should impact focus, https://github.com/whatwg/html/issues/6179]
+contenteditable/initial-selection-on-focus.tentative.html?*: [fail, Not implemented]
 contenteditable/modify.tentative.html: [fail, Not implemented]
 idlharness.window.html: [fail, Depends on fetch]
 modify-extend-word-trailing-inline-block.tentative.html: [fail, Not implemented]
@@ -1184,7 +1227,8 @@ script-and-style-elements.html: [fail,
   toString should return only the text within the selection that is visible to the user
   (https://www.w3.org/Bugs/Public/show_bug.cgi?id=10583, https://bugzilla.mozilla.org/show_bug.cgi?id=1535392)
 ]
-textcontrols/selectionchange.tentative.html: [fail, Firefox-only semantics not yet backed by a spec]
+textcontrols/selectionchange-bubble.html: [timeout, Unknown]
+textcontrols/selectionchange.html: [fail, Firefox-only semantics not yet backed by a spec]
 
 ---
 
@@ -1278,6 +1322,7 @@ unload-a-document/*: [timeout, Requires window.open]
 
 DIR: webstorage
 
+localstorage-basic-partitioned.tentative.sub.html: [timeout, Depends on window.open()]
 storage_local_window_open.window.html: [timeout, Depends on window.open()]
 storage_session_window_noopener.window.html: [fail, Depends on BroadcastChannel]
 storage_session_window_open.window.html: [timeout, Depends on window.open()]
@@ -1357,6 +1402,7 @@ send-response-event-order.htm: [fail, why no readystatechange for headers receiv
 send-sync-response-event-order.htm: [fail-slow, not sure; sync is special]
 setrequestheader-content-type.htm: [fail-slow, we don't implement ReadableStream; also unsure we can get request() to send no content-type for ArrayBuffer]
 status-basic.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
+status.h2.window.html: [fail, Unknown]
 sync-no-progress.any.html: [fail, Unknown]
 sync-xhr-supported-by-feature-policy.html: [fail, We don't support Feature Policy]
 xhr-timeout-longtask.any.html: [fail, This is probably impossible to get right in Node.js (without threads)]
