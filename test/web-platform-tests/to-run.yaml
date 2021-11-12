@@ -173,14 +173,6 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 
 DIR: dom/abort
 
-event.any.html:
-  "AbortController abort() should fire event synchronously": [fail, AbortSignal.reason is not implemented]
-  "AbortController abort(reason) should set signal.reason": [fail, AbortSignal.reason is not implemented]
-  "aborting AbortController without reason creates an \"AbortError\" DOMException": [fail, AbortSignal.reason is not implemented]
-  "AbortController abort(undefined) creates an \"AbortError\" DOMException": [fail, AbortSignal.reason is not implemented]
-  "static aborting signal should have right properties": [fail, AbortSignal.reason is not implemented]
-  "static aborting signal with reason should set signal.reason": [fail, AbortSignal.reason is not implemented]
-
 ---
 
 DIR: dom/collections
