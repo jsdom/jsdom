@@ -26,6 +26,12 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 18.1.0
+
+* Fixed `headers.append()` and `headers.set()` to normalize values. (MattiasBuelens)
+* Fixed `pageshow` events to have `bubbles: true` and `cancelable: true`. (MattiasBuelens)
+* Implemented the `reason` property on `AbortSignal`s, along with the corresponding `reason` argument to `abortSignal.abort()` and `AbortSignal.abort()`. (MattiasBuelens)
+
 ## 18.0.1
 
 * Fixed live `Range`s to update correctly after calling `node.normalize()`. (hgiesel)
