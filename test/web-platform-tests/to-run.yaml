@@ -7,9 +7,7 @@ blob/Blob-constructor.any.html:
   "Passing a FrozenArray as the blobParts array should work (FrozenArray<MessagePort>).": [fail, Depends on MessagePort]
 blob/Blob-stream.any.html: [fail, Unknown]
 blob/Blob-text.any.html: [fail, Depends on TextEncoder]
-file/File-constructor.any.html: [needs-node12, Requires globalThis]
 file/send-file-form*: [fail, DataTransfer not implemented]
-fileReader.any.html: [needs-node12, Requires globalThis]
 filelist-section/filelist.html:
   "Check if item is a instanceof Function": [fail, function is not instanceof Function]
 historical.https.html:
