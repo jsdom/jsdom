@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 18.1.1
+
+* Fixed `connectedCallback` to fire in situations involving document fragments, which was broken in v18.0.1. (GrantGryczan)
+
 ## 18.1.0
 
 * Fixed `headers.append()` and `headers.set()` to normalize values. (MattiasBuelens)
