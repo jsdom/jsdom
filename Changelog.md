@@ -26,6 +26,11 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 19.0.0
+
+* Changed `jsdom.nodeLocation()` to return `undefined` when used on nodes that originate via fragment parsing (e.g., via `innerHTML`). Previously it would return based on the node location of the fragment string, which made node locations unreliable with respect to the original document source. This restores the behavior that was present in v14.0.0, and was accidentally broken in v14.1.0. (bakkot)
+* Fixed calling `window.close()` inside the `Window`'s `load` event to no longer crash. (MattiasBuelens)
+
 ## 18.1.1
 
 * Fixed `connectedCallback` to fire in situations involving document fragments, which was broken in v18.0.1. (GrantGryczan)
