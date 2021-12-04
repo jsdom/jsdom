@@ -166,6 +166,7 @@ Kasper Isager <kasperisager@gmail.com>
 kblomquist <kblomquist@groupon.com>
 Ken "Elf" Mathieu Sternberg <elf@pendorwright.com>
 Kenneth Powers <ken@kenpowers.net>
+Kevin Gibbons <bakkot@gmail.com>
 Kevin Raynel <kraynel@users.noreply.github.com>
 King Koopa <bbyholm@abo.fi>
 Konto Mondo <kontomondo@gmail.com>

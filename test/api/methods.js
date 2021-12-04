@@ -133,6 +133,39 @@ describe("API: JSDOM class's methods", () => {
         endOffset: 36
       });
     });
+
+    it("should return undefined for nodes created by innerHTML", () => {
+      const dom = new JSDOM(`<p>Hello</p>`, { includeNodeLocations: true });
+      const para = dom.window.document.querySelector("p");
+
+      para.innerHTML = `<div></div>`;
+
+      const div = dom.window.document.querySelector("div");
+
+      assert.deepEqual(dom.nodeLocation(div), undefined);
+    });
+
+    it("should return undefined for nodes created by outerHTML", () => {
+      const dom = new JSDOM(`<p>Hello</p>`, { includeNodeLocations: true });
+      const para = dom.window.document.querySelector("p");
+
+      para.outerHTML = `<div></div>`;
+
+      const div = dom.window.document.querySelector("div");
+
+      assert.deepEqual(dom.nodeLocation(div), undefined);
+    });
+
+    it("should return undefined for nodes created by createContextualFragment", () => {
+      const dom = new JSDOM("", { includeNodeLocations: true });
+      const range = dom.window.document.createRange();
+
+      const fragment = range.createContextualFragment(`<p>Hello</p>`);
+
+      const node = fragment.querySelector("p");
+
+      assert.deepEqual(dom.nodeLocation(node), undefined);
+    });
   });
 
   describe("getInternalVMContext", { skipIfBrowser: true }, () => {
