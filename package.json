@@ -24,7 +24,7 @@
     "acorn": "^8.5.0",
     "acorn-globals": "^6.0.0",
     "cssom": "^0.5.0",
-    "cssstyle": "git+https://github.com/hughes-ch/cssstyle",
+    "cssstyle": "^2.3.0",
     "data-urls": "^3.0.1",
     "decimal.js": "^10.3.1",
     "domexception": "^4.0.0",
