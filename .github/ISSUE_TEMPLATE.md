@@ -1,7 +1,7 @@
 ### Basic info:
 
 - **Node.js version:** <!-- only v12 and above are supported -->
-- **jsdom version:** <!-- only v18 and above are supported -->
+- **jsdom version:** <!-- only v19 and above are supported -->
 
 ### Minimal reproduction case
 
