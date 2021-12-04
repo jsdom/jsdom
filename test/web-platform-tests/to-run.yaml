@@ -66,11 +66,9 @@ css-variable-change-style-002.html:
   "Declaration changes on 'background-color' propagate to all variable references": [fail, Named color to rgb not implemented]
 test_variable_legal_values.html: [fail, OnChange handler not implemented for styleText.data in cssstyle]
 variable-animation-*: [fail-slow, Animation not implemented]
-variable-cssText.html:
-  "target4": [fail, Whitespace]
-  "target5": [fail, Whitespace]
-  "target9": [fail, Special shorthand processing not implemented]
-  "target10": [fail, Unknown]
+variable-created-element.html:
+  "Variable reference appearing in a created element's inline style should work once spliced into the creating document": [fail, Should pass with https://github.com/jsdom/cssstyle/pull/127]
+variable-cssText.html: [fail, Unknown]
 variable-definition-cascading.html: [fail, Cascading not implemented]
 variable-definition.html: [fail, Whitespace fix needed in cssstyle]
 variable-empty-name-reserved.html: [fail, CSS is not defined error? Invalid test?]
@@ -79,19 +77,19 @@ variable-first-line.html: [fail, Not implemented]
 variable-invalidation.html: [fail, document.styleSheets.cssRules.style.item() not implemented]
 variable-presentation-attribute.html: [fail, Not implemented]
 variable-pseudo-element.html: [fail, Not implemented]
+variable-reference-cssom.html: [fail, Should pass with https://github.com/jsdom/cssstyle/pull/127]
 variable-reference-refresh.html: [timeout, Not implemented]
-variable-reference-shorthands.html:
-  "target1 margin": [fail, Will require fix when loading inline styles]
-  "target2 margin-top": [fail, Will require fix when loading inline styles]
-  "target3 margin": [fail, Will require fix when loading inline styles]
-variable-reference.html:
-  "width: var(--prop 20px);": [fail, Requires parsing update to cssstyle]
-  "width: var(--prop, var(prop));": [fail, Requires parsing update to cssstyle]
-  "width: var(--prop, var(-prop));": [fail, Requires parsing update to cssstyle]
-  "Variable reference left open at end of stylesheet": [fail, Unknown]
+variable-reference-shorthands-cssom.html: [fail, Should pass with https://github.com/jsdom/cssstyle/pull/127]
+variable-reference-shorthands.html: [fail, Unknown]
+variable-reference.html: [fail, Requires parsing update to cssstyle]
 variable-substitution-background-properties.html:
+  "background-attachment": [fail, Should pass with https://github.com/jsdom/cssstyle/pull/127]
+  "background-color": [fail, Should pass with https://github.com/jsdom/cssstyle/pull/127]
   "background-image-linear-gradient": [fail, linear-gradient not implemented]
   "background-image-radial-gradient": [fail, radial-gradient not implemented]
+  "background-image-url": [fail, Should pass with https://github.com/jsdom/cssstyle/pull/127]
+  "background-position": [fail, Should pass with https://github.com/jsdom/cssstyle/pull/127]
+  "background-repeat": [fail, Should pass with https://github.com/jsdom/cssstyle/pull/127]
 variable-substitution-basic.html: [fail, Cascading and conversion of color const to rgb not implemented]
 variable-substitution-replaced-size.html: [fail, calc not implemented]
 variable-substitution-shadow-properties.html: [fail, box-shadow not implemented in cssstyle]
@@ -165,7 +163,7 @@ window-screen-height.html: [fail, Test not applicable - no output device]
 window-screen-width.html: [fail, Test not applicable - no output device]
 
 ---
- 
+
 DIR: custom-elements
 
 CustomElementRegistry.html:
