@@ -9,9 +9,8 @@ The latest versions of jsdom require Node.js v12 or newer. (Versions of jsdom be
 
 ## Basic usage
 
-```js
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+```mjs
+import { JSDOM } from 'jsdom'
 ```
 
 To use jsdom, you will primarily use the `JSDOM` constructor, which is a named export of the jsdom main module. Pass the constructor a string. You will get back a `JSDOM` object, which has a number of useful properties, notably `window`:
