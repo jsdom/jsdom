@@ -655,6 +655,14 @@ the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
 
 ---
 
+DIR: html/infrastructure/common-dom-interfaces/collections
+
+domstringlist.html: [fail, Not implemented]
+historical.html: [fail, document.all not implemented]
+htmlallcollection.html: [fail, Not implemented]
+
+---
+
 DIR: html/infrastructure/urls/terminology-0
 
 document-base-url.html: [fail, We don't support srcdoc <base> correctly]
@@ -859,7 +867,6 @@ DIR: html/semantics/forms/the-form-element
 form-action-submission-with-base-url.html: [timeout, Unknown]
 form-action-submission.html: [timeout, Unknown]
 form-autocomplete.html: [fail, Unknown]
-form-elements-interfaces-01.html: [fail, Unknown]
 form-elements-nameditem-01.html: [fail, Unknown]
 form-indexed-element.html: [fail, Unknown]
 form-nameditem.html: [fail, Unknown]
