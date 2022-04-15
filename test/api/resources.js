@@ -644,6 +644,23 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       });
     });
 
+    it("should be able to pass custom headers", async () => {
+      const serverUrl = await customHeaderHtmlServer();
+      class CustomResourceLoader extends ResourceLoader {
+        fetch(url, options) {
+          options.headers = {
+            "X-Custom-Header": "test"
+          };
+          return super.fetch(url, options);
+        }
+      }
+      const resourceLoader = new CustomResourceLoader();
+
+      const dom = await JSDOM.fromURL(serverUrl, { resources: resourceLoader });
+
+      assert.strictEqual(dom.window.document.body.textContent, "test");
+    });
+
     it("should be able to customize the proxy option", async () => {
       const [mainServer, mainHost] = await threeRequestServer();
 
@@ -807,6 +824,28 @@ async function resourceServer(headers, body, { statusCode = 200 } = {}) {
   const server = await createServer((req, res) => {
     res.writeHead(statusCode, headers);
     res.end(body);
+    server.destroy();
+  });
+
+  return `http://127.0.0.1:${server.address().port}/`;
+}
+
+async function customHeaderHtmlServer() {
+  const server = await createServer((req, res) => {
+    const customHeader = req.headers["x-custom-header"];
+
+    if (!customHeader) {
+      const message = "Missing custom header";
+      res.writeHead(400, { "Content-Type": "text/html", "Content-Length": message.length });
+      res.end(message);
+      server.destroy();
+      return;
+    }
+
+    const responseHeaders = { "Content-Type": "text/html", "Content-Length": customHeader.length };
+
+    res.writeHead(200, responseHeaders);
+    res.end(customHeader);
     server.destroy();
   });
 
