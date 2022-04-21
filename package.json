@@ -35,7 +35,7 @@
     "https-proxy-agent": "^5.0.1",
     "is-potential-custom-element-name": "^1.0.1",
     "nwsapi": "^2.2.0",
-    "parse5": "6.0.1",
+    "parse5": "^7.0.0",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
     "tough-cookie": "^4.0.0",
