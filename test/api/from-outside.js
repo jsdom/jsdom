@@ -47,10 +47,11 @@ describe("Test cases only possible to test from the outside", () => {
     const { status, stdout } = spawnSync("node", ["--expose-gc", timeoutWithGcFixturePath], { encoding: "utf-8" });
 
     assert.equal(status, 0);
-    const diffInBytes = Number(stdout);
-    assert.isNotNaN(diffInBytes);
-    const diffInMB = diffInBytes / 1024 / 1024;
-    assert.isBelow(diffInMB, 5);
+    const ratio = Number(stdout);
+    assert.isNotNaN(ratio);
+
+    // At least 70% of the memory must be freed up.
+    assert.isBelow(ratio, 0.3);
   });
 
   it("window.close() should work from within a load event listener", async () => {
