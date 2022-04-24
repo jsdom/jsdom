@@ -14,10 +14,16 @@ function registerTimerWithClosure() {
 global.gc();
 const heapTotalBeforeTimer = process.memoryUsage().heapTotal;
 registerTimerWithClosure();
+const heapTotalAfterRegister = process.memoryUsage().heapTotal;
 global.gc();
 
 setTimeout(() => {
   global.gc();
   const heapTotalAfterTimer = process.memoryUsage().heapTotal;
-  console.log(heapTotalAfterTimer - heapTotalBeforeTimer);
+
+  // In previous revisions of this test we were checking heapTotalAfterTimer - heapTotalBeforeTimer. That ends up being
+  // fragile as due to other overhead the value can change between Node.js versions.
+  //
+  // Instead, we want to check that we are much closer to heapTotalBeforeTimer than we are to heapTotalAfterRegister.
+  console.log((heapTotalAfterTimer - heapTotalBeforeTimer) / (heapTotalAfterRegister - heapTotalBeforeTimer));
 }, 10);
