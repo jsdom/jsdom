@@ -50,8 +50,8 @@ describe("Test cases only possible to test from the outside", () => {
     const ratio = Number(stdout);
     assert.isNotNaN(ratio);
 
-    // At least 90% of the memory must be freed up.
-    assert.isBelow(ratio, 0.1);
+    // At least 70% of the memory must be freed up.
+    assert.isBelow(ratio, 0.3);
   });
 
   it("window.close() should work from within a load event listener", async () => {
