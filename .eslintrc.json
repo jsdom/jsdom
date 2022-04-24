@@ -14,6 +14,7 @@
     "no-invalid-this": "off",
     "require-unicode-regexp": "off",
     "prefer-template": "off",
+    "prefer-object-has-own": "off", // remove this once Node v16 is the minimum
     "new-cap": ["error", { "capIsNewExceptions": ["ByteString", "USVString", "DOMString"] }],
 
     // Custom rules
