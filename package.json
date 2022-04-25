@@ -25,7 +25,7 @@
     "acorn-globals": "^6.0.0",
     "cssom": "^0.5.0",
     "cssstyle": "^2.3.0",
-    "data-urls": "^3.0.1",
+    "data-urls": "^3.0.2",
     "decimal.js": "^10.3.1",
     "domexception": "^4.0.0",
     "escodegen": "^2.0.0",
