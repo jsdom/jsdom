@@ -5,7 +5,7 @@
 
 jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG [DOM](https://dom.spec.whatwg.org/) and [HTML](https://html.spec.whatwg.org/multipage/) Standards, for use with Node.js. In general, the goal of the project is to emulate enough of a subset of a web browser to be useful for testing and scraping real-world web applications.
 
-The latest versions of jsdom require Node.js v12 or newer. (Versions of jsdom below v17 still work with previous Node.js versions, but are unsupported.)
+The latest versions of jsdom require Node.js v14 or newer. (Versions of jsdom below v20 still work with previous Node.js versions, but are unsupported.)
 
 ## Basic usage
 
@@ -452,15 +452,15 @@ If you want to be sure to shut down a jsdom window, use `window.close()`, which 
 
 jsdom has some support for being run inside a web browser, using [browserify](https://browserify.org/). That is, inside a web browser, you can use a browserified jsdom to create an entirely self-contained set of plain JavaScript objects which look and act much like the browser's existing DOM objects, while being entirely independent of them. "Virtual DOM", indeed!
 
-jsdom's primary target is still Node.js, and so we use language features that are only present in recent Node.js versions (namely, Node.js v8+). Thus, older browsers will likely not work. (Even transpilation will not help: we use `Proxy`s extensively throughout the jsdom codebase.)
+jsdom's primary target is still Node.js, and so we use language features that are only present in recent Node.js versions. Thus, older browsers will likely not work. (Even transpilation will not help: we use `Proxy`s extensively throughout the jsdom codebase.)
 
 Notably, jsdom works well inside a web worker. The original contributor, [@lawnsea](https://github.com/lawnsea/), who made this possible, has [published a paper](https://pdfs.semanticscholar.org/47f0/6bb6607a975500a30e9e52d7c9fbc0034e27.pdf) about his project which uses this capability.
 
 Not everything works perfectly when running jsdom inside a web browser. Sometimes that is because of fundamental limitations (such as not having filesystem access), but sometimes it is simply because we haven't spent enough time making the appropriate small tweaks. Bug reports are certainly welcome.
 
-### Debugging the DOM using Chrome Devtools
+### Debugging the DOM using Chrome DevTools
 
-As of Node.js v6 you can debug programs using Chrome Devtools. See the [official documentation](https://nodejs.org/en/docs/inspector/) for how to get started.
+In Node.js you can debug programs using Chrome DevTools. See the [official documentation](https://nodejs.org/en/docs/inspector/) for how to get started.
 
 By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug, you can use [jsdom-devtools-formatter](https://github.com/viddo/jsdom-devtools-formatter), which lets you inspect them like real DOM elements.
 
