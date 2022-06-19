@@ -189,7 +189,6 @@ DIR: dom/collections
 
 DIR: dom/events
 
-AddEventListenerOptions-signal.any.html: [fail, Not implemented]
 Event-dispatch-click.tentative.html: [fail, Test is wrong, https://github.com/web-platform-tests/wpt/issues/27819]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 Event-timestamp-high-resolution.https.html: [fail, Not implemented]
