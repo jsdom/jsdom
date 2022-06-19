@@ -26,6 +26,15 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 20.0.0
+
+* Node.js v14 is now the minimum supported version
+* Added `crypto.getRandomValues()`. (sjrd)
+* Added `HTMLFormControlsCollection` and `RadioNodeList`, so `formEl.elements` now behaves correctly. (UndefinedBehavior)
+* Added the `signal` option to `addEventListener()`. (cheap-glitch)
+* Fixed the `:root` pseudoclass to work correctly. (hughs-ch)
+* Updated `parse5`, bringing along some HTML parsing and serialization fixes. (fb55)
+
 ## 19.0.0
 
 * Changed `jsdom.nodeLocation()` to return `undefined` when used on nodes that originate via fragment parsing (e.g., via `innerHTML`). Previously it would return based on the node location of the fragment string, which made node locations unreliable with respect to the original document source. This restores the behavior that was present in v14.0.0, and was accidentally broken in v14.1.0. (bakkot)

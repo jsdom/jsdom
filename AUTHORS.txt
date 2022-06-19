@@ -1,6 +1,7 @@
 Adam Faulkner <adamfaulkner1@gmail.com>
 Adrian Lang <mail@adrianlang.de>
 Adrian Makowski <adrian.makowski@gmail.com>
+Agostino Cavarero <acavarero@expedia.com>
 airportyh <airportyh@gmail.com>
 alec <alec.hulce@gmail.com>
 Aleksei Tsikov <alexey.tsikov@gmail.com>
@@ -45,6 +46,7 @@ Carlos Serrano <carlos.pastor@mailonline.co.uk>
 Chad Walker <chad@chad-cat-lore-eddie.com>
 Chris Buckley <chris@cmbuckley.co.uk>
 Chris Carpita <ccarpita@gmail.com>
+Chris Hughes <contact@chrishughesdev.com>
 Chris Richard <webmaster@cc-web-design.com>
 Christian Bewernitz <coder@karfau.de>
 Christof Marti <chrmarti@microsoft.com>
@@ -88,9 +90,11 @@ ExE Boss <3889017+ExE-Boss@users.noreply.github.com>
 fdesforges <frederic.desforges@gmail.com>
 Federico Galassi <federico.galassi@gmail.com>
 fegs <ang0123dev@gmail.com>
+Felix <188768+fb55@users.noreply.github.com>
 Felix Böhm <me@feedic.com>
 Felix Gnass <fgnass@gmail.com>
 Flaviu Tamas <tamasflaviu@gmail.com>
+Florent <cheap.glitch@gmail.com>
 Forbes Lindesay <forbes@lindesay.co.uk>
 fr0z3nk0 <peter.culak@ymail.com>
 Francis Saul <francis@mummybot.com>
@@ -273,6 +277,7 @@ Sean Jacke <seanineurope@gmail.com>
 Sebastian Mayr <github@smayr.name>
 Sebastian McKenzie <sebmck@gmail.com>
 Sebastian Silbermann <silbermann.sebastian@gmail.com>
+Sébastien Doeraene <sjrdoeraene@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
 Silvio Tomatis <silviot@gmail.com>
