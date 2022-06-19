@@ -29,6 +29,14 @@ url/**: [timeout, blob URLs not implemented]
 
 ---
 
+DIR: WebCryptoAPI
+
+"*/**": [fail, Not implemented]
+idlharness.https.any.html: [fail, Unknown]
+randomUUID.https.any.html: [fail, Not implemented]
+
+---
+
 DIR: cors
 
 304.htm: [fail-slow, Unknown]
