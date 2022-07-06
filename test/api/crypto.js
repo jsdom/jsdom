@@ -21,7 +21,7 @@ describe("window.crypto", () => {
     const dom = new JSDOM("", { runScripts: "dangerously" });
     class Buffer extends Int8Array {}
     assert.doesNotThrow(() => dom.window.crypto.getRandomValues(new Buffer(10)));
-  });
+  }, { skipIfBrowser: true });
 
   it("throws a TypeError for non-typed arrays", () => {
     const dom = new JSDOM();
