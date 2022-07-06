@@ -4,6 +4,7 @@
 
 require("./api/basics.js");
 require("./api/cookies.js");
+require("./api/crypto.js");
 require("./api/encoding.js");
 require("./api/fragment.js");
 require("./api/from-file.js");
