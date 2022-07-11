@@ -89,6 +89,18 @@ describe("API: runScripts constructor option", () => {
 
       assert.strictEqual(dom.window.prop, "i was executed");
     });
+
+    describe("emulate the import of library", () => {
+      it("should install \"var\" variable on window", () => {
+        const dom = new JSDOM(`<script>
+          var library = function(self, undefined) {
+            return {};
+          }.call(this, typeof self === 'object' ? self : null);
+        </script>`, { runScripts: "dangerously" });
+
+        assert.strictEqual("library" in dom.window && Boolean(dom.window.library), true);
+      });
+	});
   });
 
   describe("<noscript> children", () => {
