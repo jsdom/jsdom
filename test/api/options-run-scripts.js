@@ -100,7 +100,7 @@ describe("API: runScripts constructor option", () => {
 
         assert.strictEqual("library" in dom.window && Boolean(dom.window.library), true);
       });
-	});
+    });
   });
 
   describe("<noscript> children", () => {
