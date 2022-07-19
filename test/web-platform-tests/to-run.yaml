@@ -734,24 +734,16 @@ document-level-focus-apis/document-has-system-focus.html: [fail-slow, window.ope
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
 processing-model/textarea-scroll-selection.html: [fail, Not implemented]
-the-autofocus-attribute/autofocus-dialog.html: [fail, Not implemented]
-the-autofocus-attribute/autofocus-on-stable-document.html: [fail, Not implemented]
-the-autofocus-attribute/document-with-fragment-empty.html: [fail, Not implemented]
-the-autofocus-attribute/document-with-fragment-nonexistent.html: [fail, Not implemented]
-the-autofocus-attribute/document-with-fragment-top.html: [fail, Not implemented]
-the-autofocus-attribute/document-with-fragment-valid.html: [fail, Not implemented]
-the-autofocus-attribute/first-reconnected.html: [fail, Not implemented]
-the-autofocus-attribute/first-when-later-but-before.html: [fail, Not implemented]
-the-autofocus-attribute/first-when-later.html: [fail, Not implemented]
-the-autofocus-attribute/first.html: [fail, Not implemented]
-the-autofocus-attribute/focusable-area-in-top-document.html: [fail, Not implemented]
-the-autofocus-attribute/no-autofocus-on-changing-input-type.html: [fail, Not implemented]
-the-autofocus-attribute/queue-non-focusable.html: [fail, Not implemented]
-the-autofocus-attribute/skip-another-top-level-browsing-context.html: [fail, Not implemented]
-the-autofocus-attribute/skip-non-focusable.html: [fail, Not implemented]
-the-autofocus-attribute/spin-by-blocking-style-sheet.html: [fail-slow, Not implemented]
-the-autofocus-attribute/supported-elements.html: [fail, Not implemented]
-the-autofocus-attribute/update-the-rendering.html: [fail, Not implemented]
+the-autofocus-attribute/autofocus-on-stable-document.html: [fail, Incompatible with requestAnimationFrame implementation]
+the-autofocus-attribute/document-with-fragment-empty.html: [fail, window.open() not implemented]
+the-autofocus-attribute/document-with-fragment-nonexistent.html: [fail, window.open() not implemented]
+the-autofocus-attribute/document-with-fragment-top.html: [fail, window.open() not implemented]
+the-autofocus-attribute/document-with-fragment-valid.html: [fail, window.open() not implemented]
+the-autofocus-attribute/focusable-area-in-top-document.html: [timeout, iframe.srcdoc not implemented]
+the-autofocus-attribute/skip-another-top-level-browsing-context.html: [fail, window.open() not implemented]
+the-autofocus-attribute/spin-by-blocking-style-sheet.html: [fail-slow, Timing issue]
+the-autofocus-attribute/supported-elements.html: [fail, window.open() not implemented]
+the-autofocus-attribute/update-the-rendering.html: [fail, window.open() not implemented]
 
 ---
 
@@ -1022,6 +1014,14 @@ DIR: html/semantics/interactive-elements/the-details-element
 auto-expand-details-element-fragment.html: [fail, Ancestor details revealing algorithm is not implemented]
 closed-details-layout-apis.tentative.html: [fail, getBoundingClientRect() is not implemented]
 toggleEvent.html: [fail-slow, The ninth test requires a streaming HTML parser to pass]
+
+---
+
+DIR: html/semantics/interactive-elements/the-dialog-element
+
+centering.html: [fail, Requires document.elementFromPoint]
+dialog-inert.html: [fail, Requires document.elementFromPoint]
+dialog-showModal.html: [fail, Requires document.elementFromPoint]
 
 ---
 
