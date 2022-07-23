@@ -16,6 +16,12 @@ describe("API: JSDOM.fromURL()", { skipUnlessBrowser: true, timeout: 5000 }, () 
     ]);
   });
 
+  it("should return a rejected promise for a 404", () => {
+    const url = location.origin + "/base/";
+
+    return assert.isRejected(JSDOM.fromURL(url));
+  });
+
   describe("referrer", () => {
     it("should reject when passing an invalid absolute URL for referrer", () => {
       assert.isRejected(JSDOM.fromURL("http://example.com/", { referrer: "asdf" }), TypeError);
