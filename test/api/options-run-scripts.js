@@ -90,15 +90,82 @@ describe("API: runScripts constructor option", () => {
       assert.strictEqual(dom.window.prop, "i was executed");
     });
 
-    describe("emulate the import of library", () => {
-      it("should install \"var\" variable on window", () => {
-        const dom = new JSDOM(`<script>
-          var library = function(self, undefined) {
-            return {};
-          }.call(this, typeof self === 'object' ? self : null);
-        </script>`, { runScripts: "dangerously" });
-
-        assert.strictEqual("library" in dom.window && Boolean(dom.window.library), true);
+    describe("passing variables from a <script> to another <script>", () => {
+      it("should install \"var\"-declared variables out of all function scope on window", () => {
+        try {
+          const dom = new JSDOM(`<script>
+            var a, a1 = 1, { a2, a: a3, ...a4 } = { a2: 2, a: 3, a4: 4 }, [a5, ...a6] = [5, 6];
+            { var b, b1 = 1, { b2, b: b3, ...b4 } = { b2: 2, b: 3, b4: 4 }, [b5, ...b6] = [5, 6]; }
+            if (true) {
+              var c, c1 = 1, { c2, c: c3, ...c4 } = { c2: 2, c: 3, c4: 4 }, [c5, ...c6] = [5, 6];
+            } else {
+              var c, c1 = 0, { c2, c: c3, ...c4 } = { c2: 0, c: 0, c4: 0 }, [c5, ...c6] = [0, 0];
+            }
+            if (true)
+              var d, d1 = 1, { d2, d: d3, ...d4 } = { d2: 2, d: 3, d4: 4 }, [d5, ...d6] = [5, 6];
+            else
+              var d, d1 = 0, { d2, d: d3, ...d4 } = { d2: 0, d: 0, d4: 0 }, [d5, ...d6] = [0, 0];
+          </script><script>
+            if (
+              "a" in window && a1 === 1 && a2 === 2 && a3 === 3 && a4 === 4 && a5 === 5 && a6 === 6 &&
+              "b" in window && b1 === 1 && b2 === 2 && b3 === 3 && b4 === 4 && b5 === 5 && b6 === 6 &&
+              "c" in window && c1 === 1 && c2 === 2 && c3 === 3 && c4 === 4 && c5 === 5 && c6 === 6 &&
+              "d" in window && d1 === 1 && d2 === 2 && d3 === 3 && d4 === 4 && d5 === 5 && d6 === 6
+            )
+              ; // pass
+            else
+              throw new Error("passing fail");
+          </script>`, { runScripts: "dangerously" });
+          assert.strictEqual("a" in dom.window && dom.window.a === undefined, true);
+          assert.strictEqual("b" in dom.window && dom.window.b === undefined, true);
+          assert.strictEqual("c" in dom.window && dom.window.c === undefined, true);
+          assert.strictEqual("d" in dom.window && dom.window.d === undefined, true);
+        } catch (err) {
+          if (err.message === "passing fail") {
+            assert.fail(err.message);
+          } else {
+            throw err;
+          }
+        }
+      });
+      it("should install variables of function declaration out of all function scope on window", () => {
+        try {
+          const dom = new JSDOM(`<script>
+            function a() { return 1; }
+            { function b() { return 2; } }
+            if (true)
+              function c() { return 3; }
+            else 
+              function d() { return 4; }
+            switch (true) {
+              case true:
+                function e() { return 5; }
+            }
+            label: function f() { return 6; }            
+          </script><script>
+            if (
+              typeof a === "function" && a() === 1 &&
+              typeof b === "function" && b() === 2 &&
+              typeof c === "function" && c() === 3 &&
+              typeof e === "function" && e() === 5 &&
+              typeof f === "function" && f() === 6
+            )
+              ; // pass
+            else
+              throw new Error("passing fail");
+          </script>`, { runScripts: "dangerously" });
+          assert.strictEqual("a" in dom.window && typeof dom.window.a === "function" && dom.window.a(), 1);
+          assert.strictEqual("b" in dom.window && typeof dom.window.b === "function" && dom.window.b(), 2);
+          assert.strictEqual("c" in dom.window && typeof dom.window.c === "function" && dom.window.c(), 3);
+          assert.strictEqual("e" in dom.window && typeof dom.window.e === "function" && dom.window.e(), 5);
+          assert.strictEqual("f" in dom.window && typeof dom.window.f === "function" && dom.window.f(), 6);
+        } catch (err) {
+          if (err.message === "passing fail") {
+            assert.fail(err.message);
+          } else {
+            throw err;
+          }
+        }
       });
     });
   });
