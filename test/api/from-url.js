@@ -1,3 +1,4 @@
+/* globals location:false */
 "use strict";
 const zlib = require("zlib");
 const { assert } = require("chai");
@@ -10,7 +11,7 @@ const { version: packageVersion } = require("../../package.json");
 
 require("chai").use(require("../chai-helpers.js"));
 
-describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
+describe("API: JSDOM.fromURL()", () => {
   it("should return a rejected promise for a bad URL", () => {
     return Promise.all([
       assert.isRejected(JSDOM.fromURL("asdf"), TypeError),
@@ -19,33 +20,39 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
     ]);
   });
 
-  it("should return a rejected promise for a 404", async () => {
+  it("should return a rejected promise for a 404", { skipIfBrowser: true }, async () => {
     const url = await simpleServer(404);
 
     return assert.isRejected(JSDOM.fromURL(url));
   });
 
-  it("should return a rejected promise for a 500", async () => {
+  it("should return a rejected promise for a 404", { skipUnlessBrowser: true }, () => {
+    const url = location.origin + "/base/";
+
+    return assert.isRejected(JSDOM.fromURL(url));
+  });
+
+  it("should return a rejected promise for a 500", { skipIfBrowser: true }, async () => {
     const url = await simpleServer(500);
 
     return assert.isRejected(JSDOM.fromURL(url));
   });
 
-  it("should use the body of 200 responses", async () => {
+  it("should use the body of 200 responses", { skipIfBrowser: true }, async () => {
     const url = await simpleServer(200, { "Content-Type": "text/html" }, "<p>Hello</p>");
 
     const dom = await JSDOM.fromURL(url);
     assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Hello</p></body></html>");
   });
 
-  it("should use the body of 301 responses", async () => {
+  it("should use the body of 301 responses", { skipIfBrowser: true }, async () => {
     const [requestURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
     const dom = await JSDOM.fromURL(requestURL);
     assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Hello</p></body></html>");
   });
 
-  it("should be able to handle gzipped bodies", async () => {
+  it("should be able to handle gzipped bodies", { skipIfBrowser: true }, async () => {
     const body = zlib.gzipSync("<p>Hello world!</p>");
     const headers = { "Content-Type": "text/html", "Content-Length": body.byteLength, "Content-Encoding": "gzip" };
     const url = await simpleServer(200, headers, body);
@@ -54,7 +61,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
     assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Hello world!</p></body></html>");
   });
 
-  it("should send a HTML-preferring Accept header", async () => {
+  it("should send a HTML-preferring Accept header", { skipIfBrowser: true }, async () => {
     let recordedHeader;
     const url = await requestRecordingServer(req => {
       recordedHeader = req.headers.accept;
@@ -64,7 +71,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
     assert.strictEqual(recordedHeader, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
   });
 
-  it("should send an Accept-Language: en header", async () => {
+  it("should send an Accept-Language: en header", { skipIfBrowser: true }, async () => {
     let recordedHeader;
     const url = await requestRecordingServer(req => {
       recordedHeader = req.headers["accept-language"];
@@ -74,7 +81,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
     assert.strictEqual(recordedHeader, "en");
   });
 
-  describe("user agent", () => {
+  describe("user agent", { skipIfBrowser: true }, () => {
     it("should use the default user agent as the User-Agent header when none is given", async () => {
       const expected = `Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 ` +
                        `(KHTML, like Gecko) jsdom/${packageVersion}`;
@@ -95,7 +102,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
       assert.isRejected(JSDOM.fromURL("http://example.com/", { referrer: "asdf" }), TypeError);
     });
 
-    it("should not send a Referer header when no referrer option is given", async () => {
+    it("should not send a Referer header when no referrer option is given", { skipIfBrowser: true }, async () => {
       let hasHeader;
       const url = await requestRecordingServer(req => {
         hasHeader = "referer" in req.headers;
@@ -106,7 +113,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
       assert.strictEqual(dom.window.document.referrer, "");
     });
 
-    it("should use the supplied referrer option as a Referer header", async () => {
+    it("should use the supplied referrer option as a Referer header", { skipIfBrowser: true }, async () => {
       let recordedHeader;
       const url = await requestRecordingServer(req => {
         recordedHeader = req.headers.referer;
@@ -117,7 +124,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
       assert.strictEqual(dom.window.document.referrer, "http://example.com/");
     });
 
-    it("should canonicalize referrer URLs before using them as a Referer header", async () => {
+    it("should canonicalize referrer URLs before using them as a Referer header", { skipIfBrowser: true }, async () => {
       let recordedHeader;
       const url = await requestRecordingServer(req => {
         recordedHeader = req.headers.referer;
@@ -128,16 +135,20 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
       assert.strictEqual(dom.window.document.referrer, "http://example.com/");
     });
 
-    it("should use the redirect source URL as the referrer, overriding a provided one", async () => {
-      const [requestURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
+    it(
+      "should use the redirect source URL as the referrer, overriding a provided one",
+      { skipIfBrowser: true },
+      async () => {
+        const [requestURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
-      const dom = await JSDOM.fromURL(requestURL, { referrer: "http://example.com/" });
-      assert.strictEqual(dom.window.document.referrer, requestURL);
-    });
+        const dom = await JSDOM.fromURL(requestURL, { referrer: "http://example.com/" });
+        assert.strictEqual(dom.window.document.referrer, requestURL);
+      }
+    );
   });
 
   describe("inferring options from the response", () => {
-    describe("url", () => {
+    describe("url", { skipIfBrowser: true }, () => {
       it("should use the URL fetched for a 200", async () => {
         const url = await simpleServer(200, { "Content-Type": "text/html" });
 
@@ -145,7 +156,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
         assert.strictEqual(dom.window.document.URL, url);
       });
 
-      it("should preserve full request URL", async () => {
+      it("should preserve full request URL", { skipIfBrowser: true }, async () => {
         const url = await simpleServer(200, { "Content-Type": "text/html" });
         const path = "t";
         const search = "?a=1";
@@ -160,14 +171,27 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
         assert.strictEqual(dom.window.location.hash, fragment);
       });
 
-      it("should use the ultimate response URL after a redirect", async () => {
+      it("should preserve full request URL", { skipUnlessBrowser: true }, async () => {
+        const url = location.origin + "/";
+        const search = "?a=1";
+        const fragment = "#fragment";
+        const fullURL = url + search + fragment;
+
+        const dom = await JSDOM.fromURL(fullURL);
+        assert.strictEqual(dom.window.document.URL, fullURL);
+        assert.strictEqual(dom.window.location.href, fullURL);
+        assert.strictEqual(dom.window.location.search, search);
+        assert.strictEqual(dom.window.location.hash, fragment);
+      });
+
+      it("should use the ultimate response URL after a redirect", { skipIfBrowser: true }, async () => {
         const [requestURL, responseURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
         const dom = await JSDOM.fromURL(requestURL);
         assert.strictEqual(dom.window.document.URL, responseURL);
       });
 
-      it("should preserve fragments when processing redirects", async () => {
+      it("should preserve fragments when processing redirects", { skipIfBrowser: true }, async () => {
         const [requestURL, responseURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
         const dom = await JSDOM.fromURL(requestURL + "#fragment");
@@ -181,14 +205,14 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
     });
 
     describe("contentType", () => {
-      it("should use the content type fetched for a 200", async () => {
+      it("should use the content type fetched for a 200", { skipIfBrowser: true }, async () => {
         const url = await simpleServer(200, { "Content-Type": "application/xml" }, "<doc/>");
 
         const dom = await JSDOM.fromURL(url);
         assert.strictEqual(dom.window.document.contentType, "application/xml");
       });
 
-      it("should use the ultimate response content type after a redirect", async () => {
+      it("should use the ultimate response content type after a redirect", { skipIfBrowser: true }, async () => {
         const [requestURL] = await redirectServer(
           "<p>Hello</p>",
           { "Content-Type": "text/html" },
@@ -205,7 +229,7 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
     });
   });
 
-  describe("cookie jar integration", () => {
+  describe("cookie jar integration", { skipIfBrowser: true }, () => {
     it("should send applicable cookies in a supplied cookie jar", async () => {
       let recordedHeader;
       const url = await requestRecordingServer(req => {
