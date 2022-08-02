@@ -61,6 +61,41 @@ simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 
 
 ---
 
+DIR: css/css-shadow-parts
+
+all-hosts.html: [fail, CSS-shadow part style mapping not implemented]
+chaining-invalid-selector.html: [fail, CSS-shadow part style mapping not implemented]
+complex-matching.html: [fail, CSS-shadow part style mapping not implemented]
+complex-non-matching.html: [fail, CSS-shadow part style mapping not implemented]
+different-host.html: [fail, CSS-shadow part style mapping not implemented]
+double-forward.html: [fail, CSS-shadow part style mapping not implemented]
+exportparts-multiple.html: [fail, CSS-shadow part style mapping not implemented]
+host-part-001.html: [fail, CSS-shadow part style mapping not implemented]
+host-stylesheet.html: [fail, CSS-shadow part style mapping not implemented]
+idlharness.html: [fail, CSS-shadow part style mapping not implemented]
+inner-host.html: [fail, CSS-shadow part style mapping not implemented]
+interaction-with-pseudo-elements.html: [fail, CSS-shadow part style mapping not implemented]
+invalidation-change-exportparts-forward.html: [fail, CSS-shadow part style mapping not implemented]
+invalidation-change-part-name-forward.html: [fail, CSS-shadow part style mapping not implemented]
+invalidation-change-part-name-idl-domtokenlist.html: [fail, CSS-shadow part style mapping not implemented]
+invalidation-change-part-name-idl-setter.html: [fail, CSS-shadow part style mapping not implemented]
+invalidation-change-part-name.html: [fail, CSS-shadow part style mapping not implemented]
+invalidation-complex-selector-forward.html: [fail, CSS-shadow part style mapping not implemented]
+invalidation-complex-selector.html: [fail, CSS-shadow part style mapping not implemented]
+multiple-parts.html: [fail, CSS-shadow part style mapping not implemented]
+precedence-part-vs-part.html: [fail, CSS-shadow part style mapping not implemented]
+serialization.html: [fail, CSS-shadow part style mapping not implemented]
+simple-forward-shorthand.html: [fail, CSS-shadow part style mapping not implemented]
+simple-forward.html: [fail, CSS-shadow part style mapping not implemented]
+simple-important-important.html: [fail, CSS-shadow part style mapping not implemented]
+simple-important-inline.html: [fail, CSS-shadow part style mapping not implemented]
+simple-important.html: [fail, CSS-shadow part style mapping not implemented]
+simple-inline.html: [fail, CSS-shadow part style mapping not implemented]
+simple.html: [fail, CSS-shadow part style mapping not implemented]
+style-sharing.html: [fail, CSS-shadow part style mapping not implemented]
+
+---
+
 DIR: css/cssom-view
 
 CaretPosition-001.html: [fail, Unknown]

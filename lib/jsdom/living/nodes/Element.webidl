@@ -88,3 +88,8 @@ partial interface Element {
   readonly attribute long clientWidth;
   readonly attribute long clientHeight;
 };
+
+// https://www.w3.org/TR/css-shadow-parts-1/#idl
+partial interface Element {
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList part;
+};
