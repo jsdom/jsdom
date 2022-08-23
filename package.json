@@ -38,7 +38,7 @@
     "parse5": "^7.0.0",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
-    "tough-cookie": "^4.0.0",
+    "tough-cookie": "4.0.0",
     "w3c-xmlserializer": "^3.0.0",
     "webidl-conversions": "^7.0.0",
     "whatwg-encoding": "^2.0.0",
