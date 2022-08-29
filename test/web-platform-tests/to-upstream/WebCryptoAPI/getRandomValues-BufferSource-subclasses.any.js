@@ -16,10 +16,7 @@ for (const array of arrays) {
   const ctor = globalThis[array];
   test(() => {
     class Buffer extends ctor {}
-    try {
-      self.crypto.getRandomValues(new Buffer(256));
-    } catch (e) {
-      assert_unreached("No error thrown");
-    }
+    // Must not throw for the test to pass
+    self.crypto.getRandomValues(new Buffer(256));
   }, "Subclass of " + array);
 }
