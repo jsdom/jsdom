@@ -1290,7 +1290,6 @@ DIR: url
 a-element-origin-xhtml.xhtml: [fail, Depends on fetch]
 a-element-origin.html: [fail, Depends on fetch]
 a-element-xhtml.xhtml: [fail, Depends on fetch]
-a-element.html: [fail, Depends on fetch]
 failure.html: [fail, Depends on fetch]
 idlharness.any.html: [fail, Depends on fetch]
 percent-encoding.window.html: [fail, Depends on fetch]

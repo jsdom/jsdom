@@ -7,6 +7,7 @@ const { inBrowserContext } = require("../util.js");
 const { JSDOM, VirtualConsole } = require("../../lib/api.js");
 const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loader");
 const { resolveReason } = require("./utils.js");
+const minipassFetch = require("minipass-fetch");
 
 const reporterPathname = "/resources/testharnessreport.js";
 const unexpectedPassingTestMessage = `
@@ -181,6 +182,17 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
                 throw e;
               }, description, "promise_reject_js");
             });
+          };
+
+          // A lot of tests use fetch() to fetch data dependencies, e.g. JSON files or IDL Files. We do not have a
+          // fetch() implementation that can be seriously used. (Tracking issue:
+          // https://github.com/jsdom/jsdom/issues/1724.) But we'll add a fake one, that is not spec-compliant, for
+          // allowing those tests to get their data.
+          window.fetch = (input, init) => {
+            if (typeof input === "string") {
+              input = (new window.URL(input, window.document.baseURI)).href;
+            }
+            return minipassFetch(input, init);
           };
 
           window.add_result_callback(test => {
