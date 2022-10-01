@@ -40,12 +40,14 @@ randomUUID.https.any.html: [fail, Not implemented]
 DIR: cors
 
 304.htm: [fail-slow, Unknown]
+access-control-expose-headers-parsing.window.html: [fail, Needs real fetch()]
 basic.htm:
   "Cross domain basic usage, origin: echo": [fail, Unknown]
   "Cross domain different port, origin: echo": [fail, Unknown]
   "Cross domain different protocol, origin: echo": [fail, Unknown]
 client-hint-request-headers-2.tentative.htm: [fail, Client Hints not implemented]
 client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
+cors-safelisted-request-header.any.html: [fail, Needs real fetch()]
 image-tainting-in-cross-origin-iframe.sub.html: [timeout, Unknown]
 origin.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 preflight-cache-partitioning.sub.window.html: [timeout, Partitioning not implemented]
@@ -258,7 +260,7 @@ DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD val
 DOMParser-parseFromString-xml.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 XMLSerializer-serializeToString.html: [fail, Unknown]
 createContextualFragment.html: [fail, Script execution timing]
-idlharness.html: [fail, Unknown]
+idlharness.window.html: [fail, Unknown]
 innerhtml-05.xhtml: [fail, Unknown]
 
 ---
@@ -276,7 +278,7 @@ DIR: hr-time
 clamped-time-origin-isolated.https.html: [fail, Needs crossOriginIsolated]
 clamped-time-origin.html: [fail, Needs crossOriginIsolated]
 cross-origin-isolated-timing-attack.https.html: [fail, Not implemented]
-idlharness.html: [fail, Unknown]
+idlharness.any.html: [fail, Unknown]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
@@ -1217,7 +1219,7 @@ bidi/modify.tentative.html: [fail, Not implemented]
 contenteditable/collapse.html: [fail, No spec for how selection changes should impact focus, https://github.com/whatwg/html/issues/6179]
 contenteditable/initial-selection-on-focus.tentative.html?*: [fail, Not implemented]
 contenteditable/modify.tentative.html: [fail, Not implemented]
-idlharness.html: [fail, Unknown]
+idlharness.window.html: [fail, Unknown]
 modify-extend-word-trailing-inline-block.tentative.html: [fail, Not implemented]
 modify.tentative.html: [fail, Not implemented]
 script-and-style-elements.html: [fail,
@@ -1273,17 +1275,17 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://g
 
 DIR: uievents
 
+idlharness.window.html: [fail, Unknown]
 interface/click-event.htm: [fail, Pointer events not implemented]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Mutation Events not implemented]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events not implemented]
-idlharness.html: [fail, Unknown]
 
 ---
 
 DIR: url
 
-idlharness.any.html: [fail, Unknown]
 failure.html: [fail, Location not fully implemented and window.open() not implemented]
+idlharness.any.html: [fail, Unknown]
 percent-encoding.window.html: [fail, Needs TextEncoder]
 urlencoded-parser.any.html: [fail, Needs request.formData()]
 
@@ -1325,7 +1327,6 @@ abort-during-headers-received.window.html: [timeout, The 'step' function is call
 access-control-basic-allow-preflight-cache.any.html: [fail, Unknown]
 access-control-basic-non-cors-safelisted-content-type.htm: [fail, Unknown]
 access-control-basic-post-with-non-cors-safelisted-content-type.htm: [fail, Unknown]
-access-control-expose-headers-parsing.window.html: [fail, Unknown]
 access-control-preflight-async-method-denied.htm: [fail, Unknown]
 access-control-preflight-async-not-supported.htm: [fail, Unknown]
 access-control-preflight-credential-async.htm: [fail, Unknown]
@@ -1338,7 +1339,6 @@ access-control-sandboxed-iframe-denied-without-wildcard.htm: [fail, we don't imp
 access-control-sandboxed-iframe-denied.htm: [fail, we don't implement sandboxed iframes]
 close-worker-with-xhr-in-progress.html: [fail, Needs Worker implementation]
 cors-expose-star.sub.any.html: [fail, Unknown]
-cors-safelisted-request-header.any.html: [fail, Unknown]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.any.html: [fail, Unknown]
@@ -1349,7 +1349,7 @@ formdata.html:
 getallresponseheaders.htm: [fail, Unknown]
 getresponseheader.any.html: [fail, Unknown]
 headers-normalize-response.htm: [timeout, Unknown]
-idlharness.html: [fail, Unknown]
+idlharness.any.html: [fail, Unknown]
 loadstart-and-state.html: [fail, Unknown]
 open-after-stop.window.html: [fail, Unknown]
 open-during-abort-processing.htm: [fail, Unknown]

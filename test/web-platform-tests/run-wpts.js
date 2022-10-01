@@ -159,7 +159,7 @@ function checkToRun() {
 
       const matcher = new Minimatch(doc.DIR + "/" + pattern);
       if (!possibleTestFilePaths.some(filename => matcher.match(filename))) {
-        throw new Error(`Expectation pattern "${pattern}" does not match any test files`);
+        throw new Error(`Expectation pattern "${pattern}" in "${doc.DIR}" does not match any test files`);
       }
       minimatchers.set(doc.DIR + "/" + pattern, matcher);
     }
