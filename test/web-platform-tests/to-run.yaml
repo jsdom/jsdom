@@ -40,14 +40,12 @@ randomUUID.https.any.html: [fail, Not implemented]
 DIR: cors
 
 304.htm: [fail-slow, Unknown]
-access-control-expose-headers-parsing.window.html: [fail, Depends on fetch]
 basic.htm:
   "Cross domain basic usage, origin: echo": [fail, Unknown]
   "Cross domain different port, origin: echo": [fail, Unknown]
   "Cross domain different protocol, origin: echo": [fail, Unknown]
 client-hint-request-headers-2.tentative.htm: [fail, Client Hints not implemented]
 client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
-cors-safelisted-request-header.any.html: [fail, Depends on fetch]
 image-tainting-in-cross-origin-iframe.sub.html: [timeout, Unknown]
 origin.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
 preflight-cache-partitioning.sub.window.html: [timeout, Partitioning not implemented]
@@ -96,7 +94,6 @@ getBoundingClientRect-shy.html: [fail, Not implemented]
 getBoundingClientRect-svg.html: [fail, Not implemented]
 getClientRects-br-*: [fail, Not implemented]
 getClientRects-inline-atomic-child.html: [fail, Not implemented]
-idlharness.html: [fail, Depends on Fetch]
 inheritance.html: [fail, inherit not implemented (or not properly implemented)]
 matchMedia-display-none-iframe.html: [fail, Not implemented]
 matchMedia.html: [fail, Unknown]
@@ -260,15 +257,14 @@ DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD val
 DOMParser-parseFromString-xml.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 XMLSerializer-serializeToString.html: [fail, Unknown]
 createContextualFragment.html: [fail, Script execution timing]
-idlharness.window.html: [fail, Depends on fetch]
 innerhtml-05.xhtml: [fail, Unknown]
 
 ---
 
 DIR: fetch/api/headers
 
-header-values-normalize.any.html: [fail, fetch is not defined]
-header-values.any.html: [fail, fetch is not defined]
+header-values-normalize.any.html: [fail, Needs real fetch()]
+header-values.any.html: [fail, Needs real fetch()]
 headers-no-cors.any.html: [fail, Request is not defined]
 
 ---
@@ -278,7 +274,6 @@ DIR: hr-time
 clamped-time-origin-isolated.https.html: [fail, Needs crossOriginIsolated]
 clamped-time-origin.html: [fail, Needs crossOriginIsolated]
 cross-origin-isolated-timing-attack.https.html: [fail, Not implemented]
-idlharness.any.html: [fail, Depends on fetch]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
@@ -303,7 +298,6 @@ persisted-user-state-restoration/scroll-restoration-navigation-cross-origin.html
 persisted-user-state-restoration/scroll-restoration-navigation-samedoc.html: [fail, scrollX not implemented]
 same-url.html: [timeout, Unknown]
 scroll-restoration-order.html: [fail, Not implemented]
-unset_context_name.html: [fail, Needs fetch()]
 window-name-after-**: [timeout, window.open not implemented]
 
 ---
@@ -342,11 +336,10 @@ navigate-cross-origin-iframe-to-same-url-with-fragment.html: [fail, Unknown]
 navigate-cross-origin-iframe-to-same-url.html: [fail, Unknown]
 navigation-unload-form-submit.html: [timeout, Unknown]
 navigation-unload-same-origin-fragment.html: [timeout, Unknown]
-redirect-to-about.window.html: [fail, Unknown]
-redirect-to-data.html: [fail, Unknown]
+redirect-to-about.window.html: [timeout, Waits for an iframe load event after navigation]
+redirect-to-data.html: [timeout, Waits for an iframe load event after navigation]
 refresh/navigate.window.html: [timeout, Unknown]
-refresh/subresource.any.html: [fail, Depends on fetch]
-replace-before-load/*: [fail, Unknown]
+replace-before-load/*: [timeout, These wait for various navigations and will timeout when no load event is fired]
 source/navigate-child-function-parent.html: [timeout, Unknown]
 source/navigate-child-function.html: [timeout, Unknown]
 source/navigate-child-src-about-blank.html: [fail, Unknown]
@@ -566,7 +559,7 @@ auxiliary-browsing-contexts/opener-setter.window.html: [fail, Not implemented]
 auxiliary-browsing-contexts/opener.html: [timeout, Unknown]
 browsing-context-names/**: [timeout, Not implemented]
 browsing-context.html: [fail, Unknown]
-clear-window-name.https.html: [fail, Unknown]
+clear-window-name.https.html: [fail-slow, Unknown but it uses polling]
 document-domain-nested-navigate.window.html: [fail, Unknown]
 embedded-opener-a-form.html: [timeout, Opener not implemented]
 embedded-opener-remove-frame.html: [timeout, Opener not implemented]
@@ -954,7 +947,7 @@ anchor-with-inline-element.html: [timeout, Unknown]
 
 DIR: html/semantics/links
 
-downloading-resources/*: [fail, Depends on fetch]
+downloading-resources/*: [timeout, Depends on hyperlink auditing and does a poll that eventually times out]
 following-hyperlinks/activation-behavior.window.html: [fail, We don't support navigating to new locations]
 links-created-by-a-and-area-elements/htmlanchorelement_noopener.html: [timeout, noopener is not supported]
 links-created-by-a-and-area-elements/target_blank_implicit_noopener.html: [fail, Depends on BroadcastChannel]
@@ -1162,8 +1155,6 @@ DIR: html/webappapis/animation-frames
 
 DIR: html/webappapis/atob
 
-base64.any.html: [fail, Depends on fetch]
-
 ---
 
 DIR: html/webappapis/dynamic-markup-insertion/document-writeln
@@ -1186,10 +1177,6 @@ DIR: html/webappapis/scripting/events
 
 compile-event-handler-lexical-scopes.html: [fail, document.domain and formEl.encoding is not implemented]
 compile-event-handler-settings-objects.html: [timeout, Unknown]
-event-handler-all-global-events.html: [fail, Depends on fetch]
-event-handler-attributes-body-window.html: [fail, Depends on fetch]
-event-handler-attributes-frameset-window.html: [fail, Depends on fetch]
-event-handler-attributes-windowless-body.html: [fail, Depends on fetch]
 event-handler-processing-algorithm-error/script-element.html: [timeout, Unknown]
 event-handler-processing-algorithm-error/synthetic-errorevent-click.html: [fail, Needs Worker implementation]
 event-handler-processing-algorithm-error/worker.html: [fail, Needs Worker implementation]
@@ -1222,7 +1209,6 @@ bidi/modify.tentative.html: [fail, Not implemented]
 contenteditable/collapse.html: [fail, No spec for how selection changes should impact focus, https://github.com/whatwg/html/issues/6179]
 contenteditable/initial-selection-on-focus.tentative.html?*: [fail, Not implemented]
 contenteditable/modify.tentative.html: [fail, Not implemented]
-idlharness.window.html: [fail, Depends on fetch]
 modify-extend-word-trailing-inline-block.tentative.html: [fail, Not implemented]
 modify.tentative.html: [fail, Not implemented]
 script-and-style-elements.html: [fail,
@@ -1278,7 +1264,6 @@ untriaged/user-interaction/ranges-and-selections/test-002.html: [fail, https://g
 
 DIR: uievents
 
-idlharness.window.html: [fail, Depends on fetch]
 interface/click-event.htm: [fail, Pointer events not implemented]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Mutation Events not implemented]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events not implemented]
@@ -1286,19 +1271,6 @@ legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events 
 ---
 
 DIR: url
-
-a-element-origin-xhtml.xhtml: [fail, Depends on fetch]
-a-element-origin.html: [fail, Depends on fetch]
-a-element-xhtml.xhtml: [fail, Depends on fetch]
-failure.html: [fail, Depends on fetch]
-idlharness.any.html: [fail, Depends on fetch]
-percent-encoding.window.html: [fail, Depends on fetch]
-toascii.window.html: [fail, Depends on fetch]
-url-constructor.any.html: [fail, Depends on fetch]
-url-origin.any.html: [fail, Depends on fetch]
-url-setters-a-area.window.html: [fail, Depends on fetch]
-url-setters.any.html: [fail, Depends on fetch]
-urlencoded-parser.any.html: [fail, Depends on fetch]
 
 ---
 
@@ -1360,7 +1332,6 @@ formdata.html:
 getallresponseheaders.htm: [fail, Unknown]
 getresponseheader.any.html: [fail, Unknown]
 headers-normalize-response.htm: [timeout, Unknown]
-idlharness.any.html: [fail, Depends on fetch]
 loadstart-and-state.html: [fail, Unknown]
 open-after-stop.window.html: [fail, Unknown]
 open-during-abort-processing.htm: [fail, Unknown]
