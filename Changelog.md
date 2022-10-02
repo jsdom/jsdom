@@ -26,6 +26,13 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 20.0.1
+
+* Improved the performance of appending `<option>` elements to `<select>` elements. (TheHound)
+* Fixed `location.pathname` getter to not crash when the `JSDOM` instance was created using an opaque-path URL, including the default URL of `about:blank`.
+* Fixed `crypto.getRandomValues()` to accept typed array subclasses. (sebamarynissen)
+* Updated various dependency minor versions. Notably, `nwsapi` fixed some selectors bugs, and `tough-cookie` fixed some cookie bugs.
+
 ## 20.0.0
 
 * Node.js v14 is now the minimum supported version
