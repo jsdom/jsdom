@@ -143,7 +143,7 @@ describe("Cookie processing", { skipIfBrowser: true }, () => {
     });
 
     it("should not contain expired cookies (GH-1027)", () => {
-      const { window } = new JSDOM();
+      const { window } = new JSDOM(``, { url: testHost + "/TestPath/test-page" });
 
       const timeNow = Date.now();
       const expiredDate = new Date(timeNow - 24 * 60 * 60 * 1000);

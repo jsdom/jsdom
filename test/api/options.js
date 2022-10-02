@@ -131,7 +131,7 @@ describe("API: constructor options", () => {
 
     it("should reflect changes to the cookie jar in document.cookie", () => {
       const cookieJar = new jsdom.CookieJar();
-      const { document } = (new JSDOM(``, { cookieJar })).window;
+      const { document } = (new JSDOM(``, { url: "https://example.com/", cookieJar })).window;
 
       cookieJar.setCookieSync("foo=bar", document.URL);
 
@@ -140,7 +140,7 @@ describe("API: constructor options", () => {
 
     it("should have loose behavior by default when using the CookieJar constructor", () => {
       const cookieJar = new jsdom.CookieJar();
-      const { document } = (new JSDOM(``, { cookieJar })).window;
+      const { document } = (new JSDOM(``, { url: "https://example.com/", cookieJar })).window;
 
       cookieJar.setCookieSync("foo", document.URL);
 
@@ -148,7 +148,7 @@ describe("API: constructor options", () => {
     });
 
     it("should have a loose-by-default cookie jar even if none is passed", () => {
-      const dom = new JSDOM();
+      const dom = new JSDOM(``, { url: "https://example.com/" });
       const { document } = dom.window;
 
       dom.cookieJar.setCookieSync("foo", document.URL);
