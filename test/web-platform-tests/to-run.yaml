@@ -613,7 +613,6 @@ nameditem-names.html: [fail, Unknown]
 
 DIR: html/dom/documents/resource-metadata-management
 
-document-cookie.html: [fail, Unknown]
 document-lastModified-01.html: [fail, Unknown]
 document-lastModified.html: [fail, Unknown]
 
