@@ -51,7 +51,7 @@ const dom = new JSDOM(``, {
 
 - `url` sets the value returned by `window.location`, `document.URL`, and `document.documentURI`, and affects things like resolution of relative URLs within the document and the same-origin restrictions and referrer used while fetching subresources. It defaults to `"about:blank"`.
 - `referrer` just affects the value read from `document.referrer`. It defaults to no referrer (which reflects as the empty string).
-- `contentType` affects the value read from `document.contentType`, as well as how the document is parsed: as HTML or as XML. Values that are not a [HTML mime type](https://mimesniff.spec.whatwg.org/#html-mime-type) or an [XML mime type](https://mimesniff.spec.whatwg.org/#xml-mime-type) will throw. It defaults to `"text/html"`. If a `charset` parameter is present, it can affect [binary data processing](#encoding-sniffing).
+- `contentType` affects the value read from `document.contentType`, as well as how the document is parsed: as HTML or as XML. Values that are not a [HTML MIME type](https://mimesniff.spec.whatwg.org/#html-mime-type) or an [XML MIME type](https://mimesniff.spec.whatwg.org/#xml-mime-type) will throw. It defaults to `"text/html"`. If a `charset` parameter is present, it can affect [binary data processing](#encoding-sniffing).
 - `includeNodeLocations` preserves the location info produced by the HTML parser, allowing you to retrieve it with the `nodeLocation()` method (described below). It also ensures that line numbers reported in exception stack traces for code running inside `<script>` elements are correct. It defaults to `false` to give the best performance, and cannot be used with an XML content type since our XML parser does not support location info.
 - `storageQuota` is the maximum size in code units for the separate storage areas used by `localStorage` and `sessionStorage`. Attempts to store data larger than this limit will cause a `DOMException` to be thrown. By default, it is set to 5,000,000 code units per origin, as inspired by the HTML specification.
 
@@ -165,6 +165,12 @@ You can further customize resource fetching by subclassing `ResourceLoader` and 
 ```js
 class CustomResourceLoader extends jsdom.ResourceLoader {
   fetch(url, options) {
+    const { origin } = new URL(url);
+
+    if (origin !== "https://example.com") {
+      return null;
+    }
+
     // Override the contents of this script to do something unusual.
     if (url === "https://example.com/some-specific-script.js") {
       return Promise.resolve(Buffer.from("window.someGlobal = 5;"));
@@ -462,7 +468,7 @@ Not everything works perfectly when running jsdom inside a web browser. Sometime
 
 In Node.js you can debug programs using Chrome DevTools. See the [official documentation](https://nodejs.org/en/docs/inspector/) for how to get started.
 
-By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug, you can use [jsdom-devtools-formatter](https://github.com/viddo/jsdom-devtools-formatter), which lets you inspect them like real DOM elements.
+By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug, you can use [jsdom-devtools-formatter](https://github.com/jsdom/jsdom-devtools-formatter), which lets you inspect them like real DOM elements.
 
 ## Caveats
 
