@@ -47,9 +47,6 @@
     "ws": "^8.9.0",
     "xml-name-validator": "^4.0.0"
   },
-  "_dependenciesComments": {
-    "parse5": "Pinned to exact version number because we monkeypatch its internals (see htmltodom.js)"
-  },
   "peerDependencies": {
     "canvas": "^2.5.0"
   },
