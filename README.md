@@ -23,6 +23,8 @@ console.log(dom.window.document.querySelector("p").textContent); // "Hello world
 
 (Note that jsdom will parse the HTML you pass it just like a browser does, including implied `<html>`, `<head>`, and `<body>` tags.)
 
+See querySelector supported selectors at the link: https://github.com/dperini/nwsapi/wiki/CSS-supported-selectors
+
 The resulting object is an instance of the `JSDOM` class, which contains a number of useful properties and methods besides `window`. In general, it can be used to act on the jsdom from the "outside," doing things that are not possible with the normal DOM APIs. For simple cases, where you don't need any of this functionality, we recommend a coding pattern like
 
 ```js
