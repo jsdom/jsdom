@@ -1,15 +1,16 @@
+"use strict";
 // META: title=XMLHttpRequest: abort() still works when error thrown internally
 
-      var test = async_test();
+const test_runner = async_test();
 
-      test.step(function() {
-        var client = new XMLHttpRequest();
+test_runner.step(() => {
+  const client = new XMLHttpRequest();
 
-        client.open("GET", "invalid-protocol://example.com", true);
-        client.onabort = test.step_func(function() {
-          test.done();
-        });
-        
-        client.send(null);
-        client.abort();
-      });
+  client.open("GET", "invalid-protocol://example.com", true);
+  client.onabort = test_runner.step_func(() => {
+    test_runner.done();
+  });
+
+  client.send(null);
+  client.abort();
+});
