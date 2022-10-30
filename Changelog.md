@@ -26,6 +26,12 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 20.0.2
+
+* Fixed `xhr.abort()` to no longer give an exception when the constructed `XMLHttpRequest` was invalid. (whamtet)
+* Fixed `event.getModifierState()` on `MouseEvent` and `KeyboardEvent` instances to properly consult the `ctrlKey`, `altKey`, `metaKey`, and `shiftKey` properties of the event. (juzerzarif)
+* Fixed custom element creation to not be affected by any modifications to the `window.customElements` property. (bicknellr)
+
 ## 20.0.1
 
 * Improved the performance of appending `<option>` elements to `<select>` elements. (TheHound)

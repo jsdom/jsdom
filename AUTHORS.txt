@@ -162,6 +162,7 @@ JuFeng Zhang <zjffun@gmail.com>
 Julien Guimont <julien@porkepic.com>
 Jürg Lehni <juerg@scratchdisk.com>
 justinmchase <justin.m.chase@gmail.com>
+Juzer Zarif <juzerapj@gmail.com>
 Kai <Schweinepriester@users.noreply.github.com>
 kangax <kangax@gmail.com>
 Karel Bruneel <1569717+kbruneel@users.noreply.github.com>
@@ -205,6 +206,7 @@ Matthew Crinklaw-Vogt <mlaw@fb.com>
 Matthew Glazar <strager.nds@gmail.com>
 Matthew Goldberg <matthew.goldberg@appian.com>
 Matthew King <mking@borderstylo.com>
+Matthew Molloy <whamtet@gmail.com>
 Matthew Pflueger <matthew.pflueger@gmail.com>
 Matthew Phillips <matthew@matthewphillips.info>
 Mattias Buelens <649348+MattiasBuelens@users.noreply.github.com>
@@ -262,6 +264,7 @@ Rolf Timmermans <rolftimmermans@voormedia.com>
 Romain Trotard <romain.trotard@mirakl.com>
 Ronald Rey <reyronald@gmail.com>
 Rondinelly <rondinelly-ribeiro@outlook.com>
+Russell Bicknell <bicknellr@gmail.com>
 Ryan Gasparini <ryan@rxgx.com>
 Ryan Grove <ryan@wonko.com>
 Ryan Seddon <rseddon@zendesk.com>
