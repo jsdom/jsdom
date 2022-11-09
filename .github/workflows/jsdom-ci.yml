@@ -12,15 +12,18 @@ on:
     branches:
      - master
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: 'recursive'
       - name: Run linter
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
       - name: Install dependencies
@@ -32,11 +35,11 @@ jobs:
       TEST_SUITE: 'node-canvas'
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: 'recursive'
       - name: Run Canvas tests with Node 18
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
       - name: Install required image manipulation packages with APT
@@ -52,11 +55,11 @@ jobs:
       TEST_SUITE: 'browser'
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: 'recursive'
       - name: Run web browser tests
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
       - name: Setup HOSTS file for Web Platform Test server
@@ -77,11 +80,11 @@ jobs:
         architecture:
           - x64
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         submodules: 'recursive'
     - name: Run tests with Node ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         architecture: ${{ matrix.architecture }}
