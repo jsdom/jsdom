@@ -34,9 +34,7 @@ exports.toPathname = dirname => {
 exports.load = dirname => {
   const fileCache = Object.create(null);
 
-  return function (name, options) {
-    options = options || {};
-
+  return function (name, options = {}) {
     const file = path.resolve(dirname, "files/" + name + ".html");
 
     if (!options.url) {
@@ -68,8 +66,7 @@ exports.injectIFrame = document => {
   return exports.injectIFrameWithScript(document);
 };
 
-exports.injectIFrameWithScript = (document, scriptStr) => {
-  scriptStr = scriptStr || "";
+exports.injectIFrameWithScript = (document, scriptStr = "") => {
   const iframe = document.createElement("iframe");
   document.body.appendChild(iframe);
 
