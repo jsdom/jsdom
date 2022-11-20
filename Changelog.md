@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 20.0.3
+
+* Updated dependencies, notably `w3c-xmlserializer`, which fixes using `DOMParser` on XML documents containing emoji.
+
 ## 20.0.2
 
 * Fixed `xhr.abort()` to no longer give an exception when the constructed `XMLHttpRequest` was invalid. (whamtet)
