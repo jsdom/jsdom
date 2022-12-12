@@ -28,7 +28,7 @@ The resulting object is an instance of the `JSDOM` class, which contains a numbe
 ```js
 const { window } = new JSDOM(`...`);
 // or even
-const { document } = (new JSDOM(`...`)).window;
+const { window: { document } } = new JSDOM(`...`);
 ```
 
 Full documentation on everything you can do with the `JSDOM` class is below, in the section "`JSDOM` Object API".
