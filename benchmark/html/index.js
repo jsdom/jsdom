@@ -1,6 +1,5 @@
 "use strict";
 
 module.exports = {
-  parsing: require("./parsing"),
-  select: require("./select")
+  parsing: require("./parsing")
 };
