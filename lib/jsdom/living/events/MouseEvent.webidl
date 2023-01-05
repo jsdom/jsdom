@@ -7,9 +7,6 @@ interface MouseEvent : UIEvent {
   readonly attribute long screenY;
   readonly attribute long clientX;
   readonly attribute long clientY;
-  readonly attribute long x;
-  readonly attribute long y;
-
   readonly attribute boolean ctrlKey;
   readonly attribute boolean shiftKey;
   readonly attribute boolean altKey;
@@ -53,4 +50,28 @@ partial interface MouseEvent {
                         optional boolean metaKeyArg = 0,
                         optional short buttonArg = 0,
                         optional EventTarget? relatedTargetArg = null);
+};
+
+// https://www.w3.org/TR/cssom-view/#extensions-to-the-mouseevent-interface
+// Adds attributes and changes existing ones to doubles
+partial interface MouseEvent {
+  readonly attribute double screenX;
+  readonly attribute double screenY;
+  readonly attribute double pageX;
+  readonly attribute double pageY;
+  readonly attribute double clientX;
+  readonly attribute double clientY;
+  readonly attribute double x;
+  readonly attribute double y;
+  readonly attribute double offsetX;
+  readonly attribute double offsetY;
+};
+
+// https://www.w3.org/TR/cssom-view/#extensions-to-the-mouseevent-interface
+// Changes existing coordinate entries to doubles
+partial dictionary MouseEventInit {
+  double screenX = 0.0;
+  double screenY = 0.0;
+  double clientX = 0.0;
+  double clientY = 0.0;
 };
