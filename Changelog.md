@@ -26,6 +26,21 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 21.0.0
+
+A potentially-breaking bug fix:
+
+* Fixed the `window`, `document`, `location`, and `top` properties of `Window` to be non-configurable. (ExE-Boss)
+
+Other changes:
+
+* Added support for `<input type=image>` submitting forms. (jenseng)
+* Added the `location` setter to the `Window` object, which forwards to the `location.href` setter. Setting the URL is still only implemented for fragment navigations, however. (ExE-Boss)
+* Fixed `defer=""` `<script>` elements that are added after `DOMContentLoaded` to execute, instead of being skipped.
+* Fixed `selectElement.selectedOptions` being incorrect when `optionElement.selected` is set. This was a regression introduced in v20.0.1. Unfortunately this also reverts the performance improvement when appending `<option>` elements that was introduced then. (eps1lon)
+* Fixed the `self`, `locationbar`, `menubar`, `personalbar`, `scrollbars`, `statusbar`, `toolbar`, `frames`, `parent`, `external`, `length`, and `screen` properties of `Window` to be replaceable: that is, setting them will override their values, instead of having the new value be ignored. (ExE-Boss)
+* Fixed a few issues with `JSOM.fromURL()` in the browser build of jsdom. (LungZeno)
+
 ## 20.0.3
 
 * Updated dependencies, notably `w3c-xmlserializer`, which fixes using `DOMParser` on XML documents containing emoji.
@@ -45,7 +60,7 @@ Other guidelines:
 
 ## 20.0.0
 
-* Node.js v14 is now the minimum supported version
+* Node.js v14 is now the minimum supported version.
 * Added `crypto.getRandomValues()`. (sjrd)
 * Added `HTMLFormControlsCollection` and `RadioNodeList`, so `formEl.elements` now behaves correctly. (UndefinedBehavior)
 * Added the `signal` option to `addEventListener()`. (cheap-glitch)
