@@ -10,8 +10,7 @@ const { resolveReason } = require("./utils.js");
 
 const validInnerReasons = new Set([
   "fail",
-  "fail-with-canvas",
-  "needs-node14"
+  "fail-with-canvas"
 ]);
 
 const validReasons = new Set([
@@ -20,7 +19,6 @@ const validReasons = new Set([
   "fail-with-canvas",
   "timeout",
   "flaky",
-  "needs-node14",
   "needs-canvas"
 ]);
 
