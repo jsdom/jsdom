@@ -1,5 +1,7 @@
 DIR: FileAPI
 
+Blob-methods-from-detached-frame.html: [timeout, Unknown]
+cross-partition.tentative.https.html: [timeout, Unknown]
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
 blob/Blob-constructor.any.html:
@@ -285,9 +287,8 @@ DIR: hr-time
 clamped-time-origin-isolated.https.html: [fail, Needs crossOriginIsolated]
 clamped-time-origin.html: [fail, Needs crossOriginIsolated]
 cross-origin-isolated-timing-attack.https.html: [fail, Not implemented]
-idlharness.any.html: [fail, Depends on fetch]
 idlharness-shadowrealm.window.html: [fail, Not implemented]
-navigation-start-post-beforeunload.html: [fail, needs navigation]
+idlharness.any.html: [fail, Depends on fetch]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
