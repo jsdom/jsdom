@@ -51,7 +51,7 @@ const dom = new JSDOM(``, {
 
 - `url` sets the value returned by `window.location`, `document.URL`, and `document.documentURI`, and affects things like resolution of relative URLs within the document and the same-origin restrictions and referrer used while fetching subresources. It defaults to `"about:blank"`.
 - `referrer` just affects the value read from `document.referrer`. It defaults to no referrer (which reflects as the empty string).
-- `contentType` affects the value read from `document.contentType`, as well as how the document is parsed: as HTML or as XML. Values that are not a [HTML mime type](https://mimesniff.spec.whatwg.org/#html-mime-type) or an [XML mime type](https://mimesniff.spec.whatwg.org/#xml-mime-type) will throw. It defaults to `"text/html"`. If a `charset` parameter is present, it can affect [binary data processing](#encoding-sniffing).
+- `contentType` affects the value read from `document.contentType`, as well as how the document is parsed: as HTML or as XML. Values that are not a [HTML MIME type](https://mimesniff.spec.whatwg.org/#html-mime-type) or an [XML MIME type](https://mimesniff.spec.whatwg.org/#xml-mime-type) will throw. It defaults to `"text/html"`. If a `charset` parameter is present, it can affect [binary data processing](#encoding-sniffing).
 - `includeNodeLocations` preserves the location info produced by the HTML parser, allowing you to retrieve it with the `nodeLocation()` method (described below). It also ensures that line numbers reported in exception stack traces for code running inside `<script>` elements are correct. It defaults to `false` to give the best performance, and cannot be used with an XML content type since our XML parser does not support location info.
 - `storageQuota` is the maximum size in code units for the separate storage areas used by `localStorage` and `sessionStorage`. Attempts to store data larger than this limit will cause a `DOMException` to be thrown. By default, it is set to 5,000,000 code units per origin, as inspired by the HTML specification.
 
@@ -141,8 +141,6 @@ When attempting to load resources, recall that the default value for the `url` o
 
 #### Advanced configuration
 
-_This resource loader system is new as of jsdom v12.0.0, and we'd love your feedback on whether it meets your needs and how easy it is to use. Please file an issue to discuss!_
-
 To more fully customize jsdom's resource-loading behavior, you can pass an instance of the `ResourceLoader` class as the `resources` option value:
 
 ```js
@@ -160,7 +158,7 @@ The three options to the `ResourceLoader` constructor are:
 - `strictSSL` can be set to false to disable the requirement that SSL certificates be valid.
 - `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
 
-You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that only returns results for requests to a trusted origin:
+You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that overrides the response provided for a specific URL:
 
 ```js
 class CustomResourceLoader extends jsdom.ResourceLoader {
@@ -462,7 +460,7 @@ Not everything works perfectly when running jsdom inside a web browser. Sometime
 
 In Node.js you can debug programs using Chrome DevTools. See the [official documentation](https://nodejs.org/en/docs/inspector/) for how to get started.
 
-By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug, you can use [jsdom-devtools-formatter](https://github.com/viddo/jsdom-devtools-formatter), which lets you inspect them like real DOM elements.
+By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug, you can use [jsdom-devtools-formatter](https://github.com/jsdom/jsdom-devtools-formatter), which lets you inspect them like real DOM elements.
 
 ## Caveats
 
@@ -496,6 +494,8 @@ For more details, see the discussion in [#640](https://github.com/jsdom/jsdom/is
 ### Unimplemented parts of the web platform
 
 Although we enjoy adding new features to jsdom and keeping it up to date with the latest web specs, it has many missing APIs. Please feel free to file an issue for anything missing, but we're a small and busy team, so a pull request might work even better.
+
+Some features of jsdom are provided by our dependencies. Notable documentation in that regard includes the list of [supported CSS selectors](https://github.com/dperini/nwsapi/wiki/CSS-supported-selectors) for our CSS selector engine, [`nwsapi`](https://github.com/dperini/nwsapi).
 
 Beyond just features that we haven't gotten to yet, there are two major features that are currently outside the scope of jsdom. These are:
 
