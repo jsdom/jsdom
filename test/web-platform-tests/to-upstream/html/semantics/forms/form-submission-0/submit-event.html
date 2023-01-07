@@ -26,21 +26,22 @@ function prepareForm() {
 test(() => {
   const { submitButton } = prepareForm();
   submitButton.click();
-  assert_equals(submitButton, submitEvent.submitter, "Submitter is set");
+  assert_equals(submitEvent.submitter, submitButton, "Submitter is set");
 }, "Clicking a submit button sets the submitter");
 
 test(() => {
   const { form, submitButton } = prepareForm();
   form.requestSubmit(submitButton);
-  assert_equals(submitButton, submitEvent.submitter, "Submitter is set");
+  assert_equals(submitEvent.submitter, submitButton, "Submitter is set");
 }, "Requesting submit with a submitter sets the submitter");
 
 test(() => {
   const { form } = prepareForm();
   form.requestSubmit();
-  assert_equals(undefined, submitEvent.submitter, "Submitter is not set");
+  assert_equals(submitEvent.submitter, null, "Submitter is not set");
 }, "Requesting submit without a submitter does not set the submitter");
 
+// TODO: fix this test. No submit event should fire at all.
 test(() => {
   const { form } = prepareForm();
   form.submit();
