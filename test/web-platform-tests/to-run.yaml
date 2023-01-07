@@ -497,7 +497,6 @@ window-reuse-in-nested-browsing-contexts.tentative.html:
 DIR: html/browsers/the-windowproxy-exotic-object
 
 document-tree-child-browsing-context-name-property-set.sub.html: [fail, Exoticness of Window not implemented]
-windowproxy-define-own-property-unforgeable-same-origin.html: [fail, Exoticness of Window not implemented]
 windowproxy-prototype-setting-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
 windowproxy-prototype-setting-cross-origin.sub.html: [fail, Exoticness of Window not implemented]
 windowproxy-prototype-setting-goes-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
