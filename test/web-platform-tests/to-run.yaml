@@ -1,7 +1,7 @@
 DIR: FileAPI
 
 Blob-methods-from-detached-frame.html: [timeout, Unknown]
-cross-partition.tentative.https.html: [timeout, Unknown]
+BlobURL/cross-partition.tentative.https.html: [timeout, Unknown]
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
 blob/Blob-constructor.any.html:
