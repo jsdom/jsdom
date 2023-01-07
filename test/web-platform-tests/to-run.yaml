@@ -1170,6 +1170,9 @@ the-a-element/a-download-click.html: [fail, needs URL.createObjectURL]
 
 DIR: html/syntax
 
+charset/with-inheritance.html: [fail, Unknown]
+charset/without-inheritance.html: [timeout, Unknown]
+charset/xhr.html: [fail, Unknown]
 parsing-html-fragments/*: [timeout, Unknown]
 parsing/DOMContentLoaded-defer.html: [fail, Script execution timing]
 parsing/adoption_agency_check_the_end_tag_name.html: [fail, Unknown]
@@ -1255,11 +1258,15 @@ contenteditable/initial-selection-on-focus.tentative.html?*: [fail, Not implemen
 contenteditable/modify.tentative.html: [fail, Not implemented]
 idlharness.window.html: [fail, Depends on fetch]
 modify-extend-word-trailing-inline-block.tentative.html: [fail, Not implemented]
+modify-line-flex-column.tentative.html: [fail, Not implemented]
+modify-line-flex-row.tentative.html: [fail, Not implemented]
+modify-line-grid-basic.tentative.html: [fail, Not implemented]
 modify.tentative.html: [fail, Not implemented]
 script-and-style-elements.html: [fail,
   toString should return only the text within the selection that is visible to the user
   (https://www.w3.org/Bugs/Public/show_bug.cgi?id=10583, https://bugzilla.mozilla.org/show_bug.cgi?id=1535392)
 ]
+textcontrols/onselectionchange-content-attribute.html: [timeout, Unknown]
 textcontrols/selectionchange-bubble.html: [timeout, Unknown]
 textcontrols/selectionchange.html: [fail, Firefox-only semantics not yet backed by a spec]
 
@@ -1284,11 +1291,11 @@ focus/ShadowRoot-delegatesFocus.html: [fail, DelegatesFocus is not implemented]
 focus/focus-pseudo-matches-on-shadow-host.html: [timeout, Seems to depend on autofocus]
 focus/focus-selector-delegatesFocus.html: [fail, Not implemented]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
-imperative-slot-api-slotchange.html: [fail, Imperative slot API is not implemented]
-imperative-slot-api.html: [fail, Imperative slot API is not implemented]
+imperative-slot-**.html: [fail, Imperative slot API is not implemented]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemeneted]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
+offsetTop-offsetLeft-across-shadow-boundaries.html: [fail, offsetTop/offsetLeft not implemented]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, https://github.com/w3c/selection-api/issues/114]
@@ -1337,14 +1344,11 @@ urlencoded-parser.any.html: [fail, Depends on fetch]
 DIR: websockets
 
 "**/**?wpt_flags=h2": [fail-slow, HTTP/2 web sockets not implemented]
-"*.any.sharedworker.html?wss": [fail-slow, Needs SharedWorker implementation]
-"*.any.worker.html?wss": [fail-slow, Needs Worker implementation]
 Create-blocked-port.any.html: [fail-slow, Not implemented]
 Create-blocked-port.any.html?wss: [fail-slow, Not implemented]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
-Send-data.worker.html?wss: [fail-slow, Needs Worker implementation]
-basic-auth.any.serviceworker.html?wss: [fail-slow, Unknown]
 cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
+idlharness.any.html: [fail, Depends on fetch]
 interfaces/WebSocket/close/close-connecting.html*: [fail, Potentially buggy test as Chrome fails it too]
 remove-own-iframe-during-onerror.window.html: [timeout, iframe.srcdoc not implemented]
 remove-own-iframe-during-onerror.window.html?wss: [timeout, iframe.srcdoc not implemented]
@@ -1355,10 +1359,14 @@ unload-a-document/*: [timeout, Requires window.open]
 
 DIR: webstorage
 
+localstorage-about-blank-3P-iframe-opens-3P-window.partitioned.tentative.html: [timeout, Unknown]
 localstorage-basic-partitioned.tentative.sub.html: [timeout, Depends on window.open()]
+localstorage-cross-origin-iframe.tentative.https.window.html: [timeout, Unknown]
+sessionStorage-basic-partitioned.tentative.sub.html: [timeout, Unknown]
 storage_local_window_open.window.html: [timeout, Depends on window.open()]
 storage_session_window_noopener.window.html: [fail, Depends on BroadcastChannel]
 storage_session_window_open.window.html: [timeout, Depends on window.open()]
+storage_session_window_reopen.window.html: [fail, Depends on window.open()]
 symbol-props.window.html: [fail, Unknown]
 
 ---
@@ -1435,6 +1443,8 @@ send-response-event-order.htm: [fail, why no readystatechange for headers receiv
 send-sync-response-event-order.htm: [fail-slow, not sure; sync is special]
 setrequestheader-content-type.htm: [fail-slow, we don't implement ReadableStream; also unsure we can get request() to send no content-type for ArrayBuffer]
 status-basic.htm: [timeout, https://github.com/jsdom/jsdom/issues/1833]
+status-error.htm:
+  "POST on blob uri": [fail, URL.createObjectURL not implemented]
 status.h2.window.html: [fail, Unknown]
 sync-no-progress.any.html: [fail, Unknown]
 sync-xhr-supported-by-feature-policy.html: [fail, We don't support Feature Policy]

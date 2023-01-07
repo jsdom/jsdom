@@ -17,9 +17,7 @@ exports.getPossibleTestFilePaths = manifest => {
           const testPath = curPath === null ? fallbackPath : curPath;
 
           // Globally disable worker tests
-          if (testPath.endsWith(".worker.html") ||
-              testPath.endsWith(".serviceworker.html") ||
-              testPath.endsWith(".sharedworker.html")) {
+          if (/\.(?:shared|service)?worker\.html(?:\?.*)?$/.test(testPath)) {
             continue;
           }
           // Globally disable testdriver tests
