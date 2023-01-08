@@ -18,8 +18,11 @@ test(() => {
   doc.head.appendChild(style);
   doc.body.appendChild(doc.createElement("p"));
 
-  // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue last step falls back to empty string
-  assert_equals(window.getComputedStyle(doc.querySelector("p")).color, "");
+  // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue
+  // The color property can be found in the declarations (as a default). Just
+  // need to check that it remained as its default value here.
+  assert_not_equals(window.getComputedStyle(doc.querySelector("p")).color, "red");
+  assert_not_equals(window.getComputedStyle(doc.querySelector("p")).color, "rgb(255, 0, 0)");
 }, "no impact on getComputedStyle");
 
 async_test(t => {
