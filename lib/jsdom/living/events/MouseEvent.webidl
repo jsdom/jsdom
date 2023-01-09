@@ -52,7 +52,7 @@ partial interface MouseEvent {
                         optional EventTarget? relatedTargetArg = null);
 };
 
-// https://www.w3.org/TR/cssom-view/#extensions-to-the-mouseevent-interface
+// https://drafts.csswg.org/cssom-view/#extensions-to-the-mouseevent-interface
 // Adds attributes and changes existing ones to doubles
 partial interface MouseEvent {
   readonly attribute double screenX;
@@ -67,7 +67,7 @@ partial interface MouseEvent {
   readonly attribute double offsetY;
 };
 
-// https://www.w3.org/TR/cssom-view/#extensions-to-the-mouseevent-interface
+// https://drafts.csswg.org/cssom-view/#extensions-to-the-mouseevent-interface
 // Changes existing coordinate entries to doubles
 partial dictionary MouseEventInit {
   double screenX = 0.0;
