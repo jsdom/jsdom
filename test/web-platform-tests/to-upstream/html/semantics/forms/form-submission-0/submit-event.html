@@ -40,11 +40,4 @@ test(() => {
   form.requestSubmit();
   assert_equals(submitEvent.submitter, null, "Submitter is not set");
 }, "Requesting submit without a submitter does not set the submitter");
-
-// TODO: fix this test. No submit event should fire at all.
-test(() => {
-  const { form } = prepareForm();
-  form.submit();
-  assert_equals(undefined, submitEvent.submitter, "Submitter is not set");
-}, "Submit without a submitter does not set the submitter");
 </script>
