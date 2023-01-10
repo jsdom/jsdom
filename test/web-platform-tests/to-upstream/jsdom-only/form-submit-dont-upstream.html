@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTML Test: form submit event</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#form-submission-algorithm">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+let submitEvent;
+function prepareForm() {
+  submitEvent = undefined;
+  const form = document.createElement("FORM");
+  const submitButton = document.createElement("BUTTON");
+  form.appendChild(submitButton);
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    submitEvent = event;
+  });
+  document.body.appendChild(form);
+  return { form, submitButton };
+}
+
+// There's no reliable way to prevent browser navigation on form.submit(), and all browsers get this right, so this
+// is a jsdom-only test
+test(() => {
+  const { form } = prepareForm();
+  form.submit();
+  assert_equals(submitEvent, undefined, "SubmitEvent does not fire");
+}, "HTMLFormElement.submit does not fire a SubmitEvent");
+</script>
