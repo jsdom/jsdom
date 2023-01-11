@@ -59,7 +59,7 @@ describe("location", () => {
 
       assert.equal(window.location.hash, "");
       window.location.hash = "";
-      assert.equal(window.location.hash, "#");
+      assert.equal(window.location.hash, "");
       assert.equal(window.location.href, defaultHref + "#");
     }
   );
