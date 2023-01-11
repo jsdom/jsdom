@@ -55,10 +55,12 @@ describe("location", () => {
     "when changing window.location.hash to empty string, the # symbol should remain",
     () => {
       const { window } = new JSDOM(``, { url: "http://www.example.com/" });
+      const defaultHref = window.location.href;
 
       assert.equal(window.location.hash, "");
       window.location.hash = "";
       assert.equal(window.location.hash, "#");
+      assert.equal(window.location.href, defaultHref + "#");
     }
   );
 
