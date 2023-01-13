@@ -14,7 +14,7 @@
 <script>
 "use strict";
 
-promise_test(() => {
+promise_test(t => {
 
   let resolve;
   const promise = new Promise(r => {
@@ -32,13 +32,15 @@ promise_test(() => {
   link.href = "stylesheet-appropriate-time-to-obtain-1.css";
 
   document.body.appendChild(link);
+  t.add_cleanup(() => link.remove());
 
+  assert_equals(window.getComputedStyle(document.body).color, "");
 
   return promise;
 
 }, "adding a href attribute before inserting the link into the document causes the stylesheet to load and apply");
 
-promise_test(() => {
+promise_test(t => {
 
   let resolve;
   const promise = new Promise(r => {
@@ -48,6 +50,7 @@ promise_test(() => {
   const link = document.createElement("link");
   link.rel = "stylesheet";
   document.body.appendChild(link);
+  t.add_cleanup(() => link.remove());
 
   link.onload = () => {
     assert_equals(window.getComputedStyle(document.body).color, "rgb(0, 0, 2)");
@@ -56,11 +59,13 @@ promise_test(() => {
 
   link.href = "stylesheet-appropriate-time-to-obtain-2.css";
 
+  assert_equals(window.getComputedStyle(document.body).color, "");
+
   return promise;
 
 }, "adding a href attribute after inserting the link into the document causes the stylesheet to load and apply");
 
-promise_test(() => {
+promise_test(t => {
 
   let resolve;
   const promise = new Promise(r => {
@@ -70,6 +75,7 @@ promise_test(() => {
   const link = document.createElement("link");
   link.rel = "stylesheet";
   document.body.appendChild(link);
+  t.add_cleanup(() => link.remove());
 
   link.onload = () => {
     assert_equals(window.getComputedStyle(document.body).color, "rgb(0, 0, 2)");
@@ -83,6 +89,8 @@ promise_test(() => {
   };
 
   link.href = "stylesheet-appropriate-time-to-obtain-2.css";
+
+  assert_equals(window.getComputedStyle(document.body).color, "");
 
   return promise;
 
