@@ -36,4 +36,10 @@ test(() => {
 
   assert_equals(getComputedStyle(el).fontSize, "3em");
 }, "Updating the inserted CSS element changes the computed style");
+
+test(() => {
+  document.head.removeChild(insertedStyle);
+
+  assert_equals(getComputedStyle(el).fontSize, "1.5em");
+}, "Removing the inserted CSS element updates the computed style back to original value");
 </script>
