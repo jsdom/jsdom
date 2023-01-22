@@ -148,6 +148,7 @@ Johan Sköld <johan@pingdom.com>
 John Hurliman <jhurliman@jhurliman.org>
 John Nguyen <tgohn@users.noreply.github.com>
 John Roberts <jroberts@logitech.com>
+Jon Jensen <jenseng@gmail.com>
 Jon Sakas <jon.sakas@gmail.com>
 Jonathan Commins <joncom@gmail.com>
 Jonathan Ong <jonathanrichardong@gmail.com>
