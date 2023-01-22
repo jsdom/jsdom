@@ -62,3 +62,11 @@ interface mixin GlobalEventHandlers {
   attribute EventHandler onvolumechange;
   attribute EventHandler onwaiting;
 };
+
+// https://w3c.github.io/touch-events/#extensions-to-the-globaleventhandlers-mixin
+partial interface mixin GlobalEventHandlers {
+                    attribute EventHandler ontouchstart;
+                    attribute EventHandler ontouchend;
+                    attribute EventHandler ontouchmove;
+                    attribute EventHandler ontouchcancel;
+};

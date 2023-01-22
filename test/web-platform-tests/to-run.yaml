@@ -145,10 +145,11 @@ CustomElementRegistry.html:
   'customElements.define must rethrow an exception thrown while getting additional formAssociated callbacks on the constructor prototype': [fail, formAssociated not implemented]
   'customElements.whenDefined must return a promise for a valid custom element name': [fail, Unknown]
   'customElements.define must not throw when defining another custom element in a different global object during Get(constructor, "prototype")': [fail, Not supported]
-Document-createElement.html:
+Document-createElement-customized-builtins.html:
   "document.createElement must create an instance of autonomous custom elements when it has is attribute": [fail, :defined is not defined and throws]
-  "document.createElement must report a NotSupportedError when the local name of the element does not match that of the custom element": [fail, throws TypeError instead]
   "document.createElement must report an exception thrown by a custom built-in element constructor": [fail, Unknown]
+Document-createElement.html:
+  "document.createElement must report a NotSupportedError when the local name of the element does not match that of the custom element": [fail, throws TypeError instead]
 ElementInternals-accessibility.html: [fail, Not implemented]
 HTMLElement-attachInternals.html: [fail, Not implemented]
 HTMLElement-constructor.html:
@@ -157,11 +158,10 @@ HTMLElement-constructor.html:
 adopted-callback.html: [fail, "Failing test due to https://github.com/whatwg/dom/issues/813"]
 attribute-changed-callback.html:
   "attributedChangedCallback must be enqueued for style attribute change by mutating inline style declaration": [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration, https://github.com/jsdom/cssstyle/issues/113]
+cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 custom-element-reaction-queue.html:
   "Upgrading a custom element must invoke attributeChangedCallback and connectedCallback before start upgrading another element": [fail, document.write() implementation is not spec compliant]
   "Mutating a undefined custom element while upgrading a custom element must not enqueue or invoke reactions on the mutated element": [fail, document.write() implementation is not spec compliant]
-custom-element-registry/per-global.html:
-  "Navigating from the initial about:blank must not replace window.customElements": [fail, iframe location related issue]
 element-internals-shadowroot.html: [fail, Not implemented]
 form-associated/**: [fail-slow, Not implemented]
 htmlconstructor/newtarget.html: [fail, Currently impossible to get the active function associated realm]
@@ -210,6 +210,7 @@ DIR: dom/events
 Event-dispatch-click.tentative.html: [fail, Test is wrong, https://github.com/web-platform-tests/wpt/issues/27819]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 Event-timestamp-high-resolution.https.html: [fail, Not implemented]
+EventListener-handleEvent-cross-realm.html: [fail, No relevant realm support for callbacks in webidl2js]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
 EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
 EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
@@ -241,6 +242,7 @@ Element-closest.html: [fail, :has is not supported (by all major browsers as wel
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
+MutationObserver-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not implemented]
 Node-cloneNode.html: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
@@ -665,8 +667,7 @@ DIR: html/editing/activation
 
 DIR: html/editing/dnd
 
-datastore/datatransfer-constructor-001.html: [fail, DataTransfer not implemented]
-datastore/datatransfer-types.html: [fail, DataTransfer not implemented]
+datastore/**: [fail, DataTransfer not implemented]
 synthetic/001.html: [fail, DragEvent not implemented]
 target-origin/202.html: [fail, DragEvent not implemented]
 the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
@@ -683,6 +684,9 @@ htmlallcollection.html: [fail, Not implemented]
 
 DIR: html/infrastructure/urls/terminology-0
 
+document-base-url-about-srcdoc.https.window.html: [fail, We don't support srcdoc <base> correctly]
+document-base-url-changes-about-srcdoc.https.window.html: [fail, We don't support srcdoc <base> correctly]
+document-base-url-initiated-grand-parent.https.window.html: [fail, We don't support srcdoc <base> correctly]
 document-base-url.html: [fail, We don't support srcdoc <base> correctly]
 
 ---
@@ -1187,6 +1191,7 @@ DIR: html/webappapis/dynamic-markup-insertion/document-writeln
 
 DIR: html/webappapis/microtask-queuing
 
+queue-microtask-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 queue-microtask.window.html: [fail-slow, Unknown interaction with Mutation Observers]
 
 ---
@@ -1228,6 +1233,9 @@ protocol.tentative.https.html: [fail, registerProtocolHandler() is not implement
 ---
 
 DIR: html/webappapis/timers
+
+setinterval-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
+settimeout-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 
 ---
 
