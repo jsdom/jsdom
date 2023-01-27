@@ -26,6 +26,18 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 21.1.0
+
+* Added `x`, `y`, `pageX`, `pageY`, `offsetX`, and `offsetY` to `MouseEvent`. (jenseng, ViniciusFXavier)
+* Added support for `unset` with `getComputedStyle()`. (jsnajdr)
+* Added the `submitter` property to `SubmitEvent`. (jenseng)
+* Fixed `MouseEvent`'s `screenX` and `screenY` to no longer coerce to integers, allowing fractional values. (jenseng)
+* Fixed `formEl.submit()` to not longer fire `submit` events. (jenseng)
+* Fixed stylesheets to no longer affect the document after their corresponding `<link>` is removed. (jsnajdr)
+* Fixed `pointer-events` to inherit when used with `getComputedStyle()`. (jnajdr)
+* Fixed `<script>` elements with no `src=""` to no longer fire `load` events. (t1ger2080)
+* Improved `getComputedStyle()` to cache its results, which should make it much faster. (jsnajdr)
+
 ## 21.0.0
 
 A potentially-breaking bug fix:

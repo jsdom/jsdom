@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Updating the document must invalidate the style cache and change the results of getComputedStyle</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<style>
+  .my-link {
+    font-size: 1.0em;
+  }
+
+  .my-link[href] {
+    font-size: 1.1em;
+  }
+
+  .my-link[href="#a"] {
+    font-size: 1.2em;
+  }
+
+  .my-link[href="#b"] {
+    font-size: 1.3em;
+  }
+
+  .my-box ~ .my-link {
+    font-size: 1.4em;
+  }
+
+  .my-box.bigger ~ .my-link {
+    font-size: 1.5em;
+  }
+
+  .my-link:empty {
+    font-size: 1.6em;
+  }
+</style>
+
+<a class="my-link">Hello world</a>
+<script>
+"use strict";
+const link = document.querySelector(".my-link");
+
+test(() => {
+  assert_equals(getComputedStyle(link).fontSize, "1.0em");
+}, "Initial style value");
+
+test(() => {
+  link.href = "#x"; // appendAttribute
+
+  assert_equals(getComputedStyle(link).fontSize, "1.1em");
+}, "Assigning to attribute updates the computed style");
+
+test(() => {
+  link.setAttribute("href", "#a"); // changeAttribute
+
+  assert_equals(getComputedStyle(link).fontSize, "1.2em");
+}, "Setting an attribute updates the computed style");
+
+test(() => {
+  const attr = document.createAttribute("href");
+  attr.value = "#b";
+  link.attributes.setNamedItem(attr); // replaceAttribute
+
+  assert_equals(getComputedStyle(link).fontSize, "1.3em");
+}, "Replacing an attribute updates the computed style");
+
+test(() => {
+  link.removeAttribute("href"); // removeAttribute
+
+  assert_equals(getComputedStyle(link).fontSize, "1.0em");
+}, "Removing an attribute updates the computed style");
+
+test(() => {
+  const box = document.createElement("div");
+  box.className = "my-box";
+  link.before(box);
+
+  assert_equals(getComputedStyle(link).fontSize, "1.4em");
+}, "Inserting an element updates the computed style");
+
+test(() => {
+  const biggerBox = document.createElement("div");
+  biggerBox.className = "my-box bigger";
+  document.querySelector(".my-box").replaceWith(biggerBox);
+
+  assert_equals(getComputedStyle(link).fontSize, "1.5em");
+}, "Replacing an element updates the computed style");
+
+test(() => {
+  const box = document.querySelector(".my-box");
+  document.body.removeChild(box);
+
+  assert_equals(getComputedStyle(link).fontSize, "1.0em");
+}, "Removing an element updates the computed style");
+
+test(() => {
+  link.textContent = "";
+  // setting character data of a text node should also make the element :empty, but
+  // nwsapi doesn't implement this correctly yet. To update the computed styles,
+  // style cache needs to be invalidated also after `CharacterDataImpl.replaceData`.
+  // link.childNodes[0].data = "";
+
+  assert_equals(getComputedStyle(link).fontSize, "1.6em");
+}, "Emptying an element updates the computed style");
+</script>

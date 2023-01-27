@@ -130,6 +130,7 @@ James McMath <mcmathja@mediant.co>
 James Treworgy <jamietre@gmail.com>
 Jameson Little <t.jameson.little@gmail.com>
 Jamie Liu <jamie.liu386@gmail.com>
+Jarda Snajdr <jsnajdr@gmail.com>
 Jared Deckard <jared.deckard@gmail.com>
 Jason Davies <jason@jasondavies.com>
 Jason Orendorff <jason.orendorff@gmail.com>
@@ -302,6 +303,7 @@ steve <steve@goddamnbugs.com>
 Steve Conover <sconover@gmail.com>
 Sven Müller <sven.mueller@breathless-code.de>
 Swizec Teller <swizec@swizec.com>
+t1ger2080 <108248118+t1ger2080@users.noreply.github.com>
 Thiago Hirata <hirata@devcase.com.br>
 Thomas Chung <thomas@nomology.id.au>
 Tiago Rodrigues <tmcrodrigues@gmail.com>
