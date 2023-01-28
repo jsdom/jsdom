@@ -51,7 +51,7 @@ Other changes:
 * Fixed `defer=""` `<script>` elements that are added after `DOMContentLoaded` to execute, instead of being skipped.
 * Fixed `selectElement.selectedOptions` being incorrect when `optionElement.selected` is set. This was a regression introduced in v20.0.1. Unfortunately this also reverts the performance improvement when appending `<option>` elements that was introduced then. (eps1lon)
 * Fixed the `self`, `locationbar`, `menubar`, `personalbar`, `scrollbars`, `statusbar`, `toolbar`, `frames`, `parent`, `external`, `length`, and `screen` properties of `Window` to be replaceable: that is, setting them will override their values, instead of having the new value be ignored. (ExE-Boss)
-* Fixed a few issues with `JSOM.fromURL()` in the browser build of jsdom. (LungZeno)
+* Fixed a few issues with `JSDOM.fromURL()` in the browser build of jsdom. (LungZeno)
 
 ## 20.0.3
 
