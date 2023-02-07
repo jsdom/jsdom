@@ -868,6 +868,7 @@ currentSrc-blob-cache.html: [fail, (needs-canvas) URL.createObjectURL not implem
 data-url.html: [needs-canvas]
 decode/**: [timeout, Unimplemented]
 delay-load-event-detached.html: [needs-canvas]
+delay-load-event-until-move-to-empty-source.html: [fail-with-canvas, Unimplemented]
 delay-load-event.html: [timeout, Unknown]
 disconnected-image-loading-lazy.html: [fail, loading attr not implemented]
 environment-changes/**: [timeout, Unimplemented]
