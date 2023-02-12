@@ -23,7 +23,7 @@
     "abab": "^2.0.6",
     "acorn": "^8.8.1",
     "acorn-globals": "^7.0.0",
-    "cssstyle": "^2.3.0",
+    "cssstyle": "^3.0.0",
     "data-urls": "^3.0.2",
     "decimal.js": "^10.4.2",
     "domexception": "^4.0.0",
