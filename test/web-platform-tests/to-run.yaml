@@ -1,7 +1,7 @@
 DIR: FileAPI
 
-Blob-methods-from-detached-frame.html: [fail-slow, iframe onload timing]
-BlobURL/cross-partition.tentative.https.html: [fail-slow, iframe onload timing]
+Blob-methods-from-detached-frame.html: [timeout, Unknown]
+BlobURL/cross-partition.tentative.https.html: [timeout, Unknown]
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
 blob/Blob-constructor.any.html:
@@ -34,7 +34,7 @@ url/**: [timeout, blob URLs not implemented]
 DIR: WebCryptoAPI
 
 "*/**": [fail, Not implemented]
-algorithm-discards-context.https.window.html: [fail-slow, Not implemented]
+algorithm-discards-context.https.window.html: [fail-slow, Tests non-implemented methods]
 idlharness.https.any.html: [fail, Unknown]
 randomUUID.https.any.html: [fail, Not implemented]
 
@@ -59,7 +59,7 @@ preflight-failure.htm: [timeout, Node throws an error on code 304, done() is cal
 redirect-preflight-2.htm: [fail, Preflight should also be done before redirected requests but request module redirects cannot be paused while doing preflight]
 remote-origin.htm: [timeout, postMessage event does not contain source]
 response-headers.htm: [timeout, I don't find a spec about combining same value response headers; also https://github.com/jsdom/jsdom/issues/1833]
-simple-requests-ch.tentative.htm: [fail, Client Hints not implemented]
+simple-requests-ch.tentative.htm: [fail-slow, Client Hints not implemented]
 simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 but it fails locally too]
 
 ---
@@ -76,8 +76,7 @@ checkVisibility.html: [fail, Not implemented]
 client-props-input.html: [fail, Not implemented]
 client-props-root.html: [fail, Not implemented]
 cssom-getBoundingClientRect-003.html: [fail, Not implemented]
-cssom-getBoxQuads-001.html: [fail, Not implemented]
-cssom-getBoxQuads-002.html: [fail, Not implemented]
+cssom-getBoxQuads-**.html: [fail, Not implemented]
 cssom-getClientRects-002.html: [fail, Unknown]
 cssom-view-img-attributes-001.html: [fail, Unknown]
 dom-element-scroll.html: [fail, Scroll methods not implemented]
@@ -161,7 +160,7 @@ HTMLElement-constructor.html:
 adopted-callback.html: [fail, "Failing test due to https://github.com/whatwg/dom/issues/813"]
 attribute-changed-callback.html:
   "attributedChangedCallback must be enqueued for style attribute change by mutating inline style declaration": [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration, https://github.com/jsdom/cssstyle/issues/113]
-cross-realm-callback-report-exception.html: [fail, unknown iframe issue]
+cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 custom-element-reaction-queue.html:
   "Upgrading a custom element must invoke attributeChangedCallback and connectedCallback before start upgrading another element": [fail, document.write() implementation is not spec compliant]
   "Mutating a undefined custom element while upgrading a custom element must not enqueue or invoke reactions on the mutated element": [fail, document.write() implementation is not spec compliant]
@@ -175,13 +174,13 @@ parser/parser-constructs-custom-element-synchronously.html: [fail, Usage of exte
 parser/parser-fallsback-to-unknown-element.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 parser/parser-sets-attributes-and-children.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 parser/parser-uses-constructed-element.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
-perform-microtask-checkpoint-before-construction-xml-parser.xhtml: [fail, needs URL.createObjectURL]
+perform-microtask-checkpoint-before-construction-xml-parser.xhtml: [fail, impossible to implement microtask checkpoint without patching Promise]
 perform-microtask-checkpoint-before-construction.html: [fail, impossible to implement microtask checkpoint without patching Promise]
 pseudo-class-defined-customized-builtins.html: [fail-slow, :defined is not defined and throws]
 pseudo-class-defined.html: [timeout, :defined is not defined and throws]
-reactions/Animation.html: [fail, animate is not implemented]
-reactions/AriaMixin-element-attributes.html: [fail, attributeChanged is not implemented]
-reactions/AriaMixin-string-attributes.html : [fail, attributeChanged is not implemented]
+reactions/Animation.html: [fail, Animation not implemented]
+reactions/AriaMixin-element-attributes.html: [fail, AriaMixin not implemented]
+reactions/AriaMixin-string-attributes.html: [fail, AriaMixin not implemented]
 reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using webidl2js, https://github.com/jsdom/cssstyle/issues/113]
 reactions/Document.html:
   "execCommand on Document must enqueue a disconnected reaction when deleting a custom element from a contenteditable element": [fail, document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539]
@@ -195,9 +194,9 @@ reactions/customized-builtins/HTMLModElement.html: [fail, test has incorrect <sc
 reactions/customized-builtins/HTMLOptGroupElement.html: [fail, test has incorrect <script src>]
 scoped-registry/*.tentative.html: [fail, Not implemented]
 state/tentative/**: [fail, Not implemented]
-throw-on-dynamic-markup-insertion-counter-construct-xml-parser.xhtml: [fail, needs URL.createObjectURL]
+throw-on-dynamic-markup-insertion-counter-construct-xml-parser.xhtml: [timeout, document.open() and document.close() implementation is not spec compliant]
 throw-on-dynamic-markup-insertion-counter-construct.html: [timeout, document.open() and document.close() implementation is not spec compliant]
-throw-on-dynamic-markup-insertion-counter-reactions-xml-parser.xhtml: [fail, needs URL.createObjectURL]
+throw-on-dynamic-markup-insertion-counter-reactions-xml-parser.xhtml: [timeout, document.open() and document.close() implementation is not spec compliant]
 throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.open() and document.close() implementation is not spec compliant]
 
 ---
@@ -226,7 +225,7 @@ DIR: dom/events
 Event-dispatch-click.tentative.html: [fail, Test is wrong, https://github.com/web-platform-tests/wpt/issues/27819]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
 Event-timestamp-high-resolution.https.html: [fail, Not implemented]
-EventListener-handleEvent-cross-realm.html: [fail, unknown iframe issue]
+EventListener-handleEvent-cross-realm.html: [fail, No relevant realm support for callbacks in webidl2js]
 EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
 EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
 EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
@@ -236,39 +235,7 @@ event-global-is-still-set-when-coercing-beforeunload-result.html: [fail-slow, un
 event-global-is-still-set-when-reporting-exception-onerror.html: [fail, unknown iframe issue]
 event-global-set-before-handleEvent-lookup.window.html: [fail, unknown iframe issue]
 mouse-event-retarget.html: [fail, Requires a layout engine]
-passive-by-default.html:
-  "touchstart listener is passive by default for Window": [fail, Pointer events not implemented]
-  "touchstart listener is passive with {passive:undefined} for Window": [fail, Pointer events not implemented]
-  "touchstart listener is passive by default for Document": [fail, Pointer events not implemented]
-  "touchstart listener is passive with {passive:undefined} for Document": [fail, Pointer events not implemented]
-  "touchstart listener is passive by default for HTMLHtmlElement": [fail, Pointer events not implemented]
-  "touchstart listener is passive with {passive:undefined} for HTMLHtmlElement": [fail, Pointer events not implemented]
-  "touchstart listener is passive by default for HTMLBodyElement": [fail, Pointer events not implemented]
-  "touchstart listener is passive with {passive:undefined} for HTMLBodyElement": [fail, Pointer events not implemented]
-  "touchmove listener is passive by default for Window": [fail, Pointer events not implemented]
-  "touchmove listener is passive with {passive:undefined} for Window": [fail, Pointer events not implemented]
-  "touchmove listener is passive by default for Document": [fail, Pointer events not implemented]
-  "touchmove listener is passive with {passive:undefined} for Document": [fail, Pointer events not implemented]
-  "touchmove listener is passive by default for HTMLHtmlElement": [fail, Pointer events not implemented]
-  "touchmove listener is passive with {passive:undefined} for HTMLHtmlElement": [fail, Pointer events not implemented]
-  "touchmove listener is passive by default for HTMLBodyElement": [fail, Pointer events not implemented]
-  "touchmove listener is passive with {passive:undefined} for HTMLBodyElement": [fail, Pointer events not implemented]
-  "wheel listener is passive by default for Window": [fail, Pointer events not implemented]
-  "wheel listener is passive with {passive:undefined} for Window": [fail, Pointer events not implemented]
-  "wheel listener is passive by default for Document": [fail, Pointer events not implemented]
-  "wheel listener is passive with {passive:undefined} for Document": [fail, Pointer events not implemented]
-  "wheel listener is passive by default for HTMLHtmlElement": [fail, Pointer events not implemented]
-  "wheel listener is passive with {passive:undefined} for HTMLHtmlElement": [fail, Pointer events not implemented]
-  "wheel listener is passive by default for HTMLBodyElement": [fail, Pointer events not implemented]
-  "wheel listener is passive with {passive:undefined} for HTMLBodyElement": [fail, Pointer events not implemented]
-  "mousewheel listener is passive by default for Window": [fail, Pointer events not implemented]
-  "mousewheel listener is passive with {passive:undefined} for Window": [fail, Pointer events not implemented]
-  "mousewheel listener is passive by default for Document": [fail, Pointer events not implemented]
-  "mousewheel listener is passive with {passive:undefined} for Document": [fail, Pointer events not implemented]
-  "mousewheel listener is passive by default for HTMLHtmlElement": [fail, Pointer events not implemented]
-  "mousewheel listener is passive with {passive:undefined} for HTMLHtmlElement": [fail, Pointer events not implemented]
-  "mousewheel listener is passive by default for HTMLBodyElement": [fail, Pointer events not implemented]
-  "mousewheel listener is passive with {passive:undefined} for HTMLBodyElement": [fail, Pointer events not implemented]
+passive-by-default.html: [fail, Pointer events not implemented]
 relatedTarget.window.html: [fail, Unknown]
 webkit-animation-end-event.html: [fail, WebKit-prefixed events not implemented]
 webkit-animation-iteration-event.html: [fail, WebKit-prefixed events not implemented]
@@ -295,14 +262,14 @@ Element-closest.html: [fail, :has is not supported (by all major browsers as wel
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
-MutationObserver-cross-realm-callback-report-exception.html: [fail, unknown iframe issue]
+MutationObserver-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not implemented]
 Node-cloneNode.html: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 NodeList-static-length-getter-tampered*: [flaky, Nested for-loops are really slow and these often time out]
-ParentNode-querySelector-All-xht.xht: [fail, ::slotted() pseudo-class is not supported]
-ParentNode-querySelector-All.html: [fail, ::slotted() pseudo-class is not supported]
+ParentNode-querySelector-All-xht.xht: [fail-slow, ::slotted() pseudo-class is not supported]
+ParentNode-querySelector-All.html: [fail-slow, ::slotted() pseudo-class is not supported]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
 remove-and-adopt-thcrash.html: [fail, window.open not implemented]
@@ -318,7 +285,7 @@ Range-insertNode.html: [fail-slow, Unknown]
 DIR: dom/traversal
 
 NodeIterator-removal.html: [fail, Unknown]
-TreeWalker-acceptNode-filter-cross-realm-null-browsing-context.html: [fail, unknown iframe issue]
+TreeWalker-acceptNode-filter-cross-realm-null-browsing-context.html: [fail, No relevant realm support for callbacks in webidl2js]
 
 ---
 
@@ -566,12 +533,7 @@ named-access-on-the-window-object/window-named-properties.html: [timeout, Unknow
 navigate-to-about-blank-while-initial-load-pending.html: [fail, Depends on window.open()]
 noopener-noreferrer-BarProp.window.html: [fail, Depends on window.open()]
 noopener-noreferrer-sizing.window.html: [fail, Depends on window.open()]
-open-close/close_beforeunload.html: [timeout, Unknown]
-open-close/close_script_defer.html: [fail, Unknown]
-open-close/close_unload.html: [timeout, Unknown]
-open-close/creating_browsing_context_test_01.html: [fail, Unknown]
-open-close/no_window_open_when_term_nesting_level_nonzero.window.html: [fail, Unknown]
-open-close/open-features-**: [timeout, Unknown]
+open-close/**: [fail-slow, Unknown]
 proxy-getOwnPropertyDescriptor.html:
   'Window target, no trap, "name" attribute': [fail, Incorrectly implemented as a data property]
 security-window/window-security.https.html: [fail, Exoticness of Window not implemented]
@@ -738,9 +700,7 @@ DIR: html/editing/activation
 
 DIR: html/editing/dnd
 
-datastore/datatransfer-constructor-001.html: [fail, DataTransfer not implemented]
-datastore/datatransfer-types.html: [fail, DataTransfer not implemented]
-datastore/datatransferitemlist-remove.html: [fail, DataTransfer not implemented]
+datastore/**: [fail, DataTransfer not implemented]
 synthetic/001.html: [fail, DragEvent not implemented]
 target-origin/202.html: [fail, DragEvent not implemented]
 the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
@@ -1036,6 +996,8 @@ DIR: html/semantics/forms/the-progress-element
 
 DIR: html/semantics/forms/the-select-element
 
+inserted-or-removed.html:
+  "If an OPTION says it is selected, it should be selected after it is inserted.": [fail, Not implemented]
 select-validity.html: [fail, Unknown]
 select-willvalidate-readonly-attribute.html: [fail, Not implemented]
 
@@ -1300,7 +1262,7 @@ DIR: html/webappapis/dynamic-markup-insertion/document-writeln
 
 DIR: html/webappapis/microtask-queuing
 
-queue-microtask-cross-realm-callback-report-exception.html: [fail, Unknown]
+queue-microtask-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 queue-microtask.window.html: [fail-slow, Unknown interaction with Mutation Observers]
 
 ---
@@ -1347,8 +1309,8 @@ protocol.tentative.https.html: [fail, registerProtocolHandler() is not implement
 
 DIR: html/webappapis/timers
 
-setinterval-cross-realm-callback-report-exception.html: [fail, Unknown iframe issue]
-settimeout-cross-realm-callback-report-exception.html: [fail, Unknown iframe issue]
+setinterval-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
+settimeout-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 
 ---
 
@@ -1395,14 +1357,11 @@ focus/focus-pseudo-matches-on-shadow-host.html: [timeout, Seems to depend on aut
 focus/focus-selector-delegatesFocus.html: [fail, Not implemented]
 focus/focus-shadowhost-display-none.html: [fail-slow, DelegatesFocus is not implemented]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
-imperative-slot-api-slotchange.html: [fail, Imperative slot API is not implemented]
-imperative-slot-api.html: [fail, Imperative slot API is not implemented]
-imperative-slot-fallback-clear.html: [fail, Imperative slot API is not implemented]
-imperative-slot-initial-fallback.html: [fail, Imperative slot API is not implemented]
+imperative-slot-**.html: [fail, Imperative slot API is not implemented]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemented]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
-offsetTop-offsetLeft-across-shadow-boundaries.html: [fail, Requires a layout engine]
+offsetTop-offsetLeft-across-shadow-boundaries.html: [fail, offsetTop/offsetLeft not implemented]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, https://github.com/w3c/selection-api/issues/114]
@@ -1479,9 +1438,9 @@ unload-a-document/*: [timeout, Requires window.open]
 DIR: webstorage
 
 event_no_duplicates.html: [fail, Unknown]
-localstorage-about-blank-3P-iframe-opens-3P-window.partitioned.tentative.html: [fail-slow, Unknown iframe issue]
+localstorage-about-blank-3P-iframe-opens-3P-window.partitioned.tentative.html: [timeout, Unknown]
 localstorage-basic-partitioned.tentative.sub.html: [timeout, Depends on window.open()]
-localstorage-cross-origin-iframe.tentative.https.window.html: [fail-slow, Unknown iframe issue]
+localstorage-cross-origin-iframe.tentative.https.window.html: [timeout, Unknown]
 sessionStorage-basic-partitioned.tentative.sub.html: [fail-slow, Depends on window.open()]
 storage_local_window_open.window.html: [timeout, Depends on window.open()]
 storage_session_window_noopener.window.html: [fail, Depends on BroadcastChannel]
