@@ -104,6 +104,24 @@ test(() => {
   assert_equals(e.offsetY, 22);
 }, "MouseEvent should provide the correct computed values when the dispatch flag is not set");
 
+async_test(t => {
+  const element = document.querySelector("button");
+  element.addEventListener("click", t.step_func_done(e => {
+    // changing these during dispatch should not mess up pageX/Y
+    window.scrollX = 0;
+    window.scrollY = 0;
+    assert_equals(e.pageX, 110);
+    assert_equals(e.pageY, 220);
+    assert_equals(e.offsetX, 0);
+    assert_equals(e.offsetY, 0);
+  }));
+  window.scrollX = 10;
+  window.scrollY = 20;
+  element.dispatchEvent(new MouseEvent("click", {
+    clientX: 100, clientY: 200, view: window
+  }));
+}, "MouseEvent should provide the correct computed values when the dispatch flag is set");
+
 test(() => {
   const e = new MouseEvent("click", {
     screenX: 1.5, screenY: 2.5, clientX: 3.5, clientY: 4.5
