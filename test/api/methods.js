@@ -322,7 +322,7 @@ describe("API: JSDOM class's methods", () => {
         assert.strictEqual(window.document.documentURI, "http://example.com/");
       });
 
-      it("should allow History.replaceState with the changed URL", () => {
+      it("should update the URL used by history.replaceState()", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
         const { window } = dom;
 
