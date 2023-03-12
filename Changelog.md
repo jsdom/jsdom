@@ -26,6 +26,12 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 21.1.1
+
+* Fixed `jsdom.reconfigure()` to also adjust the URL as seen by the history API, so that e.g. `history.replaceState(null, "")` would not mess up the URL. (jdufresne)
+* Fixed `location.hash = ""` to leave any `#` in location.href.
+* Fixes a few bugs with CSS parsing by replacing `cssom` with `rweb-cssom`, since the latter is maintained. (seanparmelee)
+
 ## 21.1.0
 
 * Added `x`, `y`, `pageX`, `pageY`, `offsetX`, and `offsetY` to `MouseEvent`. (jenseng, ViniciusFXavier)

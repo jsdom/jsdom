@@ -149,6 +149,7 @@ Johan Sköld <johan@pingdom.com>
 John Hurliman <jhurliman@jhurliman.org>
 John Nguyen <tgohn@users.noreply.github.com>
 John Roberts <jroberts@logitech.com>
+Jon Dufresne <jon.dufresne@gmail.com>
 Jon Jensen <jenseng@gmail.com>
 Jon Sakas <jon.sakas@gmail.com>
 Jonathan Commins <joncom@gmail.com>
@@ -282,6 +283,7 @@ saucy <zekewarren@gmail.com>
 Scott Albertine <scott.albertine@gmail.com>
 Scott Ashton <scottmortonashton@gmail.com>
 Sean Jacke <seanineurope@gmail.com>
+Sean Parmelee <seanparmelee@users.noreply.github.com>
 Sebastiaan Marynissen <sebastiaan.marynissen@gmail.com>
 Sebastian Mayr <github@smayr.name>
 Sebastian McKenzie <sebmck@gmail.com>
