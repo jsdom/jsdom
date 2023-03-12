@@ -1406,12 +1406,9 @@ url-constructor.any.html**: [fail, Depends on fetch]
 url-constructor.any.worker.html*: [fail, Depends on Worker]
 url-origin.any.html: [fail, Depends on fetch]
 url-setters-a-area.window.html**: [fail, Depends on fetch]
-url-setters-stripping.any.html: [fail, Not implemented]
 url-setters.any.html**: [fail, Depends on fetch]
 url-setters.any.worker.html*: [fail, Depends on Worker]
 urlencoded-parser.any.html: [fail, Depends on fetch]
-urlsearchparams-delete.any.html:
-  "Changing the query of a URL with an opaque path can impact the path": [fail, Whitespace stripping is not implemented]
 
 ---
 
