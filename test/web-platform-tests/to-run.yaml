@@ -1294,6 +1294,12 @@ messageevent-constructor.https.html: [fail, uses MessageChannel]
 
 ---
 
+DIR: html/webappapis/structured-clone
+
+structured-clone-cross-realm-method.html: [fail, No relevant Realm for deserialization]
+
+---
+
 DIR: html/webappapis/system-state-and-capabilities/the-navigator-object
 
 clientinformation.window.html: [fail, window.clientInformation is not implemented]
