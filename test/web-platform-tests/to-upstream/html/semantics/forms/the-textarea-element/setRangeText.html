@@ -37,7 +37,7 @@
 
     assert_equals(element.value, "bazbaz");
     assert_equals(element.selectionStart, 0);
-    assert_equals(element.selectionEnd, 6);
+    assert_equals(element.selectionEnd, 3);
 
   }, "textarea setRangeText(text, start, end, 'select') should create a new selection using start and end as bounds");
 
@@ -60,8 +60,8 @@
     element.setRangeText("baz", 0, 6, "end");
 
     assert_equals(element.value, "bazbaz");
-    assert_equals(element.selectionStart, 6);
-    assert_equals(element.selectionEnd, 6);
+    assert_equals(element.selectionStart, 3);
+    assert_equals(element.selectionEnd, 3);
 
   }, "textarea setRangeText(text, start, end, 'end') should create a new selection, collapsed to end");
 
