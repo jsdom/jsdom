@@ -91,18 +91,29 @@ async_test(t => {
 }, "clicking using click() should produce an event object with the correct MouseEventInit values");
 
 test(() => {
-  window.scrollX = 10;
-  window.scrollY = 20;
   const e = new MouseEvent("click", {
     clientX: 1, clientY: 2, view: window
   });
   assert_equals(e.x, 1);
   assert_equals(e.y, 2);
-  assert_equals(e.pageX, 11);
-  assert_equals(e.pageY, 22);
-  assert_equals(e.offsetX, 11);
-  assert_equals(e.offsetY, 22);
+  assert_equals(e.pageX, 1);
+  assert_equals(e.pageY, 2);
+  assert_equals(e.offsetX, 1);
+  assert_equals(e.offsetY, 2);
 }, "MouseEvent should provide the correct computed values when the dispatch flag is not set");
+
+async_test(t => {
+  const element = document.documentElement; // dispatch against something at the origin (0,0) so it passes in browsers
+  element.addEventListener("click", t.step_func_done(e => {
+    assert_equals(e.pageX, 1);
+    assert_equals(e.pageY, 2);
+    assert_equals(e.offsetX, 1);
+    assert_equals(e.offsetY, 2);
+  }));
+  element.dispatchEvent(new MouseEvent("click", {
+    clientX: 1, clientY: 2, view: window
+  }));
+}, "MouseEvent should provide the correct computed values when the dispatch flag is set");
 
 test(() => {
   const e = new MouseEvent("click", {
@@ -121,6 +132,5 @@ test(() => {
   assert_equals(e.screenY, 2);
   assert_equals(e.clientX, 3);
   assert_equals(e.clientY, 4);
-
 }, "MouseEvent.initMouseEvent should convert doubles to longs");
 </script>
