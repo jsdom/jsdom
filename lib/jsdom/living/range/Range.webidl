@@ -27,6 +27,8 @@ interface Range : AbstractRange {
   [CEReactions] undefined insertNode(Node node);
   [CEReactions] undefined surroundContents(Node newParent);
 
+  [NewObject] sequence<DOMRect> getClientRects();
+  [NewObject] DOMRect getBoundingClientRect();
   [NewObject] Range cloneRange();
   undefined detach();
 
