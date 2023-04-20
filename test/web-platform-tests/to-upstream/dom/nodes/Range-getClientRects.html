@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Range.prototype.getClientRects</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const zeroDimensions = [
+    {
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 0,
+      top: 0,
+      width: 0,
+      x: 0,
+      y: 0
+    }
+  ];
+
+  const r = document.createRange();
+  assert_object_equals(r.getClientRects(), zeroDimensions);
+
+}, "getClientRects should return an array of 0 value dimensions for a range");
+</script>
