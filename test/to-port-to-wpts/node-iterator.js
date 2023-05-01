@@ -133,7 +133,7 @@ describe("node-contains", { skipIfBrowser: true }, () => {
         case "whatToShow":
         case "filter":
         case "toString":
-          assert.ok(!Object.prototype.hasOwnProperty.call(it, key), key + " should not be an 'own' property");
+          assert.ok(!Object.hasOwn(it, key), key + " should not be an 'own' property");
           break;
         default:
           assert.ok(false, key + " is not a valid NodeIterator property");
