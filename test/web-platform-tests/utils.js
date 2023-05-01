@@ -3,9 +3,18 @@ const { Canvas } = require("../../lib/jsdom/utils.js");
 
 const hasCanvas = Boolean(Canvas);
 
+const nodeMajorVersion = process.versions.node.split(".")[0];
+
 exports.resolveReason = reason => {
-  if (["fail-slow", "timeout", "flaky"].includes(reason) ||
-    (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas)) {
+  if (["fail-slow", "timeout", "flaky"].includes(reason)) {
+    return "skip";
+  }
+
+  if (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas) {
+    return "skip";
+  }
+
+  if (reason === "fail-node18" && nodeMajorVersion === "18") {
     return "skip";
   }
 
