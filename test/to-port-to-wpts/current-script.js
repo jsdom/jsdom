@@ -6,7 +6,7 @@ const { describe, specify } = require("mocha-sugar-free");
 const { JSDOM } = require("../..");
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
-describe("current-script", { skipIfBrowser: true }, () => {
+describe("current-script", () => {
   specify("document.currentScript is null when not executing <script>", () => {
     const { window } = new JSDOM();
     assert.strictEqual(window.document.currentScript, null);

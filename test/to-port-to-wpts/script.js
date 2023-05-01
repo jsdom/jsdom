@@ -5,7 +5,7 @@ const { describe, specify } = require("mocha-sugar-free");
 const { JSDOM } = require('../..');
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
-describe("script", { skipIfBrowser: true }, () => {
+describe("script", () => {
   specify('scripts_share_a_global_context', () => {
     var { window } = new JSDOM('\
       <html><head>\

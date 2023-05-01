@@ -8,10 +8,11 @@ const { describe, it } = require("mocha-sugar-free");
 const { delay, createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 const { version: packageVersion } = require("../../package.json");
-
 const { JSDOM, VirtualConsole, ResourceLoader } = require("../..");
 
-describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
+const pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
+
+describe("API: resource loading configuration", () => {
   describe("defaults", () => {
     it("should not download images", { slow: 500 }, async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
@@ -859,10 +860,6 @@ async function neverRequestedServer() {
 }
 
 function imageServer() {
-  // We can't do this at the top of the file since otherwise it won't be skipped when running these tests in the
-  // browser.
-  const pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
-
   return resourceServer({ "Content-Type": "image/png", "Content-Length": pngBytes.byteLength }, pngBytes);
 }
 

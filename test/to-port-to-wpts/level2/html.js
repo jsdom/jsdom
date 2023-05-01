@@ -10,7 +10,7 @@ function getImplementation() {
   return (new JSDOM()).window.document.implementation;
 }
 
-describe("level2/html", { skipIfBrowser: true }, () => {
+describe("level2/html", () => {
   /**
    *
    The accessKey attribute is a single character access key to give

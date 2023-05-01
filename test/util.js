@@ -77,67 +77,7 @@ exports.injectIFrameWithScript = (document, scriptStr = "") => {
   return iframe;
 };
 
-/**
- * Is this script currently running within a Web Worker context?
- * @returns {boolean}
- */
-exports.inWebWorkerContext = () => {
-  /* globals WorkerGlobalScope, self */
-  return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
-};
-
-/**
- * Is this script currently running within a browser context?
- * Note: also returns true within a Web Worker context
- * @returns {boolean}
- */
-exports.inBrowserContext = () => {
-  /* globals window */
-  return (typeof window === "object" && window === window.self) || exports.inWebWorkerContext();
-};
-
-/**
- * Resolves a path to a static fixture file to a file or http URL.
- * If running tests from node, a valid file url will be returned.
- * If running tests using karma, a http url to the file be returned (this file is served by karma)
- * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
- * @returns {string} URL
- */
-function getTestFixtureUrl(relativePath) {
-  /* globals location */
-  if (exports.inBrowserContext()) {
-    // location is a Location or WorkerLocation
-    return location.origin + "/base/test" + (relativePath[0] === "/" ? "" : "/") + relativePath;
-  }
-
-  return toFileUrl(__dirname, relativePath);
-}
-
-/**
- * Reads a static fixture file as utf8.
- * If running tests from node, the file will be read from the file system
- * If running tests using karma, a http request will be performed to retrieve the file using karma's server.
- * @param {string} relativePath Relative path within the test directory. For example "jsdom/files/test.html"
- */
-exports.readTestFixture = async relativePath => {
-  if (exports.inBrowserContext()) {
-    const abortController = new self.AbortController();
-    const { signal } = abortController;
-    const timeout = setTimeout(() => {
-      abortController.abort();
-    }, 5000);
-
-    try {
-      const response = await self.fetch(getTestFixtureUrl(relativePath), { method: "GET", signal });
-      if (!response.ok) {
-        throw new Error(`Unexpected status ${response.status} fetching ${response.location}`);
-      }
-      return response.text();
-    } finally {
-      clearTimeout(timeout);
-    }
-  }
-
+exports.readTestFixture = relativePath => {
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
 };
 

@@ -9,7 +9,7 @@ function nodeName(node) {
   return node && node.nodeName ? node.nodeName : node;
 }
 
-describe("parent-node", { skipIfBrowser: true }, () => {
+describe("parent-node", () => {
   specify("Document should implement ParentNode:children", () => {
     const doc = load("parent-node");
 

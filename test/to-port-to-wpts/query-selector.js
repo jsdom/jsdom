@@ -9,7 +9,7 @@ const load = require("../util.js").load(__dirname);
 // Tests for ParentNode's querySelector
 // Spec: https://dom.spec.whatwg.org/#dom-parentnode-queryselector
 
-describe("query-selector", { skipIfBrowser: true }, () => {
+describe("query-selector", () => {
   specify("querySelector exists on documents", () => {
     const doc = load("test");
 

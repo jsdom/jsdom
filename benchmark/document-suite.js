@@ -1,12 +1,10 @@
 "use strict";
 const Benchmark = require("benchmark");
 const jsdomBenchmark = require("./jsdom-benchmark");
-
-// jsdom might be an empty object if omitted by browserify
 const jsdom = require("..");
 
 const nativeDoc = global.document;
-const jsdomDoc = jsdom.JSDOM && (new jsdom.JSDOM()).window.document;
+const jsdomDoc = (new jsdom.JSDOM()).window.document;
 
 function noop() {
   // intentional no-op function
@@ -71,19 +69,16 @@ module.exports = function documentSuite(optionsArg) {
     addBenchmark(suite, benchmark);
   }
 
-  if (jsdomDoc) {
-    const newOptions = {
+  const newOptions = {
+    ...options,
+    ...benchmarkFunctions(jsdomDoc, options),
+    jsdomDocumentImplementation: "jsdom"
+  };
+  const benchmark = jsdomBenchmark(newOptions);
 
-      ...options,
-      ...benchmarkFunctions(jsdomDoc, options),
-      jsdomDocumentImplementation: "jsdom"
-    };
-    const benchmark = jsdomBenchmark(newOptions);
-
-    // extra space in "jsdom " so that it aligns with "native"
-    benchmark.name = benchmark.name ? benchmark.name + " :: jsdom " : "jsdom ";
-    addBenchmark(suite, benchmark);
-  }
+  // extra space in "jsdom " so that it aligns with "native"
+  benchmark.name = benchmark.name ? benchmark.name + " :: jsdom " : "jsdom ";
+  addBenchmark(suite, benchmark);
 
   return suite;
 };

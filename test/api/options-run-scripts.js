@@ -36,10 +36,7 @@ describe("API: runScripts constructor option", () => {
       assert.strictEqual(dom.window.document.body.children.length, 3);
     });
 
-    // In the browser, vm-shim uses Function() on the code to be evaluated, which inserts an extra first line. So we are
-    // always off by one there. See https://github.com/jsdom/jsdom/issues/2004.
-    it("should execute <script>s with correct location when set to \"dangerously\" and " +
-       "includeNodeLocations", { skipIfBrowser: true }, () => {
+    it("should execute <script>s with correct location when set to \"dangerously\" and includeNodeLocations", () => {
       const virtualConsole = new VirtualConsole();
       const promise = new Promise((resolve, reject) => {
         virtualConsole.on("jsdomError", err => {
