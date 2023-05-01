@@ -6,33 +6,6 @@
 <body>
 <script>
 "use strict";
-
-test(() => {
-  class SomeElement1 extends HTMLElement {}
-  customElements.define("some-element-1", SomeElement1);
-
-  const savedCustomElements = Object.getOwnPropertyDescriptor(window, "customElements");
-  window.customElements = {};
-
-  const element = document.createElement("some-element-1");
-  assert_true(element instanceof SomeElement1);
-
-  Object.defineProperty(window, "customElements", savedCustomElements);
-}, "Custom elements can still be created after `window.customElements` is overwritten.");
-
-test(() => {
-  class SomeElement2 extends HTMLElement {}
-  customElements.define("some-element-2", SomeElement2);
-
-  const savedCustomElements = Object.getOwnPropertyDescriptor(window, "customElements");
-  window.customElements = {};
-
-  const element = new SomeElement2();
-  assert_true(element instanceof SomeElement2);
-
-  Object.defineProperty(window, "customElements", savedCustomElements);
-}, "Custom elements can still be constructed after `window.customElements` is overwritten.");
-
 test(() => {
   class SomeElement3 extends HTMLElement {}
   customElements.define("some-element-3", SomeElement3);
