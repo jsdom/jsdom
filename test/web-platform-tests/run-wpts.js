@@ -5,7 +5,7 @@ const jsYAML = require("js-yaml");
 const { Minimatch } = require("minimatch");
 const { describe, specify, before, after } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
-const startWPTServer = require("./start-wpt-server.js");
+const wptServer = require("./wpt-server.js");
 const { resolveReason } = require("./utils.js");
 
 const validInnerReasons = new Set([
@@ -39,14 +39,14 @@ checkToRun();
 
 let wptServerURL, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-before({ timeout: 30 * 1000 }, async () => {
-  const { urls, subprocess } = await startWPTServer({ toUpstream: false });
+before({ timeout: 30_000 }, async () => {
+  const { urls, subprocess } = await wptServer.start({ toUpstream: false });
   wptServerURL = urls[0];
   serverProcess = subprocess;
 });
 
 after(() => {
-  serverProcess.kill("SIGINT");
+  wptServer.kill(serverProcess);
 });
 
 describe("web-platform-tests", () => {
