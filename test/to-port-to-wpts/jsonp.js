@@ -10,7 +10,7 @@ const path = require("path");
 const jQueryFile = path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.4.min.js");
 
 describe("jsonp/jsonp", () => {
-  specify("making a JSONP request from a jsdom window using jQuery", { skipIfBrowser: true }, () => {
+  specify("making a JSONP request from a jsdom window using jQuery", () => {
     return createServer((req, res) => {
       const url = new URL("http://example.com" + req.url);
 

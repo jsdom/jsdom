@@ -168,7 +168,7 @@ describe("API: JSDOM class's methods", () => {
     });
   });
 
-  describe("getInternalVMContext", { skipIfBrowser: true }, () => {
+  describe("getInternalVMContext", () => {
     it("should throw when runScripts is left as the default", () => {
       const dom = new JSDOM();
 

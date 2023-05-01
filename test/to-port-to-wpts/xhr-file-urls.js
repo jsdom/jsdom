@@ -8,7 +8,7 @@ const { describe, specify } = require("mocha-sugar-free");
 const { JSDOM } = require("../..");
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
-describe("xhr-file-urls", { skipIfBrowser: true }, () => {
+describe("xhr-file-urls", () => {
   specify("Getting a file URL should work (from the same file URL)", t => {
     // From https://github.com/jsdom/jsdom/pull/1180
     const { window } = new JSDOM(``, { url: toFileUrl(__filename) });

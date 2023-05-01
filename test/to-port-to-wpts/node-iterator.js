@@ -50,7 +50,7 @@ function removeAndReinsert(node) {
   parent.insertBefore(node, nextSibling);
 }
 
-describe("node-contains", { skipIfBrowser: true }, () => {
+describe("node-contains", () => {
   specify(
     "createNodeIterator(): should throw if the first argument is missing",
     () => {

@@ -6,8 +6,6 @@ const util = require("util");
 const childProcess = require("child_process");
 const http = require("http");
 const https = require("https");
-const { inBrowserContext } = require("../util.js");
-
 const dnsLookup = util.promisify(dns.lookup);
 
 const wptDir = path.resolve(__dirname, "tests");
@@ -23,10 +21,6 @@ const configs = {
 };
 
 module.exports = ({ toUpstream = false } = {}) => {
-  if (inBrowserContext()) {
-    return Promise.resolve();
-  }
-
   const configType = toUpstream ? "toUpstream" : "default";
   const configPath = configPaths[configType];
   const config = configs[configType];

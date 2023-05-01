@@ -1,5 +1,4 @@
 "use strict";
-/* globals location: readonly */
 const zlib = require("zlib");
 const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
@@ -34,28 +33,7 @@ describe("API: JSDOM.fromURL()", () => {
     });
   });
 
-  describe("tests only in the browser", { skipUnlessBrowser: true }, () => {
-    it("should return a rejected promise for a 404", () => {
-      const url = location.origin + "/404/";
-
-      return assert.isRejected(JSDOM.fromURL(url));
-    });
-
-    it("should preserve full request URL", async () => {
-      const url = location.origin + "/";
-      const search = "?a=1";
-      const fragment = "#fragment";
-      const fullURL = url + search + fragment;
-
-      const dom = await JSDOM.fromURL(fullURL);
-      assert.strictEqual(dom.window.document.URL, fullURL);
-      assert.strictEqual(dom.window.location.href, fullURL);
-      assert.strictEqual(dom.window.location.search, search);
-      assert.strictEqual(dom.window.location.hash, fragment);
-    });
-  });
-
-  describe("tests that use a server", { skipIfBrowser: true }, () => {
+  describe("tests that use a server", () => {
     it("should return a rejected promise for a 404", async () => {
       const url = await simpleServer(404);
 

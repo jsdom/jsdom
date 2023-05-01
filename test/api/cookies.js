@@ -22,7 +22,7 @@ const testCookies = [
 
 let testHost, testSecuredHost;
 
-describe("Cookie processing", { skipIfBrowser: true }, () => {
+describe("Cookie processing", () => {
   let server, securedServer;
 
   before(() => {

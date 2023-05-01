@@ -78,27 +78,11 @@ To write such a test that, simply add a file in `test/api/`, following the surro
 
 Although ideally you should not need to worry about this, there are some tests that are for legacy reasons not in the right format; they use Mocha, but really should be web platform tests. We're keeping them around for coverage until we can convert them. If you run `yarn test`, you will get the full test suite, including such old tests.
 
-### Testing against the browser
-
-jsdom has experimental support to run in directly in a browser, in both the main document and in a web worker! So we try run as many tests as possible in browsers too. Currently we only test in Chrome, since it has the same JavaScript features as the Node.js environment we usually develop in. So you'll need Chrome installed on your machine.
-
-The mocha test cases are executed in Chrome using [karma](https://karma-runner.github.io/). Currently, web platform tests are not executed in the browser yet.
-
-**To run all browser tests:** `yarn test-browser`
-
-**To run the karma tests in an iframe:** `yarn test-browser-iframe`
-
-**To run the karma tests in a web worker:** `yarn test-browser-worker`
-
 ## Benchmarks
 
 This project cares about performance. There are a number of benchmarks that you can run. If you suspect your contribution has an impact on the performance of existing functionality, make sure you run the benchmarks before and after your change so that you can compare.
 
-You can also run the benchmarks using the native DOM implementation of Chrome. A comparison with jsdom will automatically be made for you. If your new feature is much slower than the alternative DOM implementation, there might be an unexpected bottleneck somewhere in your change.
-
-**To run benchmarks in Node.js:** `yarn benchmark`
-
-**To run benchmarks in the browser:** `yarn benchmark-browser`, then open `benchmark/browser-runner.html` in Chrome (or Chromium) and use the developer console to execute the `run()` function.
+**To run benchmarks:** `yarn benchmark`
 
 ## Issues
 

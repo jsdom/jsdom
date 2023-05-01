@@ -507,7 +507,7 @@ describe("jsdom/miscellaneous", () => {
   });
 
   // these tests require file system access or they start a http server
-  describe("node specific tests", { skipIfBrowser: true }, () => {
+  describe("node specific tests", () => {
     specify("ensure_resolution_is_not_thrown_off_by_hrefless_base_tag", { async: true }, t => {
       const html = `<html><head><base target="whatever"></head><body>
                  <span id="test">hello from html</span>

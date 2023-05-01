@@ -16,7 +16,7 @@ function all1(re, s) {
   return l;
 }
 
-describe("xpath", { skipIfBrowser: true }, () => {
+describe("xpath", () => {
   specify("testTokenizeRegexp", function() {
     var re = xpath.Stream.prototype.re;
     assert.deepEqual(['8', 'a'], all1(re, '8a'));

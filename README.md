@@ -446,16 +446,6 @@ Timers in the jsdom (set by `window.setTimeout()` or `window.setInterval()`) wil
 
 If you want to be sure to shut down a jsdom window, use `window.close()`, which will terminate all running timers (and also remove any event listeners on the window and document).
 
-### Running jsdom inside a web browser
-
-jsdom has some support for being run inside a web browser, using [browserify](https://browserify.org/). That is, inside a web browser, you can use a browserified jsdom to create an entirely self-contained set of plain JavaScript objects which look and act much like the browser's existing DOM objects, while being entirely independent of them. "Virtual DOM", indeed!
-
-jsdom's primary target is still Node.js, and so we use language features that are only present in recent Node.js versions. Thus, older browsers will likely not work. (Even transpilation will not help: we use `Proxy`s extensively throughout the jsdom codebase.)
-
-Notably, jsdom works well inside a web worker. The original contributor, [@lawnsea](https://github.com/lawnsea/), who made this possible, has [published a paper](https://pdfs.semanticscholar.org/47f0/6bb6607a975500a30e9e52d7c9fbc0034e27.pdf) about his project which uses this capability.
-
-Not everything works perfectly when running jsdom inside a web browser. Sometimes that is because of fundamental limitations (such as not having filesystem access), but sometimes it is simply because we haven't spent enough time making the appropriate small tweaks. Bug reports are certainly welcome.
-
 ### Debugging the DOM using Chrome DevTools
 
 In Node.js you can debug programs using Chrome DevTools. See the [official documentation](https://nodejs.org/en/docs/inspector/) for how to get started.

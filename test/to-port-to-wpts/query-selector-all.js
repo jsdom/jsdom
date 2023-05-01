@@ -9,7 +9,7 @@ const load = require("../util.js").load(__dirname);
 // Tests for ParentNode's querySelectorAll
 // Spec: https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
 
-describe("query-selector-all", { skipIfBrowser: true }, () => {
+describe("query-selector-all", () => {
   specify("querySelectorAll exists on documents", () => {
     const doc = load("test");
 

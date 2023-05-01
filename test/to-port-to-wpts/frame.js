@@ -7,7 +7,7 @@ const { describe, specify } = require("mocha-sugar-free");
 const { JSDOM } = require("../..");
 var toFileUrl = require('../util.js').toFileUrl(__dirname);
 
-describe("frame", { skipIfBrowser: true }, () => {
+describe("frame", () => {
   specify('frame_parent', (t) => {
     var { window } = new JSDOM('<html><body>\
       <script>\

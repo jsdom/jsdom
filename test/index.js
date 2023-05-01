@@ -1,6 +1,5 @@
 "use strict";
 // This includes all tests that are run using Mocha, including web-platform-tests.
-// Whether a test runs in Node, the browser, or both is determined using annotations inside each test.
 
 require("./api/basics.js");
 require("./api/cookies.js");
@@ -30,7 +29,6 @@ require("./to-port-to-wpts/htmlelement.js");
 require("./to-port-to-wpts/htmlimageelement.js");
 require("./to-port-to-wpts/htmlinputelement.js");
 require("./to-port-to-wpts/inline-event-handlers.js");
-require("./to-port-to-wpts/inside-worker-smoke-tests.js");
 require("./to-port-to-wpts/jsonp.js");
 require("./to-port-to-wpts/location.js");
 require("./to-port-to-wpts/message-event.js");
