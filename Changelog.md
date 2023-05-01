@@ -26,6 +26,12 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 21.1.2
+
+* Fixed `setRangeText()` used on `<input>` and `<textarea>` elements to calculate the new end index correctly. (pmstss)
+* Fixed `pageX`, `pageY`, `offsetX`, and `offsetY` on `MouseEvent`s during dispatch. (jenseng)
+* Upgraded `nwsapi` to v2.2.4, bringing along various fixes to our selector engine.
+
 ## 21.1.1
 
 * Fixed `jsdom.reconfigure()` to also adjust the URL as seen by the history API, so that e.g. `history.replaceState(null, "")` would not mess up the URL. (jdufresne)
