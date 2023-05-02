@@ -4,7 +4,6 @@ const { describe, it, before, after } = require("mocha-sugar-free");
 const { createServer, createHTTPSServer } = require("../util.js");
 
 const { JSDOM, CookieJar } = require("../..");
-const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
 const testCookies = [
   "Test1=Basic; expires=Wed, 13-Jan-2051 22:23:01 GMT",
@@ -119,24 +118,6 @@ describe("Cookie processing", () => {
       });
 
       xhr.open("GET", testHost + "/TestPath/set-cookie-from-server");
-      xhr.send();
-
-      return loadPromise;
-    });
-
-    it("should not crash or set cookies when requesting a file URL (GH-1180)", () => {
-      const { window } = new JSDOM(``, { url: toFileUrl(__filename) });
-
-      const xhr = new window.XMLHttpRequest();
-
-      const loadPromise = new Promise(resolve => {
-        xhr.onload = () => {
-          assert.strictEqual(window.document.cookie, "");
-          resolve();
-        };
-      });
-
-      xhr.open("GET", toFileUrl(__filename));
       xhr.send();
 
       return loadPromise;

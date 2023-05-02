@@ -4,6 +4,7 @@
 require("./api/basics.js");
 require("./api/cookies.js");
 require("./api/encoding.js");
+require("./api/file-url-functionality.js");
 require("./api/fragment.js");
 require("./api/from-file.js");
 require("./api/from-outside.js");
@@ -37,7 +38,6 @@ require("./to-port-to-wpts/misc2.js");
 require("./to-port-to-wpts/namespaces.js");
 require("./to-port-to-wpts/node-clone-node.js");
 require("./to-port-to-wpts/node-iterator.js");
-require("./to-port-to-wpts/node-owner-document.js");
 require("./to-port-to-wpts/non-document-type-child-node.js");
 require("./to-port-to-wpts/on-error.js");
 require("./to-port-to-wpts/parent-node.js");
@@ -48,7 +48,6 @@ require("./to-port-to-wpts/query-selector.js");
 require("./to-port-to-wpts/script.js");
 require("./to-port-to-wpts/selectors.js");
 require("./to-port-to-wpts/serialization.js");
-require("./to-port-to-wpts/xhr-file-urls.js");
 require("./to-port-to-wpts/xml.js");
 
 require("./to-port-to-wpts/level1/core.js");

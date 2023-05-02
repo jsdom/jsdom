@@ -7,11 +7,6 @@ const { JSDOM } = require("../..");
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
 describe("current-script", () => {
-  specify("document.currentScript is null when not executing <script>", () => {
-    const { window } = new JSDOM();
-    assert.strictEqual(window.document.currentScript, null);
-  });
-
   specify("document.currentScript is currently executing <script> element", { async: true }, t => {
     const html = "<html><body>" +
                 "<span id='test'>hello from html</span><script src='./files/current-script.js'></script>" +

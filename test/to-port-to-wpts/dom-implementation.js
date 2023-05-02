@@ -18,17 +18,6 @@ describe("dom-implementation", () => {
     assert.equal(document.childNodes.length, 0, "document should not contain any nodes");
   });
 
-  specify("doctype ownerDocument", () => {
-    const { document } = (new JSDOM()).window;
-    const doctype = document.implementation.createDocumentType("bananas", "", "");
-    assert.ok(
-      doctype.ownerDocument === document,
-      "doctype should belong to the document the implementation belongs to"
-    );
-    const newDocument = document.implementation.createDocument(null, null, doctype);
-    assert.ok(doctype.ownerDocument === newDocument, "doctype should belong to the new document");
-  });
-
   specify("doctype child of ownerDocument", () => {
     const { document } = (new JSDOM()).window;
     const doctype = document.implementation.createDocumentType("hatstand", "", "");
