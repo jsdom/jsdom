@@ -26,6 +26,11 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 22.0.0
+
+* Node.js v16 is now the minimum supported version.
+* Removed support for running jsdom in the browser via a [browserified](https://browserify.org/) bundle. This carried with it too much complexity, especially for our testing infrastructure, and [a testing package we relied on was recently deprecated](https://github.com/karma-runner/karma#karma-is-deprecated-and-is-not-accepting-new-features-or-general-bug-fixes).
+
 ## 21.1.2
 
 * Fixed `setRangeText()` used on `<input>` and `<textarea>` elements to calculate the new end index correctly. (pmstss)
