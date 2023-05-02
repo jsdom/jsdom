@@ -10,23 +10,6 @@ const load = require("../util.js").load(__dirname);
 // Spec: https://dom.spec.whatwg.org/#dom-parentnode-queryselector
 
 describe("query-selector", () => {
-  specify("querySelector exists on documents", () => {
-    const doc = load("test");
-
-    assert.ok(doc.querySelector, "document.querySelector exists");
-    assert.ok(typeof doc.querySelector === "function", "document.querySelector is a function");
-    assert.ok(doc.querySelector("body"), "document.querySelector can find the <body> element");
-    assert.ok(doc.querySelector("p"), "document.querySelector can find a <p> element");
-  });
-
-  specify("querySelector exists on elements", () => {
-    const doc = load("test");
-
-    assert.ok(doc.body.querySelector, "document.body.querySelector exists");
-    assert.ok(typeof doc.body.querySelector === "function", "document.body.querySelector is a function");
-    assert.ok(doc.body.querySelector("p"), "document.body.querySelector can find a <p> element");
-  });
-
   specify("querySelector exists on document fragments", () => {
     const doc = (new JSDOM()).window.document;
     const docFrag = doc.createDocumentFragment();

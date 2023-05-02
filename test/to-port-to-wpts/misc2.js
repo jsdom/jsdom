@@ -4,7 +4,6 @@ const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
-const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
 describe("jsdom/miscellaneous", () => {
   specify("DOMContentLoaded should not be fired after window.close() (GH-1479)", () => {
@@ -508,45 +507,6 @@ describe("jsdom/miscellaneous", () => {
 
   // these tests require file system access or they start a http server
   describe("node specific tests", () => {
-    specify("ensure_resolution_is_not_thrown_off_by_hrefless_base_tag", { async: true }, t => {
-      const html = `<html><head><base target="whatever"></head><body>
-                 <span id="test">hello from html</span>
-                 <script src="./files/hello.js"></script></body></html>`;
-
-      const { window } = new JSDOM(html, {
-        url: toFileUrl(__filename),
-        runScripts: "dangerously",
-        resources: "usable"
-      });
-
-      window.doCheck = () => {
-        assert.equal(window.document.getElementById("test").innerHTML, "hello from javascript");
-        t.done();
-      };
-    });
-
-    specify("understand_file_protocol", { async: true }, t => {
-      const html = `
-        <html>
-          <head>
-          </head>
-          <body>
-            <span id="test">hello from html</span>
-            <script type="text/javascript" src="` + toFileUrl("files/hello.js") + `"></script>
-          </body>
-        </html>`;
-
-      const { window } = new JSDOM(html, { resources: "usable", runScripts: "dangerously" });
-      window.doCheck = () => {
-        assert.equal(
-          window.document.getElementById("test").innerHTML,
-          "hello from javascript",
-          "resource with file protocol should work"
-        );
-        t.done();
-      };
-    });
-
     specify("jquery_val_on_selects", { async: true }, t => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 

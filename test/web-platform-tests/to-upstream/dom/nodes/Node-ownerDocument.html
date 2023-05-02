@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Node: ownerDocument</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<p>Text</p><!-- comment -->
+
+<script>
+"use strict";
+
+test(() => {
+  const el = document.querySelector("p");
+  const text = el.firstChild;
+  const comment = el.nextSibling;
+  const { doctype } = document;
+
+  assert_equals(el.nodeType, document.ELEMENT_NODE, "element nodeType");
+  assert_equals(el.ownerDocument, document, "element ownerDocument");
+
+  assert_equals(text.nodeType, document.TEXT_NODE, "text nodeType");
+  assert_equals(text.ownerDocument, document, "text ownerDocument");
+
+  assert_equals(comment.nodeType, document.COMMENT_NODE, "comment nodeType");
+  assert_equals(comment.ownerDocument, document, "comment ownerDocument");
+
+  assert_equals(doctype.nodeType, document.DOCUMENT_TYPE_NODE, "doctype nodeType");
+  assert_equals(doctype.ownerDocument, document, "doctype ownerDocument");
+}, "in-document nodes");
+
+test(() => {
+  const el = document.createElement("p");
+  const text = document.createTextNode("text");
+  const comment = document.createComment("comment");
+  const doctype = document.implementation.createDocumentType("html", "", "");
+  const fragment = document.createDocumentFragment();
+  const pi = document.createProcessingInstruction("blah", "blah");
+
+  assert_equals(el.nodeType, document.ELEMENT_NODE, "element nodeType");
+  assert_equals(el.ownerDocument, document, "element ownerDocument");
+
+  assert_equals(text.nodeType, document.TEXT_NODE, "text nodeType");
+  assert_equals(text.ownerDocument, document, "text ownerDocument");
+
+  assert_equals(comment.nodeType, document.COMMENT_NODE, "comment nodeType");
+  assert_equals(comment.ownerDocument, document, "comment ownerDocument");
+
+  assert_equals(doctype.nodeType, document.DOCUMENT_TYPE_NODE, "doctype nodeType");
+  assert_equals(doctype.ownerDocument, document, "doctype ownerDocument");
+
+  assert_equals(fragment.nodeType, document.DOCUMENT_FRAGMENT_NODE, "fragment nodeType");
+  assert_equals(fragment.ownerDocument, document, "fragment ownerDocument");
+
+  assert_equals(pi.nodeType, document.PROCESSING_INSTRUCTION_NODE, "pi nodeType");
+  assert_equals(pi.ownerDocument, document, "pi ownerDocument");
+}, "out-of-document nodes");
+
+test(() => {
+  assert_equals(document.ownerDocument, null, "document ownerDocument");
+
+  const constructedDoc = new Document();
+  assert_equals(constructedDoc.ownerDocument, null, "constructed document ownerDocument");
+}, "documents");
+</script>
