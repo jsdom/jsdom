@@ -2,12 +2,11 @@
 # yarn lockfile v1
 
 
-"@asamuzakjp/dom-selector@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@asamuzakjp/dom-selector/-/dom-selector-0.5.0.tgz#94f2bede8a4fca4de50ca3f518acaf4af21c8a9d"
-  integrity sha512-XtcGOxGt2jXans72gEjRDC5orj2adLJP+KpNllUAXj2HshajEYELig7SZ4wqjy2qbE/rT4YCGo90sQs5QLjo6w==
+"@asamuzakjp/dom-selector@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@asamuzakjp/dom-selector/-/dom-selector-0.6.0.tgz#b722588b26255bb9af43deeae06fb550f297396b"
+  integrity sha512-vafinFaG1l/V+h8AH2btqXGCTXNabkIJwnCjITBiiKQhF2/2jgGHFOksMg3UBf7lPkLcsxpU+92fY1Je0M/FIQ==
   dependencies:
-    "@types/css-tree" "^2.3.1"
     css-tree "^2.3.1"
 
 "@domenic/eslint-config@^3.0.0":
@@ -91,11 +90,6 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
-
-"@types/css-tree@^2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@types/css-tree/-/css-tree-2.3.1.tgz#f359cf7ad9318d51b173b923bb8e8d81e21329a1"
-  integrity sha512-3m636Jz4d9d+lHVMp6FNLsUWQrfOx1xpm1SBxPbQYSNNgXMe+XswcsDeo1ldyULiuzYyWKk1kmvkLTgNq+215Q==
 
 abab@^2.0.6:
   version "2.0.6"
