@@ -94,10 +94,6 @@ test(() => {
 
 test(() => {
   link.textContent = "";
-  // setting character data of a text node should also make the element :empty, but
-  // nwsapi doesn't implement this correctly yet. To update the computed styles,
-  // style cache needs to be invalidated also after `CharacterDataImpl.replaceData`.
-  // link.childNodes[0].data = "";
 
   assert_equals(getComputedStyle(link).fontSize, "1.6em");
 }, "Emptying an element updates the computed style");
