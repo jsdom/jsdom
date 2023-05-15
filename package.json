@@ -58,7 +58,7 @@
     "chai": "^4.3.7",
     "eslint": "^8.39.0",
     "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-jsdom-internal": "link:./scripts/eslint-plugin",
+    "eslint-plugin-jsdom-internal": "file:./scripts/eslint-plugin",
     "js-yaml": "^4.1.0",
     "minimatch": "^9.0.0",
     "mocha": "^10.2.0",
