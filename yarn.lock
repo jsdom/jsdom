@@ -2,13 +2,14 @@
 # yarn lockfile v1
 
 
-"@asamuzakjp/dom-selector@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@asamuzakjp/dom-selector/-/dom-selector-0.9.2.tgz#00defde5a75f58a05207979613092b3fc683c88f"
-  integrity sha512-hyKZZhGb2ZYg/W5sECTWsCqhpXkgN4pS6hwvT8A6J1OdISIKqj8qaj3h3FyOsp8ykcF58OPz98KzApIuKPrb6g==
+"@asamuzakjp/dom-selector@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@asamuzakjp/dom-selector/-/dom-selector-0.10.0.tgz#a27bee2523d2c77a2f73049a81f939c518c3f209"
+  integrity sha512-dkat1VV4EK4QfL37+D2xuM1Cssm/bvFteGDshtsTjpCWQBb86/pF+nPs1hBxwJwMj2BuHwLSJT7TM4Xjz61P3g==
   dependencies:
     css-tree "^2.3.1"
     domexception "^4.0.0"
+    is-potential-custom-element-name "^1.0.1"
 
 "@domenic/eslint-config@^3.0.0":
   version "3.0.0"
