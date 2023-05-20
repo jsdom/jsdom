@@ -203,7 +203,7 @@ describe("jsdom/selectors", () => {
 });
 
 describe("tests for jsdom issues tagged with `selectors` label", () => {
-  specify('#1750 - https://github.com/jsdom/jsdom/issues/1750', () => {
+  specify("#1750 - https://github.com/jsdom/jsdom/issues/1750", () => {
     const domStr = `<!DOCTYPE html>
     <html>
       <body>
@@ -215,9 +215,9 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
       </body>
     </html>`;
     const { window: { document } } = new JSDOM(domStr);
-    const node = document.getElementById('target');
-    const res = document.querySelector('svg:not(:root)');
-    assert.deepEqual(res, node, 'result');
+    const node = document.getElementById("target");
+    const res = document.querySelector("svg:not(:root)");
+    assert.deepEqual(res, node, "result");
   });
 
 
@@ -227,10 +227,10 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
         <dc:title></dc:title>
       </cp:coreProperties>`;
     const { window } = new JSDOM();
-    const doc = new window.DOMParser().parseFromString(domStr, 'application/xml');
-    const node = doc.getElementById('target');
-    const res = doc.querySelector('coreProperties');
-    assert.deepEqual(res, node, 'result');
+    const doc = new window.DOMParser().parseFromString(domStr, "application/xml");
+    const node = doc.getElementById("target");
+    const res = doc.querySelector("coreProperties");
+    assert.deepEqual(res, node, "result");
   });
 
   specify("#2544 - https://github.com/jsdom/jsdom/issues/2544", () => {
@@ -262,13 +262,13 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
         </tractor>
       </mlt>`;
     const { window } = new JSDOM();
-    const doc = new window.DOMParser().parseFromString(domStr, 'application/xml');
-    const node = doc.getElementById('target');
+    const doc = new window.DOMParser().parseFromString(domStr, "application/xml");
+    const node = doc.getElementById("target");
     const res = doc.querySelector('mlt>tractor[id="tractor0"]>filter[mlt_service="greyscale"][track="0"]');
-    assert.deepEqual(res, node, 'result');
+    assert.deepEqual(res, node, "result");
   });
 
-  specify('#2998 - https://github.com/jsdom/jsdom/issues/2998', () => {
+  specify("#2998 - https://github.com/jsdom/jsdom/issues/2998", () => {
     const domStr = `<!DOCTYPE html>
     <html>
       <body>
@@ -281,17 +281,17 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
     </html>`;
     const { window: { document } } = new JSDOM(domStr);
 
-    const refPoint = document.getElementById('refPoint');
-    const res = refPoint.querySelector(':scope > span');
-    assert.isNull(res, 'result');
+    const refPoint = document.getElementById("refPoint");
+    const res = refPoint.querySelector(":scope > span");
+    assert.isNull(res, "result");
 
-    const refPoint2 = document.getElementById('refPoint');
-    const node2 = document.getElementById('target');
-    const res2 = refPoint2.querySelector(':scope span');
-    assert.deepEqual(res2, node2, 'result');
+    const refPoint2 = document.getElementById("refPoint");
+    const node2 = document.getElementById("target");
+    const res2 = refPoint2.querySelector(":scope span");
+    assert.deepEqual(res2, node2, "result");
   });
 
-  specify('#3055 - https://github.com/jsdom/jsdom/issues/3055', () => {
+  specify("#3055 - https://github.com/jsdom/jsdom/issues/3055", () => {
     const domStr = `<!DOCTYPE html>
     <html>
       <body>
@@ -302,23 +302,23 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
       </body>
     </html>`;
     const { window: { document } } = new JSDOM(domStr);
-    const node = document.getElementById('target');
-    const item = document.getElementById('item');
+    const node = document.getElementById("target");
+    const item = document.getElementById("item");
     item.focus();
-    const res = node.matches(':focus-within');
-    assert.isTrue(res, 'result');
+    const res = node.matches(":focus-within");
+    assert.isTrue(res, "result");
   });
 
-  specify('#3321 - https://github.com/jsdom/jsdom/issues/3321', () => {
+  specify("#3321 - https://github.com/jsdom/jsdom/issues/3321", () => {
     const domStr = '<a id="9a"><b id="target"/></a>';
-    const { window } = new JSDOM('');
-    const doc = new window.DOMParser().parseFromString(domStr, 'application/xml');
-    const node = doc.getElementById('target');
-    const res = doc.documentElement.querySelector(':scope > b');
-    assert.deepEqual(res, node, 'result');
+    const { window } = new JSDOM("");
+    const doc = new window.DOMParser().parseFromString(domStr, "application/xml");
+    const node = doc.getElementById("target");
+    const res = doc.documentElement.querySelector(":scope > b");
+    assert.deepEqual(res, node, "result");
   });
 
-  specify('#3370 - https://github.com/jsdom/jsdom/issues/3370', () => {
+  specify("#3370 - https://github.com/jsdom/jsdom/issues/3370", () => {
     const domStr = `<!DOCTYPE html>
     <html>
       <body>
@@ -326,16 +326,16 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
       </body>
     </html>`;
     const { window: { document } } = new JSDOM(domStr);
-    const node = document.getElementById('target');
-    const res = document.querySelector('div[class=CasE i]');
-    assert.deepEqual(res, node, 'result');
+    const node = document.getElementById("target");
+    const res = document.querySelector("div[class=CasE i]");
+    assert.deepEqual(res, node, "result");
 
-    const node2 = document.getElementById('target');
-    const res2 = document.querySelector('div[class=CasE I]');
-    assert.deepEqual(res2, node2, 'result');
+    const node2 = document.getElementById("target");
+    const res2 = document.querySelector("div[class=CasE I]");
+    assert.deepEqual(res2, node2, "result");
   });
 
-  specify('#3432 - https://github.com/jsdom/jsdom/issues/3432', () => {
+  specify("#3432 - https://github.com/jsdom/jsdom/issues/3432", () => {
     const domStr = `<!DOCTYPE html>
     <html>
       <body>
@@ -344,12 +344,12 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
       </body>
     </html>`;
     const { window: { document } } = new JSDOM(domStr);
-    const node = document.getElementById('target');
-    const res = document.querySelector(':is(:is(input), button)');
-    assert.deepEqual(res, node, 'result');
+    const node = document.getElementById("target");
+    const res = document.querySelector(":is(:is(input), button)");
+    assert.deepEqual(res, node, "result");
   });
 
-  specify('#3506 - https://github.com/jsdom/jsdom/issues/3506', () => {
+  specify("#3506 - https://github.com/jsdom/jsdom/issues/3506", () => {
     const domStr = `<!DOCTYPE html>
     <html>
       <body>
@@ -359,8 +359,8 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
       </body>
     </html>`;
     const { window: { document } } = new JSDOM(domStr);
-    const node = document.getElementById('target');
-    const res = document.querySelector('p:has(span)');
-    assert.deepEqual(res, node, 'result');
+    const node = document.getElementById("target");
+    const res = document.querySelector("p:has(span)");
+    assert.deepEqual(res, node, "result");
   });
 });
