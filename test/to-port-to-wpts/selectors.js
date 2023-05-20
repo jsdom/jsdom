@@ -201,3 +201,166 @@ describe("jsdom/selectors", () => {
     assert.throwsDomException(() => document.body.matches(selector), document, "SyntaxError");
   });
 });
+
+describe("tests for jsdom issues tagged with `selectors` label", () => {
+  specify('#1750 - https://github.com/jsdom/jsdom/issues/1750', () => {
+    const domStr = `<!DOCTYPE html>
+    <html>
+      <body>
+        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="100" viewBox="0 0 3 2" id="target">
+          <rect width="1" height="2" x="0" fill="#008d46" />
+          <rect width="1" height="2" x="1" fill="#ffffff" />
+          <rect width="1" height="2" x="2" fill="#d2232c" />
+        </svg>
+      </body>
+    </html>`;
+    const { window: { document } } = new JSDOM(domStr);
+    const node = document.getElementById('target');
+    const res = document.querySelector('svg:not(:root)');
+    assert.deepEqual(res, node, 'result');
+  });
+
+
+  specify("#2159 - https://github.com/jsdom/jsdom/issues/2159", () => {
+    const domStr = `<?xml version="1.0"?>
+      <cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" id="target">
+        <dc:title></dc:title>
+      </cp:coreProperties>`;
+    const { window } = new JSDOM();
+    const doc = new window.DOMParser().parseFromString(domStr, 'application/xml');
+    const node = doc.getElementById('target');
+    const res = doc.querySelector('coreProperties');
+    assert.deepEqual(res, node, 'result');
+  });
+
+  specify("#2544 - https://github.com/jsdom/jsdom/issues/2544", () => {
+    const domStr = `<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE mlt SYSTEM "https://raw.githubusercontent.com/mltframework/mlt/master/src/modules/xml/mlt-xml.dtd">
+      <mlt>
+        <producer id="producerqduAlody2X0FCLy2exeOG">
+          <property name="resource">/mnt/c/xampp/htdocs/videoeditor/WORKER/1234/qduAlody2X0FCLy2exeOG.JPG</property>
+          <property name="musecut:mime_type">image/jpeg</property>
+        </producer>
+        <playlist id="playlist0">
+          <entry producer="producerqduAlody2X0FCLy2exeOG" in="0" out="99"/>
+        </playlist>
+        <tractor id="tractor0">
+          <multitrack>
+            <track producer="playlist0"/>
+          </multitrack>
+          <filter mlt_service="greyscale" track="0" id="target"/>
+          <filter mlt_service="grayscale" track="0"/>
+        </tractor>
+        <playlist id="videotrack0">
+          <entry producer="tractor0"/>
+          <entry producer="producerqduAlody2X0FCLy2exeOG" in="0" out="99"/>
+        </playlist>
+        <tractor id="main">
+          <multitrack>
+            <track producer="videotrack0"/>
+          </multitrack>
+        </tractor>
+      </mlt>`;
+    const { window } = new JSDOM();
+    const doc = new window.DOMParser().parseFromString(domStr, 'application/xml');
+    const node = doc.getElementById('target');
+    const res = doc.querySelector('mlt>tractor[id="tractor0"]>filter[mlt_service="greyscale"][track="0"]');
+    assert.deepEqual(res, node, 'result');
+  });
+
+  specify('#2998 - https://github.com/jsdom/jsdom/issues/2998', () => {
+    const domStr = `<!DOCTYPE html>
+    <html>
+      <body>
+        <div id="refPoint">
+          <div>
+            <span id="target"></span>
+          </div>
+        </div>
+      </body>
+    </html>`;
+    const { window: { document } } = new JSDOM(domStr);
+
+    const refPoint = document.getElementById('refPoint');
+    const res = refPoint.querySelector(':scope > span');
+    assert.isNull(res, 'result');
+
+    const refPoint2 = document.getElementById('refPoint');
+    const node2 = document.getElementById('target');
+    const res2 = refPoint2.querySelector(':scope span');
+    assert.deepEqual(res2, node2, 'result');
+  });
+
+  specify('#3055 - https://github.com/jsdom/jsdom/issues/3055', () => {
+    const domStr = `<!DOCTYPE html>
+    <html>
+      <body>
+        <div class="container" id="target">
+          Focus here:
+          <button id="item">focus me</button>
+        </div>
+      </body>
+    </html>`;
+    const { window: { document } } = new JSDOM(domStr);
+    const node = document.getElementById('target');
+    const item = document.getElementById('item');
+    item.focus();
+    const res = node.matches(':focus-within');
+    assert.isTrue(res, 'result');
+  });
+
+  specify('#3321 - https://github.com/jsdom/jsdom/issues/3321', () => {
+    const domStr = '<a id="9a"><b id="target"/></a>';
+    const { window } = new JSDOM('');
+    const doc = new window.DOMParser().parseFromString(domStr, 'application/xml');
+    const node = doc.getElementById('target');
+    const res = doc.documentElement.querySelector(':scope > b');
+    assert.deepEqual(res, node, 'result');
+  });
+
+  specify('#3370 - https://github.com/jsdom/jsdom/issues/3370', () => {
+    const domStr = `<!DOCTYPE html>
+    <html>
+      <body>
+        <div class="case" id="target"></div>
+      </body>
+    </html>`;
+    const { window: { document } } = new JSDOM(domStr);
+    const node = document.getElementById('target');
+    const res = document.querySelector('div[class=CasE i]');
+    assert.deepEqual(res, node, 'result');
+
+    const node2 = document.getElementById('target');
+    const res2 = document.querySelector('div[class=CasE I]');
+    assert.deepEqual(res2, node2, 'result');
+  });
+
+  specify('#3432 - https://github.com/jsdom/jsdom/issues/3432', () => {
+    const domStr = `<!DOCTYPE html>
+    <html>
+      <body>
+        <button>hi</button>
+        <input type="submit" value="weee" id="target" />
+      </body>
+    </html>`;
+    const { window: { document } } = new JSDOM(domStr);
+    const node = document.getElementById('target');
+    const res = document.querySelector(':is(:is(input), button)');
+    assert.deepEqual(res, node, 'result');
+  });
+
+  specify('#3506 - https://github.com/jsdom/jsdom/issues/3506', () => {
+    const domStr = `<!DOCTYPE html>
+    <html>
+      <body>
+        <p id="target">
+          <span>123</span>
+        </p>
+      </body>
+    </html>`;
+    const { window: { document } } = new JSDOM(domStr);
+    const node = document.getElementById('target');
+    const res = document.querySelector('p:has(span)');
+    assert.deepEqual(res, node, 'result');
+  });
+});
