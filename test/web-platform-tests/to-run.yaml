@@ -941,7 +941,6 @@ form-requestsubmit.html: [timeout, form.elements doesn't include listed elements
 
 DIR: html/semantics/forms/the-input-element
 
-checkable-active-space-key-untrusted-event.html: [fail, Not implemented]
 cloning-steps.html: [fail-slow, Uses JS modules]
 datetime-local-trailing-zeros.html: [fail, Not implemented]
 email.html:
