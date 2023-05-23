@@ -36,7 +36,6 @@ DIR: WebCryptoAPI
 "*/**": [fail, Not implemented]
 algorithm-discards-context.https.window.html: [fail-slow, Tests non-implemented methods]
 idlharness.https.any.html: [fail, Unknown]
-randomUUID.https.any.html: [fail, Not implemented]
 
 ---
 
