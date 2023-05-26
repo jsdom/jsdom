@@ -258,7 +258,6 @@ Document-characterSet-normalization-2.html: [timeout, Some encodings are not sup
 Document-createEvent-touchevent.window.html: [fail, Pointer events not implemented]
 Document-createEvent.https.html: [fail, We don't support every event interface yet]
 Document-getElementById.html: [fail, We cache IDs in insertion order]
-Element-closest.html: [fail, :has is not supported (by all major browsers as well)]
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
