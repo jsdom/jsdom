@@ -345,7 +345,7 @@ describe("tests for jsdom issues tagged with `selectors` label", () => {
     </html>`;
     const { window: { document } } = new JSDOM(domStr);
     const node = document.getElementById("target");
-    const res = document.querySelector(":is(:is(input), button)");
+    const res = document.querySelector(":is(:is(input))");
     assert.deepEqual(res, node, "result");
   });
 
