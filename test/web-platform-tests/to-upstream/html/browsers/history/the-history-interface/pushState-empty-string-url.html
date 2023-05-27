@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>pushState with the empty string</title>
+<!-- Context: https://github.com/jsdom/jsdom/issues/3513 -->
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(location.hash, "", "Initially no hash");
+  assert_false(location.href.includes("#"), "Initially no # in href");
+
+  location.hash = "test";
+  assert_equals(location.hash, "#test", "hash after setting to a non-empty value");
+  assert_true(location.href.includes("#"), "Setting a hash to a non-empty value causes # in href");
+
+  history.pushState(null, null, "");
+  assert_equals(location.hash, "#test", "hash after pushState() with the empty string");
+  assert_true(location.href.endsWith("#test"), "href after pushState() with the empty string");
+});
+</script>
