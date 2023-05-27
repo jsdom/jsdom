@@ -1,9 +1,11 @@
 // Must be kept in sync with GlobalEventHandlers-impl.js.
 
-// https://html.spec.whatwg.org/#globaleventhandlers
 interface mixin GlobalEventHandlers {
   attribute EventHandler onabort;
   attribute EventHandler onauxclick;
+  attribute EventHandler onbeforeinput;
+  attribute EventHandler onbeforematch;
+  attribute EventHandler onbeforetoggle;
   attribute EventHandler onblur;
   attribute EventHandler oncancel;
   attribute EventHandler oncanplay;
@@ -11,8 +13,12 @@ interface mixin GlobalEventHandlers {
   attribute EventHandler onchange;
   attribute EventHandler onclick;
   attribute EventHandler onclose;
+  attribute EventHandler oncontextlost;
   attribute EventHandler oncontextmenu;
+  attribute EventHandler oncontextrestored;
+  attribute EventHandler oncopy;
   attribute EventHandler oncuechange;
+  attribute EventHandler oncut;
   attribute EventHandler ondblclick;
   attribute EventHandler ondrag;
   attribute EventHandler ondragend;
@@ -26,6 +32,7 @@ interface mixin GlobalEventHandlers {
   attribute EventHandler onended;
   attribute OnErrorEventHandler onerror;
   attribute EventHandler onfocus;
+  attribute EventHandler onformdata;
   attribute EventHandler oninput;
   attribute EventHandler oninvalid;
   attribute EventHandler onkeydown;
@@ -34,7 +41,6 @@ interface mixin GlobalEventHandlers {
   attribute EventHandler onload;
   attribute EventHandler onloadeddata;
   attribute EventHandler onloadedmetadata;
-  attribute EventHandler onloadend;
   attribute EventHandler onloadstart;
   attribute EventHandler onmousedown;
   [LegacyLenientThis] attribute EventHandler onmouseenter;
@@ -43,7 +49,7 @@ interface mixin GlobalEventHandlers {
   attribute EventHandler onmouseout;
   attribute EventHandler onmouseover;
   attribute EventHandler onmouseup;
-  attribute EventHandler onwheel;
+  attribute EventHandler onpaste;
   attribute EventHandler onpause;
   attribute EventHandler onplay;
   attribute EventHandler onplaying;
@@ -52,10 +58,12 @@ interface mixin GlobalEventHandlers {
   attribute EventHandler onreset;
   attribute EventHandler onresize;
   attribute EventHandler onscroll;
+  attribute EventHandler onscrollend;
   attribute EventHandler onsecuritypolicyviolation;
   attribute EventHandler onseeked;
   attribute EventHandler onseeking;
   attribute EventHandler onselect;
+  attribute EventHandler onslotchange;
   attribute EventHandler onstalled;
   attribute EventHandler onsubmit;
   attribute EventHandler onsuspend;
@@ -63,6 +71,11 @@ interface mixin GlobalEventHandlers {
   attribute EventHandler ontoggle;
   attribute EventHandler onvolumechange;
   attribute EventHandler onwaiting;
+  attribute EventHandler onwebkitanimationend;
+  attribute EventHandler onwebkitanimationiteration;
+  attribute EventHandler onwebkitanimationstart;
+  attribute EventHandler onwebkittransitionend;
+  attribute EventHandler onwheel;
 };
 
 // https://w3c.github.io/touch-events/#extensions-to-the-globaleventhandlers-mixin
