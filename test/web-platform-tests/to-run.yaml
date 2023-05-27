@@ -202,16 +202,7 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 
 DIR: dom/abort
 
-AbortSignal.any.html:
-  "AbortSignal.timeout() returns a non-aborted signal": [fail, timeout not implemented]
-  "Signal returned by AbortSignal.timeout() times out": [fail, timeout not implemented]
-  "AbortSignal timeouts fire in order": [fail, timeout not implemented]
 abort-signal-any.tentative.any.html: [fail, any not implemented]
-abort-signal-timeout.html: [fail, timeout not implemented]
-event.any.html:
-  "throwIfAborted() should throw abort.reason if signal aborted": [fail, throwIfAborted not implemented]
-  "throwIfAborted() should throw primitive abort.reason if signal aborted": [fail, throwIfAborted not implemented]
-  "throwIfAborted() should not throw if signal not aborted": [fail, throwIfAborted not implemented]
 
 ---
 
