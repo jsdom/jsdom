@@ -152,6 +152,7 @@ addDir("../../lib/jsdom/living/domparsing");
 addDir("../../lib/jsdom/living/events");
 addDir("../../lib/jsdom/living/fetch");
 addDir("../../lib/jsdom/living/file-api");
+addDir("../../lib/jsdom/living/geometry");
 addDir("../../lib/jsdom/living/hr-time");
 addDir("../../lib/jsdom/living/mutation-observer");
 addDir("../../lib/jsdom/living/navigator");
