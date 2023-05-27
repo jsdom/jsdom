@@ -132,6 +132,21 @@ ttwf-js-cssomview-getclientrects-length.html: [fail, Unknown]
 window-screen-height.html: [fail, Test not applicable - no output device]
 window-screen-width.html: [fail, Test not applicable - no output device]
 
+
+---
+
+DIR: css/geometry
+
+DOMMatrix*: [fail, not implemented]
+DOMPoint*: [fail, not implemented]
+DOMQuad*: [fail, not implemented]
+DOMRectList.html: [fail, not implemented]
+WebKitCSSMatrix.html: [fail, not implemented]
+historical.html: [fail, needs DOMPoint DOMQuad DOMMatrix]
+idlharness.any.html: [fail, Depends on Fetch]
+spec-examples.html: [fail, needs DOMPoint DOMQuad DOMMatrix]
+structured-serialization.html: [fail, need MessageChannel]
+
 ---
 
 DIR: custom-elements
