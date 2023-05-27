@@ -5,5 +5,6 @@ module.exports = {
   "tree-modification": require("./tree-modification"),
   "compare-document-position": require("./compare-document-position"),
   "named-properties": require("./named-properties"),
-  "inner-html": require("./inner-html")
+  "inner-html": require("./inner-html"),
+  "css-selector": require("./css-selector")
 };
