@@ -26,6 +26,17 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 22.1.0
+
+* Added `crypto.randomUUID()`. (jamesbvaughan)
+* Added `DOMRect` and `DOMRectReadOnly`.
+* Added `AbortSignal.timeout()`.
+* Added `abortSignal.throwIfAborted()`.
+* Added support for the `submitter` argument to the `FormData` constructor. (jenseng)
+* Improved `getComputedStyle()`'s results for color-based properties, to resolve named colors and attempt to provide initial inheritance support. (hoekz-wwt)
+* Updated `Window`'s event handler properties (e.g. `oncopy`, `ontouchstart`, etc.) to reflect the latest list from the standard.
+* Fixed `DOMParser`-created documents to inherit their URL from the creating document.
+
 ## 22.0.0
 
 * Node.js v16 is now the minimum supported version.

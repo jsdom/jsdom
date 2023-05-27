@@ -36,7 +36,6 @@ DIR: WebCryptoAPI
 "*/**": [fail, Not implemented]
 algorithm-discards-context.https.window.html: [fail-slow, Tests non-implemented methods]
 idlharness.https.any.html: [fail, Unknown]
-randomUUID.https.any.html: [fail, Not implemented]
 
 ---
 
@@ -135,6 +134,20 @@ window-screen-width.html: [fail, Test not applicable - no output device]
 
 ---
 
+DIR: css/geometry
+
+DOMMatrix*: [fail, not implemented]
+DOMPoint*: [fail, not implemented]
+DOMQuad*: [fail, not implemented]
+DOMRectList.html: [fail, not implemented]
+WebKitCSSMatrix.html: [fail, not implemented]
+historical.html: [fail, needs DOMPoint DOMQuad DOMMatrix]
+idlharness.any.html: [fail, Depends on Fetch]
+spec-examples.html: [fail, needs DOMPoint DOMQuad DOMMatrix]
+structured-serialization.html: [fail, need MessageChannel]
+
+---
+
 DIR: custom-elements
 
 CustomElementRegistry.html:
@@ -203,16 +216,7 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 
 DIR: dom/abort
 
-AbortSignal.any.html:
-  "AbortSignal.timeout() returns a non-aborted signal": [fail, timeout not implemented]
-  "Signal returned by AbortSignal.timeout() times out": [fail, timeout not implemented]
-  "AbortSignal timeouts fire in order": [fail, timeout not implemented]
 abort-signal-any.tentative.any.html: [fail, any not implemented]
-abort-signal-timeout.html: [fail, timeout not implemented]
-event.any.html:
-  "throwIfAborted() should throw abort.reason if signal aborted": [fail, throwIfAborted not implemented]
-  "throwIfAborted() should throw primitive abort.reason if signal aborted": [fail, throwIfAborted not implemented]
-  "throwIfAborted() should not throw if signal not aborted": [fail, throwIfAborted not implemented]
 
 ---
 
@@ -255,7 +259,6 @@ DIR: dom/nodes
 Document-URL.html: [fail, Unknown]
 Document-characterSet-normalization-1.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-characterSet-normalization-2.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
-Document-createEvent-touchevent.window.html: [fail, Pointer events not implemented]
 Document-createEvent.https.html: [fail, We don't support every event interface yet]
 Document-getElementById.html: [fail, We cache IDs in insertion order]
 Element-closest.html: [fail, test with :invalid pseudo-class is failing]
@@ -297,7 +300,6 @@ DOMParser-parseFromString-url-moretests.html: [fail, Unknown]
 DOMParser-parseFromString-url-pushstate.html: [fail, iframe onload timing]
 DOMParser-parseFromString-url.html: [fail, iframe onload timing]
 DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD validation]
-DOMParser-parseFromString-xml.html: [fail, needs to get "the active document's URL" which is not possible with one DOMParser shared across all windows]
 XMLSerializer-serializeToString.html: [fail, Unknown]
 createContextualFragment.html: [fail, Script execution timing]
 idlharness.window.html: [fail, Depends on fetch]
@@ -1193,11 +1195,8 @@ pseudo-classes/dir-html-input-dynamic-text.html: [fail, Unknown]
 pseudo-classes/dir.html: [fail, Unknown]
 pseudo-classes/focus-autofocus.html: [timeout, Unknown]
 pseudo-classes/focus.html: [timeout, Unknown]
-pseudo-classes/indeterminate-radio.html: [fail, CSS computed style computation]
-pseudo-classes/indeterminate-type-change.html: [fail, CSS computed style computation]
-pseudo-classes/inrange-outofrange-type-change.html: [fail, CSS computed style computation]
-pseudo-classes/placeholder-shown-type-change.html: [fail, CSS computed style computation]
-pseudo-classes/readwrite-readonly-type-change.html: [fail, CSS computed style computation]
+pseudo-classes/indeterminate-type-change.html: [fail, Unknown]
+pseudo-classes/readwrite-readonly-type-change.html: [fail, Unknown]
 pseudo-classes/readwrite-readonly.html: [fail, Unknown]
 pseudo-classes/required-optional-hidden.html: [fail, CSS computed style computation]
 pseudo-classes/valid-invalid-fieldset-disconnected.html: [fail, Unknown]
@@ -1462,11 +1461,11 @@ cors-expose-star.sub.any.html: [fail, Unknown]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.any.html: [fail, Unknown]
-event-upload-progress.any.html: [fail, Unknown]
+event-upload-progress-crossorigin.any.html: [flaky, Used to pass before Node v20 but now sometimes gives "ERR_SOCKET_CLOSED_BEFORE_CONNECTION"]
+event-upload-progress.any.html: [flaky, Used to *fail* before Node v20 but now sometimes gives "ERR_SOCKET_CLOSED_BEFORE_CONNECTION"]
 formdata.html:
   "Newly created FormData contains entries added to \"formData\" IDL attribute of FormDataEvent.": [fail, FormDataEvent not implemented]
   "|new FormData()| in formdata event handler should throw": [fail, FormDataEvent not implemented]
-formdata/constructor-submitter.html: [fail, Not implemented]
 getallresponseheaders.htm: [fail, Unknown]
 getresponseheader.any.html: [fail, Unknown]
 headers-normalize-response.htm: [timeout, Unknown]
