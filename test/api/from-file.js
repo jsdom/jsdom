@@ -33,7 +33,7 @@ describe("API: JSDOM.fromFile()", () => {
       dom.window.onload = resolve;
     });
 
-    assert.strictEqual(dom.window.getComputedStyle(dom.window.document.querySelector("p")).color, "red");
+    assert.strictEqual(dom.window.getComputedStyle(dom.window.document.querySelector("p")).color, "rgb(255, 0, 0)");
   });
 
   describe("contentType option defaulting", () => {
