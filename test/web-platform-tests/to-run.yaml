@@ -1197,7 +1197,7 @@ pseudo-classes/inrange-outofrange-type-change.html: [fail, CSS computed style co
 pseudo-classes/placeholder-shown-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/readwrite-readonly-type-change.html: [fail, CSS computed style computation]
 pseudo-classes/required-optional-hidden.html: [fail, CSS computed style computation]
-pseudo-classes/valid-invalid-fieldset-disconnected.html[fail, Unknown]
+pseudo-classes/valid-invalid-fieldset-disconnected.html: [fail, Unknown]
 
 ---
 
