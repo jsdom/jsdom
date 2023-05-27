@@ -1466,6 +1466,7 @@ cors-expose-star.sub.any.html: [fail, Unknown]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.any.html: [fail, Unknown]
+event-upload-progress-crossorigin.any.html: [flaky, Seems to have gotten worse with Node v20 but doesn't always fail]
 event-upload-progress.any.html: [fail, Unknown]
 formdata.html:
   "Newly created FormData contains entries added to \"formData\" IDL attribute of FormDataEvent.": [fail, FormDataEvent not implemented]
