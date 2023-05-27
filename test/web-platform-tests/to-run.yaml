@@ -259,7 +259,6 @@ DIR: dom/nodes
 Document-URL.html: [fail, Unknown]
 Document-characterSet-normalization-1.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-characterSet-normalization-2.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
-Document-createEvent-touchevent.window.html: [fail, Pointer events not implemented]
 Document-createEvent.https.html: [fail, We don't support every event interface yet]
 Document-getElementById.html: [fail, We cache IDs in insertion order]
 Element-closest.html: [fail, :has is not supported (by all major browsers as well)]
