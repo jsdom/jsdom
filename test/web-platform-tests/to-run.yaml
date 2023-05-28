@@ -1196,6 +1196,7 @@ pseudo-classes/focus-autofocus.html: [timeout, Unknown]
 pseudo-classes/focus.html: [timeout, Unknown]
 pseudo-classes/readwrite-readonly-type-change.html: [fail, Unknown]
 pseudo-classes/readwrite-readonly.html: [fail, Unknown]
+pseudo-classes/required-optional-hidden.html: [fail, Incorrect test]
 pseudo-classes/valid-invalid-fieldset-disconnected.html: [fail, Unknown]
 pseudo-classes/valid-invalid.html: [fail, Unknown]
 
