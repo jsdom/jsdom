@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": "jsdom/jsdom",
   "dependencies": {
-    "@asamuzakjp/dom-selector": "^0.15.4",
+    "@asamuzakjp/dom-selector": "^0.15.5",
     "abab": "^2.0.6",
     "cssstyle": "^3.0.0",
     "data-urls": "^4.0.0",
