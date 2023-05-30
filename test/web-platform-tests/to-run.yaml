@@ -271,8 +271,6 @@ Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not im
 Node-cloneNode.html: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 NodeList-static-length-getter-tampered*: [flaky, Nested for-loops are really slow and these often time out]
-# ParentNode-querySelector-All-xht.xht: [fail-slow, ::slotted() pseudo-class is not supported]
-# ParentNode-querySelector-All.html: [fail-slow, ::slotted() pseudo-class is not supported]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
 remove-and-adopt-thcrash.html: [fail, window.open not implemented]
