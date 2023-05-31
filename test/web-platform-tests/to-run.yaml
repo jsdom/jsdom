@@ -271,7 +271,7 @@ Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not im
 Node-cloneNode.html: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 NodeList-static-length-getter-tampered*: [flaky, Nested for-loops are really slow and these often time out]
-ParentNode-querySelector-All-xht.xht: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
+# ParentNode-querySelector-All-xht.xht: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
 remove-and-adopt-thcrash.html: [fail, window.open not implemented]
@@ -281,7 +281,7 @@ remove-and-adopt-thcrash.html: [fail, window.open not implemented]
 DIR: dom/ranges
 Range-compareBoundaryPoints.html: [timeout, Passes locally sometimes but has 8666 subtests and times out the CI runner]
 Range-insertNode.html: [fail-slow, Unknown]
-Range-mutations-dataChange.html: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
+# Range-mutations-dataChange.html: [timeout, Often takes more than 70 seconds to pass, https://github.com/jsdom/jsdom/issues/3154]
 
 ---
 
