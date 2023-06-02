@@ -166,7 +166,6 @@ Document-createElement.html:
   "document.createElement must report a NotSupportedError when the local name of the element does not match that of the custom element": [fail, throws TypeError instead]
   "document.createElement must report an exception thrown by a custom built-in element constructor": [fail, Unknown]
 ElementInternals-accessibility.html: [fail, attachInternals is not implemented]
-HTMLElement-attachInternals.html: [fail, Not implemented]
 HTMLElement-constructor.html:
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself": [fail, Unknown]
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself via a Proxy object": [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
