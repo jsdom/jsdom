@@ -2,125 +2,205 @@
 const suite = require("../document-suite");
 
 exports.matches = function () {
-  const DEPTH = 10;
-  const JUNK_CHILDREN = 10;
-  const sel = "evenodd".repeat(100);
-  const selector = `:first-child + div.even :not(.${sel}) > :nth-child(2n+1) ~ .odd`;
-  let parent, deepest;
+  let box;
+  let div;
 
   return suite({
     setup(document) {
-      parent = document.createDocumentFragment();
-      deepest = parent;
-
-      for (let i = 0; i < DEPTH; ++i) {
-        const newNode = document.createElement("div");
-        newNode.classList.add(i % 2 === 1 ? "even" : "odd");
-        for (let j = 0; j < JUNK_CHILDREN; ++j) {
-          const childNode = document.createElement("div");
-          childNode.classList.add(j % 2 === 1 ? "even" : "odd");
-          newNode.appendChild(childNode);
+      const x = 32;
+      const y = 32;
+      const xyFrag = document.createDocumentFragment();
+      for (let i = 0; i < x; i++) {
+        const xNode = document.createElement("div");
+        xNode.id = `box${i}`;
+        xNode.classList.add("box");
+        xyFrag.appendChild(xNode);
+        const yFrag = document.createDocumentFragment();
+        for (let j = 0; j < y; j++) {
+          const yNode = document.createElement("div");
+          yNode.id = `div${i}-${j}`;
+          if (j === 0) {
+            yFrag.appendChild(yNode);
+          } else if (j === y - 1) {
+            yNode.classList.add("div");
+            yNode.textContent = `${i}-${j}`;
+            yFrag.appendChild(yNode);
+            xNode.appendChild(yFrag);
+          } else {
+            const parent = yFrag.getElementById(`div${i}-${j - 1}`);
+            parent.appendChild(yNode);
+          }
         }
-
-        deepest.appendChild(newNode);
-        deepest = newNode;
       }
+      const container = document.createElement("div");
+      container.classList.add("box-container");
+      container.appendChild(xyFrag);
+      document.body.append(container);
+      box = document.getElementById(`box${x - 1}`);
+      div = document.getElementById(`div${x - 1}-${y - 1}`);
     },
     fn() {
-      deepest.matches(selector.trim());
+      const selectors = new Map([
+        [".box .div", "div"],
+        [".box ~ .box", "box"]
+      ]);
+      for (const [key, value] of selectors) {
+        if (value === "box") {
+          box.matches(key);
+        } else if (value === "div") {
+          div.matches(key);
+        }
+      }
     }
   });
 };
 
 exports.closest = function () {
-  const DEPTH = 10;
-  const JUNK_CHILDREN = 10;
-  const sel = "evenodd".repeat(100);
-  const selector = `:first-child + div.even :not(.${sel}) > :nth-child(2n+1) ~ .odd`;
-  let parent, deepest;
+  let box;
+  let div;
 
   return suite({
     setup(document) {
-      parent = document.createDocumentFragment();
-      deepest = parent;
-
-      for (let i = 0; i < DEPTH; ++i) {
-        const newNode = document.createElement("div");
-        newNode.classList.add(i % 2 === 1 ? "odd" : "even");
-        for (let j = 0; j < JUNK_CHILDREN; ++j) {
-          const childNode = document.createElement("div");
-          childNode.classList.add(j % 2 === 1 ? "odd" : "even");
-          newNode.appendChild(childNode);
+      const x = 32;
+      const y = 32;
+      const xyFrag = document.createDocumentFragment();
+      for (let i = 0; i < x; i++) {
+        const xNode = document.createElement("div");
+        xNode.id = `box${i}`;
+        xNode.classList.add("box");
+        xyFrag.appendChild(xNode);
+        const yFrag = document.createDocumentFragment();
+        for (let j = 0; j < y; j++) {
+          const yNode = document.createElement("div");
+          yNode.id = `div${i}-${j}`;
+          if (j === 0) {
+            yFrag.appendChild(yNode);
+          } else if (j === y - 1) {
+            yNode.classList.add("div");
+            yNode.textContent = `${i}-${j}`;
+            yFrag.appendChild(yNode);
+            xNode.appendChild(yFrag);
+          } else {
+            const parent = yFrag.getElementById(`div${i}-${j - 1}`);
+            parent.appendChild(yNode);
+          }
         }
-
-        deepest.appendChild(newNode);
-        deepest = newNode;
       }
+      const container = document.createElement("div");
+      container.classList.add("box-container");
+      container.appendChild(xyFrag);
+      document.body.append(container);
+      box = document.getElementById(`box${x - 1}`);
+      div = document.getElementById(`div${x - 1}-${y - 1}`);
     },
     fn() {
-      deepest.closest(selector.trim());
+      const selectors = new Map([
+        [".box .div", "div"],
+        [".box ~ .box", "box"]
+      ]);
+      for (const [key, value] of selectors) {
+        if (value === "box") {
+          box.matches(key);
+        } else if (value === "div") {
+          div.matches(key);
+        }
+      }
     }
   });
 };
 
 exports.querySelector = function () {
-  const DEPTH = 10;
-  const JUNK_CHILDREN = 10;
-  const sel = "evenodd".repeat(100);
-  const selector = `:first-child + div.even :not(.${sel}) > :nth-child(2n+1) ~ .odd`;
-  let parent, deepest;
+  let refPoint;
 
   return suite({
     setup(document) {
-      parent = document.createDocumentFragment();
-      deepest = parent;
-
-      for (let i = 0; i < DEPTH; ++i) {
-        const newNode = document.createElement("div");
-        newNode.classList.add(i % 2 === 1 ? "odd" : "even");
-        for (let j = 0; j < JUNK_CHILDREN; ++j) {
-          const childNode = document.createElement("div");
-          childNode.classList.add(j % 2 === 1 ? "odd" : "even");
-          newNode.appendChild(childNode);
+      const x = 32;
+      const y = 32;
+      const xyFrag = document.createDocumentFragment();
+      for (let i = 0; i < x; i++) {
+        const xNode = document.createElement("div");
+        xNode.id = `box${i}`;
+        xNode.classList.add("box");
+        xyFrag.appendChild(xNode);
+        const yFrag = document.createDocumentFragment();
+        for (let j = 0; j < y; j++) {
+          const yNode = document.createElement("div");
+          yNode.id = `div${i}-${j}`;
+          if (j === 0) {
+            yFrag.appendChild(yNode);
+          } else if (j === y - 1) {
+            yNode.classList.add("div");
+            yNode.textContent = `${i}-${j}`;
+            yFrag.appendChild(yNode);
+            xNode.appendChild(yFrag);
+          } else {
+            const parent = yFrag.getElementById(`div${i}-${j - 1}`);
+            parent.appendChild(yNode);
+          }
         }
-
-        deepest.appendChild(newNode);
-        deepest = newNode;
       }
+      const container = document.createElement("div");
+      container.classList.add("box-container");
+      container.appendChild(xyFrag);
+      document.body.append(container);
+      refPoint = document;
     },
     fn() {
-      parent.querySelector(selector.trim());
+      const selectors = [
+        ".box .title",
+        ".box ~ .box",
+      ];
+      for (const selector of selectors) {
+        refPoint.querySelector(selector);
+      }
     }
   });
 };
 
 exports.querySelectorAll = function () {
-  const DEPTH = 10;
-  const JUNK_CHILDREN = 10;
-  const sel = "evenodd".repeat(100);
-  const selector = `:first-child + div.even :not(.${sel}) > :nth-child(2n+1) ~ .odd`;
-  let parent, deepest;
+  let refPoint;
 
   return suite({
     setup(document) {
-      parent = document.createDocumentFragment();
-      deepest = parent;
-
-      for (let i = 0; i < DEPTH; ++i) {
-        const newNode = document.createElement("div");
-        newNode.classList.add(i % 2 === 1 ? "odd" : "even");
-        for (let j = 0; j < JUNK_CHILDREN; ++j) {
-          const childNode = document.createElement("div");
-          childNode.classList.add(j % 2 === 1 ? "odd" : "even");
-          newNode.appendChild(childNode);
+      const x = 32;
+      const y = 32;
+      const xyFrag = document.createDocumentFragment();
+      for (let i = 0; i < x; i++) {
+        const xNode = document.createElement("div");
+        xNode.id = `box${i}`;
+        xNode.classList.add("box");
+        xyFrag.appendChild(xNode);
+        const yFrag = document.createDocumentFragment();
+        for (let j = 0; j < y; j++) {
+          const yNode = document.createElement("div");
+          yNode.id = `div${i}-${j}`;
+          if (j === 0) {
+            yFrag.appendChild(yNode);
+          } else if (j === y - 1) {
+            yNode.classList.add("div");
+            yNode.textContent = `${i}-${j}`;
+            yFrag.appendChild(yNode);
+            xNode.appendChild(yFrag);
+          } else {
+            const parent = yFrag.getElementById(`div${i}-${j - 1}`);
+            parent.appendChild(yNode);
+          }
         }
-
-        deepest.appendChild(newNode);
-        deepest = newNode;
       }
+      const container = document.createElement("div");
+      container.classList.add("box-container");
+      container.appendChild(xyFrag);
+      document.body.append(container);
+      refPoint = document;
     },
     fn() {
-      parent.querySelectorAll(selector.trim());
+      const selectors = [
+        ".box .title",
+        ".box ~ .box",
+      ];
+      for (const selector of selectors) {
+        refPoint.querySelectorAll(selector);
+      }
     }
   });
 };
