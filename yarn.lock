@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@asamuzakjp/dom-selector@^0.15.13":
-  version "0.15.13"
-  resolved "https://registry.yarnpkg.com/@asamuzakjp/dom-selector/-/dom-selector-0.15.13.tgz#e4f0b30e7d84d71124e9b6a1c0fe3c049bb3d3e7"
-  integrity sha512-wCMp1fvpl0hDfrme7xxW6C5oOwdE1xXh++Tvah6Afu1LcM/srvDdVi4ZiZV+2CS5h2+HDXEXQeb3kB5M/yq7ww==
+"@asamuzakjp/dom-selector@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@asamuzakjp/dom-selector/-/dom-selector-0.16.0.tgz#99fa2a96ceb09dbb23aa8b8c5185e18bc0b75c78"
+  integrity sha512-0JcXZglNLZyibSBbmLZ0q29RBPzFegjm/73P1GTCbxgQNc7uKmpRsL15jMv85KyVjODov6T0NW16hTavwZoGNA==
   dependencies:
     css-tree "^2.3.1"
     domexception "^4.0.0"
