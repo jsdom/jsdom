@@ -166,6 +166,30 @@ describe("API: JSDOM class's methods", () => {
 
       assert.deepEqual(dom.nodeLocation(node), undefined);
     });
+    it("should return the correct text from innerText", () => {
+      const source = `<p id="source">
+      <style>
+        #source {
+          color: red;
+        }
+        #text {
+          text-transform: uppercase;
+        }
+      </style>
+      <span id="text">
+        Take a look at<br />
+        how this text<br />
+        is interpreted below.
+      </span>
+      <span style="display:none">HIDDEN TEXT</span>
+    </p>`;
+      const expectedResult = `TAKE A LOOK AT
+HOW THIS TEXT
+IS INTERPRETED BELOW.`;
+      const dom = new JSDOM(source);
+      const result = dom.window.document.getElementById("source").innerText;
+      assert.strictEqual(result, expectedResult);
+    });
   });
 
   describe("getInternalVMContext", () => {
