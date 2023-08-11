@@ -192,8 +192,7 @@ perform-microtask-checkpoint-before-construction.html: [fail, impossible to impl
 pseudo-class-defined-customized-builtins.html: [fail-slow, :defined is not defined and throws]
 pseudo-class-defined.html: [timeout, :defined is not defined and throws]
 reactions/Animation.html: [fail, Animation not implemented]
-reactions/AriaMixin-element-attributes.html: [fail, AriaMixin not implemented]
-reactions/AriaMixin-string-attributes.html: [fail, AriaMixin not implemented]
+reactions/AriaMixin-element-attributes.html: [fail, ARIAMixin element reflection not implemented]
 reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using webidl2js, https://github.com/jsdom/cssstyle/issues/113]
 reactions/Document.html:
   "execCommand on Document must enqueue a disconnected reaction when deleting a custom element from a contenteditable element": [fail, document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539]
@@ -652,7 +651,7 @@ DIR: html/canvas/element/drawing-images-to-the-canvas
 
 DIR: html/dom
 
-aria-element-reflection.html: [fail, WAI-ARIA not implemented]
+aria-element-reflection.html: [fail, ARIAMixin element reflection not implemented]
 documents/dom-tree-accessors/Document.currentScript.html: [fail-slow, Unknown]
 documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-namespace-xhtml.xhtml: [fail, Needs MathML support]
 documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-namespace.html: [fail, Needs MathML support]
