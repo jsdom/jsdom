@@ -33,7 +33,7 @@ exports.start = async ({ toUpstream = false } = {}) => {
 
   const configArg = path.relative(path.resolve(wptDir), configPath);
   const args = ["./wpt.py", "serve", "--config", configArg];
-  const subprocess = childProcess.spawn("python", args, {
+  const subprocess = childProcess.spawn("python3", args, {
     cwd: wptDir,
     stdio: ["inherit", "pipe", "pipe"]
   });
