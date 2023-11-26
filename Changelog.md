@@ -1131,7 +1131,7 @@ This major release has as its headlining feature a completely re-written `XMLHtt
 
 This major release is focused on massive improvements in speed, URL parsing, and error handling. The potential breaking changes are highlighted in bold below; the largest ones are around the `jsdom.env` error-handling paradigm.
 
-This release also welcomes [long-time contributer](https://github.com/jsdom/jsdom/commits/master?author=Joris-van-der-Wel) [@Joris-van-der-Wel](https://github.com/Joris-van-der-Wel/) to the core team. You may recognize him from earlier changelogs. We're very happy to have his help in making jsdom awesome!
+This release also welcomes [long-time contributer](https://github.com/jsdom/jsdom/commits/main?author=Joris-van-der-Wel) [@Joris-van-der-Wel](https://github.com/Joris-van-der-Wel/) to the core team. You may recognize him from earlier changelogs. We're very happy to have his help in making jsdom awesome!
 
 * **io.js 2.0 onward is now required**, as we have begun using ES2015 features only present there.
 * Improved performance dramatically, by ~10000x in some cases, due to the following changes:
@@ -1182,7 +1182,7 @@ Finally, if you're a loyal jsdom fan whose made it this far into the changelog, 
 * Fixed clicking on submit `<button>`s to submit their containing form; previously only `<input type="submit">` worked. (rxgx)
 * Fixed `document.open()` to return `this`, per spec. (ryanseddon)
 
-Additionally, Joris-van-der-Wel added [a benchmarking framework](https://github.com/jsdom/jsdom/blob/master/Contributing.md#running-the-benchmarks), and a number of benchmarks, which should help us avoid performance regressions going forward, and also make targeted performance fixes. We're already investigating [some real-world issues](https://github.com/jsdom/jsdom/issues/1156) using this framework. Very exciting!
+Additionally, Joris-van-der-Wel added [a benchmarking framework](https://github.com/jsdom/jsdom/blob/main/Contributing.md#running-the-benchmarks), and a number of benchmarks, which should help us avoid performance regressions going forward, and also make targeted performance fixes. We're already investigating [some real-world issues](https://github.com/jsdom/jsdom/issues/1156) using this framework. Very exciting!
 
 ## 5.4.3
 

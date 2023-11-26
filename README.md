@@ -501,7 +501,7 @@ Note that other tools in the same space, such as PhantomJS, do support these fea
 jsdom is a community-driven project maintained by a team of [volunteers](https://github.com/orgs/jsdom/people). You could support jsdom by:
 
 - [Getting professional support for jsdom](https://tidelift.com/subscription/pkg/npm-jsdom?utm_source=npm-jsdom&utm_medium=referral&utm_campaign=readme) as part of a Tidelift subscription. Tidelift helps making open source sustainable for us while giving teams assurances for maintenance, licensing, and security.
-- [Contributing](https://github.com/jsdom/jsdom/blob/master/Contributing.md) directly to the project.
+- [Contributing](https://github.com/jsdom/jsdom/blob/main/Contributing.md) directly to the project.
 
 ## Getting help
 
