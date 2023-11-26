@@ -58,7 +58,7 @@
     "chai": "^4.3.7",
     "eslint": "^8.39.0",
     "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-jsdom-internal": "link:./scripts/eslint-plugin",
+    "eslint-plugin-jsdom-internal": "file:./scripts/eslint-plugin",
     "js-yaml": "^4.1.0",
     "minimatch": "^9.0.0",
     "mocha": "^10.2.0",
@@ -69,8 +69,8 @@
     "yargs": "^17.7.2"
   },
   "scripts": {
-    "prepare": "yarn convert-idl && yarn generate-js-globals",
-    "pretest": "yarn prepare && yarn init-wpt",
+    "prepare": "npm run convert-idl && npm run generate-js-globals",
+    "pretest": "npm run prepare && npm run init-wpt",
     "test-wpt": "mocha test/web-platform-tests/run-wpts.js",
     "test-tuwpt": "mocha test/web-platform-tests/run-tuwpts.js",
     "test-mocha": "mocha",
@@ -78,7 +78,7 @@
     "test": "mocha test/index.js",
     "lint": "eslint . --cache --ext .js,.html",
     "init-wpt": "git submodule update --init --recursive",
-    "reset-wpt": "rm -rf ./test/web-platform-tests/tests && yarn init-wpt",
+    "reset-wpt": "rm -rf ./test/web-platform-tests/tests && npm run init-wpt",
     "update-wpt": "git submodule update --recursive --remote && cd test/web-platform-tests/tests && python3 wpt.py manifest --path ../wpt-manifest.json",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt",
     "benchmark": "node ./benchmark/runner",
