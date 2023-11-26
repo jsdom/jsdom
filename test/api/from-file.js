@@ -2,6 +2,7 @@
 const path = require("path");
 const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
+const { pathToFileURL } = require("url");
 
 const { JSDOM } = require("../..");
 
@@ -81,12 +82,7 @@ describe("API: JSDOM.fromFile()", () => {
   });
 
   describe("url option defaulting", () => {
-    // Manually construct it as much as possible to avoid logic in the tests
-    let pathWithLeadingSlash = path.resolve(__dirname);
-    if (!pathWithLeadingSlash.startsWith("/")) {
-      pathWithLeadingSlash = "/" + pathWithLeadingSlash;
-    }
-    const testURL = "file://" + pathWithLeadingSlash.replace(/\\/g, "/") + "/fixtures/from-file/test.html";
+    const testURL = pathToFileURL(path.resolve(__dirname, "fixtures/from-file/test.html")).href;
 
     it("should default to a file URL derived from the filename", () => {
       return fromFixtureFile("test.html").then(dom => {
