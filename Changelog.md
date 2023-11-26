@@ -26,6 +26,11 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 23.0.0
+
+* Node.js v18 is now the minimum supported version.
+* Updated various dependencies, including `whatwg-url` which integrates various additions to the `URL` and `URLSearchParams` objects.
+
 ## 22.1.0
 
 * Added `crypto.randomUUID()`. (jamesbvaughan)
