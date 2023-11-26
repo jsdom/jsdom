@@ -5,7 +5,6 @@
 gmon.out
 v8.log
 node_modules
-package-lock.json
 test/worker-bundle.js
 test/web-platform-tests/tuwpt-manifest.json
 npm-debug.log*
