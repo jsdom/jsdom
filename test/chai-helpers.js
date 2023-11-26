@@ -1,7 +1,5 @@
 "use strict";
 
-const DOMException = require("domexception");
-
 module.exports = (chai, util) => {
   const { assert, Assertion } = chai;
   const { flag } = util;

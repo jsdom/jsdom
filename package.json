@@ -23,7 +23,6 @@
     "cssstyle": "^3.0.0",
     "data-urls": "^4.0.0",
     "decimal.js": "^10.4.3",
-    "domexception": "^4.0.0",
     "form-data": "^4.0.0",
     "html-encoding-sniffer": "^3.0.0",
     "http-proxy-agent": "^5.0.0",

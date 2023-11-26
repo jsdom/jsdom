@@ -165,6 +165,7 @@ addDir("../../lib/jsdom/living/websockets");
 addDir("../../lib/jsdom/living/webstorage");
 addDir("../../lib/jsdom/living/window");
 addDir("../../lib/jsdom/living/xhr");
+addDir("../../lib/jsdom/living/webidl");
 
 const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
 
