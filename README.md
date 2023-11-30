@@ -65,22 +65,24 @@ However, this is also highly dangerous when dealing with untrusted content. The 
 
 ```js
 const dom = new JSDOM(`<body>
-  <script>document.body.appendChild(document.createElement("hr"));</script>
+  <div id="content"></div>
+  <script>document.getElementById("content").append(document.createElement("hr"));</script>
 </body>`);
 
 // The script will not be executed, by default:
-dom.window.document.body.children.length === 1;
+console.log(dom.window.document.getElementById("content").children.length); // 0
 ```
 
 To enable executing scripts inside the page, you can use the `runScripts: "dangerously"` option:
 
 ```js
 const dom = new JSDOM(`<body>
-  <script>document.body.appendChild(document.createElement("hr"));</script>
+  <div id="content"></div>
+  <script>document.getElementById("content").append(document.createElement("hr"));</script>
 </body>`, { runScripts: "dangerously" });
 
 // The script will be executed and modify the DOM:
-dom.window.document.body.children.length === 2;
+console.log(dom.window.document.getElementById("content").children.length); // 1
 ```
 
 Again we emphasize to only use this when feeding jsdom code you know is safe. If you use it on arbitrary user-supplied code, or code from the Internet, you are effectively running untrusted Node.js code, and your machine could be compromised.
@@ -92,15 +94,22 @@ Event handler attributes, like `<div onclick="">`, are also governed by this set
 If you are simply trying to execute script "from the outside", instead of letting `<script>` elements and event handlers attributes run "from the inside", you can use the `runScripts: "outside-only"` option, which enables fresh copies of all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
 
 ```js
-const { window } = new JSDOM(``, { runScripts: "outside-only" });
+const dom = new JSDOM(`<body>
+  <div id="content"></div>
+  <script>document.getElementById("content").append(document.createElement("hr"));</script>
+</body>`, { runScripts: "outside-only" });
 
-window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`);
-window.document.body.children.length === 1;
+// run a script outside of JSDOM:
+dom.window.eval('document.getElementById("content").append(document.createElement("p"));');
+
+console.log(dom.window.document.getElementById("content").children.length); // 1
+console.log(dom.window.document.getElementsByTagName("hr").length); // 0
+console.log(dom.window.document.getElementsByTagName("p").length); // 1
 ```
 
 This is turned off by default for performance reasons, but is safe to enable.
 
-(Note that in the default configuration, without setting `runScripts`, the values of `window.Array`, `window.eval`, etc. will be the same as those provided by the outer Node.js environment. That is, `window.eval === eval` will hold, so `window.eval` will not run scripts in a useful way.)
+Note that in the default configuration, without setting `runScripts`, the values of `window.Array`, `window.eval`, etc. will be the same as those provided by the outer Node.js environment. That is, `window.eval === eval` will hold, so `window.eval` will not run scripts in a useful way.
 
 We strongly advise against trying to "execute scripts" by mashing together the jsdom and Node global environments (e.g. by doing `global.window = dom.window`), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using `window.eval` or `runScripts: "dangerously"`. This might require, for example, creating a browserify bundle to execute as a `<script>` element—just like you would in a browser.
 
