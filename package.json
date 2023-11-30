@@ -43,7 +43,7 @@
     "xml-name-validator": "^5.0.0"
   },
   "peerDependencies": {
-    "canvas": "^3.0.0"
+    "canvas": "^2.11.2"
   },
   "peerDependenciesMeta": {
     "canvas": {
