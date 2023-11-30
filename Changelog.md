@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 23.0.1
+
+* Fix incorrect `canvas` peer dependency.
+
 ## 23.0.0
 
 * Node.js v18 is now the minimum supported version.
