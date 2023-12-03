@@ -1,7 +1,6 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
-const url = require("url");
 
 const parseDataURL = require("data-urls");
 const { assert } = require("chai");
@@ -156,16 +155,13 @@ describe("htmlcanvaselement", () => {
         "<canvas width='168' height='168'></canvas>",
         { resources: "usable" }
       );
-      const fullPath = path.resolve(__dirname, "files/image.png");
-      const { href } = url.pathToFileURL(fullPath);
       const canvas = window.document.querySelector("canvas");
       const ctx = canvas.getContext("2d");
       const image = new window.Image();
-      image.src = href;
+      image.src = "file://" + path.resolve(__dirname, "files/image.png");
       image.onload = () => {
         ctx.drawImage(image, 0, 0);
-        const buffer = fs.readFileSync(fullPath);
-        const expected = `data:image/png;base64,${buffer.toString("base64")}`;
+        const expected = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
         assert.strictEqual(canvas.toDataURL(), expected);
         canvas.toBlob(blob => {
           assert.strictEqual(blob.type, "image/png");
