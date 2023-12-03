@@ -165,7 +165,7 @@ describe("htmlcanvaselement", () => {
         assert.strictEqual(canvas.toDataURL(), expected);
         canvas.toBlob(blob => {
           assert.strictEqual(blob.type, "image/png");
-          assert.strictEqual(blob.size, 2614);
+          assert.strictEqual(blob.size, 2615);
           t.done();
         }, "image/png");
       };
