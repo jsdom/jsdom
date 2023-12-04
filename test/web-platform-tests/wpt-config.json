@@ -11,7 +11,9 @@
     "wss": [9444]
   },
   "check_subdomains": true,
-  "log_level": "info",
+  "logging": {
+    "level": "info"
+  },
   "bind_address": true,
   "ssl": {
     "type": "pregenerated",
