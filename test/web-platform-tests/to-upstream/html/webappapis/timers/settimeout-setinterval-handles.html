@@ -40,7 +40,6 @@ async_test(t => {
     // this callback should execute since we haven't cleared the timeout
     const d = setInterval(() => {
       clearInterval(d);
-
       t.done();
     }, 50);
 
