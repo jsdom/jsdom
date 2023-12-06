@@ -60,9 +60,8 @@ exports.start = async ({ toUpstream = false } = {}) => {
 
 function kill(serverProcess = subprocess) {
   if (!serverProcess) {
-    return;
+    return false;
   }
-
   if (os.platform() === "win32") {
     // subprocess.kill() doesn't seem to be able to kill descendant processes on Windows, at least with whatever's going
     // on inside the web-platform-tests Python. Use this technique instead.
@@ -93,7 +92,7 @@ function pollForServer(url, lastLogTime = Date.now()) {
     req.end();
   }).catch(err => {
     if (!subprocess) {
-      return;
+      return false;
     }
 
     // Only log every 5 seconds to be less spammy.
