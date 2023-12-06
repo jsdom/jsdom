@@ -138,7 +138,7 @@ function nonSpammyWPTLog(buffer) {
 
 function terminateWptOnKeyError(buffer) {
   const string = buffer.toString("utf-8");
-  const regKeyError = /KeyError:\s(".+")/;
+  const regKeyError = /KeyError:\s"(.+)"/;
   if (regKeyError.test(string)) {
     const [, message] = regKeyError.exec(string);
     subprocess.stderr.on("end", () => {
