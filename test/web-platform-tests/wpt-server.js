@@ -64,7 +64,8 @@ function kill(serverProcess = subprocess) {
       // subprocess.kill() doesn't seem to be able to kill descendant processes on Windows,
       // at least with whatever's going on inside the web-platform-tests Python.
       // Use this technique instead.
-      childProcess.spawnSync("taskkill", ["/F", "/T", "/PID", serverProcess.pid], { detached: true, windowsHide: true });
+      const { pid } = serverProcess;
+      childProcess.spawnSync("taskkill", ["/F", "/T", "/PID", pid], { detached: true, windowsHide: true });
     } else {
       // SIGINT is necessary so that the Python script can clean up its subprocesses.
       serverProcess.kill("SIGINT");
