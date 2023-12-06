@@ -61,8 +61,9 @@ exports.start = async ({ toUpstream = false } = {}) => {
 function kill(serverProcess = subprocess) {
   if (serverProcess) {
     if (os.platform() === "win32") {
-      // subprocess.kill() doesn't seem to be able to kill descendant processes on Windows, at least with whatever's going
-      // on inside the web-platform-tests Python. Use this technique instead.
+      // subprocess.kill() doesn't seem to be able to kill descendant processes on Windows,
+      // at least with whatever's going on inside the web-platform-tests Python.
+      // Use this technique instead.
       childProcess.spawnSync("taskkill", ["/F", "/T", "/PID", serverProcess.pid], { detached: true, windowsHide: true });
     } else {
       // SIGINT is necessary so that the Python script can clean up its subprocesses.
