@@ -19,6 +19,8 @@ const configs = {
   toUpstream: require(configPaths.toUpstream)
 };
 
+let subprocess;
+
 exports.start = async ({ toUpstream = false } = {}) => {
   const configType = toUpstream ? "toUpstream" : "default";
   const configPath = configPaths[configType];
@@ -33,13 +35,14 @@ exports.start = async ({ toUpstream = false } = {}) => {
 
   const configArg = path.relative(path.resolve(wptDir), configPath);
   const args = ["./wpt.py", "serve", "--config", configArg];
-  const subprocess = childProcess.spawn("python", args, {
+  subprocess = childProcess.spawn("python", args, {
     cwd: wptDir,
     stdio: ["inherit", "pipe", "pipe"]
   });
 
   subprocess.stdout.filter(nonSpammyWPTLog).pipe(process.stdout);
   subprocess.stderr.filter(nonSpammyWPTLog).pipe(process.stderr);
+  subprocess.stderr.on("data", terminateWptOnKeyError);
 
   return new Promise((resolve, reject) => {
     subprocess.on("error", e => {
@@ -55,16 +58,21 @@ exports.start = async ({ toUpstream = false } = {}) => {
   });
 };
 
-exports.kill = subprocess => {
+function kill(serverProcess = subprocess) {
+  if (!serverProcess) {
+    return;
+  }
+
   if (os.platform() === "win32") {
     // subprocess.kill() doesn't seem to be able to kill descendant processes on Windows, at least with whatever's going
     // on inside the web-platform-tests Python. Use this technique instead.
-    childProcess.spawnSync("taskkill", ["/F", "/T", "/PID", subprocess.pid], { detached: true, windowsHide: true });
+    childProcess.spawnSync("taskkill", ["/F", "/T", "/PID", serverProcess.pid], { detached: true, windowsHide: true });
   } else {
     // SIGINT is necessary so that the Python script can clean up its subprocesses.
-    subprocess.kill("SIGINT");
+    serverProcess.kill("SIGINT");
   }
-};
+}
+exports.kill = kill;
 
 function pollForServer(url, lastLogTime = Date.now()) {
   const agent = url.startsWith("https") ? new https.Agent({ rejectUnauthorized: false }) : null;
@@ -84,6 +92,10 @@ function pollForServer(url, lastLogTime = Date.now()) {
     req.on("error", reject);
     req.end();
   }).catch(err => {
+    if (!subprocess) {
+      return;
+    }
+
     // Only log every 5 seconds to be less spammy.
     if (Date.now() - lastLogTime >= 5000) {
       console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
@@ -122,4 +134,19 @@ function nonSpammyWPTLog(buffer) {
   }
 
   return true;
+}
+
+function terminateWptOnKeyError(buffer) {
+  const string = buffer.toString("utf-8");
+  const regKeyError = /KeyError:\s(".+")/;
+  if (regKeyError.test(string)) {
+    const [, message] = regKeyError.exec(string);
+    subprocess.stderr.on("end", () => {
+      subprocess.on("close", () => {
+        subprocess = null;
+        throw new Error(`Error starting python server process: ${message}`);
+      });
+      kill(subprocess);
+    });
+  }
 }
