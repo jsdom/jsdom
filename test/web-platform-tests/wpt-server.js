@@ -43,19 +43,14 @@ exports.start = async ({ toUpstream = false } = {}) => {
   subprocess.stdout.filter(nonSpammyWPTLog).pipe(process.stdout);
   subprocess.stderr.filter(nonSpammyWPTLog).pipe(process.stderr);
   subprocess.stderr.on("data", terminateWptOnKeyError);
+  subprocess.on("error", terminateSubprocessOnError);
 
-  return new Promise((resolve, reject) => {
-    subprocess.on("error", e => {
-      reject(new Error("Error starting python server process:", e.message));
-    });
-
-    resolve(Promise.all([
-      pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
-      pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
-      pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
-      pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
-    ]).then(urls => ({ urls, subprocess })));
-  });
+  return Promise.all([
+    pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
+    pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
+    pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
+    pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
+  ]).then(urls => ({ urls, subprocess }));
 };
 
 function kill(serverProcess = subprocess) {
@@ -141,12 +136,19 @@ function terminateWptOnKeyError(buffer) {
   const regKeyError = /KeyError:\s"(.+)"/;
   if (regKeyError.test(string)) {
     const [, message] = regKeyError.exec(string);
+    const err = new Error(message);
     subprocess.stderr.on("end", () => {
-      subprocess.on("close", () => {
-        subprocess = null;
-        throw new Error(`Error starting python server process: ${message}`);
-      });
-      kill(subprocess);
+      terminateSubprocessOnError(err);
     });
+  }
+}
+
+function terminateSubprocessOnError(err) {
+  if (err instanceof Error && subprocess) {
+    subprocess.on("close", () => {
+      subprocess = null;
+      throw new Error(`Error starting python server process: ${err.message}`);
+    });
+    kill(subprocess);
   }
 }
