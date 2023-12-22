@@ -3,9 +3,8 @@
 const dns = require("dns").promises;
 const path = require("path");
 const childProcess = require("child_process");
-const http = require("http");
-const https = require("https");
-const os = require("os");
+const { killSubprocess, doHeadRequestWithNoCertChecking } = require("./utils.js");
+const delay = require("timers/promises").setTimeout;
 
 const wptDir = path.resolve(__dirname, "tests");
 
@@ -42,53 +41,25 @@ exports.start = async ({ toUpstream = false } = {}) => {
 
   subprocess.stdout.filter(nonSpammyWPTLog).pipe(process.stdout);
   subprocess.stderr.filter(nonSpammyWPTLog).pipe(process.stderr);
-  subprocess.stderr.on("data", terminateWptOnKeyError);
+  subprocess.stderr.on("data", terminateWPTOnKeyError);
   subprocess.on("error", terminateSubprocessOnError);
 
-  return Promise.all([
+  const urls = await Promise.all([
     pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
     pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
     pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
     pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
-  ]).then(urls => ({ urls, subprocess }));
+  ]);
+
+  return { urls, subprocess };
 };
 
-function kill(serverProcess = subprocess) {
-  if (serverProcess) {
-    if (os.platform() === "win32") {
-      // subprocess.kill() doesn't seem to be able to kill descendant processes on Windows,
-      // at least with whatever's going on inside the web-platform-tests Python.
-      // Use this technique instead.
-      const { pid } = serverProcess;
-      childProcess.spawnSync("taskkill", ["/F", "/T", "/PID", pid], { detached: true, windowsHide: true });
-    } else {
-      // SIGINT is necessary so that the Python script can clean up its subprocesses.
-      serverProcess.kill("SIGINT");
-    }
-  }
-}
-exports.kill = kill;
-
-function pollForServer(url, lastLogTime = Date.now()) {
-  const agent = url.startsWith("https") ? new https.Agent({ rejectUnauthorized: false }) : null;
-  const { request } = url.startsWith("https") ? https : http;
-
-  // Using raw Node.js http/https modules is gross, but it's not worth pulling in something like node-fetch for just
-  // this one part of the test codebase.
-  return new Promise((resolve, reject) => {
-    const req = request(url, { method: "HEAD", agent }, res => {
-      if (res.statusCode < 200 || res.statusCode > 299) {
-        reject(new Error(`Unexpected status=${res.statusCode}`));
-      } else {
-        resolve(url);
-      }
-    });
-
-    req.on("error", reject);
-    req.end();
-  }).catch(err => {
+async function pollForServer(url, lastLogTime = Date.now()) {
+  try {
+    await doHeadRequestWithNoCertChecking(url);
+  } catch (err) {
     if (!subprocess) {
-      return false;
+      throw new Error("WPT server terminated");
     }
 
     // Only log every 5 seconds to be less spammy.
@@ -97,10 +68,11 @@ function pollForServer(url, lastLogTime = Date.now()) {
       lastLogTime = Date.now();
     }
 
-    return new Promise(resolve => {
-      setTimeout(() => resolve(pollForServer(url, lastLogTime)), 500);
-    });
-  });
+    await delay(500);
+    await pollForServer(url, lastLogTime);
+  }
+
+  return url;
 }
 
 function nonSpammyWPTLog(buffer) {
@@ -131,7 +103,7 @@ function nonSpammyWPTLog(buffer) {
   return true;
 }
 
-function terminateWptOnKeyError(buffer) {
+function terminateWPTOnKeyError(buffer) {
   const string = buffer.toString("utf-8");
   const regKeyError = /KeyError:\s"(.+)"/;
   if (regKeyError.test(string)) {
@@ -149,6 +121,6 @@ function terminateSubprocessOnError(err) {
       subprocess = null;
       throw new Error(`Error starting python server process: ${err.message}`);
     });
-    kill(subprocess);
+    killSubprocess(subprocess);
   }
 }

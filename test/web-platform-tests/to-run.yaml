@@ -242,10 +242,10 @@ mouse-event-retarget.html: [fail, Requires a layout engine]
 passive-by-default.html: [fail, Pointer events not implemented]
 relatedTarget.window.html: [fail, Unknown]
 scrolling/scrollend-with-snap-on-fractional-offset.html: [fail, Unknown]
-webkit-animation-end-event.html: [fail, WebKit-prefixed events not implemented]
-webkit-animation-iteration-event.html: [fail, WebKit-prefixed events not implemented]
-webkit-animation-start-event.html: [fail, WebKit-prefixed events not implemented]
-webkit-transition-end-event.html: [fail, WebKit-prefixed events not implemented]
+webkit-animation-end-event.html: [fail-slow, WebKit-prefixed events not implemented]
+webkit-animation-iteration-event.html: [fail-slow, WebKit-prefixed events not implemented]
+webkit-animation-start-event.html: [fail-slow, WebKit-prefixed events not implemented]
+webkit-transition-end-event.html: [fail-slow, WebKit-prefixed events not implemented]
 
 ---
 
