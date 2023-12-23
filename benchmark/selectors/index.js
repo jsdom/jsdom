@@ -1,5 +1,6 @@
 "use strict";
 
 module.exports = {
-  selector: require("./selector")
+  "complex-selectors": require("./complex-selectors"),
+  "sizzle": require("./sizzle")
 };
