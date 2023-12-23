@@ -4,6 +4,7 @@ const { describe, before, after } = require("mocha-sugar-free");
 const { spawnSync } = require("child_process");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const wptServer = require("./wpt-server.js");
+const { killSubprocess } = require("./utils.js");
 
 const wptPath = path.resolve(__dirname, "tests");
 const testsPath = path.resolve(__dirname, "to-upstream");
@@ -27,7 +28,7 @@ before({ timeout: 30_000 }, async () => {
 });
 
 after(() => {
-  wptServer.kill(serverProcess);
+  killSubprocess(serverProcess);
 });
 
 describe("Local tests in web-platform-test format (to-upstream)", () => {

@@ -3,9 +3,8 @@
 const dns = require("dns").promises;
 const path = require("path");
 const childProcess = require("child_process");
-const http = require("http");
-const https = require("https");
-const os = require("os");
+const { killSubprocess, doHeadRequestWithNoCertChecking } = require("./utils.js");
+const delay = require("timers/promises").setTimeout;
 
 const wptDir = path.resolve(__dirname, "tests");
 
@@ -18,6 +17,8 @@ const configs = {
   default: require(configPaths.default),
   toUpstream: require(configPaths.toUpstream)
 };
+
+let subprocess;
 
 exports.start = async ({ toUpstream = false } = {}) => {
   const configType = toUpstream ? "toUpstream" : "default";
@@ -33,67 +34,45 @@ exports.start = async ({ toUpstream = false } = {}) => {
 
   const configArg = path.relative(path.resolve(wptDir), configPath);
   const args = ["./wpt.py", "serve", "--config", configArg];
-  const subprocess = childProcess.spawn("python", args, {
+  subprocess = childProcess.spawn("python", args, {
     cwd: wptDir,
     stdio: ["inherit", "pipe", "pipe"]
   });
 
   subprocess.stdout.filter(nonSpammyWPTLog).pipe(process.stdout);
   subprocess.stderr.filter(nonSpammyWPTLog).pipe(process.stderr);
+  subprocess.stderr.on("data", terminateWPTOnKeyError);
+  subprocess.on("error", terminateSubprocessOnError);
 
-  return new Promise((resolve, reject) => {
-    subprocess.on("error", e => {
-      reject(new Error("Error starting python server process:", e.message));
-    });
+  const urls = await Promise.all([
+    pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
+    pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
+    pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
+    pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
+  ]);
 
-    resolve(Promise.all([
-      pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
-      pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
-      pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
-      pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
-    ]).then(urls => ({ urls, subprocess })));
-  });
+  return { urls, subprocess };
 };
 
-exports.kill = subprocess => {
-  if (os.platform() === "win32") {
-    // subprocess.kill() doesn't seem to be able to kill descendant processes on Windows, at least with whatever's going
-    // on inside the web-platform-tests Python. Use this technique instead.
-    childProcess.spawnSync("taskkill", ["/F", "/T", "/PID", subprocess.pid], { detached: true, windowsHide: true });
-  } else {
-    // SIGINT is necessary so that the Python script can clean up its subprocesses.
-    subprocess.kill("SIGINT");
-  }
-};
+async function pollForServer(url, lastLogTime = Date.now()) {
+  try {
+    await doHeadRequestWithNoCertChecking(url);
+  } catch (err) {
+    if (!subprocess) {
+      throw new Error("WPT server terminated");
+    }
 
-function pollForServer(url, lastLogTime = Date.now()) {
-  const agent = url.startsWith("https") ? new https.Agent({ rejectUnauthorized: false }) : null;
-  const { request } = url.startsWith("https") ? https : http;
-
-  // Using raw Node.js http/https modules is gross, but it's not worth pulling in something like node-fetch for just
-  // this one part of the test codebase.
-  return new Promise((resolve, reject) => {
-    const req = request(url, { method: "HEAD", agent }, res => {
-      if (res.statusCode < 200 || res.statusCode > 299) {
-        reject(new Error(`Unexpected status=${res.statusCode}`));
-      } else {
-        resolve(url);
-      }
-    });
-
-    req.on("error", reject);
-    req.end();
-  }).catch(err => {
     // Only log every 5 seconds to be less spammy.
     if (Date.now() - lastLogTime >= 5000) {
       console.log(`WPT server at ${url} is not up yet (${err.message}); trying again`);
       lastLogTime = Date.now();
     }
 
-    return new Promise(resolve => {
-      setTimeout(() => resolve(pollForServer(url, lastLogTime)), 500);
-    });
-  });
+    await delay(500);
+    await pollForServer(url, lastLogTime);
+  }
+
+  return url;
 }
 
 function nonSpammyWPTLog(buffer) {
@@ -122,4 +101,26 @@ function nonSpammyWPTLog(buffer) {
   }
 
   return true;
+}
+
+function terminateWPTOnKeyError(buffer) {
+  const string = buffer.toString("utf-8");
+  const regKeyError = /KeyError:\s"(.+)"/;
+  if (regKeyError.test(string)) {
+    const [, message] = regKeyError.exec(string);
+    const err = new Error(message);
+    subprocess.stderr.on("end", () => {
+      terminateSubprocessOnError(err);
+    });
+  }
+}
+
+function terminateSubprocessOnError(err) {
+  if (err instanceof Error && subprocess) {
+    subprocess.on("close", () => {
+      subprocess = null;
+      throw new Error(`Error starting python server process: ${err.message}`);
+    });
+    killSubprocess(subprocess);
+  }
 }

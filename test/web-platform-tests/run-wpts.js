@@ -6,7 +6,7 @@ const { Minimatch } = require("minimatch");
 const { describe, specify, before, after } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const wptServer = require("./wpt-server.js");
-const { resolveReason } = require("./utils.js");
+const { resolveReason, killSubprocess } = require("./utils.js");
 
 const validInnerReasons = new Set([
   "fail",
@@ -46,7 +46,7 @@ before({ timeout: 30_000 }, async () => {
 });
 
 after(() => {
-  wptServer.kill(serverProcess);
+  killSubprocess(serverProcess);
 });
 
 describe("web-platform-tests", () => {

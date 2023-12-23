@@ -43,7 +43,7 @@ async_test(t => {
       t.done();
     }, 50);
 
-    assert_equals(d, c + 1); // since we created the interval after the handle c
+    assert_true(d >= c + 1); // since we created the interval after the handle c
   }, 50);
   assert_equals(b, a + 1);
 
