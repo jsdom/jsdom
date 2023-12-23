@@ -20,6 +20,7 @@
   "license": "MIT",
   "repository": "jsdom/jsdom",
   "dependencies": {
+    "@asamuzakjp/dom-selector": "^1.2.5",
     "cssstyle": "^4.0.1",
     "data-urls": "^5.0.0",
     "decimal.js": "^10.4.3",
@@ -28,7 +29,6 @@
     "http-proxy-agent": "^7.0.0",
     "https-proxy-agent": "^7.0.2",
     "is-potential-custom-element-name": "^1.0.1",
-    "nwsapi": "^2.2.7",
     "parse5": "^7.1.2",
     "rrweb-cssom": "^0.6.0",
     "saxes": "^6.0.0",
