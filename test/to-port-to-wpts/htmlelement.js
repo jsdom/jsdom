@@ -8,7 +8,7 @@ const { JSDOM } = require("../..");
 const nonInheritedTags = [
   "article", "section", "nav", "aside", "hgroup", "header", "footer", "address", "dt",
   "dd", "figure", "figcaption", "main", "em", "strong", "small", "s", "cite", "abbr",
-  "code", "i", "b", "u"
+  "code", "i", "b", "u", "search"
 ];
 
 describe("htmlelement", () => {
