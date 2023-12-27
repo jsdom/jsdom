@@ -7,7 +7,9 @@ const suite = require("../document-suite");
 const { JSDOM } = require("../..");
 
 exports.querySelectorAll = function () {
-  let document, selectors;
+  let document, selectors, total;
+  let count = 0;
+  let cycle = 0;
 
   return suite({
     setup() {
@@ -25,15 +27,23 @@ exports.querySelectorAll = function () {
         flag: "r"
       });
       selectors = css.split("\n");
+      total = selectors.length;
     },
     fn() {
       for (const selector of selectors) {
         try {
           document.querySelectorAll(selector);
         } catch (e) {
-          // fall through
+          count++;
         }
       }
+    },
+    teardown() {
+      cycle++;
+    },
+    onComplete() {
+      // eslint-disable-next-line no-console
+      console.log(`${(count / cycle).toFixed(0)}/${total} fails.`);
     }
   });
 };
