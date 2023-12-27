@@ -1,3 +1,6 @@
 [submodule "test/web-platform-tests/tests"]
 	path = test/web-platform-tests/tests
 	url = https://github.com/web-platform-tests/wpt.git
+[submodule "benchmark/selectors/sizzle"]
+	path = benchmark/selectors/sizzle
+	url = https://github.com/jquery/sizzle.git
