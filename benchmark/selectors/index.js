@@ -1,5 +1,5 @@
 "use strict";
 
 module.exports = {
-  "selector": require("./selector")
+  selector: require("./selector")
 };
