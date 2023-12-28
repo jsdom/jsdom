@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -73,21 +73,21 @@ describe("node-contains", () => {
     const it = doc.createNodeIterator(doc.body);
 
     assert.ok(it.root, "root should be set");
-    assert.strictEqual(it.root.nodeName, "BODY", "root was set to the <body>");
+    assert.equal(it.root.nodeName, "BODY", "root was set to the <body>");
     assert.ok(it.referenceNode === it.root, "referenceNode should be set to root right after creation");
-    assert.strictEqual(
+    assert.equal(
       it.pointerBeforeReferenceNode,
       true,
       "pointerBeforeReferenceNode should be true right after creation"
     );
-    assert.strictEqual(it.whatToShow, 0xFFFFFFFF, "whatToShow is NodeFilter.SHOW_ALL by default");
-    assert.strictEqual(it.filter, null, "filter is null by default");
+    assert.equal(it.whatToShow, 0xFFFFFFFF, "whatToShow is NodeFilter.SHOW_ALL by default");
+    assert.equal(it.filter, null, "filter is null by default");
   });
 
   specify("createNodeIterator(): whatToShow should unset high bits", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc.body, 0xFFFFFFFFFF); // (two extra F's)
-    assert.strictEqual(it.whatToShow, 0xFFFFFFFF, "whatToShow should unset high bits");
+    assert.equal(it.whatToShow, 0xFFFFFFFF, "whatToShow should unset high bits");
   });
 
   specify("new NodeIterator() is not allowed", () => {
@@ -99,7 +99,7 @@ describe("node-contains", () => {
   specify("createNodeIterator(): should create an instanceof NodeIterator", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc);
-    assert.strictEqual(Object.getPrototypeOf(it).constructor.name, "NodeIterator");
+    assert.equal(Object.getPrototypeOf(it).constructor.name, "NodeIterator");
   });
 
   specify("detach() should be a no-op", () => {
@@ -115,7 +115,7 @@ describe("node-contains", () => {
       throw Error("Foo Bar!");
     });
 
-    assert.throws(() => it.nextNode(), /^Foo Bar!$/);
+    assert.throws(() => it.nextNode(), Error, "Foo Bar!");
   });
 
   specify("NodeIterator instances should not expose any extra properties", () => {
@@ -148,7 +148,7 @@ describe("node-contains", () => {
     const node = it.nextNode();
     assert.ok(node === it.root);
     assert.ok(it.referenceNode === it.root);
-    assert.strictEqual(
+    assert.equal(
       it.pointerBeforeReferenceNode,
       false,
       "pointerBeforeReferenceNode should be false after nextNode()"
@@ -168,7 +168,7 @@ describe("node-contains", () => {
         const itNode = it.nextNode();
         assert.ok(node === itNode);
         assert.ok(it.referenceNode === itNode);
-        assert.strictEqual(
+        assert.equal(
           it.pointerBeforeReferenceNode,
           false,
           "pointerBeforeReferenceNode should be false after nextNode()"
@@ -181,7 +181,7 @@ describe("node-contains", () => {
         it.referenceNode === nodes[nodes.length - 1],
         "referenceNode should reference the last node even though nextNode() returns null"
       );
-      assert.strictEqual(
+      assert.equal(
         it.pointerBeforeReferenceNode,
         false,
         "pointerBeforeReferenceNode should be false after nextNode()"
@@ -201,7 +201,7 @@ describe("node-contains", () => {
       const itNode = it.nextNode();
       assert.ok(node === itNode);
       assert.ok(it.referenceNode === itNode);
-      assert.strictEqual(
+      assert.equal(
         it.pointerBeforeReferenceNode,
         false,
         "pointerBeforeReferenceNode should be false after nextNode()"
@@ -214,7 +214,7 @@ describe("node-contains", () => {
       it.referenceNode === nodes[nodes.length - 1],
       "referenceNode should reference the last node even though nextNode() returns null"
     );
-    assert.strictEqual(
+    assert.equal(
       it.pointerBeforeReferenceNode,
       false,
       "pointerBeforeReferenceNode should be false after nextNode()"
@@ -230,7 +230,7 @@ describe("node-contains", () => {
       const node = it.previousNode();
       assert.ok(node === null);
       assert.ok(it.referenceNode === it.root);
-      assert.strictEqual(it.pointerBeforeReferenceNode, true);
+      assert.equal(it.pointerBeforeReferenceNode, true);
     }
   );
 
@@ -244,7 +244,7 @@ describe("node-contains", () => {
       const node = it.previousNode();
       assert.ok(node === it.root);
       assert.ok(it.referenceNode === it.root);
-      assert.strictEqual(
+      assert.equal(
         it.pointerBeforeReferenceNode,
         true,
         "pointerBeforeReferenceNode should be true after previousNode()"
@@ -279,7 +279,7 @@ describe("node-contains", () => {
         const itNode = it.previousNode();
         assert.ok(node === itNode);
         assert.ok(it.referenceNode === itNode);
-        assert.strictEqual(
+        assert.equal(
           it.pointerBeforeReferenceNode,
           true,
           "pointerBeforeReferenceNode should be true after previousNode()"
@@ -289,7 +289,7 @@ describe("node-contains", () => {
       const node = it.previousNode();
       assert.ok(node === it.root);
       assert.ok(it.referenceNode === it.root);
-      assert.strictEqual(
+      assert.equal(
         it.pointerBeforeReferenceNode,
         true,
         "pointerBeforeReferenceNode should be true after previousNode()"
@@ -301,7 +301,7 @@ describe("node-contains", () => {
         it.referenceNode === it.root,
         "referenceNode should reference root node even though previousNode() returns null"
       );
-      assert.strictEqual(
+      assert.equal(
         it.pointerBeforeReferenceNode,
         true,
         "pointerBeforeReferenceNode should be true after previousNode()"
@@ -354,7 +354,7 @@ describe("node-contains", () => {
     const doc = load("test");
 
     function acceptNode(node) {
-      assert.strictEqual(
+      assert.equal(
         node.nodeType,
         1,
         "whatToShow should have filtered non element nodes before acceptNode() is called"
@@ -386,7 +386,7 @@ describe("node-contains", () => {
     const doc = load("test");
 
     function acceptNode(node) {
-      assert.strictEqual(
+      assert.equal(
         node.nodeType,
         1,
         "whatToShow should have filtered non element nodes before acceptNode() is called"
@@ -448,7 +448,7 @@ describe("node-contains", () => {
 
     assert.ok(it.root === node);
     assert.ok(it.referenceNode === node, "referenceNode should be set to root right after creation");
-    assert.strictEqual(
+    assert.equal(
       it.pointerBeforeReferenceNode,
       true,
       "pointerBeforeReferenceNode should be true right after creation"
@@ -470,7 +470,7 @@ describe("node-contains", () => {
 
       assert.ok(it.root === doc.body);
       assert.ok(it.referenceNode === it.root.childNodes[1]);
-      assert.strictEqual(it.pointerBeforeReferenceNode, false);
+      assert.equal(it.pointerBeforeReferenceNode, false);
     }
   );
 
@@ -516,7 +516,7 @@ describe("node-contains", () => {
         it.referenceNode === it.root.firstChild,
         "referenceNode should be set the the oldPreviousSibling of the removed node"
       );
-      assert.strictEqual(it.pointerBeforeReferenceNode, false);
+      assert.equal(it.pointerBeforeReferenceNode, false);
 
       const next = it.nextNode();
       assert.ok(next === it.root.childNodes[1], "nextNode() should return the second child again");
@@ -535,7 +535,7 @@ describe("node-contains", () => {
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === it.root, "referenceNode should be root again");
-      assert.strictEqual(
+      assert.equal(
         it.pointerBeforeReferenceNode,
         false,
         "should be false so that nextNode() will return the firstChild again"
@@ -560,7 +560,7 @@ describe("node-contains", () => {
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === nextSibling, "referenceNode should be the nextSibling of the removed node");
-      assert.strictEqual(
+      assert.equal(
         it.pointerBeforeReferenceNode,
         true,
         "should be true so that previousNode() will return the same node again"
@@ -584,12 +584,12 @@ describe("node-contains", () => {
       const it = doc.createNodeIterator(doc.body);
       forwardIterator(it, parent);
       it.nextNode();
-      assert.strictEqual(it.nextNode().nodeName, "B");
+      assert.equal(it.nextNode().nodeName, "B");
 
       removeAndReinsert(parent);
 
       assert.ok(it.referenceNode === previousSibling);
-      assert.strictEqual(it.pointerBeforeReferenceNode, false);
+      assert.equal(it.pointerBeforeReferenceNode, false);
     }
   );
 
@@ -610,7 +610,7 @@ describe("node-contains", () => {
 
       // (nextSibling is the new firstChild)
       assert.ok(it.referenceNode === nextSibling, "referenceNode should be the nextSibling of the removed node");
-      assert.strictEqual(it.pointerBeforeReferenceNode, true);
+      assert.equal(it.pointerBeforeReferenceNode, true);
 
       const next = it.nextNode();
       assert.ok(next !== removed);
@@ -636,7 +636,7 @@ describe("node-contains", () => {
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === nextSibling, "referenceNode should be the nextSibling of the removed node");
-      assert.strictEqual(it.pointerBeforeReferenceNode, true);
+      assert.equal(it.pointerBeforeReferenceNode, true);
     }
   );
 
@@ -658,7 +658,7 @@ describe("node-contains", () => {
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === parent.nextSibling, "referenceNode should be the following node of the oldParent");
-      assert.strictEqual(it.pointerBeforeReferenceNode, true);
+      assert.equal(it.pointerBeforeReferenceNode, true);
     }
   );
 
@@ -679,7 +679,7 @@ describe("node-contains", () => {
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === parent.nextSibling, "referenceNode should be the following node of the oldParent");
-      assert.strictEqual(it.pointerBeforeReferenceNode, true);
+      assert.equal(it.pointerBeforeReferenceNode, true);
     }
   );
 
@@ -696,7 +696,7 @@ describe("node-contains", () => {
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === it.root.firstChild, "referenceNode should be the oldParent");
-      assert.strictEqual(it.pointerBeforeReferenceNode, false);
+      assert.equal(it.pointerBeforeReferenceNode, false);
     }
   );
 
@@ -714,7 +714,7 @@ describe("node-contains", () => {
       removed.parentNode.removeChild(removed);
 
       assert.ok(it.referenceNode === doc.body.children[0].lastChild);
-      assert.strictEqual(it.pointerBeforeReferenceNode, false);
+      assert.equal(it.pointerBeforeReferenceNode, false);
     }
   );
 });

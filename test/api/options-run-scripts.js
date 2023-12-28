@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const { delay } = require("../util.js");
 
@@ -13,7 +13,7 @@ describe("API: runScripts constructor option", () => {
         <script>document.body.appendChild(document.createElement("hr"));</script>
       </body>`);
 
-      assert.strictEqual(dom.window.document.body.children.length, 1);
+      assert.equal(dom.window.document.body.children.length, 1);
     });
 
     it("should not execute any scripts, even in iframes, by default (GH-1821)", () => {
@@ -24,7 +24,7 @@ describe("API: runScripts constructor option", () => {
       frameWindow.document.write(`<script>parent.prop = "i was executed";</script>`);
       frameWindow.document.close();
 
-      assert.strictEqual(dom.window.prop, undefined);
+      assert.equal(dom.window.prop, undefined);
     });
 
     it("should execute <script>s and eval when set to \"dangerously\"", () => {
@@ -33,7 +33,7 @@ describe("API: runScripts constructor option", () => {
       </body>`, { runScripts: "dangerously" });
       dom.window.eval(`document.body.appendChild(document.createElement("p"));`);
 
-      assert.strictEqual(dom.window.document.body.children.length, 3);
+      assert.equal(dom.window.document.body.children.length, 3);
     });
 
     it("should execute <script>s with correct location when set to \"dangerously\" and includeNodeLocations", () => {
@@ -41,8 +41,8 @@ describe("API: runScripts constructor option", () => {
       const promise = new Promise((resolve, reject) => {
         virtualConsole.on("jsdomError", err => {
           try {
-            assert.strictEqual(err.type, "unhandled exception");
-            assert.isTrue(err.detail.stack.includes("at about:blank:2"));
+            assert.equal(err.type, "unhandled exception");
+            assert.equal(err.detail.stack.includes("at about:blank:2"), true);
             resolve();
           } catch (actualErr) {
             reject(actualErr);
@@ -64,7 +64,7 @@ describe("API: runScripts constructor option", () => {
       </body>`, { runScripts: "outside-only" });
       dom.window.eval(`document.body.appendChild(document.createElement("p"));`);
 
-      assert.strictEqual(dom.window.document.body.children.length, 2);
+      assert.equal(dom.window.document.body.children.length, 2);
     });
 
     it("should ensure eval exists on iframes when set to \"outside-only\"", () => {
@@ -73,7 +73,7 @@ describe("API: runScripts constructor option", () => {
 
       frameWindow.eval(`document.body.appendChild(document.createElement("p"));`);
 
-      assert.strictEqual(frameWindow.document.body.children.length, 1);
+      assert.equal(frameWindow.document.body.children.length, 1);
     });
 
     it("should execute <script>s in iframes when set to \"dangerously\"", () => {
@@ -84,7 +84,7 @@ describe("API: runScripts constructor option", () => {
       frameWindow.document.write(`<script>parent.prop = "i was executed";</script>`);
       frameWindow.document.close();
 
-      assert.strictEqual(dom.window.prop, "i was executed");
+      assert.equal(dom.window.prop, "i was executed");
     });
   });
 
@@ -95,8 +95,8 @@ describe("API: runScripts constructor option", () => {
         { runScripts: "dangerously" }
       ).window;
 
-      assert.strictEqual(document.querySelector("noscript").children.length, 0);
-      assert.strictEqual(document.querySelector("noscript").textContent, "<div></div>");
+      assert.equal(document.querySelector("noscript").children.length, 0);
+      assert.equal(document.querySelector("noscript").textContent, "<div></div>");
     });
     it("should be considered nodes when runScripts is set to \"outside-only\"", () => {
       const dom = new JSDOM(
@@ -105,24 +105,24 @@ describe("API: runScripts constructor option", () => {
       );
       const { document } = dom.window;
 
-      assert.strictEqual(document.querySelector("noscript").children.length, 1);
-      assert.instanceOf(document.querySelector("noscript").children[0], dom.window.HTMLDivElement);
+      assert.equal(document.querySelector("noscript").children.length, 1);
+      assert(document.querySelector("noscript").children[0] instanceof dom.window.HTMLDivElement);
     });
     it("should be considered nodes when runScripts is left undefined", () => {
       const dom = new JSDOM(`<body><noscript><div></div></noscript></body>`).window;
       const { document } = dom.window;
 
-      assert.strictEqual(document.querySelector("noscript").children.length, 1);
-      assert.instanceOf(document.querySelector("noscript").children[0], dom.window.HTMLDivElement);
+      assert.equal(document.querySelector("noscript").children.length, 1);
+      assert(document.querySelector("noscript").children[0] instanceof dom.window.HTMLDivElement);
     });
   });
 
   describe("JS spec globals", () => {
     it("should include aliased globals by default", () => {
       // Sanity check that our global-generation process hasn't broken.
-      assert.include(jsGlobals, "TypeError");
-      assert.include(jsGlobals, "Math");
-      assert.include(jsGlobals, "Function");
+      assert(jsGlobals.includes("TypeError"));
+      assert(jsGlobals.includes("Math"));
+      assert(jsGlobals.includes("Function"));
 
       const dom = new JSDOM();
       for (const globalName of jsGlobals) {
@@ -158,24 +158,24 @@ describe("API: runScripts constructor option", () => {
           it("should not evaluate the handler (GH-1848)", () => {
             const dom = createJSDOMWithParsedHandlers();
 
-            assert.isUndefined(dom.window.document.body.onloadRan);
+            assert.equal(dom.window.document.body.onloadRan, undefined);
 
             return delay().then(() => {
-              assert.isUndefined(dom.window.document.body.onloadRan);
+              assert.equal(dom.window.document.body.onloadRan, undefined);
             });
           });
 
           it("should not generate the body or Window property", () => {
             const dom = createJSDOMWithParsedHandlers();
 
-            assert.isNull(dom.window.document.body.onload);
-            assert.isNull(dom.window.onload);
+            assert.equal(dom.window.document.body.onload, null);
+            assert.equal(dom.window.onload, null);
           });
 
           it("should still parse the handler as an attribute", () => {
             const { body } = createJSDOMWithParsedHandlers().window.document;
 
-            assert.strictEqual(body.getAttribute("onload"), "document.body.onloadRan = true;");
+            assert.equal(body.getAttribute("onload"), "document.body.onloadRan = true;");
           });
         });
 
@@ -185,21 +185,21 @@ describe("API: runScripts constructor option", () => {
 
             dom.window.location.href = "#foo";
             return delay().then(() => {
-              assert.isUndefined(dom.window.document.body.onhashchangeRan);
+              assert.equal(dom.window.document.body.onhashchangeRan, undefined);
             });
           });
 
           it("should not generate the body or Window property", () => {
             const dom = createJSDOMWithParsedHandlers();
 
-            assert.isNull(dom.window.document.body.onhashchange);
-            assert.isNull(dom.window.onhashchange);
+            assert.equal(dom.window.document.body.onhashchange, null);
+            assert.equal(dom.window.onhashchange, null);
           });
 
           it("should still parse the handler as an attribute", () => {
             const { body } = createJSDOMWithParsedHandlers().window.document;
 
-            assert.strictEqual(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
+            assert.equal(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
           });
         });
 
@@ -210,7 +210,7 @@ describe("API: runScripts constructor option", () => {
 
             dom.window.location.href = "#foo";
             return delay().then(() => {
-              assert.isUndefined(dom.window.document.body.onhashchangeRan);
+              assert.equal(dom.window.document.body.onhashchangeRan, undefined);
             });
           });
 
@@ -218,15 +218,15 @@ describe("API: runScripts constructor option", () => {
             const dom = createJSDOM();
             dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
-            assert.isNull(dom.window.document.body.onhashchange);
-            assert.isNull(dom.window.onhashchange);
+            assert.equal(dom.window.document.body.onhashchange, null);
+            assert.equal(dom.window.onhashchange, null);
           });
 
           it("should still parse the handler as an attribute", () => {
             const { body } = createJSDOM().window.document;
             body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
-            assert.strictEqual(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
+            assert.equal(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
           });
         });
 
@@ -237,21 +237,21 @@ describe("API: runScripts constructor option", () => {
             dom.window.document.querySelector("div").click();
 
             return delay().then(() => {
-              assert.isUndefined(dom.window.document.body.onclickRan);
+              assert.equal(dom.window.document.body.onclickRan, undefined);
             });
           });
 
           it("should not generate the property", () => {
             const dom = createJSDOMWithParsedHandlers();
 
-            assert.isNull(dom.window.document.querySelector("div").onclick);
+            assert.equal(dom.window.document.querySelector("div").onclick, null);
           });
 
           it("should still parse the handler as an attribute", () => {
             const dom = createJSDOMWithParsedHandlers();
             const div = dom.window.document.querySelector("div");
 
-            assert.strictEqual(div.getAttribute("onclick"), "document.body.onclickRan = true;");
+            assert.equal(div.getAttribute("onclick"), "document.body.onclickRan = true;");
           });
         });
 
@@ -263,7 +263,7 @@ describe("API: runScripts constructor option", () => {
 
             div.click();
 
-            assert.isUndefined(dom.window.document.body.onclickRan);
+            assert.equal(dom.window.document.body.onclickRan, undefined);
           });
 
           it("should not generate the property", () => {
@@ -271,7 +271,7 @@ describe("API: runScripts constructor option", () => {
             const div = dom.window.document.body.querySelector("div");
             div.setAttribute("onclick", "document.body.onclickRan = true;");
 
-            assert.isNull(div.onclick);
+            assert.equal(div.onclick, null);
           });
 
           it("should still parse the handler as an attribute", () => {
@@ -279,7 +279,7 @@ describe("API: runScripts constructor option", () => {
             const div = dom.window.document.body.querySelector("div");
             div.setAttribute("onclick", "document.body.onclickRan = true;");
 
-            assert.strictEqual(div.getAttribute("onclick"), "document.body.onclickRan = true;");
+            assert.equal(div.getAttribute("onclick"), "document.body.onclickRan = true;");
           });
         });
 
@@ -304,22 +304,22 @@ describe("API: runScripts constructor option", () => {
           const dom = createJSDOMWithParsedHandlers();
 
           return delay().then(() => {
-            assert.isTrue(dom.window.document.body.onloadRan);
+            assert.equal(dom.window.document.body.onloadRan, true);
           });
         });
 
         it("should generate the body and Window property", () => {
           const dom = createJSDOMWithParsedHandlers();
 
-          assert.isFunction(dom.window.document.body.onload);
-          assert.isFunction(dom.window.onload);
-          assert.strictEqual(dom.window.document.body.onload, dom.window.onload);
+          assert.equal(typeof dom.window.document.body.onload, "function");
+          assert.equal(typeof dom.window.onload, "function");
+          assert.equal(dom.window.document.body.onload, dom.window.onload);
         });
 
         it("should parse the handler as an attribute", () => {
           const { body } = createJSDOMWithParsedHandlers().window.document;
 
-          assert.strictEqual(body.getAttribute("onload"), "document.body.onloadRan = true;");
+          assert.equal(body.getAttribute("onload"), "document.body.onloadRan = true;");
         });
       });
 
@@ -329,22 +329,22 @@ describe("API: runScripts constructor option", () => {
 
           dom.window.location.href = "#foo";
           return delay().then(() => {
-            assert.isTrue(dom.window.document.body.onhashchangeRan);
+            assert.equal(dom.window.document.body.onhashchangeRan, true);
           });
         });
 
         it("should not generate the body or Window property", () => {
           const dom = createJSDOMWithParsedHandlers();
 
-          assert.isFunction(dom.window.document.body.onhashchange);
-          assert.isFunction(dom.window.onhashchange);
-          assert.strictEqual(dom.window.document.body.onhashchange, dom.window.onhashchange);
+          assert.equal(typeof dom.window.document.body.onhashchange, "function");
+          assert.equal(typeof dom.window.onhashchange, "function");
+          assert.equal(dom.window.document.body.onhashchange, dom.window.onhashchange);
         });
 
         it("should parse the handler as an attribute", () => {
           const { body } = createJSDOMWithParsedHandlers().window.document;
 
-          assert.strictEqual(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
+          assert.equal(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
         });
       });
 
@@ -355,7 +355,7 @@ describe("API: runScripts constructor option", () => {
 
           dom.window.location.href = "#foo";
           return delay().then(() => {
-            assert.isTrue(dom.window.document.body.onhashchangeRan);
+            assert.equal(dom.window.document.body.onhashchangeRan, true);
           });
         });
 
@@ -363,16 +363,16 @@ describe("API: runScripts constructor option", () => {
           const dom = createJSDOM();
           dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
-          assert.isFunction(dom.window.document.body.onhashchange);
-          assert.isFunction(dom.window.onhashchange);
-          assert.strictEqual(dom.window.document.body.onhashchange, dom.window.onhashchange);
+          assert.equal(typeof dom.window.document.body.onhashchange, "function");
+          assert.equal(typeof dom.window.onhashchange, "function");
+          assert.equal(dom.window.document.body.onhashchange, dom.window.onhashchange);
         });
 
         it("should parse the handler as an attribute", () => {
           const { body } = createJSDOM().window.document;
           body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
-          assert.strictEqual(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
+          assert.equal(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
         });
       });
 
@@ -382,20 +382,20 @@ describe("API: runScripts constructor option", () => {
 
           dom.window.document.querySelector("div").click();
 
-          assert.isTrue(dom.window.document.body.onclickRan);
+          assert.equal(dom.window.document.body.onclickRan, true);
         });
 
         it("should generate the property", () => {
           const dom = createJSDOMWithParsedHandlers();
 
-          assert.isFunction(dom.window.document.querySelector("div").onclick);
+          assert.equal(typeof dom.window.document.querySelector("div").onclick, "function");
         });
 
         it("should parse the handler as an attribute", () => {
           const dom = createJSDOMWithParsedHandlers();
           const div = dom.window.document.querySelector("div");
 
-          assert.strictEqual(div.getAttribute("onclick"), "document.body.onclickRan = true;");
+          assert.equal(div.getAttribute("onclick"), "document.body.onclickRan = true;");
         });
       });
 
@@ -407,7 +407,7 @@ describe("API: runScripts constructor option", () => {
 
           div.click();
 
-          assert.isTrue(dom.window.document.body.onclickRan);
+          assert.equal(dom.window.document.body.onclickRan, true);
         });
 
         it("should generate the property", () => {
@@ -415,7 +415,7 @@ describe("API: runScripts constructor option", () => {
           const div = dom.window.document.body.querySelector("div");
           div.setAttribute("onclick", "document.body.onclickRan = true;");
 
-          assert.isFunction(div.onclick);
+          assert.equal(typeof div.onclick, "function");
         });
 
         it("should parse the handler as an attribute", () => {
@@ -423,7 +423,7 @@ describe("API: runScripts constructor option", () => {
           const div = dom.window.document.body.querySelector("div");
           div.setAttribute("onclick", "document.body.onclickRan = true;");
 
-          assert.strictEqual(div.getAttribute("onclick"), "document.body.onclickRan = true;");
+          assert.equal(div.getAttribute("onclick"), "document.body.onclickRan = true;");
         });
       });
 
@@ -450,7 +450,7 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
 
       dom.window.location.href = "#foo";
       return delay().then(() => {
-        assert.isTrue(ran);
+        assert.equal(ran, true);
       });
     });
 
@@ -460,8 +460,8 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
 
       dom.window.document.body.onhashchange = handler;
 
-      assert.strictEqual(dom.window.document.body.onhashchange, handler);
-      assert.strictEqual(dom.window.onhashchange, handler);
+      assert.equal(dom.window.document.body.onhashchange, handler);
+      assert.equal(dom.window.onhashchange, handler);
     });
   });
 
@@ -475,7 +475,7 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
 
       dom.window.location.href = "#foo";
       return delay().then(() => {
-        assert.isTrue(ran);
+        assert.equal(ran, true);
       });
     });
 
@@ -485,8 +485,8 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
 
       dom.window.onhashchange = handler;
 
-      assert.strictEqual(dom.window.onhashchange, handler);
-      assert.strictEqual(dom.window.document.body.onhashchange, handler);
+      assert.equal(dom.window.onhashchange, handler);
+      assert.equal(dom.window.document.body.onhashchange, handler);
     });
   });
 
@@ -501,7 +501,7 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
 
       div.click();
 
-      assert.isTrue(ran);
+      assert.equal(ran, true);
     });
 
     it("should return the handler that was set", () => {
@@ -511,7 +511,7 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
 
       div.onclick = handler;
 
-      assert.strictEqual(div.onclick, handler);
+      assert.equal(div.onclick, handler);
     });
   });
 }
@@ -528,10 +528,10 @@ function assertAliasedGlobal(window, globalName) {
   const windowPropDesc = Object.getOwnPropertyDescriptor(window);
   const globalPropDesc = Object.getOwnPropertyDescriptor(global);
 
-  assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value`);
-  assert.strictEqual(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
-  assert.strictEqual(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
-  assert.strictEqual(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
+  assert.equal(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value`);
+  assert.equal(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
+  assert.equal(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
+  assert.equal(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
 }
 
 function assertFreshGlobal(window, globalName) {
@@ -539,11 +539,11 @@ function assertFreshGlobal(window, globalName) {
   const globalPropDesc = Object.getOwnPropertyDescriptor(global);
 
   if (isObject(globalPropDesc.value)) {
-    assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), false, `${globalName} value inequality`);
+    assert.equal(Object.is(windowPropDesc.value, globalPropDesc.value), false, `${globalName} value inequality`);
   } else {
-    assert.strictEqual(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value equality`);
+    assert.equal(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value equality`);
   }
-  assert.strictEqual(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
-  assert.strictEqual(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
-  assert.strictEqual(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
+  assert.equal(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
+  assert.equal(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
+  assert.equal(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
 }

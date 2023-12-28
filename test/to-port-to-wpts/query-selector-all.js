@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -20,8 +20,8 @@ describe("query-selector-all", () => {
 
     assert.ok(docFrag.querySelectorAll, "docFrag.querySelectorAll exists");
     assert.ok(typeof docFrag.querySelectorAll === "function", "docFrag.querySelectorAll is a function");
-    assert.strictEqual(docFrag.querySelectorAll("div").length, 1, "document.querySelectorAll can find a <div> element");
-    assert.strictEqual(docFrag.querySelectorAll("p").length, 1, "document.querySelectorAll can find a <p> element");
+    assert.equal(docFrag.querySelectorAll("div").length, 1, "document.querySelectorAll can find a <div> element");
+    assert.equal(docFrag.querySelectorAll("p").length, 1, "document.querySelectorAll can find a <p> element");
   });
 
   specify(

@@ -1,4 +1,5 @@
-const { assert } = require("chai");
+"use strict";
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 var hc_staff = require("../level1/core/files/hc_staff.xml");

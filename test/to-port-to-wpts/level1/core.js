@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const staff = require("./core/files/staff.xml");
@@ -4524,7 +4524,7 @@ describe("level1/core", () => {
       if (elementList.item(i).nodeType === 8) {
         assert.equal(elementList.item(i).nodeName, "#comment", "nodeName");
         assert.equal(elementList.item(i).nodeValue, " This is comment number 1.", "nodeValue");
-        assert.equal(elementList.item(i).attributes, null, "attributes");
+        assert.equal(elementList.item(i).attributes, undefined, "attributes");
         commentCount += 1;
       }
     }
@@ -4770,7 +4770,7 @@ describe("level1/core", () => {
       nodeValue = docType.nodeValue;
       assert.equal(nodeValue, null, "nodeValue");
       attributes = docType.attributes;
-      assert.equal(attributes, null, "attributes");
+      assert.equal(attributes, undefined, "attributes");
     }
   });
 
@@ -5712,7 +5712,7 @@ describe("level1/core", () => {
 
     // XXX SUPERSEDED BY DOM4
     //    test.equal(attrValue, "", 'attrValue');
-    assert.strictEqual(attrValue, null, "attrValue");
+    assert.equal(attrValue, null, "attrValue");
   });
 
   /**
@@ -6672,7 +6672,7 @@ describe("level1/core", () => {
     attrNode = addrAttr.item(0);
     attrList = attrNode.attributes;
 
-    assert.equal(attrList, null, "nodeAttributeNodeAttributeAssert1");
+    assert.equal(attrList, undefined, "nodeAttributeNodeAttributeAssert1");
   });
 
   /**
@@ -7155,7 +7155,7 @@ describe("level1/core", () => {
       ) {
         attrList = commentNode.attributes;
 
-        assert.equal(attrList, null, "existingCommentAttributesNull");
+        assert.equal(attrList, undefined, "existingCommentAttributesNull");
 
       }
 
@@ -7163,7 +7163,7 @@ describe("level1/core", () => {
     commentNode = doc.createComment("This is a comment");
     attrList = commentNode.attributes;
 
-    assert.equal(attrList, null, "createdCommentAttributesNull");
+    assert.equal(attrList, undefined, "createdCommentAttributesNull");
   });
 
   /**
@@ -7386,7 +7386,7 @@ describe("level1/core", () => {
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
-    assert.equal(attrList, null, "attributesNull");
+    assert.equal(attrList, undefined, "attributesNull");
     value = docFragment.nodeValue;
 
     assert.equal(value, null, "initiallyNull");
@@ -7413,7 +7413,7 @@ describe("level1/core", () => {
     doc = hc_staff.hc_staff();
     attrList = doc.attributes;
 
-    assert.equal(attrList, null, "doc_attributes_is_null");
+    assert.equal(attrList, undefined, "doc_attributes_is_null");
   });
 
   /**
@@ -9132,7 +9132,7 @@ describe("level1/core", () => {
 
     attrList = textNode.attributes;
 
-    assert.equal(attrList, null, "text_attributes_is_null");
+    assert.equal(attrList, undefined, "text_attributes_is_null");
   });
 
   /**
@@ -10424,7 +10424,7 @@ describe("level1/core", () => {
     attrNode = addrAttr.item(0);
     attrList = attrNode.attributes;
 
-    assert.equal(attrList, null, "nodeAttributeNodeAttributeAssert1");
+    assert.equal(attrList, undefined, "nodeAttributeNodeAttributeAssert1");
   });
 
   /**
@@ -11154,7 +11154,7 @@ describe("level1/core", () => {
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
-    assert.equal(attrList, null, "attributesNull");
+    assert.equal(attrList, undefined, "attributesNull");
     value = docFragment.nodeValue;
 
     assert.equal(value, null, "initiallyNull");
@@ -11178,7 +11178,7 @@ describe("level1/core", () => {
     doc = staff.staff();
     attrList = doc.attributes;
 
-    assert.equal(attrList, null, "documentAttributesNull");
+    assert.equal(attrList, undefined, "documentAttributesNull");
   });
 
   /**
@@ -11326,7 +11326,7 @@ describe("level1/core", () => {
     assert.notEqual(docType, null, "docTypeNotNull");
     attrList = docType.attributes;
 
-    assert.equal(attrList, null, "doctypeAttributesNull");
+    assert.equal(attrList, undefined, "doctypeAttributesNull");
   });
 
   /**
@@ -12681,7 +12681,7 @@ describe("level1/core", () => {
     piNode = testList.item(0);
     attrList = piNode.attributes;
 
-    assert.equal(attrList, null, "nodeProcessingInstructionNodeAttrAssert1");
+    assert.equal(attrList, undefined, "nodeProcessingInstructionNodeAttrAssert1");
   });
 
   /**
@@ -13297,7 +13297,7 @@ describe("level1/core", () => {
 
     attrList = textNode.attributes;
 
-    assert.equal(attrList, null, "nodeTextNodeAttributesAssert1");
+    assert.equal(attrList, undefined, "nodeTextNodeAttributesAssert1");
   });
 
   /**
@@ -13936,44 +13936,44 @@ describe("level1/core", () => {
     children.item(0).splitText("5");
 
     assert.equal(children.length, 3, "After split, the children count should be 3");
-    assert.strictEqual(
+    assert.equal(
       children.item(children.length - 1).nodeType,
       doc.ELEMENT_NODE,
       "After split, the last child should be an ELEMENT_NODE"
     );
-    assert.strictEqual(
+    assert.equal(
       children.item(0),
       firstTextNode,
       "After split the first child should still be the same object as before"
     );
-    assert.strictEqual(children.item(1).nodeType, doc.TEXT_NODE, "After split the second child should be a text node");
+    assert.equal(children.item(1).nodeType, doc.TEXT_NODE, "After split the second child should be a text node");
   });
 
   specify("allow_empty_nodelists", () => {
     let doc = extra.extra();
     let element = doc.createElement("test");
-    assert.strictEqual(element.children.length, 0);
+    assert.equal(element.children.length, 0);
   });
 
   specify("creating_text_nodes_with_falsy_values", () => {
     let doc = extra.extra();
 
     let txt1 = doc.createTextNode(0);
-    assert.strictEqual(txt1.nodeValue, "0");
+    assert.equal(txt1.nodeValue, "0");
 
     let txt2 = doc.createTextNode(false);
-    assert.strictEqual(txt2.nodeValue, "false");
+    assert.equal(txt2.nodeValue, "false");
 
     let txt3 = doc.createTextNode(null);
-    assert.strictEqual(txt3.nodeValue, "null");
+    assert.equal(txt3.nodeValue, "null");
 
     let txt4 = doc.createTextNode(NaN);
-    assert.strictEqual(txt4.nodeValue, "NaN");
+    assert.equal(txt4.nodeValue, "NaN");
 
     let txt5 = doc.createTextNode(undefined);
-    assert.strictEqual(txt5.nodeValue, "undefined");
+    assert.equal(txt5.nodeValue, "undefined");
 
     let txt7 = doc.createTextNode("");
-    assert.strictEqual(txt7.nodeValue, "");
+    assert.equal(txt7.nodeValue, "");
   });
 });

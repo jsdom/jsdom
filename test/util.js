@@ -8,23 +8,9 @@ const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
 const { pathToFileURL } = require("url");
 
-function toPathname(dirname, relativePath) {
-  let pathname = path.resolve(dirname, relativePath).replace(/\\/g, "/");
-  if (pathname[0] !== "/") {
-    pathname = "/" + pathname;
-  }
-  return pathname;
-}
-
 exports.toFileUrl = dirname => {
   return function (relativePath) {
     return pathToFileURL(path.resolve(dirname, relativePath)).href;
-  };
-};
-
-exports.toPathname = dirname => {
-  return function (relativePath) {
-    return toPathname(dirname, relativePath);
   };
 };
 

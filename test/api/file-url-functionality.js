@@ -1,12 +1,10 @@
 "use strict";
 const fs = require("fs");
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
 const { JSDOM } = require("../..");
-
-require("chai").use(require("../chai-helpers.js"));
 
 const thisFileURL = toFileUrl(__filename);
 
@@ -18,8 +16,8 @@ describe("Test cases for the interaction with file: URLs", () => {
       const xhr = new window.XMLHttpRequest();
       xhr.onload = () => {
         const thisFileContents = fs.readFileSync(__filename, { encoding: "utf-8" });
-        assert.strictEqual(xhr.responseText, thisFileContents);
-        assert.strictEqual(xhr.response, thisFileContents);
+        assert.equal(xhr.responseText, thisFileContents);
+        assert.equal(xhr.response, thisFileContents);
         t.done();
       };
 
@@ -33,9 +31,9 @@ describe("Test cases for the interaction with file: URLs", () => {
       const xhr = new window.XMLHttpRequest();
       xhr.onload = () => {
         assert.doesNotThrow(() => {
-          assert.strictEqual(xhr.getResponseHeader("Content-Type"), null);
+          assert.equal(xhr.getResponseHeader("Content-Type"), null);
         });
-        assert.strictEqual(xhr.getAllResponseHeaders(), "");
+        assert.equal(xhr.getAllResponseHeaders(), "");
         t.done();
       };
 
@@ -48,7 +46,7 @@ describe("Test cases for the interaction with file: URLs", () => {
 
       const xhr = new window.XMLHttpRequest();
       xhr.onload = () => {
-        assert.strictEqual(window.document.cookie, "");
+        assert.equal(window.document.cookie, "");
         t.done();
       };
 
@@ -65,7 +63,7 @@ describe("Test cases for the interaction with file: URLs", () => {
       );
 
       window.doCheck = () => {
-        assert.strictEqual(window.document.getElementById("test").textContent, "hello from javascript");
+        assert.equal(window.document.getElementById("test").textContent, "hello from javascript");
         t.done();
       };
     });
@@ -81,7 +79,7 @@ describe("Test cases for the interaction with file: URLs", () => {
       );
 
       window.doCheck = () => {
-        assert.strictEqual(window.document.getElementById("test").textContent, "hello from javascript");
+        assert.equal(window.document.getElementById("test").textContent, "hello from javascript");
         t.done();
       };
     });

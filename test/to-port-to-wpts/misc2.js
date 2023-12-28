@@ -1,6 +1,6 @@
 "use strict";
 const path = require("path");
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -182,8 +182,8 @@ describe("jsdom/miscellaneous", () => {
 
     a.innerHTML = 9;
     a.setAttribute("id", 123);
-    assert.strictEqual(a.innerHTML, "9", "Element stringify");
-    assert.strictEqual(a.getAttributeNode("id").nodeValue, "123", "Attribute stringify");
+    assert.equal(a.innerHTML, "9", "Element stringify");
+    assert.equal(a.getAttributeNode("id").nodeValue, "123", "Attribute stringify");
   });
 
   specify("childNodes_updates_on_insertChild", () => {
@@ -191,11 +191,11 @@ describe("jsdom/miscellaneous", () => {
     const div = window.document.createElement("div");
     let text = window.document.createTextNode("bar");
     div.appendChild(text);
-    assert.strictEqual(text, div.childNodes[0], "childNodes NodeList should update after appendChild");
+    assert.equal(text, div.childNodes[0], "childNodes NodeList should update after appendChild");
 
     text = window.document.createTextNode("bar");
     div.insertBefore(text, null);
-    assert.strictEqual(text, div.childNodes[1], "childNodes NodeList should update after insertBefore");
+    assert.equal(text, div.childNodes[1], "childNodes NodeList should update after insertBefore");
   });
 
   specify("option_set_selected", () => {
@@ -211,22 +211,22 @@ describe("jsdom/miscellaneous", () => {
     const option1 = window.document.createElement("option");
     optgroup.appendChild(option1);
 
-    assert.strictEqual(true, option0.selected, "initially selected");
-    assert.strictEqual(false, option1.selected, "initially not selected");
-    assert.strictEqual(option1, select.options[1], "options should include options inside optgroup");
+    assert.equal(true, option0.selected, "initially selected");
+    assert.equal(false, option1.selected, "initially not selected");
+    assert.equal(option1, select.options[1], "options should include options inside optgroup");
 
     option1.defaultSelected = true;
-    assert.strictEqual(false, option0.selected, "selecting other option should deselect this");
-    assert.strictEqual(true, option0.defaultSelected, "default should not change");
-    assert.strictEqual(true, option1.selected, "selected changes when defaultSelected changes");
-    assert.strictEqual(true, option1.defaultSelected, "I just set this");
+    assert.equal(false, option0.selected, "selecting other option should deselect this");
+    assert.equal(true, option0.defaultSelected, "default should not change");
+    assert.equal(true, option1.selected, "selected changes when defaultSelected changes");
+    assert.equal(true, option1.defaultSelected, "I just set this");
 
     option0.defaultSelected = false;
     option0.selected = true;
-    assert.strictEqual(true, option0.selected, "I just set this");
-    assert.strictEqual(false, option0.defaultSelected, "selected does not set default");
-    assert.strictEqual(false, option1.selected, "should deselect others");
-    assert.strictEqual(true, option1.defaultSelected, "unchanged");
+    assert.equal(true, option0.selected, "I just set this");
+    assert.equal(false, option0.defaultSelected, "selected does not set default");
+    assert.equal(false, option1.selected, "should deselect others");
+    assert.equal(true, option1.defaultSelected, "unchanged");
   });
 
   specify("fix_for_issue_221", () => {
@@ -235,7 +235,7 @@ describe("jsdom/miscellaneous", () => {
     const div = document.createElement("div");
     document.body.appendChild(div);
     div.appendChild(document.createTextNode("hello world"));
-    assert.strictEqual(div.childNodes[0].nodeValue, "hello world", "Nodelist children should be populated immediately");
+    assert.equal(div.childNodes[0].nodeValue, "hello world", "Nodelist children should be populated immediately");
   });
 
   specify("parsing_and_serializing_entities", () => {
@@ -243,9 +243,9 @@ describe("jsdom/miscellaneous", () => {
     const { document } = (new JSDOM(html)).window;
     const anchor = document.getElementsByTagName("a")[0];
 
-    assert.strictEqual(anchor.getAttribute("href"), "http://example.com/?a=b&c=d", "href attribute value should be deentitified");
+    assert.equal(anchor.getAttribute("href"), "http://example.com/?a=b&c=d", "href attribute value should be deentitified");
 
-    assert.strictEqual(anchor.firstChild.nodeValue, "<æ☺foo", "nodeValue of text node should be deentitified");
+    assert.equal(anchor.firstChild.nodeValue, "<æ☺foo", "nodeValue of text node should be deentitified");
 
     assert.ok(
       anchor.outerHTML.indexOf("http://example.com/?a=b&amp;c=d") !== -1,
@@ -261,12 +261,12 @@ describe("jsdom/miscellaneous", () => {
   specify("parsing_and_serializing_unknown_entities", () => {
     const html = "<html><body>&nowayjose;&#x263a;&#xblah;&#9q;</body></html>";
     const { document } = (new JSDOM(html)).window;
-    assert.strictEqual(
+    assert.equal(
       document.body.firstChild.nodeValue,
       "&nowayjose;☺lah;\tq;",
       "Unknown and unparsable entities should be handled like a browser would"
     );
-    assert.strictEqual(
+    assert.equal(
       document.body.innerHTML,
       "&amp;nowayjose;☺lah;\tq;",
       "Unknown and unparsable entities should be handled like a browser would"
@@ -276,22 +276,22 @@ describe("jsdom/miscellaneous", () => {
   specify("entities_in_script_should_be_left_alone", () => {
     const html = `<!DOCTYPE html><html><head></head><body><script>alert("&quot;");</script></body></html>`;
     const { document } = (new JSDOM(html)).window;
-    assert.strictEqual(document.body.innerHTML, `<script>alert("&quot;");</script>`);
-    assert.strictEqual(document.body.firstChild.innerHTML, `alert("&quot;");`);
+    assert.equal(document.body.innerHTML, `<script>alert("&quot;");</script>`);
+    assert.equal(document.body.firstChild.innerHTML, `alert("&quot;");`);
   });
 
   specify("document_title_and_entities", () => {
     const html = "<html><head><title>&lt;b&gt;Hello&lt;/b&gt;</title></head><body></body></html>";
     const { document } = (new JSDOM(html)).window;
 
-    assert.strictEqual(
+    assert.equal(
       document.title,
       "<b>Hello</b>",
       `document.title should be the deentitified version of what was in the original HTML`
     );
 
     document.title = "<b>World</b>";
-    assert.strictEqual(
+    assert.equal(
       document.title,
       "<b>World</b>",
       `When document.title is set programmatically to something looking like HTML tags, then read again, it should ` +
@@ -299,7 +299,7 @@ describe("jsdom/miscellaneous", () => {
     );
 
     document.title = "&lt;b&gt;World&lt;/b&gt;";
-    assert.strictEqual(
+    assert.equal(
       document.title,
       "&lt;b&gt;World&lt;/b&gt;",
       `When document.title is set programmatically to something looking like HTML entities, then read again, it ` +
@@ -312,27 +312,27 @@ describe("jsdom/miscellaneous", () => {
                   <body>Hello<span><span>, </span>world</span>!</body></html>`;
     const { document } = (new JSDOM(html)).window;
 
-    assert.strictEqual(document.textContent, null, "textContent of document should be null");
+    assert.equal(document.textContent, null, "textContent of document should be null");
 
-    assert.strictEqual(
+    assert.equal(
       document.head.textContent,
       "\n<foo>",
       "textContent of document.head should be the initial whitespace plus the textContent of the document title"
     );
 
-    assert.strictEqual(
+    assert.equal(
       document.body.textContent,
       "Hello, world!",
       "textContent of document.body should be the concatenation of the textContent values of its child nodes"
     );
 
-    assert.strictEqual(
+    assert.equal(
       document.createTextNode("&lt;b&gt;World&lt;/b&gt;").textContent,
       "&lt;b&gt;World&lt;/b&gt;",
       "textContent of programmatically created text node should be identical to its nodeValue"
     );
 
-    assert.strictEqual(
+    assert.equal(
       document.createComment("&lt;b&gt;World&lt;/b&gt;").textContent,
       "&lt;b&gt;World&lt;/b&gt;",
       "textContent of programmatically created comment node should be identical to its nodeValue"
@@ -342,7 +342,7 @@ describe("jsdom/miscellaneous", () => {
     frag.appendChild(document.createTextNode("&lt;foo&gt;<b></b>"));
     frag.appendChild(document.createElement("div")).appendChild(document.createTextNode("&lt;foo&gt;<b></b>"));
 
-    assert.strictEqual(
+    assert.equal(
       frag.textContent,
       "&lt;foo&gt;<b></b>&lt;foo&gt;<b></b>",
       "textContent of programmatically created document fragment should be the concatenation " +
@@ -353,7 +353,7 @@ describe("jsdom/miscellaneous", () => {
     div.innerHTML = "&amp;lt;b&amp;gt;\nWorld&amp;lt;/b&amp;gt;<span></span><span>" +
                     "<span></span></span><span>&amp;lt;b&amp;gt;World&amp;lt;/b&amp;gt;</span>";
 
-    assert.strictEqual(
+    assert.equal(
       div.textContent,
       "&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;World&lt;/b&gt;",
       `textContent of complex programmatically created <div> should be the concatenation of the textContent values ` +
@@ -496,9 +496,9 @@ describe("jsdom/miscellaneous", () => {
     const meta = window.document.createElement("meta");
     window.document.getElementsByTagName("head").item(0).appendChild(meta);
     const elements = window.document.getElementsByTagName("head").item(0).childNodes;
-    assert.strictEqual(elements.item(elements.length - 1), meta, "last element should be the new meta tag");
+    assert.equal(elements.item(elements.length - 1), meta, "last element should be the new meta tag");
     assert.ok(dom.serialize().indexOf("<meta>") > -1, "meta should have open tag");
-    assert.strictEqual(
+    assert.equal(
       dom.serialize().indexOf("</meta>"),
       -1,
       "meta should not be stringified with a closing tag"

@@ -1,7 +1,7 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it, before, after } = require("mocha-sugar-free");
 const { createServer } = require("../util.js");
 
@@ -96,22 +96,22 @@ describe("API: encoding detection", () => {
     it("should default to UTF-8 when passing a string", () => {
       const dom = new JSDOM("©");
 
-      assert.strictEqual(dom.window.document.characterSet, "UTF-8");
-      assert.strictEqual(dom.window.document.body.textContent, "©");
+      assert.equal(dom.window.document.characterSet, "UTF-8");
+      assert.equal(dom.window.document.body.textContent, "©");
     });
 
     it("should default to UTF-8 when passing nothing", () => {
       const dom = new JSDOM();
 
-      assert.strictEqual(dom.window.document.characterSet, "UTF-8");
-      assert.strictEqual(dom.window.document.body.textContent, "");
+      assert.equal(dom.window.document.characterSet, "UTF-8");
+      assert.equal(dom.window.document.body.textContent, "");
     });
 
     it("should default to UTF-8 when passing null", () => {
       const dom = new JSDOM(null);
 
-      assert.strictEqual(dom.window.document.characterSet, "UTF-8");
-      assert.strictEqual(dom.window.document.body.textContent, "null");
+      assert.equal(dom.window.document.characterSet, "UTF-8");
+      assert.equal(dom.window.document.body.textContent, "null");
     });
   });
 
@@ -126,7 +126,7 @@ describe("API: encoding detection", () => {
 
             it(`should sniff ${encodingFixture} as ${name}`, () => {
               return factory(encodingFixture).then(binaryData => {
-                assert.strictEqual(
+                assert.equal(
                   binaryData.constructor.name,
                   binaryDataType,
                   "Sanity check: input binary data must be of the right type"
@@ -134,8 +134,8 @@ describe("API: encoding detection", () => {
 
                 const dom = new JSDOM(binaryData);
 
-                assert.strictEqual(dom.window.document.characterSet, name);
-                assert.strictEqual(dom.window.document.body.textContent, body);
+                assert.equal(dom.window.document.characterSet, name);
+                assert.equal(dom.window.document.body.textContent, body);
               });
             });
           }
@@ -153,7 +153,7 @@ describe("API: encoding detection", () => {
 
             it(`should sniff ${encodingFixture} as ${nameWhenOverridden}`, () => {
               return factory(encodingFixture).then(binaryData => {
-                assert.strictEqual(
+                assert.equal(
                   binaryData.constructor.name,
                   binaryDataType,
                   "Sanity check: input binary data must be of the right type"
@@ -161,11 +161,11 @@ describe("API: encoding detection", () => {
 
                 const dom = new JSDOM(binaryData, { contentType: "text/html;charset=csiso88598e" });
 
-                assert.strictEqual(dom.window.document.characterSet, nameWhenOverridden);
-                assert.strictEqual(dom.window.document.contentType, "text/html"); // encoding should be stripped
+                assert.equal(dom.window.document.characterSet, nameWhenOverridden);
+                assert.equal(dom.window.document.contentType, "text/html"); // encoding should be stripped
 
                 if (bodyWhenOverridden) {
-                  assert.strictEqual(dom.window.document.body.textContent, bodyWhenOverridden);
+                  assert.equal(dom.window.document.body.textContent, bodyWhenOverridden);
                 }
               });
             });
@@ -181,8 +181,8 @@ describe("API: encoding detection", () => {
 
       it(`should sniff ${encodingFixture} as ${name}`, () => {
         return JSDOM.fromFile(fixturePath(encodingFixture)).then(dom => {
-          assert.strictEqual(dom.window.document.characterSet, name);
-          assert.strictEqual(dom.window.document.body.textContent, body);
+          assert.equal(dom.window.document.characterSet, name);
+          assert.equal(dom.window.document.body.textContent, body);
         });
       });
     }
@@ -215,8 +215,8 @@ describe("API: encoding detection", () => {
 
         it(`should sniff ${encodingFixture} as ${name}`, () => {
           return JSDOM.fromURL(`${host}/${encodingFixture}`).then(dom => {
-            assert.strictEqual(dom.window.document.characterSet, name);
-            assert.strictEqual(dom.window.document.body.textContent, body);
+            assert.equal(dom.window.document.characterSet, name);
+            assert.equal(dom.window.document.body.textContent, body);
           });
         });
       }
@@ -228,11 +228,11 @@ describe("API: encoding detection", () => {
 
         it(`should sniff ${encodingFixture} as ${nameWhenOverridden}`, () => {
           return JSDOM.fromURL(`${host}/${encodingFixture}?charset=csiso88598e`).then(dom => {
-            assert.strictEqual(dom.window.document.characterSet, nameWhenOverridden);
-            assert.strictEqual(dom.window.document.contentType, "text/html"); // encoding should be stripped
+            assert.equal(dom.window.document.characterSet, nameWhenOverridden);
+            assert.equal(dom.window.document.contentType, "text/html"); // encoding should be stripped
 
             if (bodyWhenOverridden) {
-              assert.strictEqual(dom.window.document.body.textContent, bodyWhenOverridden);
+              assert.equal(dom.window.document.body.textContent, bodyWhenOverridden);
             }
           });
         });

@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -23,7 +23,7 @@ describe("jsdom/serialization", () => {
   specify("void elements should serialize correctly", () => {
     const html = "<html><head></head><body><div><br><hr><audio><source></audio></div></body></html>";
 
-    assert.strictEqual((new JSDOM(html)).serialize(), html);
+    assert.equal((new JSDOM(html)).serialize(), html);
   });
 
   specify("outerHTML should not format the HTML (GH-371)", () => {
@@ -31,6 +31,6 @@ describe("jsdom/serialization", () => {
     const { document } = (new JSDOM(originalHTML)).window;
     const { outerHTML } = document.body.firstChild;
 
-    assert.strictEqual(outerHTML, originalHTML);
+    assert.equal(outerHTML, originalHTML);
   });
 });

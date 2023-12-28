@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const parseDataURL = require("data-urls");
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 const { PNG } = require("pngjs");
 
@@ -21,8 +21,8 @@ describe("htmlcanvaselement", () => {
       const { window } = new JSDOM();
       const canvas = window.document.createElement("canvas");
 
-      assert.strictEqual(canvas instanceof window.HTMLElement, true);
-      assert.strictEqual(canvas instanceof window.HTMLCanvasElement, true);
+      assert.equal(canvas instanceof window.HTMLElement, true);
+      assert.equal(canvas instanceof window.HTMLCanvasElement, true);
     }
   );
 
@@ -37,34 +37,34 @@ describe("htmlcanvaselement", () => {
     const { window } = new JSDOM();
     const canvas = window.document.createElement("canvas");
 
-    assert.strictEqual(canvas.width, 300);
-    assert.strictEqual(canvas.height, 150);
+    assert.equal(canvas.width, 300);
+    assert.equal(canvas.height, 150);
 
     canvas.width = 400;
-    assert.strictEqual(canvas.width, 400);
-    assert.strictEqual(canvas.getAttribute("width"), "400");
+    assert.equal(canvas.width, 400);
+    assert.equal(canvas.getAttribute("width"), "400");
     canvas.width = "blasdfhdf";
-    assert.strictEqual(canvas.width, 0);
-    assert.strictEqual(canvas.getAttribute("width"), "0");
+    assert.equal(canvas.width, 0);
+    assert.equal(canvas.getAttribute("width"), "0");
     canvas.width = 500;
-    assert.strictEqual(canvas.width, 500);
-    assert.strictEqual(canvas.getAttribute("width"), "500");
+    assert.equal(canvas.width, 500);
+    assert.equal(canvas.getAttribute("width"), "500");
     canvas.width = -1;
-    assert.strictEqual(canvas.width, 300);
-    assert.strictEqual(canvas.getAttribute("width"), "300");
+    assert.equal(canvas.width, 300);
+    assert.equal(canvas.getAttribute("width"), "300");
 
     canvas.height = 400;
-    assert.strictEqual(canvas.height, 400);
-    assert.strictEqual(canvas.getAttribute("height"), "400");
+    assert.equal(canvas.height, 400);
+    assert.equal(canvas.getAttribute("height"), "400");
     canvas.height = "blasdfhdf";
-    assert.strictEqual(canvas.height, 0);
-    assert.strictEqual(canvas.getAttribute("height"), "0");
+    assert.equal(canvas.height, 0);
+    assert.equal(canvas.getAttribute("height"), "0");
     canvas.height = 500;
-    assert.strictEqual(canvas.height, 500);
-    assert.strictEqual(canvas.getAttribute("height"), "500");
+    assert.equal(canvas.height, 500);
+    assert.equal(canvas.getAttribute("height"), "500");
     canvas.height = -1;
-    assert.strictEqual(canvas.height, 150);
-    assert.strictEqual(canvas.getAttribute("height"), "150");
+    assert.equal(canvas.height, 150);
+    assert.equal(canvas.getAttribute("height"), "150");
   });
 
   specify(
@@ -73,8 +73,8 @@ describe("htmlcanvaselement", () => {
       const { window } = new JSDOM("<canvas width='99' height='101'></canvas>");
       const canvas = window.document.querySelector("canvas");
 
-      assert.strictEqual(canvas.width, 99);
-      assert.strictEqual(canvas.height, 101);
+      assert.equal(canvas.width, 99);
+      assert.equal(canvas.height, 101);
     }
   );
 
@@ -107,9 +107,9 @@ describe("htmlcanvaselement", () => {
       const gotPNG = Buffer.from(gotDataURL.body);
       const gotImg = PNG.sync.read(gotPNG);
 
-      assert.strictEqual(gotImg.width, expectedImg.width, "width");
-      assert.strictEqual(gotImg.height, expectedImg.height, "height");
-      assert.strictEqual(Buffer.compare(expectedImg.data, gotImg.data), 0, "byte-level comparison");
+      assert.equal(gotImg.width, expectedImg.width, "width");
+      assert.equal(gotImg.height, expectedImg.height, "height");
+      assert.equal(Buffer.compare(expectedImg.data, gotImg.data), 0, "byte-level comparison");
       t.done();
     },
     { async: true }
@@ -123,8 +123,8 @@ describe("htmlcanvaselement", () => {
 
       canvas.setAttribute("width", 99);
       canvas.setAttribute("height", 101);
-      assert.strictEqual(canvas.width, 99);
-      assert.strictEqual(canvas.height, 101);
+      assert.equal(canvas.width, 99);
+      assert.equal(canvas.height, 101);
     }
   );
 
@@ -138,7 +138,7 @@ describe("htmlcanvaselement", () => {
       const { window } = new JSDOM("<canvas width='99' height='101'></canvas>");
       const canvas = window.document.querySelector("canvas");
 
-      assert.strictEqual(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
+      assert.equal(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
       t.done();
     },
     { async: true }
@@ -162,10 +162,10 @@ describe("htmlcanvaselement", () => {
       image.onload = () => {
         ctx.drawImage(image, 0, 0);
         const expected = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
-        assert.strictEqual(canvas.toDataURL(), expected);
+        assert.equal(canvas.toDataURL(), expected);
         canvas.toBlob(blob => {
-          assert.strictEqual(blob.type, "image/png");
-          assert.strictEqual(blob.size, 2615);
+          assert.equal(blob.type, "image/png");
+          assert.equal(blob.size, 2615);
           t.done();
         }, "image/png");
       };

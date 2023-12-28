@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const http = require("http");
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -17,8 +17,8 @@ describe("htmlimageelement", () => {
       const { window } = new JSDOM();
       const image = new window.Image(100, 200);
 
-      assert.strictEqual(image.width, 100, "width should be set to the passed constructor parameter");
-      assert.strictEqual(image.height, 200, "height should be set to the passed constructor parameter");
+      assert.equal(image.width, 100, "width should be set to the passed constructor parameter");
+      assert.equal(image.height, 200, "height should be set to the passed constructor parameter");
     }
   );
 
@@ -29,24 +29,24 @@ describe("htmlimageelement", () => {
     const { window } = new JSDOM(``, { resources: "usable" });
     const image = new window.Image();
     const src = toFileUrl("files/image.png");
-    assert.strictEqual(image.width, 0, "before loading, width should be 0");
-    assert.strictEqual(image.height, 0, "before loading, height should be 0");
-    assert.strictEqual(image.naturalWidth, 0, "before loading, naturalWidth should be 0");
-    assert.strictEqual(image.naturalHeight, 0, "before loading, naturalHeight should be 0");
-    assert.strictEqual(image.complete, true, "before loading or setting src, complete should be true");
-    assert.strictEqual(image.src, "", "before loading, src should be an empty string");
-    assert.strictEqual(image.currentSrc, "", "before loading, currentSrc should be an empty string");
+    assert.equal(image.width, 0, "before loading, width should be 0");
+    assert.equal(image.height, 0, "before loading, height should be 0");
+    assert.equal(image.naturalWidth, 0, "before loading, naturalWidth should be 0");
+    assert.equal(image.naturalHeight, 0, "before loading, naturalHeight should be 0");
+    assert.equal(image.complete, true, "before loading or setting src, complete should be true");
+    assert.equal(image.src, "", "before loading, src should be an empty string");
+    assert.equal(image.currentSrc, "", "before loading, currentSrc should be an empty string");
     image.src = src;
-    assert.strictEqual(image.complete, false, "before loading and after setting src, complete should be false");
+    assert.equal(image.complete, false, "before loading and after setting src, complete should be false");
     image.onload = () => {
       assert.ok(true, "onload should be triggered when loading from valid URL.");
-      assert.strictEqual(image.width, 168, "after loading, width should be 168");
-      assert.strictEqual(image.height, 168, "after loading, height should be 168");
-      assert.strictEqual(image.naturalWidth, 168, "after loading, naturalWidth should be 168");
-      assert.strictEqual(image.naturalHeight, 168, "after loading, naturalHeight should be 168");
-      assert.strictEqual(image.complete, true, "after loading, complete should be true");
-      assert.strictEqual(image.src, src, "after loading, src should be the image's URL");
-      assert.strictEqual(image.currentSrc, src, "after loading, currentSrc should be the image's URL");
+      assert.equal(image.width, 168, "after loading, width should be 168");
+      assert.equal(image.height, 168, "after loading, height should be 168");
+      assert.equal(image.naturalWidth, 168, "after loading, naturalWidth should be 168");
+      assert.equal(image.naturalHeight, 168, "after loading, naturalHeight should be 168");
+      assert.equal(image.complete, true, "after loading, complete should be true");
+      assert.equal(image.src, src, "after loading, src should be the image's URL");
+      assert.equal(image.currentSrc, src, "after loading, currentSrc should be the image's URL");
       t.done();
     };
     image.onerror = () => {
@@ -66,10 +66,10 @@ describe("htmlimageelement", () => {
 
     const server = http.createServer((request, response) => {
       if (requestsSoFar === 0) {
-        assert.strictEqual(request.url, "/test.html");
+        assert.equal(request.url, "/test.html");
         response.end(`<img src="/test.jpg">`);
       } else {
-        assert.strictEqual(request.url, "/test.jpg");
+        assert.equal(request.url, "/test.jpg");
         response.end(``);
         server.close();
         t.done();
@@ -93,11 +93,11 @@ describe("htmlimageelement", () => {
     const src = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
     image.onload = () => {
       assert.ok(true, "onload should be triggered when loading from data URL.");
-      assert.strictEqual(image.width, 168, "after setting data URL, width should be 168");
-      assert.strictEqual(image.height, 168, "after setting data URL, height should be 168");
-      assert.strictEqual(image.complete, true, "after setting data URL, complete should be true");
-      assert.strictEqual(image.src, src, "after setting data URL, src should be the data URL");
-      assert.strictEqual(image.currentSrc, src, "after setting data URL, currentSrc should be the data URL");
+      assert.equal(image.width, 168, "after setting data URL, width should be 168");
+      assert.equal(image.height, 168, "after setting data URL, height should be 168");
+      assert.equal(image.complete, true, "after setting data URL, complete should be true");
+      assert.equal(image.src, src, "after setting data URL, src should be the data URL");
+      assert.equal(image.currentSrc, src, "after setting data URL, currentSrc should be the data URL");
 
       t.done();
     };

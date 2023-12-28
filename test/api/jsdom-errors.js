@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 
 const { JSDOM, VirtualConsole } = require("../..");
@@ -31,15 +31,15 @@ describe("API: virtual console jsdomErrors", () => {
       </html>
       `, { virtualConsole });
 
-    assert.isEmpty(errors);
+    assert.deepEqual(errors, []);
   });
 
   it("should emit unhandled null value thrown in inline event handlers", t => {
     const virtualConsole = new VirtualConsole();
     virtualConsole.on("jsdomError", error => {
-      assert.ok(error instanceof Error);
+      assert(error instanceof Error);
       assert.equal(error.message, "Uncaught null");
-      assert.isNull(error.detail);
+      assert.equal(error.detail, null);
       t.done();
     });
 

@@ -1,6 +1,6 @@
 "use strict";
 const vm = require("vm");
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -10,19 +10,19 @@ describe("API: JSDOM class's methods", () => {
     it("should serialize the default document correctly", () => {
       const dom = new JSDOM();
 
-      assert.strictEqual(dom.serialize(), `<html><head></head><body></body></html>`);
+      assert.equal(dom.serialize(), `<html><head></head><body></body></html>`);
     });
 
     it("should serialize a text-only document correctly", () => {
       const dom = new JSDOM(`hello`);
 
-      assert.strictEqual(dom.serialize(), `<html><head></head><body>hello</body></html>`);
+      assert.equal(dom.serialize(), `<html><head></head><body>hello</body></html>`);
     });
 
     it("should serialize a document with HTML correctly", () => {
       const dom = new JSDOM(`<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`);
 
-      assert.strictEqual(
+      assert.equal(
         dom.serialize(),
         `<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`
       );
@@ -40,7 +40,7 @@ describe("API: JSDOM class's methods", () => {
       const outputs = inputs.map(input => (new JSDOM(input)).serialize());
 
       for (const output of outputs) {
-        assert.strictEqual(output, `<html><head></head><body></body></html>`);
+        assert.equal(output, `<html><head></head><body></body></html>`);
       }
     });
   });
@@ -99,6 +99,7 @@ describe("API: JSDOM class's methods", () => {
       assert.deepEqual(dom.nodeLocation(node), {
         startTag: {
           attrs: {
+            __proto__: null,
             src: {
               endCol: 27,
               endLine: 2,
@@ -116,6 +117,7 @@ describe("API: JSDOM class's methods", () => {
           endOffset: 36
         },
         attrs: {
+          __proto__: null,
           src: {
             endCol: 27,
             endLine: 2,
@@ -174,7 +176,7 @@ describe("API: JSDOM class's methods", () => {
 
       assert.throws(() => dom.getInternalVMContext(), TypeError);
 
-      assert.strictEqual(dom.window.ran, undefined);
+      assert.equal(dom.window.ran, undefined);
     });
 
     it("should work when runScripts is set to \"outside-only\"", () => {
@@ -183,7 +185,7 @@ describe("API: JSDOM class's methods", () => {
 
       script.runInContext(dom.getInternalVMContext());
 
-      assert.strictEqual(dom.window.ran, true);
+      assert.equal(dom.window.ran, true);
     });
 
     it("should work when runScripts is set to \"dangerously\"", () => {
@@ -192,7 +194,7 @@ describe("API: JSDOM class's methods", () => {
 
       script.runInContext(dom.getInternalVMContext());
 
-      assert.strictEqual(dom.window.ran, true);
+      assert.equal(dom.window.ran, true);
     });
 
     it("should return the result of the evaluation", () => {
@@ -201,7 +203,7 @@ describe("API: JSDOM class's methods", () => {
 
       const result = script.runInContext(dom.getInternalVMContext());
 
-      assert.strictEqual(result, 5);
+      assert.equal(result, 5);
     });
 
     it("should work with the same script multiple times", () => {
@@ -212,7 +214,7 @@ describe("API: JSDOM class's methods", () => {
       script.runInContext(dom.getInternalVMContext());
       script.runInContext(dom.getInternalVMContext());
 
-      assert.strictEqual(dom.window.ran, 3);
+      assert.equal(dom.window.ran, 3);
     });
 
     it("should allow passing through options", () => {
@@ -234,7 +236,7 @@ describe("API: JSDOM class's methods", () => {
 
         dom.reconfigure({ windowTop: newTop });
 
-        assert.strictEqual(dom.window.top, newTop);
+        assert.equal(dom.window.top, newTop);
       });
 
       it("should reconfigure the window.top property (tested from the inside)", () => {
@@ -243,7 +245,7 @@ describe("API: JSDOM class's methods", () => {
 
         dom.reconfigure({ windowTop: newTop });
 
-        assert.strictEqual(dom.window.getTopResult(), "top");
+        assert.equal(dom.window.getTopResult(), "top");
       });
 
       it("should do nothing when no options are passed", () => {
@@ -251,7 +253,7 @@ describe("API: JSDOM class's methods", () => {
 
         dom.reconfigure({ });
 
-        assert.strictEqual(dom.window.top, dom.window);
+        assert.equal(dom.window.top, dom.window);
       });
 
       it("should change window.top to undefined if passing undefined", () => {
@@ -259,7 +261,7 @@ describe("API: JSDOM class's methods", () => {
 
         dom.reconfigure({ windowTop: undefined });
 
-        assert.strictEqual(dom.window.top, undefined);
+        assert.equal(dom.window.top, undefined);
       });
     });
 
@@ -268,14 +270,14 @@ describe("API: JSDOM class's methods", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
         const { window } = dom;
 
-        assert.strictEqual(window.document.URL, "http://example.com/");
+        assert.equal(window.document.URL, "http://example.com/");
 
         function testPass(urlString, expected = urlString) {
           dom.reconfigure({ url: urlString });
 
-          assert.strictEqual(window.location.href, expected);
-          assert.strictEqual(window.document.URL, expected);
-          assert.strictEqual(window.document.documentURI, expected);
+          assert.equal(window.location.href, expected);
+          assert.equal(window.document.URL, expected);
+          assert.equal(window.document.documentURI, expected);
         }
 
         testPass("http://localhost", "http://localhost/");
@@ -292,14 +294,14 @@ describe("API: JSDOM class's methods", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
         const { window } = dom;
 
-        assert.strictEqual(window.document.URL, "http://example.com/");
+        assert.equal(window.document.URL, "http://example.com/");
 
         function testFail(url) {
           assert.throws(() => dom.reconfigure({ url }), TypeError);
 
-          assert.strictEqual(window.location.href, "http://example.com/");
-          assert.strictEqual(window.document.URL, "http://example.com/");
-          assert.strictEqual(window.document.documentURI, "http://example.com/");
+          assert.equal(window.location.href, "http://example.com/");
+          assert.equal(window.document.URL, "http://example.com/");
+          assert.equal(window.document.documentURI, "http://example.com/");
         }
 
         testFail("fail");
@@ -313,28 +315,28 @@ describe("API: JSDOM class's methods", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
         const { window } = dom;
 
-        assert.strictEqual(window.document.URL, "http://example.com/");
+        assert.equal(window.document.URL, "http://example.com/");
 
         assert.doesNotThrow(() => dom.reconfigure({ }));
 
-        assert.strictEqual(window.location.href, "http://example.com/");
-        assert.strictEqual(window.document.URL, "http://example.com/");
-        assert.strictEqual(window.document.documentURI, "http://example.com/");
+        assert.equal(window.location.href, "http://example.com/");
+        assert.equal(window.document.URL, "http://example.com/");
+        assert.equal(window.document.documentURI, "http://example.com/");
       });
 
       it("should update the URL used by history.replaceState()", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
         const { window } = dom;
 
-        assert.strictEqual(window.document.URL, "http://example.com/");
+        assert.equal(window.document.URL, "http://example.com/");
 
         dom.reconfigure({ url: "http://localhost/" });
 
-        assert.strictEqual(window.document.URL, "http://localhost/");
+        assert.equal(window.document.URL, "http://localhost/");
 
         window.history.replaceState(null, "");
 
-        assert.strictEqual(window.document.URL, "http://localhost/");
+        assert.equal(window.document.URL, "http://localhost/");
       });
     });
   });

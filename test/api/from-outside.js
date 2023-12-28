@@ -1,7 +1,7 @@
 "use strict";
 const path = require("path");
 const { spawnSync } = require("child_process");
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
 const { delay } = require("../util");
@@ -34,7 +34,7 @@ describe("Test cases only possible to test from the outside", () => {
     window.close();
 
     // We can't assert it's equal to 5, because the event loop might have been busy and not fully executed all 5.
-    assert.isAtLeast(window.counter, 1);
+    assert(window.counter >= 1);
     const counterBeforeSecondDelay = window.counter;
 
     await delay(10);
@@ -48,10 +48,10 @@ describe("Test cases only possible to test from the outside", () => {
 
     assert.equal(status, 0);
     const ratio = Number(stdout);
-    assert.isNotNaN(ratio);
+    assert(!Number.isNaN(ratio));
 
     // At least 70% of the memory must be freed up.
-    assert.isBelow(ratio, 0.3);
+    assert(ratio < 0.3);
   });
 
   it("window.close() should work from within a load event listener", async () => {
@@ -67,11 +67,11 @@ describe("Test cases only possible to test from the outside", () => {
     });
     await delay(0);
 
-    assert.isEmpty(errors);
+    assert.deepEqual(errors, []);
   });
 
   it("document.currentScript is null when not executing <script>", () => {
     const { window } = new JSDOM();
-    assert.strictEqual(window.document.currentScript, null);
+    assert.equal(window.document.currentScript, null);
   });
 });

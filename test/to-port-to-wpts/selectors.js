@@ -1,10 +1,9 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
+const { assertThrowsDOMException } = require("../assert-helpers.js");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
-
-require("chai").use(require("../chai-helpers.js"));
 
 // These tests are mostly random regression tests, not systematic parsing tests. They are compiled from the bug tracker.
 describe("jsdom/selectors", () => {
@@ -21,8 +20,8 @@ describe("jsdom/selectors", () => {
       <div></div><div title=""></div><div title="yes"></div>
     </body></html>`)).window;
 
-    assert.strictEqual(document.querySelectorAll("div[title='']").length, 1);
-    assert.strictEqual(document.querySelectorAll("div[title][title='']").length, 1);
+    assert.equal(document.querySelectorAll("div[title='']").length, 1);
+    assert.equal(document.querySelectorAll("div[title][title='']").length, 1);
   });
 
   specify("matches smoke test", () => {
@@ -31,16 +30,16 @@ describe("jsdom/selectors", () => {
     const div = document.body.children.item(0);
 
     const element = document.querySelector("#main p");
-    assert.strictEqual(element.matches("#main p"), true, "p and first-p");
-    assert.strictEqual(element.matches("#asdf"), false, "doesn't match wrong selector");
+    assert.equal(element.matches("#main p"), true, "p and first-p");
+    assert.equal(element.matches("#asdf"), false, "doesn't match wrong selector");
 
     const element2 = div.querySelector("p");
-    assert.strictEqual(element2.matches("p"), true, "p and first-p");
-    assert.strictEqual(element2.matches("#asdf"), false, "doesn't match wrong selector");
+    assert.equal(element2.matches("p"), true, "p and first-p");
+    assert.equal(element2.matches("#asdf"), false, "doesn't match wrong selector");
 
     const element3 = document.querySelector("#main p:not(.foo)");
-    assert.strictEqual(element3.matches("#main p:not(.foo)"), true, "p and second-p");
-    assert.strictEqual(element3.matches("#asdf"), false, "doesn't match wrong selector");
+    assert.equal(element3.matches("#main p:not(.foo)"), true, "p and second-p");
+    assert.equal(element3.matches("#asdf"), false, "doesn't match wrong selector");
   });
 
   specify("querySelector smoke test", () => {
@@ -58,7 +57,7 @@ describe("jsdom/selectors", () => {
     assert.equal(element3, div.children.item(1), "p and second-p");
 
     const element4 = document.querySelector("#asdf");
-    assert.strictEqual(element4, null, "nonexistent becomes null");
+    assert.equal(element4, null, "nonexistent becomes null");
   });
 
   specify("querySelector smoke test on a document fragment", () => {
@@ -68,19 +67,19 @@ describe("jsdom/selectors", () => {
     const fragment = document.createDocumentFragment();
 
     fragment.appendChild(div);
-    assert.strictEqual(document.body.firstChild, null);
+    assert.equal(document.body.firstChild, null);
 
     const element = fragment.querySelector("#main p");
-    assert.strictEqual(element, div.children.item(0), "p and first-p");
+    assert.equal(element, div.children.item(0), "p and first-p");
 
     const element2 = fragment.querySelector("p");
-    assert.strictEqual(element2, div.children.item(0), "p and first-p");
+    assert.equal(element2, div.children.item(0), "p and first-p");
 
     const element3 = fragment.querySelector("#main p:not(.foo)");
-    assert.strictEqual(element3, div.children.item(1), "p and second-p");
+    assert.equal(element3, div.children.item(1), "p and second-p");
 
     const element4 = fragment.querySelector("#asdf");
-    assert.strictEqual(element4, null, "nonexistent becomes null");
+    assert.equal(element4, null, "nonexistent becomes null");
   });
 
   specify("querySelectorAll smoke test", () => {
@@ -122,7 +121,7 @@ describe("jsdom/selectors", () => {
     assert.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
     assert.equal(elements5.item(0), div.children.item(0), "p and first-p");
     assert.equal(elements5.item(1), div.children.item(1), "p and second-p");
-    assert.strictEqual(topNode.parentNode, null, "topNode.parentNode is null");
+    assert.equal(topNode.parentNode, null, "topNode.parentNode is null");
 
     const nextChildDiv = document.getElementById("next-child");
     const elements6 = nextChildDiv.querySelectorAll("p");
@@ -138,7 +137,7 @@ describe("jsdom/selectors", () => {
     fragment.appendChild(document.body.firstChild);
     fragment.appendChild(document.body.firstChild);
 
-    assert.strictEqual(document.body.firstChild, null, "The body should now be empty");
+    assert.equal(document.body.firstChild, null, "The body should now be empty");
 
     const div = fragment.firstChild;
 
@@ -177,7 +176,7 @@ describe("jsdom/selectors", () => {
     assert.equal(topNode.parentNode, null, "topNode.parentNode is null");
 
     const nextChildDiv = fragment.querySelectorAll("#next-child").item(0);
-    assert.notStrictEqual(nextChildDiv, null, "id selector on fragment not null");
+    assert.notEqual(nextChildDiv, null, "id selector on fragment not null");
 
     const elements6 = nextChildDiv.querySelectorAll("p");
     assert.equal(elements6.length, 1, "p under div#next-child");
@@ -196,8 +195,8 @@ describe("jsdom/selectors", () => {
     const selector = " //MAIN MENU - (used to keep mobile menu options hidden and keep weather/search and menu " +
                      "on one line) // #tncms-region-nav-main-nav-right-nav";
 
-    assert.throwsDomException(() => document.querySelector(selector), document, "SyntaxError");
-    assert.throwsDomException(() => document.querySelectorAll(selector), document, "SyntaxError");
-    assert.throwsDomException(() => document.body.matches(selector), document, "SyntaxError");
+    assertThrowsDOMException(() => document.querySelector(selector), document, "SyntaxError");
+    assertThrowsDOMException(() => document.querySelectorAll(selector), document, "SyntaxError");
+    assertThrowsDOMException(() => document.body.matches(selector), document, "SyntaxError");
   });
 });

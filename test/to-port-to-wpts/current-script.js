@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -15,12 +15,12 @@ describe("current-script", () => {
 
     const { document } = (new JSDOM(html, options)).window;
     document.onload = function () {
-      assert.strictEqual(
+      assert.equal(
         document.getElementById("test").innerHTML,
         "true",
         "currentScript is the currently executing script element"
       );
-      assert.strictEqual(document.currentScript, null, "currentScript is still null at top-level");
+      assert.equal(document.currentScript, null, "currentScript is still null at top-level");
       t.done();
     };
   });

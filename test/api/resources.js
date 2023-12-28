@@ -3,7 +3,7 @@ const http = require("http");
 const path = require("path");
 const fs = require("fs");
 const nodeURLParse = require("url").parse;
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const { delay, createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
@@ -76,7 +76,7 @@ describe("API: resource loading configuration", () => {
 
       // This may not be the optimal behavior for "not loading" iframes: it's fine to change this test in the future
       // if we have better semantics. (E.g., perhaps we should treat all URLs as about:blank.)
-      assert.strictEqual(
+      assert.equal(
         dom.window.frames[0].document.documentElement,
         null,
         "The iframe must not have been downloaded"
@@ -99,7 +99,7 @@ describe("API: resource loading configuration", () => {
 
       // This may not be the optimal behavior for "not loading" iframes: it's fine to change this test in the future
       // if we have better semantics. (E.g., perhaps we should treat all URLs as about:blank.)
-      assert.strictEqual(
+      assert.equal(
         dom.window.frames[0].document.documentElement,
         null,
         "The iframe must not have been downloaded"
@@ -155,7 +155,7 @@ describe("API: resource loading configuration", () => {
 
       // I think this should actually be "rgb(0, 0, 255)" per spec. It's fine to change the test in the future if we
       // fix that.
-      assert.strictEqual(dom.window.getComputedStyle(dom.window.document.body).color, "rgb(0, 0, 255)");
+      assert.equal(dom.window.getComputedStyle(dom.window.document.body).color, "rgb(0, 0, 255)");
     });
 
     it("should download and run scripts, if runScripts: \"dangerously\" is also set", { slow: 500 }, async () => {
@@ -172,7 +172,7 @@ describe("API: resource loading configuration", () => {
       dom.window.document.body.appendChild(element);
 
       await assertLoaded(element);
-      assert.strictEqual(dom.window.x, 5, "The script must have run");
+      assert.equal(dom.window.x, 5, "The script must have run");
     });
 
     it("should not download or run scripts, if runScripts: \"outside-only\" is set", { slow: 500 }, async () => {
@@ -215,7 +215,7 @@ describe("API: resource loading configuration", () => {
       dom.window.document.body.appendChild(element);
 
       await assertLoaded(element);
-      assert.strictEqual(
+      assert.equal(
         dom.window.frames[0].document.body.textContent,
         "Hello",
         "The iframe must have been downloaded"
@@ -232,7 +232,7 @@ describe("API: resource loading configuration", () => {
       dom.window.document.body.appendChild(element);
 
       await assertLoaded(element);
-      assert.strictEqual(
+      assert.equal(
         dom.window.frames[0].document.body.textContent,
         "Hello",
         "The frame must have been downloaded"
@@ -497,8 +497,8 @@ describe("API: resource loading configuration", () => {
           assertNotLoaded(element),
           neverRequestedPromise
         ]);
-        assert.strictEqual(dom.window.x, undefined, "The external script must not have run");
-        assert.strictEqual(dom.window.y, 6, "The inline script must have run");
+        assert.equal(dom.window.x, undefined, "The external script must not have run");
+        assert.equal(dom.window.y, 6, "The inline script must have run");
       });
 
       it("should cancel (with no event) an XHR request when closing the window", async () => {
@@ -516,7 +516,7 @@ describe("API: resource loading configuration", () => {
           assertNotLoaded(xhr),
           neverRequestedPromise
         ]);
-        assert.isFalse(xhr.abortFired);
+        assert.equal(xhr.abortFired, false);
       });
 
       it("should abort an image request when closing the window", async () => {
@@ -567,8 +567,8 @@ describe("API: resource loading configuration", () => {
           assertNotLoaded(element),
           neverRequestedPromise
         ]);
-        assert.strictEqual(dom.window.x, undefined, "The script must not have run");
-        assert.strictEqual(dom.window.y, 6, "The inline script must have run");
+        assert.equal(dom.window.x, undefined, "The script must not have run");
+        assert.equal(dom.window.y, 6, "The inline script must have run");
       });
 
       it("should abort (with no events) an XHR request when stopping the window", async () => {
@@ -586,7 +586,7 @@ describe("API: resource loading configuration", () => {
           assertNotLoaded(xhr),
           neverRequestedPromise
         ]);
-        assert.isFalse(xhr.abortFired);
+        assert.equal(xhr.abortFired, false);
       });
     });
   });
@@ -605,8 +605,8 @@ describe("API: resource loading configuration", () => {
       const resourceLoader = new RecordingResourceLoader();
 
       const dom = await JSDOM.fromURL(url, { resources: resourceLoader });
-      assert.isTrue(resourceLoader.called);
-      assert.strictEqual(dom.window.document.body.textContent, "Hello");
+      assert.equal(resourceLoader.called, true);
+      assert.equal(dom.window.document.body.textContent, "Hello");
     });
 
     // Just this one as a smoke test; no need to repeat all of the above.
@@ -622,12 +622,12 @@ describe("API: resource loading configuration", () => {
       dom.window.document.body.appendChild(element);
 
       await assertLoaded(element);
-      assert.strictEqual(
+      assert.equal(
         dom.window.frames[0].document.body.textContent,
         "Hello",
         "The frame must have been downloaded"
       );
-      assert.isTrue(resourceLoader.called, "The custom resource should be called");
+      assert.equal(resourceLoader.called, true, "The custom resource should be called");
     });
 
     it("should be able to change the user agent", async () => {
@@ -636,10 +636,10 @@ describe("API: resource loading configuration", () => {
 
       const dom = await JSDOM.fromURL(url, { resources: resourceLoader });
 
-      assert.strictEqual(dom.window.navigator.userAgent, "test user agent");
+      assert.equal(dom.window.navigator.userAgent, "test user agent");
       return new Promise(resolve => {
         dom.window.onload = () => {
-          assert.strictEqual(dom.window.frames[0].navigator.userAgent, "test user agent");
+          assert.equal(dom.window.frames[0].navigator.userAgent, "test user agent");
           resolve();
         };
       });
@@ -669,7 +669,7 @@ describe("API: resource loading configuration", () => {
       return new Promise(resolve => {
         dom.window.done = resolve;
       }).then(() => {
-        assert.strictEqual(proxyServerRequestCount, 3);
+        assert.equal(proxyServerRequestCount, 3);
         return Promise.all([
           mainServer.destroy(),
           proxyServer.destroy()
@@ -694,7 +694,7 @@ describe("API: resource loading configuration", () => {
         dom.window.document.body.appendChild(element);
 
         await assertLoaded(element);
-        assert.instanceOf(resourceLoader.options.element, dom.window.HTMLScriptElement);
+        assert(resourceLoader.options.element instanceof dom.window.HTMLScriptElement);
       });
 
       it("should receive stylesheet link elements in options", async () => {
@@ -714,7 +714,7 @@ describe("API: resource loading configuration", () => {
         dom.window.document.body.appendChild(element);
 
         await assertLoaded(element);
-        assert.instanceOf(resourceLoader.options.element, dom.window.HTMLLinkElement);
+        assert(resourceLoader.options.element instanceof dom.window.HTMLLinkElement);
       });
 
       it("should receive frame elements in options", async () => {
@@ -733,7 +733,7 @@ describe("API: resource loading configuration", () => {
         dom.window.document.body.appendChild(element);
 
         await assertLoaded(element);
-        assert.instanceOf(resourceLoader.options.element, dom.window.HTMLIFrameElement);
+        assert(resourceLoader.options.element instanceof dom.window.HTMLIFrameElement);
       });
 
       if (canvas) {
@@ -749,7 +749,7 @@ describe("API: resource loading configuration", () => {
           dom.window.document.body.appendChild(element);
 
           await assertLoaded(element);
-          assert.instanceOf(resourceLoader.options.element, dom.window.HTMLImageElement);
+          assert(resourceLoader.options.element instanceof dom.window.HTMLImageElement);
         });
       }
     });
@@ -762,12 +762,12 @@ describe("API: resource loading configuration", () => {
 
       it("should have a default user agent following the correct pattern", () => {
         const dom = new JSDOM(``, { resources });
-        assert.strictEqual(dom.window.navigator.userAgent, expected);
+        assert.equal(dom.window.navigator.userAgent, expected);
       });
 
       it("should inherit the default user agent to iframes", () => {
         const dom = new JSDOM(`<iframe></iframe>`, { resources });
-        assert.strictEqual(dom.window.frames[0].navigator.userAgent, expected);
+        assert.equal(dom.window.frames[0].navigator.userAgent, expected);
       });
     });
   }
@@ -917,24 +917,24 @@ function setUpLoadingAsserts(loadable) {
 
 function assertNotLoaded(loadable) {
   return delay(30).then(() => {
-    assert.isFalse(loadable.loadFired, "The load event must not fire");
-    assert.isFalse(loadable.errorFired, "The error event must not fire");
+    assert.equal(loadable.loadFired, false, "The load event must not fire");
+    assert.equal(loadable.errorFired, false, "The error event must not fire");
   });
 }
 
 function assertLoaded(loadable) {
   return loadable.loadPromise
     .then(() => {
-      assert.isTrue(loadable.loadFired, "The load event must fire");
-      assert.isFalse(loadable.errorFired, "The error event must not fire");
+      assert.equal(loadable.loadFired, true, "The load event must fire");
+      assert.equal(loadable.errorFired, false, "The error event must not fire");
     });
 }
 
 function assertError(loadable) {
   return loadable.loadPromise
     .then(() => {
-      assert.isFalse(loadable.loadFired, "The load event must not fire");
-      assert.isTrue(loadable.errorFired, "The error event must fire");
+      assert.equal(loadable.loadFired, false, "The load event must not fire");
+      assert.equal(loadable.errorFired, true, "The error event must fire");
     });
 }
 

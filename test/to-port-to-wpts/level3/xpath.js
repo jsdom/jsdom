@@ -1,4 +1,5 @@
-const { assert } = require("chai");
+"use strict";
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../../..");
@@ -104,24 +105,24 @@ describe("xpath", () => {
   });
   specify("testTryPopLiteral", function() {
     var s = new xpath.Stream('"ab" + \'c d\' e "');  // dangling " at end
-    assert.equal('ab', s.trypopliteral());
-    assert.equal(null, s.trypopliteral());
-    assert.equal('+', s.pop());
-    assert.equal('c d', s.trypopliteral());
-    assert.equal(null, s.trypopliteral());
-    assert.equal('e', s.pop());
-    assert.equal(null, s.trypopliteral());  // dangling " doesn't become a token.
-    assert.equal(null, s.pop());
+    assert.equal(s.trypopliteral(), 'ab');
+    assert.equal(s.trypopliteral(), null);
+    assert.equal(s.pop(), '+');
+    assert.equal(s.trypopliteral(), 'c d');
+    assert.equal(s.trypopliteral(), null);
+    assert.equal(s.pop(), 'e');
+    assert.equal(s.trypopliteral(), null);  // dangling " doesn't become a token.
+    assert.equal(s.pop(), null);
   });
   specify("testTryPopNumber", function() {
     var s = new xpath.Stream('.2 + 3.4 -5 .');
     assert.equal(.2, s.trypopnumber());
     assert.equal(null, s.trypopnumber());
     assert.equal('+', s.pop());
-    assert.equal('3.4', s.trypopnumber());
+    assert.equal(3.4, s.trypopnumber());
     assert.equal(null, s.trypopnumber());
     assert.equal('-', s.pop());
-    assert.equal('5', s.trypopnumber());
+    assert.equal(5, s.trypopnumber());
 
     // . by itself isn't a number.
     assert.equal(null, s.trypopnumber());
@@ -408,6 +409,7 @@ describe("xpath", () => {
     const doc = (new JSDOM('<html><body><div>a<div>b</div></div></body></html>')).window.document;
     var div0 = doc.getElementsByTagName('div')[0],
         div1 = doc.getElementsByTagName('div')[1];
+    var fn;
     if (andSelf) fn = xpath.axes['descendant-or-self'];
     else fn = xpath.axes.descendant;
     var newCtx = fn([div0], xpath.nodeTypes.element, 'div', true).simplify();
@@ -1131,13 +1133,13 @@ describe("xpath", () => {
 
   specify("NIST_coreFunction081", function() {
     const document = (new JSDOM("<doc/>", { contentType: "application/xml" })).window.document;
-    assert.equal(0,
+    assert.equal(-0,
             xpath.evaluate("round(-0)", document, document));
   });
 
   specify("NIST_coreFunction082", function() {
     const document = (new JSDOM("<doc/>", { contentType: "application/xml" })).window.document;
-    assert.equal(0,
+    assert.equal(-0,
             xpath.evaluate("round(-0.25)", document, document));
   });
 
@@ -1323,7 +1325,7 @@ describe("xpath", () => {
     good_child1.appendChild(text);
     var element2 = document.createElement("element2");
     doc.appendChild(element2);
-    child1 = document.createElement("child1");
+    var child1 = document.createElement("child1");
     element2.appendChild(child1);
     text = document.createTextNode("Incorrect Execution!!");
     child1.appendChild(text);
