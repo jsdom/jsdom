@@ -4,3 +4,4 @@
 [submodule "benchmark/selectors/sizzle"]
 	path = benchmark/selectors/sizzle
 	url = https://github.com/jquery/sizzle.git
+	branch = main
