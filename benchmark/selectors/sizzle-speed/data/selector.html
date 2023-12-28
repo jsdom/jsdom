@@ -3277,49 +3277,5 @@
 		<!---->
 	</dl>
 	<!--end-informative-->
-
-	<script>
-		var suite, callback;
-		(function() {
-			var parts, engine,
-				params = {},
-				search = location.search.substring(1).split("&"),
-				i = 0,
-				len = search.length;
-
-			// Construct parameters object
-			for ( ; i < len; i++ ) {
-				parts = search[i].split("=");
-				params[ decodeURIComponent(parts[0]) ] = parts[1] ? decodeURIComponent( parts[1] ) : "true";
-			}
-
-			suite = params.suite;
-			callback = params.callback;
-
-			if ( (engine = params.engine) && engine !== "qsa" ) {
-
-				// Nullify QSA for testing
-				// unless otherwise specified
-				if ( params.qsa !== "true" ) {
-					document.querySelector = document.querySelectorAll = null;
-				}
-
-				if ( engine === "sizzle" ) {
-					engine = "../../dist/sizzle.js";
-				} else {
-					engine = "../../external/" + engine + ".js";
-				}
-
-				document.write("<scr" + "ipt src='" + engine + "'></scr" + "ipt>");
-			}
-		})();
-	</script>
-	<script>
-		// Using OR here to throw an error if one is present but not the other
-		// Does not throw an error if someone is just looking at this page
-		if ( suite != null || callback != null ) {
-			window.parent.iframeCallbacks[ suite ][ callback ].call( window, document );
-		}
-	</script>
 </body>
 </html>
