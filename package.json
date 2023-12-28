@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": "jsdom/jsdom",
   "dependencies": {
-    "cssstyle": "^3.0.0",
+    "cssstyle": "^4.0.1",
     "data-urls": "^5.0.0",
     "decimal.js": "^10.4.3",
     "form-data": "^4.0.0",
@@ -39,7 +39,7 @@
     "whatwg-encoding": "^3.1.1",
     "whatwg-mimetype": "^4.0.0",
     "whatwg-url": "^14.0.0",
-    "ws": "^8.14.2",
+    "ws": "^8.16.0",
     "xml-name-validator": "^5.0.0"
   },
   "peerDependencies": {
@@ -54,7 +54,7 @@
     "@domenic/eslint-config": "^3.0.0",
     "benchmark": "^2.1.4",
     "chai": "^4.3.10",
-    "eslint": "^8.54.0",
+    "eslint": "^8.56.0",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-jsdom-internal": "file:./scripts/eslint-plugin",
     "js-yaml": "^4.1.0",
