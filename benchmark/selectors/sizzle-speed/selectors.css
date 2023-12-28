@@ -1,0 +1,48 @@
+.note
+#title
+h1#title
+div #title
+div.example
+ul .tocline2
+.title
+.toc
+.toc .tocline2
+.tocline2, .tocline3, .tocline4
+div.example, div.note
+body
+div
+body div
+div p
+div > p
+div + p
+div ~ p
+div[class^=exa][class$=mple]
+div p a
+div > p > a
+div.example > p > a
+div + p + a
+div ~ p ~ p
+div, p, a
+ul.toc li.tocline2
+ul.toc > li.tocline2
+h1#title + div > p
+h1[id]:contains(Selectors)
+a[href][lang][class]
+div[class]
+div[class=example]
+div[class^=exa]
+div[class$=mple]
+div[class*=e]
+div[class|=dialog]
+div[class!=made_up]
+div[class~=example]
+div:not(.example)
+p:contains(selectors)
+p:nth-child(even)
+p:nth-child(2n)
+p:nth-child(odd)
+p:nth-child(2n+1)
+p:nth-child(n)
+p:only-child
+p:last-child
+p:first-child
