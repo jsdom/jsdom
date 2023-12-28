@@ -1,9 +1,9 @@
 "use strict";
+const { describe, before, after, test } = require("node:test");
 const path = require("path");
 const fs = require("fs");
 const jsYAML = require("js-yaml");
 const { Minimatch } = require("minimatch");
-const { describe, specify, before, after } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const wptServer = require("./wpt-server.js");
 const { resolveReason, killSubprocess } = require("./utils.js");
@@ -39,17 +39,17 @@ checkToRun();
 
 let wptServerURL, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-before({ timeout: 30_000 }, async () => {
+before(async () => {
   const { urls, subprocess } = await wptServer.start({ toUpstream: false });
   wptServerURL = urls[0];
   serverProcess = subprocess;
-});
+}, { timeout: 30_000 });
 
 after(() => {
   killSubprocess(serverProcess);
 });
 
-describe("web-platform-tests", () => {
+describe("web-platform-tests", { concurrency: 4 }, () => {
   for (const toRunDoc of toRunDocs) {
     describe(toRunDoc.DIR, () => {
       for (const testFilePath of possibleTestFilePaths) {
@@ -77,7 +77,7 @@ describe("web-platform-tests", () => {
 
           switch (resolveReason(reason)) {
             case "skip": {
-              specify.skip(`[${reason}] ${testFile}`);
+              test.skip(`[${reason}] ${testFile}`);
               break;
             }
 

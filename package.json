@@ -68,8 +68,8 @@
   "scripts": {
     "prepare": "npm run convert-idl && npm run generate-js-globals",
     "pretest": "npm run prepare && npm run init-wpt",
-    "test-wpt": "mocha test/web-platform-tests/run-wpts.js",
-    "test-tuwpt": "mocha test/web-platform-tests/run-tuwpts.js",
+    "test-wpt": "node --test test/web-platform-tests/run-wpts.js",
+    "test-tuwpt": "node --test test/web-platform-tests/run-tuwpts.js",
     "test-mocha": "mocha",
     "test-api": "mocha test/api",
     "test": "mocha test/index.js",
