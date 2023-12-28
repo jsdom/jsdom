@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -12,8 +12,8 @@ describe("history", () => {
       const { window } = new JSDOM();
 
       assert.ok(window.history);
-      assert.strictEqual(window.history.state, null);
-      assert.strictEqual(window.history.length, 1);
+      assert.equal(window.history.state, null);
+      assert.equal(window.history.length, 1);
     }
   );
 
@@ -28,28 +28,28 @@ describe("history", () => {
 
       // Absolute path
       window.history.pushState({ foo: "one" }, "unused title", "/bar/baz#fuzz");
-      assert.strictEqual(window.history.length, 2);
-      assert.strictEqual(window.history.state.foo, "one");
-      assert.strictEqual(window.location.pathname, "/bar/baz");
-      assert.strictEqual(window.location.hash, "#fuzz");
+      assert.equal(window.history.length, 2);
+      assert.equal(window.history.state.foo, "one");
+      assert.equal(window.location.pathname, "/bar/baz");
+      assert.equal(window.location.hash, "#fuzz");
 
       window.history.pushState({ foo: "two" }, "unused title 2", "/bar/foo#boo");
-      assert.strictEqual(window.history.length, 3);
-      assert.strictEqual(window.history.state.foo, "two");
-      assert.strictEqual(window.location.pathname, "/bar/foo");
-      assert.strictEqual(window.location.hash, "#boo");
+      assert.equal(window.history.length, 3);
+      assert.equal(window.history.state.foo, "two");
+      assert.equal(window.location.pathname, "/bar/foo");
+      assert.equal(window.location.hash, "#boo");
 
       // Relative path
       window.history.pushState({ foo: "three" }, "unused title 3", "fizz");
-      assert.strictEqual(window.history.length, 4);
-      assert.strictEqual(window.history.state.foo, "three");
-      assert.strictEqual(window.location.pathname, "/bar/fizz");
-      assert.strictEqual(window.location.hash, "");
+      assert.equal(window.history.length, 4);
+      assert.equal(window.history.state.foo, "three");
+      assert.equal(window.location.pathname, "/bar/fizz");
+      assert.equal(window.location.hash, "");
 
       window.history.replaceState({ foo: "four" }, "unused title 4", "/buzz");
-      assert.strictEqual(window.history.length, 4);
-      assert.strictEqual(window.history.state.foo, "four");
-      assert.strictEqual(window.location.pathname, "/buzz");
+      assert.equal(window.history.length, 4);
+      assert.equal(window.history.state.foo, "four");
+      assert.equal(window.location.pathname, "/buzz");
     }
   );
 
@@ -68,62 +68,62 @@ describe("history", () => {
       });
 
       // Sanity check
-      assert.strictEqual(window.history.length, 4);
-      assert.strictEqual(window.history.state.foo, "buzz");
-      assert.strictEqual(window.location.pathname, "/buzz");
+      assert.equal(window.history.length, 4);
+      assert.equal(window.history.state.foo, "buzz");
+      assert.equal(window.location.pathname, "/buzz");
 
       // Test forward boundary
       window.history.forward();
-      assert.strictEqual(window.history.length, 4);
-      assert.strictEqual(window.history.state.foo, "buzz");
-      assert.strictEqual(window.location.pathname, "/buzz");
+      assert.equal(window.history.length, 4);
+      assert.equal(window.history.state.foo, "buzz");
+      assert.equal(window.location.pathname, "/buzz");
 
       window.history.back();
-      assert.strictEqual(window.history.length, 4);
+      assert.equal(window.history.length, 4);
 
       // Should not change immediately.
-      assert.strictEqual(window.history.state.foo, "buzz");
-      assert.strictEqual(window.location.pathname, "/buzz");
+      assert.equal(window.history.state.foo, "buzz");
+      assert.equal(window.location.pathname, "/buzz");
 
       setTimeout(() => {
         // Should not even change after one task!
-        assert.strictEqual(window.history.state.foo, "buzz");
-        assert.strictEqual(window.location.pathname, "/buzz");
+        assert.equal(window.history.state.foo, "buzz");
+        assert.equal(window.location.pathname, "/buzz");
 
         setTimeout(() => {
           // It takes two tasks to change!
-          assert.strictEqual(window.history.state.foo, "baz");
-          assert.strictEqual(window.location.pathname, "/baz");
+          assert.equal(window.history.state.foo, "baz");
+          assert.equal(window.location.pathname, "/baz");
 
           // From hereon out we just assume this is correct and wait for it.
 
           window.history.back();
           waitForHistoryChange(() => {
-            assert.strictEqual(window.history.length, 4);
-            assert.strictEqual(window.history.state.foo, "bar");
-            assert.strictEqual(window.location.pathname, "/bar");
+            assert.equal(window.history.length, 4);
+            assert.equal(window.history.state.foo, "bar");
+            assert.equal(window.location.pathname, "/bar");
 
             window.history.back();
 
             waitForHistoryChange(() => {
-              assert.strictEqual(window.history.length, 4);
-              assert.strictEqual(window.history.state, null);
-              assert.strictEqual(window.location.pathname, initialPath);
+              assert.equal(window.history.length, 4);
+              assert.equal(window.history.state, null);
+              assert.equal(window.location.pathname, initialPath);
 
               // Test backward boundary
               window.history.back();
 
               waitForHistoryChange(() => {
-                assert.strictEqual(window.history.length, 4);
-                assert.strictEqual(window.history.state, null);
-                assert.strictEqual(window.location.pathname, initialPath);
+                assert.equal(window.history.length, 4);
+                assert.equal(window.history.state, null);
+                assert.equal(window.location.pathname, initialPath);
 
                 window.history.go(2);
 
                 waitForHistoryChange(() => {
-                  assert.strictEqual(window.history.length, 4);
-                  assert.strictEqual(window.history.state.foo, "baz");
-                  assert.strictEqual(window.location.pathname, "/baz");
+                  assert.equal(window.history.length, 4);
+                  assert.equal(window.history.state.foo, "baz");
+                  assert.equal(window.location.pathname, "/baz");
 
                   t.done();
                 });
@@ -150,22 +150,22 @@ describe("history", () => {
       });
 
       // Sanity check
-      assert.strictEqual(window.history.length, 4);
-      assert.strictEqual(window.history.state.foo, "buzz");
-      assert.strictEqual(window.location.pathname, "/buzz");
+      assert.equal(window.history.length, 4);
+      assert.equal(window.history.state.foo, "buzz");
+      assert.equal(window.location.pathname, "/buzz");
       window.history.go(-2);
 
       waitForHistoryChange(() => {
-        assert.strictEqual(window.history.length, 4);
-        assert.strictEqual(window.history.state.foo, "bar");
-        assert.strictEqual(window.location.pathname, "/bar");
+        assert.equal(window.history.length, 4);
+        assert.equal(window.history.state.foo, "bar");
+        assert.equal(window.location.pathname, "/bar");
 
         // Call pushState when index is behind length
         window.history.pushState({ foo: "bar-b" }, "title 2b", "/bar/b");
 
-        assert.strictEqual(window.history.length, 3);
-        assert.strictEqual(window.history.state.foo, "bar-b");
-        assert.strictEqual(window.location.pathname, "/bar/b");
+        assert.equal(window.history.length, 3);
+        assert.equal(window.history.state.foo, "bar-b");
+        assert.equal(window.location.pathname, "/bar/b");
 
         t.done();
       });
@@ -181,9 +181,9 @@ describe("history", () => {
       const state = { foo: "bar" };
 
       window.addEventListener("popstate", event => {
-        assert.strictEqual(event.bubbles, false);
-        assert.strictEqual(event.cancelable, false);
-        assert.strictEqual(event.state, state);
+        assert.equal(event.bubbles, false);
+        assert.equal(event.cancelable, false);
+        assert.equal(event.state, state);
 
         t.done();
       });

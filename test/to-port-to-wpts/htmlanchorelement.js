@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -11,7 +11,7 @@ describe("htmlanchorelement", () => {
       url: "file:///base/path.html"
     });
 
-    assert.strictEqual(window.document.querySelector("#one").href, "file:///foo.pdf");
-    assert.strictEqual(window.document.querySelector("#two").href, "file:///base/foo.pdf");
+    assert.equal(window.document.querySelector("#one").href, "file:///foo.pdf");
+    assert.equal(window.document.querySelector("#two").href, "file:///base/foo.pdf");
   });
 });

@@ -1,6 +1,6 @@
 "use strict";
 const zlib = require("zlib");
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const { createServer } = require("../util.js");
 
@@ -8,28 +8,26 @@ const jsdom = require("../..");
 const { JSDOM } = require("../..");
 const { version: packageVersion } = require("../../package.json");
 
-require("chai").use(require("../chai-helpers.js"));
-
 describe("API: JSDOM.fromURL()", () => {
   describe("common tests", () => {
     it("should return a rejected promise for a bad URL", () => {
       return Promise.all([
-        assert.isRejected(JSDOM.fromURL("asdf"), TypeError),
-        assert.isRejected(JSDOM.fromURL(undefined), TypeError),
-        assert.isRejected(JSDOM.fromURL("fail.com"), TypeError)
+        assert.rejects(JSDOM.fromURL("asdf"), TypeError),
+        assert.rejects(JSDOM.fromURL(undefined), TypeError),
+        assert.rejects(JSDOM.fromURL("fail.com"), TypeError)
       ]);
     });
 
     it("should reject when passing an invalid absolute URL for referrer", () => {
-      assert.isRejected(JSDOM.fromURL("http://example.com/", { referrer: "asdf" }), TypeError);
+      assert.rejects(JSDOM.fromURL("http://example.com/", { referrer: "asdf" }), TypeError);
     });
 
     it("should disallow passing a URL manually", () => {
-      return assert.isRejected(JSDOM.fromURL("http://example.com/", { url: "https://example.org" }), TypeError);
+      return assert.rejects(JSDOM.fromURL("http://example.com/", { url: "https://example.org" }), TypeError);
     });
 
     it("should disallow passing a content type manually", () => {
-      return assert.isRejected(JSDOM.fromURL("http://example.com/", { contentType: "application/xml" }), TypeError);
+      return assert.rejects(JSDOM.fromURL("http://example.com/", { contentType: "application/xml" }), TypeError);
     });
   });
 
@@ -37,27 +35,27 @@ describe("API: JSDOM.fromURL()", () => {
     it("should return a rejected promise for a 404", async () => {
       const url = await simpleServer(404);
 
-      return assert.isRejected(JSDOM.fromURL(url));
+      return assert.rejects(JSDOM.fromURL(url));
     });
 
     it("should return a rejected promise for a 500", async () => {
       const url = await simpleServer(500);
 
-      return assert.isRejected(JSDOM.fromURL(url));
+      return assert.rejects(JSDOM.fromURL(url));
     });
 
     it("should use the body of 200 responses", async () => {
       const url = await simpleServer(200, { "Content-Type": "text/html" }, "<p>Hello</p>");
 
       const dom = await JSDOM.fromURL(url);
-      assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Hello</p></body></html>");
+      assert.equal(dom.serialize(), "<html><head></head><body><p>Hello</p></body></html>");
     });
 
     it("should use the body of 301 responses", async () => {
       const [requestURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
       const dom = await JSDOM.fromURL(requestURL);
-      assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Hello</p></body></html>");
+      assert.equal(dom.serialize(), "<html><head></head><body><p>Hello</p></body></html>");
     });
 
     it("should be able to handle gzipped bodies", async () => {
@@ -66,7 +64,7 @@ describe("API: JSDOM.fromURL()", () => {
       const url = await simpleServer(200, headers, body);
 
       const dom = await JSDOM.fromURL(url);
-      assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Hello world!</p></body></html>");
+      assert.equal(dom.serialize(), "<html><head></head><body><p>Hello world!</p></body></html>");
     });
 
     it("should send a HTML-preferring Accept header", async () => {
@@ -76,7 +74,7 @@ describe("API: JSDOM.fromURL()", () => {
       });
 
       await JSDOM.fromURL(url);
-      assert.strictEqual(recordedHeader, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+      assert.equal(recordedHeader, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
     });
 
     it("should send an Accept-Language: en header", async () => {
@@ -86,7 +84,7 @@ describe("API: JSDOM.fromURL()", () => {
       });
 
       await JSDOM.fromURL(url);
-      assert.strictEqual(recordedHeader, "en");
+      assert.equal(recordedHeader, "en");
     });
 
     describe("user agent", () => {
@@ -100,8 +98,8 @@ describe("API: JSDOM.fromURL()", () => {
         });
 
         const dom = await JSDOM.fromURL(url);
-        assert.strictEqual(recordedHeader, expected);
-        assert.strictEqual(dom.window.navigator.userAgent, expected);
+        assert.equal(recordedHeader, expected);
+        assert.equal(dom.window.navigator.userAgent, expected);
       });
     });
 
@@ -113,8 +111,8 @@ describe("API: JSDOM.fromURL()", () => {
         });
 
         const dom = await JSDOM.fromURL(url);
-        assert.strictEqual(hasHeader, false);
-        assert.strictEqual(dom.window.document.referrer, "");
+        assert.equal(hasHeader, false);
+        assert.equal(dom.window.document.referrer, "");
       });
 
       it("should use the supplied referrer option as a Referer header", async () => {
@@ -124,8 +122,8 @@ describe("API: JSDOM.fromURL()", () => {
         });
 
         const dom = await JSDOM.fromURL(url, { referrer: "http://example.com/" });
-        assert.strictEqual(recordedHeader, "http://example.com/");
-        assert.strictEqual(dom.window.document.referrer, "http://example.com/");
+        assert.equal(recordedHeader, "http://example.com/");
+        assert.equal(dom.window.document.referrer, "http://example.com/");
       });
 
       it("should canonicalize referrer URLs before using them as a Referer header", async () => {
@@ -135,15 +133,15 @@ describe("API: JSDOM.fromURL()", () => {
         });
 
         const dom = await JSDOM.fromURL(url, { referrer: "http:example.com" });
-        assert.strictEqual(recordedHeader, "http://example.com/");
-        assert.strictEqual(dom.window.document.referrer, "http://example.com/");
+        assert.equal(recordedHeader, "http://example.com/");
+        assert.equal(dom.window.document.referrer, "http://example.com/");
       });
 
       it("should use the redirect source URL as the referrer, overriding a provided one", async () => {
         const [requestURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
         const dom = await JSDOM.fromURL(requestURL, { referrer: "http://example.com/" });
-        assert.strictEqual(dom.window.document.referrer, requestURL);
+        assert.equal(dom.window.document.referrer, requestURL);
       });
     });
 
@@ -153,7 +151,7 @@ describe("API: JSDOM.fromURL()", () => {
           const url = await simpleServer(200, { "Content-Type": "text/html" });
 
           const dom = await JSDOM.fromURL(url);
-          assert.strictEqual(dom.window.document.URL, url);
+          assert.equal(dom.window.document.URL, url);
         });
 
         it("should preserve full request URL", async () => {
@@ -164,26 +162,26 @@ describe("API: JSDOM.fromURL()", () => {
           const fullURL = url + path + search + fragment;
 
           const dom = await JSDOM.fromURL(fullURL);
-          assert.strictEqual(dom.window.document.URL, fullURL);
-          assert.strictEqual(dom.window.location.href, fullURL);
-          assert.strictEqual(dom.window.location.pathname, "/" + path);
-          assert.strictEqual(dom.window.location.search, search);
-          assert.strictEqual(dom.window.location.hash, fragment);
+          assert.equal(dom.window.document.URL, fullURL);
+          assert.equal(dom.window.location.href, fullURL);
+          assert.equal(dom.window.location.pathname, "/" + path);
+          assert.equal(dom.window.location.search, search);
+          assert.equal(dom.window.location.hash, fragment);
         });
 
         it("should use the ultimate response URL after a redirect", async () => {
           const [requestURL, responseURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
           const dom = await JSDOM.fromURL(requestURL);
-          assert.strictEqual(dom.window.document.URL, responseURL);
+          assert.equal(dom.window.document.URL, responseURL);
         });
 
         it("should preserve fragments when processing redirects", async () => {
           const [requestURL, responseURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
 
           const dom = await JSDOM.fromURL(requestURL + "#fragment");
-          assert.strictEqual(dom.window.document.URL, responseURL + "#fragment");
-          assert.strictEqual(dom.window.location.hash, "#fragment");
+          assert.equal(dom.window.document.URL, responseURL + "#fragment");
+          assert.equal(dom.window.location.hash, "#fragment");
         });
       });
 
@@ -192,7 +190,7 @@ describe("API: JSDOM.fromURL()", () => {
           const url = await simpleServer(200, { "Content-Type": "application/xml" }, "<doc/>");
 
           const dom = await JSDOM.fromURL(url);
-          assert.strictEqual(dom.window.document.contentType, "application/xml");
+          assert.equal(dom.window.document.contentType, "application/xml");
         });
 
         it("should use the ultimate response content type after a redirect", async () => {
@@ -203,7 +201,7 @@ describe("API: JSDOM.fromURL()", () => {
           );
 
           const dom = await JSDOM.fromURL(requestURL);
-          assert.strictEqual(dom.window.document.contentType, "application/xml");
+          assert.equal(dom.window.document.contentType, "application/xml");
         });
       });
     });
@@ -219,8 +217,8 @@ describe("API: JSDOM.fromURL()", () => {
         cookieJar.setCookieSync("foo=bar", url);
 
         const dom = await JSDOM.fromURL(url, { cookieJar });
-        assert.strictEqual(recordedHeader, "foo=bar");
-        assert.strictEqual(dom.window.document.cookie, "foo=bar");
+        assert.equal(recordedHeader, "foo=bar");
+        assert.equal(dom.window.document.cookie, "foo=bar");
       });
 
       it("should store cookies set by the server in a supplied cookie jar", async () => {
@@ -229,16 +227,16 @@ describe("API: JSDOM.fromURL()", () => {
         const cookieJar = new jsdom.CookieJar();
 
         const dom = await JSDOM.fromURL(url, { cookieJar });
-        assert.strictEqual(cookieJar.getCookieStringSync(url), "bar=baz");
-        assert.strictEqual(dom.window.document.cookie, "bar=baz");
+        assert.equal(cookieJar.getCookieStringSync(url), "bar=baz");
+        assert.equal(dom.window.document.cookie, "bar=baz");
       });
 
       it("should store cookies set by the server in a newly-created cookie jar", async () => {
         const url = await simpleServer(200, { "Set-Cookie": "baz=qux", "Content-Type": "text/html" });
 
         const dom = await JSDOM.fromURL(url);
-        assert.strictEqual(dom.cookieJar.getCookieStringSync(url), "baz=qux");
-        assert.strictEqual(dom.window.document.cookie, "baz=qux");
+        assert.equal(dom.cookieJar.getCookieStringSync(url), "baz=qux");
+        assert.equal(dom.window.document.cookie, "baz=qux");
       });
     });
   });

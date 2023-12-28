@@ -53,7 +53,6 @@
   "devDependencies": {
     "@domenic/eslint-config": "^3.0.0",
     "benchmark": "^2.1.4",
-    "chai": "^4.3.10",
     "eslint": "^8.56.0",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-jsdom-internal": "file:./scripts/eslint-plugin",

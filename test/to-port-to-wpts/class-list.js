@@ -1,6 +1,7 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
+const { assertThrowsDOMException } = require("../assert-helpers.js");
 const { beforeEach, describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -97,7 +98,7 @@ describe("class-list", () => {
       el.classList.add("foo", "");
     }
 
-    assert.throwsDomException(block, el.ownerDocument, "SyntaxError");
+    assertThrowsDOMException(block, el.ownerDocument, "SyntaxError");
   });
 
   specify(".add() throws if a token contains whitespace", () => {
@@ -105,7 +106,7 @@ describe("class-list", () => {
       el.classList.add("  foo", "bar");
     }
 
-    assert.throwsDomException(block, el.ownerDocument, "InvalidCharacterError");
+    assertThrowsDOMException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
   specify(".remove(tokens...) removes provided tokens", () => {
@@ -145,7 +146,7 @@ describe("class-list", () => {
       el.classList.remove("foo", "");
     }
 
-    assert.throwsDomException(block, el.ownerDocument, "SyntaxError");
+    assertThrowsDOMException(block, el.ownerDocument, "SyntaxError");
   });
 
   specify(".remove() throws if a token contains whitespace", () => {
@@ -153,7 +154,7 @@ describe("class-list", () => {
       el.classList.remove("  foo", "bar");
     }
 
-    assert.throwsDomException(block, el.ownerDocument, "InvalidCharacterError");
+    assertThrowsDOMException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
   specify(".toggle(token) toggles specified token", () => {
@@ -213,7 +214,7 @@ describe("class-list", () => {
       el.classList.toggle("");
     }
 
-    assert.throwsDomException(block, el.ownerDocument, "SyntaxError");
+    assertThrowsDOMException(block, el.ownerDocument, "SyntaxError");
   });
 
   specify(".toggle() throws if a token contains whitespace", () => {
@@ -221,7 +222,7 @@ describe("class-list", () => {
       el.classList.toggle("  foo");
     }
 
-    assert.throwsDomException(block, el.ownerDocument, "InvalidCharacterError");
+    assertThrowsDOMException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
   specify("accessing classList should not remove duplicates", () => {

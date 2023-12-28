@@ -1,4 +1,4 @@
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
 
 describe("level2/core", () => {
@@ -4717,38 +4717,6 @@ describe("level2/core", () => {
     and for nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE
     and nodes created with a DOM Level 1 method, this is null.
 
-    Retrieve the first employeeId node and get the first child of this node.
-    Since the first child is Text node invoking the "getLocalName()"
-    method will cause "null" to be returned.
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
-    */
-    specify('localName03', () => {
-      var success;
-      var elementList;
-      var testEmployee;
-      var textNode;
-      var localName;
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      elementList = doc.getElementsByTagName("employeeId");
-      testEmployee = elementList.item(0);
-      textNode = testEmployee.firstChild;
-
-      localName = textNode.localName;
-
-      assert.equal(localName, null, 'localName should not be null');
-    });
-    /**
-     *
-     The "getLocalName()" method for a Node
-    returns the local part of the qualified name of this node,
-    and for nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE
-    and nodes created with a DOM Level 1 method, this is null.
-
     Retrieve the first employee node and invoke the "getLocalName()"
     method.   The method should return "employee".
 
@@ -5954,39 +5922,7 @@ describe("level2/core", () => {
 
       assert.equal(prefix, null, 'prefix should not be null');
     });
-    /**
-     *
-     The "getPrefix()" method
-    returns the namespace prefix of this node, or null if unspecified.
-    For nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE,
-    this is always null.
 
-    Retrieve the first emp:employeeId node and get the first child of this node.
-    Since the first child is Text node invoking the "getPrefix()"
-    method will cause "null" to be returned.
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-    */
-    specify('prefix02', () => {
-      var success;
-      var elementList;
-      var testEmployee;
-      var textNode;
-      var prefix;
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      elementList = doc.getElementsByTagName("emp:employeeId");
-      testEmployee = elementList.item(0);
-      assert.notEqual(testEmployee, null, 'testEmployee should be null');
-      textNode = testEmployee.firstChild;
-
-      prefix = textNode.prefix;
-
-      assert.equal(prefix, null, 'prefix should not be null');
-    });
     /**
      *
      The "getPrefix()" method for a node

@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 
 const { JSDOM, VirtualConsole } = require("../..");
@@ -46,8 +46,8 @@ describe("API: virtual consoles", () => {
     dom1.window.console.log("yay");
     dom2.window.console.warn("yay");
 
-    assert.isTrue(vc1Called, "vc1 must emit a log event");
-    assert.isFalse(vc2Called, "vc2 must not have emitted a log event");
+    assert.equal(vc1Called, true, "vc1 must emit a log event");
+    assert.equal(vc2Called, false, "vc2 must not have emitted a log event");
   });
 
   it("should bubble up messages from iframes", () => {
@@ -69,14 +69,14 @@ describe("API: virtual consoles", () => {
 
     let called = false;
     virtualConsole.on("jsdomError", error => {
-      assert.instanceOf(error, Error);
-      assert.strictEqual(error.message, "Not implemented: window.alert");
+      assert(error instanceof Error);
+      assert.equal(error.message, "Not implemented: window.alert");
       called = true;
     });
 
     dom.window.alert();
 
-    assert.isTrue(called, "The \"jsdomError\" event must have been emitted");
+    assert.equal(called, true, "The \"jsdomError\" event must have been emitted");
   });
 
   describe("passing through arguments", () => {
@@ -88,15 +88,15 @@ describe("API: virtual consoles", () => {
         let called;
         virtualConsole.on(method, (arg1, arg2, arg3, arg4) => {
           called = true;
-          assert.strictEqual(arg1, "1");
-          assert.strictEqual(arg2, 2);
-          assert.strictEqual(arg3, true);
-          assert.strictEqual(arg4, null);
+          assert.equal(arg1, "1");
+          assert.equal(arg2, 2);
+          assert.equal(arg3, true);
+          assert.equal(arg4, null);
         });
 
         dom.window.console[method]("1", 2, true, null);
 
-        assert.isTrue(called, `The method ${method} must be called`);
+        assert.equal(called, true, `The method ${method} must be called`);
       });
     }
   });
@@ -111,17 +111,17 @@ describe("API: virtual consoles", () => {
         const destinationConsole = {
           [method](arg1, arg2, arg3, arg4) {
             called = true;
-            assert.strictEqual(arg1, "1");
-            assert.strictEqual(arg2, 2);
-            assert.strictEqual(arg3, true);
-            assert.strictEqual(arg4, null);
+            assert.equal(arg1, "1");
+            assert.equal(arg2, 2);
+            assert.equal(arg3, true);
+            assert.equal(arg4, null);
           }
         };
         virtualConsole.sendTo(destinationConsole);
 
         dom.window.console[method]("1", 2, true, null);
 
-        assert.isTrue(called, `The method ${method} on the destination console must have been called`);
+        assert.equal(called, true, `The method ${method} on the destination console must have been called`);
       });
     }
 
@@ -129,7 +129,7 @@ describe("API: virtual consoles", () => {
       const virtualConsole = new VirtualConsole();
       const returnValue = virtualConsole.sendTo({});
 
-      assert.strictEqual(returnValue, virtualConsole);
+      assert.equal(returnValue, virtualConsole);
     });
 
     it("should forward \"jsdomError\"s to the error method by default", () => {
@@ -139,14 +139,14 @@ describe("API: virtual consoles", () => {
       let called = false;
       const virtualConsole = (new VirtualConsole()).sendTo({
         error(arg1, arg2) {
-          assert.strictEqual(arg1, e.stack, "The first argument to error must be the stack property");
-          assert.strictEqual(arg2, e.detail, "The second argument to error must be the detail property");
+          assert.equal(arg1, e.stack, "The first argument to error must be the stack property");
+          assert.equal(arg2, e.detail, "The second argument to error must be the detail property");
           called = true;
         }
       });
 
       virtualConsole.emit("jsdomError", e);
-      assert.isTrue(called, "The error method on the destination console must have been called");
+      assert.equal(called, true, "The error method on the destination console must have been called");
     });
 
     it("should not forward \"jsdomError\"s to the error method when asked not to", () => {
@@ -161,7 +161,7 @@ describe("API: virtual consoles", () => {
       }, { omitJSDOMErrors: true });
 
       virtualConsole.emit("jsdomError", e);
-      assert.isFalse(called, "The error method on the destination console must *not* have been called");
+      assert.equal(called, false, "The error method on the destination console must *not* have been called");
     });
   });
 });

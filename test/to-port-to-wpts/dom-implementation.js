@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -28,13 +28,13 @@ describe("dom-implementation", () => {
   specify("defaultView should be null", () => {
     const { document } = (new JSDOM()).window;
     const newDocument = document.implementation.createDocument(null, null, null);
-    assert.strictEqual(newDocument.defaultView, null, "defaultView should be null");
+    assert.equal(newDocument.defaultView, null, "defaultView should be null");
   });
 
   specify("location should be null", () => {
     const { document } = (new JSDOM()).window;
     const newDocument = document.implementation.createHTMLDocument();
-    assert.strictEqual(newDocument.location, null, "location should be null");
+    assert.equal(newDocument.location, null, "location should be null");
   });
 
   specify(
@@ -51,7 +51,7 @@ describe("dom-implementation", () => {
 
       for (const name of proxiedEventHandlers) {
         newDocument.body[name] = "1 + 2";
-        assert.strictEqual(newDocument.body[name], null, name + " should always be null because there is no window");
+        assert.equal(newDocument.body[name], null, name + " should always be null because there is no window");
       }
     }
   );
@@ -64,11 +64,11 @@ describe("dom-implementation", () => {
     // iframe's with a name are added as a property to the window, this line is added to see if things crash
     iframe.setAttribute("name", "foobar");
     newDocument.body.appendChild(iframe);
-    assert.strictEqual(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
-    assert.strictEqual(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
+    assert.equal(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
+    assert.equal(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
 
     iframe.src = "http://example.com/"; // try to trigger a load action
-    assert.strictEqual(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
-    assert.strictEqual(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
+    assert.equal(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
+    assert.equal(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
   });
 });

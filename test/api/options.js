@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 
 const jsdom = require("../..");
@@ -13,7 +13,7 @@ describe("API: constructor options", () => {
       // eslint-disable-next-line no-new
       new JSDOM(``, options);
 
-      assert.strictEqual(Object.getOwnPropertyNames(options).length, 0);
+      assert.equal(Object.getOwnPropertyNames(options).length, 0);
     });
   });
 
@@ -21,7 +21,7 @@ describe("API: constructor options", () => {
     it("should allow customizing document.referrer via the referrer option", () => {
       const { document } = (new JSDOM(``, { referrer: "http://example.com/" })).window;
 
-      assert.strictEqual(document.referrer, "http://example.com/");
+      assert.equal(document.referrer, "http://example.com/");
     });
 
     it("should throw an error when passing an invalid absolute URL for referrer", () => {
@@ -31,13 +31,13 @@ describe("API: constructor options", () => {
     it("should canonicalize referrer URLs", () => {
       const { document } = (new JSDOM(``, { referrer: "http:example.com" })).window;
 
-      assert.strictEqual(document.referrer, "http://example.com/");
+      assert.equal(document.referrer, "http://example.com/");
     });
 
     it("should have a default referrer URL of the empty string", () => {
       const { document } = (new JSDOM()).window;
 
-      assert.strictEqual(document.referrer, "");
+      assert.equal(document.referrer, "");
     });
   });
 
@@ -45,9 +45,9 @@ describe("API: constructor options", () => {
     it("should allow customizing document URL via the url option", () => {
       const { window } = new JSDOM(``, { url: "http://example.com/" });
 
-      assert.strictEqual(window.location.href, "http://example.com/");
-      assert.strictEqual(window.document.URL, "http://example.com/");
-      assert.strictEqual(window.document.documentURI, "http://example.com/");
+      assert.equal(window.location.href, "http://example.com/");
+      assert.equal(window.document.URL, "http://example.com/");
+      assert.equal(window.document.documentURI, "http://example.com/");
     });
 
     it("should throw an error when passing an invalid absolute URL for url", () => {
@@ -58,17 +58,17 @@ describe("API: constructor options", () => {
     it("should canonicalize document URLs", () => {
       const { window } = new JSDOM(``, { url: "http:example.com" });
 
-      assert.strictEqual(window.location.href, "http://example.com/");
-      assert.strictEqual(window.document.URL, "http://example.com/");
-      assert.strictEqual(window.document.documentURI, "http://example.com/");
+      assert.equal(window.location.href, "http://example.com/");
+      assert.equal(window.document.URL, "http://example.com/");
+      assert.equal(window.document.documentURI, "http://example.com/");
     });
 
     it("should have a default document URL of about:blank", () => {
       const { window } = new JSDOM();
 
-      assert.strictEqual(window.location.href, "about:blank");
-      assert.strictEqual(window.document.URL, "about:blank");
-      assert.strictEqual(window.document.documentURI, "about:blank");
+      assert.equal(window.location.href, "about:blank");
+      assert.equal(window.document.URL, "about:blank");
+      assert.equal(window.document.documentURI, "about:blank");
     });
   });
 
@@ -76,25 +76,25 @@ describe("API: constructor options", () => {
     it("should have a default content type of text/html", () => {
       const { document } = (new JSDOM()).window;
 
-      assert.strictEqual(document.contentType, "text/html");
+      assert.equal(document.contentType, "text/html");
     });
 
     it("should allow customizing document content type via the contentType option", () => {
       const { document } = (new JSDOM(`<doc/>`, { contentType: "application/funstuff+xml" })).window;
 
-      assert.strictEqual(document.contentType, "application/funstuff+xml");
+      assert.equal(document.contentType, "application/funstuff+xml");
     });
 
     it("should not show content type parameters in document.contentType (HTML)", () => {
       const { document } = (new JSDOM(``, { contentType: "text/html; charset=utf8" })).window;
 
-      assert.strictEqual(document.contentType, "text/html");
+      assert.equal(document.contentType, "text/html");
     });
 
     it("should not show content type parameters in document.contentType (XML)", () => {
       const { document } = (new JSDOM(`<doc/>`, { contentType: "application/xhtml+xml; charset=utf8" })).window;
 
-      assert.strictEqual(document.contentType, "application/xhtml+xml");
+      assert.equal(document.contentType, "application/xhtml+xml");
     });
 
     it("should disallow content types that are unparseable", () => {
@@ -126,7 +126,7 @@ describe("API: constructor options", () => {
       const cookieJar = new jsdom.CookieJar();
       const dom = new JSDOM(``, { cookieJar });
 
-      assert.strictEqual(dom.cookieJar, cookieJar);
+      assert.equal(dom.cookieJar, cookieJar);
     });
 
     it("should reflect changes to the cookie jar in document.cookie", () => {
@@ -135,7 +135,7 @@ describe("API: constructor options", () => {
 
       cookieJar.setCookieSync("foo=bar", document.URL);
 
-      assert.strictEqual(document.cookie, "foo=bar");
+      assert.equal(document.cookie, "foo=bar");
     });
 
     it("should have loose behavior by default when using the CookieJar constructor", () => {
@@ -144,7 +144,7 @@ describe("API: constructor options", () => {
 
       cookieJar.setCookieSync("foo", document.URL);
 
-      assert.strictEqual(document.cookie, "foo");
+      assert.equal(document.cookie, "foo");
     });
 
     it("should have a loose-by-default cookie jar even if none is passed", () => {
@@ -153,8 +153,8 @@ describe("API: constructor options", () => {
 
       dom.cookieJar.setCookieSync("foo", document.URL);
 
-      assert.instanceOf(dom.cookieJar, jsdom.CookieJar);
-      assert.strictEqual(document.cookie, "foo");
+      assert(dom.cookieJar instanceof jsdom.CookieJar);
+      assert.equal(document.cookie, "foo");
     });
 
     // More tests in cookies.js
@@ -165,12 +165,12 @@ describe("API: constructor options", () => {
       const virtualConsole = new jsdom.VirtualConsole();
       const dom = new JSDOM(``, { virtualConsole });
 
-      assert.strictEqual(dom.virtualConsole, virtualConsole);
+      assert.equal(dom.virtualConsole, virtualConsole);
     });
 
     it("should have a virtual console even if none is passed", () => {
       const dom = new JSDOM();
-      assert.instanceOf(dom.virtualConsole, jsdom.VirtualConsole);
+      assert(dom.virtualConsole instanceof jsdom.VirtualConsole);
     });
   });
 
@@ -180,18 +180,18 @@ describe("API: constructor options", () => {
 
       const dom = new JSDOM(``, {
         beforeParse(window) {
-          assert.instanceOf(window, window.Window);
-          assert.instanceOf(window.document, window.Document);
+          assert(window instanceof window.Window);
+          assert(window.document instanceof window.Document);
 
-          assert.strictEqual(window.document.doctype, null);
-          assert.strictEqual(window.document.documentElement, null);
-          assert.strictEqual(window.document.childNodes.length, 0);
+          assert.equal(window.document.doctype, null);
+          assert.equal(window.document.documentElement, null);
+          assert.equal(window.document.childNodes.length, 0);
 
           windowPassed = window;
         }
       });
 
-      assert.strictEqual(windowPassed, dom.window);
+      assert.equal(windowPassed, dom.window);
     });
   });
 
@@ -200,15 +200,15 @@ describe("API: constructor options", () => {
       it("document should be hidden and in prerender", () => {
         const { document } = (new JSDOM(``)).window;
 
-        assert.strictEqual(document.hidden, true);
-        assert.strictEqual(document.visibilityState, "prerender");
+        assert.equal(document.hidden, true);
+        assert.equal(document.visibilityState, "prerender");
       });
 
       it("document should not have rAF", () => {
         const { window } = new JSDOM(``);
 
-        assert.isUndefined(window.requestAnimationFrame);
-        assert.isUndefined(window.cancelAnimationFrame);
+        assert.equal(window.requestAnimationFrame, undefined);
+        assert.equal(window.cancelAnimationFrame, undefined);
       });
 
       it("child frame document should not have rAF", () => {
@@ -216,10 +216,10 @@ describe("API: constructor options", () => {
         const frame = window.document.createElement("iframe");
         window.document.body.appendChild(frame);
 
-        assert.isUndefined(window.requestAnimationFrame);
-        assert.isUndefined(window.cancelAnimationFrame);
-        assert.isUndefined(frame.contentWindow.requestAnimationFrame);
-        assert.isUndefined(frame.contentWindow.cancelAnimationFrame);
+        assert.equal(window.requestAnimationFrame, undefined);
+        assert.equal(window.cancelAnimationFrame, undefined);
+        assert.equal(frame.contentWindow.requestAnimationFrame, undefined);
+        assert.equal(frame.contentWindow.cancelAnimationFrame, undefined);
       });
     });
 
@@ -227,8 +227,8 @@ describe("API: constructor options", () => {
       it("document should be not be hidden and be visible", () => {
         const { document } = (new JSDOM(``, { pretendToBeVisual: true })).window;
 
-        assert.strictEqual(document.hidden, false);
-        assert.strictEqual(document.visibilityState, "visible");
+        assert.equal(document.hidden, false);
+        assert.equal(document.visibilityState, "visible");
       });
 
       it("document should call rAF", { async: true }, context => {
@@ -261,8 +261,8 @@ describe("API: constructor options", () => {
         localStorage.setItem("foo", dataWithinQuota);
         sessionStorage.setItem("bar", dataWithinQuota);
 
-        assert.strictEqual(localStorage.foo, dataWithinQuota);
-        assert.strictEqual(sessionStorage.bar, dataWithinQuota);
+        assert.equal(localStorage.foo, dataWithinQuota);
+        assert.equal(sessionStorage.bar, dataWithinQuota);
 
         const dataExceedingQuota = "0".repeat(6000000);
 
@@ -282,16 +282,16 @@ describe("API: constructor options", () => {
         localStorage.setItem("foo", dataWithinQuota);
         sessionStorage.setItem("bar", dataWithinQuota);
 
-        assert.strictEqual(localStorage.foo, dataWithinQuota);
-        assert.strictEqual(sessionStorage.bar, dataWithinQuota);
+        assert.equal(localStorage.foo, dataWithinQuota);
+        assert.equal(sessionStorage.bar, dataWithinQuota);
 
         const dataJustWithinQuota = "0".repeat(9995);
 
         localStorage.foo = dataJustWithinQuota;
         sessionStorage.bar = dataJustWithinQuota;
 
-        assert.strictEqual(localStorage.foo, dataJustWithinQuota);
-        assert.strictEqual(sessionStorage.bar, dataJustWithinQuota);
+        assert.equal(localStorage.foo, dataJustWithinQuota);
+        assert.equal(sessionStorage.bar, dataJustWithinQuota);
 
         const dataExceedingQuota = "0".repeat(15000);
 
@@ -311,8 +311,8 @@ describe("API: constructor options", () => {
         localStorage.someKey = dataWithinQuota;
         sessionStorage.someKey = dataWithinQuota;
 
-        assert.strictEqual(localStorage.someKey, dataWithinQuota);
-        assert.strictEqual(sessionStorage.someKey, dataWithinQuota);
+        assert.equal(localStorage.someKey, dataWithinQuota);
+        assert.equal(sessionStorage.someKey, dataWithinQuota);
 
         const dataExceedingQuota = "0000000000".repeat(1100000);
 

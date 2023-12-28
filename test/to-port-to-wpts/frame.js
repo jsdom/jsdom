@@ -1,7 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -18,8 +18,8 @@ describe("frame", () => {
       </script>',
       { resources: "usable", runScripts: "dangerously" });
     window.iframe.onload = function() {
-      assert.strictEqual(window.DONE, 1);
-      assert.strictEqual(window.PARENT_IS_TOP, true);
+      assert.equal(window.DONE, 1);
+      assert.equal(window.PARENT_IS_TOP, true);
 
       //insert a script tag to make sure the global set in the iframe is visible
       //in the parent window context
@@ -30,7 +30,10 @@ describe("frame", () => {
       //the script is executed asynchronously after insertion to the document,
       //so setTimeout is needed
       setTimeout(function(){
-        assert.deepEqual(window.results, [1, 1, true]);
+        assert.equal(window.results.length, 3);
+        assert.equal(window.results[0], 1);
+        assert.equal(window.results[1], 1);
+        assert.equal(window.results[2], true);
         t.done();
       }, 0);
     };
@@ -48,8 +51,8 @@ describe("frame", () => {
         runScripts: "dangerously"
       });
     window.document.onload = function(){
-      assert.strictEqual(window.LOADED_FRAME, 1);
-      assert.strictEqual(window.PARENT_IS_TOP, true);
+      assert.equal(window.LOADED_FRAME, 1);
+      assert.equal(window.PARENT_IS_TOP, true);
       t.done();
     };
   }, {
@@ -79,7 +82,7 @@ describe("frame", () => {
       assert.notEqual(iframeElem, null);
       var iframeDoc = iframeElem.contentDocument;
       assert.notEqual(iframeDoc, null);
-      assert.notStrictEqual(iframeDoc, window.document);
+      assert.notEqual(iframeDoc, window.document);
       var iframeDiv = iframeDoc.getElementById('iframeDiv');
       assert.notEqual(iframeDiv, null);
       assert.equal(iframeDiv.innerHTML, "Initial Text");
@@ -111,7 +114,7 @@ describe("frame", () => {
     var iFrame = doc.createElement('iframe');
     iFrame.addEventListener('load', function () {
       assert.notEqual(iFrame.contentDocument, null);
-      assert.strictEqual(iFrame.contentDocument.readyState, 'complete');
+      assert.equal(iFrame.contentDocument.readyState, 'complete');
       t.done();
     });
     doc.documentElement.appendChild(iFrame);
@@ -131,7 +134,7 @@ describe("frame", () => {
       var iframeDoc = iframeElem.contentDocument;
       assert.notEqual(iframeDoc, null);
       var iframeWindow = iframeElem.contentWindow;
-      assert.notStrictEqual(iframeWindow, window.document.defaultView);
+      assert.notEqual(iframeWindow, window.document.defaultView);
       assert.equal(iframeWindow, iframeDoc.defaultView);
       t.done();
     });
@@ -148,11 +151,11 @@ describe("frame", () => {
     window.document.addEventListener('load', function () {
       var iframeWindow = window.frames[0];
       assert.notEqual(iframeWindow, null);
-      assert.notStrictEqual(iframeWindow, window);
-      assert.strictEqual(iframeWindow.parent, window);
+      assert.notEqual(iframeWindow, window);
+      assert.equal(iframeWindow.parent, window);
       var iframeDoc = iframeWindow.document;
-      assert.notStrictEqual(iframeWindow.document, window.document);
-      assert.strictEqual(iframeWindow.document, iframeDoc);
+      assert.notEqual(iframeWindow.document, window.document);
+      assert.equal(iframeWindow.document, iframeDoc);
       assert.notEqual(iframeWindow.document.getElementById('iframeDiv'), null);
       t.done();
     });
@@ -175,10 +178,10 @@ describe("frame", () => {
       var window = doc.defaultView;
       var iframeWindow = window.frames[0];
       assert.notEqual(iframeWindow, null);
-      assert.notStrictEqual(iframeWindow, window);
-      assert.strictEqual(iframeWindow.parent, window);
+      assert.notEqual(iframeWindow, window);
+      assert.equal(iframeWindow.parent, window);
       var iframeDoc = iframeWindow.document;
-      assert.notStrictEqual(iframeWindow.document, window.document);
+      assert.notEqual(iframeWindow.document, window.document);
       assert.notEqual(iframeWindow.document.getElementById('iframeDiv'), null);
       t.done();
     });
@@ -197,8 +200,8 @@ describe("frame", () => {
       var window = doc.defaultView;
       var iframeWindow = window.frames['simpleIFrame'];
       assert.notEqual(iframeWindow, null);
-      assert.notStrictEqual(iframeWindow, window);
-      assert.strictEqual(iframeWindow.parent, window);
+      assert.notEqual(iframeWindow, window);
+      assert.equal(iframeWindow.parent, window);
       doc.getElementById('simpleIFrameID').setAttribute('name', 'otherSimpleIFrame');
       assert.ok(!window.frames['simpleIFrame'], 'remove old named property');
       assert.ok(window.frames['otherSimpleIFrame'], 'add new named property');
@@ -217,7 +220,7 @@ describe("frame", () => {
     })).window.document;
     doc.addEventListener('load', function () {
       var window = doc.defaultView;
-      assert.strictEqual(window.frames, window);
+      assert.equal(window.frames, window);
       t.done();
     });
   }, {
@@ -243,12 +246,12 @@ describe("frame", () => {
         assert.notEqual(bottomIFrameWindow, null);
 
         // The real tests
-        assert.strictEqual(bottomIFrameWindow.parent, topIFrameWindow);
-        assert.strictEqual(bottomIFrameWindow.top, window);
-        assert.strictEqual(topIFrameWindow.parent, window);
-        assert.strictEqual(topIFrameWindow.top, window);
-        assert.strictEqual(window.frames[0], topIFrameWindow);
-        assert.strictEqual(topIFrameWindow.frames[0], bottomIFrameWindow);
+        assert.equal(bottomIFrameWindow.parent, topIFrameWindow);
+        assert.equal(bottomIFrameWindow.top, window);
+        assert.equal(topIFrameWindow.parent, window);
+        assert.equal(topIFrameWindow.top, window);
+        assert.equal(window.frames[0], topIFrameWindow);
+        assert.equal(topIFrameWindow.frames[0], bottomIFrameWindow);
         t.done();
       });
       bottomIFrameElem.src = 'simple_iframe.html';
@@ -364,12 +367,12 @@ describe("frame", () => {
       assert.notEqual(frame1doc, null);
       assert.notEqual(frame2doc, null);
 
-      assert.strictEqual(frame1.contentWindow, frame1doc.defaultView);
-      assert.strictEqual(frame2.contentWindow, frame2doc.defaultView);
-      assert.strictEqual(window.frames[0], frame1.contentWindow);
-      assert.strictEqual(window.frames[1], frame2.contentWindow);
-      assert.strictEqual(window.frames['frame1'], frame1.contentWindow);
-      assert.strictEqual(window.frames['frame2'], frame2.contentWindow);
+      assert.equal(frame1.contentWindow, frame1doc.defaultView);
+      assert.equal(frame2.contentWindow, frame2doc.defaultView);
+      assert.equal(window.frames[0], frame1.contentWindow);
+      assert.equal(window.frames[1], frame2.contentWindow);
+      assert.equal(window.frames['frame1'], frame1.contentWindow);
+      assert.equal(window.frames['frame2'], frame2.contentWindow);
       assert.equal(window, frame1.contentWindow.parent);
       assert.equal(window, frame2.contentWindow.parent);
 
@@ -382,21 +385,21 @@ describe("frame", () => {
   specify('test frame references', () => {
     var { window } = new JSDOM("<!doctype html><iframe name='foo'></iframe>");
 
-    assert.strictEqual(window.length, 1, "frame should exist (.length)");
+    assert.equal(window.length, 1, "frame should exist (.length)");
     assert.notEqual(window[0], undefined, "frame should exist (undefined check)");
-    assert.strictEqual(window[0], window.foo, "index access and name access should return same reference");
+    assert.equal(window[0], window.foo, "index access and name access should return same reference");
   });
 
   specify('remove frame', () => {
     var { window } = new JSDOM("<!doctype html><iframe id='myFrame' name='foo'></iframe>");
 
-    assert.strictEqual(window.length, 1, "frame should exist (.length)");
+    assert.equal(window.length, 1, "frame should exist (.length)");
     assert.notEqual(window[0], undefined, "frame should exist (undefined check)");
     window.document.body.removeChild(window.document.getElementById("myFrame"));
 
-    assert.strictEqual(window.length, 0, "frame shouldn't exist (.length)");
-    assert.strictEqual(window[0], undefined, "frame shouldn't exist anymore (idx accessor)");
-    assert.strictEqual(window.foo, undefined, "frame shouldn't exist anymore (name accessor)");
+    assert.equal(window.length, 0, "frame shouldn't exist (.length)");
+    assert.equal(window[0], undefined, "frame shouldn't exist anymore (idx accessor)");
+    assert.equal(window.foo, undefined, "frame shouldn't exist anymore (name accessor)");
     assert.ok(!('0' in window), "'0' should not be in window anymore");
   });
 
@@ -404,24 +407,24 @@ describe("frame", () => {
     var { window } = new JSDOM("<!doctype html><iframe id='myFrame1' name='foo1'></iframe>"+
       "<iframe id='myFrame2' name='foo2'></iframe><iframe id='myFrame3' name='foo3'></iframe>");
 
-    assert.strictEqual(window.length, 3, "frames should exist (.length)");
+    assert.equal(window.length, 3, "frames should exist (.length)");
     assert.notEqual(window[0], undefined, "frame1 should exist (undefined check)");
     assert.notEqual(window[1], undefined, "frame2 should exist (undefined check)");
     assert.notEqual(window[2], undefined, "frame3 should exist (undefined check)");
 
     window.document.body.removeChild(window.document.getElementById("myFrame2"));
-    assert.strictEqual(window.length, 2, "frame shouldn't exist (.length)");
-    assert.strictEqual(window[2], undefined, "frame shouldn't exist anymore (idx accessor)");
-    assert.strictEqual(window.foo2, undefined, "frame shouldn't exist anymore (name accessor)");
+    assert.equal(window.length, 2, "frame shouldn't exist (.length)");
+    assert.equal(window[2], undefined, "frame shouldn't exist anymore (idx accessor)");
+    assert.equal(window.foo2, undefined, "frame shouldn't exist anymore (name accessor)");
 
-    assert.strictEqual(window.foo3, window[1], "frame index accessor should be moved down");
+    assert.equal(window.foo3, window[1], "frame index accessor should be moved down");
 
     window.document.body.removeChild(window.document.getElementById("myFrame1"));
-    assert.strictEqual(window.length, 1, "frame shouldn't exist (.length)");
-    assert.strictEqual(window[1], undefined, "frame shouldn't exist anymore (idx accessor)");
-    assert.strictEqual(window.foo1, undefined, "frame shouldn't exist anymore (name accessor)");
+    assert.equal(window.length, 1, "frame shouldn't exist (.length)");
+    assert.equal(window[1], undefined, "frame shouldn't exist anymore (idx accessor)");
+    assert.equal(window.foo1, undefined, "frame shouldn't exist anymore (name accessor)");
 
-    assert.strictEqual(window.foo3, window[0], "frame index accessor should be moved down");
+    assert.equal(window.foo3, window[0], "frame index accessor should be moved down");
   });
 
   specify('accessor should not exist before append', () => {
@@ -429,36 +432,36 @@ describe("frame", () => {
     var el = document.createElement("iframe");
     el.setAttribute("name", "foo");
 
-    assert.strictEqual(document.defaultView.length, 0, "no frames should exist yet");
-    assert.strictEqual(document.defaultView[0], undefined, "indexed access should fail");
-    assert.strictEqual(document.defaultView.foo, undefined, "named access should fail");
+    assert.equal(document.defaultView.length, 0, "no frames should exist yet");
+    assert.equal(document.defaultView[0], undefined, "indexed access should fail");
+    assert.equal(document.defaultView.foo, undefined, "named access should fail");
 
     document.body.appendChild(el);
 
-    assert.strictEqual(document.defaultView.length, 1,
+    assert.equal(document.defaultView.length, 1,
       "appended frame should increase window.length");
     assert.notEqual(document.defaultView[0], undefined,
       "indexed access should succeed");
     assert.notEqual(document.defaultView.foo, undefined,
       "named access should succeed");
-    assert.strictEqual(document.defaultView.foo, document.defaultView[0],
+    assert.equal(document.defaultView.foo, document.defaultView[0],
       "named and indexed access should return same object");
 
     document.body.removeChild(el);
 
-    assert.strictEqual(document.defaultView.length, 0, "no frames should exist yet");
-    assert.strictEqual(document.defaultView[0], undefined, "indexed access should fail");
-    assert.strictEqual(document.defaultView.foo, undefined, "named access should fail");
+    assert.equal(document.defaultView.length, 0, "no frames should exist yet");
+    assert.equal(document.defaultView[0], undefined, "indexed access should fail");
+    assert.equal(document.defaultView.foo, undefined, "named access should fail");
 
     document.body.appendChild(el);
 
-    assert.strictEqual(document.defaultView.length, 1,
+    assert.equal(document.defaultView.length, 1,
       "appended frame should increase window.length");
     assert.notEqual(document.defaultView[0], undefined,
       "indexed access should succeed");
     assert.notEqual(document.defaultView.foo, undefined,
       "named access should succeed");
-    assert.strictEqual(document.defaultView.foo, document.defaultView[0],
+    assert.equal(document.defaultView.foo, document.defaultView[0],
       "named and indexed access should return same object");
   });
 
@@ -471,9 +474,9 @@ describe("frame", () => {
     beforeFrame.setAttribute("name", "bar");
     document.body.insertBefore(beforeFrame, frame);
 
-    assert.strictEqual(window.length, 2, "should load 2 iframes");
-    assert.strictEqual(window.bar, window[0], "bar should be first frame");
-    assert.strictEqual(window.foo, window[1], "foo should be second frame");
+    assert.equal(window.length, 2, "should load 2 iframes");
+    assert.equal(window.bar, window[0], "bar should be first frame");
+    assert.equal(window.foo, window[1], "foo should be second frame");
   });
 
   specify('frame should not be loaded and accessor should not exist until in document, even with a parent node', (t) => {
@@ -490,9 +493,9 @@ describe("frame", () => {
     frame.src = "files/simple_iframe.html";
     frame.setAttribute("name", "foo");
 
-    assert.strictEqual(window.length, 0, "window length should be zero (no frames)");
-    assert.strictEqual(window[0], undefined, "window should not have a 0 property");
-    assert.strictEqual(window.foo, undefined, "window should not have a property for the iframe name");
+    assert.equal(window.length, 0, "window length should be zero (no frames)");
+    assert.equal(window[0], undefined, "window should not have a 0 property");
+    assert.equal(window.foo, undefined, "window should not have a property for the iframe name");
 
     setTimeout(function () {
       t.done();

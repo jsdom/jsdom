@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -31,28 +31,28 @@ describe("jsdom/xml", () => {
   specify("parsing XML keeps tag casing (GH-393)", () => {
     const { window } = new JSDOM(`<foo><bar/></foo>`, { contentType: "application/xml" });
     const elem = window.document.getElementsByTagName("foo")[0];
-    assert.strictEqual(elem.tagName, "foo");
+    assert.equal(elem.tagName, "foo");
   });
 
   specify("attributes are case-sensitive in XML mode (GH-651)", () => {
     const xml = `<foo caseSensitive='abc' casesensitive='def'><bar/></foo>`;
     const { window } = new JSDOM(xml, { contentType: "application/xml" });
     const elem = window.document.getElementsByTagName("foo")[0];
-    assert.strictEqual(elem.getAttribute("caseSensitive"), "abc");
-    assert.strictEqual(elem.getAttribute("casesensitive"), "def");
+    assert.equal(elem.getAttribute("caseSensitive"), "abc");
+    assert.equal(elem.getAttribute("casesensitive"), "def");
   });
 
   specify("XML mode makes directives accessible (GH-415)", () => {
     const xml = `<?xml-stylesheet version='1.0'?><foo caseSensitive='abc' casesensitive='def'><bar/></foo>`;
     const { window } = new JSDOM(xml, { contentType: "application/xml" });
-    assert.strictEqual(window.document.firstChild.nodeName, "xml-stylesheet");
-    assert.strictEqual(window.document.firstChild.data, "version='1.0'");
+    assert.equal(window.document.firstChild.nodeName, "xml-stylesheet");
+    assert.equal(window.document.firstChild.data, "version='1.0'");
   });
 
   specify("parse5 can somewhat serialize XML docs", () => {
     const source = `<foo xmlns:foo="http://example.org/bar"><foo:bar/></foo>`;
     const dom = new JSDOM(source, { contentType: "application/xml" });
-    assert.strictEqual(dom.serialize(), source);
+    assert.equal(dom.serialize(), source);
   });
 
   specify("xml parser recognizes built-in schemas (GH-1276)", () => {
@@ -60,6 +60,6 @@ describe("jsdom/xml", () => {
 
     const xmlns = "http://www.w3.org/XML/1998/namespace";
     const lang = window.document.documentElement.getAttributeNS(xmlns, "lang");
-    assert.strictEqual(lang, "uk");
+    assert.equal(lang, "uk");
   });
 });

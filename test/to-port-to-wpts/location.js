@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -9,7 +9,7 @@ describe("location", () => {
   specify("window.location and document.location should be equal", () => {
     const { window } = new JSDOM();
 
-    assert.strictEqual(window.document.location, window.location);
+    assert.equal(window.document.location, window.location);
   });
 
   specify("window.location.href for a default window is about:blank", () => {
@@ -56,10 +56,10 @@ describe("location", () => {
     t => {
       const { window } = new JSDOM(``, { url: "http://www.example.com/" });
       window.addEventListener("hashchange", event => {
-        assert.strictEqual(event.bubbles, false);
-        assert.strictEqual(event.cancelable, false);
-        assert.strictEqual(event.oldURL, "http://www.example.com/");
-        assert.strictEqual(event.newURL, "http://www.example.com/#foo");
+        assert.equal(event.bubbles, false);
+        assert.equal(event.cancelable, false);
+        assert.equal(event.oldURL, "http://www.example.com/");
+        assert.equal(event.newURL, "http://www.example.com/#foo");
 
         assert.ok(true, "hashchange event was fired");
         t.done();
@@ -77,10 +77,10 @@ describe("location", () => {
     t => {
       const { window } = new JSDOM(``, { url: "http://www.example.com/" });
       window.addEventListener("hashchange", event => {
-        assert.strictEqual(event.bubbles, false);
-        assert.strictEqual(event.cancelable, false);
-        assert.strictEqual(event.oldURL, "http://www.example.com/");
-        assert.strictEqual(event.newURL, "http://www.example.com/#foo");
+        assert.equal(event.bubbles, false);
+        assert.equal(event.cancelable, false);
+        assert.equal(event.oldURL, "http://www.example.com/");
+        assert.equal(event.newURL, "http://www.example.com/#foo");
 
         assert.ok(true, "hashchange event was fired");
         t.done();
@@ -96,14 +96,14 @@ describe("location", () => {
   specify("window.location components are correct", () => {
     const { window } = new JSDOM(``, { url: "http://www.example.com:1234/path/to/foo.txt?blahblah#hash" });
 
-    assert.strictEqual(window.location.href, "http://www.example.com:1234/path/to/foo.txt?blahblah#hash");
-    assert.strictEqual(window.location.origin, "http://www.example.com:1234");
-    assert.strictEqual(window.location.protocol, "http:");
-    assert.strictEqual(window.location.host, "www.example.com:1234");
-    assert.strictEqual(window.location.hostname, "www.example.com");
-    assert.strictEqual(window.location.port, "1234");
-    assert.strictEqual(window.location.pathname, "/path/to/foo.txt");
-    assert.strictEqual(window.location.search, "?blahblah");
-    assert.strictEqual(window.location.hash, "#hash");
+    assert.equal(window.location.href, "http://www.example.com:1234/path/to/foo.txt?blahblah#hash");
+    assert.equal(window.location.origin, "http://www.example.com:1234");
+    assert.equal(window.location.protocol, "http:");
+    assert.equal(window.location.host, "www.example.com:1234");
+    assert.equal(window.location.hostname, "www.example.com");
+    assert.equal(window.location.port, "1234");
+    assert.equal(window.location.pathname, "/path/to/foo.txt");
+    assert.equal(window.location.search, "?blahblah");
+    assert.equal(window.location.hash, "#hash");
   });
 });

@@ -1,6 +1,7 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
+const { assertThrowsDOMException } = require("../../assert-helpers.js");
 const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../../..");
@@ -106,7 +107,7 @@ describe("level2/events", () => {
       var doc = this.doc,
           event_types = ['Events', 'UIEvents', 'MouseEvents', 'HTMLEvents'];
       event_types.forEach(function(type){
-        assert.throwsDomException(function(){ doc.dispatchEvent(doc.createEvent(type)) }, doc, 'InvalidStateError');
+        assertThrowsDOMException(function(){ doc.dispatchEvent(doc.createEvent(type)) }, doc, 'InvalidStateError');
       })
     });
 
@@ -116,14 +117,14 @@ describe("level2/events", () => {
       this.doc.addEventListener("foo", monitor.handleEvent, false);
       var event = this.doc.createEvent("Events");
       event.initEvent("foo",true,false);
-      assert.strictEqual(event.eventPhase, 0);
-      assert.strictEqual(event.currentTarget, null);
+      assert.equal(event.eventPhase, 0);
+      assert.equal(event.currentTarget, null);
       this.doc.dispatchEvent(event);
       assert.equal(monitor.atEvents.length, 1, 'should receive atEvent');
       assert.equal(monitor.bubbledEvents.length, 0, 'should not receive at bubble phase');
       assert.equal(monitor.capturedEvents.length, 0, 'should not receive at capture phase');
-      assert.strictEqual(event.eventPhase, 0);
-      assert.strictEqual(event.currentTarget, null);
+      assert.equal(event.eventPhase, 0);
+      assert.equal(event.currentTarget, null);
     });
 
     // An EventListener registered on the target node with capture true, should receive any event fired on that node.
@@ -132,14 +133,14 @@ describe("level2/events", () => {
       this.doc.addEventListener("foo", monitor.handleEvent, true);
       var event = this.doc.createEvent("Events");
       event.initEvent("foo",true,false);
-      assert.strictEqual(event.eventPhase, 0);
-      assert.strictEqual(event.currentTarget, null);
+      assert.equal(event.eventPhase, 0);
+      assert.equal(event.currentTarget, null);
       this.doc.dispatchEvent(event);
       assert.equal(monitor.atEvents.length, 1, 'should receive atEvent');
       assert.equal(monitor.bubbledEvents.length, 0, 'should not receive at bubble phase');
       assert.equal(monitor.capturedEvents.length, 0, 'should not receive at capture phase');
-      assert.strictEqual(event.eventPhase, 0);
-      assert.strictEqual(event.currentTarget, null);
+      assert.equal(event.eventPhase, 0);
+      assert.equal(event.currentTarget, null);
     });
 
     // The same monitor is registered twice and an event is dispatched.  The monitor should receive only one handleEvent call.
@@ -444,11 +445,11 @@ describe("level2/events", () => {
     ev.initEvent("click", true, true);
 
     document.dispatchEvent(ev);
-    assert.strictEqual(h1, 1, "handler1 must be called once");
-    assert.strictEqual(h2, 1, "handler2 must be called once");
+    assert.equal(h1, 1, "handler1 must be called once");
+    assert.equal(h2, 1, "handler2 must be called once");
 
     document.dispatchEvent(ev);
-    assert.strictEqual(h1, 1, "handler1 must be called once");
-    assert.strictEqual(h2, 2, "handler2 must be called twice");
+    assert.equal(h1, 1, "handler1 must be called once");
+    assert.equal(h2, 2, "handler2 must be called twice");
   });
 });

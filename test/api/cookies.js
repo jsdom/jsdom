@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, it, before, after } = require("mocha-sugar-free");
 const { createServer, createHTTPSServer } = require("../util.js");
 
@@ -133,7 +133,7 @@ describe("Cookie processing", () => {
       const futureDate = new Date(timeNow + 24 * 60 * 60 * 1000);
       window.document.cookie = "Test=FooBar; Expires=" + futureDate.toString();
 
-      assert.strictEqual(window.document.cookie, "Test=FooBar");
+      assert.equal(window.document.cookie, "Test=FooBar");
     });
   });
 

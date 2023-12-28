@@ -3,7 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../../..");
@@ -46,11 +46,11 @@ describe("level2/style", () => {
   specify("HTMLCanvasStyleAttribute01", () => {
     const { window } = new JSDOM(`<html><body><canvas style="background-color: blue; z-index:1">`);
     var c = window.document.body.lastChild;
-    assert.equal(2, c.style.length);
-    assert.equal("background-color", c.style[0]);
-    assert.equal("blue", c.style.backgroundColor);
-    assert.equal("z-index", c.style[1]);
-    assert.equal(1, c.style.zIndex);
+    assert.equal(c.style.length, 2);
+    assert.equal(c.style[0], "background-color");
+    assert.equal(c.style.backgroundColor, "blue");
+    assert.equal(c.style[1], "z-index");
+    assert.equal(c.style.zIndex, "1");
   });
 
   specify("StylePropertyReflectsStyleAttribute", () => {
@@ -300,16 +300,16 @@ describe("level2/style", () => {
       assert.doesNotThrow(function () {
         node.setAttribute("style", style);
       });
-      assert.strictEqual(node.getAttribute("style"), style);
-      assert.strictEqual(node.style.color, "");
-      assert.strictEqual(node.style.cssText, "");
+      assert.equal(node.getAttribute("style"), style);
+      assert.equal(node.style.color, "");
+      assert.equal(node.style.cssText, "");
 
       node.style.cssText = "color: red";
       assert.doesNotThrow(function () {
         node.style.cssText = style;
       });
-      assert.strictEqual(node.style.color, "");
-      assert.strictEqual(node.style.cssText, "");
+      assert.equal(node.style.color, "");
+      assert.equal(node.style.cssText, "");
     });
 
   });
@@ -338,45 +338,45 @@ describe("level2/style", () => {
     for (const prop of ["padding", "margin"]) {
       document.body.style[prop] = "1px 2px 3px 4px";
 
-      assert.strictEqual(document.body.style[prop], "1px 2px 3px 4px");
-      assert.strictEqual(document.body.style[prop + "Top"], "1px");
-      assert.strictEqual(document.body.style[prop + "Right"], "2px");
-      assert.strictEqual(document.body.style[prop + "Bottom"], "3px");
-      assert.strictEqual(document.body.style[prop + "Left"], "4px");
+      assert.equal(document.body.style[prop], "1px 2px 3px 4px");
+      assert.equal(document.body.style[prop + "Top"], "1px");
+      assert.equal(document.body.style[prop + "Right"], "2px");
+      assert.equal(document.body.style[prop + "Bottom"], "3px");
+      assert.equal(document.body.style[prop + "Left"], "4px");
 
       document.body.style[prop + "Top"] = "1em";
       document.body.style[prop + "Right"] = "2em";
       document.body.style[prop + "Bottom"] = "3em";
       document.body.style[prop + "Left"] = "4em";
-      assert.strictEqual(document.body.style[prop], "1em 2em 3em 4em");
+      assert.equal(document.body.style[prop], "1em 2em 3em 4em");
 
       document.body.style[prop] = "1mm";
-      assert.strictEqual(document.body.style[prop], "1mm");
-      assert.strictEqual(document.body.style[prop + "Top"], "1mm");
-      assert.strictEqual(document.body.style[prop + "Right"], "1mm");
-      assert.strictEqual(document.body.style[prop + "Bottom"], "1mm");
-      assert.strictEqual(document.body.style[prop + "Left"], "1mm");
+      assert.equal(document.body.style[prop], "1mm");
+      assert.equal(document.body.style[prop + "Top"], "1mm");
+      assert.equal(document.body.style[prop + "Right"], "1mm");
+      assert.equal(document.body.style[prop + "Bottom"], "1mm");
+      assert.equal(document.body.style[prop + "Left"], "1mm");
 
       document.body.style[prop] = "1% 2%";
-      assert.strictEqual(document.body.style[prop], "1% 2%");
-      assert.strictEqual(document.body.style[prop + "Top"], "1%");
-      assert.strictEqual(document.body.style[prop + "Right"], "2%");
-      assert.strictEqual(document.body.style[prop + "Bottom"], "1%");
-      assert.strictEqual(document.body.style[prop + "Left"], "2%");
+      assert.equal(document.body.style[prop], "1% 2%");
+      assert.equal(document.body.style[prop + "Top"], "1%");
+      assert.equal(document.body.style[prop + "Right"], "2%");
+      assert.equal(document.body.style[prop + "Bottom"], "1%");
+      assert.equal(document.body.style[prop + "Left"], "2%");
 
       document.body.style[prop] = "3pc 2pc 1pc";
-      assert.strictEqual(document.body.style[prop], "3pc 2pc 1pc");
-      assert.strictEqual(document.body.style[prop + "Top"], "3pc");
-      assert.strictEqual(document.body.style[prop + "Right"], "2pc");
-      assert.strictEqual(document.body.style[prop + "Bottom"], "1pc");
-      assert.strictEqual(document.body.style[prop + "Left"], "2pc");
+      assert.equal(document.body.style[prop], "3pc 2pc 1pc");
+      assert.equal(document.body.style[prop + "Top"], "3pc");
+      assert.equal(document.body.style[prop + "Right"], "2pc");
+      assert.equal(document.body.style[prop + "Bottom"], "1pc");
+      assert.equal(document.body.style[prop + "Left"], "2pc");
     }
   });
 
   specify("StyleSheetList.prototype.item returns null on index out of bounds", () => {
     const document = (new JSDOM()).window.document;
-    assert.strictEqual(document.styleSheets[0], undefined);
-    assert.strictEqual(document.styleSheets.item(0), null);
+    assert.equal(document.styleSheets[0], undefined);
+    assert.equal(document.styleSheets.item(0), null);
   });
 
   specify("setting background to null works correctly (GH-1499)", () => {
@@ -386,7 +386,7 @@ describe("level2/style", () => {
     const div = document.body.firstChild;
     div.style.background = null;
 
-    assert.strictEqual(div.style.background, "");
+    assert.equal(div.style.background, "");
   });
 
   specify("setting width to auto works correctly (GH-1458)", () => {
@@ -394,7 +394,7 @@ describe("level2/style", () => {
 
     document.body.style.width = "auto";
 
-    assert.strictEqual(document.body.style.width, "auto");
-    assert.strictEqual(document.body.style.cssText, "width: auto;");
+    assert.equal(document.body.style.width, "auto");
+    assert.equal(document.body.style.cssText, "width: auto;");
   });
 });

@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
@@ -9,62 +9,62 @@ describe("htmlinputelement", () => {
   specify("html input should handle value/defaultValue correctly", () => {
     const input = (new JSDOM("<input>")).window.document.querySelector("input");
 
-    assert.strictEqual(input.value, "", "value should equal empty string if uninitialized");
-    assert.strictEqual(input.defaultValue, "", "defaultValue should equal empty string if uninitialized");
-    assert.strictEqual(input.getAttribute("value"), null, "value attribute should be null (uninitialized)");
+    assert.equal(input.value, "", "value should equal empty string if uninitialized");
+    assert.equal(input.defaultValue, "", "defaultValue should equal empty string if uninitialized");
+    assert.equal(input.getAttribute("value"), null, "value attribute should be null (uninitialized)");
 
     input.defaultValue = "abc";
 
-    assert.strictEqual(
+    assert.equal(
       input.value,
       "abc",
       "setting the defaultValue should also change the value if \"dirty value\" is false"
     );
-    assert.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
-    assert.strictEqual(input.getAttribute("value"), "abc", "value attribute should equal to set string");
+    assert.equal(input.defaultValue, "abc", "defaultValue should equal to set string");
+    assert.equal(input.getAttribute("value"), "abc", "value attribute should equal to set string");
 
     input.value = "def";
     // dirtyValue is now true
 
-    assert.strictEqual(input.value, "def", "value should get changed by setter");
-    assert.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
-    assert.strictEqual(input.getAttribute("value"), "abc", "value attribute should not change");
+    assert.equal(input.value, "def", "value should get changed by setter");
+    assert.equal(input.defaultValue, "abc", "defaultValue should equal to set string");
+    assert.equal(input.getAttribute("value"), "abc", "value attribute should not change");
 
     input.defaultValue = "abc2";
 
-    assert.strictEqual(input.value, "def", "value should not change by setting defaultValue is dirtyValue is set");
-    assert.strictEqual(input.defaultValue, "abc2", "defaultValue should equal to set string");
+    assert.equal(input.value, "def", "value should not change by setting defaultValue is dirtyValue is set");
+    assert.equal(input.defaultValue, "abc2", "defaultValue should equal to set string");
 
     input.value = null;
 
-    assert.strictEqual(input.value, "", "setting value to null should result in an empty string");
-    assert.strictEqual(input.getAttribute("value"), "abc2", "value attribute should not change");
+    assert.equal(input.value, "", "setting value to null should result in an empty string");
+    assert.equal(input.getAttribute("value"), "abc2", "value attribute should not change");
   });
 
   specify("html input should handle checked/defaultChecked correctly", () => {
     const checked = (new JSDOM()).window.document.createElement("input");
 
-    assert.strictEqual(checked.checked, false, "checkedness is false by default");
+    assert.equal(checked.checked, false, "checkedness is false by default");
 
     checked.setAttribute("checked", "checked");
-    assert.strictEqual(checked.checked, true, "checked property must return the current checkedness");
+    assert.equal(checked.checked, true, "checked property must return the current checkedness");
 
     checked.removeAttribute("checked");
-    assert.strictEqual(
+    assert.equal(
       checked.checked,
       false,
       "dirty checkedness is still false, the checkedness should have been changed"
     );
 
     checked.checked = false; // sets the element's dirty checkedness flag to true
-    assert.strictEqual(
+    assert.equal(
       checked.checked,
       false,
       "on setting, the checked property must set the element's checkedness to the new value"
     );
 
     checked.setAttribute("checked", "checked");
-    assert.strictEqual(
+    assert.equal(
       checked.checked,
       false,
       "checkedness should not have been changed because dirty checkedness is now true"
@@ -97,35 +97,35 @@ describe("htmlinputelement", () => {
     radioA.checked = true;
     radioB.checked = true;
 
-    assert.strictEqual(radioA.checked, false, "Setting checked on a radio should uncheck others in the same group");
-    assert.strictEqual(radioB.checked, true, "Last radio to be set should be checked");
-    assert.strictEqual(checkD.checked, true, "Radio\"s should not affect the checkedness of checkboxes");
+    assert.equal(radioA.checked, false, "Setting checked on a radio should uncheck others in the same group");
+    assert.equal(radioB.checked, true, "Last radio to be set should be checked");
+    assert.equal(checkD.checked, true, "Radio\"s should not affect the checkedness of checkboxes");
 
     radioA.checked = true;
     form.appendChild(radioA);
-    assert.strictEqual(radioA.checked, true, "Just checked this");
+    assert.equal(radioA.checked, true, "Just checked this");
     radioB.checked = true;
     form.appendChild(radioB);
-    assert.strictEqual(radioB.checked, true, "Just checked this");
-    assert.strictEqual(radioA.checked, false, "Changing the form owner should uncheck others");
+    assert.equal(radioB.checked, true, "Just checked this");
+    assert.equal(radioA.checked, false, "Changing the form owner should uncheck others");
 
     form.appendChild(radioC);
     radioC.name = "bar";
     radioA.checked = true;
     radioC.checked = true;
-    assert.strictEqual(radioA.checked, true, "Just checked this");
-    assert.strictEqual(radioC.checked, true, "Just checked this");
+    assert.equal(radioA.checked, true, "Just checked this");
+    assert.equal(radioC.checked, true, "Just checked this");
     radioC.name = "foo";
-    assert.strictEqual(radioA.checked, false, "Changing the name should uncheck others");
-    assert.strictEqual(radioC.checked, true, "Changing the name not uncheck itself");
+    assert.equal(radioA.checked, false, "Changing the name should uncheck others");
+    assert.equal(radioC.checked, true, "Changing the name not uncheck itself");
 
     form.appendChild(checkD);
     radioC.checked = true;
     checkD.checked = true;
-    assert.strictEqual(radioC.checked, true, "Just checked this");
+    assert.equal(radioC.checked, true, "Just checked this");
     checkD.type = "radio";
-    assert.strictEqual(radioC.checked, false, "Changing the type should uncheck others");
-    assert.strictEqual(checkD.checked, true, "Changing the name not uncheck itself");
+    assert.equal(radioC.checked, false, "Changing the type should uncheck others");
+    assert.equal(checkD.checked, true, "Changing the name not uncheck itself");
   });
 
   specify(

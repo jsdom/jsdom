@@ -1,5 +1,5 @@
 "use strict";
-const { assert } = require("chai");
+const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const hc_staff = require("./html/files/hc_staff.html");
@@ -1333,7 +1333,7 @@ describe("level1/html", () => {
         assert.equal(childValue, " This is comment number 1.", "nodeValue");
         attributes = child.attributes;
 
-        assert.equal(attributes, null, "attributes");
+        assert.equal(attributes, undefined, "attributes");
         commentCount += 1;
 
       }
@@ -1513,7 +1513,7 @@ describe("level1/html", () => {
     let docType = doc.doctype;
     assert.equal(docType.name, "html", "nodeName");
     assert.equal(docType.nodeValue, null, "nodeValue");
-    assert.equal(docType.attributes, null, "attributes");
+    assert.equal(docType.attributes, undefined, "attributes");
   });
 
   /**
@@ -2289,7 +2289,7 @@ describe("level1/html", () => {
     attrValue = testEmployee.getAttribute("class");
 
     // XXX SUPERSEDED BY DOM4
-    assert.strictEqual(attrValue, null, "attrValue");
+    assert.equal(attrValue, null, "attrValue");
     //    test.equal(attrValue, "", 'attrValue');
   });
 
@@ -3205,7 +3205,7 @@ describe("level1/html", () => {
     attrNode = addrAttr.item(0);
     attrList = attrNode.attributes;
 
-    assert.equal(attrList, null, "nodeAttributeNodeAttributeAssert1");
+    assert.equal(attrList, undefined, "nodeAttributeNodeAttributeAssert1");
   });
 
   /**
@@ -3645,7 +3645,7 @@ describe("level1/html", () => {
       ) {
         attrList = commentNode.attributes;
 
-        assert.equal(attrList, null, "existingCommentAttributesNull");
+        assert.equal(attrList, undefined, "existingCommentAttributesNull");
 
       }
 
@@ -3653,7 +3653,7 @@ describe("level1/html", () => {
     commentNode = doc.createComment("This is a comment");
     attrList = commentNode.attributes;
 
-    assert.equal(attrList, null, "createdCommentAttributesNull");
+    assert.equal(attrList, undefined, "createdCommentAttributesNull");
   });
 
   /**
@@ -3869,7 +3869,7 @@ describe("level1/html", () => {
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
-    assert.equal(attrList, null, "attributesNull");
+    assert.equal(attrList, undefined, "attributesNull");
     value = docFragment.nodeValue;
 
     assert.equal(value, null, "initiallyNull");
@@ -3896,7 +3896,7 @@ describe("level1/html", () => {
     doc = hc_staff.hc_staff();
     attrList = doc.attributes;
 
-    assert.equal(attrList, null, "doc_attributes_is_null");
+    assert.equal(attrList, undefined, "doc_attributes_is_null");
   });
 
   /**
@@ -5204,7 +5204,7 @@ describe("level1/html", () => {
 
     attrList = textNode.attributes;
 
-    assert.equal(attrList, null, "text_attributes_is_null");
+    assert.equal(attrList, undefined, "text_attributes_is_null");
   });
 
   /**
