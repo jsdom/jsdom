@@ -48,7 +48,7 @@ exports.querySelectorAll = function () {
 
 // This is only for comparison. Can remove later.
 /* eslint-disable quotes, max-len */
-exports["querySelectorAll only nwsapi supported"] = function () {
+exports["querySelectorAll only nwsapi supports"] = function () {
   let document, selectors;
 
   return suite({
