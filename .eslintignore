@@ -2,6 +2,7 @@ node_modules
 
 benchmark/browser-bundle.js
 benchmark/browser-runner.html
+benchmark/selectors/sizzle-speed
 test/worker-bundle.js
 
 lib/jsdom/browser/default-stylesheet.js
