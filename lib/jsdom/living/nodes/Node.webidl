@@ -14,6 +14,7 @@ interface Node : EventTarget {
   const unsigned short NOTATION_NODE = 12; // historical
   readonly attribute unsigned short nodeType;
   readonly attribute DOMString nodeName;
+  [CEReactions] attribute boolean inert;
 
   readonly attribute USVString baseURI;
 
