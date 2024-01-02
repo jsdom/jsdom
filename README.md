@@ -437,7 +437,12 @@ console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
 
 ### Canvas support
 
-jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include `canvas` as a dependency in your project, as a peer of `jsdom`. If jsdom can find the `canvas` package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s. Since jsdom v13, version 2.x of `canvas` is required; version 1.x is no longer supported.
+jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to `npm install canvas@2` as a separate dependency (or devDependency) in your project. If jsdom can find the `canvas` package, it will use it, but if it's not present, then: 
+
+* `<canvas>` elements will behave like `<div>`s.
+* `<img>` elements' `src` attributes will not be loaded by the [`ResourceLoader`](#loading-subresources).
+
+Since jsdom v13, version 2.x of `canvas` is required; version 1.x is no longer supported.
 
 ### Encoding sniffing
 
