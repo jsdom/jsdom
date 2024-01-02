@@ -70,7 +70,7 @@ Simply add a file in `test/api/`, following the surrounding conventions. Then, a
 
 ### Older tests
 
-Although ideally you should not need to worry about this, there are some tests that are, for legacy reasons, not in the right format: they use Mocha, but really should be web platform tests. We're keeping them around for coverage until we can convert them. If you run `npm test`, you will get the full test suite, including these old tests.
+Although ideally you should not need to worry about this, there are some tests that are, for legacy reasons, not in the right format: they use Mocha but should really be web platform tests. We're keeping them around for coverage until we can convert them. If you run `npm test`, you will get the full test suite, including these old tests.
 
 ## Benchmarks
 
