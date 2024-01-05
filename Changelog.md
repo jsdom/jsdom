@@ -26,9 +26,17 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 23.1.0
+
+* Added an initial implementation of `ElementInternals`, including the `shadowRoot` getter and the string-valued ARIA properties. (zjffun)
+* Added the string-valued ARIA attribute-reflecting properties to `Element`.
+* Fixed `history.pushState()` and `history.replaceState()` to follow the latest specification, notably with regards to how they handle empty string inputs and what new URLs are possible.
+* Fixed the `input.valueAsANumber` setter to handle `NaN` correctly. (alexandertrefz)
+* Updated various dependencies, including `cssstyle` which contains several bug fixes.
+
 ## 23.0.1
 
-* Fix incorrect `canvas` peer dependency.
+* Fixed the incorrect `canvas` peer dependency introduced in v23.0.0.
 
 ## 23.0.0
 

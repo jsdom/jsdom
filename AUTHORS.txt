@@ -10,6 +10,7 @@ Alex Pearson <alex@alexpear.com>
 Alex Rattray <rattray.alex@gmail.com>
 Alex Soncodi <asoncodi@gmail.com>
 Alexander Flatter <flatter@gmail.com>
+Alexander Trefz <alexander.trefz@gmail.com>
 Alexis CHAPPRON <bullrot-10@hotmail.fr>
 Alistair Brown <github@alistairjcbrown.com>
 Alistair MacDonald <amacdonald@aisquared.com>
@@ -31,6 +32,7 @@ antonj <anton.johansson@gmail.com>
 Aria Stewart <aredridel@nbtsc.org>
 Arrix <arrixzhou@gmail.com>
 Aryan Arora <aryanarora278@gmail.com>
+asamuzaK (Kazz) <asamuzaK@users.noreply.github.com>
 Avery Fay <avery@mixpanel.com>
 Avi Deitcher <avi@deitcher.net>
 Avi Vahl <avi.vahl@wix.com>
@@ -64,6 +66,7 @@ Dan Lidral-Porter <dan@luckysort.com>
 Daniel Boelzle [:dbo] <dbo@numberfour.eu>
 Daniel Cassidy <mail@danielcassidy.me.uk>
 Daniel Cousens <github@dcousens.com>
+Daniel Kaplan <tieTYT@gmail.com>
 Daniël van de Burgt <daniel.vandeburgt@serialssolutions.com>
 d-ash <andrey.shubin@gmail.com>
 Dav Glass <davglass@gmail.com>
@@ -226,6 +229,7 @@ Michał Gołębiowski-Owczarek <m.goleb@gmail.com>
 Michał Wadas <michalwadas@gmail.com>
 Mike Bostock <mbostock@gmail.com>
 Mike Schreifels <mike@schreifels.org>
+Mikhail <connormiha1@gmail.com>
 Mitar <mitar.git@tnode.com>
 Nao Iizuka <iizuka@kyu-mu.net>
 Nick McCurdy <nick@nickmccurdy.com>
