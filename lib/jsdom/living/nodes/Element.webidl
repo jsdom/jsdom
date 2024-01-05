@@ -88,3 +88,5 @@ partial interface Element {
   readonly attribute long clientWidth;
   readonly attribute long clientHeight;
 };
+
+Element includes ARIAMixin;
