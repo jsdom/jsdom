@@ -164,7 +164,6 @@ Document-createElement.html:
   "document.createElement must report a NotSupportedError when the local name of the element does not match that of the custom element": [fail, throws TypeError instead]
   "document.createElement must report an exception thrown by a custom built-in element constructor": [fail, Unknown]
 ElementInternals-accessibility.html: [fail, attachInternals is not implemented]
-HTMLElement-attachInternals.html: [fail, Not implemented]
 HTMLElement-constructor.html:
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself": [fail, Unknown]
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself via a Proxy object": [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
@@ -175,7 +174,6 @@ cross-realm-callback-report-exception.html: [fail, No relevant realm support for
 custom-element-reaction-queue.html:
   "Upgrading a custom element must invoke attributeChangedCallback and connectedCallback before start upgrading another element": [fail, document.write() implementation is not spec compliant]
   "Mutating a undefined custom element while upgrading a custom element must not enqueue or invoke reactions on the mutated element": [fail, document.write() implementation is not spec compliant]
-element-internals-shadowroot.html: [fail, Not implemented]
 form-associated/**: [fail-slow, Not implemented]
 htmlconstructor/newtarget-customized-builtins.html: [fail, unknown]
 htmlconstructor/newtarget.html: [fail, Currently impossible to get the active function associated realm]

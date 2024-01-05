@@ -19,7 +19,7 @@ interface HTMLElement : Element {
 
 //  [CEReactions] attribute [LegacyNullToEmptyString] DOMString innerText;
 
-//  ElementInternals attachInternals();
+  ElementInternals attachInternals();
 };
 
 HTMLElement includes GlobalEventHandlers;
