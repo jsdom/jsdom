@@ -1,8 +1,8 @@
 "use strict";
-const path = require("path");
-const fs = require("fs");
-const http = require("http");
-const https = require("https");
+const path = require("node:path");
+const fs = require("node:fs");
+const http = require("node:http");
+const https = require("node:https");
 const enableDestroy = require("server-destroy");
 const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
@@ -73,10 +73,6 @@ exports.isCanvasInstalled = (t, done) => {
 
   return true;
 };
-
-exports.delay = ms => new Promise(r => {
-  setTimeout(r, ms);
-});
 
 exports.createServer = handler => {
   return new Promise(resolve => {

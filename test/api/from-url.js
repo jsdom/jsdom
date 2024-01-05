@@ -1,7 +1,7 @@
 "use strict";
-const zlib = require("zlib");
+const zlib = require("node:zlib");
 const assert = require("node:assert/strict");
-const { describe, it } = require("mocha-sugar-free");
+const { describe, it } = require("node:test");
 const { createServer } = require("../util.js");
 
 const jsdom = require("../..");

@@ -1,12 +1,11 @@
 "use strict";
-
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 
 describe("history", () => {
-  specify(
+  test(
     "a default window should have a history object with correct default values",
     () => {
       const { window } = new JSDOM();
@@ -17,7 +16,7 @@ describe("history", () => {
     }
   );
 
-  specify(
+  test(
     "the history object should update correctly when calling pushState/replaceState",
     () => {
       const { window } = new JSDOM(``, { url: "http://www.example.org/" });
@@ -53,9 +52,9 @@ describe("history", () => {
     }
   );
 
-  specify(
+  test(
     "the history object should update correctly when calling forward/back/go",
-    t => {
+    (t, done) => {
       const { window } = new JSDOM(``, { url: "http://www.example.org/" });
       const initialPath = window.location.pathname;
 
@@ -125,20 +124,19 @@ describe("history", () => {
                   assert.equal(window.history.state.foo, "baz");
                   assert.equal(window.location.pathname, "/baz");
 
-                  t.done();
+                  done();
                 });
               });
             });
           });
         }, 0);
       }, 0);
-    },
-    { async: true }
+    }
   );
 
-  specify(
+  test(
     "the history object should update correctly when calling pushState with index behind length",
-    t => {
+    (t, done) => {
       const { window } = new JSDOM(``, { url: "http://www.example.org/" });
 
       [
@@ -167,15 +165,14 @@ describe("history", () => {
         assert.equal(window.history.state.foo, "bar-b");
         assert.equal(window.location.pathname, "/bar/b");
 
-        t.done();
+        done();
       });
-    },
-    { async: true }
+    }
   );
 
-  specify(
+  test(
     "the history object should fire popstate on the window while navigating the history",
-    t => {
+    (t, done) => {
       const { window } = new JSDOM(``, { url: "http://www.example.org/" });
 
       const state = { foo: "bar" };
@@ -185,14 +182,13 @@ describe("history", () => {
         assert.equal(event.cancelable, false);
         assert.equal(event.state, state);
 
-        t.done();
+        done();
       });
 
       window.history.pushState(state, "title", "bar");
       window.history.pushState(null, "", "baz");
       window.history.back();
-    },
-    { async: true }
+    }
   );
 
   function waitForHistoryChange(fn) {

@@ -1,8 +1,8 @@
 "use strict";
-const childProcess = require("child_process");
-const http = require("http");
-const https = require("https");
-const os = require("os");
+const childProcess = require("node:child_process");
+const http = require("node:http");
+const https = require("node:https");
+const os = require("node:os");
 const { Canvas } = require("../../lib/jsdom/utils.js");
 
 const hasCanvas = Boolean(Canvas);

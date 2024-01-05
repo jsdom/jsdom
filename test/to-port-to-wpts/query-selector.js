@@ -1,7 +1,6 @@
 "use strict";
-
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 const load = require("../util.js").load(__dirname);
@@ -10,7 +9,7 @@ const load = require("../util.js").load(__dirname);
 // Spec: https://dom.spec.whatwg.org/#dom-parentnode-queryselector
 
 describe("query-selector", () => {
-  specify("querySelector exists on document fragments", () => {
+  test("querySelector exists on document fragments", () => {
     const doc = (new JSDOM()).window.document;
     const docFrag = doc.createDocumentFragment();
 
@@ -24,7 +23,7 @@ describe("query-selector", () => {
     assert.ok(docFrag.querySelector("p"), "document.querySelector can find a <p> element");
   });
 
-  specify(
+  test(
     "querySelector converts its argument to a string before processing",
     () => {
       const doc = load("test");

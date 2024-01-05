@@ -1,7 +1,7 @@
 "use strict";
 const { describe, before, after, test } = require("node:test");
-const path = require("path");
-const fs = require("fs");
+const path = require("node:path");
+const fs = require("node:fs");
 const jsYAML = require("js-yaml");
 const { Minimatch } = require("minimatch");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
@@ -49,7 +49,7 @@ after(() => {
   killSubprocess(serverProcess);
 });
 
-describe("web-platform-tests", { concurrency: 4 }, () => {
+describe("web-platform-tests", () => {
   for (const toRunDoc of toRunDocs) {
     describe(toRunDoc.DIR, () => {
       for (const testFilePath of possibleTestFilePaths) {

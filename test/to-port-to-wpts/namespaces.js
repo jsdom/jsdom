@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 const { readTestFixture } = require("../util.js");
@@ -60,14 +60,14 @@ function testHTMLDocument(document) {
 }
 
 describe("jsdom/namespaces", () => {
-  specify("should set namespaces in HTML documents created by jsdom.env()", () => {
+  test("should set namespaces in HTML documents created by jsdom.env()", () => {
     return readTestFixture("to-port-to-wpts/files/ns-html.html").then(content => {
       const doc = (new JSDOM(content)).window.document;
       testHTMLDocument(doc);
     });
   });
 
-  specify("should set namespace-related properties in HTML documents created by innerHTML", () => {
+  test("should set namespace-related properties in HTML documents created by innerHTML", () => {
     return readTestFixture("to-port-to-wpts/files/ns-html.html").then(content => {
       const doc = (new JSDOM()).window.document;
       doc.body.innerHTML = content;
@@ -129,14 +129,14 @@ describe("jsdom/namespaces", () => {
     );
   }
 
-  specify("should set namespace-related properties in HTML-SVG documents created by jsdom.env()", () => {
+  test("should set namespace-related properties in HTML-SVG documents created by jsdom.env()", () => {
     return readTestFixture("to-port-to-wpts/files/ns-svg.html").then(content => {
       const doc = (new JSDOM(content)).window.document;
       testDocumentWithSVG(doc);
     });
   });
 
-  specify("should set namespace-related properties in HTML-SVG documents created by innerHTML", () => {
+  test("should set namespace-related properties in HTML-SVG documents created by innerHTML", () => {
     return readTestFixture("to-port-to-wpts/files/ns-svg.html").then(content => {
       const doc = (new JSDOM()).window.document;
       doc.body.innerHTML = content;

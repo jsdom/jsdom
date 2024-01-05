@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const staff = require("./core/files/staff.xml");
 const hc_staff = require("./core/files/hc_staff.xml");
@@ -26,7 +26,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("attrcreatedocumentfragment", () => {
+  test("attrcreatedocumentfragment", () => {
     let success;
     let doc;
     let docFragment;
@@ -68,7 +68,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  specify("attrcreatetextnode", () => {
+  test("attrcreatetextnode", () => {
     let success;
     let doc;
     let addressList;
@@ -108,7 +108,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  specify("attrcreatetextnode2", () => {
+  test("attrcreatetextnode2", () => {
     let success;
     let doc;
     let addressList;
@@ -145,7 +145,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    */
-  specify("attreffectivevalue", () => {
+  test("attreffectivevalue", () => {
     let success;
     let doc;
     let addressList;
@@ -178,7 +178,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    */
-  specify("attrname", () => {
+  test("attrname", () => {
     let success;
     let doc;
     let addressList;
@@ -213,7 +213,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  specify("attrnextsiblingnull", () => {
+  test("attrnextsiblingnull", () => {
     let success;
     let doc;
     let addressList;
@@ -245,7 +245,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  specify("attrparentnodenull", () => {
+  test("attrparentnodenull", () => {
     let success;
     let doc;
     let addressList;
@@ -277,7 +277,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  specify("attrprevioussiblingnull", () => {
+  test("attrprevioussiblingnull", () => {
     let success;
     let doc;
     let addressList;
@@ -312,7 +312,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  specify("attrspecifiedvalue", () => {
+  test("attrspecifiedvalue", () => {
     let success;
     let doc;
     let addressList;
@@ -348,7 +348,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  specify("attrspecifiedvaluechanged", () => {
+  test("attrspecifiedvaluechanged", () => {
     let success;
     let doc;
     let addressList;
@@ -386,7 +386,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  specify("characterdataappenddata", () => {
+  test("characterdataappenddata", () => {
     let success;
     let doc;
     let elementList;
@@ -425,7 +425,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  specify("characterdataappenddatagetdata", () => {
+  test("characterdataappenddatagetdata", () => {
     let success;
     let doc;
     let elementList;
@@ -461,7 +461,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("characterdatadeletedatabegining", () => {
+  test("characterdatadeletedatabegining", () => {
     let success;
     let doc;
     let elementList;
@@ -498,7 +498,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("characterdatadeletedataend", () => {
+  test("characterdatadeletedataend", () => {
     let success;
     let doc;
     let elementList;
@@ -537,7 +537,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("characterdatadeletedataexceedslength", () => {
+  test("characterdatadeletedataexceedslength", () => {
     let success;
     let doc;
     let elementList;
@@ -577,7 +577,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("characterdatadeletedatagetlengthanddata", () => {
+  test("characterdatadeletedatagetlengthanddata", () => {
     let success;
     let doc;
     let elementList;
@@ -620,7 +620,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("characterdatadeletedatamiddle", () => {
+  test("characterdatadeletedatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -659,7 +659,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  specify("characterdatagetdata", () => {
+  test("characterdatagetdata", () => {
     let success;
     let doc;
     let elementList;
@@ -690,7 +690,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    */
-  specify("characterdatagetlength", () => {
+  test("characterdatagetlength", () => {
     let success;
     let doc;
     let elementList;
@@ -724,7 +724,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("characterdataindexsizeerrdeletedatacountnegative", () => {
+  test("characterdataindexsizeerrdeletedatacountnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -761,7 +761,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("characterdataindexsizeerrdeletedataoffsetgreater", () => {
+  test("characterdataindexsizeerrdeletedataoffsetgreater", () => {
     let success;
     let doc;
     let elementList;
@@ -804,7 +804,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("characterdataindexsizeerrdeletedataoffsetnegative", () => {
+  test("characterdataindexsizeerrdeletedataoffsetnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -848,7 +848,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("characterdataindexsizeerrinsertdataoffsetgreater", () => {
+  test("characterdataindexsizeerrinsertdataoffsetgreater", () => {
     let success;
     let doc;
     let elementList;
@@ -890,7 +890,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("characterdataindexsizeerrinsertdataoffsetnegative", () => {
+  test("characterdataindexsizeerrinsertdataoffsetnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -930,7 +930,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("characterdataindexsizeerrreplacedatacountnegative", () => {
+  test("characterdataindexsizeerrreplacedatacountnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -967,7 +967,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("characterdataindexsizeerrreplacedataoffsetgreater", () => {
+  test("characterdataindexsizeerrreplacedataoffsetgreater", () => {
     let success;
     let doc;
     let elementList;
@@ -1011,7 +1011,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("characterdataindexsizeerrreplacedataoffsetnegative", () => {
+  test("characterdataindexsizeerrreplacedataoffsetnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -1050,7 +1050,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("characterdataindexsizeerrsubstringcountnegative", () => {
+  test("characterdataindexsizeerrsubstringcountnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -1085,7 +1085,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("characterdataindexsizeerrsubstringnegativeoffset", () => {
+  test("characterdataindexsizeerrsubstringnegativeoffset", () => {
     let success;
     let doc;
     let elementList;
@@ -1130,7 +1130,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("characterdataindexsizeerrsubstringoffsetgreater", () => {
+  test("characterdataindexsizeerrsubstringoffsetgreater", () => {
     let success;
     let doc;
     let elementList;
@@ -1173,7 +1173,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("characterdatainsertdatabeginning", () => {
+  test("characterdatainsertdatabeginning", () => {
     let success;
     let doc;
     let elementList;
@@ -1210,7 +1210,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("characterdatainsertdataend", () => {
+  test("characterdatainsertdataend", () => {
     let success;
     let doc;
     let elementList;
@@ -1247,7 +1247,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("characterdatainsertdatamiddle", () => {
+  test("characterdatainsertdatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -1283,7 +1283,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("characterdatareplacedatabegining", () => {
+  test("characterdatareplacedatabegining", () => {
     let success;
     let doc;
     let elementList;
@@ -1320,7 +1320,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("characterdatareplacedataend", () => {
+  test("characterdatareplacedataend", () => {
     let success;
     let doc;
     let elementList;
@@ -1358,7 +1358,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("characterdatareplacedataexceedslengthofarg", () => {
+  test("characterdatareplacedataexceedslengthofarg", () => {
     let success;
     let doc;
     let elementList;
@@ -1398,7 +1398,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("characterdatareplacedataexceedslengthofdata", () => {
+  test("characterdatareplacedataexceedslengthofdata", () => {
     let success;
     let doc;
     let elementList;
@@ -1435,7 +1435,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("characterdatareplacedatamiddle", () => {
+  test("characterdatareplacedatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -1465,7 +1465,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  specify("characterdatasetnodevalue", () => {
+  test("characterdatasetnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -1506,7 +1506,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  specify("characterdatasubstringexceedsvalue", () => {
+  test("characterdatasubstringexceedsvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -1539,7 +1539,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  specify("characterdatasubstringvalue", () => {
+  test("characterdatasubstringvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -1570,7 +1570,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("commentgetcomment", () => {
+  test("commentgetcomment", () => {
     let success;
     let doc;
     let elementList;
@@ -1620,7 +1620,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    */
-  specify("documentcreateattribute", () => {
+  test("documentcreateattribute", () => {
     let success;
     let doc;
     let newAttrNode;
@@ -1650,7 +1650,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1334481328
    */
-  specify("documentcreatecomment", () => {
+  test("documentcreatecomment", () => {
     let success;
     let doc;
     let newCommentNode;
@@ -1683,7 +1683,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-35CB04B5
    */
-  specify("documentcreatedocumentfragment", () => {
+  test("documentcreatedocumentfragment", () => {
     let success;
     let doc;
     let newDocFragment;
@@ -1725,7 +1725,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    */
-  specify("documentcreateelement", () => {
+  test("documentcreateelement", () => {
     let success;
     let doc;
     let newElement;
@@ -1761,7 +1761,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    */
-  specify("documentcreateelementcasesensitive", () => {
+  test("documentcreateelementcasesensitive", () => {
     let success;
     let doc;
     let newElement1;
@@ -1801,7 +1801,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-135944439
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("documentcreateprocessinginstruction", () => {
+  test("documentcreateprocessinginstruction", () => {
     let success;
     let doc;
     let newPINode;
@@ -1836,7 +1836,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1975348127
    */
-  specify("documentcreatetextnode", () => {
+  test("documentcreatetextnode", () => {
     let success;
     let doc;
     let newTextNode;
@@ -1872,7 +1872,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("documentgetdoctype", () => {
+  test("documentgetdoctype", () => {
     let success;
     let doc;
     let docType;
@@ -1903,7 +1903,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  specify("documentgetdoctypenodtd", () => {
+  test("documentgetdoctypenodtd", () => {
     let success;
     let doc;
     let docType;
@@ -1928,7 +1928,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  specify("documentgetelementsbytagnamelength", () => {
+  test("documentgetelementsbytagnamelength", () => {
     let success;
     let doc;
     let nameList;
@@ -1947,7 +1947,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  specify("documentgetelementsbytagnametotallength", () => {
+  test("documentgetelementsbytagnametotallength", () => {
     let success;
     let doc;
     let nameList;
@@ -1975,7 +1975,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  specify("documentgetelementsbytagnamevalue", () => {
+  test("documentgetelementsbytagnamevalue", () => {
     let success;
     let doc;
     let nameList;
@@ -2006,7 +2006,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1B793EBA
    */
-  specify("documentgetimplementation", () => {
+  test("documentgetimplementation", () => {
     let success;
     let doc;
     let docImpl;
@@ -2031,7 +2031,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-87CD092
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("documentgetrootnode", () => {
+  test("documentgetrootnode", () => {
     let success;
     let doc;
     let root;
@@ -2065,7 +2065,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("documentinvalidcharacterexceptioncreateattribute", () => {
+  test("documentinvalidcharacterexceptioncreateattribute", () => {
     let success;
     let doc;
     let createdAttr;
@@ -2103,7 +2103,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("documentinvalidcharacterexceptioncreateelement", () => {
+  test("documentinvalidcharacterexceptioncreateelement", () => {
     let success;
     let doc;
     let badElement;
@@ -2135,7 +2135,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-135944439')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("documentinvalidcharacterexceptioncreatepi", () => {
+  test("documentinvalidcharacterexceptioncreatepi", () => {
     let success;
     let doc;
     let badPI;
@@ -2161,7 +2161,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-135944439')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  specify("documentinvalidcharacterexceptioncreatepi1", () => {
+  test("documentinvalidcharacterexceptioncreatepi1", () => {
     let success;
     let doc;
     let badPI;
@@ -2190,7 +2190,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1844763134
    */
-  specify("documenttypegetdoctype", () => {
+  test("documenttypegetdoctype", () => {
     let success;
     let doc;
     let docType;
@@ -2215,7 +2215,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    */
-  specify("domimplementationfeaturenoversion", () => {
+  test("domimplementationfeaturenoversion", () => {
     let success;
     let doc;
     let domImpl;
@@ -2236,7 +2236,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    */
-  specify("domimplementationfeaturenull", () => {
+  test("domimplementationfeaturenull", () => {
     let success;
     let doc;
     let domImpl;
@@ -2258,7 +2258,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    */
-  specify("domimplementationfeaturexml", () => {
+  test("domimplementationfeaturexml", () => {
     let success;
     let doc;
     let domImpl;
@@ -2285,7 +2285,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  specify("elementaddnewattribute", () => {
+  test("elementaddnewattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -2315,7 +2315,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("elementassociatedattribute", () => {
+  test("elementassociatedattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -2353,7 +2353,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  specify("elementchangeattributevalue", () => {
+  test("elementchangeattributevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -2383,7 +2383,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  specify("elementcreatenewattribute", () => {
+  test("elementcreatenewattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -2419,7 +2419,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-217A91B8
    */
-  specify("elementgetattributenode", () => {
+  test("elementgetattributenode", () => {
     let success;
     let doc;
     let elementList;
@@ -2451,7 +2451,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-217A91B8
    */
-  specify("elementgetattributenodenull", () => {
+  test("elementgetattributenodenull", () => {
     let success;
     let doc;
     let elementList;
@@ -2481,7 +2481,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("elementgetelementsbytagname", () => {
+  test("elementgetelementsbytagname", () => {
     let success;
     let doc;
     let elementList;
@@ -2500,7 +2500,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("elementgetelementsbytagnameaccessnodelist", () => {
+  test("elementgetelementsbytagnameaccessnodelist", () => {
     let success;
     let doc;
     let elementList;
@@ -2549,7 +2549,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("elementgetelementsbytagnamenomatch", () => {
+  test("elementgetelementsbytagnamenomatch", () => {
     let success;
     let doc;
     let elementList;
@@ -2574,7 +2574,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("elementgetelementsbytagnamespecialvalue", () => {
+  test("elementgetelementsbytagnamespecialvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -2626,7 +2626,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("elementgettagname", () => {
+  test("elementgettagname", () => {
     let success;
     let doc;
     let root;
@@ -2662,7 +2662,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    */
-  specify("elementinuseattributeerr", () => {
+  test("elementinuseattributeerr", () => {
     let success;
     let doc;
     let newAttribute;
@@ -2718,7 +2718,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("elementinvalidcharacterexception", () => {
+  test("elementinvalidcharacterexception", () => {
     let success;
     let doc;
     let elementList;
@@ -2755,7 +2755,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    */
-  specify("elementnormalize", () => {
+  test("elementnormalize", () => {
     let success;
     let doc;
     let root;
@@ -2796,7 +2796,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("elementnotfounderr", () => {
+  test("elementnotfounderr", () => {
     let success;
     let doc;
     let oldAttribute;
@@ -2837,7 +2837,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  specify("elementremoveattributeaftercreate", () => {
+  test("elementremoveattributeaftercreate", () => {
     let success;
     let doc;
     let elementList;
@@ -2871,7 +2871,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  specify("elementremoveattributenode", () => {
+  test("elementremoveattributenode", () => {
     let success;
     let doc;
     let elementList;
@@ -2903,7 +2903,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  specify("elementreplaceattributewithself", () => {
+  test("elementreplaceattributewithself", () => {
     let doc = staff.staff();
     let testEmployee = doc.getElementsByTagName("address").item(2);
     let streetAttr = testEmployee.getAttributeNode("street");
@@ -2929,7 +2929,7 @@ describe("level1/core", () => {
    * @author NIST
    * @author Mary Brady
    */
-  specify("elementreplaceexistingattribute", () => {
+  test("elementreplaceexistingattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -2964,7 +2964,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  specify("elementreplaceexistingattributegevalue", () => {
+  test("elementreplaceexistingattributegevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -2996,7 +2996,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    */
-  specify("elementretrieveattrvalue", () => {
+  test("elementretrieveattrvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -3024,7 +3024,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    */
-  specify("elementretrievetagname", () => {
+  test("elementretrievetagname", () => {
     let success;
     let doc;
     let elementList;
@@ -3059,7 +3059,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  specify("elementsetattributenodenull", () => {
+  test("elementsetattributenodenull", () => {
     let success;
     let doc;
     let elementList;
@@ -3089,7 +3089,7 @@ describe("level1/core", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  specify("hc_attrcreatedocumentfragment", () => {
+  test("hc_attrcreatedocumentfragment", () => {
     let success;
     let doc;
     let docFragment;
@@ -3137,7 +3137,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  specify("hc_attrcreatetextnode", () => {
+  test("hc_attrcreatetextnode", () => {
     let success;
     let doc;
     let addressList;
@@ -3177,7 +3177,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  specify("hc_attrcreatetextnode2", () => {
+  test("hc_attrcreatetextnode2", () => {
     let success;
     let doc;
     let addressList;
@@ -3213,7 +3213,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    */
-  specify("hc_attreffectivevalue", () => {
+  test("hc_attreffectivevalue", () => {
     let success;
     let doc;
     let addressList;
@@ -3245,7 +3245,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  specify("hc_attrname", () => {
+  test("hc_attrname", () => {
     let success;
     let doc;
     let addressList;
@@ -3283,7 +3283,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  specify("hc_attrspecifiedvalue", () => {
+  test("hc_attrspecifiedvalue", () => {
     let success;
     let doc;
     let addressList;
@@ -3318,7 +3318,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  specify("hc_attrspecifiedvaluechanged", () => {
+  test("hc_attrspecifiedvaluechanged", () => {
     let success;
     let doc;
     let addressList;
@@ -3355,7 +3355,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  specify("hc_characterdataappenddata", () => {
+  test("hc_characterdataappenddata", () => {
     let success;
     let doc;
     let elementList;
@@ -3393,7 +3393,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  specify("hc_characterdataappenddatagetdata", () => {
+  test("hc_characterdataappenddatagetdata", () => {
     let success;
     let doc;
     let elementList;
@@ -3428,7 +3428,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedatabegining", () => {
+  test("hc_characterdatadeletedatabegining", () => {
     let success;
     let doc;
     let elementList;
@@ -3464,7 +3464,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedataend", () => {
+  test("hc_characterdatadeletedataend", () => {
     let success;
     let doc;
     let elementList;
@@ -3502,7 +3502,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedataexceedslength", () => {
+  test("hc_characterdatadeletedataexceedslength", () => {
     let success;
     let doc;
     let elementList;
@@ -3541,7 +3541,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedatagetlengthanddata", () => {
+  test("hc_characterdatadeletedatagetlengthanddata", () => {
     let success;
     let doc;
     let elementList;
@@ -3583,7 +3583,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedatamiddle", () => {
+  test("hc_characterdatadeletedatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -3621,7 +3621,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  specify("hc_characterdatagetdata", () => {
+  test("hc_characterdatagetdata", () => {
     let success;
     let doc;
     let elementList;
@@ -3651,7 +3651,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    */
-  specify("hc_characterdatagetlength", () => {
+  test("hc_characterdatagetlength", () => {
     let success;
     let doc;
     let elementList;
@@ -3685,7 +3685,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrdeletedatacountnegative", () => {
+  test("hc_characterdataindexsizeerrdeletedatacountnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -3722,7 +3722,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_characterdataindexsizeerrdeletedataoffsetgreater", () => {
+  test("hc_characterdataindexsizeerrdeletedataoffsetgreater", () => {
     let success;
     let doc;
     let elementList;
@@ -3764,7 +3764,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdataindexsizeerrdeletedataoffsetnegative", () => {
+  test("hc_characterdataindexsizeerrdeletedataoffsetnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -3807,7 +3807,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_characterdataindexsizeerrinsertdataoffsetgreater", () => {
+  test("hc_characterdataindexsizeerrinsertdataoffsetgreater", () => {
     let success;
     let doc;
     let elementList;
@@ -3848,7 +3848,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrinsertdataoffsetnegative", () => {
+  test("hc_characterdataindexsizeerrinsertdataoffsetnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -3888,7 +3888,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrreplacedatacountnegative", () => {
+  test("hc_characterdataindexsizeerrreplacedatacountnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -3925,7 +3925,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=242
    */
-  specify("hc_characterdataindexsizeerrreplacedataoffsetgreater", () => {
+  test("hc_characterdataindexsizeerrreplacedataoffsetgreater", () => {
     let success;
     let doc;
     let elementList;
@@ -3968,7 +3968,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdataindexsizeerrreplacedataoffsetnegative", () => {
+  test("hc_characterdataindexsizeerrreplacedataoffsetnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -4007,7 +4007,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrsubstringcountnegative", () => {
+  test("hc_characterdataindexsizeerrsubstringcountnegative", () => {
     let success;
     let doc;
     let elementList;
@@ -4041,7 +4041,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrsubstringnegativeoffset", () => {
+  test("hc_characterdataindexsizeerrsubstringnegativeoffset", () => {
     let success;
     let doc;
     let elementList;
@@ -4085,7 +4085,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_characterdataindexsizeerrsubstringoffsetgreater", () => {
+  test("hc_characterdataindexsizeerrsubstringoffsetgreater", () => {
     let success;
     let doc;
     let elementList;
@@ -4127,7 +4127,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("hc_characterdatainsertdatabeginning", () => {
+  test("hc_characterdatainsertdatabeginning", () => {
     let success;
     let doc;
     let elementList;
@@ -4163,7 +4163,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("hc_characterdatainsertdataend", () => {
+  test("hc_characterdatainsertdataend", () => {
     let success;
     let doc;
     let elementList;
@@ -4199,7 +4199,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("hc_characterdatainsertdatamiddle", () => {
+  test("hc_characterdatainsertdatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -4234,7 +4234,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedatabegining", () => {
+  test("hc_characterdatareplacedatabegining", () => {
     let success;
     let doc;
     let elementList;
@@ -4270,7 +4270,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedataend", () => {
+  test("hc_characterdatareplacedataend", () => {
     let success;
     let doc;
     let elementList;
@@ -4307,7 +4307,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedataexceedslengthofarg", () => {
+  test("hc_characterdatareplacedataexceedslengthofarg", () => {
     let success;
     let doc;
     let elementList;
@@ -4346,7 +4346,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedataexceedslengthofdata", () => {
+  test("hc_characterdatareplacedataexceedslengthofdata", () => {
     let success;
     let doc;
     let elementList;
@@ -4382,7 +4382,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedatamiddle", () => {
+  test("hc_characterdatareplacedatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -4412,7 +4412,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  specify("hc_characterdatasetnodevalue", () => {
+  test("hc_characterdatasetnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -4452,7 +4452,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  specify("hc_characterdatasubstringexceedsvalue", () => {
+  test("hc_characterdatasubstringexceedsvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -4484,7 +4484,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  specify("hc_characterdatasubstringvalue", () => {
+  test("hc_characterdatasubstringvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -4516,7 +4516,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=509
    */
-  specify("hc_commentgetcomment", () => {
+  test("hc_commentgetcomment", () => {
     let doc = hc_staff.hc_staff();
     let elementList = doc.childNodes;
     let commentCount = 0;
@@ -4545,7 +4545,7 @@ describe("level1/core", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_documentcreateattribute", () => {
+  test("hc_documentcreateattribute", () => {
     let success;
     let doc;
     let newAttrNode;
@@ -4574,7 +4574,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1334481328
    */
-  specify("hc_documentcreatecomment", () => {
+  test("hc_documentcreatecomment", () => {
     let success;
     let doc;
     let newCommentNode;
@@ -4606,7 +4606,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-35CB04B5
    */
-  specify("hc_documentcreatedocumentfragment", () => {
+  test("hc_documentcreatedocumentfragment", () => {
     let success;
     let doc;
     let newDocFragment;
@@ -4647,7 +4647,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    */
-  specify("hc_documentcreateelement", () => {
+  test("hc_documentcreateelement", () => {
     let success;
     let doc;
     let newElement;
@@ -4686,7 +4686,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_documentcreateelementcasesensitive", () => {
+  test("hc_documentcreateelementcasesensitive", () => {
     let success;
     let doc;
     let newElement1;
@@ -4725,7 +4725,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1975348127
    */
-  specify("hc_documentcreatetextnode", () => {
+  test("hc_documentcreatetextnode", () => {
     let success;
     let doc;
     let newTextNode;
@@ -4754,7 +4754,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  specify("hc_documentgetdoctype", () => {
+  test("hc_documentgetdoctype", () => {
     let success;
     let doc;
     let docType;
@@ -4787,7 +4787,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  specify("hc_documentgetelementsbytagnamelength", () => {
+  test("hc_documentgetelementsbytagnamelength", () => {
     let success;
     let doc;
     let nameList;
@@ -4812,7 +4812,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  specify("hc_documentgetelementsbytagnamevalue", () => {
+  test("hc_documentgetelementsbytagnamevalue", () => {
     let success;
     let doc;
     let nameList;
@@ -4842,7 +4842,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1B793EBA
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  specify("hc_documentgetimplementation", () => {
+  test("hc_documentgetimplementation", () => {
     let success;
     let doc;
     let docImpl;
@@ -4866,7 +4866,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-87CD092
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_documentgetrootnode", () => {
+  test("hc_documentgetrootnode", () => {
     let success;
     let doc;
     let root;
@@ -4899,7 +4899,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_documentinvalidcharacterexceptioncreateattribute", () => {
+  test("hc_documentinvalidcharacterexceptioncreateattribute", () => {
     let success;
     let doc;
     let createdAttr;
@@ -4929,7 +4929,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  specify("hc_documentinvalidcharacterexceptioncreateattribute1", () => {
+  test("hc_documentinvalidcharacterexceptioncreateattribute1", () => {
     let success;
     let doc;
     let createdAttr;
@@ -4966,7 +4966,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_documentinvalidcharacterexceptioncreateelement", () => {
+  test("hc_documentinvalidcharacterexceptioncreateelement", () => {
     let success;
     let doc;
     let badElement;
@@ -4996,7 +4996,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  specify("hc_documentinvalidcharacterexceptioncreateelement1", () => {
+  test("hc_documentinvalidcharacterexceptioncreateelement1", () => {
     let success;
     let doc;
     let badElement;
@@ -5029,7 +5029,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  specify("hc_domimplementationfeaturenoversion", () => {
+  test("hc_domimplementationfeaturenoversion", () => {
     let success;
     let doc;
     let domImpl;
@@ -5056,7 +5056,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  specify("hc_domimplementationfeaturenull", () => {
+  test("hc_domimplementationfeaturenull", () => {
     let success;
     let doc;
     let domImpl;
@@ -5080,7 +5080,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  specify("hc_domimplementationfeaturexml", () => {
+  test("hc_domimplementationfeaturexml", () => {
     let success;
     let doc;
     let domImpl;
@@ -5107,7 +5107,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementaddnewattribute", () => {
+  test("hc_elementaddnewattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -5134,7 +5134,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("hc_elementassociatedattribute", () => {
+  test("hc_elementassociatedattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -5171,7 +5171,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  specify("hc_elementchangeattributevalue", () => {
+  test("hc_elementchangeattributevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -5201,7 +5201,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementcreatenewattribute", () => {
+  test("hc_elementcreatenewattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -5233,7 +5233,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  specify("hc_elementgetattributenode", () => {
+  test("hc_elementgetattributenode", () => {
     let success;
     let doc;
     let elementList;
@@ -5264,7 +5264,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-217A91B8
    */
-  specify("hc_elementgetattributenodenull", () => {
+  test("hc_elementgetattributenodenull", () => {
     let success;
     let doc;
     let elementList;
@@ -5296,7 +5296,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementgetelementempty", () => {
+  test("hc_elementgetelementempty", () => {
     let success;
     let doc;
     let newAttribute;
@@ -5329,7 +5329,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("hc_elementgetelementsbytagname", () => {
+  test("hc_elementgetelementsbytagname", () => {
     let success;
     let doc;
     let elementList;
@@ -5358,7 +5358,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_elementgetelementsbytagnameaccessnodelist", () => {
+  test("hc_elementgetelementsbytagnameaccessnodelist", () => {
     let success;
     let doc;
     let elementList;
@@ -5409,7 +5409,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("hc_elementgetelementsbytagnamenomatch", () => {
+  test("hc_elementgetelementsbytagnamenomatch", () => {
     let success;
     let doc;
     let elementList;
@@ -5433,7 +5433,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("hc_elementgetelementsbytagnamespecialvalue", () => {
+  test("hc_elementgetelementsbytagnamespecialvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -5475,7 +5475,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_elementgettagname", () => {
+  test("hc_elementgettagname", () => {
     let success;
     let doc;
     let root;
@@ -5502,7 +5502,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=244
    */
-  specify("hc_elementinuseattributeerr", () => {
+  test("hc_elementinuseattributeerr", () => {
     let success;
     let doc;
     let newAttribute;
@@ -5550,7 +5550,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_elementinvalidcharacterexception", () => {
+  test("hc_elementinvalidcharacterexception", () => {
     let success;
     let doc;
     let elementList;
@@ -5582,7 +5582,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  specify("hc_elementinvalidcharacterexception1", () => {
+  test("hc_elementinvalidcharacterexception1", () => {
     let success;
     let doc;
     let elementList;
@@ -5613,7 +5613,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=546
    */
-  specify("hc_elementnormalize", () => {
+  test("hc_elementnormalize", () => {
     let success;
     let doc;
     let root;
@@ -5661,7 +5661,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_elementnotfounderr", () => {
+  test("hc_elementnotfounderr", () => {
     let success;
     let doc;
     let oldAttribute;
@@ -5697,7 +5697,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  specify("hc_elementremoveattribute", () => {
+  test("hc_elementremoveattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -5731,7 +5731,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementremoveattributeaftercreate", () => {
+  test("hc_elementremoveattributeaftercreate", () => {
     let success;
     let doc;
     let elementList;
@@ -5764,7 +5764,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  specify("hc_elementremoveattributenode", () => {
+  test("hc_elementremoveattributenode", () => {
     let success;
     let doc;
     let elementList;
@@ -5797,7 +5797,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  specify("hc_elementreplaceattributewithself", () => {
+  test("hc_elementreplaceattributewithself", () => {
     let doc = hc_staff.hc_staff();
     let testEmployee = doc.getElementsByTagName("acronym").item(2);
     let streetAttr = testEmployee.getAttributeNode("class");
@@ -5822,7 +5822,7 @@ describe("level1/core", () => {
 
    * @author Curt Arnold
    */
-  specify("hc_elementreplaceexistingattribute", () => {
+  test("hc_elementreplaceexistingattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -5856,7 +5856,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  specify("hc_elementreplaceexistingattributegevalue", () => {
+  test("hc_elementreplaceexistingattributegevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -5888,7 +5888,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    */
-  specify("hc_elementretrieveattrvalue", () => {
+  test("hc_elementretrieveattrvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -5915,7 +5915,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    */
-  specify("hc_elementretrievetagname", () => {
+  test("hc_elementretrievetagname", () => {
     let success;
     let doc;
     let elementList;
@@ -5950,7 +5950,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementsetattributenodenull", () => {
+  test("hc_elementsetattributenodenull", () => {
     let success;
     let doc;
     let elementList;
@@ -5980,7 +5980,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  specify("hc_namednodemapgetnameditem", () => {
+  test("hc_namednodemapgetnameditem", () => {
     let success;
     let doc;
     let elementList;
@@ -6017,7 +6017,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_namednodemapinuseattributeerr", () => {
+  test("hc_namednodemapinuseattributeerr", () => {
     let success;
     let doc;
     let elementList;
@@ -6070,7 +6070,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D58B193')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_namednodemapnotfounderr", () => {
+  test("hc_namednodemapnotfounderr", () => {
     let success;
     let doc;
     let elementList;
@@ -6112,7 +6112,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  specify("hc_namednodemapremovenameditem", () => {
+  test("hc_namednodemapremovenameditem", () => {
     let success;
     let doc;
     let elementList;
@@ -6148,7 +6148,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
-  specify("hc_namednodemapreturnattrnode", () => {
+  test("hc_namednodemapreturnattrnode", () => {
     let success;
     let doc;
     let elementList;
@@ -6188,7 +6188,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_namednodemapreturnnull", () => {
+  test("hc_namednodemapreturnnull", () => {
     let success;
     let doc;
     let elementList;
@@ -6225,7 +6225,7 @@ describe("level1/core", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_namednodemapsetnameditem", () => {
+  test("hc_namednodemapsetnameditem", () => {
     let success;
     let doc;
     let elementList;
@@ -6271,7 +6271,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("hc_namednodemapsetnameditemreturnvalue", () => {
+  test("hc_namednodemapsetnameditemreturnvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -6317,7 +6317,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("hc_namednodemapsetnameditemthatexists", () => {
+  test("hc_namednodemapsetnameditemthatexists", () => {
     let success;
     let doc;
     let elementList;
@@ -6361,7 +6361,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_namednodemapsetnameditemwithnewvalue", () => {
+  test("hc_namednodemapsetnameditemwithnewvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -6391,7 +6391,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeappendchild", () => {
+  test("hc_nodeappendchild", () => {
     let success;
     let doc;
     let elementList;
@@ -6431,7 +6431,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodeappendchildchildexists", () => {
+  test("hc_nodeappendchildchildexists", () => {
     let success;
     let doc;
     let elementList;
@@ -6505,7 +6505,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeappendchilddocfragment", () => {
+  test("hc_nodeappendchilddocfragment", () => {
     let success;
     let doc;
     let elementList;
@@ -6575,7 +6575,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeappendchildgetnodename", () => {
+  test("hc_nodeappendchildgetnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -6614,7 +6614,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  specify("hc_nodeappendchildnodeancestor", () => {
+  test("hc_nodeappendchildnodeancestor", () => {
     let success;
     let doc;
     let newChild;
@@ -6655,7 +6655,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  specify("hc_nodeattributenodeattribute", () => {
+  test("hc_nodeattributenodeattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -6686,7 +6686,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
-  specify("hc_nodeattributenodename", () => {
+  test("hc_nodeattributenodename", () => {
     let success;
     let doc;
     let elementList;
@@ -6717,7 +6717,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_nodeattributenodevalue", () => {
+  test("hc_nodeattributenodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -6748,7 +6748,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodechildnodes", () => {
+  test("hc_nodechildnodes", () => {
     let success;
     let doc;
     let elementList;
@@ -6813,7 +6813,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodechildnodesappendchild", () => {
+  test("hc_nodechildnodesappendchild", () => {
     let success;
     let doc;
     let elementList;
@@ -6879,7 +6879,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodechildnodesempty", () => {
+  test("hc_nodechildnodesempty", () => {
     let success;
     let doc;
     let elementList;
@@ -6912,7 +6912,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  specify("hc_nodecloneattributescopied", () => {
+  test("hc_nodecloneattributescopied", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(1).cloneNode(false).attributes;
     let actual = [];
@@ -6935,7 +6935,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("hc_nodeclonefalsenocopytext", () => {
+  test("hc_nodeclonefalsenocopytext", () => {
     let success;
     let doc;
     let elementList;
@@ -6970,7 +6970,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("hc_nodeclonegetparentnull", () => {
+  test("hc_nodeclonegetparentnull", () => {
     let success;
     let doc;
     let elementList;
@@ -7002,7 +7002,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("hc_nodeclonenodefalse", () => {
+  test("hc_nodeclonenodefalse", () => {
     let success;
     let doc;
     let elementList;
@@ -7042,7 +7042,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodeclonenodetrue", () => {
+  test("hc_nodeclonenodetrue", () => {
     let success;
     let doc;
     let elementList;
@@ -7098,7 +7098,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodeclonetruecopytext", () => {
+  test("hc_nodeclonetruecopytext", () => {
     let success;
     let doc;
     let elementList;
@@ -7134,7 +7134,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=263
    */
-  specify("hc_nodecommentnodeattributes", () => {
+  test("hc_nodecommentnodeattributes", () => {
     let success;
     let doc;
     let commentNode;
@@ -7180,7 +7180,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  specify("hc_nodecommentnodename", () => {
+  test("hc_nodecommentnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -7227,7 +7227,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  specify("hc_nodecommentnodetype", () => {
+  test("hc_nodecommentnodetype", () => {
     let success;
     let doc;
     let testList;
@@ -7273,7 +7273,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  specify("hc_nodecommentnodevalue", () => {
+  test("hc_nodecommentnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -7319,7 +7319,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("hc_nodedocumentfragmentnodename", () => {
+  test("hc_nodedocumentfragmentnodename", () => {
     let success;
     let doc;
     let docFragment;
@@ -7346,7 +7346,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("hc_nodedocumentfragmentnodetype", () => {
+  test("hc_nodedocumentfragmentnodetype", () => {
     let success;
     let doc;
     let documentFragmentNode;
@@ -7375,7 +7375,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("hc_nodedocumentfragmentnodevalue", () => {
+  test("hc_nodedocumentfragmentnodevalue", () => {
     let success;
     let doc;
     let docFragment;
@@ -7405,7 +7405,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("hc_nodedocumentnodeattribute", () => {
+  test("hc_nodedocumentnodeattribute", () => {
     let success;
     let doc;
     let attrList;
@@ -7429,7 +7429,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("hc_nodedocumentnodename", () => {
+  test("hc_nodedocumentnodename", () => {
     let success;
     let doc;
     let documentName;
@@ -7452,7 +7452,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("hc_nodedocumentnodetype", () => {
+  test("hc_nodedocumentnodetype", () => {
     let success;
     let doc;
     let nodeType;
@@ -7477,7 +7477,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_nodedocumentnodevalue", () => {
+  test("hc_nodedocumentnodevalue", () => {
     let doc = hc_staff.hc_staff();
     assert.equal(doc.nodeValue, null, "documentNodeValue");
   });
@@ -7493,7 +7493,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_nodeelementnodename", () => {
+  test("hc_nodeelementnodename", () => {
     let success;
     let doc;
     let elementNode;
@@ -7519,7 +7519,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("hc_nodeelementnodetype", () => {
+  test("hc_nodeelementnodetype", () => {
     let success;
     let doc;
     let rootNode;
@@ -7541,7 +7541,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_nodeelementnodevalue", () => {
+  test("hc_nodeelementnodevalue", () => {
     let success;
     let doc;
     let elementNode;
@@ -7568,7 +7568,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodegetfirstchild", () => {
+  test("hc_nodegetfirstchild", () => {
     let success;
     let doc;
     let elementList;
@@ -7608,7 +7608,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodegetfirstchildnull", () => {
+  test("hc_nodegetfirstchildnull", () => {
     let success;
     let doc;
     let emList;
@@ -7638,7 +7638,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  specify("hc_nodegetlastchild", () => {
+  test("hc_nodegetlastchild", () => {
     let success;
     let doc;
     let elementList;
@@ -7669,7 +7669,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodegetlastchildnull", () => {
+  test("hc_nodegetlastchildnull", () => {
     let success;
     let doc;
     let emList;
@@ -7699,7 +7699,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  specify("hc_nodegetnextsibling", () => {
+  test("hc_nodegetnextsibling", () => {
     let success;
     let doc;
     let elementList;
@@ -7736,7 +7736,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  specify("hc_nodegetnextsiblingnull", () => {
+  test("hc_nodegetnextsiblingnull", () => {
     let success;
     let doc;
     let elementList;
@@ -7762,7 +7762,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_nodegetownerdocument", () => {
+  test("hc_nodegetownerdocument", () => {
     let success;
     let doc;
     let elementList;
@@ -7801,7 +7801,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    */
-  specify("hc_nodegetownerdocumentnull", () => {
+  test("hc_nodegetownerdocumentnull", () => {
     let success;
     let doc;
     let ownerDocument;
@@ -7824,7 +7824,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  specify("hc_nodegetprevioussibling", () => {
+  test("hc_nodegetprevioussibling", () => {
     let success;
     let doc;
     let elementList;
@@ -7861,7 +7861,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  specify("hc_nodegetprevioussiblingnull", () => {
+  test("hc_nodegetprevioussiblingnull", () => {
     let success;
     let doc;
     let elementList;
@@ -7891,7 +7891,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  specify("hc_nodehaschildnodes", () => {
+  test("hc_nodehaschildnodes", () => {
     let success;
     let doc;
     let elementList;
@@ -7918,7 +7918,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodehaschildnodesfalse", () => {
+  test("hc_nodehaschildnodesfalse", () => {
     let success;
     let doc;
     let emList;
@@ -7950,7 +7950,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=261
    */
-  specify("hc_nodeinsertbefore", () => {
+  test("hc_nodeinsertbefore", () => {
     let success;
     let doc;
     let elementList;
@@ -8018,7 +8018,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeinsertbeforedocfragment", () => {
+  test("hc_nodeinsertbeforedocfragment", () => {
     let success;
     let doc;
     let elementList;
@@ -8071,7 +8071,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodeinsertbeforenewchildexists", () => {
+  test("hc_nodeinsertbeforenewchildexists", () => {
     let success;
     let doc;
     let elementList;
@@ -8136,7 +8136,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  specify("hc_nodeinsertbeforenodeancestor", () => {
+  test("hc_nodeinsertbeforenodeancestor", () => {
     let success;
     let doc;
     let newChild;
@@ -8182,7 +8182,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeinsertbeforenodename", () => {
+  test("hc_nodeinsertbeforenodename", () => {
     let success;
     let doc;
     let elementList;
@@ -8225,7 +8225,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_nodeinsertbeforerefchildnonexistent", () => {
+  test("hc_nodeinsertbeforerefchildnonexistent", () => {
     let success;
     let doc;
     let refChild;
@@ -8255,7 +8255,7 @@ describe("level1/core", () => {
   /**
    * If the "refChild" is the same as the "newChild" then don't do anything.
    */
-  specify("hc_nodeinsertbeforerefchildequal", () => {
+  test("hc_nodeinsertbeforerefchildequal", () => {
     let doc = hc_staff.hc_staff();
     let elementList = doc.getElementsByTagName("p");
     let employeeNode = elementList.item(1);
@@ -8283,7 +8283,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeinsertbeforerefchildnull", () => {
+  test("hc_nodeinsertbeforerefchildnull", () => {
     let success;
     let doc;
     let elementList;
@@ -8324,7 +8324,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistindexequalzero", () => {
+  test("hc_nodelistindexequalzero", () => {
     let success;
     let doc;
     let elementList;
@@ -8369,7 +8369,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistindexgetlength", () => {
+  test("hc_nodelistindexgetlength", () => {
     let success;
     let doc;
     let elementList;
@@ -8410,7 +8410,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistindexgetlengthofemptylist", () => {
+  test("hc_nodelistindexgetlengthofemptylist", () => {
     let success;
     let doc;
     let emList;
@@ -8446,7 +8446,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistindexnotzero", () => {
+  test("hc_nodelistindexnotzero", () => {
     let success;
     let doc;
     let elementList;
@@ -8486,7 +8486,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistreturnfirstitem", () => {
+  test("hc_nodelistreturnfirstitem", () => {
     let success;
     let doc;
     let elementList;
@@ -8525,7 +8525,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistreturnlastitem", () => {
+  test("hc_nodelistreturnlastitem", () => {
     let success;
     let doc;
     let elementList;
@@ -8572,7 +8572,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelisttraverselist", () => {
+  test("hc_nodelisttraverselist", () => {
     let success;
     let doc;
     let elementList;
@@ -8631,7 +8631,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    */
-  specify("hc_nodeparentnode", () => {
+  test("hc_nodeparentnode", () => {
     let success;
     let doc;
     let elementList;
@@ -8663,7 +8663,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeparentnodenull", () => {
+  test("hc_nodeparentnodenull", () => {
     let success;
     let doc;
     let createdNode;
@@ -8691,7 +8691,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_noderemovechild", () => {
+  test("hc_noderemovechild", () => {
     let success;
     let doc;
     let rootNode;
@@ -8727,7 +8727,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_noderemovechildgetnodename", () => {
+  test("hc_noderemovechildgetnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -8767,7 +8767,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_noderemovechildnode", () => {
+  test("hc_noderemovechildnode", () => {
     let success;
     let doc;
     let elementList;
@@ -8841,7 +8841,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_noderemovechildoldchildnonexistent", () => {
+  test("hc_noderemovechildoldchildnonexistent", () => {
     let success;
     let doc;
     let oldChild;
@@ -8880,7 +8880,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodereplacechild", () => {
+  test("hc_nodereplacechild", () => {
     let success;
     let doc;
     let elementList;
@@ -8917,7 +8917,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodereplacechildnewchildexists", () => {
+  test("hc_nodereplacechildnewchildexists", () => {
     let success;
     let doc;
     let elementList;
@@ -8989,7 +8989,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  specify("hc_nodereplacechildnodeancestor", () => {
+  test("hc_nodereplacechildnodeancestor", () => {
     let success;
     let doc;
     let newChild;
@@ -9036,7 +9036,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodereplacechildnodename", () => {
+  test("hc_nodereplacechildnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -9077,7 +9077,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodereplacechildoldchildnonexistent", () => {
+  test("hc_nodereplacechildoldchildnonexistent", () => {
     let success;
     let doc;
     let oldChild;
@@ -9117,7 +9117,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    */
-  specify("hc_nodetextnodeattribute", () => {
+  test("hc_nodetextnodeattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -9143,7 +9143,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("hc_nodetextnodename", () => {
+  test("hc_nodetextnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -9180,7 +9180,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("hc_nodetextnodetype", () => {
+  test("hc_nodetextnodetype", () => {
     let success;
     let doc;
     let elementList;
@@ -9211,7 +9211,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_nodetextnodevalue", () => {
+  test("hc_nodetextnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -9238,7 +9238,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("hc_nodevalue01", () => {
+  test("hc_nodevalue01", () => {
     let success;
     let doc;
     let newNode;
@@ -9265,7 +9265,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  specify("hc_nodevalue02", () => {
+  test("hc_nodevalue02", () => {
     let success;
     let doc;
     let newNode;
@@ -9292,7 +9292,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  specify("hc_nodevalue04", () => {
+  test("hc_nodevalue04", () => {
     let success;
     let doc;
     let newNode;
@@ -9318,7 +9318,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("hc_nodevalue05", () => {
+  test("hc_nodevalue05", () => {
     let success;
     let doc;
     let newNode;
@@ -9345,7 +9345,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("hc_nodevalue06", () => {
+  test("hc_nodevalue06", () => {
     let success;
     let newNode;
     let newValue;
@@ -9376,7 +9376,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_textindexsizeerrnegativeoffset", () => {
+  test("hc_textindexsizeerrnegativeoffset", () => {
     let success;
     let doc;
     let elementList;
@@ -9420,7 +9420,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_textindexsizeerroffsetoutofbounds", () => {
+  test("hc_textindexsizeerroffsetoutofbounds", () => {
     let success;
     let doc;
     let elementList;
@@ -9461,7 +9461,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("hc_textsplittextfour", () => {
+  test("hc_textsplittextfour", () => {
     let success;
     let doc;
     let elementList;
@@ -9497,7 +9497,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("hc_textsplittextone", () => {
+  test("hc_textsplittextone", () => {
     let success;
     let doc;
     let elementList;
@@ -9537,7 +9537,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("hc_textsplittextthree", () => {
+  test("hc_textsplittextthree", () => {
     let success;
     let doc;
     let elementList;
@@ -9573,7 +9573,7 @@ describe("level1/core", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("hc_textsplittexttwo", () => {
+  test("hc_textsplittexttwo", () => {
     let success;
     let doc;
     let elementList;
@@ -9610,7 +9610,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_textwithnomarkup", () => {
+  test("hc_textwithnomarkup", () => {
     let success;
     let doc;
     let elementList;
@@ -9643,7 +9643,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    */
-  specify("namednodemapchildnoderange", () => {
+  test("namednodemapchildnoderange", () => {
     let success;
     let doc;
     let elementList;
@@ -9680,7 +9680,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("namednodemapgetnameditem", () => {
+  test("namednodemapgetnameditem", () => {
     let success;
     let doc;
     let elementList;
@@ -9718,7 +9718,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("namednodemapinuseattributeerr", () => {
+  test("namednodemapinuseattributeerr", () => {
     let success;
     let doc;
     let elementList;
@@ -9771,7 +9771,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D58B193')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    */
-  specify("namednodemapnotfounderr", () => {
+  test("namednodemapnotfounderr", () => {
     let success;
     let doc;
     let elementList;
@@ -9812,7 +9812,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    */
-  specify("namednodemapnumberofnodes", () => {
+  test("namednodemapnumberofnodes", () => {
     let success;
     let doc;
     let elementList;
@@ -9847,7 +9847,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("namednodemapremovenameditemreturnnodevalue", () => {
+  test("namednodemapremovenameditemreturnnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -9885,7 +9885,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    */
-  specify("namednodemapreturnattrnode", () => {
+  test("namednodemapreturnattrnode", () => {
     let success;
     let doc;
     let elementList;
@@ -9911,7 +9911,7 @@ describe("level1/core", () => {
   /**
    * Correct value for first attribute of second employee
    */
-  specify("namednodemapreturnfirstitem", () => {
+  test("namednodemapreturnfirstitem", () => {
     let doc = staff.staff();
     let child = doc.getElementsByTagName("address").item(1).attributes.item(0);
     assert.equal(child.name, "domestic");
@@ -9921,7 +9921,7 @@ describe("level1/core", () => {
    *
    * Correct value for second attribute of second employee
    */
-  specify("namednodemapreturnlastitem", () => {
+  test("namednodemapreturnlastitem", () => {
     let doc = staff.staff();
     let child = doc.getElementsByTagName("address").item(1).attributes.item(1);
     assert.equal(child.name, "street");
@@ -9943,7 +9943,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    */
-  specify("namednodemapreturnnull", () => {
+  test("namednodemapreturnnull", () => {
     let success;
     let doc;
     let elementList;
@@ -9982,7 +9982,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("namednodemapsetnameditem", () => {
+  test("namednodemapsetnameditem", () => {
     let success;
     let doc;
     let elementList;
@@ -10029,7 +10029,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("namednodemapsetnameditemreturnvalue", () => {
+  test("namednodemapsetnameditemreturnvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -10075,7 +10075,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("namednodemapsetnameditemthatexists", () => {
+  test("namednodemapsetnameditemthatexists", () => {
     let success;
     let doc;
     let elementList;
@@ -10119,7 +10119,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("namednodemapsetnameditemwithnewvalue", () => {
+  test("namednodemapsetnameditemwithnewvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -10153,7 +10153,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  specify("nodeappendchild", () => {
+  test("nodeappendchild", () => {
     let success;
     let doc;
     let elementList;
@@ -10193,7 +10193,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  specify("nodeappendchildchildexists", () => {
+  test("nodeappendchildchildexists", () => {
     let success;
     let doc;
     let elementList;
@@ -10249,7 +10249,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * MODIFIED BY Jos Shepherd - added a third new child
    */
-  specify("nodeappendchilddocfragment", () => {
+  test("nodeappendchilddocfragment", () => {
     let success;
     let doc;
     let elementList;
@@ -10326,7 +10326,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  specify("nodeappendchildgetnodename", () => {
+  test("nodeappendchildgetnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -10367,7 +10367,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("nodeappendchildnodeancestor", () => {
+  test("nodeappendchildnodeancestor", () => {
     let success;
     let doc;
     let newChild;
@@ -10407,7 +10407,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  specify("nodeattributenodeattribute", () => {
+  test("nodeattributenodeattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -10449,7 +10449,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("nodeattributenodename", () => {
+  test("nodeattributenodename", () => {
     let success;
     let doc;
     let elementList;
@@ -10488,7 +10488,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("nodeattributenodevalue", () => {
+  test("nodeattributenodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -10513,7 +10513,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    */
-  specify("nodechildnodes", () => {
+  test("nodechildnodes", () => {
     let success;
     let doc;
     let elementList;
@@ -10566,7 +10566,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  specify("nodechildnodesappendchild", () => {
+  test("nodechildnodesappendchild", () => {
     let success;
     let doc;
     let elementList;
@@ -10606,7 +10606,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    */
-  specify("nodechildnodesempty", () => {
+  test("nodechildnodesempty", () => {
     let success;
     let doc;
     let elementList;
@@ -10644,7 +10644,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("nodecloneattributescopied", () => {
+  test("nodecloneattributescopied", () => {
     let success;
     let doc;
     let elementList;
@@ -10690,7 +10690,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("nodeclonefalsenocopytext", () => {
+  test("nodeclonefalsenocopytext", () => {
     let success;
     let doc;
     let elementList;
@@ -10726,7 +10726,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("nodeclonegetparentnull", () => {
+  test("nodeclonegetparentnull", () => {
     let success;
     let doc;
     let elementList;
@@ -10759,7 +10759,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("nodeclonenodefalse", () => {
+  test("nodeclonenodefalse", () => {
     let success;
     let doc;
     let elementList;
@@ -10799,7 +10799,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("nodeclonenodetrue", () => {
+  test("nodeclonenodetrue", () => {
     let success;
     let doc;
     let elementList;
@@ -10875,7 +10875,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("nodeclonetruecopytext", () => {
+  test("nodeclonetruecopytext", () => {
     let success;
     let doc;
     let elementList;
@@ -10912,7 +10912,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  specify("nodecommentnodeattributes", () => {
+  test("nodecommentnodeattributes", () => {
     let success;
     let doc;
     let childList;
@@ -10958,7 +10958,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  specify("nodecommentnodename", () => {
+  test("nodecommentnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -11000,7 +11000,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  specify("nodecommentnodetype", () => {
+  test("nodecommentnodetype", () => {
     let success;
     let doc;
     let testList;
@@ -11042,7 +11042,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  specify("nodecommentnodevalue", () => {
+  test("nodecommentnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -11085,7 +11085,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("nodedocumentfragmentnodename", () => {
+  test("nodedocumentfragmentnodename", () => {
     let success;
     let doc;
     let docFragment;
@@ -11113,7 +11113,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("nodedocumentfragmentnodetype", () => {
+  test("nodedocumentfragmentnodetype", () => {
     let success;
     let doc;
     let documentFragmentNode;
@@ -11143,7 +11143,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("nodedocumentfragmentnodevalue", () => {
+  test("nodedocumentfragmentnodevalue", () => {
     let success;
     let doc;
     let docFragment;
@@ -11170,7 +11170,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("nodedocumentnodeattribute", () => {
+  test("nodedocumentnodeattribute", () => {
     let success;
     let doc;
     let attrList;
@@ -11195,7 +11195,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("nodedocumentnodename", () => {
+  test("nodedocumentnodename", () => {
     let success;
     let doc;
     let documentName;
@@ -11219,7 +11219,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("nodedocumentnodetype", () => {
+  test("nodedocumentnodetype", () => {
     let success;
     let doc;
     let nodeType;
@@ -11245,7 +11245,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("nodedocumentnodevalue", () => {
+  test("nodedocumentnodevalue", () => {
     let success;
     let doc;
     let documentValue;
@@ -11266,7 +11266,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("nodedocumenttypenodename", () => {
+  test("nodedocumenttypenodename", () => {
     let success;
     let doc;
     let docType;
@@ -11291,7 +11291,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("nodedocumenttypenodetype", () => {
+  test("nodedocumenttypenodetype", () => {
     let success;
     let doc;
     let documentTypeNode;
@@ -11314,7 +11314,7 @@ describe("level1/core", () => {
    * @author NIST
    * @author Mary Brady
    */
-  specify("nodedocumenttypenodevalue", () => {
+  test("nodedocumenttypenodevalue", () => {
     let success;
     let doc;
     let docType;
@@ -11344,7 +11344,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("nodeelementnodeattributes", () => {
+  test("nodeelementnodeattributes", () => {
     let success;
     let doc;
     let elementList;
@@ -11397,7 +11397,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("nodeelementnodename", () => {
+  test("nodeelementnodename", () => {
     let success;
     let doc;
     let elementNode;
@@ -11424,7 +11424,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("nodeelementnodetype", () => {
+  test("nodeelementnodetype", () => {
     let success;
     let doc;
     let rootNode;
@@ -11447,7 +11447,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("nodeelementnodevalue", () => {
+  test("nodeelementnodevalue", () => {
     let success;
     let doc;
     let elementNode;
@@ -11470,7 +11470,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    */
-  specify("nodegetfirstchild", () => {
+  test("nodegetfirstchild", () => {
     let success;
     let doc;
     let elementList;
@@ -11518,7 +11518,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    */
-  specify("nodegetfirstchildnull", () => {
+  test("nodegetfirstchildnull", () => {
     let success;
     let doc;
     let elementList;
@@ -11550,7 +11550,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  specify("nodegetlastchild", () => {
+  test("nodegetlastchild", () => {
     let success;
     let doc;
     let elementList;
@@ -11598,7 +11598,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  specify("nodegetlastchildnull", () => {
+  test("nodegetlastchildnull", () => {
     let success;
     let doc;
     let elementList;
@@ -11630,7 +11630,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  specify("nodegetnextsibling", () => {
+  test("nodegetnextsibling", () => {
     let success;
     let doc;
     let elementList;
@@ -11678,7 +11678,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  specify("nodegetnextsiblingnull", () => {
+  test("nodegetnextsiblingnull", () => {
     let success;
     let doc;
     let elementList;
@@ -11711,7 +11711,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("nodegetownerdocument", () => {
+  test("nodegetownerdocument", () => {
     let success;
     let doc;
     let elementList;
@@ -11742,7 +11742,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    */
-  specify("nodegetownerdocumentnull", () => {
+  test("nodegetownerdocumentnull", () => {
     let success;
     let doc;
     let ownerDocument;
@@ -11762,7 +11762,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  specify("nodegetprevioussibling", () => {
+  test("nodegetprevioussibling", () => {
     let success;
     let doc;
     let elementList;
@@ -11810,7 +11810,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  specify("nodegetprevioussiblingnull", () => {
+  test("nodegetprevioussiblingnull", () => {
     let success;
     let doc;
     let elementList;
@@ -11841,7 +11841,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  specify("nodehaschildnodes", () => {
+  test("nodehaschildnodes", () => {
     let success;
     let doc;
     let elementList;
@@ -11869,7 +11869,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  specify("nodehaschildnodesfalse", () => {
+  test("nodehaschildnodesfalse", () => {
     let success;
     let doc;
     let elementList;
@@ -11904,7 +11904,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  specify("nodeinsertbefore", () => {
+  test("nodeinsertbefore", () => {
     let success;
     let doc;
     let elementList;
@@ -11994,7 +11994,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  specify("nodeinsertbeforedocfragment", () => {
+  test("nodeinsertbeforedocfragment", () => {
     let success;
     let doc;
     let elementList;
@@ -12047,7 +12047,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  specify("nodeinsertbeforenewchildexists", () => {
+  test("nodeinsertbeforenewchildexists", () => {
     let success;
     let doc;
     let elementList;
@@ -12138,7 +12138,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("nodeinsertbeforenodeancestor", () => {
+  test("nodeinsertbeforenodeancestor", () => {
     let success;
     let doc;
     let newChild;
@@ -12184,7 +12184,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  specify("nodeinsertbeforenodename", () => {
+  test("nodeinsertbeforenodename", () => {
     let success;
     let doc;
     let elementList;
@@ -12227,7 +12227,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("nodeinsertbeforerefchildnonexistent", () => {
+  test("nodeinsertbeforerefchildnonexistent", () => {
     let success;
     let doc;
     let refChild;
@@ -12271,7 +12271,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  specify("nodeinsertbeforerefchildnull", () => {
+  test("nodeinsertbeforerefchildnull", () => {
     let success;
     let doc;
     let elementList;
@@ -12308,7 +12308,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  specify("nodelistindexequalzero", () => {
+  test("nodelistindexequalzero", () => {
     let success;
     let doc;
     let elementList;
@@ -12343,7 +12343,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    */
-  specify("nodelistindexgetlength", () => {
+  test("nodelistindexgetlength", () => {
     let doc = staff.staff();
     let employeeList = doc.getElementsByTagName("employee").item(2).childNodes;
     assert.equal(employeeList.length, 13);
@@ -12363,7 +12363,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    */
-  specify("nodelistindexgetlengthofemptylist", () => {
+  test("nodelistindexgetlengthofemptylist", () => {
     let success;
     let doc;
     let elementList;
@@ -12399,7 +12399,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  specify("nodelistindexnotzero", () => {
+  test("nodelistindexnotzero", () => {
     let success;
     let doc;
     let elementList;
@@ -12440,7 +12440,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  specify("nodelistreturnfirstitem", () => {
+  test("nodelistreturnfirstitem", () => {
     let success;
     let doc;
     let elementList;
@@ -12481,7 +12481,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  specify("nodelistreturnlastitem", () => {
+  test("nodelistreturnlastitem", () => {
     let success;
     let doc;
     let elementList;
@@ -12529,7 +12529,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  specify("nodelisttraverselist", () => {
+  test("nodelisttraverselist", () => {
     let success;
     let doc;
     let elementList;
@@ -12604,7 +12604,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("nodeparentnode", () => {
+  test("nodeparentnode", () => {
     let success;
     let doc;
     let elementList;
@@ -12637,7 +12637,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    */
-  specify("nodeparentnodenull", () => {
+  test("nodeparentnodenull", () => {
     let success;
     let doc;
     let createdNode;
@@ -12668,7 +12668,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("nodeprocessinginstructionnodeattributes", () => {
+  test("nodeprocessinginstructionnodeattributes", () => {
     let success;
     let doc;
     let testList;
@@ -12704,7 +12704,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("nodeprocessinginstructionnodename", () => {
+  test("nodeprocessinginstructionnodename", () => {
     let success;
     let doc;
     let testList;
@@ -12740,7 +12740,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("nodeprocessinginstructionnodetype", () => {
+  test("nodeprocessinginstructionnodetype", () => {
     let success;
     let doc;
     let testList;
@@ -12770,7 +12770,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("nodeprocessinginstructionnodevalue", () => {
+  test("nodeprocessinginstructionnodevalue", () => {
     let success;
     let doc;
     let testList;
@@ -12797,7 +12797,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=181
    */
-  specify("nodeprocessinginstructionsetnodevalue", () => {
+  test("nodeprocessinginstructionsetnodevalue", () => {
     let success;
     let doc;
     let testList;
@@ -12833,7 +12833,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  specify("noderemovechild", () => {
+  test("noderemovechild", () => {
     let success;
     let doc;
     let rootNode;
@@ -12866,7 +12866,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  specify("noderemovechildgetnodename", () => {
+  test("noderemovechildgetnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -12911,7 +12911,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  specify("noderemovechildnode", () => {
+  test("noderemovechildnode", () => {
     let success;
     let doc;
     let elementList;
@@ -12971,7 +12971,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("noderemovechildoldchildnonexistent", () => {
+  test("noderemovechildoldchildnonexistent", () => {
     let success;
     let doc;
     let oldChild;
@@ -13010,7 +13010,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  specify("nodereplacechild", () => {
+  test("nodereplacechild", () => {
     let success;
     let doc;
     let elementList;
@@ -13048,7 +13048,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  specify("nodereplacechildnewchildexists", () => {
+  test("nodereplacechildnewchildexists", () => {
     let success;
     let doc;
     let elementList;
@@ -13143,7 +13143,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("nodereplacechildnodeancestor", () => {
+  test("nodereplacechildnodeancestor", () => {
     let success;
     let doc;
     let newChild;
@@ -13187,7 +13187,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  specify("nodereplacechildnodename", () => {
+  test("nodereplacechildnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -13241,7 +13241,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("nodereplacechildoldchildnonexistent", () => {
+  test("nodereplacechildoldchildnonexistent", () => {
     let success;
     let doc;
     let oldChild;
@@ -13282,7 +13282,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    */
-  specify("nodetextnodeattribute", () => {
+  test("nodetextnodeattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -13322,7 +13322,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("nodetextnodename", () => {
+  test("nodetextnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -13360,7 +13360,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("nodetextnodetype", () => {
+  test("nodetextnodetype", () => {
     let success;
     let doc;
     let elementList;
@@ -13392,7 +13392,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("nodetextnodevalue", () => {
+  test("nodetextnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -13419,7 +13419,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("nodevalue01", () => {
+  test("nodevalue01", () => {
     let success;
     let doc;
     let newNode;
@@ -13446,7 +13446,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  specify("nodevalue02", () => {
+  test("nodevalue02", () => {
     let success;
     let doc;
     let newNode;
@@ -13473,7 +13473,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  specify("nodevalue04", () => {
+  test("nodevalue04", () => {
     let success;
     let doc;
     let newNode;
@@ -13502,7 +13502,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("nodevalue05", () => {
+  test("nodevalue05", () => {
     let success;
     let doc;
     let newNode;
@@ -13529,7 +13529,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("nodevalue06", () => {
+  test("nodevalue06", () => {
     let success;
     let newNode;
     let newValue;
@@ -13553,7 +13553,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1004215813
    */
-  specify("nodevalue09", () => {
+  test("nodevalue09", () => {
     let success;
     let doc;
     let newNode;
@@ -13588,7 +13588,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
    */
-  specify("processinginstructiongetdata", () => {
+  test("processinginstructiongetdata", () => {
     let success;
     let doc;
     let childNodes;
@@ -13620,7 +13620,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1478689192
    */
-  specify("processinginstructiongettarget", () => {
+  test("processinginstructiongettarget", () => {
     let success;
     let doc;
     let childNodes;
@@ -13653,7 +13653,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("textindexsizeerrnegativeoffset", () => {
+  test("textindexsizeerrnegativeoffset", () => {
     let success;
     let doc;
     let elementList;
@@ -13698,7 +13698,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("textindexsizeerroffsetoutofbounds", () => {
+  test("textindexsizeerroffsetoutofbounds", () => {
     let success;
     let doc;
     let elementList;
@@ -13740,7 +13740,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("textsplittextfour", () => {
+  test("textsplittextfour", () => {
     let success;
     let doc;
     let elementList;
@@ -13777,7 +13777,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("textsplittextone", () => {
+  test("textsplittextone", () => {
     let success;
     let doc;
     let elementList;
@@ -13818,7 +13818,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("textsplittextthree", () => {
+  test("textsplittextthree", () => {
     let success;
     let doc;
     let elementList;
@@ -13855,7 +13855,7 @@ describe("level1/core", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("textsplittexttwo", () => {
+  test("textsplittexttwo", () => {
     let success;
     let doc;
     let elementList;
@@ -13893,7 +13893,7 @@ describe("level1/core", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("textwithnomarkup", () => {
+  test("textwithnomarkup", () => {
     let success;
     let doc;
     let elementList;
@@ -13924,7 +13924,7 @@ describe("level1/core", () => {
     handled in previous tests.
 
   */
-  specify("maintainsplittextlocation", () => {
+  test("maintainsplittextlocation", () => {
     let doc;
     let children;
     let firstTextNode;
@@ -13949,13 +13949,13 @@ describe("level1/core", () => {
     assert.equal(children.item(1).nodeType, doc.TEXT_NODE, "After split the second child should be a text node");
   });
 
-  specify("allow_empty_nodelists", () => {
+  test("allow_empty_nodelists", () => {
     let doc = extra.extra();
     let element = doc.createElement("test");
     assert.equal(element.children.length, 0);
   });
 
-  specify("creating_text_nodes_with_falsy_values", () => {
+  test("creating_text_nodes_with_falsy_values", () => {
     let doc = extra.extra();
 
     let txt1 = doc.createTextNode(0);

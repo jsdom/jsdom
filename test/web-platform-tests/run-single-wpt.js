@@ -1,8 +1,7 @@
 "use strict";
 /* eslint-disable no-console */
 const test = require("node:test");
-const path = require("path");
-const { URL } = require("url");
+const path = require("node:path");
 const { JSDOM, VirtualConsole } = require("../../lib/api.js");
 const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loader");
 const { resolveReason } = require("./utils.js");

@@ -1,12 +1,12 @@
 "use strict";
-const path = require("path");
+const path = require("node:path");
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 
 describe("jsdom/miscellaneous", () => {
-  specify("DOMContentLoaded should not be fired after window.close() (GH-1479)", () => {
+  test("DOMContentLoaded should not be fired after window.close() (GH-1479)", () => {
     const { window } = new JSDOM(`<html><head>
       <script>
         window.a = 0;
@@ -18,7 +18,7 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(window.a, 0);
   });
 
-  specify("appendChild_to_document_with_existing_documentElement", () => {
+  test("appendChild_to_document_with_existing_documentElement", () => {
     function t() {
       try {
         const doc = (new JSDOM()).window.document;
@@ -31,7 +31,7 @@ describe("jsdom/miscellaneous", () => {
     assert.throws(t);
   });
 
-  specify("importNode", () => {
+  test("importNode", () => {
     assert.doesNotThrow(() => {
       const html1 = `<html><body><h1 id="headline">Hello <span id="world">World</span></h1></body></html>`;
       const doc1 = (new JSDOM(html1)).window.document;
@@ -41,12 +41,12 @@ describe("jsdom/miscellaneous", () => {
     });
   });
 
-  specify("window_is_augmented_with_dom_features", () => {
+  test("window_is_augmented_with_dom_features", () => {
     const { window } = new JSDOM();
     assert.notEqual(window.Element, null, "window.Element should not be null");
   });
 
-  specify("url_resolution", () => {
+  test("url_resolution", () => {
     const html = `
   <html>
     <head></head>
@@ -173,7 +173,7 @@ describe("jsdom/miscellaneous", () => {
     testBase();
   });
 
-  specify("numeric_values", () => {
+  test("numeric_values", () => {
     const html = `<html><body><td data-year="2011" data-month="0" data-day="9">
                   <a href="#" class=" ">9</a>
                 </td></body></html>`;
@@ -186,7 +186,7 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(a.getAttributeNode("id").nodeValue, "123", "Attribute stringify");
   });
 
-  specify("childNodes_updates_on_insertChild", () => {
+  test("childNodes_updates_on_insertChild", () => {
     const { window } = new JSDOM();
     const div = window.document.createElement("div");
     let text = window.document.createTextNode("bar");
@@ -198,7 +198,7 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(text, div.childNodes[1], "childNodes NodeList should update after insertBefore");
   });
 
-  specify("option_set_selected", () => {
+  test("option_set_selected", () => {
     const { window } = new JSDOM();
     const select = window.document.createElement("select");
 
@@ -229,7 +229,7 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(true, option1.defaultSelected, "unchanged");
   });
 
-  specify("fix_for_issue_221", () => {
+  test("fix_for_issue_221", () => {
     const html = "<html><head></head><body></body></html>";
     const { document } = (new JSDOM(html)).window;
     const div = document.createElement("div");
@@ -238,7 +238,7 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(div.childNodes[0].nodeValue, "hello world", "Nodelist children should be populated immediately");
   });
 
-  specify("parsing_and_serializing_entities", () => {
+  test("parsing_and_serializing_entities", () => {
     const html = `<html><body><a href="http://example.com/?a=b&amp;c=d">&lt;&aelig;&#x263a;foo</a>`;
     const { document } = (new JSDOM(html)).window;
     const anchor = document.getElementsByTagName("a")[0];
@@ -258,7 +258,7 @@ describe("jsdom/miscellaneous", () => {
     );
   });
 
-  specify("parsing_and_serializing_unknown_entities", () => {
+  test("parsing_and_serializing_unknown_entities", () => {
     const html = "<html><body>&nowayjose;&#x263a;&#xblah;&#9q;</body></html>";
     const { document } = (new JSDOM(html)).window;
     assert.equal(
@@ -273,14 +273,14 @@ describe("jsdom/miscellaneous", () => {
     );
   });
 
-  specify("entities_in_script_should_be_left_alone", () => {
+  test("entities_in_script_should_be_left_alone", () => {
     const html = `<!DOCTYPE html><html><head></head><body><script>alert("&quot;");</script></body></html>`;
     const { document } = (new JSDOM(html)).window;
     assert.equal(document.body.innerHTML, `<script>alert("&quot;");</script>`);
     assert.equal(document.body.firstChild.innerHTML, `alert("&quot;");`);
   });
 
-  specify("document_title_and_entities", () => {
+  test("document_title_and_entities", () => {
     const html = "<html><head><title>&lt;b&gt;Hello&lt;/b&gt;</title></head><body></body></html>";
     const { document } = (new JSDOM(html)).window;
 
@@ -307,7 +307,7 @@ describe("jsdom/miscellaneous", () => {
     );
   });
 
-  specify("setting_and_getting_textContent", () => {
+  test("setting_and_getting_textContent", () => {
     const html = `<html><head>\n<title>&lt;foo&gt;</title></head>
                   <body>Hello<span><span>, </span>world</span>!</body></html>`;
     const { document } = (new JSDOM(html)).window;
@@ -361,14 +361,14 @@ describe("jsdom/miscellaneous", () => {
     );
   });
 
-  specify("issues_230_259", () => {
+  test("issues_230_259", () => {
     const instr = `<html><body style="color: #ffffff; foo: bar"></body></html>`;
     const dom = new JSDOM(instr);
     assert.ok(dom.serialize().match(/0: *color/) === null);
   });
 
   // see: https://github.com/jsdom/jsdom/issues/262
-  specify("issue_262", () => {
+  test("issue_262", () => {
     const { document } = (new JSDOM()).window;
     const a = document.createElement("a");
     a.setAttribute("style", "color:blue");
@@ -377,14 +377,14 @@ describe("jsdom/miscellaneous", () => {
   });
 
   // see: https://github.com/jsdom/jsdom/issues/267
-  specify("issue_267", () => {
+  test("issue_267", () => {
     const { document } = (new JSDOM()).window;
     const a = document.createElement("a");
     a.style.width = "100%";
     assert.ok(a.getAttribute("style").match(/^\s*width\s*:\s*100%\s*;?\s*$/), "style attribute must contain width");
   });
 
-  specify("get_element_by_id", () => {
+  test("get_element_by_id", () => {
     const doc = (new JSDOM()).window.document;
     const el = doc.createElement("div");
     el.setAttribute("id", "foo");
@@ -408,7 +408,7 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(doc.getElementById(el.id), null, "Element must not be found after it has been removed");
   });
 
-  specify("get_element_by_id_multi_id", () => {
+  test("get_element_by_id_multi_id", () => {
     const doc = (new JSDOM()).window.document;
     const div = doc.createElement("div");
     div.setAttribute("id", "foo");
@@ -422,7 +422,7 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(doc.getElementById("foo"), div, "Original div#foo must be found after removing invalid span#foo");
   });
 
-  specify("issue_335_inline_event_handlers", () => {
+  test("issue_335_inline_event_handlers", () => {
     const dom = new JSDOM(`<a onclick="somefunction()">call some function</a>`);
     const a = dom.window.document.getElementsByTagName("a").item(0);
     const onclick = a.getAttribute("onclick");
@@ -431,13 +431,13 @@ describe("jsdom/miscellaneous", () => {
     assert.ok(dom.serialize().indexOf("onclick") > -1);
   });
 
-  specify("issue_338_internal_nodelist_props", () => {
+  test("issue_338_internal_nodelist_props", () => {
     const doc = (new JSDOM()).window.document;
     const props = Object.keys(doc.body.childNodes);
     assert.equal(props.length, 0, "Internal properties must not be enumerable");
   });
 
-  specify("setting_and_getting_script_element_text", () => {
+  test("setting_and_getting_script_element_text", () => {
     const doc = (new JSDOM("<script></script>")).window.document;
     const script = doc.getElementsByTagName("script")[0];
     assert.equal(script.text, "");
@@ -447,14 +447,14 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(script.text, "const y = 2;");
   });
 
-  specify("issue_361_textarea_value_property", () => {
+  test("issue_361_textarea_value_property", () => {
     const doc = (new JSDOM(`<html><body><textarea id="mytextarea"></textarea></body></html>`)).window.document;
 
     doc.getElementById("mytextarea").value = "<foo>";
     assert.equal(doc.getElementById("mytextarea").value, "<foo>");
   });
 
-  specify("css_classes_should_be_attached_to_dom", () => {
+  test("css_classes_should_be_attached_to_dom", () => {
     const dom = (new JSDOM()).window;
 
     assert.notEqual(dom.StyleSheet, undefined);
@@ -467,7 +467,7 @@ describe("jsdom/miscellaneous", () => {
     assert.notEqual(dom.CSSStyleDeclaration, undefined);
   });
 
-  specify("issue_530_async_load_events", { async: true }, t => {
+  test("issue_530_async_load_events", (t, done) => {
     const doc = (new JSDOM("<html><head></head><body></body></html>")).window.document;
     const window = doc.defaultView;
 
@@ -476,11 +476,11 @@ describe("jsdom/miscellaneous", () => {
     // already fired.
     window.addEventListener("load", () => {
       assert.ok(true);
-      t.done();
+      done();
     });
   });
 
-  specify("iframe_contents", () => {
+  test("iframe_contents", () => {
     const { document } = (new JSDOM("<iframe></iframe>")).window;
     const iframeDocument = document.querySelector("iframe").contentWindow.document;
 
@@ -490,7 +490,7 @@ describe("jsdom/miscellaneous", () => {
     assert.ok(iframeDocument.body);
   });
 
-  specify("addmetatohead", () => {
+  test("addmetatohead", () => {
     const dom = new JSDOM();
     const { window } = dom;
     const meta = window.document.createElement("meta");
@@ -507,7 +507,7 @@ describe("jsdom/miscellaneous", () => {
 
   // these tests require file system access or they start a http server
   describe("node specific tests", () => {
-    specify("jquery_val_on_selects", { async: true }, t => {
+    test("jquery_val_on_selects", (t, done) => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const script = window.document.createElement("script");
@@ -545,12 +545,12 @@ describe("jsdom/miscellaneous", () => {
           "`selected` property should be `true` for last"
         );
         assert.equal(window.$("#foo").val(), "last", "`val()` should return last <option>'s value");
-        t.done();
+        done();
       };
       window.document.body.appendChild(script);
     });
 
-    specify("jquery_attr_mixed_case", { async: true }, t => {
+    test("jquery_attr_mixed_case", (t, done) => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const script = window.document.createElement("script");
@@ -559,12 +559,12 @@ describe("jsdom/miscellaneous", () => {
         const $el = window.$(`<div mixedcase="blah"></div>`);
 
         assert.equal($el.attr("mixedCase"), "blah");
-        t.done();
+        done();
       };
       window.document.body.appendChild(script);
     });
 
-    specify("Calling show() method in jQuery 1.11.0 (GH-709)", { async: true }, t => {
+    test("Calling show() method in jQuery 1.11.0 (GH-709)", (t, done) => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const script = window.document.createElement("script");
@@ -576,12 +576,12 @@ describe("jsdom/miscellaneous", () => {
           $el.show();
         });
 
-        t.done();
+        done();
       };
       window.document.body.appendChild(script);
     });
 
-    specify("Calling show() method in jQuery 1.11.0, second case (GH-709)", { async: true }, t => {
+    test("Calling show() method in jQuery 1.11.0, second case (GH-709)", (t, done) => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const script = window.document.createElement("script");
@@ -595,7 +595,7 @@ describe("jsdom/miscellaneous", () => {
           $el2.show();
         });
 
-        t.done();
+        done();
       };
       window.document.body.appendChild(script);
     });

@@ -1,12 +1,12 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require('../..');
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
 describe("script", () => {
-  specify('scripts_share_a_global_context', () => {
+  test('scripts_share_a_global_context', () => {
     var { window } = new JSDOM('\
       <html><head>\
       <script type="text/javascript">\
@@ -42,7 +42,7 @@ describe("script", () => {
     assert.equal(window.object.a, 1, 'prototypes should be maintained across contexts');
   });
 
-  specify('global_is_window_in_scripts', () => {
+  test('global_is_window_in_scripts', () => {
     var { window } = new JSDOM('<html><head>\
       <script type="text/javascript">\
         var results=[window===this,\
@@ -60,7 +60,7 @@ describe("script", () => {
     assert.equal(window.document.defaultView, window, "outside window context, document.defaultView should be window as well");
   });
 
-  specify('global_in_object_should_be_valid_in_other_scripts', () => {
+  test('global_in_object_should_be_valid_in_other_scripts', () => {
     var { window } = new JSDOM('<html><head>\
       <script>\
         aGlobal={win:this};\
@@ -74,7 +74,7 @@ describe("script", () => {
     assert.equal(window.appVersion, "Gecko");
   });
 
-  specify('window_functions', () => {
+  test('window_functions', () => {
     var { window } = new JSDOM('<html><head>\
       <script>\
         function handle(){};\
@@ -90,14 +90,14 @@ describe("script", () => {
     assert.equal(window.DONE, 1);
   });
 
-  specify('timer_executes_in_context', { async: true }, t => {
+  test('timer_executes_in_context', (t, done) => {
     const { window } = new JSDOM(``, { runScripts: "dangerously", resources: "usable" });
     const script = window.document.createElement("script");
     script.src = toFileUrl('./files/timer_in_context.js');
     script.onload = () => {
       setTimeout(() => {
         assert.equal(window.x, 1);
-        t.done();
+        done();
       }, 1);
     };
     window.document.body.appendChild(script);

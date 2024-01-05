@@ -1,7 +1,7 @@
 "use strict";
-const fs = require("fs");
+const fs = require("node:fs");
 const assert = require("node:assert/strict");
-const { describe, it } = require("mocha-sugar-free");
+const { describe, it } = require("node:test");
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
 
 const { JSDOM } = require("../..");
@@ -10,7 +10,7 @@ const thisFileURL = toFileUrl(__filename);
 
 describe("Test cases for the interaction with file: URLs", () => {
   describe("XMLHttpRequest", () => {
-    it("should retrieve the same file: URL's contents, as both response and responseText", { async: true }, t => {
+    it("should retrieve the same file: URL's contents, as both response and responseText", (t, done) => {
       const { window } = new JSDOM(``, { url: thisFileURL });
 
       const xhr = new window.XMLHttpRequest();
@@ -18,14 +18,14 @@ describe("Test cases for the interaction with file: URLs", () => {
         const thisFileContents = fs.readFileSync(__filename, { encoding: "utf-8" });
         assert.equal(xhr.responseText, thisFileContents);
         assert.equal(xhr.response, thisFileContents);
-        t.done();
+        done();
       };
 
       xhr.open("GET", thisFileURL, true);
       xhr.send();
     });
 
-    it("should return no headers", { async: true }, t => {
+    it("should return no headers", (t, done) => {
       const { window } = new JSDOM(``, { url: thisFileURL });
 
       const xhr = new window.XMLHttpRequest();
@@ -34,20 +34,20 @@ describe("Test cases for the interaction with file: URLs", () => {
           assert.equal(xhr.getResponseHeader("Content-Type"), null);
         });
         assert.equal(xhr.getAllResponseHeaders(), "");
-        t.done();
+        done();
       };
 
       xhr.open("GET", thisFileURL, true);
       xhr.send();
     });
 
-    it("should not crash or set cookies when requesting a file: URL (GH-1180)", { async: true }, t => {
+    it("should not crash or set cookies when requesting a file: URL (GH-1180)", (t, done) => {
       const { window } = new JSDOM(``, { url: thisFileURL });
 
       const xhr = new window.XMLHttpRequest();
       xhr.onload = () => {
         assert.equal(window.document.cookie, "");
-        t.done();
+        done();
       };
 
       xhr.open("GET", thisFileURL, true);
@@ -56,7 +56,7 @@ describe("Test cases for the interaction with file: URLs", () => {
   });
 
   describe("loading file: URL resources", () => {
-    it("should load scripts from file: URLs from about:blank", { async: true }, t => {
+    it("should load scripts from file: URLs from about:blank", (t, done) => {
       const { window } = new JSDOM(
         `<span id="test"></span><script src="${toFileUrl("fixtures/hello.js")}"></script>`,
         { resources: "usable", runScripts: "dangerously" }
@@ -64,11 +64,11 @@ describe("Test cases for the interaction with file: URLs", () => {
 
       window.doCheck = () => {
         assert.equal(window.document.getElementById("test").textContent, "hello from javascript");
-        t.done();
+        done();
       };
     });
 
-    it("should load scripts via relative URL from file: URLs, despite hrefless <base>", { async: true }, t => {
+    it("should load scripts via relative URL from file: URLs, despite hrefless <base>", (t, done) => {
       const { window } = new JSDOM(
         `
           <base target="whatever"></base>
@@ -80,7 +80,7 @@ describe("Test cases for the interaction with file: URLs", () => {
 
       window.doCheck = () => {
         assert.equal(window.document.getElementById("test").textContent, "hello from javascript");
-        t.done();
+        done();
       };
     });
   });

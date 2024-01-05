@@ -1,7 +1,6 @@
 "use strict";
-
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 
@@ -9,7 +8,7 @@ const { JSDOM } = require("../..");
 // Spec: https://html.spec.whatwg.org/multipage/comms.html#messageevent
 
 describe("location", () => {
-  specify("MessageEvent has a read-only property 'type'", () => {
+  test("MessageEvent has a read-only property 'type'", () => {
     const { window } = new JSDOM();
     const event = new window.MessageEvent("fake type");
 
@@ -19,7 +18,7 @@ describe("location", () => {
     });
   });
 
-  specify("MessageEvent has a read-only property 'data'", () => {
+  test("MessageEvent has a read-only property 'data'", () => {
     const { window } = new JSDOM();
     const event = new window.MessageEvent("fake type", {
       data: "fake data"

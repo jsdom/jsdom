@@ -1,8 +1,7 @@
 "use strict";
-
 const assert = require("node:assert/strict");
+const { beforeEach, describe, test } = require("node:test");
 const { assertThrowsDOMException } = require("../assert-helpers.js");
-const { beforeEach, describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
 
@@ -14,7 +13,7 @@ describe("class-list", () => {
     el = window.document.createElement("p");
   });
 
-  specify("classList is a DOMTokenList", () => {
+  test("classList is a DOMTokenList", () => {
     // when element has no class
     assert.equal(el.classList.constructor, window.DOMTokenList);
 
@@ -23,7 +22,7 @@ describe("class-list", () => {
     assert.equal(el.classList.constructor, window.DOMTokenList);
   });
 
-  specify(".length returns number of tokens", () => {
+  test(".length returns number of tokens", () => {
     assert.equal(el.classList.length, 0);
 
     el.className = "foo";
@@ -36,7 +35,7 @@ describe("class-list", () => {
     assert.equal(el.classList.length, 2);
   });
 
-  specify(".item(index) returns expected token", () => {
+  test(".item(index) returns expected token", () => {
     el.className = "foo bar";
     assert.equal(el.classList.item(0), "foo");
     assert.equal(el.classList.item(1), "bar");
@@ -49,7 +48,7 @@ describe("class-list", () => {
     assert.equal(el.classList.item(-2), null);
   });
 
-  specify("[index] returns expected token", () => {
+  test("[index] returns expected token", () => {
     el.className = "foo bar";
     assert.equal(el.classList[0], "foo");
     assert.equal(el.classList[1], "bar");
@@ -58,7 +57,7 @@ describe("class-list", () => {
     assert.equal(el.classList[2], undefined);
   });
 
-  specify(".contains(token) returns whether token exists", () => {
+  test(".contains(token) returns whether token exists", () => {
     el.className = "foo bar";
 
     // token exists
@@ -69,7 +68,7 @@ describe("class-list", () => {
     assert.equal(el.classList.contains("baz"), false);
   });
 
-  specify(".add(tokens...) adds provided tokens", () => {
+  test(".add(tokens...) adds provided tokens", () => {
     // add zero tokens
     el.classList.add();
     assert.equal(el.className, "");
@@ -93,7 +92,7 @@ describe("class-list", () => {
     assert.equal(el.classList[1], "bar");
   });
 
-  specify(".add() throws if a token is empty", () => {
+  test(".add() throws if a token is empty", () => {
     function block() {
       el.classList.add("foo", "");
     }
@@ -101,7 +100,7 @@ describe("class-list", () => {
     assertThrowsDOMException(block, el.ownerDocument, "SyntaxError");
   });
 
-  specify(".add() throws if a token contains whitespace", () => {
+  test(".add() throws if a token contains whitespace", () => {
     function block() {
       el.classList.add("  foo", "bar");
     }
@@ -109,7 +108,7 @@ describe("class-list", () => {
     assertThrowsDOMException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
-  specify(".remove(tokens...) removes provided tokens", () => {
+  test(".remove(tokens...) removes provided tokens", () => {
     // remove exactly all tokens
     el.className = "foo bar";
     el.classList.remove("bar", "foo");
@@ -141,7 +140,7 @@ describe("class-list", () => {
     assert.equal(el.classList.length, 0);
   });
 
-  specify(".remove() throws if a token is empty", () => {
+  test(".remove() throws if a token is empty", () => {
     function block() {
       el.classList.remove("foo", "");
     }
@@ -149,7 +148,7 @@ describe("class-list", () => {
     assertThrowsDOMException(block, el.ownerDocument, "SyntaxError");
   });
 
-  specify(".remove() throws if a token contains whitespace", () => {
+  test(".remove() throws if a token contains whitespace", () => {
     function block() {
       el.classList.remove("  foo", "bar");
     }
@@ -157,7 +156,7 @@ describe("class-list", () => {
     assertThrowsDOMException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
-  specify(".toggle(token) toggles specified token", () => {
+  test(".toggle(token) toggles specified token", () => {
     // toggle existing token
     el.className = "foo";
     el.classList.toggle("foo");
@@ -171,7 +170,7 @@ describe("class-list", () => {
     assert.equal(el.classList[0], "foo");
   });
 
-  specify(".toggle(token, true) adds token", () => {
+  test(".toggle(token, true) adds token", () => {
     // add token already present
     el.className = "foo";
     el.classList.toggle("foo", true);
@@ -185,7 +184,7 @@ describe("class-list", () => {
     assert.equal(el.classList[0], "foo");
   });
 
-  specify(".toggle(token, false) removes token", () => {
+  test(".toggle(token, false) removes token", () => {
     // remove existing token
     el.className = "foo";
     el.classList.toggle("foo", false);
@@ -199,7 +198,7 @@ describe("class-list", () => {
     assert.equal(el.classList.length, 0);
   });
 
-  specify(".toggle(token) returns whether token exists", () => {
+  test(".toggle(token) returns whether token exists", () => {
     // token toggled off
     el.className = "foo";
     assert.equal(el.classList.toggle("foo"), false);
@@ -209,7 +208,7 @@ describe("class-list", () => {
     assert.equal(el.classList.toggle("foo"), true);
   });
 
-  specify(".toggle() throws if a token is empty", () => {
+  test(".toggle() throws if a token is empty", () => {
     function block() {
       el.classList.toggle("");
     }
@@ -217,7 +216,7 @@ describe("class-list", () => {
     assertThrowsDOMException(block, el.ownerDocument, "SyntaxError");
   });
 
-  specify(".toggle() throws if a token contains whitespace", () => {
+  test(".toggle() throws if a token contains whitespace", () => {
     function block() {
       el.classList.toggle("  foo");
     }
@@ -225,7 +224,7 @@ describe("class-list", () => {
     assertThrowsDOMException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
-  specify("accessing classList should not remove duplicates", () => {
+  test("accessing classList should not remove duplicates", () => {
     el.className = "a a";
 
     /* eslint-disable no-unused-expressions */
@@ -236,11 +235,11 @@ describe("class-list", () => {
     assert.equal(el.classList.toString(), "a a");
   });
 
-  specify(".toString() should return empty string when empty", () => {
+  test(".toString() should return empty string when empty", () => {
     assert.equal(el.classList.toString(), "");
   });
 
-  specify("classList should return same object", () => {
+  test("classList should return same object", () => {
     const { classList } = el;
     assert.equal(classList, el.classList);
 
@@ -248,7 +247,7 @@ describe("class-list", () => {
     assert.equal(classList, el.classList);
   });
 
-  specify("length should be readonly", () => {
+  test("length should be readonly", () => {
     const { classList } = el;
     assert.equal(classList.length, 0);
 

@@ -1,11 +1,11 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const utils = require("../../lib/jsdom/utils.js");
 
 describe("Helpers: utils.js", () => {
-  specify("isValidTargetOrigin properly validates target origin", () => {
+  test("isValidTargetOrigin properly validates target origin", () => {
     assert.equal(utils.isValidTargetOrigin("*"), true);
     assert.equal(utils.isValidTargetOrigin("/"), true);
     assert.equal(utils.isValidTargetOrigin("https://www.google.com/"), true);

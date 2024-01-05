@@ -1,5 +1,5 @@
 "use strict";
-const fs = require("fs");
+const fs = require("node:fs");
 
 const EXPECTED_MANIFEST_VERSION = 8;
 

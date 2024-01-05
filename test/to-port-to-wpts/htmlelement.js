@@ -1,7 +1,6 @@
 "use strict";
-
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 
@@ -12,7 +11,7 @@ const nonInheritedTags = [
 ];
 
 describe("htmlelement", () => {
-  specify("unknown elements should return HTMLUnknownElement", () => {
+  test("unknown elements should return HTMLUnknownElement", () => {
     const doc = (new JSDOM()).window.document;
 
     const el = doc.createElement("foobar");
@@ -37,7 +36,7 @@ describe("htmlelement", () => {
     );
   });
 
-  specify("other elements should have their respective types", () => {
+  test("other elements should have their respective types", () => {
     const doc = (new JSDOM()).window.document;
 
     const el = doc.createElement("div");
@@ -62,9 +61,7 @@ describe("htmlelement", () => {
     );
   });
 
-  specify("non-inherited elements should have the HTMLElement type", t => {
-    t.timeout(5000); // give this a bit of leeway. It's apparently slow
-
+  test("non-inherited elements should have the HTMLElement type", { timeout: 5_000 }, () => {
     for (let i = 0; i < nonInheritedTags.length; ++i) {
       const doc = (new JSDOM("<" + nonInheritedTags[i] + ">")).window.document;
       const el = doc.body.firstChild;

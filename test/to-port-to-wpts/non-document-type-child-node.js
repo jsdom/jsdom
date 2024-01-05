@@ -1,12 +1,11 @@
 "use strict";
-
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 
 describe("non-document-type-child-node", () => {
-  specify(
+  test(
     "TextNode should implement NonDocumentTypeChildNode:nextElementSibling",
     () => {
       const doc = (new JSDOM("<div id='1'>1</div> <div id='2'>2</div>")).window.document;
@@ -19,7 +18,7 @@ describe("non-document-type-child-node", () => {
     }
   );
 
-  specify(
+  test(
     "TextNode should implement NonDocumentTypeChildNode:previousElementSibling",
     () => {
       const doc = (new JSDOM("<div id='1'>1</div> <div id='2'>2</div>")).window.document;
@@ -31,7 +30,7 @@ describe("non-document-type-child-node", () => {
     }
   );
 
-  specify(
+  test(
     "CommentNode should implement NonDocumentTypeChildNode:nextElementSibling",
     () => {
       const doc = (new JSDOM("<div id='1'>1</div> <div id='2'>2</div>")).window.document;
@@ -45,7 +44,7 @@ describe("non-document-type-child-node", () => {
     }
   );
 
-  specify(
+  test(
     "CommentNode should implement NonDocumentTypeChildNode:previousElementSibling",
     () => {
       const doc = (new JSDOM("<div id='1'>1</div> <div id='2'>2</div>")).window.document;
@@ -58,7 +57,7 @@ describe("non-document-type-child-node", () => {
     }
   );
 
-  specify(
+  test(
     "Element should implement NonDocumentTypeChildNode:nextElementSibling",
     () => {
       const doc = (new JSDOM(`<!DOCTYPE html>
@@ -85,7 +84,7 @@ describe("non-document-type-child-node", () => {
     }
   );
 
-  specify(
+  test(
     "Element should implement NonDocumentTypeChildNode:previousElementSibling",
     () => {
       const doc = (new JSDOM(`<!DOCTYPE html>

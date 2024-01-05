@@ -1,11 +1,11 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 
 describe("browser/index", () => {
-  specify("notfound_getelementsbyclassname", () => {
+  test("notfound_getelementsbyclassname", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -16,7 +16,7 @@ describe("browser/index", () => {
     assert.equal(elements.length, 0, "no results");
   });
 
-  specify("basic_getelementsbyclassname", () => {
+  test("basic_getelementsbyclassname", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -27,7 +27,7 @@ describe("browser/index", () => {
     assert.equal(elements.item(0), p, "p and first-p");
   });
 
-  specify("multiple_getelementsbyclassname", () => {
+  test("multiple_getelementsbyclassname", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -42,7 +42,7 @@ describe("browser/index", () => {
     assert.equal(third, p, "p and third");
   });
 
-  specify("testclassnameworksasexpected", () => {
+  test("testclassnameworksasexpected", () => {
     const doc = (new JSDOM()).window.document;
 
     const p = doc.createElement("p");
@@ -52,7 +52,7 @@ describe("browser/index", () => {
     assert.equal(p.className, "first-p second", "className getter/setter");
   });
 
-  specify("basic_getelementbyid", () => {
+  test("basic_getelementbyid", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -63,7 +63,7 @@ describe("browser/index", () => {
     assert.equal(element, p, "p and #theid");
   });
 
-  specify("nonexistant_getelementbyid", () => {
+  test("nonexistant_getelementbyid", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -74,14 +74,14 @@ describe("browser/index", () => {
     assert.equal(element, null, "p and #theid");
   });
 
-  specify("remove_nonexistantattribute", () => {
+  test("remove_nonexistantattribute", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
     assert.doesNotThrow(() => body.removeAttribute("non-existant"), "setValue_throws_NO_MODIFICATION_ERR");
   });
 
-  specify("render_singletag", () => {
+  test("render_singletag", () => {
     const doc = (new JSDOM()).window.document;
 
     const p = doc.createElement("p");
@@ -91,7 +91,7 @@ describe("browser/index", () => {
     assert.equal(out.match(/<\/img>/), null, "end tag not included in output");
   });
 
-  specify("render_specialchars", () => {
+  test("render_specialchars", () => {
     const doc = (new JSDOM()).window.document;
 
     const p = doc.createElement("p");
@@ -104,7 +104,7 @@ describe("browser/index", () => {
     assert.equal(pp.innerHTML, `<p specials="&quot;<>&amp;&nbsp;">"&lt;&gt;&amp;&nbsp;</p>`);
   });
 
-  specify("parse_scripttags", () => {
+  test("parse_scripttags", () => {
     const doc = (new JSDOM()).window.document;
     const { head } = doc;
 
@@ -113,7 +113,7 @@ describe("browser/index", () => {
     assert.equal(scriptHtml, head.innerHTML, "original and processed");
   });
 
-  specify("parse_styletags", () => {
+  test("parse_styletags", () => {
     const doc = (new JSDOM()).window.document;
     const { head } = doc;
     const styleHtml = `<style>body: {color: #fff;}</style>`;
@@ -121,13 +121,13 @@ describe("browser/index", () => {
     assert.equal(styleHtml, head.innerHTML, "original and processed");
   });
 
-  specify("parse_doublespacetags", () => {
+  test("parse_doublespacetags", () => {
     const doc = (new JSDOM()).window.document;
     const html = `<html><body  class="testing" /></html>`;
     assert.doesNotThrow(() => doc.write(html), "setValue_throws_INVALID_CHARACTER_ERR");
   });
 
-  specify("serialize_styleattribute", () => {
+  test("serialize_styleattribute", () => {
     const doc = (new JSDOM()).window.document;
 
     doc.documentElement.style.color = "black";
@@ -138,7 +138,7 @@ describe("browser/index", () => {
     );
   });
 
-  specify("innerhtml_removeallchildren", () => {
+  test("innerhtml_removeallchildren", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -147,7 +147,7 @@ describe("browser/index", () => {
     assert.equal(body.childNodes.length, 0, "still has children");
   });
 
-  specify("innerhtml_null", () => {
+  test("innerhtml_null", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -156,7 +156,7 @@ describe("browser/index", () => {
     assert.equal(body.childNodes.length, 0, "still has children");
   });
 
-  specify("parse_doctype_containing_newline", () => {
+  test("parse_doctype_containing_newline", () => {
     const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n
              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html></html>`;
 
@@ -165,7 +165,7 @@ describe("browser/index", () => {
     assert.ok(doc.doctype, "doctype should not be falsy");
   });
 
-  specify("basic_nodelist_indexOf", () => {
+  test("basic_nodelist_indexOf", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -179,7 +179,7 @@ describe("browser/index", () => {
     assert.equal(index, 2, "indexOf 'span' in childNodes");
   });
 
-  specify("nonexistant_nodelist_indexOf", () => {
+  test("nonexistant_nodelist_indexOf", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -191,7 +191,7 @@ describe("browser/index", () => {
     assert.equal(index, -1, "indexOf 'div' in childNodes");
   });
 
-  specify("input_fires_click_event", () => {
+  test("input_fires_click_event", () => {
     const doc = (new JSDOM(`
       <html><head></head><body>
         <input type="checkbox" id="check" value="check" />
@@ -208,7 +208,7 @@ describe("browser/index", () => {
     checkbox.click();
   });
 
-  specify("basic_radio_selected", () => {
+  test("basic_radio_selected", () => {
     const doc = (new JSDOM(`<html><head></head><body>
         <input type="radio" id="rad0" value="rad0" name="radioGroup0" />
         <input type="radio" id="rad1" value="rad1" name="radioGroup0" checked="checked" />
@@ -236,7 +236,7 @@ describe("browser/index", () => {
     assert.ok(radio2.checked, "radio checked");
   });
 
-  specify("radio_no_click_deselected", () => {
+  test("radio_no_click_deselected", () => {
     const doc = (new JSDOM(`
       <html><head></head><body>
         <input type="radio" id="rad0" value="rad0" name="radioGroup0" />
@@ -252,7 +252,7 @@ describe("browser/index", () => {
     assert.ok(radio0.checked, "radio checked");
   });
 
-  specify("select_set_value_updates_value", () => {
+  test("select_set_value_updates_value", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -271,7 +271,7 @@ describe("browser/index", () => {
     assert.equal(select.value, "y", "select element selectedIndex");
   });
 
-  specify("select_set_value_updates_selectedIndex", () => {
+  test("select_set_value_updates_selectedIndex", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -290,7 +290,7 @@ describe("browser/index", () => {
     assert.equal(select.selectedIndex, 1, "select element selectedIndex");
   });
 
-  specify("select_set_value_updates_option_selected", () => {
+  test("select_set_value_updates_option_selected", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -311,7 +311,7 @@ describe("browser/index", () => {
     assert.ok(option1.selected, "option element selected");
   });
 
-  specify("select_set_selectedIndex_updates_value", () => {
+  test("select_set_selectedIndex_updates_value", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -330,7 +330,7 @@ describe("browser/index", () => {
     assert.equal(select.value, "y", "select element selectedIndex");
   });
 
-  specify("select_set_selectedIndex_updates_selectedIndex", () => {
+  test("select_set_selectedIndex_updates_selectedIndex", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -349,7 +349,7 @@ describe("browser/index", () => {
     assert.equal(select.selectedIndex, 1, "select element selectedIndex");
   });
 
-  specify("select_set_selectedIndex_updates_option_selected", () => {
+  test("select_set_selectedIndex_updates_option_selected", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -372,7 +372,7 @@ describe("browser/index", () => {
     assert.ok(!option0.selected, "option element selected");
   });
 
-  specify("select_set_option_selected_updates_value", () => {
+  test("select_set_option_selected_updates_value", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -394,7 +394,7 @@ describe("browser/index", () => {
     assert.equal(select.value, "y", "select element value");
   });
 
-  specify("select_set_option_selected_updates_selectedIndex", () => {
+  test("select_set_option_selected_updates_selectedIndex", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 
@@ -415,7 +415,7 @@ describe("browser/index", () => {
     assert.equal(select.selectedIndex, 1, "select element selectedIndex");
   });
 
-  specify("select_set_option_selected_updates_option_selected", () => {
+  test("select_set_option_selected_updates_option_selected", () => {
     const doc = (new JSDOM()).window.document;
     const { body } = doc;
 

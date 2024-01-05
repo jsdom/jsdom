@@ -1,13 +1,13 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { assertThrowsDOMException } = require("../assert-helpers.js");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 
 // These tests are mostly random regression tests, not systematic parsing tests. They are compiled from the bug tracker.
 describe("jsdom/selectors", () => {
-  specify("div:last-child > span[title] (GH-972)", () => {
+  test("div:last-child > span[title] (GH-972)", () => {
     const { document } = (new JSDOM("<div><div><span title='title text'>text</span></div></div>")).window;
 
     assert.doesNotThrow(() => {
@@ -15,7 +15,7 @@ describe("jsdom/selectors", () => {
     });
   });
 
-  specify("div[title=''] (GH-1163)", () => {
+  test("div[title=''] (GH-1163)", () => {
     const { document } = (new JSDOM(`<!doctype html><html><head></head><body>
       <div></div><div title=""></div><div title="yes"></div>
     </body></html>`)).window;
@@ -24,7 +24,7 @@ describe("jsdom/selectors", () => {
     assert.equal(document.querySelectorAll("div[title][title='']").length, 1);
   });
 
-  specify("matches smoke test", () => {
+  test("matches smoke test", () => {
     const html = `<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`;
     const { document } = (new JSDOM(html)).window;
     const div = document.body.children.item(0);
@@ -42,7 +42,7 @@ describe("jsdom/selectors", () => {
     assert.equal(element3.matches("#asdf"), false, "doesn't match wrong selector");
   });
 
-  specify("querySelector smoke test", () => {
+  test("querySelector smoke test", () => {
     const html = `<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`;
     const { document } = (new JSDOM(html)).window;
     const div = document.body.children.item(0);
@@ -60,7 +60,7 @@ describe("jsdom/selectors", () => {
     assert.equal(element4, null, "nonexistent becomes null");
   });
 
-  specify("querySelector smoke test on a document fragment", () => {
+  test("querySelector smoke test on a document fragment", () => {
     const html = `<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`;
     const { document } = (new JSDOM(html)).window;
     const div = document.body.children.item(0);
@@ -82,7 +82,7 @@ describe("jsdom/selectors", () => {
     assert.equal(element4, null, "nonexistent becomes null");
   });
 
-  specify("querySelectorAll smoke test", () => {
+  test("querySelectorAll smoke test", () => {
     const { document } = (new JSDOM(`<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next">` +
                                  `<div id="next-child"><p>Baz</p></div></div></body></html>`)).window;
     const div = document.body.children.item(0);
@@ -129,7 +129,7 @@ describe("jsdom/selectors", () => {
     assert.equal(elements6.item(0), nextChildDiv.children.item(0), "child of div#next-child");
   });
 
-  specify("querySelectorAll smoke test on a document fragment", () => {
+  test("querySelectorAll smoke test on a document fragment", () => {
     const html = `<html><body><div id="main"><p>Foo</p><p>Bar</p></div>` +
                  `<div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>`;
     const { document } = (new JSDOM(html)).window;
@@ -189,7 +189,7 @@ describe("jsdom/selectors", () => {
     assert.equal(elements7.item(2), nextChildDiv.children.item(0), "child of div#next-child");
   });
 
-  specify("invalid selector //MAIN MENU... (GH-1214)", () => {
+  test("invalid selector //MAIN MENU... (GH-1214)", () => {
     const { document } = (new JSDOM()).window;
 
     const selector = " //MAIN MENU - (used to keep mobile menu options hidden and keep weather/search and menu " +

@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../../..");
 const toFileUrl = require("../../util.js").toFileUrl(__dirname);
@@ -20,7 +20,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89647724
    */
-  specify("HTMLAnchorElement01", () => {
+  test("HTMLAnchorElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -47,7 +47,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67619266
    */
-  specify("HTMLAnchorElement02", () => {
+  test("HTMLAnchorElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -74,7 +74,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92079539
    */
-  specify("HTMLAnchorElement03", () => {
+  test("HTMLAnchorElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -100,7 +100,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88517319
    */
-  specify("HTMLAnchorElement04", () => {
+  test("HTMLAnchorElement04", () => {
     var doc = load("anchor");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -115,7 +115,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87358513
    */
-  specify("HTMLAnchorElement05", () => {
+  test("HTMLAnchorElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -141,7 +141,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-32783304
    */
-  specify("HTMLAnchorElement06", () => {
+  test("HTMLAnchorElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -167,7 +167,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-3815891
    */
-  specify("HTMLAnchorElement07", () => {
+  test("HTMLAnchorElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -193,7 +193,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-58259771
    */
-  specify("HTMLAnchorElement08", () => {
+  test("HTMLAnchorElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -219,7 +219,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-49899808
    */
-  specify("HTMLAnchorElement09", () => {
+  test("HTMLAnchorElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -246,7 +246,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-41586466
    */
-  specify("HTMLAnchorElement10", () => {
+  test("HTMLAnchorElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -272,7 +272,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6414197
    */
-  specify("HTMLAnchorElement11", () => {
+  test("HTMLAnchorElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -298,7 +298,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63938221
    */
-  specify("HTMLAnchorElement12", () => {
+  test("HTMLAnchorElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -322,7 +322,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-65068939
    */
-  specify("HTMLAnchorElement13", () => {
+  test("HTMLAnchorElement13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -344,7 +344,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47150313
    */
-  specify("HTMLAnchorElement14", () => {
+  test("HTMLAnchorElement14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -366,7 +366,7 @@ describe("level2/html", () => {
    * @author Avi Deitcher
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
-  specify("HTMLAnchorElement15", () => {
+  test("HTMLAnchorElement15", () => {
     var doc = load("anchor2");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -379,7 +379,7 @@ describe("level2/html", () => {
    * @author Avi Deitcher
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
-  specify("HTMLAnchorElement16", () => {
+  test("HTMLAnchorElement16", () => {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -392,7 +392,7 @@ describe("level2/html", () => {
    * @author Avi Deitcher
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
-  specify("HTMLAnchorElement17", () => {
+  test("HTMLAnchorElement17", () => {
     var doc = load("anchor2");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -409,7 +409,7 @@ describe("level2/html", () => {
    * @author Avi Deitcher
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
-  specify("HTMLAnchorElement18", () => {
+  test("HTMLAnchorElement18", () => {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -422,7 +422,7 @@ describe("level2/html", () => {
    * @author Salvatore Porchia
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
-  specify("HTMLAnchorElement19", () => {
+  test("HTMLAnchorElement19", () => {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -438,7 +438,7 @@ describe("level2/html", () => {
    * @author Peter Culak
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
-  specify("HTMLAnchorElement20", () => {
+  test("HTMLAnchorElement20", () => {
      var doc = load("anchor5");
      var nodeList = doc.getElementsByTagName("a");
      assert.equal(nodeList.length, 1, 'Asize');
@@ -452,7 +452,7 @@ describe("level2/html", () => {
    * @author Salvatore Porchia
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
-  specify("HTMLAnchorElement21", () => {
+  test("HTMLAnchorElement21", () => {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -469,7 +469,7 @@ describe("level2/html", () => {
    * @author Salvatore Porchia
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
-  specify("HTMLAnchorElement22", () => {
+  test("HTMLAnchorElement22", () => {
     var doc = load("anchorEmpty");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -498,7 +498,7 @@ describe("level2/html", () => {
    HTMLAnchorElement.href should show the pathname of the href
    * @author eleith
    */
-  specify("HTMLAnchorElement23", () => {
+  test("HTMLAnchorElement23", () => {
     var doc = load("anchorEmpty");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'A size');
@@ -511,7 +511,7 @@ describe("level2/html", () => {
    * @author Adam Faulkner
    * @see http://url.spec.whatwg.org/#dom-url-pathname
    */
-  specify("HTMLAnchorElement24", () => {
+  test("HTMLAnchorElement24", () => {
     var doc = load("anchorEmpty");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'A size');
@@ -524,7 +524,7 @@ describe("level2/html", () => {
    * @author Salvatore Porchia
    * @see http://url.spec.whatwg.org/#dom-url-username
    */
-  specify("HTMLAnchorElement25", () => {
+  test("HTMLAnchorElement25", () => {
     var doc = load("anchor7");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'A size');
@@ -537,7 +537,7 @@ describe("level2/html", () => {
    * @author Salvatore Porchia
    * @see http://url.spec.whatwg.org/#dom-url-password
    */
-  specify("HTMLAnchorElement26", () => {
+  test("HTMLAnchorElement26", () => {
     var doc = load("anchor7");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'A size');
@@ -550,7 +550,7 @@ describe("level2/html", () => {
    * @author Salvatore Porchia
    * @see http://url.spec.whatwg.org/#dom-url-origin
    */
-  specify("HTMLAnchorElement27", () => {
+  test("HTMLAnchorElement27", () => {
     var doc = load("anchorEmpty");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'A size');
@@ -579,7 +579,7 @@ describe("level2/html", () => {
    * @author Salvatore Porchia
    * @see http://url.spec.whatwg.org/#dom-url-search
    */
-  specify("HTMLAnchorElement28", () => {
+  test("HTMLAnchorElement28", () => {
     var doc = load("anchor6");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'A size');
@@ -599,7 +599,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-57944457
    */
-  specify("HTMLAreaElement01", () => {
+  test("HTMLAreaElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -626,7 +626,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39775416
    */
-  specify("HTMLAreaElement02", () => {
+  test("HTMLAreaElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -653,7 +653,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-66021476
    */
-  specify("HTMLAreaElement03", () => {
+  test("HTMLAreaElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -679,7 +679,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-34672936
    */
-  specify("HTMLAreaElement04", () => {
+  test("HTMLAreaElement04", () => {
     var doc = load("area");
     var nodeList = doc.getElementsByTagName("area");
     assert.equal(nodeList.length, 1, 'Asize');
@@ -694,7 +694,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-61826871
    */
-  specify("HTMLAreaElement05", () => {
+  test("HTMLAreaElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -720,7 +720,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-85683271
    */
-  specify("HTMLAreaElement06", () => {
+  test("HTMLAreaElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -747,7 +747,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8722121
    */
-  specify("HTMLAreaElement07", () => {
+  test("HTMLAreaElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -773,7 +773,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46054682
    */
-  specify("HTMLAreaElement08", () => {
+  test("HTMLAreaElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -799,7 +799,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82703081
    */
-  specify("HTMLBRElement01", () => {
+  test("HTMLBRElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -825,7 +825,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-65382887
    */
-  specify("HTMLBaseElement01", () => {
+  test("HTMLBaseElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -851,7 +851,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-73844298
    */
-  specify("HTMLBaseElement02", () => {
+  test("HTMLBaseElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -877,7 +877,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59424581
    */
-  specify("HTMLBodyElement01", () => {
+  test("HTMLBodyElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -904,7 +904,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-37574810
    */
-  specify("HTMLBodyElement02", () => {
+  test("HTMLBodyElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -930,7 +930,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-24940084
    */
-  specify("HTMLBodyElement03", () => {
+  test("HTMLBodyElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -957,7 +957,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-7662206
    */
-  specify("HTMLBodyElement04", () => {
+  test("HTMLBodyElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -983,7 +983,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-73714763
    */
-  specify("HTMLBodyElement05", () => {
+  test("HTMLBodyElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1010,7 +1010,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83224305
    */
-  specify("HTMLBodyElement06", () => {
+  test("HTMLBodyElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1036,7 +1036,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
    */
-  specify("HTMLButtonElement01", () => {
+  test("HTMLButtonElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1065,7 +1065,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
    */
-  specify("HTMLButtonElement02", () => {
+  test("HTMLButtonElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1092,7 +1092,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-73169431
    */
-  specify("HTMLButtonElement03", () => {
+  test("HTMLButtonElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1119,7 +1119,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92757155
    */
-  specify("HTMLButtonElement04", () => {
+  test("HTMLButtonElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1146,7 +1146,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11029910
    */
-  specify("HTMLButtonElement05", () => {
+  test("HTMLButtonElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1173,7 +1173,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39190908
    */
-  specify("HTMLButtonElement06", () => {
+  test("HTMLButtonElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1199,7 +1199,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27430092
    */
-  specify("HTMLButtonElement07", () => {
+  test("HTMLButtonElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1225,7 +1225,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-72856782
    */
-  specify("HTMLButtonElement08", () => {
+  test("HTMLButtonElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1254,7 +1254,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33262535
    */
-  specify("HTMLCollection01", () => {
+  test("HTMLCollection01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1287,7 +1287,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76728479
    */
-  specify("HTMLCollection02", () => {
+  test("HTMLCollection02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1320,7 +1320,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-21069976
    */
-  specify("HTMLCollection03", () => {
+  test("HTMLCollection03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1353,7 +1353,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40057551
    */
-  specify("HTMLCollection04", () => {
+  test("HTMLCollection04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1394,7 +1394,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40057551
    */
-  specify("HTMLCollection05", () => {
+  test("HTMLCollection05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1426,7 +1426,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6156016
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33262535
    */
-  specify("HTMLCollection06", () => {
+  test("HTMLCollection06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1459,7 +1459,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33262535
    */
-  specify("HTMLCollection07", () => {
+  test("HTMLCollection07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1492,7 +1492,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33262535
    */
-  specify("HTMLCollection08", () => {
+  test("HTMLCollection08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1524,7 +1524,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33262535
    */
-  specify("HTMLCollection09", () => {
+  test("HTMLCollection09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1558,7 +1558,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-21069976
    */
-  specify("HTMLCollection10", () => {
+  test("HTMLCollection10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1593,7 +1593,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76728479
    */
-  specify("HTMLCollection11", () => {
+  test("HTMLCollection11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1629,7 +1629,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-21069976
    */
-  specify("HTMLCollection12", () => {
+  test("HTMLCollection12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1658,7 +1658,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75317739
    */
-  specify("HTMLDirectoryElement01", () => {
+  test("HTMLDirectoryElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1684,7 +1684,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70908791
    */
-  specify("HTMLDivElement01", () => {
+  test("HTMLDivElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1711,7 +1711,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-21738539
    */
-  specify("HTMLDlistElement01", () => {
+  test("HTMLDlistElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1737,7 +1737,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18446827
    */
-  specify("HTMLDocument01", () => {
+  test("HTMLDocument01", () => {
     var success;
     var nodeList;
     var vtitle;
@@ -1759,7 +1759,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46183437
    */
-  specify("HTMLDocument04", () => {
+  test("HTMLDocument04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1783,7 +1783,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-56360201
    */
-  specify("HTMLDocument05", () => {
+  test("HTMLDocument05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1808,7 +1808,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-90379117
    */
-  specify("HTMLDocument07", () => {
+  test("HTMLDocument07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1834,7 +1834,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-7068919
    */
-  specify("HTMLDocument09", () => {
+  test("HTMLDocument09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1859,7 +1859,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-1689064
    */
-  specify("HTMLDocument10", () => {
+  test("HTMLDocument10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1885,7 +1885,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-7577272
    */
-  specify("HTMLDocument11", () => {
+  test("HTMLDocument11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -1912,7 +1912,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71555259
    */
-  specify("HTMLDocument13", () => {
+  test("HTMLDocument13", () => {
     var success;
     var nodeList;
     var doc;
@@ -1936,7 +1936,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71555259
    */
-  specify("HTMLDocument14", () => {
+  test("HTMLDocument14", () => {
     var success;
     var nodeList;
     var doc;
@@ -1961,7 +1961,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-26809268
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBId
    */
-  specify("HTMLDocument15", () => {
+  test("HTMLDocument15", () => {
     var success;
     var elementNode;
     var elementValue;
@@ -1989,7 +1989,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-26809268
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBId
    */
-  specify("HTMLDocument16", () => {
+  test("HTMLDocument16", () => {
     var success;
     var elementNode;
     var elementValue;
@@ -2010,7 +2010,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-72161170
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98948567
    */
-  specify("HTMLDocument17", () => {
+  test("HTMLDocument17", () => {
     var success;
     var doc;
     var bodyElem;
@@ -2037,7 +2037,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98948567
    */
-  specify("HTMLDocument18", () => {
+  test("HTMLDocument18", () => {
     var success;
     var doc;
     var docRef = null;
@@ -2056,7 +2056,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98948567
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75233634
    */
-  specify("HTMLDocument19", () => {
+  test("HTMLDocument19", () => {
     var success;
     var doc;
     var docElem;
@@ -2083,7 +2083,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98948567
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-35318390
    */
-  specify("HTMLDocument20", () => {
+  test("HTMLDocument20", () => {
     var success;
     var doc;
     var docElem;
@@ -2111,7 +2111,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75233634
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-35318390
    */
-  specify("HTMLDocument21", () => {
+  test("HTMLDocument21", () => {
     var doc = load("document");
     doc.open();
     doc.writeln("&lt;html>");
@@ -2139,7 +2139,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement01", () => {
+  test("HTMLElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2165,7 +2165,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement02", () => {
+  test("HTMLElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2191,7 +2191,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement03", () => {
+  test("HTMLElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2217,7 +2217,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement04", () => {
+  test("HTMLElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2243,7 +2243,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement05", () => {
+  test("HTMLElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2269,7 +2269,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement06", () => {
+  test("HTMLElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2295,7 +2295,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement07", () => {
+  test("HTMLElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2321,7 +2321,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement08", () => {
+  test("HTMLElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2347,7 +2347,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement09", () => {
+  test("HTMLElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2373,7 +2373,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement10", () => {
+  test("HTMLElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2399,7 +2399,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement100", () => {
+  test("HTMLElement100", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2425,7 +2425,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement101", () => {
+  test("HTMLElement101", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2451,7 +2451,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement102", () => {
+  test("HTMLElement102", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2477,7 +2477,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement103", () => {
+  test("HTMLElement103", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2503,7 +2503,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement104", () => {
+  test("HTMLElement104", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2529,7 +2529,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement105", () => {
+  test("HTMLElement105", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2555,7 +2555,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement106", () => {
+  test("HTMLElement106", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2581,7 +2581,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement107", () => {
+  test("HTMLElement107", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2607,7 +2607,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement108", () => {
+  test("HTMLElement108", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2633,7 +2633,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement109", () => {
+  test("HTMLElement109", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2659,7 +2659,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement11", () => {
+  test("HTMLElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2685,7 +2685,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement110", () => {
+  test("HTMLElement110", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2711,7 +2711,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement111", () => {
+  test("HTMLElement111", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2737,7 +2737,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement112", () => {
+  test("HTMLElement112", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2763,7 +2763,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement113", () => {
+  test("HTMLElement113", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2789,7 +2789,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement114", () => {
+  test("HTMLElement114", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2815,7 +2815,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement115", () => {
+  test("HTMLElement115", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2841,7 +2841,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement116", () => {
+  test("HTMLElement116", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2867,7 +2867,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement117", () => {
+  test("HTMLElement117", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2893,7 +2893,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement118", () => {
+  test("HTMLElement118", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2919,7 +2919,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement119", () => {
+  test("HTMLElement119", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2945,7 +2945,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement12", () => {
+  test("HTMLElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2971,7 +2971,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement120", () => {
+  test("HTMLElement120", () => {
     var success;
     var nodeList;
     var testNode;
@@ -2997,7 +2997,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement121", () => {
+  test("HTMLElement121", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3023,7 +3023,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement122", () => {
+  test("HTMLElement122", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3049,7 +3049,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement123", () => {
+  test("HTMLElement123", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3075,7 +3075,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement124", () => {
+  test("HTMLElement124", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3101,7 +3101,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement125", () => {
+  test("HTMLElement125", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3127,7 +3127,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement126", () => {
+  test("HTMLElement126", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3153,7 +3153,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement127", () => {
+  test("HTMLElement127", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3179,7 +3179,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement128", () => {
+  test("HTMLElement128", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3205,7 +3205,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement129", () => {
+  test("HTMLElement129", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3231,7 +3231,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement13", () => {
+  test("HTMLElement13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3257,7 +3257,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement130", () => {
+  test("HTMLElement130", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3283,7 +3283,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement131", () => {
+  test("HTMLElement131", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3309,7 +3309,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement132", () => {
+  test("HTMLElement132", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3335,7 +3335,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement133", () => {
+  test("HTMLElement133", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3361,7 +3361,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement134", () => {
+  test("HTMLElement134", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3387,7 +3387,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement135", () => {
+  test("HTMLElement135", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3413,7 +3413,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement136", () => {
+  test("HTMLElement136", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3439,7 +3439,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement137", () => {
+  test("HTMLElement137", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3465,7 +3465,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement138", () => {
+  test("HTMLElement138", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3491,7 +3491,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement139", () => {
+  test("HTMLElement139", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3517,7 +3517,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement14", () => {
+  test("HTMLElement14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3543,7 +3543,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement140", () => {
+  test("HTMLElement140", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3569,7 +3569,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement141", () => {
+  test("HTMLElement141", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3595,7 +3595,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement142", () => {
+  test("HTMLElement142", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3621,7 +3621,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement143", () => {
+  test("HTMLElement143", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3647,7 +3647,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement144", () => {
+  test("HTMLElement144", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3673,7 +3673,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95362176
    */
-  specify("HTMLElement145", () => {
+  test("HTMLElement145", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3699,7 +3699,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement15", () => {
+  test("HTMLElement15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3725,7 +3725,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement16", () => {
+  test("HTMLElement16", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3751,7 +3751,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement17", () => {
+  test("HTMLElement17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3777,7 +3777,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement18", () => {
+  test("HTMLElement18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3803,7 +3803,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement19", () => {
+  test("HTMLElement19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3829,7 +3829,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement20", () => {
+  test("HTMLElement20", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3855,7 +3855,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement21", () => {
+  test("HTMLElement21", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3881,7 +3881,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement22", () => {
+  test("HTMLElement22", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3907,7 +3907,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement23", () => {
+  test("HTMLElement23", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3933,7 +3933,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement24", () => {
+  test("HTMLElement24", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3959,7 +3959,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement25", () => {
+  test("HTMLElement25", () => {
     var success;
     var nodeList;
     var testNode;
@@ -3985,7 +3985,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement26", () => {
+  test("HTMLElement26", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4011,7 +4011,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement27", () => {
+  test("HTMLElement27", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4037,7 +4037,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement28", () => {
+  test("HTMLElement28", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4063,7 +4063,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("HTMLElement29", () => {
+  test("HTMLElement29", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4089,7 +4089,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement30", () => {
+  test("HTMLElement30", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4115,7 +4115,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement31", () => {
+  test("HTMLElement31", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4141,7 +4141,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement32", () => {
+  test("HTMLElement32", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4167,7 +4167,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement33", () => {
+  test("HTMLElement33", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4193,7 +4193,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement34", () => {
+  test("HTMLElement34", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4219,7 +4219,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement35", () => {
+  test("HTMLElement35", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4245,7 +4245,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement36", () => {
+  test("HTMLElement36", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4271,7 +4271,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement37", () => {
+  test("HTMLElement37", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4297,7 +4297,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement38", () => {
+  test("HTMLElement38", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4323,7 +4323,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement39", () => {
+  test("HTMLElement39", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4349,7 +4349,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement40", () => {
+  test("HTMLElement40", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4375,7 +4375,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement41", () => {
+  test("HTMLElement41", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4401,7 +4401,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement42", () => {
+  test("HTMLElement42", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4427,7 +4427,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement43", () => {
+  test("HTMLElement43", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4453,7 +4453,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement44", () => {
+  test("HTMLElement44", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4479,7 +4479,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement45", () => {
+  test("HTMLElement45", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4505,7 +4505,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement46", () => {
+  test("HTMLElement46", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4531,7 +4531,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement47", () => {
+  test("HTMLElement47", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4557,7 +4557,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement48", () => {
+  test("HTMLElement48", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4583,7 +4583,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement49", () => {
+  test("HTMLElement49", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4609,7 +4609,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement50", () => {
+  test("HTMLElement50", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4635,7 +4635,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement51", () => {
+  test("HTMLElement51", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4661,7 +4661,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement52", () => {
+  test("HTMLElement52", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4687,7 +4687,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement53", () => {
+  test("HTMLElement53", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4713,7 +4713,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement54", () => {
+  test("HTMLElement54", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4739,7 +4739,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement55", () => {
+  test("HTMLElement55", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4765,7 +4765,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement56", () => {
+  test("HTMLElement56", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4791,7 +4791,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement57", () => {
+  test("HTMLElement57", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4817,7 +4817,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78276800
    */
-  specify("HTMLElement58", () => {
+  test("HTMLElement58", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4843,7 +4843,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement59", () => {
+  test("HTMLElement59", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4869,7 +4869,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement60", () => {
+  test("HTMLElement60", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4895,7 +4895,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement61", () => {
+  test("HTMLElement61", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4921,7 +4921,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement62", () => {
+  test("HTMLElement62", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4947,7 +4947,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement63", () => {
+  test("HTMLElement63", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4973,7 +4973,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement64", () => {
+  test("HTMLElement64", () => {
     var success;
     var nodeList;
     var testNode;
@@ -4999,7 +4999,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement65", () => {
+  test("HTMLElement65", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5025,7 +5025,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement66", () => {
+  test("HTMLElement66", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5051,7 +5051,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement67", () => {
+  test("HTMLElement67", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5077,7 +5077,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement68", () => {
+  test("HTMLElement68", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5103,7 +5103,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement69", () => {
+  test("HTMLElement69", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5129,7 +5129,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement70", () => {
+  test("HTMLElement70", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5155,7 +5155,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement71", () => {
+  test("HTMLElement71", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5181,7 +5181,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement72", () => {
+  test("HTMLElement72", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5207,7 +5207,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement73", () => {
+  test("HTMLElement73", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5233,7 +5233,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement74", () => {
+  test("HTMLElement74", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5259,7 +5259,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement75", () => {
+  test("HTMLElement75", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5285,7 +5285,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement76", () => {
+  test("HTMLElement76", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5311,7 +5311,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement77", () => {
+  test("HTMLElement77", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5337,7 +5337,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement78", () => {
+  test("HTMLElement78", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5363,7 +5363,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement79", () => {
+  test("HTMLElement79", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5389,7 +5389,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement80", () => {
+  test("HTMLElement80", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5415,7 +5415,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement81", () => {
+  test("HTMLElement81", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5441,7 +5441,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement82", () => {
+  test("HTMLElement82", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5467,7 +5467,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement83", () => {
+  test("HTMLElement83", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5493,7 +5493,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement84", () => {
+  test("HTMLElement84", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5519,7 +5519,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement85", () => {
+  test("HTMLElement85", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5545,7 +5545,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement86", () => {
+  test("HTMLElement86", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5571,7 +5571,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59132807
    */
-  specify("HTMLElement87", () => {
+  test("HTMLElement87", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5597,7 +5597,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement88", () => {
+  test("HTMLElement88", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5623,7 +5623,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement89", () => {
+  test("HTMLElement89", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5649,7 +5649,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement90", () => {
+  test("HTMLElement90", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5675,7 +5675,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement91", () => {
+  test("HTMLElement91", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5701,7 +5701,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement92", () => {
+  test("HTMLElement92", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5727,7 +5727,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement93", () => {
+  test("HTMLElement93", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5753,7 +5753,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement94", () => {
+  test("HTMLElement94", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5779,7 +5779,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement95", () => {
+  test("HTMLElement95", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5805,7 +5805,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement96", () => {
+  test("HTMLElement96", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5831,7 +5831,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement97", () => {
+  test("HTMLElement97", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5857,7 +5857,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement98", () => {
+  test("HTMLElement98", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5883,7 +5883,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52460740
    */
-  specify("HTMLElement99", () => {
+  test("HTMLElement99", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5909,7 +5909,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75392630
    */
-  specify("HTMLFieldSetElement01", () => {
+  test("HTMLFieldSetElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5938,7 +5938,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75392630
    */
-  specify("HTMLFieldSetElement02", () => {
+  test("HTMLFieldSetElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5964,7 +5964,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53532975
    */
-  specify("HTMLFontElement01", () => {
+  test("HTMLFontElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -5991,7 +5991,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-55715655
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTML-HTMLFormElement-length
    */
-  specify("HTMLFontElement02", () => {
+  test("HTMLFontElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6017,7 +6017,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-90127284
    */
-  specify("HTMLFontElement03", () => {
+  test("HTMLFontElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6044,7 +6044,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76728479
    */
-  specify("HTMLFormElement01", () => {
+  test("HTMLFormElement01", () => {
     var success;
     var nodeList;
     var elementnodeList;
@@ -6074,7 +6074,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40002357
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTML-HTMLFormElement-length
    */
-  specify("HTMLFormElement02", () => {
+  test("HTMLFormElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6100,7 +6100,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-22051454
    */
-  specify("HTMLFormElement03", () => {
+  test("HTMLFormElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6127,7 +6127,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-19661795
    */
-  specify("HTMLFormElement04", () => {
+  test("HTMLFormElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6153,7 +6153,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-84227810
    */
-  specify("HTMLFormElement06", () => {
+  test("HTMLFormElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6179,7 +6179,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82545539
    */
-  specify("HTMLFormElement07", () => {
+  test("HTMLFormElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6205,7 +6205,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6512890
    */
-  specify("HTMLFormElement08", () => {
+  test("HTMLFormElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6229,7 +6229,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76767677
    */
-  specify("HTMLFormElement09", () => {
+  test("HTMLFormElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6256,7 +6256,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11858633
    */
-  specify("HTMLFrameElement01", () => {
+  test("HTMLFrameElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6284,7 +6284,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-7836998
    */
-  specify("HTMLFrameElement02", () => {
+  test("HTMLFrameElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6311,7 +6311,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-55569778
    */
-  specify("HTMLFrameElement03", () => {
+  test("HTMLFrameElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6338,7 +6338,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8369969
    */
-  specify("HTMLFrameElement04", () => {
+  test("HTMLFrameElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6366,7 +6366,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-91128709
    */
-  specify("HTMLFrameElement05", () => {
+  test("HTMLFrameElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6394,7 +6394,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-80766578
    */
-  specify("HTMLFrameElement06", () => {
+  test("HTMLFrameElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6422,7 +6422,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-45411424
    */
-  specify("HTMLFrameElement07", () => {
+  test("HTMLFrameElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6449,7 +6449,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78799535
    */
-  specify("HTMLFrameElement08", () => {
+  test("HTMLFrameElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6477,7 +6477,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-78799536
    */
-  specify("HTMLFrameElement09", { async: true }, t => {
+  test("HTMLFrameElement09", (t, done) => {
     var success;
     var testNode;
     var cd;
@@ -6494,7 +6494,7 @@ describe("level2/html", () => {
       vtitle = cd.title;
       // Updated as per: http://lists.w3.org/Archives/Public/www-dom/2009JulSep/0026.html
       assert.equal(vtitle, "NIST DOM HTML Test - FRAME", "titleLink");
-      t.done();
+      done();
     };
   });
 
@@ -6508,7 +6508,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98869594
    */
-  specify("HTMLFrameSetElement01", () => {
+  test("HTMLFrameSetElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6536,7 +6536,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-19739247
    */
-  specify("HTMLFrameSetElement02", () => {
+  test("HTMLFrameSetElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6562,7 +6562,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-15235012
    */
-  specify("HTMLHRElement01", () => {
+  test("HTMLHRElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6589,7 +6589,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79813978
    */
-  specify("HTMLHRElement02", () => {
+  test("HTMLHRElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6615,7 +6615,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77612587
    */
-  specify("HTMLHRElement03", () => {
+  test("HTMLHRElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6641,7 +6641,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87744198
    */
-  specify("HTMLHRElement04", () => {
+  test("HTMLHRElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6667,7 +6667,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6796462
    */
-  specify("HTMLHeadingElement01", () => {
+  test("HTMLHeadingElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6693,7 +6693,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6796462
    */
-  specify("HTMLHeadingElement02", () => {
+  test("HTMLHeadingElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6719,7 +6719,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6796462
    */
-  specify("HTMLHeadingElement03", () => {
+  test("HTMLHeadingElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6745,7 +6745,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6796462
    */
-  specify("HTMLHeadingElement04", () => {
+  test("HTMLHeadingElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6771,7 +6771,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6796462
    */
-  specify("HTMLHeadingElement05", () => {
+  test("HTMLHeadingElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6797,7 +6797,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6796462
    */
-  specify("HTMLHeadingElement06", () => {
+  test("HTMLHeadingElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6825,7 +6825,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9383775
    */
-  specify("HTMLHtmlElement01", () => {
+  test("HTMLHtmlElement01", () => {
     var nodeList;
     var testNode;
     var vversion;
@@ -6848,7 +6848,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11309947
    */
-  specify("HTMLIFrameElement01", () => {
+  test("HTMLIFrameElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6877,7 +6877,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-22463410
    */
-  specify("HTMLIFrameElement02", () => {
+  test("HTMLIFrameElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6904,7 +6904,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-1678118
    */
-  specify("HTMLIFrameElement03", () => {
+  test("HTMLIFrameElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6932,7 +6932,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70472105
    */
-  specify("HTMLIFrameElement04", () => {
+  test("HTMLIFrameElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6959,7 +6959,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-66486595
    */
-  specify("HTMLIFrameElement05", () => {
+  test("HTMLIFrameElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -6986,7 +6986,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-91371294
    */
-  specify("HTMLIFrameElement06", () => {
+  test("HTMLIFrameElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7014,7 +7014,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96819659
    */
-  specify("HTMLIFrameElement07", () => {
+  test("HTMLIFrameElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7042,7 +7042,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36369822
    */
-  specify("HTMLIFrameElement08", () => {
+  test("HTMLIFrameElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7069,7 +7069,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-43933957
    */
-  specify("HTMLIFrameElement09", () => {
+  test("HTMLIFrameElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7096,7 +7096,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67133005
    */
-  specify("HTMLIFrameElement10", () => {
+  test("HTMLIFrameElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7122,7 +7122,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-67133006
    */
-  specify("HTMLIFrameElement11", { async: true }, t => {
+  test("HTMLIFrameElement11", (t, done) => {
     var success;
     var testNode;
     var cd;
@@ -7138,7 +7138,7 @@ describe("level2/html", () => {
       cd = testNode.contentDocument;
       vtitle = cd.title;
       assert.equal(vtitle, "NIST DOM HTML Test - FRAME", "titleLink");
-      t.done();
+      done();
     };
   });
 
@@ -7150,7 +7150,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47534097
    */
-  specify("HTMLImageElement01", () => {
+  test("HTMLImageElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7177,7 +7177,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-3211094
    */
-  specify("HTMLImageElement02", () => {
+  test("HTMLImageElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7204,7 +7204,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95636861
    */
-  specify("HTMLImageElement03", () => {
+  test("HTMLImageElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7230,7 +7230,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-136671
    */
-  specify("HTMLImageElement04", () => {
+  test("HTMLImageElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7256,7 +7256,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-91561496
    */
-  specify("HTMLImageElement05", () => {
+  test("HTMLImageElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7283,7 +7283,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-53675471
    */
-  specify("HTMLImageElement06", () => {
+  test("HTMLImageElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7309,7 +7309,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-58983880
    */
-  specify("HTMLImageElement07", () => {
+  test("HTMLImageElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7335,7 +7335,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87762984
    */
-  specify("HTMLImageElement09", () => {
+  test("HTMLImageElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7361,7 +7361,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-35981181
    */
-  specify("HTMLImageElement10", () => {
+  test("HTMLImageElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7388,7 +7388,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-85374897
    */
-  specify("HTMLImageElement11", () => {
+  test("HTMLImageElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7414,7 +7414,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13839076
    */
-  specify("HTMLImageElement12", () => {
+  test("HTMLImageElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7442,7 +7442,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-26091157
    */
-  specify("HTMLInputElement01", () => {
+  test("HTMLInputElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7470,7 +7470,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20509171
    */
-  specify("HTMLInputElement02", () => {
+  test("HTMLInputElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7496,7 +7496,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63239895
    */
-  specify("HTMLInputElement03", () => {
+  test("HTMLInputElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7526,7 +7526,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-15328520
    */
-  specify("HTMLInputElement04", () => {
+  test("HTMLInputElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7554,7 +7554,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59914154
    */
-  specify("HTMLInputElement05", () => {
+  test("HTMLInputElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7582,7 +7582,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96991182
    */
-  specify("HTMLInputElement06", () => {
+  test("HTMLInputElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7610,7 +7610,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92701314
    */
-  specify("HTMLInputElement07", () => {
+  test("HTMLInputElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7638,7 +7638,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30233917
    */
-  specify("HTMLInputElement08", () => {
+  test("HTMLInputElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7665,7 +7665,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-50886781
    */
-  specify("HTMLInputElement09", () => {
+  test("HTMLInputElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7693,7 +7693,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-54719353
    */
-  specify("HTMLInputElement10", () => {
+  test("HTMLInputElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7721,7 +7721,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89658498
    */
-  specify("HTMLInputElement11", () => {
+  test("HTMLInputElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7749,7 +7749,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88461592
    */
-  specify("HTMLInputElement12", () => {
+  test("HTMLInputElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7777,7 +7777,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-79659438
    */
-  specify("HTMLInputElement13", () => {
+  test("HTMLInputElement13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7805,7 +7805,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-97320704
    */
-  specify("HTMLInputElement14", () => {
+  test("HTMLInputElement14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7833,7 +7833,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-62176355
    */
-  specify("HTMLInputElement15", () => {
+  test("HTMLInputElement15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7860,7 +7860,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-62883744
    */
-  specify("HTMLInputElement16", () => {
+  test("HTMLInputElement16", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7887,7 +7887,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-32463706
    */
-  specify("HTMLInputElement17", () => {
+  test("HTMLInputElement17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7915,7 +7915,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-49531485
    */
-  specify("HTMLInputElement18", () => {
+  test("HTMLInputElement18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7939,7 +7939,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-26838235
    */
-  specify("HTMLInputElement19", () => {
+  test("HTMLInputElement19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7961,7 +7961,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-65996295
    */
-  specify("HTMLInputElement20", () => {
+  test("HTMLInputElement20", () => {
     var success;
     var nodeList;
     var testNode;
@@ -7983,7 +7983,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-2651361
    */
-  specify("HTMLInputElement21", () => {
+  test("HTMLInputElement21", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8010,7 +8010,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-34677168
    */
-  specify("HTMLInputElement22", () => {
+  test("HTMLInputElement22", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8027,7 +8027,7 @@ describe("level2/html", () => {
     testNode.select();
   });
 
-  specify("HTMLInputElementCheckboxClickTogglesCheckedState", () => {
+  test("HTMLInputElementCheckboxClickTogglesCheckedState", () => {
     var doc = load("input");
     var element = doc.querySelector("input[name='Check1']");
     assert.equal(element.checked, true);
@@ -8037,7 +8037,7 @@ describe("level2/html", () => {
     assert.equal(element.checked, true);
   });
 
-  specify("HTMLInputElementDefaultEventClickForCheckboxTogglesCheckedState", () => {
+  test("HTMLInputElementDefaultEventClickForCheckboxTogglesCheckedState", () => {
     var doc = load("input");
     var element = doc.querySelector("input[name='Check1']");
     var clickevent = doc.createEvent("MouseEvent");
@@ -8060,7 +8060,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52387668
    */
-  specify("HTMLLIElement01", () => {
+  test("HTMLLIElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8086,7 +8086,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-45496263
    */
-  specify("HTMLLIElement02", () => {
+  test("HTMLLIElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8112,7 +8112,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-32480901
    */
-  specify("HTMLLabelElement01", () => {
+  test("HTMLLabelElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8141,7 +8141,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-32480901
    */
-  specify("HTMLLabelElement02", () => {
+  test("HTMLLabelElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8168,7 +8168,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-43589892
    */
-  specify("HTMLLabelElement03", () => {
+  test("HTMLLabelElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8196,7 +8196,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96509813
    */
-  specify("HTMLLabelElement04", () => {
+  test("HTMLLabelElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8223,7 +8223,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-29594519
    */
-  specify("HTMLLegendElement01", () => {
+  test("HTMLLegendElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8252,7 +8252,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-29594519
    */
-  specify("HTMLLegendElement02", () => {
+  test("HTMLLegendElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8279,7 +8279,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11297832
    */
-  specify("HTMLLegendElement03", () => {
+  test("HTMLLegendElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8305,7 +8305,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79538067
    */
-  specify("HTMLLegendElement04", () => {
+  test("HTMLLegendElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8332,7 +8332,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63954491
    */
-  specify("HTMLLinkElement02", () => {
+  test("HTMLLinkElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8358,7 +8358,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33532588
    */
-  specify("HTMLLinkElement03", () => {
+  test("HTMLLinkElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8384,7 +8384,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-85145682
    */
-  specify("HTMLLinkElement04", () => {
+  test("HTMLLinkElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8410,7 +8410,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75813125
    */
-  specify("HTMLLinkElement05", () => {
+  test("HTMLLinkElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8436,7 +8436,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-41369587
    */
-  specify("HTMLLinkElement06", () => {
+  test("HTMLLinkElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8462,7 +8462,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40715461
    */
-  specify("HTMLLinkElement07", () => {
+  test("HTMLLinkElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8488,7 +8488,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-32498296
    */
-  specify("HTMLLinkElement08", () => {
+  test("HTMLLinkElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8514,7 +8514,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-84183095
    */
-  specify("HTMLLinkElement09", () => {
+  test("HTMLLinkElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8540,7 +8540,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71838730
    */
-  specify("HTMLMapElement01", () => {
+  test("HTMLMapElement01", () => {
     var success;
     var nodeList;
     var areasnodeList;
@@ -8568,7 +8568,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52696514
    */
-  specify("HTMLMapElement02", () => {
+  test("HTMLMapElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8595,7 +8595,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68436464
    */
-  specify("HTMLMenuElement01", () => {
+  test("HTMLMenuElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8621,7 +8621,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87670826
    */
-  specify("HTMLMetaElement01", () => {
+  test("HTMLMetaElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8647,7 +8647,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77289449
    */
-  specify("HTMLMetaElement02", () => {
+  test("HTMLMetaElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8673,7 +8673,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-31037081
    */
-  specify("HTMLMetaElement03", () => {
+  test("HTMLMetaElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8699,7 +8699,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-35993789
    */
-  specify("HTMLMetaElement04", () => {
+  test("HTMLMetaElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8726,7 +8726,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75101708
    */
-  specify("HTMLModElement01", () => {
+  test("HTMLModElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8752,7 +8752,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88432678
    */
-  specify("HTMLModElement02", () => {
+  test("HTMLModElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8779,7 +8779,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75101708
    */
-  specify("HTMLModElement03", () => {
+  test("HTMLModElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8805,7 +8805,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88432678
    */
-  specify("HTMLModElement04", () => {
+  test("HTMLModElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8832,7 +8832,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76448506
    */
-  specify("HTMLOListElement01", () => {
+  test("HTMLOListElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8858,7 +8858,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14793325
    */
-  specify("HTMLOListElement02", () => {
+  test("HTMLOListElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8884,7 +8884,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40971103
    */
-  specify("HTMLOListElement03", () => {
+  test("HTMLOListElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8910,7 +8910,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46094773
    */
-  specify("HTMLObjectElement01", () => {
+  test("HTMLObjectElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8939,7 +8939,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75241146
    */
-  specify("HTMLObjectElement02", () => {
+  test("HTMLObjectElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8968,7 +8968,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16962097
    */
-  specify("HTMLObjectElement03", () => {
+  test("HTMLObjectElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -8995,7 +8995,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47783837
    */
-  specify("HTMLObjectElement04", () => {
+  test("HTMLObjectElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9022,7 +9022,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82818419
    */
-  specify("HTMLObjectElement05", () => {
+  test("HTMLObjectElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9050,7 +9050,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25709136
    */
-  specify("HTMLObjectElement06", () => {
+  test("HTMLObjectElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9079,7 +9079,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-19945008
    */
-  specify("HTMLObjectElement07", () => {
+  test("HTMLObjectElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9106,7 +9106,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-81766986
    */
-  specify("HTMLObjectElement08", () => {
+  test("HTMLObjectElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9134,7 +9134,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-942770
    */
-  specify("HTMLObjectElement09", () => {
+  test("HTMLObjectElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9162,7 +9162,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88925838
    */
-  specify("HTMLObjectElement10", () => {
+  test("HTMLObjectElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9190,7 +9190,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-17085376
    */
-  specify("HTMLObjectElement11", () => {
+  test("HTMLObjectElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9218,7 +9218,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25039673
    */
-  specify("HTMLObjectElement12", () => {
+  test("HTMLObjectElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9246,7 +9246,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27083787
    */
-  specify("HTMLObjectElement13", () => {
+  test("HTMLObjectElement13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9274,7 +9274,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-91665621
    */
-  specify("HTMLObjectElement14", () => {
+  test("HTMLObjectElement14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9301,7 +9301,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6649772
    */
-  specify("HTMLObjectElement15", () => {
+  test("HTMLObjectElement15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9329,7 +9329,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-8682483
    */
-  specify("HTMLObjectElement16", () => {
+  test("HTMLObjectElement16", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9356,7 +9356,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-38538620
    */
-  specify("HTMLObjectElement17", () => {
+  test("HTMLObjectElement17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9384,7 +9384,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20110362
    */
-  specify("HTMLObjectElement18", () => {
+  test("HTMLObjectElement18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9411,7 +9411,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46094773
    */
-  specify("HTMLObjectElement19", () => {
+  test("HTMLObjectElement19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9437,7 +9437,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-38538621
    */
-  specify("HTMLObjectElement20", () => {
+  test("HTMLObjectElement20", () => {
     var success;
     var testNode;
     var cd;
@@ -9464,7 +9464,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-15518803
    */
-  specify("HTMLOptGroupElement01", () => {
+  test("HTMLOptGroupElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9490,7 +9490,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-95806054
    */
-  specify("HTMLOptGroupElement02", () => {
+  test("HTMLOptGroupElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9517,7 +9517,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-17116503
    */
-  specify("HTMLOptionElement01", () => {
+  test("HTMLOptionElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9547,7 +9547,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-17116503
    */
-  specify("HTMLOptionElement02", () => {
+  test("HTMLOptionElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9575,7 +9575,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-37770574
    */
-  specify("HTMLOptionElement03", () => {
+  test("HTMLOptionElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9602,7 +9602,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48154426
    */
-  specify("HTMLOptionElement04", () => {
+  test("HTMLOptionElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9630,7 +9630,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14038413
    */
-  specify("HTMLOptionElement05", () => {
+  test("HTMLOptionElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9658,7 +9658,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-23482473
    */
-  specify("HTMLOptionElement06", () => {
+  test("HTMLOptionElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9686,7 +9686,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40736115
    */
-  specify("HTMLOptionElement07", () => {
+  test("HTMLOptionElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9714,7 +9714,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70874476
    */
-  specify("HTMLOptionElement08", () => {
+  test("HTMLOptionElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9741,7 +9741,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6185554
    */
-  specify("HTMLOptionElement09", () => {
+  test("HTMLOptionElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9764,7 +9764,7 @@ describe("level2/html", () => {
    The selected attribute of an option should be true if no other option is
    selected in the SELECT.
    */
-  specify("HTMLOptionElement10", () => {
+  test("HTMLOptionElement10", () => {
     var doc;
     doc = load("option");
     var select = doc.getElementsByName('select2').item(0);
@@ -9782,7 +9782,7 @@ describe("level2/html", () => {
    The selected value of an option should be based on whether or not
    it has been selected and/or by default if it is at index 0
    */
-  specify("HTMLOptionElement11", () => {
+  test("HTMLOptionElement11", () => {
     var doc;
     doc = load("option");
     var select = doc.getElementsByName('select2').item(0);
@@ -9804,7 +9804,7 @@ describe("level2/html", () => {
 
    based on experiements in chrome
    */
-  specify("HTMLOptionElement12", () => {
+  test("HTMLOptionElement12", () => {
     var doc;
     doc = load("option");
     var select = doc.getElementsByName('select2').item(0);
@@ -9832,7 +9832,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTMLOptionsCollection-length
    */
-  specify("HTMLOptionsCollection01", () => {
+  test("HTMLOptionsCollection01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9867,7 +9867,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTMLOptionsCollection-item
    */
-  specify("HTMLOptionsCollection02", () => {
+  test("HTMLOptionsCollection02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9908,7 +9908,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTMLOptionsCollection-namedItem
    */
-  specify("HTMLOptionsCollection03", () => {
+  test("HTMLOptionsCollection03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9947,7 +9947,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTMLOptionsCollection-namedItem
    */
-  specify("HTMLOptionsCollection04", () => {
+  test("HTMLOptionsCollection04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -9988,7 +9988,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTMLOptionsCollection-namedItem
    */
-  specify("HTMLOptionsCollection05", () => {
+  test("HTMLOptionsCollection05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10024,7 +10024,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTMLOptionsCollection-item
    */
-  specify("HTMLOptionsCollection06", () => {
+  test("HTMLOptionsCollection06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10061,7 +10061,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTMLOptionsCollection-item
    */
-  specify("HTMLOptionsCollection07", () => {
+  test("HTMLOptionsCollection07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10093,7 +10093,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53465507
    */
-  specify("HTMLParagraphElement01", () => {
+  test("HTMLParagraphElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10119,7 +10119,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59871447
    */
-  specify("HTMLParamElement01", () => {
+  test("HTMLParamElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10145,7 +10145,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77971357
    */
-  specify("HTMLParamElement02", () => {
+  test("HTMLParamElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10172,7 +10172,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-23931872
    */
-  specify("HTMLParamElement03", () => {
+  test("HTMLParamElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10199,7 +10199,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18179888
    */
-  specify("HTMLParamElement04", () => {
+  test("HTMLParamElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10225,7 +10225,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-13894083
    */
-  specify("HTMLPreElement01", () => {
+  test("HTMLPreElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10252,7 +10252,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53895598
    */
-  specify("HTMLQuoteElement01", () => {
+  test("HTMLQuoteElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10280,7 +10280,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53895598
    */
-  specify("HTMLQuoteElement02", () => {
+  test("HTMLQuoteElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10306,7 +10306,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46872999
    */
-  specify("HTMLScriptElement01", () => {
+  test("HTMLScriptElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10333,7 +10333,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-35305677
    */
-  specify("HTMLScriptElement02", () => {
+  test("HTMLScriptElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10360,7 +10360,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93788534
    */
-  specify("HTMLScriptElement03", () => {
+  test("HTMLScriptElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10386,7 +10386,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-75147231
    */
-  specify("HTMLScriptElement04", () => {
+  test("HTMLScriptElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10412,7 +10412,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30534818
    */
-  specify("HTMLScriptElement05", () => {
+  test("HTMLScriptElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10436,7 +10436,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-66979266
    */
-  specify("HTMLScriptElement06", () => {
+  test("HTMLScriptElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10459,7 +10459,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-56700403
    */
-  specify("HTMLScriptElement07", () => {
+  test("HTMLScriptElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10482,7 +10482,7 @@ describe("level2/html", () => {
    * @author Kyle Blomquist
    */
 
-  specify("HTMLScriptElement08", () => {
+  test("HTMLScriptElement08", () => {
     var docRef = null;
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
@@ -10503,7 +10503,7 @@ describe("level2/html", () => {
    * @author Kyle Blomquist
    */
 
-  specify("HTMLScriptElement09", () => {
+  test("HTMLScriptElement09", () => {
     var success;
     var testNode;
     var doc;
@@ -10526,7 +10526,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-58783172
    */
-  specify("HTMLSelectElement01", () => {
+  test("HTMLSelectElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10554,7 +10554,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-85676760
    */
-  specify("HTMLSelectElement02", () => {
+  test("HTMLSelectElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10585,7 +10585,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-85676760
    */
-  specify("HTMLSelectElement03", () => {
+  test("HTMLSelectElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10611,7 +10611,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59351919
    */
-  specify("HTMLSelectElement04", () => {
+  test("HTMLSelectElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10638,7 +10638,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5933486
    */
-  specify("HTMLSelectElement05", () => {
+  test("HTMLSelectElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10665,7 +10665,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20489458
    */
-  specify("HTMLSelectElement06", () => {
+  test("HTMLSelectElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10695,7 +10695,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20489458
    */
-  specify("HTMLSelectElement07", () => {
+  test("HTMLSelectElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10723,7 +10723,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30606413
    */
-  specify("HTMLSelectElement08", () => {
+  test("HTMLSelectElement08", () => {
     var expectedOptions = ['OPTION', 'OPTION', 'OPTION', 'OPTION', 'OPTION']
     var doc = load("select");
     var nodeList = doc.getElementsByTagName("select");
@@ -10746,7 +10746,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79102918
    */
-  specify("HTMLSelectElement09", () => {
+  test("HTMLSelectElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10774,7 +10774,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-13246613
    */
-  specify("HTMLSelectElement10", () => {
+  test("HTMLSelectElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10802,7 +10802,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-41636323
    */
-  specify("HTMLSelectElement11", () => {
+  test("HTMLSelectElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10829,7 +10829,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18293826
    */
-  specify("HTMLSelectElement12", () => {
+  test("HTMLSelectElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10857,7 +10857,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40676705
    */
-  specify("HTMLSelectElement13", () => {
+  test("HTMLSelectElement13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10881,7 +10881,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-32130014
    */
-  specify("HTMLSelectElement14", () => {
+  test("HTMLSelectElement14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10903,7 +10903,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-28216144
    */
-  specify("HTMLSelectElement15", () => {
+  test("HTMLSelectElement15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10925,7 +10925,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33404570
    */
-  specify("HTMLSelectElement16", () => {
+  test("HTMLSelectElement16", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10953,7 +10953,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33404570
    */
-  specify("HTMLSelectElement17", () => {
+  test("HTMLSelectElement17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -10981,7 +10981,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14493106
    */
-  specify("HTMLSelectElement18", () => {
+  test("HTMLSelectElement18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11023,7 +11023,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14493106
    */
-  specify("HTMLSelectElement19", () => {
+  test("HTMLSelectElement19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11070,7 +11070,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-14493106
    */
-  specify("HTMLSelectElement20", () => {
+  test("HTMLSelectElement20", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11117,7 +11117,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76412738
    */
-  specify("HTMLStyleElement02", () => {
+  test("HTMLStyleElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11143,7 +11143,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-22472002
    */
-  specify("HTMLStyleElement03", () => {
+  test("HTMLStyleElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11170,7 +11170,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79875068
    */
-  specify("HTMLTableCaptionElement01", () => {
+  test("HTMLTableCaptionElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11197,7 +11197,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-80748363
    */
-  specify("HTMLTableCellElement01", () => {
+  test("HTMLTableCellElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11224,7 +11224,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-80748363
    */
-  specify("HTMLTableCellElement02", () => {
+  test("HTMLTableCellElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11251,7 +11251,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74444037
    */
-  specify("HTMLTableCellElement03", () => {
+  test("HTMLTableCellElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11278,7 +11278,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74444037
    */
-  specify("HTMLTableCellElement04", () => {
+  test("HTMLTableCellElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11306,7 +11306,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98433879
    */
-  specify("HTMLTableCellElement05", () => {
+  test("HTMLTableCellElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11334,7 +11334,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98433879
    */
-  specify("HTMLTableCellElement06", () => {
+  test("HTMLTableCellElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11362,7 +11362,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76554418
    */
-  specify("HTMLTableCellElement07", () => {
+  test("HTMLTableCellElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11390,7 +11390,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76554418
    */
-  specify("HTMLTableCellElement08", () => {
+  test("HTMLTableCellElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11418,7 +11418,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88135431
    */
-  specify("HTMLTableCellElement09", () => {
+  test("HTMLTableCellElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11446,7 +11446,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88135431
    */
-  specify("HTMLTableCellElement10", () => {
+  test("HTMLTableCellElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11474,7 +11474,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30914780
    */
-  specify("HTMLTableCellElement11", () => {
+  test("HTMLTableCellElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11502,7 +11502,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30914780
    */
-  specify("HTMLTableCellElement12", () => {
+  test("HTMLTableCellElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11530,7 +11530,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20144310
    */
-  specify("HTMLTableCellElement13", () => {
+  test("HTMLTableCellElement13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11558,7 +11558,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20144310
    */
-  specify("HTMLTableCellElement14", () => {
+  test("HTMLTableCellElement14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11586,7 +11586,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-84645244
    */
-  specify("HTMLTableCellElement15", () => {
+  test("HTMLTableCellElement15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11614,7 +11614,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-84645244
    */
-  specify("HTMLTableCellElement16", () => {
+  test("HTMLTableCellElement16", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11642,7 +11642,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89104817
    */
-  specify("HTMLTableCellElement17", () => {
+  test("HTMLTableCellElement17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11670,7 +11670,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89104817
    */
-  specify("HTMLTableCellElement18", () => {
+  test("HTMLTableCellElement18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11697,7 +11697,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83679212
    */
-  specify("HTMLTableCellElement19", () => {
+  test("HTMLTableCellElement19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11724,7 +11724,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83679212
    */
-  specify("HTMLTableCellElement20", () => {
+  test("HTMLTableCellElement20", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11751,7 +11751,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-62922045
    */
-  specify("HTMLTableCellElement21", () => {
+  test("HTMLTableCellElement21", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11778,7 +11778,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-62922045
    */
-  specify("HTMLTableCellElement22", () => {
+  test("HTMLTableCellElement22", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11806,7 +11806,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48237625
    */
-  specify("HTMLTableCellElement23", () => {
+  test("HTMLTableCellElement23", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11834,7 +11834,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48237625
    */
-  specify("HTMLTableCellElement24", () => {
+  test("HTMLTableCellElement24", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11861,7 +11861,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36139952
    */
-  specify("HTMLTableCellElement25", () => {
+  test("HTMLTableCellElement25", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11888,7 +11888,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-58284221
    */
-  specify("HTMLTableCellElement27", () => {
+  test("HTMLTableCellElement27", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11915,7 +11915,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-58284221
    */
-  specify("HTMLTableCellElement28", () => {
+  test("HTMLTableCellElement28", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11942,7 +11942,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27480795
    */
-  specify("HTMLTableCellElement29", () => {
+  test("HTMLTableCellElement29", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11969,7 +11969,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27480795
    */
-  specify("HTMLTableCellElement30", () => {
+  test("HTMLTableCellElement30", () => {
     var success;
     var nodeList;
     var testNode;
@@ -11997,7 +11997,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-31128447
    */
-  specify("HTMLTableColElement01", () => {
+  test("HTMLTableColElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12025,7 +12025,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-31128447
    */
-  specify("HTMLTableColElement02", () => {
+  test("HTMLTableColElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12053,7 +12053,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9447412
    */
-  specify("HTMLTableColElement03", () => {
+  test("HTMLTableColElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12081,7 +12081,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9447412
    */
-  specify("HTMLTableColElement04", () => {
+  test("HTMLTableColElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12108,7 +12108,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-57779225
    */
-  specify("HTMLTableColElement05", () => {
+  test("HTMLTableColElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12135,7 +12135,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-57779225
    */
-  specify("HTMLTableColElement06", () => {
+  test("HTMLTableColElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12163,7 +12163,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96511335
    */
-  specify("HTMLTableColElement07", () => {
+  test("HTMLTableColElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12191,7 +12191,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96511335
    */
-  specify("HTMLTableColElement08", () => {
+  test("HTMLTableColElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12219,7 +12219,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83291710
    */
-  specify("HTMLTableColElement09", () => {
+  test("HTMLTableColElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12247,7 +12247,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83291710
    */
-  specify("HTMLTableColElement10", () => {
+  test("HTMLTableColElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12274,7 +12274,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25196799
    */
-  specify("HTMLTableColElement11", () => {
+  test("HTMLTableColElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12301,7 +12301,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25196799
    */
-  specify("HTMLTableColElement12", () => {
+  test("HTMLTableColElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12328,7 +12328,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14594520
    */
-  specify("HTMLTableElement01", () => {
+  test("HTMLTableElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12358,7 +12358,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14594520
    */
-  specify("HTMLTableElement02", () => {
+  test("HTMLTableElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12385,7 +12385,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
    */
-  specify("HTMLTableElement03", () => {
+  test("HTMLTableElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12415,7 +12415,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
    */
-  specify("HTMLTableElement04", () => {
+  test("HTMLTableElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12442,7 +12442,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("HTMLTableElement05", () => {
+  test("HTMLTableElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12472,7 +12472,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("HTMLTableElement06", () => {
+  test("HTMLTableElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12500,7 +12500,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6156016
    */
-  specify("HTMLTableElement07", () => {
+  test("HTMLTableElement07", () => {
     var expectedOptions = ['TR', 'TR' ,'TR' ,'TR'];
     var doc = load("table");
     var nodeList = doc.getElementsByTagName("table");
@@ -12523,7 +12523,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63206416
    */
-  specify("HTMLTableElement08", () => {
+  test("HTMLTableElement08", () => {
     var expectedOptions = ["TBODY"];
     var doc = load("table");
     var nodeList = doc.getElementsByTagName("table");
@@ -12547,7 +12547,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63206416
    */
-  specify("HTMLTableElement09", () => {
+  test("HTMLTableElement09", () => {
     var expectedOptions = ['TBODY', 'TBODY', 'TBODY'];
     var doc = load("table");
     var nodeList = doc.getElementsByTagName("table");
@@ -12570,7 +12570,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-23180977
    */
-  specify("HTMLTableElement10", () => {
+  test("HTMLTableElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12597,7 +12597,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83532985
    */
-  specify("HTMLTableElement11", () => {
+  test("HTMLTableElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12624,7 +12624,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-50969400
    */
-  specify("HTMLTableElement12", () => {
+  test("HTMLTableElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12652,7 +12652,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59162158
    */
-  specify("HTMLTableElement13", () => {
+  test("HTMLTableElement13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12680,7 +12680,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68907883
    */
-  specify("HTMLTableElement14", () => {
+  test("HTMLTableElement14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12707,7 +12707,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64808476
    */
-  specify("HTMLTableElement15", () => {
+  test("HTMLTableElement15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12734,7 +12734,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-26347553
    */
-  specify("HTMLTableElement16", () => {
+  test("HTMLTableElement16", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12762,7 +12762,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-44998528
    */
-  specify("HTMLTableElement17", () => {
+  test("HTMLTableElement17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12789,7 +12789,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77447361
    */
-  specify("HTMLTableElement18", () => {
+  test("HTMLTableElement18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12819,7 +12819,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70313345
    */
-  specify("HTMLTableElement19", () => {
+  test("HTMLTableElement19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12854,7 +12854,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70313345
    */
-  specify("HTMLTableElement20", () => {
+  test("HTMLTableElement20", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12887,7 +12887,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-38310198
    */
-  specify("HTMLTableElement21", () => {
+  test("HTMLTableElement21", () => {
     var success;
     var nodeList;
     var rowsnodeList;
@@ -12933,7 +12933,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8453710
    */
-  specify("HTMLTableElement22", () => {
+  test("HTMLTableElement22", () => {
     var success;
     var nodeList;
     var testNode;
@@ -12968,7 +12968,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8453710
    */
-  specify("HTMLTableElement23", () => {
+  test("HTMLTableElement23", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13001,7 +13001,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78363258
    */
-  specify("HTMLTableElement24", () => {
+  test("HTMLTableElement24", () => {
     var success;
     var nodeList;
     var rowsnodeList;
@@ -13045,7 +13045,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96920263
    */
-  specify("HTMLTableElement25", () => {
+  test("HTMLTableElement25", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13079,7 +13079,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96920263
    */
-  specify("HTMLTableElement26", () => {
+  test("HTMLTableElement26", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13112,7 +13112,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-22930071
    */
-  specify("HTMLTableElement27", () => {
+  test("HTMLTableElement27", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13147,7 +13147,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
    */
-  specify("HTMLTableElement28", () => {
+  test("HTMLTableElement28", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13188,7 +13188,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
    */
-  specify("HTMLTableElement29", () => {
+  test("HTMLTableElement29", () => {
     var success;
     var nodeList;
     var tbodiesnodeList;
@@ -13234,7 +13234,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
    */
-  specify("HTMLTableElement30", () => {
+  test("HTMLTableElement30", () => {
     var success;
     var nodeList;
     var tbodiesnodeList;
@@ -13286,7 +13286,7 @@ describe("level2/html", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Aug/0019.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=502
    */
-  specify("HTMLTableElement31", () => {
+  test("HTMLTableElement31", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13328,7 +13328,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-13114938
    */
-  specify("HTMLTableElement32", () => {
+  test("HTMLTableElement32", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13362,7 +13362,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-13114938
    */
-  specify("HTMLTableElement33", () => {
+  test("HTMLTableElement33", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13398,7 +13398,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-39872903')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableElement34", () => {
+  test("HTMLTableElement34", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13436,7 +13436,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-39872903')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableElement35", () => {
+  test("HTMLTableElement35", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13474,7 +13474,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableElement36", () => {
+  test("HTMLTableElement36", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13512,7 +13512,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableElement37", () => {
+  test("HTMLTableElement37", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13549,7 +13549,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableElement38", () => {
+  test("HTMLTableElement38", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13585,7 +13585,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
    */
-  specify("HTMLTableElement40", () => {
+  test("HTMLTableElement40", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13621,7 +13621,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67347567
    */
-  specify("HTMLTableRowElement01", () => {
+  test("HTMLTableRowElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13649,7 +13649,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
    */
-  specify("HTMLTableRowElement02", () => {
+  test("HTMLTableRowElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13677,7 +13677,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
    */
-  specify("HTMLTableRowElement03", () => {
+  test("HTMLTableRowElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13705,7 +13705,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
    */
-  specify("HTMLTableRowElement04", () => {
+  test("HTMLTableRowElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13732,7 +13732,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67349879
    */
-  specify("HTMLTableRowElement05", () => {
+  test("HTMLTableRowElement05", () => {
     var success;
     var nodeList;
     var cellsnodeList;
@@ -13762,7 +13762,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
    */
-  specify("HTMLTableRowElement06", () => {
+  test("HTMLTableRowElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13789,7 +13789,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18161327
    */
-  specify("HTMLTableRowElement07", () => {
+  test("HTMLTableRowElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13816,7 +13816,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
    */
-  specify("HTMLTableRowElement08", () => {
+  test("HTMLTableRowElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13843,7 +13843,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
    */
-  specify("HTMLTableRowElement09", () => {
+  test("HTMLTableRowElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13871,7 +13871,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-90000058
    */
-  specify("HTMLTableRowElement10", () => {
+  test("HTMLTableRowElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -13903,7 +13903,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68927016
    */
-  specify("HTMLTableRowElement11", () => {
+  test("HTMLTableRowElement11", () => {
     var success;
     var nodeList;
     var cellsnodeList;
@@ -13952,7 +13952,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68927016
    */
-  specify("HTMLTableRowElement12", () => {
+  test("HTMLTableRowElement12", () => {
     var success;
     var nodeList;
     var cellsnodeList;
@@ -14001,7 +14001,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11738598
    */
-  specify("HTMLTableRowElement13", () => {
+  test("HTMLTableRowElement13", () => {
     var success;
     var nodeList;
     var cellsnodeList;
@@ -14050,7 +14050,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11738598
    */
-  specify("HTMLTableRowElement14", () => {
+  test("HTMLTableRowElement14", () => {
     var success;
     var nodeList;
     var cellsnodeList;
@@ -14098,7 +14098,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-68927016')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableRowElement15", () => {
+  test("HTMLTableRowElement15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14136,7 +14136,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-68927016')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableRowElement16", () => {
+  test("HTMLTableRowElement16", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14174,7 +14174,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableRowElement17", () => {
+  test("HTMLTableRowElement17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14211,7 +14211,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableRowElement18", () => {
+  test("HTMLTableRowElement18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14248,7 +14248,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableRowElement19", () => {
+  test("HTMLTableRowElement19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14289,7 +14289,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
    */
-  specify("HTMLTableRowElement20", () => {
+  test("HTMLTableRowElement20", () => {
     var success;
     var nodeList;
     var cellsnodeList;
@@ -14340,7 +14340,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
    */
-  specify("HTMLTableRowElement21", () => {
+  test("HTMLTableRowElement21", () => {
     var success;
     var nodeList;
     var cellsnodeList;
@@ -14386,7 +14386,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
    */
-  specify("HTMLTableSectionElement01", () => {
+  test("HTMLTableSectionElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14414,7 +14414,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
    */
-  specify("HTMLTableSectionElement02", () => {
+  test("HTMLTableSectionElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14442,7 +14442,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
    */
-  specify("HTMLTableSectionElement03", () => {
+  test("HTMLTableSectionElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14470,7 +14470,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
    */
-  specify("HTMLTableSectionElement04", () => {
+  test("HTMLTableSectionElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14498,7 +14498,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
    */
-  specify("HTMLTableSectionElement05", () => {
+  test("HTMLTableSectionElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14526,7 +14526,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
    */
-  specify("HTMLTableSectionElement06", () => {
+  test("HTMLTableSectionElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14553,7 +14553,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
    */
-  specify("HTMLTableSectionElement07", () => {
+  test("HTMLTableSectionElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14580,7 +14580,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
    */
-  specify("HTMLTableSectionElement08", () => {
+  test("HTMLTableSectionElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14607,7 +14607,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
    */
-  specify("HTMLTableSectionElement09", () => {
+  test("HTMLTableSectionElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14635,7 +14635,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
    */
-  specify("HTMLTableSectionElement10", () => {
+  test("HTMLTableSectionElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14663,7 +14663,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
    */
-  specify("HTMLTableSectionElement11", () => {
+  test("HTMLTableSectionElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14691,7 +14691,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
    */
-  specify("HTMLTableSectionElement12", () => {
+  test("HTMLTableSectionElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14718,7 +14718,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
    */
-  specify("HTMLTableSectionElement13", () => {
+  test("HTMLTableSectionElement13", () => {
     var success;
     var nodeList;
     var rowsnodeList;
@@ -14747,7 +14747,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
    */
-  specify("HTMLTableSectionElement14", () => {
+  test("HTMLTableSectionElement14", () => {
     var success;
     var nodeList;
     var rowsnodeList;
@@ -14776,7 +14776,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
    */
-  specify("HTMLTableSectionElement15", () => {
+  test("HTMLTableSectionElement15", () => {
     var success;
     var nodeList;
     var rowsnodeList;
@@ -14807,7 +14807,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
    */
-  specify("HTMLTableSectionElement16", () => {
+  test("HTMLTableSectionElement16", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14843,7 +14843,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
    */
-  specify("HTMLTableSectionElement17", () => {
+  test("HTMLTableSectionElement17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14879,7 +14879,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
    */
-  specify("HTMLTableSectionElement18", () => {
+  test("HTMLTableSectionElement18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14916,7 +14916,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
    */
-  specify("HTMLTableSectionElement19", () => {
+  test("HTMLTableSectionElement19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14953,7 +14953,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
    */
-  specify("HTMLTableSectionElement20", () => {
+  test("HTMLTableSectionElement20", () => {
     var success;
     var nodeList;
     var testNode;
@@ -14991,7 +14991,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=502
    */
-  specify("HTMLTableSectionElement21", () => {
+  test("HTMLTableSectionElement21", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15027,7 +15027,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
    */
-  specify("HTMLTableSectionElement22", () => {
+  test("HTMLTableSectionElement22", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15062,7 +15062,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
    */
-  specify("HTMLTableSectionElement23", () => {
+  test("HTMLTableSectionElement23", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15097,7 +15097,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
    */
-  specify("HTMLTableSectionElement24", () => {
+  test("HTMLTableSectionElement24", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15133,7 +15133,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-93995626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableSectionElement25", () => {
+  test("HTMLTableSectionElement25", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15171,7 +15171,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-93995626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableSectionElement26", () => {
+  test("HTMLTableSectionElement26", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15210,7 +15210,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableSectionElement27", () => {
+  test("HTMLTableSectionElement27", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15248,7 +15248,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableSectionElement28", () => {
+  test("HTMLTableSectionElement28", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15285,7 +15285,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("HTMLTableSectionElement29", () => {
+  test("HTMLTableSectionElement29", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15325,7 +15325,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
    */
-  specify("HTMLTableSectionElement30", () => {
+  test("HTMLTableSectionElement30", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15364,7 +15364,7 @@ describe("level2/html", () => {
    * @author Rick Rivello
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
    */
-  specify("HTMLTableSectionElement31", () => {
+  test("HTMLTableSectionElement31", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15398,7 +15398,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36152213
    */
-  specify("HTMLTextAreaElement01", () => {
+  test("HTMLTextAreaElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15425,7 +15425,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18911464
    */
-  specify("HTMLTextAreaElement02", () => {
+  test("HTMLTextAreaElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15455,7 +15455,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18911464
    */
-  specify("HTMLTextAreaElement03", () => {
+  test("HTMLTextAreaElement03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15483,7 +15483,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93102991
    */
-  specify("HTMLTextAreaElement04", () => {
+  test("HTMLTextAreaElement04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15510,7 +15510,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-51387225
    */
-  specify("HTMLTextAreaElement05", () => {
+  test("HTMLTextAreaElement05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15538,7 +15538,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98725443
    */
-  specify("HTMLTextAreaElement06", () => {
+  test("HTMLTextAreaElement06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15566,7 +15566,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70715578
    */
-  specify("HTMLTextAreaElement07", () => {
+  test("HTMLTextAreaElement07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15593,7 +15593,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39131423
    */
-  specify("HTMLTextAreaElement08", () => {
+  test("HTMLTextAreaElement08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15620,7 +15620,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46975887
    */
-  specify("HTMLTextAreaElement09", () => {
+  test("HTMLTextAreaElement09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15648,7 +15648,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-60363303
    */
-  specify("HTMLTextAreaElement10", () => {
+  test("HTMLTextAreaElement10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15676,7 +15676,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-24874179
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTML-HTMLTextAreaElement-type
    */
-  specify("HTMLTextAreaElement11", () => {
+  test("HTMLTextAreaElement11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15704,7 +15704,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70715579
    */
-  specify("HTMLTextAreaElement12", () => {
+  test("HTMLTextAreaElement12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15728,7 +15728,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6750689
    */
-  specify("HTMLTextAreaElement13", () => {
+  test("HTMLTextAreaElement13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15750,7 +15750,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39055426
    */
-  specify("HTMLTextAreaElement14", () => {
+  test("HTMLTextAreaElement14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15772,7 +15772,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48880622
    */
-  specify("HTMLTextAreaElement15", () => {
+  test("HTMLTextAreaElement15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15796,7 +15796,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77500413
    */
-  specify("HTMLTitleElement01", () => {
+  test("HTMLTitleElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15823,7 +15823,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39864178
    */
-  specify("HTMLUListElement01", () => {
+  test("HTMLUListElement01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15849,7 +15849,7 @@ describe("level2/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96874670
    */
-  specify("HTMLUListElement02", () => {
+  test("HTMLUListElement02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15875,7 +15875,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89647724
    */
-  specify("anchor01", () => {
+  test("anchor01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15901,7 +15901,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67619266
    */
-  specify("anchor02", () => {
+  test("anchor02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15927,7 +15927,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92079539
    */
-  specify("anchor03", () => {
+  test("anchor03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15953,7 +15953,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88517319
    */
-  specify("anchor04", () => {
+  test("anchor04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -15979,7 +15979,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63938221
    */
-  specify("anchor05", () => {
+  test("anchor05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16005,7 +16005,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-49899808
    */
-  specify("anchor06", () => {
+  test("anchor06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16029,7 +16029,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-66021476
    */
-  specify("area01", () => {
+  test("area01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16053,7 +16053,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-61826871
    */
-  specify("area02", () => {
+  test("area02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16077,7 +16077,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8722121
    */
-  specify("area03", () => {
+  test("area03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16101,7 +16101,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-57944457
    */
-  specify("area04", () => {
+  test("area04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16127,7 +16127,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59424581
    */
-  specify("body01", () => {
+  test("body01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16152,7 +16152,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
    */
-  specify("button01", () => {
+  test("button01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16178,7 +16178,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
    */
-  specify("button02", () => {
+  test("button02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16206,7 +16206,7 @@ describe("level2/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82545539
    */
-  specify("button04", () => {
+  test("button04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16234,7 +16234,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-73169431
    */
-  specify("button05", () => {
+  test("button05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16260,7 +16260,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39190908
    */
-  specify("button06", () => {
+  test("button06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16286,7 +16286,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27430092
    */
-  specify("button07", () => {
+  test("button07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16312,7 +16312,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92757155
    */
-  specify("button08", () => {
+  test("button08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16338,7 +16338,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-72856782
    */
-  specify("button09", () => {
+  test("button09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16362,7 +16362,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-21738539
    */
-  specify("dlist01", () => {
+  test("dlist01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16387,7 +16387,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18446827
    */
-  specify("doc01", () => {
+  test("doc01", () => {
     var success;
     var vtitle;
     var doc;
@@ -16406,7 +16406,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    */
-  specify("hasFeature01", () => {
+  test("hasFeature01", () => {
     var success;
     var doc;
     var domImpl;
@@ -16423,7 +16423,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  specify("hasFeature02", () => {
+  test("hasFeature02", () => {
     var success;
     var doc;
     var domImpl;
@@ -16440,7 +16440,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  specify("hasFeature03", () => {
+  test("hasFeature03", () => {
     var success;
     var doc;
     var domImpl;
@@ -16459,7 +16459,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  specify("hasFeature04", () => {
+  test("hasFeature04", () => {
     var success;
     var doc;
     var domImpl;
@@ -16478,7 +16478,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  specify("hasFeature05", () => {
+  test("hasFeature05", () => {
     var success;
     var doc;
     var domImpl;
@@ -16495,7 +16495,7 @@ describe("level2/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  specify("hasFeature06", () => {
+  test("hasFeature06", () => {
     var success;
     var doc;
     var domImpl;
@@ -16514,7 +16514,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46094773
    */
-  specify("object01", () => {
+  test("object01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16540,7 +16540,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16962097
    */
-  specify("object02", () => {
+  test("object02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16566,7 +16566,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47783837
    */
-  specify("object03", () => {
+  test("object03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16592,7 +16592,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82818419
    */
-  specify("object04", () => {
+  test("object04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16618,7 +16618,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25709136
    */
-  specify("object05", () => {
+  test("object05", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16644,7 +16644,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-81766986
    */
-  specify("object06", () => {
+  test("object06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16669,7 +16669,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88925838
    */
-  specify("object07", () => {
+  test("object07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16695,7 +16695,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-17085376
    */
-  specify("object08", () => {
+  test("object08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16721,7 +16721,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25039673
    */
-  specify("object09", () => {
+  test("object09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16747,7 +16747,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27083787
    */
-  specify("object10", () => {
+  test("object10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16773,7 +16773,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-91665621
    */
-  specify("object11", () => {
+  test("object11", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16798,7 +16798,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6649772
    */
-  specify("object12", () => {
+  test("object12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16824,7 +16824,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-8682483
    */
-  specify("object13", () => {
+  test("object13", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16849,7 +16849,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-38538620
    */
-  specify("object14", () => {
+  test("object14", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16875,7 +16875,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-19945008
    */
-  specify("object15", () => {
+  test("object15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16901,7 +16901,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14594520
    */
-  specify("table01", () => {
+  test("table01", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16927,7 +16927,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14594520
    */
-  specify("table02", () => {
+  test("table02", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16955,7 +16955,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
    */
-  specify("table03", () => {
+  test("table03", () => {
     var success;
     var nodeList;
     var testNode;
@@ -16983,7 +16983,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
    */
-  specify("table04", () => {
+  test("table04", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17011,7 +17011,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("table06", () => {
+  test("table06", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17039,7 +17039,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("table07", () => {
+  test("table07", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17069,7 +17069,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("table08", () => {
+  test("table08", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17097,7 +17097,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
    */
-  specify("table09", () => {
+  test("table09", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17125,7 +17125,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("table10", () => {
+  test("table10", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17153,7 +17153,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("table12", () => {
+  test("table12", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17181,7 +17181,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("table15", () => {
+  test("table15", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17211,7 +17211,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
    */
-  specify("table17", () => {
+  test("table17", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17239,7 +17239,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-80748363
    */
-  specify("table18", () => {
+  test("table18", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17266,7 +17266,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74444037
    */
-  specify("table19", () => {
+  test("table19", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17292,7 +17292,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76554418
    */
-  specify("table20", () => {
+  test("table20", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17318,7 +17318,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98433879
    */
-  specify("table21", () => {
+  test("table21", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17344,7 +17344,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88135431
    */
-  specify("table22", () => {
+  test("table22", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17370,7 +17370,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30914780
    */
-  specify("table23", () => {
+  test("table23", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17396,7 +17396,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20144310
    */
-  specify("table24", () => {
+  test("table24", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17422,7 +17422,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-84645244
    */
-  specify("table25", () => {
+  test("table25", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17447,7 +17447,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83679212
    */
-  specify("table26", () => {
+  test("table26", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17473,7 +17473,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-62922045
    */
-  specify("table27", () => {
+  test("table27", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17499,7 +17499,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48237625
    */
-  specify("table28", () => {
+  test("table28", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17525,7 +17525,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89104817
    */
-  specify("table30", () => {
+  test("table30", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17551,7 +17551,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-58284221
    */
-  specify("table31", () => {
+  test("table31", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17577,7 +17577,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27480795
    */
-  specify("table32", () => {
+  test("table32", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17603,7 +17603,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-23180977
    */
-  specify("table33", () => {
+  test("table33", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17629,7 +17629,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-50969400
    */
-  specify("table34", () => {
+  test("table34", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17655,7 +17655,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83532985
    */
-  specify("table35", () => {
+  test("table35", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17681,7 +17681,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64808476
    */
-  specify("table36", () => {
+  test("table36", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17706,7 +17706,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59162158
    */
-  specify("table37", () => {
+  test("table37", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17732,7 +17732,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68907883
    */
-  specify("table38", () => {
+  test("table38", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17758,7 +17758,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-44998528
    */
-  specify("table39", () => {
+  test("table39", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17784,7 +17784,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-26347553
    */
-  specify("table40", () => {
+  test("table40", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17810,7 +17810,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77447361
    */
-  specify("table41", () => {
+  test("table41", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17836,7 +17836,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
    */
-  specify("table42", () => {
+  test("table42", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17862,7 +17862,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18161327
    */
-  specify("table43", () => {
+  test("table43", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17888,7 +17888,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-90000058
    */
-  specify("table44", () => {
+  test("table44", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17914,7 +17914,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
    */
-  specify("table45", () => {
+  test("table45", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17940,7 +17940,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
    */
-  specify("table46", () => {
+  test("table46", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17966,7 +17966,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67347567
    */
-  specify("table47", () => {
+  test("table47", () => {
     var success;
     var nodeList;
     var testNode;
@@ -17992,7 +17992,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
    */
-  specify("table48", () => {
+  test("table48", () => {
     var success;
     var nodeList;
     var testNode;
@@ -18018,7 +18018,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
    */
-  specify("table49", () => {
+  test("table49", () => {
     var success;
     var nodeList;
     var testNode;
@@ -18044,7 +18044,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
    */
-  specify("table50", () => {
+  test("table50", () => {
     var success;
     var nodeList;
     var testNode;
@@ -18070,7 +18070,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96511335
    */
-  specify("table51", () => {
+  test("table51", () => {
     var success;
     var nodeList;
     var testNode;
@@ -18096,7 +18096,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83291710
    */
-  specify("table52", () => {
+  test("table52", () => {
     var success;
     var nodeList;
     var testNode;
@@ -18122,7 +18122,7 @@ describe("level2/html", () => {
    * @author Sivakiran Tummala
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25196799
    */
-  specify("table53", () => {
+  test("table53", () => {
     var success;
     var nodeList;
     var testNode;
@@ -18140,7 +18140,7 @@ describe("level2/html", () => {
     assert.equal(vwidth, "20", "widthLink");
   });
 
-  specify("event_default_action", () => {
+  test("event_default_action", () => {
     var success;
     var doc;
     var target;
@@ -18161,7 +18161,7 @@ describe("level2/html", () => {
     assert.equal(canceled, false, 'canceled should be *false*');
   });
 
-  specify("only_special_tags_have_name_and_it_reflects_the_attribute", () => {
+  test("only_special_tags_have_name_and_it_reflects_the_attribute", () => {
     var doc = load("anchor");
 
     ['a', 'button', 'form', 'frame', 'iframe', 'img', 'input', 'map',
@@ -18183,7 +18183,7 @@ describe("level2/html", () => {
 
   });
 
-  specify("checked_property_is_boolean", () => {
+  test("checked_property_is_boolean", () => {
     var doc = load("anchor");
 
     doc.body.innerHTML = '<input id="x" type="checkbox" checked>';
@@ -18210,7 +18210,7 @@ describe("level2/html", () => {
 
   });
 
-  specify("memoized_queries_cleared_on_innerhtml_set", () => {
+  test("memoized_queries_cleared_on_innerhtml_set", () => {
     var doc = load('menu');
     var oldCount = doc.getElementsByTagName('em').length;
     assert.equal(oldCount, 0, 'Count of <em> should be 0');
@@ -18219,7 +18219,7 @@ describe("level2/html", () => {
     assert.equal(newCount, 1, 'Count of <em> should be 1');
   });
 
-  specify("memoized_queries_cleared_on_element", () => {
+  test("memoized_queries_cleared_on_element", () => {
     var doc = load('menu');
     var menu = doc.getElementsByTagName('menu')[0];
     var oldCount = menu.getElementsByTagName('li').length;
@@ -18229,14 +18229,14 @@ describe("level2/html", () => {
     assert.equal(newCount, 2, 'Count of <li> should be 2 after innerHTML is set');
   });
 
-  specify("memoized_href_resolver_returns_valid_url", () => {
+  test("memoized_href_resolver_returns_valid_url", () => {
     var doc = load('anchor');
     var a = doc.getElementsByTagName('a')[0];
     assert.ok(a.href.match(/pix\/submit\.gif$/), "anchor href should be valid")
     assert.ok(a.href.match(/pix\/submit\.gif$/), "anchor href (2nd accession) should be valid")
   });
 
-  specify("normalize_method_defined_on_string_prototype_should_not_affect_getting_attribute_properties", () => {
+  test("normalize_method_defined_on_string_prototype_should_not_affect_getting_attribute_properties", () => {
     var oldNormalize = String.prototype.normalize;
     String.prototype.normalize = function () {
       return "masked alt";
@@ -18251,7 +18251,7 @@ describe("level2/html", () => {
   });
 
 
-  specify("normalize_method_defined_on_string_prototype_should_not_affect_setting_attribute_properties", () => {
+  test("normalize_method_defined_on_string_prototype_should_not_affect_setting_attribute_properties", () => {
     var oldNormalize = String.prototype.normalize;
     String.prototype.normalize = function () {
       return "masked action";
@@ -18266,14 +18266,14 @@ describe("level2/html", () => {
     String.prototype.normalize = oldNormalize;
   });
 
-  specify("rowIndex_on_detached_table_row_should_return_minus_one", () => {
+  test("rowIndex_on_detached_table_row_should_return_minus_one", () => {
     var doc = (new JSDOM()).window.document;
     var row = doc.createElement('tr');
 
     assert.equal(row.rowIndex, -1, "rowIndex should equal -1");
   });
 
-  specify("radio_group_with_same_name_in_several_forms_work", () => {
+  test("radio_group_with_same_name_in_several_forms_work", () => {
     var html = '<form>' +
         '<input type="radio" name="group1" value="3" checked="checked" id="form1-input1" />' +
         '<input type="radio" name="group1" value="2" id="form1-input2" />' +
@@ -18292,7 +18292,7 @@ describe("level2/html", () => {
     assert.ok(input3.checked, 'Radio input in a different form should still be checked');
   });
 
-  specify("radio_group_with_same_name_outside_form", () => {
+  test("radio_group_with_same_name_outside_form", () => {
     // NOTE: this is virtually the same as the radio_group_with_same_name_in_several_forms_work test,
     // however this test moves the first radio group outside of a form so they are siblings
     // of the form containing the other radio group.
@@ -18315,14 +18315,14 @@ describe("level2/html", () => {
     assert.ok(input3.checked, 'Radio input in a sibling form should still be checked');
   });
 
-  specify("htmlcollection_allows_index_access_for_name_and_id", () => {
+  test("htmlcollection_allows_index_access_for_name_and_id", () => {
     const { window } = new JSDOM('<form><input name="test"><input id="test2"></form>');
     var form = window.document.getElementsByTagName('form')[0];
     assert.ok(form.elements.test, 'form.elements by name');
     assert.ok(form.elements.test2, 'form.elements by id');
   });
 
-  specify("parsing_with_bad_html_tag", () => {
+  test("parsing_with_bad_html_tag", () => {
     assert.doesNotThrow(function () {
       new JSDOM(
         '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" ' +
@@ -18331,7 +18331,7 @@ describe("level2/html", () => {
 
   });
 
-  specify("option_element_id_attaching_on_id_change", () => {
+  test("option_element_id_attaching_on_id_change", () => {
     var doc = (new JSDOM('<html><head></head><body></body></html>')).window.document;
     var option = doc.createElement('option');
     option.setAttribute('id', 'foo');
@@ -18342,14 +18342,14 @@ describe("level2/html", () => {
     assert.ok(doc.getElementById('bar') === option, 'getElementById("bar") should match after the id has been changed from foo to bar');
   });
 
-  specify("div_element_to_string", () => {
+  test("div_element_to_string", () => {
     var doc = (new JSDOM('<html><head></head><body></body></html>')).window.document;
     var div = doc.createElement('div');
 
     assert.ok(div.toString() === '[object HTMLDivElement]', 'div.toString() should return "[object HTMLDivElement] just like a browser');
   });
 
-  specify("document_open_return_self", () => {
+  test("document_open_return_self", () => {
     var doc = load("document");
     var docOpen = doc.open();
     doc.close();
