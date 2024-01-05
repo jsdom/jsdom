@@ -27,7 +27,7 @@ interface ElementInternals {
 };
 
 // Accessibility semantics
-// ElementInternals includes ARIAMixin;
+ElementInternals includes ARIAMixin;
 
 // dictionary ValidityStateFlags {
 //   boolean valueMissing = false;

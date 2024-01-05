@@ -52,7 +52,7 @@ const transformer = new Webidl2js({
       const serializeURL = this.addImport("whatwg-url", "serializeURL");
       return {
         get: `
-          const value = ${implObj}.getAttributeNS(null, "${attrName}");
+          const value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
           if (value === null) {
             return "";
           }
@@ -63,20 +63,36 @@ const transformer = new Webidl2js({
           return conversions.USVString(value);
         `,
         set: `
-          ${implObj}.setAttributeNS(null, "${attrName}", V);
+          ${implObj}._reflectSetTheContentAttribute("${attrName}", V);
         `
       };
     }
 
     if (isSimpleIDLType(idl.idlType, "DOMString") || isSimpleIDLType(idl.idlType, "USVString")) {
+      if (idl.idlType.nullable) {
+        // Nonstandard; see https://github.com/whatwg/html/issues/10037. This passes the WPTs though.
+        return {
+          get: `
+            return ${implObj}._reflectGetTheContentAttribute("${attrName}");
+          `,
+          set: `
+            if (V === null) {
+              ${implObj}._reflectDeleteTheContentAttribute("${attrName}");
+            } else {
+              ${implObj}._reflectSetTheContentAttribute("${attrName}", V);
+            }
+          `
+        };
+      }
+
       const isUSV = isSimpleIDLType(idl.idlType, "USVString");
       return {
         get: `
-          const value = ${implObj}.getAttributeNS(null, "${attrName}");
+          const value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
           return value === null ? "" : ${isUSV ? "conversions.USVString(value)" : "value"};
         `,
         set: `
-          ${implObj}.setAttributeNS(null, "${attrName}", V);
+          ${implObj}._reflectSetTheContentAttribute("${attrName}", V);
         `
       };
     }
@@ -84,13 +100,13 @@ const transformer = new Webidl2js({
     if (isSimpleIDLType(idl.idlType, "boolean")) {
       return {
         get: `
-          return ${implObj}.hasAttributeNS(null, "${attrName}");
+          return ${implObj}._reflectGetTheContentAttribute("${attrName}") !== null;
         `,
         set: `
           if (V) {
-            ${implObj}.setAttributeNS(null, "${attrName}", "");
+            ${implObj}._reflectSetTheContentAttribute("${attrName}", "");
           } else {
-            ${implObj}.removeAttributeNS(null, "${attrName}");
+            ${implObj}._reflectDeleteTheContentAttribute("${attrName}");
           }
         `
       };
@@ -101,7 +117,7 @@ const transformer = new Webidl2js({
 
       return {
         get: `
-          let value = ${implObj}.getAttributeNS(null, "${attrName}");
+          let value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
           if (value === null) {
             return 0;
           }
@@ -109,7 +125,7 @@ const transformer = new Webidl2js({
           return value !== null && conversions.long(value) === value ? value : 0;
         `,
         set: `
-          ${implObj}.setAttributeNS(null, "${attrName}", String(V));
+          ${implObj}._reflectSetTheContentAttribute("${attrName}", String(V));
         `
       };
     }
@@ -119,7 +135,7 @@ const transformer = new Webidl2js({
 
       return {
         get: `
-          let value = ${implObj}.getAttributeNS(null, "${attrName}");
+          let value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
           if (value === null) {
             return 0;
           }
@@ -128,7 +144,7 @@ const transformer = new Webidl2js({
         `,
         set: `
           const n = V <= 2147483647 ? V : 0;
-          ${implObj}.setAttributeNS(null, "${attrName}", String(n));
+          ${implObj}._reflectSetTheContentAttribute("${attrName}", String(n));
         `
       };
     }
@@ -143,6 +159,7 @@ function addDir(dir) {
 }
 
 addDir("../../lib/jsdom/living/aborting");
+addDir("../../lib/jsdom/living/aria");
 addDir("../../lib/jsdom/living/attributes");
 addDir("../../lib/jsdom/living/constraint-validation");
 addDir("../../lib/jsdom/living/crypto");

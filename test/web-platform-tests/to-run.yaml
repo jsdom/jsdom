@@ -163,7 +163,15 @@ Document-createElement.html:
   "document.createElement must create an instance of autonomous custom elements when it has is attribute": [fail, :defined is not defined and throws]
   "document.createElement must report a NotSupportedError when the local name of the element does not match that of the custom element": [fail, throws TypeError instead]
   "document.createElement must report an exception thrown by a custom built-in element constructor": [fail, Unknown]
-ElementInternals-accessibility.html: [fail, attachInternals is not implemented]
+ElementInternals-accessibility.html:
+  "ariaActiveDescendantElement is defined in ElementInternals": [fail, Element reflection not implemented]
+  "ariaControlsElements is defined in ElementInternals": [fail, Element reflection not implemented]
+  "ariaDescribedByElements is defined in ElementInternals": [fail, Element reflection not implemented]
+  "ariaDetailsElements is defined in ElementInternals": [fail, Element reflection not implemented]
+  "ariaErrorMessageElements is defined in ElementInternals": [fail, Element reflection not implemented]
+  "ariaFlowToElements is defined in ElementInternals": [fail, Element reflection not implemented]
+  "ariaLabelledByElements is defined in ElementInternals": [fail, Element reflection not implemented]
+  "ariaOwnsElements is defined in ElementInternals": [fail, Element reflection not implemented]
 HTMLElement-constructor.html:
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself": [fail, Unknown]
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself via a Proxy object": [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
@@ -189,8 +197,7 @@ perform-microtask-checkpoint-before-construction.html: [fail, impossible to impl
 pseudo-class-defined-customized-builtins.html: [fail-slow, :defined is not defined and throws]
 pseudo-class-defined.html: [timeout, :defined is not defined and throws]
 reactions/Animation.html: [fail, Animation not implemented]
-reactions/AriaMixin-element-attributes.html: [fail, AriaMixin not implemented]
-reactions/AriaMixin-string-attributes.html: [fail, AriaMixin not implemented]
+reactions/AriaMixin-element-attributes.html: [fail, Element reflection not implemented]
 reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using webidl2js, https://github.com/jsdom/cssstyle/issues/113]
 reactions/Document.html:
   "execCommand on Document must enqueue a disconnected reaction when deleting a custom element from a contenteditable element": [fail, document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539]
@@ -677,7 +684,6 @@ DIR: html/canvas/element/drawing-images-to-the-canvas
 
 DIR: html/dom
 
-aria-attribute-reflection.html: [fail, Unknown]
 aria-element-reflection-disconnected.html: [fail, Unknown]
 aria-element-reflection.html: [fail, WAI-ARIA not implemented]
 documents/dom-tree-accessors/Document.currentScript.html: [fail-slow, Unknown]
