@@ -1,7 +1,7 @@
 "use strict";
-const path = require("path");
-const { describe, before, after } = require("mocha-sugar-free");
-const { spawnSync } = require("child_process");
+const { describe, before, after } = require("node:test");
+const path = require("node:path");
+const { spawnSync } = require("node:child_process");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const wptServer = require("./wpt-server.js");
 const { killSubprocess } = require("./utils.js");
@@ -21,11 +21,11 @@ const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 
 let wptServerURL, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(() => wptServerURL);
-before({ timeout: 30_000 }, async () => {
+before(async () => {
   const { urls, subprocess } = await wptServer.start({ toUpstream: true });
   wptServerURL = urls[0];
   serverProcess = subprocess;
-});
+}, { timeout: 30_000 });
 
 after(() => {
   killSubprocess(serverProcess);

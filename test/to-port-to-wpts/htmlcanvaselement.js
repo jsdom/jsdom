@@ -1,10 +1,9 @@
 "use strict";
-const fs = require("fs");
-const path = require("path");
-
-const parseDataURL = require("data-urls");
+const fs = require("node:fs");
+const path = require("node:path");
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
+const parseDataURL = require("data-urls");
 const { PNG } = require("pngjs");
 
 const { JSDOM } = require("../..");
@@ -15,7 +14,7 @@ const { isCanvasInstalled } = require("../util.js");
 
 
 describe("htmlcanvaselement", () => {
-  specify(
+  test(
     "canvas element is an instance of HTMLElement and HTMLCanvasElement (GH-649)",
     () => {
       const { window } = new JSDOM();
@@ -26,14 +25,14 @@ describe("htmlcanvaselement", () => {
     }
   );
 
-  specify("canvas elements work with getElementById (GH-737)", () => {
+  test("canvas elements work with getElementById (GH-737)", () => {
     const { window } = new JSDOM("<canvas id='foo'></canvas>");
     const canvas = window.document.getElementById("foo");
 
     assert.ok(canvas);
   });
 
-  specify("canvas elements width and height must default to 300x150", () => {
+  test("canvas elements width and height must default to 300x150", () => {
     const { window } = new JSDOM();
     const canvas = window.document.createElement("canvas");
 
@@ -67,7 +66,7 @@ describe("htmlcanvaselement", () => {
     assert.equal(canvas.getAttribute("height"), "150");
   });
 
-  specify(
+  test(
     "canvas width and height must parse correctly initially (GH-1025)",
     () => {
       const { window } = new JSDOM("<canvas width='99' height='101'></canvas>");
@@ -78,10 +77,10 @@ describe("htmlcanvaselement", () => {
     }
   );
 
-  specify(
+  test(
     "canvas must resize correctly when given a non-default width/height (GH-1025)",
-    t => {
-      if (!isCanvasInstalled(assert, t.done)) {
+    (t, done) => {
+      if (!isCanvasInstalled(assert, done)) {
         return;
       }
 
@@ -110,12 +109,11 @@ describe("htmlcanvaselement", () => {
       assert.equal(gotImg.width, expectedImg.width, "width");
       assert.equal(gotImg.height, expectedImg.height, "height");
       assert.equal(Buffer.compare(expectedImg.data, gotImg.data), 0, "byte-level comparison");
-      t.done();
-    },
-    { async: true }
+      done();
+    }
   );
 
-  specify(
+  test(
     "canvas width and height properties must reflect their attributes after setting them (GH-1281)",
     () => {
       const { window } = new JSDOM("<canvas></canvas>");
@@ -128,10 +126,10 @@ describe("htmlcanvaselement", () => {
     }
   );
 
-  specify(
+  test(
     "toDataURL should work (when the canvas npm package is provided) (GH-1025)",
-    t => {
-      if (!isCanvasInstalled(assert, t.done)) {
+    (t, done) => {
+      if (!isCanvasInstalled(assert, done)) {
         return;
       }
 
@@ -139,15 +137,14 @@ describe("htmlcanvaselement", () => {
       const canvas = window.document.querySelector("canvas");
 
       assert.equal(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
-      t.done();
-    },
-    { async: true }
+      done();
+    }
   );
 
-  specify(
+  test(
     "loading an image and drawing it into the canvas should produce the expected result",
-    t => {
-      if (!isCanvasInstalled(assert, t.done)) {
+    (t, done) => {
+      if (!isCanvasInstalled(assert, done)) {
         return;
       }
 
@@ -166,14 +163,12 @@ describe("htmlcanvaselement", () => {
         canvas.toBlob(blob => {
           assert.equal(blob.type, "image/png");
           assert.equal(blob.size, 2615);
-          t.done();
+          done();
         }, "image/png");
       };
       image.onerror = () => {
         assert.ok(false, "onerror should not be triggered when loading from valid URL");
-        t.done();
       };
-    },
-    { async: true }
+    }
   );
 });

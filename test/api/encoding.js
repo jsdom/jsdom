@@ -1,8 +1,8 @@
 "use strict";
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 const assert = require("node:assert/strict");
-const { describe, it, before, after } = require("mocha-sugar-free");
+const { describe, it, before, after } = require("node:test");
 const { createServer } = require("../util.js");
 
 const { JSDOM } = require("../..");

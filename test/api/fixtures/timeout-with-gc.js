@@ -25,5 +25,5 @@ setTimeout(() => {
   // fragile as due to other overhead the value can change between Node.js versions.
   //
   // Instead, we want to check that we are much closer to heapTotalBeforeTimer than we are to heapTotalAfterRegister.
-  console.log((heapTotalAfterTimer - heapTotalBeforeTimer) / (heapTotalAfterRegister - heapTotalBeforeTimer));
+  process.stdout.write(String((heapTotalAfterTimer - heapTotalBeforeTimer) / (heapTotalAfterRegister - heapTotalBeforeTimer)));
 }, 10);

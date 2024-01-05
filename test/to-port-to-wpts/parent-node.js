@@ -1,7 +1,6 @@
 "use strict";
-
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const load = require("../util.js").load(__dirname);
 
@@ -10,7 +9,7 @@ function nodeName(node) {
 }
 
 describe("parent-node", () => {
-  specify("Document should implement ParentNode:children", () => {
+  test("Document should implement ParentNode:children", () => {
     const doc = load("parent-node");
 
     const parent = doc;
@@ -24,7 +23,7 @@ describe("parent-node", () => {
     assert.ok(parent.children instanceof parent.defaultView.HTMLCollection, "children should be a HTMLCollection");
   });
 
-  specify("Element should implement ParentNode:children", () => {
+  test("Element should implement ParentNode:children", () => {
     const doc = load("parent-node");
 
     const parent = doc.body;
@@ -40,7 +39,7 @@ describe("parent-node", () => {
     assert.ok(parent.children instanceof doc.defaultView.HTMLCollection, "children should be a HTMLCollection");
   });
 
-  specify("DocumentFragment should implement ParentNode:children", () => {
+  test("DocumentFragment should implement ParentNode:children", () => {
     const doc = load("parent-node");
     const parent = doc.createDocumentFragment();
 
@@ -59,18 +58,18 @@ describe("parent-node", () => {
     assert.equal(nodeName(parent.children.namedItem("foo")), null);
     assert.ok(parent.children instanceof doc.defaultView.HTMLCollection, "children should be a HTMLCollection");
   });
-  specify("Document should implement ParentNode:firstElementChild", () => {
+  test("Document should implement ParentNode:firstElementChild", () => {
     const doc = load("parent-node");
     assert.equal(nodeName(doc.firstElementChild), "HTML");
   });
 
-  specify("Element should implement ParentNode:firstElementChild", () => {
+  test("Element should implement ParentNode:firstElementChild", () => {
     const doc = load("parent-node");
     assert.equal(nodeName(doc.body.firstElementChild), "A");
     assert.equal(doc.createElement("div").firstElementChild, null);
   });
 
-  specify("DocumentFragment should implement ParentNode:firstElementChild", () => {
+  test("DocumentFragment should implement ParentNode:firstElementChild", () => {
     const doc = load("parent-node");
     const fragment = doc.createDocumentFragment();
 
@@ -84,18 +83,18 @@ describe("parent-node", () => {
   });
 
 
-  specify("Document should implement ParentNode:lastElementChild", () => {
+  test("Document should implement ParentNode:lastElementChild", () => {
     const doc = load("parent-node");
     assert.equal(nodeName(doc.lastElementChild), "HTML");
   });
 
-  specify("Element should implement ParentNode:lastElementChild", () => {
+  test("Element should implement ParentNode:lastElementChild", () => {
     const doc = load("parent-node");
     assert.equal(nodeName(doc.body.lastElementChild), "DIV");
     assert.equal(doc.createElement("div").lastElementChild, null);
   });
 
-  specify("DocumentFragment should implement ParentNode:lastElementChild", () => {
+  test("DocumentFragment should implement ParentNode:lastElementChild", () => {
     const doc = load("parent-node");
     const fragment = doc.createDocumentFragment();
 
@@ -108,17 +107,17 @@ describe("parent-node", () => {
     assert.equal(nodeName(fragment.lastElementChild), "DIV");
   });
 
-  specify("Document should implement ParentNode:childElementCount", () => {
+  test("Document should implement ParentNode:childElementCount", () => {
     const doc = load("parent-node");
     assert.equal(doc.childElementCount, 1);
   });
 
-  specify("Element should implement ParentNode:childElementCount", () => {
+  test("Element should implement ParentNode:childElementCount", () => {
     const doc = load("parent-node");
     assert.equal(doc.body.childElementCount, 2);
   });
 
-  specify("DocumentFragment should implement ParentNode:childElementCount", () => {
+  test("DocumentFragment should implement ParentNode:childElementCount", () => {
     const doc = load("parent-node");
     const fragment = doc.createDocumentFragment();
 

@@ -1,11 +1,12 @@
 "use strict";
-const http = require("http");
-const path = require("path");
-const fs = require("fs");
-const nodeURLParse = require("url").parse;
+const http = require("node:http");
+const path = require("node:path");
+const fs = require("node:fs");
+const nodeURLParse = require("node:url").parse;
+const delay = require("node:timers/promises").setTimeout;
 const assert = require("node:assert/strict");
-const { describe, it } = require("mocha-sugar-free");
-const { delay, createServer } = require("../util.js");
+const { describe, it } = require("node:test");
+const { createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 const { version: packageVersion } = require("../../package.json");
 const { JSDOM, VirtualConsole, ResourceLoader } = require("../..");
@@ -14,7 +15,7 @@ const pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/tra
 
 describe("API: resource loading configuration", () => {
   describe("defaults", () => {
-    it("should not download images", { slow: 500 }, async () => {
+    it("should not download images", async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
       const dom = new JSDOM();
 
@@ -29,7 +30,7 @@ describe("API: resource loading configuration", () => {
       ]);
     });
 
-    it("should not download stylesheet links", { slow: 500 }, async () => {
+    it("should not download stylesheet links", async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
       const dom = new JSDOM();
 
@@ -45,7 +46,7 @@ describe("API: resource loading configuration", () => {
       ]);
     });
 
-    it("should not download scripts (even with runScripts: \"dangerously\")", { slow: 500 }, async () => {
+    it("should not download scripts (even with runScripts: \"dangerously\")", async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
       const dom = new JSDOM(``, { runScripts: "dangerously" });
 
@@ -60,7 +61,7 @@ describe("API: resource loading configuration", () => {
       ]);
     });
 
-    it("should not download iframes", { slow: 500 }, async () => {
+    it("should not download iframes", async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
       const dom = new JSDOM();
 
@@ -83,7 +84,7 @@ describe("API: resource loading configuration", () => {
       );
     });
 
-    it("should not download frames", { slow: 500 }, async () => {
+    it("should not download frames", async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
       const dom = new JSDOM(`<frameset></frameset>`);
 
@@ -109,7 +110,7 @@ describe("API: resource loading configuration", () => {
 
   describe("set to \"usable\"", () => {
     if (canvas) {
-      it("should download images [canvas is installed]", { slow: 500 }, async () => {
+      it("should download images [canvas is installed]", async () => {
         const url = await imageServer();
         const dom = new JSDOM(``, { resources: "usable" });
 
@@ -121,7 +122,7 @@ describe("API: resource loading configuration", () => {
         return assertLoaded(element);
       });
     } else {
-      it("should not download images [canvas is not installed]", { slow: 500 }, async () => {
+      it("should not download images [canvas is not installed]", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
         const dom = new JSDOM(``, { resources: "usable" });
 
@@ -137,7 +138,7 @@ describe("API: resource loading configuration", () => {
       });
     }
 
-    it("should download stylesheet links", { slow: 500 }, async () => {
+    it("should download stylesheet links", async () => {
       const sourceString = `body { color: blue; }`;
       const url = await resourceServer(
         { "Content-Type": "text/css", "Content-Length": sourceString.length },
@@ -158,7 +159,7 @@ describe("API: resource loading configuration", () => {
       assert.equal(dom.window.getComputedStyle(dom.window.document.body).color, "rgb(0, 0, 255)");
     });
 
-    it("should download and run scripts, if runScripts: \"dangerously\" is also set", { slow: 500 }, async () => {
+    it("should download and run scripts, if runScripts: \"dangerously\" is also set", async () => {
       const sourceString = `window.x = 5;`;
       const url = await resourceServer(
         { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
@@ -175,7 +176,7 @@ describe("API: resource loading configuration", () => {
       assert.equal(dom.window.x, 5, "The script must have run");
     });
 
-    it("should not download or run scripts, if runScripts: \"outside-only\" is set", { slow: 500 }, async () => {
+    it("should not download or run scripts, if runScripts: \"outside-only\" is set", async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
       const dom = new JSDOM(``, { resources: "usable", runScripts: "outside-only" });
 
@@ -190,7 +191,7 @@ describe("API: resource loading configuration", () => {
       ]);
     });
 
-    it("should not download or run scripts, if runScripts is not set", { slow: 500 }, async () => {
+    it("should not download or run scripts, if runScripts is not set", async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
       const dom = new JSDOM(``, { resources: "usable" });
 
@@ -205,7 +206,7 @@ describe("API: resource loading configuration", () => {
       ]);
     });
 
-    it("should download iframes", { slow: 500 }, async () => {
+    it("should download iframes", async () => {
       const url = await htmlServer("Hello");
       const dom = new JSDOM(``, { resources: "usable" });
 
@@ -222,7 +223,7 @@ describe("API: resource loading configuration", () => {
       );
     });
 
-    it("should download frames", { slow: 500 }, async () => {
+    it("should download frames", async () => {
       const url = await htmlServer("Hello");
       const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable" });
 
@@ -254,7 +255,7 @@ describe("API: resource loading configuration", () => {
         });
       }
 
-      it("should fire an error event downloading stylesheets", { slow: 500 }, async () => {
+      it("should fire an error event downloading stylesheets", async () => {
         const url = await resourceServer404();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
@@ -268,7 +269,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading scripts", { slow: 500 }, async () => {
+      it("should fire an error event downloading scripts", async () => {
         const url = await resourceServer404();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
@@ -281,7 +282,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading iframes", { slow: 500 }, async () => {
+      it("should fire an error event downloading iframes", async () => {
         const url = await resourceServer404();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
@@ -294,7 +295,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading frames", { slow: 500 }, async () => {
+      it("should fire an error event downloading frames", async () => {
         const url = await resourceServer404();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
@@ -307,7 +308,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
+      it("should fire a load event downloading via XHR", async () => {
         const url = await resourceServer404();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
@@ -336,7 +337,7 @@ describe("API: resource loading configuration", () => {
         });
       }
 
-      it("should fire an error event downloading stylesheets", { slow: 500 }, async () => {
+      it("should fire an error event downloading stylesheets", async () => {
         const url = await resourceServer503();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
@@ -350,7 +351,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading scripts", { slow: 500 }, async () => {
+      it("should fire an error event downloading scripts", async () => {
         const url = await resourceServer503();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
@@ -363,7 +364,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading iframes", { slow: 500 }, async () => {
+      it("should fire an error event downloading iframes", async () => {
         const url = await resourceServer503();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
@@ -376,7 +377,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading frames", { slow: 500 }, async () => {
+      it("should fire an error event downloading frames", async () => {
         const url = await resourceServer503();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
@@ -389,7 +390,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
+      it("should fire a load event downloading via XHR", async () => {
         const url = await resourceServer503();
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
@@ -419,7 +420,7 @@ describe("API: resource loading configuration", () => {
         });
       }
 
-      it("should fire an error event downloading stylesheets", { slow: 500 }, () => {
+      it("should fire an error event downloading stylesheets", () => {
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -432,7 +433,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading scripts", { slow: 500 }, () => {
+      it("should fire an error event downloading scripts", () => {
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
@@ -444,7 +445,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading iframes", { slow: 500 }, () => {
+      it("should fire an error event downloading iframes", () => {
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -456,7 +457,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading frames", { slow: 500 }, () => {
+      it("should fire an error event downloading frames", () => {
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
@@ -468,7 +469,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element);
       });
 
-      it("should fire an error event downloading via XHR", { slow: 500 }, () => {
+      it("should fire an error event downloading via XHR", () => {
         const virtualConsole = ignoreResourceLoadingErrorsVC();
         const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
 

@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const NamedPropertiesTracker = require("../../lib/jsdom/named-properties-tracker.js");
 
@@ -13,7 +13,7 @@ function joinIterator(values) {
 }
 
 describe("Helpers: named-properties-tracker", () => {
-  specify("get() should return the tracker previously created by create()", () => {
+  test("get() should return the tracker previously created by create()", () => {
     const obj = {};
 
     assert.equal(NamedPropertiesTracker.get(obj), null);
@@ -23,7 +23,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert.equal(NamedPropertiesTracker.get(obj), tracker);
   });
 
-  specify("track() and untrack() should do nothing for empty names", () => {
+  test("track() and untrack() should do nothing for empty names", () => {
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, () => {
       // doesn't matter for this test
@@ -37,7 +37,7 @@ describe("Helpers: named-properties-tracker", () => {
     tracker.untrack("", "foo");
   });
 
-  specify("should define a getter which calls the resolver each time", () => {
+  test("should define a getter which calls the resolver each time", () => {
     let state = "bar";
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, (object, name, values) => {
@@ -57,7 +57,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert.equal(obj.foo, "hello foo baz 123,bla,456");
   });
 
-  specify("the resolver should receive a `values` argument that is 'live'", () => {
+  test("the resolver should receive a `values` argument that is 'live'", () => {
     const obj = {};
     let liveValues;
     const tracker = NamedPropertiesTracker.create(obj, obj, (object, name, values) => {
@@ -79,7 +79,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert.equal(joinIterator(liveValues), "baz");
   });
 
-  specify("named properties should be enumerable", () => {
+  test("named properties should be enumerable", () => {
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
@@ -93,7 +93,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert(found);
   });
 
-  specify("named properties should be configurable", () => {
+  test("named properties should be configurable", () => {
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
@@ -110,7 +110,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert(!("dog" in obj));
   });
 
-  specify("named properties should be settable", () => {
+  test("named properties should be settable", () => {
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
@@ -120,7 +120,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert.equal(obj.foo, 10);
   });
 
-  specify("a named property should not override an existing property", () => {
+  test("a named property should not override an existing property", () => {
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
@@ -132,7 +132,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert.equal(obj.foo, 10);
   });
 
-  specify("a named property should not override an existing property, even if undefined", () => {
+  test("a named property should not override an existing property, even if undefined", () => {
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
@@ -147,7 +147,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert.equal(obj.foo, undefined);
   });
 
-  specify("a named property should not override properties from the prototype", () => {
+  test("a named property should not override properties from the prototype", () => {
     function Abc() {
       // dummy constructor
     }
@@ -162,7 +162,7 @@ describe("Helpers: named-properties-tracker", () => {
     assert.equal(obj.foo, 12345);
   });
 
-  specify("a named property should not override Object properties", () => {
+  test("a named property should not override Object properties", () => {
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
     const props = ["__proto__", "toString", "constructor", "hasOwnProperty", "isPrototypeOf"];
@@ -174,7 +174,7 @@ describe("Helpers: named-properties-tracker", () => {
     }
   });
 
-  specify("a named property that has been untracked should not be 'in' the object", () => {
+  test("a named property that has been untracked should not be 'in' the object", () => {
     const obj = {};
     const tracker = NamedPropertiesTracker.create(obj, obj, () => "bla");
 

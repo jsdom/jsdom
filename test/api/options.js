@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, it } = require("mocha-sugar-free");
+const { describe, it } = require("node:test");
 
 const jsdom = require("../..");
 const { JSDOM } = require("../..");
@@ -231,22 +231,22 @@ describe("API: constructor options", () => {
         assert.equal(document.visibilityState, "visible");
       });
 
-      it("document should call rAF", { async: true }, context => {
+      it("document should call rAF", (t, done) => {
         const { window } = new JSDOM(``, { pretendToBeVisual: true });
 
         window.requestAnimationFrame(() => {
-          context.done();
+          done();
         });
         // Further functionality tests are in web platform tests
       });
 
-      it("child frame document should have rAF", { async: true }, context => {
+      it("child frame document should have rAF", (t, done) => {
         const { window } = new JSDOM(`<body></body>`, { pretendToBeVisual: true });
         const frame = window.document.createElement("iframe");
         window.document.body.appendChild(frame);
 
         frame.contentWindow.requestAnimationFrame(() => {
-          context.done();
+          done();
         });
       });
     });

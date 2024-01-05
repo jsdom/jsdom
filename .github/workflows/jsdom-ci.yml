@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run tests
-        run: npm install canvas && npm test -- --retries 1
+        run: npm install canvas && npm test
   build:
     name: Tests
     runs-on: ubuntu-latest
@@ -66,4 +66,4 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Run tests
-      run: npm run test -- --retries 1
+      run: npm run test

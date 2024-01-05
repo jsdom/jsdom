@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, it } = require("mocha-sugar-free");
+const { describe, it } = require("node:test");
 
 const { JSDOM, VirtualConsole } = require("../..");
 
@@ -34,20 +34,18 @@ describe("API: virtual console jsdomErrors", () => {
     assert.deepEqual(errors, []);
   });
 
-  it("should emit unhandled null value thrown in inline event handlers", t => {
+  it("should emit unhandled null value thrown in inline event handlers", (t, done) => {
     const virtualConsole = new VirtualConsole();
     virtualConsole.on("jsdomError", error => {
       assert(error instanceof Error);
       assert.equal(error.message, "Uncaught null");
       assert.equal(error.detail, null);
-      t.done();
+      done();
     });
 
     const html = `<body onclick="throw null"></body>`;
     const doc = (new JSDOM(html, { virtualConsole, runScripts: "dangerously" })).window.document;
 
     doc.body.click();
-  }, {
-    async: true
   });
 });

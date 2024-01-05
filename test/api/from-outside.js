@@ -1,10 +1,10 @@
 "use strict";
-const path = require("path");
-const { spawnSync } = require("child_process");
+const path = require("node:path");
+const { spawnSync } = require("node:child_process");
 const assert = require("node:assert/strict");
-const { describe, it } = require("mocha-sugar-free");
+const { describe, it } = require("node:test");
 const { JSDOM, VirtualConsole } = require("../..");
-const { delay } = require("../util");
+const delay = require("node:timers/promises").setTimeout;
 
 describe("Test cases only possible to test from the outside", () => {
   it("window.close() should prevent timers from registering and cause them to return 0", async () => {
@@ -42,7 +42,7 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(window.counter, counterBeforeSecondDelay);
   });
 
-  it("frees up callback handles passed to setTimeout", { timeout: 5000 }, () => {
+  it("frees up callback handles passed to setTimeout", { timeout: 5_000 }, () => {
     const timeoutWithGcFixturePath = path.resolve(__dirname, "./fixtures/timeout-with-gc.js");
     const { status, stdout } = spawnSync("node", ["--expose-gc", timeoutWithGcFixturePath], { encoding: "utf-8" });
 

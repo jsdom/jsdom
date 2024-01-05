@@ -52,6 +52,8 @@ However, the web-platform-tests project is not fully comprehensive. If you need 
 
 **To run the to-upstream web-platform-tests:** `npm run test-tuwpt`
 
+TODO fgrep doesn't work any more and `--node-test-pattern` doesn't interact well with npm scripts and also displays all the skipped tests.
+
 **To run specific web-platform-tests already enabled via `to-run.yaml`**: `npm run test-wpt -- --fgrep dom/events`
 
 **To run specific to-upstream web-platform-tests**: `npm run test-tuwpt -- --fgrep domparsing`

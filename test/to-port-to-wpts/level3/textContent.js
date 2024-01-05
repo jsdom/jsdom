@@ -1,13 +1,13 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 var hc_staff = require("../level1/core/files/hc_staff.xml");
 
 // Most of the level3 tests fail, so we don't turn them on by default. We extracted out one that passes into this file.
 
 describe("level3/textContent", () => {
-  specify("nodesettextcontent07", () => {
+  test("nodesettextcontent07", () => {
     var success;
     var doc;
     var elemList;

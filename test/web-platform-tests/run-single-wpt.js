@@ -1,8 +1,7 @@
 "use strict";
 /* eslint-disable no-console */
-const path = require("path");
-const { URL } = require("url");
-const { specify } = require("mocha-sugar-free");
+const test = require("node:test");
+const path = require("node:path");
 const { JSDOM, VirtualConsole } = require("../../lib/api.js");
 const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loader");
 const { resolveReason } = require("./utils.js");
@@ -17,16 +16,16 @@ const unexpectedPassingTestMessage = `
 
 module.exports = urlPrefixFactory => {
   return (testPath, title = testPath, expectFail = false) => {
-    specify({
+    test(
       title,
-      expectPromise: true,
-      // WPT also takes care of timeouts (maximum 60 seconds), this is an extra failsafe:
-      timeout: 70_000,
-      slow: 10_000,
-      fn() {
+      {
+        // WPT also takes care of timeouts (maximum 60 seconds), this is an extra failsafe:
+        timeout: 70_000
+      },
+      () => {
         return createJSDOM(urlPrefixFactory(), testPath, expectFail);
       }
-    });
+    );
   };
 };
 
@@ -54,19 +53,19 @@ class CustomResourceLoader extends ResourceLoader {
   }
 }
 
-function formatFailedTest(test) {
-  switch (test.status) {
-    case test.PASS:
-      return `Unexpected passing test: ${JSON.stringify(test.name)}${unexpectedPassingTestMessage}`;
-    case test.FAIL:
-    case test.PRECONDITION_FAILED:
-      return `Failed in ${JSON.stringify(test.name)}:\n${test.message}\n\n${test.stack}`;
-    case test.TIMEOUT:
-      return `Timeout in ${JSON.stringify(test.name)}:\n${test.message}\n\n${test.stack}`;
-    case test.NOTRUN:
-      return `Uncompleted test ${JSON.stringify(test.name)}:\n${test.message}\n\n${test.stack}`;
+function formatFailedTest(t) {
+  switch (t.status) {
+    case t.PASS:
+      return `Unexpected passing test: ${JSON.stringify(t.name)}${unexpectedPassingTestMessage}`;
+    case t.FAIL:
+    case t.PRECONDITION_FAILED:
+      return `Failed in ${JSON.stringify(t.name)}:\n${t.message}\n\n${t.stack}`;
+    case t.TIMEOUT:
+      return `Timeout in ${JSON.stringify(t.name)}:\n${t.message}\n\n${t.stack}`;
+    case t.NOTRUN:
+      return `Uncompleted test ${JSON.stringify(t.name)}:\n${t.message}\n\n${t.stack}`;
     default:
-      throw new RangeError(`Unexpected test status: ${test.status} (test: ${JSON.stringify(test.name)})`);
+      throw new RangeError(`Unexpected test status: ${t.status} (test: ${JSON.stringify(t.name)})`);
   }
 }
 
@@ -167,17 +166,17 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
             assertThrowsJSImpl(constructor, func, description, "assert_throws_js");
           };
           // eslint-disable-next-line camelcase
-          window.promise_rejects_js = (test, expected, promise, description) => {
-            return promise.then(test.unreached_func("Should have rejected: " + description)).catch(e => {
+          window.promise_rejects_js = (t, expected, promise, description) => {
+            return promise.then(t.unreached_func("Should have rejected: " + description)).catch(e => {
               assertThrowsJSImpl(expected, () => {
                 throw e;
               }, description, "promise_reject_js");
             });
           };
 
-          window.add_result_callback(test => {
-            if (test.status === test.FAIL || test.status === test.TIMEOUT || test.status === test.NOTRUN) {
-              errors.push(formatFailedTest(test));
+          window.add_result_callback(t => {
+            if (t.status === t.FAIL || t.status === t.TIMEOUT || t.status === t.NOTRUN) {
+              errors.push(formatFailedTest(t));
             }
           });
 
@@ -212,13 +211,13 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
               resolve();
             } else {
               const unexpectedErrors = [];
-              for (const test of tests) {
-                const data = expectFail[test.name];
+              for (const t of tests) {
+                const data = expectFail[t.name];
                 const reason = data && data[0];
 
                 const innerExpectFail = resolveReason(reason) === "expect-fail";
-                if (innerExpectFail ? test.status === test.PASS : test.status !== test.PASS) {
-                  unexpectedErrors.push(formatFailedTest(test));
+                if (innerExpectFail ? t.status === t.PASS : t.status !== test.PASS) {
+                  unexpectedErrors.push(formatFailedTest(t));
                 }
               }
 

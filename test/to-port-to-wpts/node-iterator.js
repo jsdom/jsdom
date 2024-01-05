@@ -1,7 +1,6 @@
 "use strict";
-
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 const load = require("../util.js").load(__dirname);
@@ -51,7 +50,7 @@ function removeAndReinsert(node) {
 }
 
 describe("node-contains", () => {
-  specify(
+  test(
     "createNodeIterator(): should throw if the first argument is missing",
     () => {
       const doc = load("test");
@@ -59,7 +58,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "createNodeIterator(): should not throw yet if the filter argument is not a function or NodeFilter",
     () => {
       const doc = load("test");
@@ -68,7 +67,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify("createNodeIterator(): should set defaults for missing arguments", () => {
+  test("createNodeIterator(): should set defaults for missing arguments", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc.body);
 
@@ -84,32 +83,32 @@ describe("node-contains", () => {
     assert.equal(it.filter, null, "filter is null by default");
   });
 
-  specify("createNodeIterator(): whatToShow should unset high bits", () => {
+  test("createNodeIterator(): whatToShow should unset high bits", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc.body, 0xFFFFFFFFFF); // (two extra F's)
     assert.equal(it.whatToShow, 0xFFFFFFFF, "whatToShow should unset high bits");
   });
 
-  specify("new NodeIterator() is not allowed", () => {
+  test("new NodeIterator() is not allowed", () => {
     const doc = load("test");
 
     assert.throws(() => new doc.defaultView.NodeIterator(), /Illegal constructor/i);
   });
 
-  specify("createNodeIterator(): should create an instanceof NodeIterator", () => {
+  test("createNodeIterator(): should create an instanceof NodeIterator", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc);
     assert.equal(Object.getPrototypeOf(it).constructor.name, "NodeIterator");
   });
 
-  specify("detach() should be a no-op", () => {
+  test("detach() should be a no-op", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc);
     it.detach();
     it.detach();
   });
 
-  specify("filter exceptions should be propagated", () => {
+  test("filter exceptions should be propagated", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc, 0xFFFFFFFF, () => {
       throw Error("Foo Bar!");
@@ -118,7 +117,7 @@ describe("node-contains", () => {
     assert.throws(() => it.nextNode(), Error, "Foo Bar!");
   });
 
-  specify("NodeIterator instances should not expose any extra properties", () => {
+  test("NodeIterator instances should not expose any extra properties", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc);
 
@@ -141,7 +140,7 @@ describe("node-contains", () => {
     }
   });
 
-  specify("The first nextNode() call should return the root", () => {
+  test("The first nextNode() call should return the root", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc.body);
 
@@ -155,7 +154,7 @@ describe("node-contains", () => {
     );
   });
 
-  specify(
+  test(
     "nextNode() should iterate over each descendant of root (in tree order)",
     () => {
       const doc = load("test");
@@ -189,7 +188,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify("iterating over nodes of a foreign document should be allowed", () => {
+  test("iterating over nodes of a foreign document should be allowed", () => {
     const doc = (new JSDOM("<html/>")).window.document;
     const foreignDoc = load("test");
     const it = doc.createNodeIterator(foreignDoc.body);
@@ -221,7 +220,7 @@ describe("node-contains", () => {
     );
   });
 
-  specify(
+  test(
     "previousNode() should have no effect on a newly created iterator",
     () => {
       const doc = load("test");
@@ -234,7 +233,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "The root should be the last node that previousNode() will return",
     () => {
       const doc = load("test");
@@ -252,7 +251,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "previousNode() should return the same node that nextNode() just returned",
     () => {
       const doc = load("test");
@@ -266,7 +265,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "previousNode() should iterate over each descendant of root (in reverse tree order)",
     () => {
       const doc = load("test");
@@ -309,7 +308,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify("whatToShow should skip nodes of types not present in the bitset", () => {
+  test("whatToShow should skip nodes of types not present in the bitset", () => {
     const doc = load("test");
     const it = doc.createNodeIterator(doc.body, 0x00000001 | 0x00000080); // SHOW_ELEMENT | SHOW_COMMENT
 
@@ -350,7 +349,7 @@ describe("node-contains", () => {
     assert.ok(node === null, "nextNode should return null after having iterated through all the nodes");
   });
 
-  specify("should skip nodes using a filter function", () => {
+  test("should skip nodes using a filter function", () => {
     const doc = load("test");
 
     function acceptNode(node) {
@@ -382,7 +381,7 @@ describe("node-contains", () => {
     assert.ok(node === null, "nextNode should return null after having iterated through all the nodes");
   });
 
-  specify("should skip nodes using a NodeFilter as a filter", () => {
+  test("should skip nodes using a NodeFilter as a filter", () => {
     const doc = load("test");
 
     function acceptNode(node) {
@@ -414,7 +413,7 @@ describe("node-contains", () => {
     assert.ok(node === null, "nextNode should return null after having iterated through all the nodes");
   });
 
-  specify("filter function should also accept booleans as a return value", () => {
+  test("filter function should also accept booleans as a return value", () => {
     const doc = load("test");
 
     function acceptNode(node) {
@@ -436,7 +435,7 @@ describe("node-contains", () => {
     assert.ok(node === null, "nextNode should return null after having iterated through all the nodes");
   });
 
-  specify("Removing the root node should not affect the iterator state", () => {
+  test("Removing the root node should not affect the iterator state", () => {
     // This behaviour is not noted explicitly in the spec, however this how all the browsers behave
     // (and it makes sense)
 
@@ -456,7 +455,7 @@ describe("node-contains", () => {
     assert.ok(it.referenceNode.parentNode === null);
   });
 
-  specify(
+  test(
     "Removing a node that is not an inclusive ancestor of the referenceNode should not affect the state",
     () => {
       const doc = load("test");
@@ -474,7 +473,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing the referenceNode after nextNode() should update the state properly (null oldPreviousSibling)",
     () => {
       const doc = load("test");
@@ -499,7 +498,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing the referenceNode after nextNode() should update the state properly (non-null oldPreviousSibling)",
     () => {
       const doc = load("test");
@@ -523,7 +522,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing and reinserting the referenceNode after nextNode() should iterate it again",
     () => {
       const doc = load("test");
@@ -546,7 +545,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing and reinserting the referenceNode after previousNode() should iterate it again",
     () => {
       const doc = load("test");
@@ -571,7 +570,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing a parent of the referenceNode should update the state properly",
     () => {
       const doc = load("test");
@@ -593,7 +592,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing referenceNode after previousNode(): oldPreviousSibling == null && oldParent.firstChild != null",
     () => {
       const doc = load("test");
@@ -618,7 +617,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing referenceNode after previousNode(): oldPreviousSibling != null && oldPreviousSibling.nextSibling != null",
     () => {
       const doc = load("test");
@@ -640,7 +639,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing referenceNode after previousNode(): oldPreviousSibling == null && oldParent.firstChild == null",
     () => {
       const doc = load("test");
@@ -662,7 +661,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing referenceNode after previousNode(): oldPreviousSibling != null && oldPreviousSibling.nextSibling == null",
     () => {
       const doc = load("test");
@@ -683,7 +682,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing referenceNode after previousNode(): node following oldParent is outside of root",
     () => {
       const doc = load("test");
@@ -700,7 +699,7 @@ describe("node-contains", () => {
     }
   );
 
-  specify(
+  test(
     "Removing referenceNode after nextNode(): oldPreviousSibling != null",
     () => {
       const doc = load("test");
