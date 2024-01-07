@@ -26,6 +26,12 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 23.2.0
+
+This release switches our CSS selector engine from [`nwsapi`](https://www.npmjs.com/nwsapi) to [`@asamuzakjp/dom-selector`](@asamuzakjp/dom-selector). The new engine is more actively maintained, and supports many new selectors: see [the package's documentation](https://github.com/asamuzaK/domSelector#supported-css-selectors) for the full list. It also works better with shadow trees.
+
+There is a potential of a performance regression due to this change. In our stress test benchmark, which runs most of [these 273 selectors](https://github.com/jsdom/jsdom/blob/908f27d4e348502a9068f0b335a8518d050ef872/benchmark/selectors/sizzle-speed/selectors.large.css) against [this 128 KiB document](https://github.com/jsdom/jsdom/blob/908f27d4e348502a9068f0b335a8518d050ef872/benchmark/selectors/sizzle-speed/selector.html), the new engine completes the benchmark only 0.25x as fast. However, we're hopeful that in more moderate usage this will not be a significant issue. Any help speeding up `@asamuzakjp/dom-selector` is appreciated, and feel free to open an issue if this has had a significant impact on your project.
+
 ## 23.1.0
 
 * Added an initial implementation of `ElementInternals`, including the `shadowRoot` getter and the string-valued ARIA properties. (zjffun)

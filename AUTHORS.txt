@@ -33,6 +33,7 @@ Aria Stewart <aredridel@nbtsc.org>
 Arrix <arrixzhou@gmail.com>
 Aryan Arora <aryanarora278@gmail.com>
 asamuzaK (Kazz) <asamuzaK@users.noreply.github.com>
+asamuzaK (Kazz) <kazz@asamuzak.jp>
 Avery Fay <avery@mixpanel.com>
 Avi Deitcher <avi@deitcher.net>
 Avi Vahl <avi.vahl@wix.com>
