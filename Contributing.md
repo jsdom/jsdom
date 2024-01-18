@@ -62,7 +62,7 @@ Also, to update web platform tests to their latest revision from the source repo
 
 If you are testing something that can only be accomplished through the jsdom API and not inside a normal web browser, you'll want to write a different kind of test. Such tests are written using [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com/).
 
-Simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
+To write such a test, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
 
 **To run all API tests:** `npm run test-api`
 
