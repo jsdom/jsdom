@@ -26,6 +26,16 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 24.0.0
+
+This release reverts our selector engine back to [`nwsapi`](https://www.npmjs.com/nwsapi). As discussed in [#3659](https://github.com/jsdom/jsdom/issues/3659), the performance regressions from [`@asamuzakjp/dom-selector`](https://www.npmjs.com/package/@asamuzakjp/dom-selector) turned out to be higher than anticipated. In the future, we can revisit `@asamuzakjp/dom-selector` after it reaches `nwsapi`'s performance on the [two real-world benchmarks provided by the community](https://github.com/jsdom/jsdom/issues/3659#issuecomment-1890852609).
+
+Since reverting to `nwsapi` causes several functionality regressions, e.g. removing `:has()` support, we've decided to make this a major version.
+
+Additionally:
+
+* Small fixes to edge-case behavior of the following properties: `input.maxLength`, `input.minLength`, `input.size`, `progress.max`, `tableCell.colSpan`, `tableCell.rowSpan`, `tableCol.span`, `textArea.cols`, `textArea.maxLength`, `textArea.minLength`, `textArea.rows`.
+
 ## 23.2.0
 
 This release switches our CSS selector engine from [`nwsapi`](https://www.npmjs.com/nwsapi) to [`@asamuzakjp/dom-selector`](https://www.npmjs.com/package/@asamuzakjp/dom-selector). The new engine is more actively maintained, and supports many new selectors: see [the package's documentation](https://github.com/asamuzaK/domSelector#supported-css-selectors) for the full list. It also works better with shadow trees.
