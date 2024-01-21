@@ -277,7 +277,7 @@ const transformer = new Webidl2js({
           `,
           set: `
             if (V > 0) {
-              ${implObj}._reflectSetTheContentAttribute("${attrName}", String(n));
+              ${implObj}._reflectSetTheContentAttribute("${attrName}", String(V));
             }
           `
         };
@@ -295,7 +295,7 @@ const transformer = new Webidl2js({
           return ${defaultValue};
         `,
         set: `
-          ${implObj}._reflectSetTheContentAttribute("${attrName}", String(n));
+          ${implObj}._reflectSetTheContentAttribute("${attrName}", String(V));
         `
       };
     }
