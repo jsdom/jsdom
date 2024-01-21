@@ -1,7 +1,7 @@
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLTableColElement : HTMLElement {
-  [CEReactions, Reflect] attribute unsigned long span; // TODO: limited to only non-negative numbers greater than zero
+  [CEReactions, Reflect, ReflectRange=(1,1000), ReflectDefault=1] attribute unsigned long span;
 
   // also has obsolete members
 };

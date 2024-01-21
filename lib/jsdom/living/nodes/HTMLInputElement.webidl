@@ -31,7 +31,7 @@ interface HTMLInputElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString placeholder;
   [CEReactions, Reflect] attribute boolean readOnly;
   [CEReactions, Reflect] attribute boolean required;
-  [CEReactions] attribute unsigned long size;
+  [CEReactions, ReflectPositive, ReflectDefault=20] attribute unsigned long size;
   [CEReactions, ReflectURL] attribute USVString src;
   [CEReactions, Reflect] attribute DOMString step;
   [CEReactions] attribute DOMString type;

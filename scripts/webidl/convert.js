@@ -14,6 +14,14 @@ function isSimpleIDLType(idlType, expected) {
   return idlType.idlType === expected;
 }
 
+const recognizedReflectXAttrNames = new Set([
+  "Reflect",
+  "ReflectURL",
+  "ReflectNonNegative",
+  "ReflectPositive",
+  "ReflectPositiveWithFallback"
+]);
+
 const transformer = new Webidl2js({
   implSuffix: "-impl",
   suppressErrors: true,
@@ -39,19 +47,22 @@ const transformer = new Webidl2js({
   },
   // https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflecting-content-attributes-in-idl-attributes
   processReflect(idl, implObj) {
-    const reflectAttr = idl.extAttrs.find(
-      attr => attr.name === "Reflect" || attr.name === "ReflectURL" || attr.name === "ReflectNonNegative"
-    );
+    const reflectAttr = idl.extAttrs.find(attr => recognizedReflectXAttrNames.has(attr.name));
     const attrName = reflectAttr?.rhs ? JSON.parse(reflectAttr.rhs.value) : idl.name.toLowerCase();
 
-    // TODO: [ReflectDefault] is only used for `long` right now; also use it for `unsigned long` and `double`.
     const reflectDefaultAttr = idl.extAttrs.find(attr => attr.name === "ReflectDefault");
     const reflectDefault = reflectDefaultAttr?.rhs ? JSON.parse(reflectDefaultAttr.rhs.value) : undefined;
+
+    const reflectRangeAttr = idl.extAttrs.find(attr => attr.name === "ReflectRange");
+    const reflectRange = reflectRangeAttr?.rhs ? reflectRangeAttr.rhs.value.map(v => JSON.parse(v.value)) : undefined;
+    if (reflectRange && reflectRange.length !== 2) {
+      throw new Error("Invalid [ReflectRange] value");
+    }
 
     if (reflectAttr.name === "ReflectURL") {
       // Allow DOMString also due to https://github.com/whatwg/html/issues/5241.
       if (!isSimpleIDLType(idl.idlType, "USVString") && !isSimpleIDLType(idl.idlType, "DOMString")) {
-        throw new Error("[ReflectURL] specified on non-USV/DOMString attribute");
+        throw new Error("[ReflectURL] specified on non-USVString, non-DOMString IDL attribute");
       }
       const parseURLToResultingURLRecord =
         this.addImport("../helpers/document-base-url", "parseURLToResultingURLRecord");
@@ -74,11 +85,21 @@ const transformer = new Webidl2js({
       };
     }
 
+    // For all these cases, we'll process them later, but we do the checks now.
     if (reflectAttr.name === "ReflectNonNegative") {
       if (!isSimpleIDLType(idl.idlType, "long")) {
-        throw new Error("[ReflectNonNegative] specified on non-long attribute");
+        throw new Error("[ReflectNonNegative] specified on non-long IDL attribute");
       }
-      // We'll actually do the processing in the long case, later.
+    }
+    if (reflectAttr.name === "ReflectPositive") {
+      if (!isSimpleIDLType(idl.idlType, "unsigned long") && !isSimpleIDLType(idl.idlType, "double")) {
+        throw new Error("[ReflectPositive] specified on non-unsigned long, non-double IDL attribute");
+      }
+    }
+    if (reflectAttr.name === "ReflectPositiveWithFallback") {
+      if (!isSimpleIDLType(idl.idlType, "unsigned long")) {
+        throw new Error("[ReflectPositiveWithFallback] specified on non-unsigned long IDL attribute");
+      }
     }
 
     if (isSimpleIDLType(idl.idlType, "DOMString") || isSimpleIDLType(idl.idlType, "USVString")) {
@@ -174,17 +195,106 @@ const transformer = new Webidl2js({
     if (isSimpleIDLType(idl.idlType, "unsigned long")) {
       const parseNonNegativeInteger = this.addImport("../helpers/strings", "parseNonNegativeInteger");
 
+      const minimum = reflectAttr.name === "ReflectPositive" || reflectAttr.name === "ReflectPositiveWithFallback" ?
+        1 :
+        0;
+      const maximum = 2147483647;
+      const defaultValue = reflectDefault !== undefined ? reflectDefault : minimum;
+
+      let setterPrefix = "";
+      if (reflectAttr.name === "ReflectPositive") {
+        const createDOMException = this.addImport("./DOMException", "create");
+        setterPrefix = `
+          if (V === 0) {
+            throw ${createDOMException}(
+              globalObject,
+              [\`The value \${V} cannot be set for the ${idl.name} property.\`, "IndexSizeError"]
+            );
+          }
+        `;
+      }
+
+      let get;
+      if (reflectRange) {
+        const clampedMinimum = reflectRange[0];
+        const clampedMaximum = reflectRange[1];
+        const clampedDefaultValue = reflectDefault !== undefined ? reflectDefault : clampedMinimum;
+
+        get = `
+          let value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
+          if (value !== null) {
+            value = ${parseNonNegativeInteger}(value);
+            if (value !== null) {
+              if (value < ${clampedMinimum}) {
+                return ${clampedMinimum};
+              } else if (value >= ${clampedMinimum} && value <= ${clampedMaximum}) {
+                return value;
+              } else {
+                return ${clampedMaximum};
+              }
+            }
+          }
+          return ${clampedDefaultValue};
+        `;
+      } else {
+        get = `
+          let value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
+          if (value !== null) {
+            value = ${parseNonNegativeInteger}(value);
+            if (value !== null && value >= ${minimum} && value <= ${maximum}) {
+              return value;
+            }
+          }
+          return ${defaultValue};
+        `;
+      }
+
+      return {
+        get,
+        set: `
+          ${setterPrefix}
+          const newValue = V <= ${maximum} && V >= ${minimum} ? V : ${defaultValue};
+          ${implObj}._reflectSetTheContentAttribute("${attrName}", String(newValue));
+        `
+      };
+    }
+
+    if (isSimpleIDLType(idl.idlType, "double")) {
+      const parseFloatingPointNumber = this.addImport("../helpers/strings", "parseFloatingPointNumber");
+      const defaultValue = reflectDefault !== undefined ? reflectDefault : 0;
+
+      if (reflectAttr.name === "ReflectPositive") {
+        return {
+          get: `
+            let value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
+            if (value !== null) {
+              value = ${parseFloatingPointNumber}(value);
+              if (value !== null && value > 0) {
+                return value;
+              }
+            }
+            return ${defaultValue};
+          `,
+          set: `
+            if (V > 0) {
+              ${implObj}._reflectSetTheContentAttribute("${attrName}", String(n));
+            }
+          `
+        };
+      }
+
       return {
         get: `
           let value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
-          if (value === null) {
-            return 0;
+          if (value !== null) {
+            value = ${parseFloatingPointNumber}(value);
+            if (value !== null) {
+              return value;
+            }
           }
-          value = ${parseNonNegativeInteger}(value);
-          return value !== null && value >= 0 && value <= 2147483647 ? value : 0;
+          return ${defaultValue};
         `,
         set: `
-          const n = V <= 2147483647 ? V : 0;
           ${implObj}._reflectSetTheContentAttribute("${attrName}", String(n));
         `
       };
