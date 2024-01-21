@@ -39,10 +39,16 @@ const transformer = new Webidl2js({
   },
   // https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflecting-content-attributes-in-idl-attributes
   processReflect(idl, implObj) {
-    const reflectAttr = idl.extAttrs.find(attr => attr.name === "Reflect");
-    const attrName = (reflectAttr && reflectAttr.rhs && JSON.parse(reflectAttr.rhs.value)) || idl.name.toLowerCase();
+    const reflectAttr = idl.extAttrs.find(
+      attr => attr.name === "Reflect" || attr.name === "ReflectURL" || attr.name === "ReflectNonNegative"
+    );
+    const attrName = reflectAttr?.rhs ? JSON.parse(reflectAttr.rhs.value) : idl.name.toLowerCase();
 
-    if (idl.extAttrs.find(attr => attr.name === "ReflectURL")) {
+    // TODO: [ReflectDefault] is only used for `long` right now; also use it for `unsigned long` and `double`.
+    const reflectDefaultAttr = idl.extAttrs.find(attr => attr.name === "ReflectDefault");
+    const reflectDefault = reflectDefaultAttr?.rhs ? JSON.parse(reflectDefaultAttr.rhs.value) : undefined;
+
+    if (reflectAttr.name === "ReflectURL") {
       // Allow DOMString also due to https://github.com/whatwg/html/issues/5241.
       if (!isSimpleIDLType(idl.idlType, "USVString") && !isSimpleIDLType(idl.idlType, "DOMString")) {
         throw new Error("[ReflectURL] specified on non-USV/DOMString attribute");
@@ -66,6 +72,13 @@ const transformer = new Webidl2js({
           ${implObj}._reflectSetTheContentAttribute("${attrName}", V);
         `
       };
+    }
+
+    if (reflectAttr.name === "ReflectNonNegative") {
+      if (!isSimpleIDLType(idl.idlType, "long")) {
+        throw new Error("[ReflectNonNegative] specified on non-long attribute");
+      }
+      // We'll actually do the processing in the long case, later.
     }
 
     if (isSimpleIDLType(idl.idlType, "DOMString") || isSimpleIDLType(idl.idlType, "USVString")) {
@@ -113,18 +126,46 @@ const transformer = new Webidl2js({
     }
 
     if (isSimpleIDLType(idl.idlType, "long")) {
-      const parseInteger = this.addImport("../helpers/strings", "parseInteger");
+      const parser = this.addImport(
+        "../helpers/strings",
+        reflectAttr.name === "ReflectNonNegative" ? "parseNonNegativeInteger" : "parseInteger"
+      );
+
+      let defaultValue;
+      if (reflectDefault !== undefined) {
+        defaultValue = reflectDefault;
+      } else if (reflectAttr.name === "ReflectNonNegative") {
+        defaultValue = -1;
+      } else {
+        defaultValue = 0;
+      }
+
+      let setterPrefix = "";
+      if (reflectAttr.name === "ReflectNonNegative") {
+        const createDOMException = this.addImport("./DOMException", "create");
+        setterPrefix = `
+          if (V < 0) {
+            throw ${createDOMException}(
+              globalObject,
+              [\`The negative value \${V} cannot be set for the ${idl.name} property.\`, "IndexSizeError"]
+            );
+          }
+        `;
+      }
 
       return {
         get: `
           let value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
-          if (value === null) {
-            return 0;
+          if (value !== null) {
+            value = ${parser}(value);
+            if (value !== null && conversions.long(value) === value) {
+              return value;
+            }
           }
-          value = ${parseInteger}(value);
-          return value !== null && conversions.long(value) === value ? value : 0;
+          return ${defaultValue};
         `,
         set: `
+          ${setterPrefix}
           ${implObj}._reflectSetTheContentAttribute("${attrName}", String(V));
         `
       };

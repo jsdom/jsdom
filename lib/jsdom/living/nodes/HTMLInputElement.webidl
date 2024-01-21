@@ -22,9 +22,9 @@ interface HTMLInputElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString inputMode;
   readonly attribute HTMLElement? list;
   [CEReactions, Reflect] attribute DOMString max;
-  [CEReactions] attribute long maxLength;
+  [CEReactions, ReflectNonNegative] attribute long maxLength;
   [CEReactions, Reflect] attribute DOMString min;
-  [CEReactions] attribute long minLength;
+  [CEReactions, ReflectNonNegative] attribute long minLength;
   [CEReactions, Reflect] attribute boolean multiple;
   [CEReactions, Reflect] attribute DOMString name;
   [CEReactions, Reflect] attribute DOMString pattern;
