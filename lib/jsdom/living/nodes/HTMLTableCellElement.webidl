@@ -2,8 +2,8 @@
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLTableCellElement : HTMLElement {
-  [CEReactions] attribute unsigned long colSpan;
-  [CEReactions] attribute unsigned long rowSpan;
+  [CEReactions, Reflect, ReflectRange=(1,1000), ReflectDefault=1] attribute unsigned long colSpan;
+  [CEReactions, Reflect, ReflectRange=(0,65534), ReflectDefault=1] attribute unsigned long rowSpan;
   [CEReactions, Reflect] attribute DOMString headers;
   readonly attribute long cellIndex;
 
