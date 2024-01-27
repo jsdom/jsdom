@@ -15,6 +15,22 @@ exports["getComputedStyle() on document.body"] = () => {
   });
 };
 
+exports["getComputedStyle() on element with rgb color"] = () => {
+  let window, node;
+
+  return suite({
+    setup(doc) {
+      window = doc.defaultView;
+      node = doc.createElement("div");
+      node.style.color = "rgb(128, 0, 128)";
+      doc.body.appendChild(node);
+    },
+    fn() {
+      window.getComputedStyle(node);
+    }
+  });
+};
+
 exports["getComputedStyle() on element with non-rgb color"] = () => {
   let window, node;
 
