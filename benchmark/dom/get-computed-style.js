@@ -10,7 +10,7 @@ exports.getComputedStyle = () => {
       document = doc;
     },
     fn() {
-      window.getComputedStyle(document.body)
+      window.getComputedStyle(document.body);
     }
   });
 };
