@@ -1,7 +1,7 @@
 "use strict";
 const suite = require("../document-suite");
 
-exports.getComputedStyle = () => {
+exports["getComputedStyle() on document.body"] = () => {
   let window, document;
 
   return suite({
@@ -11,6 +11,22 @@ exports.getComputedStyle = () => {
     },
     fn() {
       window.getComputedStyle(document.body);
+    }
+  });
+};
+
+exports["getComputedStyle() on element with non-rgb color"] = () => {
+  let window, node;
+
+  return suite({
+    setup(doc) {
+      window = doc.defaultView;
+      node = doc.createElement("div");
+      node.style.color = "color-mix(in srgb, red, blue)";
+      doc.body.appendChild(node);
+    },
+    fn() {
+      window.getComputedStyle(node);
     }
   });
 };
