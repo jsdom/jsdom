@@ -8,6 +8,10 @@
 
 <div id="example">test <span>nested</span></div>
 
+<input id="input" width="200" value="foo"><br>
+<textarea id="textarea" width="200">foo</textarea>
+<div id="contenteditable" contenteditable>test <span>nested</span></div><br>
+
 <script>
   "use strict";
 
@@ -88,4 +92,32 @@
     assert_equals(events, 2, "Should be 2 events because we called collapseToEnd with the same arguments");
     t.add_cleanup(() => selection.removeAllRanges());
   }, `triggers selectionchange event on collapseToEnd`);
+
+  for (const id of ["input", "textarea", "contenteditable"]) {
+    test(t => {
+      const element = document.getElementById(id);
+      let events = 0;
+      document.addEventListener("selectionchange", () => {
+        events++;
+      });
+      element.focus();
+      assert_equals(events, 1, "Should be 1 event");
+      element.blur();
+      assert_equals(events, 2, "Should be 2 event");
+      t.add_cleanup(() => document.getSelection().removeAllRanges());
+    }, `triggers selectionchange event on focus/blur for ${id}`);
+  }
+
+  test(t => {
+    const element = document.getElementById("example");
+    let events = 0;
+    document.addEventListener("selectionchange", () => {
+      events++;
+    });
+    element.focus();
+    assert_equals(events, 0, "Should be 0 events");
+    element.blur();
+    assert_equals(events, 0, "Should be 0 events");
+    t.add_cleanup(() => document.getSelection().removeAllRanges());
+  }, "does not trigger selectionchange event when focusing on unfocusable element");
 </script>
