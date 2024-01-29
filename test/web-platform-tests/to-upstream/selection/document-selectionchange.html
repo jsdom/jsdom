@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<title>selectionchange event on document</title>
+<link rel="author" title="Piotr Oleś" href="mailto:piotrek.oles@gmail.com">
+<link rel="help" href="https://w3c.github.io/selection-api/#selectionchange-event">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="example">test <span>nested</span></div>
+
+<script>
+  "use strict";
+
+  test(t => {
+    let events = 0;
+    document.addEventListener("selectionchange", () => {
+      events++;
+    });
+    const target = document.getElementById("example");
+    const selection = document.getSelection();
+    selection.setBaseAndExtent(target, 0, target, 1);
+    assert_equals(events, 1, "Should be 1 event");
+    selection.setBaseAndExtent(target, 0, target, 1);
+    assert_equals(events, 1, "Should be 1 event because we called setBaseAndExtent with the same arguments");
+    selection.setBaseAndExtent(target, 0, target, 2);
+    assert_equals(events, 2, "Should be 2 events");
+    t.add_cleanup(() => selection.removeAllRanges());
+  }, `triggers selectionchange event on setBaseAndExtent`);
+
+  test(t => {
+    let events = 0;
+    document.addEventListener("selectionchange", () => {
+      events++;
+    });
+    const target = document.getElementById("example");
+    const selection = document.getSelection();
+    selection.selectAllChildren(target);
+    assert_equals(events, 1, "Should be 1 event");
+    selection.selectAllChildren(target);
+    assert_equals(events, 1, "Should be 1 event because we called selectAllChildren with the same arguments");
+    t.add_cleanup(() => selection.removeAllRanges());
+  }, `triggers selectionchange event on selectAllChildren`);
+
+  test(t => {
+    let events = 0;
+    document.addEventListener("selectionchange", () => {
+      events++;
+    });
+    const target = document.getElementById("example");
+    const selection = document.getSelection();
+    selection.selectAllChildren(target);
+    assert_equals(events, 1, "Should be 1 event");
+    selection.removeAllRanges();
+    assert_equals(events, 2, "Should be 2 events");
+    selection.removeAllRanges();
+    assert_equals(events, 2, "Should be 2 events because we called removeAllRanges with the same arguments");
+    t.add_cleanup(() => selection.removeAllRanges());
+  }, `triggers selectionchange event on removeAllRanges`);
+
+  test(t => {
+    let events = 0;
+    document.addEventListener("selectionchange", () => {
+      events++;
+    });
+    const target = document.getElementById("example");
+    const selection = document.getSelection();
+    selection.setBaseAndExtent(target, 0, target, 1);
+    assert_equals(events, 1, "Should be 1 event");
+    selection.collapseToStart();
+    assert_equals(events, 2, "Should be 2 events");
+    selection.collapseToStart();
+    assert_equals(events, 2, "Should be 2 events because we called collapseToStart with the same arguments");
+    t.add_cleanup(() => selection.removeAllRanges());
+  }, `triggers selectionchange event on collapseToStart`);
+
+  test(t => {
+    let events = 0;
+    document.addEventListener("selectionchange", () => {
+      events++;
+    });
+    const target = document.getElementById("example");
+    const selection = document.getSelection();
+    selection.setBaseAndExtent(target, 0, target, 1);
+    assert_equals(events, 1, "Should be 1 event");
+    selection.collapseToEnd();
+    assert_equals(events, 2, "Should be 2 events");
+    selection.collapseToEnd();
+    assert_equals(events, 2, "Should be 2 events because we called collapseToEnd with the same arguments");
+    t.add_cleanup(() => selection.removeAllRanges());
+  }, `triggers selectionchange event on collapseToEnd`);
+</script>
