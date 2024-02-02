@@ -46,10 +46,10 @@ exports.querySelectorAll = function () {
   });
 };
 
-// This is only for comparison. Can remove later.
-/* eslint-disable max-len */
-exports["querySelectorAll only nwsapi supports"] = function () {
-  let document, selectors;
+exports.querySelector = function () {
+  let document, selectors, total;
+  let count = 0;
+  let cycle = 0;
 
   return suite({
     setup() {
@@ -66,83 +66,23 @@ exports["querySelectorAll only nwsapi supports"] = function () {
         flag: "r"
       });
       selectors = css.split("\n");
+      total = selectors.length;
     },
     fn() {
-      const nwsapiFailures = new Map([
-        [
-          "h1[id]:contains(Selectors)",
-          "unknown pseudo-class selector ':contains(Selectors)'"
-        ],
-        [
-          "div[class!=made_up]",
-          "'div[class!=made_up]' is not a valid selector"
-        ],
-        [
-          "p:contains(selectors)",
-          "unknown pseudo-class selector ':contains(selectors)'"
-        ],
-        [
-          ".red p:not(:nth-of-type(3)) dl > *:not(:nth-of-type(3n+1)) ",
-          "':nth-of-type(3)) dl>*:not(:nth-of-type(3n+1)' is not a valid selector"
-        ],
-        [
-          ".green p:not(:nth-of-type(3)) dl > *:not(:nth-of-type(3n+1)) ",
-          "':nth-of-type(3)) dl>*:not(:nth-of-type(3n+1)' is not a valid selector"
-        ],
-        [
-          ".red p:not(:nth-last-of-type(3)) dl > *:not(:nth-last-of-type(3n+1)) ",
-          "':nth-last-of-type(3)) dl>*:not(:nth-last-of-type(3n+1)' is not a valid selector"
-        ],
-        [
-          ".green p:not(:nth-last-of-type(3)) dl > *:not(:nth-last-of-type(3n+1)) ",
-          "':nth-last-of-type(3)) dl>*:not(:nth-last-of-type(3n+1)' is not a valid selector"
-        ],
-        [
-          "p   p, ",
-          " is not a valid selector"
-        ],
-        [
-          "p   .5cm ",
-          "'p   .5cm ' is not a valid selector"
-        ],
-        [
-          "p   foo & address, p ",
-          "'p   foo & address, p ' is not a valid selector"
-        ],
-        [
-          "foo & address, p   p ",
-          "'foo & address, p   p ' is not a valid selector"
-        ],
-        [
-          "p   [*=test] ",
-          "'p   [*=test] ' is not a valid selector"
-        ],
-        [
-          "p   p:subject",
-          "unknown pseudo-class selector ':subject'"
-        ],
-        [
-          "p  .13 ",
-          "'p  .13 ' is not a valid selector"
-        ],
-        [
-          "div  p::first-child ",
-          "unknown pseudo-class selector '::first-child'"
-        ],
-        [
-          "p ..test .foo..quux .bar. ",
-          "'p ..test .foo..quux .bar. ' is not a valid selector"
-        ],
-        [
-          "[test]    stub ~ [|attribute^=start]:not([|attribute~=mid])[|attribute*=dle][|attribute$=end] ~ t ",
-          "'[test]    stub ~ [|attribute^=start]:not([|attribute~=mid])[|attribute*=dle][|attribute$=end] ~ t ' is not a valid selector"
-        ]
-      ]);
       for (const selector of selectors) {
-        if (!nwsapiFailures.has(selector)) {
-          document.querySelectorAll(selector);
+        try {
+          document.querySelector(selector);
+        } catch (e) {
+          count++;
         }
       }
+    },
+    teardown() {
+      cycle++;
+    },
+    onComplete() {
+      // eslint-disable-next-line no-console
+      console.log(`${(count / cycle).toFixed(0)}/${total} fails.`);
     }
   });
 };
