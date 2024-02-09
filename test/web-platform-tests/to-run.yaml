@@ -1107,7 +1107,6 @@ formaction.html: [fail, Unknown]
 
 DIR: html/semantics/forms/constraints
 
-form-validation-validity-patternMismatch.html: [fail, Unknown]
 form-validation-validity-valueMissing.html: [fail, 'Spec unclear (see https://github.com/whatwg/html/issues/5202)']
 form-validation-willValidate.html:
   "[INPUT in COLOR status] Must be barred from the constraint validation if it is readonly": [fail, Not implemented]
@@ -1190,7 +1189,6 @@ input-type-button.html: [fail, Depends on offsetWidth]
 input-type-change-value.html: [fail, Unknown]
 input-type-checkbox-switch.tentative.window.html: [fail, Unknown]
 input-untrusted-key-event.html: [fail-slow, Not implemented]
-pattern_attribute_v_flag.html: [fail, Unknown]
 radio-disconnected-group-owner.html: [fail, Unknown]
 range-2.html: [fail, step attribute not yet implemented]
 range-restore-oninput-onchange-event.https.html: [fail-slow, Not implemented]
