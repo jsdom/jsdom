@@ -208,6 +208,26 @@ describe("level2/events", () => {
       this.doc.dispatchEvent(event);
       assert.equal(es.length, 1, 'should only be handled by one EventListener');
     });
+
+    // Two listeners are registered on the same target, first listener removes and immediately adds the second listener, and an event is dispatched.  Both listeners should see the event.
+    specify('listener removed and re-added during event dispatch', () => {
+      let h1 = 0, h2 = 0;
+      const handler1 = () => {
+        h1++;
+        this.doc.removeEventListener("foo", handler2, false);
+        this.doc.addEventListener("foo", handler2, false);
+      };
+      const handler2 = () => {
+        h2++;
+      };
+      this.doc.addEventListener("foo", handler1, false);
+      this.doc.addEventListener("foo", handler2, false);
+      var event = this.doc.createEvent("Events");
+      event.initEvent("foo",true,false);
+      this.doc.dispatchEvent(event);
+      assert.equal(h1, 1, "handler1 must be called once");
+      assert.equal(h2, 1, "handler2 must be called once");
+    })
   })
 
   // The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events")
