@@ -509,7 +509,8 @@ innerhtml-05.xhtml: [fail, Unknown]
 
 DIR: fetch/api/headers
 
-header-setcookie.any.html: [fail, Unknown]
+header-setcookie.any.html:
+  "Set-Cookie is a forbidden response header": [fail, Response is not defined]
 header-values-normalize.any.html: [fail, fetch is not defined]
 header-values.any.html: [fail, fetch is not defined]
 headers-no-cors.any.html: [fail, Request is not defined]
