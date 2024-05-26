@@ -72,6 +72,7 @@ d-ash <andrey.shubin@gmail.com>
 Dav Glass <davglass@gmail.com>
 Dave Clark <dave@dcwarwick.org.uk>
 Dave Methvin <dave.methvin@gmail.com>
+David Myers <davidrmyersii@gmail.com>
 Davide P. Cervone <dpvc@union.edu>
 Derek Lindahl <dlindahl@customink.com>
 Domenic Denicola <d@domenic.me>
@@ -321,6 +322,7 @@ Tom Hudson <mail@tomnomnom.com>
 Tom Jenkinson <tjenkinson@users.noreply.github.com>
 Tom Taylor <tom@tomtaylor.co.uk>
 ulteriorlife <ulteriorlife@gmail.com>
+ushiboy <ushikic@gmail.com>
 Vadim Baryshev <vadimbaryshev@gmail.com>
 Vegard B. Bugge <vegabug@live.no>
 Viachaslau <pmstss@gmail.com>
