@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<title>Comma selector</title>
+<meta charset="utf-8">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3706 -->
+
+<h1>Hello world</h1>
+<h2>Goodbye, world</h2>
+
+<script>
+"use strict";
+test(() => {
+  assert_equals(document.querySelectorAll("h1,h2").length, 2);
+});
+</script>
