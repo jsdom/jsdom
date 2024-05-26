@@ -6,7 +6,7 @@ jsdom is, as said in our tagline, “A JavaScript implementation of the DOM and 
 
 jsdom is a blend of old and new code. Some of its older and less-touched corners may look different from newer work. Here we'll describe the modern setup, but you might encounter parts of the codebase that don't fit this model, or that seem unnecessarily baroque (like the directory structure in `lib/`).
 
-In general, a web platform class (like `Window`, or `Node`, or `Location`, or `CSSStyleSheet`) is specified using a language called [Web IDL](https://heycam.github.io/webidl/). Web IDL abstracts away a lot of the boilerplate involved in creating such classes, like type conversions, argument validation, and [attribute/property reflection](https://html.spec.whatwg.org/multipage/infrastructure.html#reflect).
+In general, a web platform class (like `Window`, or `Node`, or `Location`, or `CSSStyleSheet`) is specified using a language called [Web IDL](https://webidl.spec.whatwg.org/). Web IDL abstracts away a lot of the boilerplate involved in creating such classes, like type conversions, argument validation, and [attribute/property reflection](https://html.spec.whatwg.org/multipage/infrastructure.html#reflect).
 
 As such, most web platform classes present in jsdom are implemented in two parts:
 
@@ -28,7 +28,7 @@ If you can, then you've almost certainly found a bug in or missing feature of js
 
 Almost all of our relevant functionality is covered in either the [DOM Living Standard](https://dom.spec.whatwg.org/) or the [HTML Living Standard](https://html.spec.whatwg.org/multipage/). There are various obsolete W3C specs ("DOM Level 2" etc.) that were never really implemented in browsers, and there is also the "DOM Level 4" W3C fork of the WHATWG DOM Living Standard. But we try to stick to the two main WHATWG specs for jsdom these days.
 
-Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relevant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links). [platform.html5.org](https://platform.html5.org/) is also pretty comprehensive.
+Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relevant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links). [https://html-now.github.io](https://html-now.github.io/) is also pretty comprehensive.
 
 ## Tests
 
@@ -62,7 +62,7 @@ Also, to update web platform tests to their latest revision from the source repo
 
 If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test. Such tests are written using [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com/).
 
-To write such a test that, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
+To write such a test, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
 
 **To run all API tests:** `npm run test-api`
 
