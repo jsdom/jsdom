@@ -1,6 +1,8 @@
 "use strict";
 // This includes all tests that are run using Mocha, including web-platform-tests.
 
+require("./css/basics.js");
+
 require("./api/basics.js");
 require("./api/cookies.js");
 require("./api/encoding.js");
