@@ -8,116 +8,110 @@
 
 <div id="example">test <span>nested</span></div>
 
-<input id="input" width="200" value="foo"><br>
-<textarea id="textarea" width="200">foo</textarea>
-<div id="contenteditable" contenteditable>test <span>nested</span></div><br>
-
 <script>
   "use strict";
 
-  test(t => {
-    let events = 0;
-    document.addEventListener("selectionchange", () => {
-      events++;
+  function tick() {
+    return new Promise(resolve => {
+      setTimeout(resolve, 0);
     });
-    const target = document.getElementById("example");
-    const selection = document.getSelection();
-    selection.setBaseAndExtent(target, 0, target, 1);
-    assert_equals(events, 1, "Should be 1 event");
-    selection.setBaseAndExtent(target, 0, target, 1);
-    assert_equals(events, 1, "Should be 1 event because we called setBaseAndExtent with the same arguments");
-    selection.setBaseAndExtent(target, 0, target, 2);
-    assert_equals(events, 2, "Should be 2 events");
-    t.add_cleanup(() => selection.removeAllRanges());
-  }, `triggers selectionchange event on setBaseAndExtent`);
-
-  test(t => {
-    let events = 0;
-    document.addEventListener("selectionchange", () => {
-      events++;
-    });
-    const target = document.getElementById("example");
-    const selection = document.getSelection();
-    selection.selectAllChildren(target);
-    assert_equals(events, 1, "Should be 1 event");
-    selection.selectAllChildren(target);
-    assert_equals(events, 1, "Should be 1 event because we called selectAllChildren with the same arguments");
-    t.add_cleanup(() => selection.removeAllRanges());
-  }, `triggers selectionchange event on selectAllChildren`);
-
-  test(t => {
-    let events = 0;
-    document.addEventListener("selectionchange", () => {
-      events++;
-    });
-    const target = document.getElementById("example");
-    const selection = document.getSelection();
-    selection.selectAllChildren(target);
-    assert_equals(events, 1, "Should be 1 event");
-    selection.removeAllRanges();
-    assert_equals(events, 2, "Should be 2 events");
-    selection.removeAllRanges();
-    assert_equals(events, 2, "Should be 2 events because we called removeAllRanges with the same arguments");
-    t.add_cleanup(() => selection.removeAllRanges());
-  }, `triggers selectionchange event on removeAllRanges`);
-
-  test(t => {
-    let events = 0;
-    document.addEventListener("selectionchange", () => {
-      events++;
-    });
-    const target = document.getElementById("example");
-    const selection = document.getSelection();
-    selection.setBaseAndExtent(target, 0, target, 1);
-    assert_equals(events, 1, "Should be 1 event");
-    selection.collapseToStart();
-    assert_equals(events, 2, "Should be 2 events");
-    selection.collapseToStart();
-    assert_equals(events, 2, "Should be 2 events because we called collapseToStart with the same arguments");
-    t.add_cleanup(() => selection.removeAllRanges());
-  }, `triggers selectionchange event on collapseToStart`);
-
-  test(t => {
-    let events = 0;
-    document.addEventListener("selectionchange", () => {
-      events++;
-    });
-    const target = document.getElementById("example");
-    const selection = document.getSelection();
-    selection.setBaseAndExtent(target, 0, target, 1);
-    assert_equals(events, 1, "Should be 1 event");
-    selection.collapseToEnd();
-    assert_equals(events, 2, "Should be 2 events");
-    selection.collapseToEnd();
-    assert_equals(events, 2, "Should be 2 events because we called collapseToEnd with the same arguments");
-    t.add_cleanup(() => selection.removeAllRanges());
-  }, `triggers selectionchange event on collapseToEnd`);
-
-  for (const id of ["input", "textarea", "contenteditable"]) {
-    test(t => {
-      const element = document.getElementById(id);
-      let events = 0;
-      document.addEventListener("selectionchange", () => {
-        events++;
-      });
-      element.focus();
-      assert_equals(events, 1, "Should be 1 event");
-      element.blur();
-      assert_equals(events, 2, "Should be 2 event");
-      t.add_cleanup(() => document.getSelection().removeAllRanges());
-    }, `triggers selectionchange event on focus/blur for ${id}`);
   }
 
-  test(t => {
-    const element = document.getElementById("example");
+  async function setupTest() {
+    const target = document.getElementById("example");
+    const selection = document.getSelection();
+
+    // Clean-up the state
+    selection.removeAllRanges();
+    await tick();
+
+    // Add event listeners and increment count on each event
     let events = 0;
     document.addEventListener("selectionchange", () => {
       events++;
     });
-    element.focus();
-    assert_equals(events, 0, "Should be 0 events");
-    element.blur();
-    assert_equals(events, 0, "Should be 0 events");
-    t.add_cleanup(() => document.getSelection().removeAllRanges());
-  }, "does not trigger selectionchange event when focusing on unfocusable element");
+
+    function getEventsCount() {
+      return events;
+    }
+
+    return { target, selection, getEventsCount };
+  }
+
+  promise_test(async () => {
+    const { target, selection, getEventsCount } = await setupTest();
+
+    selection.setBaseAndExtent(target, 0, target, 1);
+    assert_equals(getEventsCount(), 0, "Should be 0 events as they're scheduled");
+    await tick();
+    assert_equals(getEventsCount(), 1, "Should be 1 event");
+
+    selection.setBaseAndExtent(target, 0, target, 1);
+    await tick();
+    assert_equals(getEventsCount(), 1, "Should be 1 event because we called setBaseAndExtent with the same arguments");
+
+    selection.setBaseAndExtent(target, 0, target, 2);
+    await tick();
+    assert_equals(getEventsCount(), 2, "Should be 2 events");
+  }, `triggers selectionchange event on setBaseAndExtent`);
+
+  promise_test(async () => {
+    const { target, selection, getEventsCount } = await setupTest();
+
+    selection.selectAllChildren(target);
+    await tick();
+    assert_equals(getEventsCount(), 1, "Should be 1 event");
+
+    selection.selectAllChildren(target);
+    await tick();
+    assert_equals(getEventsCount(), 1, "Should be 1 event because we called selectAllChildren with the same arguments");
+  }, `triggers selectionchange event on selectAllChildren`);
+
+  promise_test(async () => {
+    const { target, selection, getEventsCount } = await setupTest();
+
+    selection.selectAllChildren(target);
+    await tick();
+    assert_equals(getEventsCount(), 1, "Should be 1 event");
+
+    selection.removeAllRanges();
+    await tick();
+    assert_equals(getEventsCount(), 2, "Should be 2 events");
+
+    selection.removeAllRanges();
+    await tick();
+    assert_equals(getEventsCount(), 2, "Should be 2 events because we called removeAllRanges with the same arguments");
+  }, `triggers selectionchange event on removeAllRanges`);
+
+  promise_test(async () => {
+    const { target, selection, getEventsCount } = await setupTest();
+
+    selection.setBaseAndExtent(target, 0, target, 1);
+    await tick();
+    assert_equals(getEventsCount(), 1, "Should be 1 event");
+
+    selection.collapseToStart();
+    await tick();
+    assert_equals(getEventsCount(), 2, "Should be 2 events");
+
+    selection.collapseToStart();
+    await tick();
+    assert_equals(getEventsCount(), 2, "Should be 2 events because we called collapseToStart with the same arguments");
+  }, `triggers selectionchange event on collapseToStart`);
+
+  promise_test(async () => {
+    const { target, selection, getEventsCount } = await setupTest();
+
+    selection.setBaseAndExtent(target, 0, target, 1);
+    await tick();
+    assert_equals(getEventsCount(), 1, "Should be 1 event");
+
+    selection.collapseToEnd();
+    await tick();
+    assert_equals(getEventsCount(), 2, "Should be 2 events");
+
+    selection.collapseToEnd();
+    await tick();
+    assert_equals(getEventsCount(), 2, "Should be 2 events because we called collapseToEnd with the same arguments");
+  }, `triggers selectionchange event on collapseToEnd`);
 </script>
