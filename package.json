@@ -39,7 +39,7 @@
     "whatwg-encoding": "^3.1.1",
     "whatwg-mimetype": "^4.0.0",
     "whatwg-url": "^14.0.0",
-    "ws": "^8.17.0",
+    "ws": "^8.17.1",
     "xml-name-validator": "^5.0.0"
   },
   "peerDependencies": {
