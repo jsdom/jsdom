@@ -1242,7 +1242,7 @@ inserted-or-removed.html:
   "If an OPTION says it is selected, it should be selected after it is inserted.": [fail, Not implemented]
 select-validity.html: [fail, Unknown]
 select-willvalidate-readonly-attribute.html: [fail, Not implemented]
-show-picker-cross-origin-iframe.tentative.html: [timeout, Unknown]
+show-picker-cross-origin-iframe.html: [timeout, Unknown]
 
 ---
 
