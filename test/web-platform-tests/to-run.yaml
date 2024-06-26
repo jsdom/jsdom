@@ -550,7 +550,6 @@ event-order/pushState-inside-popstate.html: [fail, We don't support navigation v
 event-order/same-document-traverse-immediate.html: [fail, We don't support navigation via location]
 event-order/same-document-traverse-wait.html: [fail, We don't support navigation via location]
 history-traversal-navigates-multiple-frames.html: [fail, Unknown]
-pagereveal/tentative/**: [fail-slow, Not implemented]
 persisted-user-state-restoration/resume-timer-on-history-back.html: [timeout, Unknown]
 persisted-user-state-restoration/scroll-restoration-basic.html: [fail, Not implemented]
 persisted-user-state-restoration/scroll-restoration-fragment-scrolling-cross-origin.html: [timeout, Unknown]
