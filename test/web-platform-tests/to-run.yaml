@@ -324,7 +324,7 @@ x-pseudo-element.html: [fail, Unknown]
 
 DIR: custom-elements
 
-CustomElementRegistry-getName.tentative.html: [fail, Unknown]
+CustomElementRegistry-getName.html: [fail, Unknown]
 CustomElementRegistry.html:
   'customElements.define must get "prototype", "disabledFeatures", and "formAssociated" property of the constructor': [fail, formAssociated not implemented]
   'customElements.define must get "observedAttributes" property on the constructor prototype when "attributeChangedCallback" is present': [fail, formAssociated not implemented]
