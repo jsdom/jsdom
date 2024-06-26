@@ -395,7 +395,9 @@ throw-on-dynamic-markup-insertion-counter-reactions.html: [timeout, document.ope
 
 DIR: dom/abort
 
-abort-signal-any.any.html: [fail, Not implemented]
+
+abort-signal-any.any.html:
+  "Abort events for AbortSignal.any() signals fire in the right order (using AbortController)": [fail, Dependent abort signals not implemented]
 
 ---
 
