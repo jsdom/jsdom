@@ -385,7 +385,6 @@ reactions/customized-builtins/HTMLAreaElement.html: [fail, HTMLAreaElement doesn
 reactions/customized-builtins/HTMLButtonElement.html: [fail, HTMLButtonElement doesn't implement formAction formEnctype and formMethod]
 reactions/customized-builtins/HTMLImageElement.html: [fail, HTMLImageElement doesn't implement referrerPolicy and decoder]
 scoped-registry/*.tentative.html: [fail, Not implemented]
-state/tentative/**: [fail, Not implemented]
 throw-on-dynamic-markup-insertion-counter-construct-xml-parser.xhtml: [timeout, document.open() and document.close() implementation is not spec compliant]
 throw-on-dynamic-markup-insertion-counter-construct.html: [timeout, document.open() and document.close() implementation is not spec compliant]
 throw-on-dynamic-markup-insertion-counter-reactions-xml-parser.xhtml: [timeout, document.open() and document.close() implementation is not spec compliant]
