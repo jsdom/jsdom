@@ -1,5 +1,3 @@
-"use strict";
-
 function isSuperHookInvocation(expression, hook) {
   if (expression.type !== "CallExpression") {
     return false;
@@ -33,11 +31,13 @@ function isSuperHookInvocation(expression, hook) {
   return false;
 }
 
-module.exports = {
+export default {
   meta: {
     type: "problem",
     docs: {
-      description: "Prevent missing invocation to the super jsdom hook.",
+      description: "Prevent missing invocation to the super jsdom hook."
+    },
+    schema: {
       type: "array",
       items: {
         type: "object",
