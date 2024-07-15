@@ -1,5 +1,5 @@
 "use strict";
-/* eslint-disable no-console, global-require */
+/* eslint-disable no-console */
 const dns = require("dns").promises;
 const path = require("path");
 const childProcess = require("child_process");

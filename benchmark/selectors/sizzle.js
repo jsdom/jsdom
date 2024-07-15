@@ -31,7 +31,7 @@ exports.querySelectorAll = function () {
       for (const selector of selectors) {
         try {
           document.querySelectorAll(selector);
-        } catch (e) {
+        } catch {
           count++;
         }
       }
