@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 24.1.1
+
+* Fixed selection methods to trigger the `selectionchange` event on the `Document` object. (piotr-oles)
+
 ## 24.1.0
 
 * Added the `getSetCookie()` method to the `Headers` class. (ushiboy)
