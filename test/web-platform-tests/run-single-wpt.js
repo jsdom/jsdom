@@ -8,6 +8,7 @@ const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loade
 const { resolveReason } = require("./utils.js");
 
 const reporterPathname = "/resources/testharnessreport.js";
+const harnessPathname = "/resources/testharness.js";
 const unexpectedPassingTestMessage = `
             Hey, did you fix a bug? This test used to be failing, but during
             this run there were no errors. If you have fixed the issue covered
@@ -39,6 +40,13 @@ class CustomResourceLoader extends ResourceLoader {
 
     if (url.pathname === reporterPathname) {
       return Promise.resolve(Buffer.from("window.shimTest();", "utf-8"));
+    } else if (url.pathname === harnessPathname) {
+      // Workaround for upstream WPT issue:
+      // @see https://github.com/web-platform-tests/wpt/issues/46940
+      // @see https://github.com/web-platform-tests/wpt/pull/46945
+      const filePath = path.resolve(__dirname, "testharness.js");
+
+      return super.fetch(`file://${filePath}`, options);
     } else if (url.pathname.startsWith("/resources/")) {
       // When running to-upstream tests, the server doesn't have a /resources/ directory.
       // So, always go to the one in ./tests.
