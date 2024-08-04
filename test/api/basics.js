@@ -17,6 +17,14 @@ describe("JSDOM instances: basics", () => {
 
     assert.equal(document.documentElement.localName, "html");
   });
+
+  it("should have EventTarget methods", () => {
+    const { window } = new JSDOM();
+
+    assert.equal(typeof window.addEventListener, "function");
+    assert.equal(typeof window.removeEventListener, "function");
+    assert.equal(typeof window.dispatchEvent, "function");
+  });
 });
 
 describe("JSDOM() constructor first argument", () => {
