@@ -853,7 +853,7 @@ window-opener-unconfigurable.window.html: [fail, Not implemented]
 window-properties.https.html:
   "Window attribute: name": [fail, Incorrectly implemented as a data property]
   "Window attribute: onmousewheel": [fail, Not implemented]
-  "Window attribute: onmove": [fail, Unknown]
+  "Window attribute: onmove": [fail, Not implemented]
   "Window attribute: opener": [fail, Not implemented]
   "Window attribute: status": [fail, Incorrectly implemented as a data property]
   "Window method: createImageBitmap": [fail, Not implemented]
