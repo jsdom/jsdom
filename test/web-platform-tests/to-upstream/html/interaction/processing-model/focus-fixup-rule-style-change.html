@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>focus fixup rule on style change</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focus-fixup-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<form>
+  <fieldset id="field">
+    <input id="input">
+  </fieldset>
+</form>
+<script>
+"use strict";
+
+test(() => {
+  const input = document.getElementById("input");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.style.display = "none";
+  assert_equals(document.activeElement, document.body);
+  input.style.display = null;
+
+  // set attribute
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.setAttribute("style", "display:none");
+  assert_equals(document.activeElement, document.body);
+  input.removeAttribute("style");
+  assert_equals(document.activeElement, document.body);
+}, "activeElement reset to the body when the element style.display is none");
+
+test(() => {
+  const input = document.getElementById("input");
+  const field = document.getElementById("field");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.style.display = "none";
+  assert_equals(document.activeElement, document.body);
+  field.style.display = null;
+
+  // set attribute
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.setAttribute("style", "display:none");
+  assert_equals(document.activeElement, document.body);
+  field.removeAttribute("style");
+}, "activeElement reset to the body when the ancestor style.display is none");
+
+test(() => {
+  const input = document.getElementById("input");
+  input.style.display = "inline";
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.hidden = true;
+  assert_equals(document.activeElement, input);
+  input.hidden = false;
+  input.style.display = null;
+
+  // set attribute
+  input.setAttribute("style", "display:inline");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.setAttribute("hidden", "");
+  assert_equals(document.activeElement, input);
+  input.removeAttribute("hidden");
+  input.removeAttribute("style");
+}, "the last focused element remains activeElement when the element is hidden but style.display is not none.");
+
+test(() => {
+  const input = document.getElementById("input");
+  const field = document.getElementById("field");
+  field.style.display = "block";
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.hidden = true;
+  assert_equals(document.activeElement, input);
+  input.hidden = false;
+  input.style.display = null;
+
+  // set attribute
+  field.setAttribute("style", "display:block");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.setAttribute("hidden", "");
+  assert_equals(document.activeElement, input);
+  field.removeAttribute("hidden");
+  field.removeAttribute("style");
+}, "the last focused element remains activeElement when the ancestor is hidden but style.display is not none.");
+
+test(() => {
+  const input = document.getElementById("input");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.style.visibility = "hidden";
+  assert_equals(document.activeElement, document.body);
+  input.style.visibility = null;
+
+  // set attribute
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.setAttribute("style", "visibility:hidden");
+  assert_equals(document.activeElement, document.body);
+  input.removeAttribute("style");
+}, "activeElement reset to the body when the element style.visibility is hidden");
+
+test(() => {
+  const input = document.getElementById("input");
+  const field = document.getElementById("field");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.style.visibility = "hidden";
+  assert_equals(document.activeElement, document.body);
+  field.style.visibility = null;
+
+  // set attribute
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.setAttribute("style", "visibility:hidden");
+  assert_equals(document.activeElement, document.body);
+  field.removeAttribute("style");
+}, "activeElement reset to the body when the ancestor style.visibility is hidden");
+
+test(() => {
+  const input = document.getElementById("input");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.style.visibility = "collapse";
+  assert_equals(document.activeElement, document.body);
+  input.style.visibility = null;
+
+  // set attribute
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.setAttribute("style", "visibility:collapse");
+  assert_equals(document.activeElement, document.body);
+  input.removeAttribute("style");
+  assert_equals(document.activeElement, document.body);
+}, "activeElement reset to the body when the element style.visibility is collapse");
+
+test(() => {
+  const input = document.getElementById("input");
+  const field = document.getElementById("field");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.style.visibility = "collapse";
+  assert_equals(document.activeElement, document.body);
+  field.style.visibility = null;
+
+  // set attribute
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.setAttribute("style", "visibility:collapse");
+  assert_equals(document.activeElement, document.body);
+  field.removeAttribute("style");
+}, "activeElement reset to the body when the ancestor style.visibility is collapse");
+
+test(() => {
+  const input = document.getElementById("input");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.style.contentVisibility = "hidden";
+  assert_equals(document.activeElement, input);
+  input.style.contentVisibility = null;
+
+  // set attribute
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.setAttribute("style", "content-visibility:hidden");
+  assert_equals(document.activeElement, input);
+  input.removeAttribute("style");
+}, "the last focused element remains activeElement when the element style.contentVisibility is hidden");
+
+test(() => {
+  const input = document.getElementById("input");
+  const field = document.getElementById("field");
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.style.contentVisibility = "hidden";
+  assert_equals(document.activeElement, document.body);
+  field.style.contentVisibility = null;
+
+  // set attribute
+  input.focus();
+  assert_equals(document.activeElement, input);
+  field.setAttribute("style", "content-visibility:hidden");
+  assert_equals(document.activeElement, document.body);
+  field.removeAttribute("style");
+}, "activeElement reset to the body when the ancestor style.contentVisibility is hidden");
+</script>
+</body>

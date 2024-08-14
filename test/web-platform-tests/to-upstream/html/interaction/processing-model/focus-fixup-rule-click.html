@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Focus fixup on click event</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focus-fixup-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="parent">
+  <button id="button">Button</button>
+</div>
+
+<script>
+"use strict";
+
+test(() => {
+  const button = document.getElementById("button");
+  const parent = document.getElementById("parent");
+  button.focus();
+  assert_equals(document.activeElement, button, "Sanity check: the button must start focused");
+
+  parent.click();
+  assert_not_equals(document.activeElement, button, "After clicking, the button must no longer be focused");
+  assert_equals(document.activeElement, document.body, "After clicking, the body must be focused");
+}, "Clicking the inactive element");
+
+test(() => {
+  const button = document.getElementById("button");
+  button.focus();
+  assert_equals(document.activeElement, button, "Sanity check: the button must start focused");
+
+  button.click();
+  assert_equals(document.activeElement, button, "After clicking, the button must remain focused");
+}, "Clicking the active element");
+</script>

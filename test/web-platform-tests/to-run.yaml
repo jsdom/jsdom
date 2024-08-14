@@ -944,7 +944,8 @@ nontraditional-about-srcdoc.html: [timeout, We don't support srcdoc <base> corre
 DIR: html/interaction/focus
 
 document-level-focus-apis/document-has-system-focus.html: [fail-slow, window.open() not implemented]
-processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
+processing-model/focus-fixup-rule-one-no-dialogs.html:
+  "Disabling contenteditable": [fail, contenteditable not implemented]
 processing-model/preventScroll.html: [fail, Not implemented]
 processing-model/textarea-scroll-selection.html: [fail, Not implemented]
 the-autofocus-attribute/autofocus-dialog.html: [fail, Not implemented]
@@ -1145,7 +1146,6 @@ DIR: html/semantics/forms/the-datalist-element
 DIR: html/semantics/forms/the-fieldset-element
 
 HTMLFieldSetElement.html: [fail, Depends on HTMLFormElement's named properties; has dont-upstream version]
-disabled-003.html: [fail, Unknown]
 fieldset-intrinsic-size.html: [fail, Requires a layout engine]
 
 ---
