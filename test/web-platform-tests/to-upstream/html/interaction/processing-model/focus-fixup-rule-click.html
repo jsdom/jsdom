@@ -6,29 +6,41 @@
 <script src="/resources/testharnessreport.js"></script>
 
 <div id="parent">
-  <button id="button">Button</button>
+  <button id="button1">Button1</button>
+  <button id="button2">Button2</button>
 </div>
 
 <script>
 "use strict";
 
 test(() => {
-  const button = document.getElementById("button");
-  const parent = document.getElementById("parent");
-  button.focus();
-  assert_equals(document.activeElement, button, "Sanity check: the button must start focused");
+  const button1 = document.getElementById("button1");
+  button1.focus();
+  assert_equals(document.activeElement, button1, "Sanity check: the button1 must start focused");
 
-  parent.click();
-  assert_not_equals(document.activeElement, button, "After clicking, the button must no longer be focused");
-  assert_equals(document.activeElement, document.body, "After clicking, the body must be focused");
-}, "Clicking the inactive element");
+  button1.click();
+  assert_equals(document.activeElement, button1, "After clicking, the button1 must remain focused");
+}, "Clicking the focused element");
 
 test(() => {
-  const button = document.getElementById("button");
-  button.focus();
-  assert_equals(document.activeElement, button, "Sanity check: the button must start focused");
+  const button1 = document.getElementById("button1");
+  const button2 = document.getElementById("button2");
+  button1.focus();
+  assert_equals(document.activeElement, button1, "Sanity check: the button1 must start focused");
 
-  button.click();
-  assert_equals(document.activeElement, button, "After clicking, the button must remain focused");
-}, "Clicking the active element");
+  button2.click();
+  assert_not_equals(document.activeElement, button1, "After clicking, the button1 must no longer be focused");
+  assert_equals(document.activeElement, button2, "After clicking, the button2 must be focused");
+}, "Clicking another focusable element");
+
+test(() => {
+  const button1 = document.getElementById("button1");
+  const parent = document.getElementById("parent");
+  button1.focus();
+  assert_equals(document.activeElement, button1, "Sanity check: the button1 must start focused");
+
+  parent.click();
+  assert_not_equals(document.activeElement, button1, "After clicking, the button1 must no longer be focused");
+  assert_equals(document.activeElement, document.body, "After clicking, the body must be focused");
+}, "Clicking the non focusable element");
 </script>
