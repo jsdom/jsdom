@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>relatedTarget in FocusEvent</title>
+<link rel="help" href="https://w3c.github.io/uievents/#dom-focusevent-relatedtarget">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="parent">
+  <button id="button1">Button1</button>
+  <button id="button2">Button2</button>
+</div>
+
+<script>
+"use strict";
+
+const types = ["focus", "focusin", "blur", "focusout"];
+let eventOrder = [];
+const eventRecords = new Map();
+function clearRecords() {
+  eventOrder = [];
+  eventRecords.clear();
+}
+function recordEvent(evt) {
+  const { target, type } = evt;
+  const key = `${target.id}-${type}`;
+  eventOrder.push(key);
+  eventRecords.set(key, evt);
+}
+
+test(() => {
+  const button1 = document.getElementById("button1");
+  types.forEach(type => {
+    button1.addEventListener(type, recordEvent);
+  });
+  clearRecords();
+
+  button1.focus();
+  assert_equals(
+    eventOrder.join(","),
+    "button1-focus,button1-focusin",
+    "dispatch focus and focusin events"
+  );
+  eventRecords.forEach((value, key) => {
+    const { relatedTarget, target } = value;
+    assert_equals(target, button1, `target of ${key} should be button1`);
+    assert_equals(relatedTarget, null, `relatedTarget of ${key} should be null`);
+  });
+
+  clearRecords();
+
+  button1.blur();
+  assert_equals(
+    eventOrder.join(","),
+    "button1-blur,button1-focusout",
+    "dispatch blur and focusout events"
+  );
+  eventRecords.forEach((value, key) => {
+    const { relatedTarget, target } = value;
+    assert_equals(target, button1, `target of ${key} should be button1`);
+    assert_equals(relatedTarget, null, `relatedTarget of ${key} should be null`);
+  });
+
+  types.forEach(type => {
+    button1.removeEventListener(type, recordEvent);
+  });
+}, "relatedTarget should be null on blur");
+
+test(() => {
+  const button1 = document.getElementById("button1");
+  const button2 = document.getElementById("button2");
+  types.forEach(type => {
+    button1.addEventListener(type, recordEvent);
+    button2.addEventListener(type, recordEvent);
+  });
+
+  button1.focus();
+
+  clearRecords();
+
+  button2.focus();
+  assert_equals(
+    eventOrder.join(","),
+    "button1-blur,button1-focusout,button2-focus,button2-focusin",
+    "dispatch blur and focusout events on button1, focus and focusin events on button2"
+  );
+  eventRecords.forEach((value, key) => {
+    const { relatedTarget, target } = value;
+    if (key.startsWith("button1")) {
+      assert_equals(target, button1, `target of ${key} should be button1`);
+      assert_equals(relatedTarget, button2, `relatedTarget of ${key} should be button2`);
+    } else {
+      assert_equals(target, button2, `target of ${key} should be button2`);
+      assert_equals(relatedTarget, button1, `relatedTarget of ${key} should be button1`);
+    }
+  });
+
+  types.forEach(type => {
+    button1.removeEventListener(type, recordEvent);
+    button2.removeEventListener(type, recordEvent);
+  });
+  button2.blur();
+}, "relatedTarget should be element on focusing of another focusable element");
+
+test(() => {
+  const parent = document.getElementById("parent");
+  const button1 = document.getElementById("button1");
+  types.forEach(type => {
+    button1.addEventListener(type, recordEvent);
+  });
+  clearRecords();
+
+  button1.focus();
+  assert_equals(
+    eventOrder.join(","),
+    "button1-focus,button1-focusin",
+    "dispatch focus and focusin events"
+  );
+  eventRecords.forEach((value, key) => {
+    const { relatedTarget, target } = value;
+    assert_equals(target, button1, `target of ${key} should be button1`);
+    assert_equals(relatedTarget, null, `relatedTarget of ${key} should be null`);
+  });
+
+  clearRecords();
+
+  parent.click();
+  assert_equals(
+    eventOrder.join(","),
+    "button1-blur,button1-focusout",
+    "dispatch blur and focusout events"
+  );
+  eventRecords.forEach((value, key) => {
+    const { relatedTarget, target } = value;
+    assert_equals(target, button1, `target of ${key} should be button1`);
+    assert_equals(relatedTarget, null, `relatedTarget of ${key} should be null`);
+  });
+
+  types.forEach(type => {
+    button1.removeEventListener(type, recordEvent);
+  });
+}, "relatedTarget should be null on clicking non focusable element");
+</script>

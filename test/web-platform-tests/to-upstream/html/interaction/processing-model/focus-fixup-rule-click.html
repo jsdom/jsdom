@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Focus fixup on click event</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focus-fixup-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="parent">
+  <button id="button1">Button1</button>
+  <button id="button2">Button2</button>
+</div>
+
+<script>
+"use strict";
+
+test(() => {
+  const button1 = document.getElementById("button1");
+  button1.focus();
+  assert_equals(document.activeElement, button1, "Sanity check: the button1 must start focused");
+
+  button1.click();
+  assert_equals(document.activeElement, button1, "After clicking, the button1 must remain focused");
+}, "Clicking the focused element");
+
+test(() => {
+  const button1 = document.getElementById("button1");
+  const button2 = document.getElementById("button2");
+  button1.focus();
+  assert_equals(document.activeElement, button1, "Sanity check: the button1 must start focused");
+
+  button2.click();
+  assert_not_equals(document.activeElement, button1, "After clicking, the button1 must no longer be focused");
+  assert_equals(document.activeElement, button2, "After clicking, the button2 must be focused");
+}, "Clicking another focusable element");
+
+test(() => {
+  const button1 = document.getElementById("button1");
+  const parent = document.getElementById("parent");
+  button1.focus();
+  assert_equals(document.activeElement, button1, "Sanity check: the button1 must start focused");
+
+  parent.click();
+  assert_not_equals(document.activeElement, button1, "After clicking, the button1 must no longer be focused");
+  assert_equals(document.activeElement, document.body, "After clicking, the body must be focused");
+}, "Clicking the non focusable element");
+</script>
