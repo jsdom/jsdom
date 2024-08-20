@@ -774,9 +774,6 @@ window-properties.https.html: [fail, Incorrectly implemented or not implemented]
   #"Window replaceable attribute: scrollY": [fail, Incorrectly implemented as a data property]
   #"constructor": [fail, Unknown]
 window-prototype-chain.html:
-  "Window.prototype": [fail, Unknown]
-  "Global scope polluter": [fail, Depends on the named properties object]
-  "EventTarget.prototype": [fail, Depends on the named properties object]
   "Object.prototype": [fail, Depends on the named properties object]
 window-reuse-in-nested-browsing-contexts.tentative.html:
   "synchronously navigate iframe with no initial src.": [fail, Unknown]
