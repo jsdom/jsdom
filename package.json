@@ -75,7 +75,6 @@
     "pretest": "npm run prepare && npm run wpt:init",
     "test": "npm-run-all --continue-on-error test:*",
     "test:api": "mocha test/api/",
-    "test:helper-unit-tests": "mocha test/helper-unit-tests/",
     "test:to-port-to-wpts": "mocha test/to-port-to-wpts/ && mocha test/to-port-to-wpts/level1/ && mocha test/to-port-to-wpts/level2/ && mocha test/to-port-to-wpts/level3/",
     "test:tuwpt": "mocha test/web-platform-tests/run-tuwpts.js",
     "test:wpt": "mocha test/web-platform-tests/run-wpts.js",
