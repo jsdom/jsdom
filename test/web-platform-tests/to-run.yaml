@@ -979,15 +979,9 @@ document-attribute.window.html: [fail, Unknown]
 garbage-collection-and-browsing-contexts/**: [timeout, Unknown]
 length-attribute.window.html: [fail, Unknown]
 name-attribute.window.html: [fail, Unknown]
-named-access-on-the-window-object/basics.html:
-  "A named property must not be enumerable": [fail, Unknown]
-named-access-on-the-window-object/cross-global-npo.html: [fail, Depends on the named properties object]
-named-access-on-the-window-object/name-attribute-elements.html:
-  "Only elements with specific local names may be returned if their name attribute matches (negative test)": [fail, Unknown]
 named-access-on-the-window-object/named-objects.html: [fail, "Harness error: Fails to hoist the on_load() function"]
-named-access-on-the-window-object/navigated-named-objects.window.html: [fail, Depends on the named properties object]
-named-access-on-the-window-object/prototype.html: [fail, Depends on the named properties object]
-named-access-on-the-window-object/window-named-properties.html: [timeout, Unknown]
+named-access-on-the-window-object/navigated-named-objects.window.html: [fail, Unknown]
+named-access-on-the-window-object/window-named-properties.html: [timeout, Depends on srcdoc]
 navigate-to-about-blank-while-initial-load-pending.html: [fail, Depends on window.open()]
 noopener-noreferrer-BarProp.window.html: [fail, Depends on window.open()]
 noopener-noreferrer-sizing.window.html: [fail, Depends on window.open()]
@@ -996,7 +990,6 @@ proxy-getOwnPropertyDescriptor.html:
   'Window target, no trap, "name" attribute': [fail, Incorrectly implemented as a data property]
 security-window/window-security.https.html: [fail, Exoticness of Window not implemented]
 self-et-al.window.html: [fail, Depends on window.open() and window.closed]
-window-indexed-access-vs-named-access.html: [fail, Unknown]
 window-indexed-properties-delete-no-cache.html: [fail-slow, deleting window indexed properties should fail to remove iframes]
 window-indexed-properties-strict.html:
   "Indexed properties of the window object (strict mode) 1": [fail, Unknown]
@@ -1012,12 +1005,9 @@ window-open-windowfeatures-values.html: [fail, Depends on BroadcastChannel]
 window-opener-unconfigurable.window.html: [fail, Not implemented]
 window-properties.https.html:
   "Window attribute: name": [fail, Incorrectly implemented as a data property]
-  "Window attribute: onmousewheel": [fail, https://github.com/web-platform-tests/wpt/pull/47780]
-  "Window attribute: onmove": [fail, https://github.com/web-platform-tests/wpt/pull/47780]
   "Window attribute: opener": [fail, Not implemented]
   "Window method: createImageBitmap": [fail, Not implemented]
   "Window method: matchMedia": [fail, Not implemented]
-  "constructor": [fail-lt-node22, Incorrectly implemented VM global prototype properties]
 window-reuse-in-nested-browsing-contexts.tentative.html:
   "synchronously navigate iframe with no initial src.": [fail, Unknown]
   "after the first iframe load event, navigate iframe with no initial src.": [fail, Unknown]
@@ -1030,6 +1020,7 @@ window-reuse-in-nested-browsing-contexts.tentative.html:
 DIR: html/browsers/the-windowproxy-exotic-object
 
 document-tree-child-browsing-context-name-property-set.sub.html: [fail, Exoticness of Window not implemented]
+windowproxy-prevent-extensions.html: [fail, WindowProxy is not actually a proxy so we cannot customize the preventExtensions]
 windowproxy-prototype-setting-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
 windowproxy-prototype-setting-cross-origin.sub.html: [fail, Exoticness of Window not implemented]
 windowproxy-prototype-setting-goes-cross-origin-domain.sub.html: [fail, Exoticness of Window not implemented]
