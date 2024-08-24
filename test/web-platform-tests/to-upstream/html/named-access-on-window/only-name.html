@@ -12,42 +12,44 @@
 "use strict";
 
 test(() => {
-  const tags = [
-    "a", "area", "embed", "form", "frameset", "img",
-    "A", "AREA", "EMBED", "FORM", "FRAMESET", "IMG"
-  ];
+  const localNames = ["embed", "form", "img", "object"];
 
-  for (const tagName of tags) {
-    const element = document.createElement(tagName);
+  for (const localName of localNames) {
+    const element = document.createElement(localName);
     element.setAttribute("name", "positive");
     document.body.appendChild(element);
   }
 
-  tags.forEach((tagName, index) => {
+  localNames.forEach((tagName, index) => {
     const element = window.positive[index];
-    assert_true(element && element.nodeName.toUpperCase() === tags[index].toUpperCase());
+    assert_not_equals(element, undefined);
+    assert_equals(element.localName, localNames[index]);
   });
-}, "Only elements with specific tag names may be returned if their name attribute matches");
+}, "Only elements with specific local names may be returned if their name attribute matches");
 
-test(() => {
+test(t => {
   // Not exhaustive
-  const tags = [
+  const localNames = [
+    "a", "area", "frameset",
     "div", "span", "style", "script", "h1", "strong", "input",
     "audio", "button", "select", "textarea"
   ];
 
-  for (const tagName of tags) {
-    const element = document.createElement(tagName);
+  for (const localName of localNames) {
+    const element = document.createElement(localName);
     element.setAttribute("name", "negative");
     document.body.appendChild(element);
+
+    t.add_cleanup(() => element.remove());
   }
 
-  assert_false(Boolean(window.negative));
-}, "Only elements with specific tag names may be returned if their name attribute matches (negative test)");
+  assert_equals(window.negative, undefined);
+}, "Only elements with specific local names may be returned if their name attribute matches (negative test)");
 
 test(() => {
   // Not exhaustive
-  const tags = [
+  const localNames = [
+    "a", "area", "frameset",
     "div", "span", "style", "script", "h1", "strong", "input",
     "audio", "button", "select", "textarea"
   ];
@@ -56,14 +58,13 @@ test(() => {
   img.setAttribute("name", "removed");
   document.body.appendChild(img);
 
-  for (const tagName of tags) {
-    const element = document.createElement(tagName);
+  for (const localName of localNames) {
+    const element = document.createElement(localName);
     element.setAttribute("name", "removed");
     document.body.appendChild(element);
-    document.body.removeChild(element);
+    element.remove();
   }
 
   assert_equals(window.removed, img);
 }, "Removing an element for which the name attribute is not tracked, should not cause errors upon removing it");
 </script>
-</body>

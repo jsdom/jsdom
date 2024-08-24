@@ -39,8 +39,8 @@ test(() => {
     }
   }
 
-  assert_true(found);
-}, "A named property should be enumerable");
+  assert_false(found);
+}, "A named property should not be enumerable");
 
 test(() => {
   const img = document.createElement("img");
