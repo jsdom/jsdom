@@ -824,8 +824,6 @@ window-properties.https.html:
   "Window replaceable attribute: scrollX": [fail, Incorrectly implemented as a data property]
   "Window replaceable attribute: scrollY": [fail, Incorrectly implemented as a data property]
   "constructor": [fail-lt-node22, Incorrectly implemented VM global prototype properties]
-window-prototype-chain.html:
-  "Object.prototype": [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
 window-reuse-in-nested-browsing-contexts.tentative.html:
   "synchronously navigate iframe with no initial src.": [fail, Unknown]
   "after the first iframe load event, navigate iframe with no initial src.": [fail, Unknown]
