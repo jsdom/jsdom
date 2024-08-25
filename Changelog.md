@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 24.1.3
+
+* Fixed calls to `postMessage()` that were done as a bare property (i.e., `postMessage()` instead of `window.postMessage()`).
+
 ## 24.1.2
 
 * Fixed an issue with the `in` operator applied to `EventTarget` methods, e.g. `'addEventListener' in window`, which only appeared in Node.js ≥22.5.0. (legendecas)
