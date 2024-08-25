@@ -26,6 +26,14 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 25.0.0
+
+This major release changes the prototype of a jsdom's `EventTarget.prototype` to point to the `Object.prototype` inside the jsdom, instead of pointing to the Node.js `Object.prototype`. Thus, the prototype chain of `Window` stays entirely within the jsdom, never crossing over into the Node.js realm.
+
+This only occurs when `runScripts` is set to non-default values of `"dangerously"` or `"outside-only"`, as with the default value, there is no separate `Object.prototype` inside the jsdom.
+
+This will likely not impact many programs, but could cause some changes in `instanceof` behavior, and so out of an abundance of caution, we're releasing it as a new major version.
+
 ## 24.1.3
 
 * Fixed calls to `postMessage()` that were done as a bare property (i.e., `postMessage()` instead of `window.postMessage()`).
