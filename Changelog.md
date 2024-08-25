@@ -26,6 +26,11 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 24.1.2
+
+* Fixed an issue with the `in` operator applied to `EventTarget` methods, e.g. `'addEventListener' in window`, which only appeared in Node.js ≥22.5.0. (legendecas)
+* Fixed the events fired by `blur()`: it no longer fires `focus` and `focusin` on the `Document`, and `blur` and `focusout` no longer have their `relatedTarget` property set. (asamuzaK)
+
 ## 24.1.1
 
 * Fixed selection methods to trigger the `selectionchange` event on the `Document` object. (piotr-oles)

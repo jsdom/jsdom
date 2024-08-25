@@ -1,6 +1,6 @@
 {
   "name": "jsdom",
-  "version": "24.1.1",
+  "version": "24.1.2",
   "description": "A JavaScript implementation of many web standards",
   "keywords": [
     "dom",
@@ -18,7 +18,10 @@
     "Pierre-Marie Dartus <dartus.pierremarie@gmail.com>"
   ],
   "license": "MIT",
-  "repository": "jsdom/jsdom",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsdom/jsdom.git"
+  },
   "dependencies": {
     "cssstyle": "^4.0.1",
     "data-urls": "^5.0.0",
