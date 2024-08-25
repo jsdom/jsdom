@@ -810,7 +810,6 @@ window-properties.https.html:
   "Window attribute: status": [fail, Incorrectly implemented as a data property]
   "Window method: createImageBitmap": [fail, Not implemented]
   "Window method: matchMedia": [fail, Not implemented]
-  "Window readonly attribute: applicationCache": [fail, Not implemented]
   "Window replaceable attribute: devicePixelRatio": [fail, Incorrectly implemented as a data property]
   "Window replaceable attribute: innerHeight": [fail, Incorrectly implemented as a data property]
   "Window replaceable attribute: innerWidth": [fail, Incorrectly implemented as a data property]
