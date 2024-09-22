@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 25.0.1
+
+* Updated dependencies, notably `tough-cookie`, which no longer prints a deprecation warning.
+
 ## 25.0.0
 
 This major release changes the prototype of a jsdom's `EventTarget.prototype` to point to the `Object.prototype` inside the jsdom, instead of pointing to the Node.js `Object.prototype`. Thus, the prototype chain of `Window` stays entirely within the jsdom, never crossing over into the Node.js realm.
