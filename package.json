@@ -23,7 +23,7 @@
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
   "dependencies": {
-    "cssstyle": "^4.0.1",
+    "cssstyle": "^4.1.0",
     "data-urls": "^5.0.0",
     "decimal.js": "^10.4.3",
     "form-data": "^4.0.0",
@@ -54,14 +54,14 @@
     }
   },
   "devDependencies": {
-    "@domenic/eslint-config": "^4.0.0",
+    "@domenic/eslint-config": "^4.0.1",
     "benchmark": "^2.1.4",
-    "eslint": "^9.7.0",
-    "eslint-plugin-html": "^8.1.1",
-    "globals": "^15.8.0",
+    "eslint": "^9.11.0",
+    "eslint-plugin-html": "^8.1.2",
+    "globals": "^15.9.0",
     "js-yaml": "^4.1.0",
     "minimatch": "^9.0.5",
-    "mocha": "^10.6.0",
+    "mocha": "^10.7.3",
     "mocha-sugar-free": "^1.4.0",
     "pngjs": "^7.0.0",
     "server-destroy": "^1.0.1",
