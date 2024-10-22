@@ -33,7 +33,7 @@
     "is-potential-custom-element-name": "^1.0.1",
     "nwsapi": "^2.2.12",
     "parse5": "^7.1.2",
-    "rrweb-cssom": "^0.7.1",
+    "rrweb-cssom": "^0.8.0",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
     "tough-cookie": "^5.0.0",
