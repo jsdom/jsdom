@@ -65,6 +65,7 @@ simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 
 ---
 
 DIR: css/css-nesting
+parsing.html: [fail, document.stylesheets is not implemented]
 
 ---
 
