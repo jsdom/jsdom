@@ -53,7 +53,7 @@ jobs:
         node-version:
           - 18
           - 20
-          - latest
+          - 22
     steps:
     - uses: actions/checkout@v4
       with:
