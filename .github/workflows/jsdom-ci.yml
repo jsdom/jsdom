@@ -24,18 +24,27 @@ jobs:
         run: npm ci
       - name: Run syntax rules check with ESLint
         run: npm run lint
-  build-with-canvas-v2:
+  build-with-canvas:
     name: Tests with node-canvas
     env:
       TEST_SUITE: 'node-canvas'
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - '20'
+          - '22'
+        canvas-version:
+          - '^2.11.2'
+          - '^3.0.0-rc3'
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: 'recursive'
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ matrix.node-version }}
       - name: Install required image manipulation packages with APT
         run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Setup HOSTS file for Web Platform Test server
@@ -43,27 +52,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run tests
-        run: npm install canvas@^2.11.2 && npm test -- --retries 1
-  build-with-canvas-v3:
-    name: Tests with node-canvas
-    env:
-      TEST_SUITE: 'node-canvas'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Install required image manipulation packages with APT
-        run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      - name: Setup HOSTS file for Web Platform Test server
-        run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
-      - name: Install dependencies
-        run: npm ci
-      - name: Run tests
-        run: npm install canvas@^3.0.0-rc3 && npm test -- --retries 1
+        run: npm install canvas@${{ matrix.canvas-version }} && npm test -- --retries 1
   build:
     name: Tests
     runs-on: ubuntu-latest
