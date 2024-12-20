@@ -29,21 +29,29 @@ jobs:
     env:
       TEST_SUITE: 'node-canvas'
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - node-version: '20'
+            canvas-version: '^2.11.2'
+          - node-version: '22'
+            canvas-version: '^3.0.0-rc3'
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: 'recursive'
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ matrix.node-version }}
       - name: Install required image manipulation packages with APT
         run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
-        run: npm ci
+        run: npm ci && npm install canvas@${{ matrix.canvas-version }}
       - name: Run tests
-        run: npm install canvas && npm test -- --retries 1
+        run: npm test -- --retries 1
   build:
     name: Tests
     runs-on: ubuntu-latest
