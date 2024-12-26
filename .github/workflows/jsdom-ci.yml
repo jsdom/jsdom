@@ -40,10 +40,10 @@ jobs:
         run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Setup HOSTS file for Web Platform Test server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies and canvas
+        run: npm ci && npm i canvas@3
       - name: Run tests
-        run: npm i canvas && npm test -- --retries 1
+        run: npm test -- --retries 1
   build:
     name: Tests
     runs-on: ubuntu-latest
