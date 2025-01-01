@@ -354,13 +354,9 @@ DIR: custom-elements
 
 CustomElementRegistry-getName.html: [fail, Unknown]
 CustomElementRegistry.html:
-#  'customElements.define must get "prototype", "disabledFeatures", and "formAssociated" property of the constructor': [fail, formAssociated not implemented]
-#  'customElements.define must get "observedAttributes" property on the constructor prototype when "attributeChangedCallback" is present': [fail, formAssociated not implemented]
-#  'customElements.define must rethrow an exception thrown while getting formAssociated on the constructor prototype': [fail, formAssociated not fully implemented]
   'customElements.define must get four additional callbacks on the prototype if formAssociated is converted to true': [fail, formAssociated not fully implemented]
   'customElements.define must rethrow an exception thrown while getting additional formAssociated callbacks on the constructor prototype': [fail, formAssociated not fully implemented]
   'customElements.whenDefined must return a promise for a valid custom element name': [fail, Unknown]
-#  'customElements.define must not throw when defining another custom element in a different global object during Get(constructor, "prototype")': [fail, Not supported]
 Document-createElement-customized-builtins.html:
   "document.createElement must report an exception thrown by a custom built-in element constructor": [fail, Unknown]
   "document.createElement must create an instance of autonomous custom elements when it has is attribute": [fail, :defined is not defined and throws]
@@ -394,9 +390,6 @@ element-internals-aria-element-reflection.html:
   "Getting previously-unset ARIA element reflection properties on ElementInternals should return null.": [fail, Unknown]
 form-associated/ElementInternals-NotSupportedError.html: [fail-slow, Not implemented]
 form-associated/ElementInternals-form.html: [fail-slow, Not implemented]
-# form-associated/ElementInternals-labels.html: [fail-slow, Not implemented]
-# form-associated/ElementInternals-reportValidity-bubble-notref.html: [fail-slow, Not implemented] # cannot be found, even though html file exists?
-# form-associated/ElementInternals-reportValidity-bubble.html: [fail-slow, Not implemented] # cannot be found, even though html file exists?
 form-associated/ElementInternals-setFormValue-nullish-value.html: [fail-slow, Not implemented]
 form-associated/ElementInternals-setFormValue.html: [fail-slow, Not implemented]
 form-associated/ElementInternals-target-element-is-held-strongly.html: [fail-slow, Not implemented]
@@ -408,7 +401,6 @@ form-associated/form-associated-callback.html: [fail-slow, Not implemented]
 form-associated/form-disabled-callback.html: [fail-slow, Not implemented]
 form-associated/form-elements-namedItem.html: [fail-slow, Not implemented]
 form-associated/form-reset-callback.html: [fail-slow, Not implemented]
-# form-associated/label-delegatesFocus.html: [fail-slow, Not implemented] # cannot be found, even though html file exists?
 htmlconstructor/newtarget-customized-builtins.html: [fail, unknown]
 htmlconstructor/newtarget.html: [fail, Currently impossible to get the active function associated realm]
 microtasks-and-constructors.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
