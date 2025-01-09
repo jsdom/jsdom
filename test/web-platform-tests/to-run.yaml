@@ -1764,7 +1764,6 @@ url-constructor.any.html**: [fail, Depends on fetch]
 url-origin.any.html: [fail, Depends on fetch]
 url-setters-a-area.window.html**: [fail, Depends on fetch]
 url-setters.any.html**: [fail, Depends on fetch]
-url-statics-parse.any.html: [fail, URL.parse not implemented]
 urlencoded-parser.any.html: [fail, Depends on fetch]
 
 ---
