@@ -26,6 +26,20 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 26.0.0
+
+Breaking change: [`canvas`](https://www.npmjs.com/package/canvas) peer dependency requirement has been upgraded from v2 to v3. (sebastianwachter)
+
+Other changes:
+
+* Added `AbortSignal.any()`. (jdbevan)
+* Added initial support for form-associated custom elements, in particular making them labelable and supporting the `ElementInternals` `labels` property. The form-associated callbacks are not yet supported. (hesxenon)
+* Updated `whatwg-url`, adding support for `URL.parse()`.
+* Updated `cssstyle` and `rrweb-cssom`, to improve CSS parsing capabilities.
+* Updated `nwsapi`, improving CSS selector matching.
+* Updated `parse5`, fixing a bug around `<noframes>` elements and HTML entity decoding.
+* Fixed `JSDOM.fromURL()` to properly reject the returned promise if the server redirects to an invalid URL, instead of causing an uncaught exception.
+
 ## 25.0.1
 
 * Updated dependencies, notably `tough-cookie`, which no longer prints a deprecation warning.

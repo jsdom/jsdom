@@ -39,6 +39,7 @@ Avi Vahl <avi.vahl@wix.com>
 Behind The Math <aryehb412@gmail.com>
 Ben Gilbert <TheHound@users.noreply.github.com>
 Bernd Hacker <hacker.bernd@gmail.com>
+Birk Skyum <74932975+birkskyum@users.noreply.github.com>
 Brandon Bethke <brandon.bethke@neudesic.com>
 Brandon Paton <brandon@localizejs.com>
 Brendan Abbott <brendan@bloodbone.ws>
@@ -120,6 +121,7 @@ gregory80 <gregory.tomlinson@gmail.com>
 Haz <hazdiego@gmail.com>
 Henrik Giesel <hengiesel@gmail.com>
 Henry Zhu <hi@henryzoo.com>
+hesxenon <10255566+hesxenon@users.noreply.github.com>
 hij1nx <fernmicro@gmail.com>
 i8-pi <thomas@nomology.id.au>
 Ian Young <ian.greenleaf@gmail.com>
@@ -155,6 +157,7 @@ Johan Sköld <johan@pingdom.com>
 John Hurliman <jhurliman@jhurliman.org>
 John Nguyen <tgohn@users.noreply.github.com>
 John Roberts <jroberts@logitech.com>
+Jon Bevan <jon@jdbevan.com>
 Jon Dufresne <jon.dufresne@gmail.com>
 Jon Jensen <jenseng@gmail.com>
 Jon Sakas <jon.sakas@gmail.com>
@@ -200,6 +203,7 @@ Lon Ingram <lawnsea@gmail.com>
 Louis-Dominique Dubeau <ldd@lddubeau.com>
 lovebear <hheennrryy@gmail.com>
 Lucian Buzzo <LucianBuzzo@users.noreply.github.com>
+Lucian Mocanu <alumni@users.noreply.github.com>
 Ludovico Fischer <livrerie@gmail.com>
 Luis Silva <fetzpt@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
@@ -296,6 +300,7 @@ Sebastiaan Marynissen <sebastiaan.marynissen@gmail.com>
 Sebastian Mayr <github@smayr.name>
 Sebastian McKenzie <sebmck@gmail.com>
 Sebastian Silbermann <silbermann.sebastian@gmail.com>
+Sebastian Wachter <sebastian.wachter@online.de>
 Sébastien Doeraene <sjrdoeraene@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
