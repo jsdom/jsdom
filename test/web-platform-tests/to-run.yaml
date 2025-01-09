@@ -430,8 +430,6 @@ upgrading/upgrade-custom-element-error-event.html: [fail, Unknown]
 
 DIR: dom/abort
 
-abort-signal-any.any.html: [fail, Not implemented]
-
 ---
 
 DIR: dom/collections
