@@ -20,7 +20,7 @@ interface ElementInternals {
   // boolean checkValidity();
   // boolean reportValidity();
 
-  // readonly attribute NodeList labels;
+  readonly attribute NodeList labels;
 
   // Custom state pseudo-class
   // [SameObject] readonly attribute CustomStateSet states;
