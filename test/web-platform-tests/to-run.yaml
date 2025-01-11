@@ -1,9 +1,7 @@
 DIR: FileAPI
 
 Blob-methods-from-detached-frame.html: [timeout, Unknown]
-BlobURL/cross-partition-navigation.https.html: [fail, Unknown]
-BlobURL/cross-partition-worker-creation.https.html: [fail, Unknown]
-BlobURL/cross-partition.https.html: [fail, Unknown]
+BlobURL/**: [fail, Unknown]
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
 blob/Blob-bytes.any.html: [fail, Depends on TextEncoder]
@@ -617,24 +615,12 @@ upgrading/upgrade-custom-element-error-event.html: [fail, Unknown]
 
 DIR: dom/abort
 
-AbortSignal.any.shadowrealm-in-dedicatedworker.html: [fail, Depends on Worker]
-AbortSignal.any.shadowrealm-in-shadowrealm.html: [fail, Depends on ShadowRealm]
-AbortSignal.any.shadowrealm-in-sharedworker.html: [fail, Depends on SharedWorker]
-AbortSignal.any.shadowrealm-in-window.html: [fail, Depends on ShadowRealm]
-AbortSignal.https.any.shadowrealm-in-audioworklet.html: [timeout, Unknown]
-AbortSignal.https.any.shadowrealm-in-serviceworker.html: [timeout, Unknown]
-event.any.shadowrealm-in-dedicatedworker.html: [fail, Depends on Worker]
-event.any.shadowrealm-in-shadowrealm.html: [fail, Depends on ShadowRealm]
-event.any.shadowrealm-in-sharedworker.html: [fail, Depends on SharedWorker]
-event.any.shadowrealm-in-window.html: [fail, Depends on ShadowRealm]
-event.https.any.shadowrealm-in-audioworklet.html: [timeout, Unknown]
-event.https.any.shadowrealm-in-serviceworker.html: [timeout, Unknown]
-timeout-shadowrealm.any.shadowrealm-in-dedicatedworker.html: [fail, Depends on Worker]
-timeout-shadowrealm.any.shadowrealm-in-shadowrealm.html: [fail, Depends on ShadowRealm]
-timeout-shadowrealm.any.shadowrealm-in-sharedworker.html: [fail, Depends on SharedWorker]
-timeout-shadowrealm.any.shadowrealm-in-window.html: [fail, Depends on ShadowRealm]
-timeout-shadowrealm.https.any.shadowrealm-in-audioworklet.html: [timeout, Unknown]
-timeout-shadowrealm.https.any.shadowrealm-in-serviceworker.html: [timeout, Unknown]
+AbortSignal.any.shadowrealm-in-*: [timeout, Not implemented]
+AbortSignal.https.any.shadowrealm-in-*: [timeout, Not implemented]
+event.any.shadowrealm-in-*: [timeout, Not implemented]
+event.https.any.shadowrealm-in-*: [timeout, Not implemented]
+timeout-shadowrealm.any.shadowrealm-in-*: [timeout, Not implemented]
+timeout-shadowrealm.https.any.shadowrealm-in-*: [timeout, Not implemented]
 
 ---
 
@@ -1853,12 +1839,8 @@ callback-cross-realm-report-exception.html: [fail, Unknown]
 DIR: html/webappapis/atob
 
 base64.any.html: [fail, Depends on fetch]
-base64.any.shadowrealm-in-dedicatedworker.html: [fail, Depeds on Worker]
-base64.any.shadowrealm-in-shadowrealm.html: [fail, Depends on ShadowRealm]
-base64.any.shadowrealm-in-sharedworker.html: [fail, Depends on SharedWorker]
-base64.any.shadowrealm-in-window.html: [fail, Depends on ShadowRealm]
-base64.https.any.shadowrealm-in-audioworklet.html: [timeout, Unknown]
-base64.https.any.shadowrealm-in-serviceworker.html: [timeout, Unknown]
+base64.any.shadowrealm-in-*: [timeout, Not implemented]
+base64.https.any.shadowrealm-in-*: [timeout, Not implemented]
 
 ---
 
