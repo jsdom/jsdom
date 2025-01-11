@@ -1377,6 +1377,7 @@ update-the-image-data/current-request-microtask.html: [fail, Unknown]
 update-the-image-data/fail-to-resolve.html: [timeout, Resource loader doesn't catch bad URLs at the right point in the process]
 update-the-image-data/lazy-out-of-band-load.html: [timeout, Unknown]
 update-the-image-data/not-broken-while-load-task-scheduled.html: [fail, Unknown]
+update-the-image-data/src-then-lazy-load.html: [fail-with-canvas, Unknown]
 update-the-source-set.html: [timeout, Unimplemented]
 usemap-casing.html: [fail-with-canvas, Can't seem to handle onload = () => ...]
 
