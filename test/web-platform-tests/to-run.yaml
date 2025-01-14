@@ -38,26 +38,7 @@ DIR: WebCryptoAPI
 
 algorithm-discards-context.https.window.html: [fail-slow, Tests non-implemented methods]
 crypto_key_cached_slots.https.any.html: [fail, Not implemented]
-derive_bits_keys/cfrg_curves_bits_curve25519.https.any.html: [fail, Not implemented]
-derive_bits_keys/cfrg_curves_bits_curve448.https.any.html: [fail, Not implemented]
-derive_bits_keys/cfrg_curves_keys_curve25519.https.any.html: [fail, Not implemented]
-derive_bits_keys/cfrg_curves_keys_curve448.https.any.html: [fail, Not implemented]
-derive_bits_keys/derived_bits_length.https.any.html: [fail, Not implemented]
-derive_bits_keys/ecdh_bits.https.any.html: [fail, Not implemented]
-derive_bits_keys/ecdh_keys.https.any.html: [fail, Not implemented]
-derive_bits_keys/hkdf.https.any.html?1-1000: [fail, Not implemented]
-derive_bits_keys/hkdf.https.any.html?1001-2000: [fail, Not implemented]
-derive_bits_keys/hkdf.https.any.html?2001-3000: [fail, Not implemented]
-derive_bits_keys/hkdf.https.any.html?3001-last: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?1-1000: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?1001-2000: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?2001-3000: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?3001-4000: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?4001-5000: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?5001-6000: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?6001-7000: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?7001-8000: [fail, Not implemented]
-derive_bits_keys/pbkdf2.https.any.html?8001-last: [fail, Not implemented]
+derive_bits_keys/!(derive_key_and_encrypt.https.any.html): [fail, Not implemented]
 digest/digest.https.any.html: [fail, Unknown]
 encrypt_decrypt/**: [fail, Not implemented]
 generateKey/**: [fail, Not implemented]
@@ -613,17 +594,6 @@ upgrading/upgrade-custom-element-error-event.html: [fail, Unknown]
 
 ---
 
-DIR: dom/abort
-
-AbortSignal.any.shadowrealm-in-*: [timeout, Not implemented]
-AbortSignal.https.any.shadowrealm-in-*: [timeout, Not implemented]
-event.any.shadowrealm-in-*: [timeout, Not implemented]
-event.https.any.shadowrealm-in-*: [timeout, Not implemented]
-timeout-shadowrealm.any.shadowrealm-in-*: [timeout, Not implemented]
-timeout-shadowrealm.https.any.shadowrealm-in-*: [timeout, Not implemented]
-
----
-
 DIR: dom/collections
 
 ---
@@ -769,14 +739,12 @@ clamped-time-origin-isolated.https.html: [fail, Needs crossOriginIsolated]
 clamped-time-origin.html: [fail, Needs crossOriginIsolated]
 cross-origin-isolated-timing-attack.https.html: [fail, Not implemented]
 idlharness.any.html: [fail, Depends on fetch]
-idlharness.any.shadowrealm-in-window.html: [fail, Depends on ShadowRealm]
 navigation-start-post-before-unload.html: [fail-slow, postMessage with a single argument not implemented]
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 raf-coarsened-time.https.html: [timeout, Unknown]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
 timing-attack.html: [fail, Not implemented]
-window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
 
 ---
 
@@ -1177,7 +1145,6 @@ elements/global-attributes/translate-non-html-translation-mode.html: [fail, Not 
 elements/images/bypass-cache-revalidation.html: [fail-slow, Unknown]
 elements/the-innertext-and-outertext-properties/*: [fail, Not implemented]
 historical.html: [fail, Unknown]
-idlharness.any.shadowrealm-in-window.html: [fail, Depends on ShadowRealm]
 idlharness.https.html*: [fail, Unknown]
 reflection*.html: [fail-slow, Unknown]
 render-blocking/*: [fail-slow, Not implemented]
@@ -1839,8 +1806,6 @@ callback-cross-realm-report-exception.html: [fail, Unknown]
 DIR: html/webappapis/atob
 
 base64.any.html: [fail, Depends on fetch]
-base64.any.shadowrealm-in-*: [timeout, Not implemented]
-base64.https.any.shadowrealm-in-*: [timeout, Not implemented]
 
 ---
 
@@ -2008,7 +1973,6 @@ a-element.html**: [fail, Depends on fetch]
 failure.html: [fail, Depends on fetch]
 historical.any.html: [fail, Depends on structuredClone]
 idlharness.any.html: [fail, Depends on fetch]
-idlharness.any.shadowrealm-in-window.html: [fail, Depends on ShadowRealm]
 percent-encoding.window.html: [fail, Depends on fetch]
 toascii.window.html: [fail, Depends on fetch]
 url-constructor.any.html**: [fail, Depends on fetch]
