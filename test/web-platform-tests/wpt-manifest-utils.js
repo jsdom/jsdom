@@ -24,6 +24,10 @@ exports.getPossibleTestFilePaths = manifest => {
           if (test[key][1][1].testdriver) {
             continue;
           }
+          // Globally disable shadowrealm tests
+          if (/[a-z\.-]+\.any\.shadowrealm-in-[a-z]+/.test(testPath)) {
+            continue;
+          }
 
           allPaths.push(testPath);
         }
