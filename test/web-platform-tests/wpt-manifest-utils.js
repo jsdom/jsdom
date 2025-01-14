@@ -25,7 +25,7 @@ exports.getPossibleTestFilePaths = manifest => {
             continue;
           }
           // Globally disable shadowrealm tests
-          if (/[a-z\.-]+\.any\.shadowrealm-in-[a-z]+/.test(testPath)) {
+          if (/[a-z\d.-]+\.any\.shadowrealm-in-[a-z]+/.test(testPath)) {
             continue;
           }
 

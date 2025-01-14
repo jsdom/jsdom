@@ -594,6 +594,10 @@ upgrading/upgrade-custom-element-error-event.html: [fail, Unknown]
 
 ---
 
+DIR: dom/abort
+
+---
+
 DIR: dom/collections
 
 ---
@@ -745,6 +749,7 @@ raf-coarsened-time.https.html: [timeout, Unknown]
 test_cross_frame_start.html: [fail, Not implemented]
 timeOrigin.html: [fail, Needs Worker implementation]
 timing-attack.html: [fail, Not implemented]
+window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
 
 ---
 
@@ -1506,6 +1511,7 @@ select-value-selectedOption.tentative.html:
   "Test that HTMLOption.selected updates select.value and select.selectedOptions": [fail, Unknown]
 select-willvalidate-readonly-attribute.html: [fail, Not implemented]
 show-picker-cross-origin-iframe.html: [fail-slow, Unknown]
+
 ---
 
 DIR: html/semantics/forms/the-textarea-element
