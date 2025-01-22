@@ -1,0 +1,64 @@
+name: Bug report
+description: Report an issue with jsdom. Bugs not following this template will be closed.
+
+body:
+  - type: input
+    id: node_version
+    attributes:
+      label: Node.js version
+      description: The version of Node.js you are using. Only v18 and above are supported.
+    validations:
+      required: true
+  - type: input
+    id: jsdom_version
+    attributes:
+      label: jsdom version
+      description: The version of jsdom you are using. Only the latest major version line is supported.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction case
+      render: js
+      description: |
+        Please create a minimal repro. Any reports involving third party libraries
+        will be closed, as we cannot debug third-party library interactions for you.
+
+        Please do not use syntax that is not supported in Node.js, such as JSX. If
+        we cannot run the code in Node.js, we will close the issue, as we cannot
+        debug whatever toolchain you are using.
+
+        **TO BE CLEAR**: your example needs to be self-contained enough that we can
+        copy-paste it into a file named `test.js`, and then run it using
+        `node test.js`. *No* Jest or similar.
+
+        **IF YOU DO NOT FOLLOW THESE INSTRUCTIONS WE WILL CLOSE THE ISSUE.**
+      placeholder: |
+        const { JSDOM } = require("jsdom");
+
+        const options = {
+          ... your options here ...
+        };
+        const dom = new JSDOM(`
+          ... your HTML here ...
+        `, options);
+
+        ... your code that reproduces the problem here, probably using dom.window ...
+    validations:
+      required: true
+  - type: textarea
+    id: similar_code
+    attributes:
+      label: How does similar code behave in browsers?
+      description: Link to a jsbin or similar strongly suggested.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem?
+      description: A clear and concise description of what you expected vs. what happened.
+      placeholder: |
+        I expected this to output "foo", like the similar code does in the jsbin I linked to running in Chrome.
+        Instead, it outputs "bar" in jsdom.
