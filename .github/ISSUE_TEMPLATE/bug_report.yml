@@ -22,19 +22,14 @@ body:
       label: Minimal reproduction case
       render: js
       description: |
-        Please create a minimal repro. Any reports involving third party libraries
-        will be closed, as we cannot debug third-party library interactions for you.
+        Please create a minimal repro. Any reports involving third party libraries will be closed, as we cannot debug third-party library interactions for you.
 
-        Please do not use syntax that is not supported in Node.js, such as JSX. If
-        we cannot run the code in Node.js, we will close the issue, as we cannot
-        debug whatever toolchain you are using.
+        Please do not use syntax that is not supported in Node.js, such as JSX. If we cannot run the code in Node.js, we will close the issue, as we cannot debug whatever toolchain you are using.
 
-        **TO BE CLEAR**: your example needs to be self-contained enough that we can
-        copy-paste it into a file named `test.js`, and then run it using
-        `node test.js`. *No* Jest or similar.
+        **TO BE CLEAR**: your example needs to be self-contained enough that we can copy-paste it into a file named `test.js`, and then run it using `node test.js`. *No* Jest or similar.
 
         **IF YOU DO NOT FOLLOW THESE INSTRUCTIONS WE WILL CLOSE THE ISSUE.**
-      placeholder: |
+      value: |
         const { JSDOM } = require("jsdom");
 
         const options = {
