@@ -1,7 +1,7 @@
 "use strict";
 const fs = require("fs");
 
-const EXPECTED_MANIFEST_VERSION = 8;
+const EXPECTED_MANIFEST_VERSION = 9;
 
 exports.getPossibleTestFilePaths = manifest => {
   const testharnessTests = manifest.items.testharness;
@@ -22,6 +22,10 @@ exports.getPossibleTestFilePaths = manifest => {
           }
           // Globally disable testdriver tests
           if (test[key][1][1].testdriver) {
+            continue;
+          }
+          // Globally disable shadowrealm tests
+          if (/[a-z\d.-]+\.any\.shadowrealm-in-[a-z]+/.test(testPath)) {
             continue;
           }
 
