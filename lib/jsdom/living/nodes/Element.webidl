@@ -30,6 +30,8 @@ interface Element : Node {
   [CEReactions] Attr? setAttributeNodeNS(Attr attr);
   [CEReactions] Attr removeAttributeNode(Attr attr);
 
+  boolean checkVisibility(optional CheckVisibilityOptions options = {});
+
   ShadowRoot attachShadow(ShadowRootInit init);
   readonly attribute ShadowRoot? shadowRoot;
 
@@ -67,6 +69,14 @@ enum ScrollLogicalPosition { "start", "center", "end", "nearest" };
 dictionary ScrollIntoViewOptions : ScrollOptions {
   ScrollLogicalPosition block = "start";
   ScrollLogicalPosition inline = "nearest";
+};
+
+dictionary CheckVisibilityOptions {
+  boolean contentVisibilityAuto = false;
+  boolean opacityProperty = false;
+  boolean visibilityProperty = false;
+  boolean checkOpacity = false;
+  boolean checkVisibilityCSS = false;
 };
 
 partial interface Element {
