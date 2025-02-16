@@ -1,6 +1,5 @@
 "use strict";
 /* eslint-disable no-console */
-/* eslint-disable no-invalid-this */
 
 function onError(event) {
   const bench = event.target;

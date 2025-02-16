@@ -21,7 +21,7 @@ module.exports = urlPrefixFactory => {
       title,
       expectPromise: true,
       // WPT also takes care of timeouts (maximum 60 seconds), this is an extra failsafe:
-      timeout: 70_000,
+      timeout: 120_000,
       slow: 10_000,
       fn() {
         return createJSDOM(urlPrefixFactory(), testPath, expectFail);

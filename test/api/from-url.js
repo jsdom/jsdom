@@ -58,6 +58,12 @@ describe("API: JSDOM.fromURL()", () => {
       assert.equal(dom.serialize(), "<html><head></head><body><p>Hello</p></body></html>");
     });
 
+    it("should give an appropriate error for invalid redirect URLs (GH-3804)", async () => {
+      const url = await badRedirectServer();
+
+      assert.rejects(JSDOM.fromURL(url), "Invalid URL");
+    });
+
     it("should be able to handle gzipped bodies", async () => {
       const body = zlib.gzipSync("<p>Hello world!</p>");
       const headers = { "Content-Type": "text/html", "Content-Length": body.byteLength, "Content-Encoding": "gzip" };
@@ -281,4 +287,14 @@ async function redirectServer(body, extraInitialResponseHeaders, ultimateRespons
   const base = `http://127.0.0.1:${server.address().port}/`;
 
   return [base + "1", base + "2"];
+}
+
+async function badRedirectServer() {
+  const server = await createServer((req, res) => {
+    res.writeHead(301, { Location: "https://" });
+    res.end();
+    server.destroy();
+  });
+
+  return `http://127.0.0.1:${server.address().port}/`;
 }

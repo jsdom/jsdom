@@ -10,7 +10,8 @@ const { resolveReason, killSubprocess } = require("./utils.js");
 
 const validInnerReasons = new Set([
   "fail",
-  "fail-with-canvas"
+  "fail-with-canvas",
+  "fail-lt-node22"
 ]);
 
 const validReasons = new Set([

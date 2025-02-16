@@ -39,6 +39,7 @@ Avi Vahl <avi.vahl@wix.com>
 Behind The Math <aryehb412@gmail.com>
 Ben Gilbert <TheHound@users.noreply.github.com>
 Bernd Hacker <hacker.bernd@gmail.com>
+Birk Skyum <74932975+birkskyum@users.noreply.github.com>
 Brandon Bethke <brandon.bethke@neudesic.com>
 Brandon Paton <brandon@localizejs.com>
 Brendan Abbott <brendan@bloodbone.ws>
@@ -48,6 +49,7 @@ Brian McDaniel <brianmcd05@gmail.com>
 Brian Peacock <bpeacock@fastfig.com>
 Carlos Serrano <carlos.pastor@mailonline.co.uk>
 Chad Walker <chad@chad-cat-lore-eddie.com>
+Chengzhong Wu <legendecas@gmail.com>
 Chris Buckley <chris@cmbuckley.co.uk>
 Chris Carpita <ccarpita@gmail.com>
 Chris Hughes <contact@chrishughesdev.com>
@@ -72,6 +74,7 @@ d-ash <andrey.shubin@gmail.com>
 Dav Glass <davglass@gmail.com>
 Dave Clark <dave@dcwarwick.org.uk>
 Dave Methvin <dave.methvin@gmail.com>
+David Myers <davidrmyersii@gmail.com>
 Davide P. Cervone <dpvc@union.edu>
 Derek Lindahl <dlindahl@customink.com>
 Domenic Denicola <d@domenic.me>
@@ -118,6 +121,7 @@ gregory80 <gregory.tomlinson@gmail.com>
 Haz <hazdiego@gmail.com>
 Henrik Giesel <hengiesel@gmail.com>
 Henry Zhu <hi@henryzoo.com>
+hesxenon <10255566+hesxenon@users.noreply.github.com>
 hij1nx <fernmicro@gmail.com>
 i8-pi <thomas@nomology.id.au>
 Ian Young <ian.greenleaf@gmail.com>
@@ -153,6 +157,7 @@ Johan Sköld <johan@pingdom.com>
 John Hurliman <jhurliman@jhurliman.org>
 John Nguyen <tgohn@users.noreply.github.com>
 John Roberts <jroberts@logitech.com>
+Jon Bevan <jon@jdbevan.com>
 Jon Dufresne <jon.dufresne@gmail.com>
 Jon Jensen <jenseng@gmail.com>
 Jon Sakas <jon.sakas@gmail.com>
@@ -198,6 +203,7 @@ Lon Ingram <lawnsea@gmail.com>
 Louis-Dominique Dubeau <ldd@lddubeau.com>
 lovebear <hheennrryy@gmail.com>
 Lucian Buzzo <LucianBuzzo@users.noreply.github.com>
+Lucian Mocanu <alumni@users.noreply.github.com>
 Ludovico Fischer <livrerie@gmail.com>
 Luis Silva <fetzpt@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
@@ -255,6 +261,7 @@ Phil Dokas <pdokas@organic.com>
 Philipp Fritsche <ph.fritsche@gmail.com>
 Philippe Ozil <5071767+pozil@users.noreply.github.com>
 Pierre-Marie Dartus <dartus.pierremarie@gmail.com>
+Piotr Oleś <piotrek.oles@gmail.com>
 Rafał Chłodnicki <rchl2k@gmail.com>
 Rainer Eli <claushellsing@gmail.com>
 Ralph Holzmann <ralphholzmann@gmail.com>
@@ -293,6 +300,7 @@ Sebastiaan Marynissen <sebastiaan.marynissen@gmail.com>
 Sebastian Mayr <github@smayr.name>
 Sebastian McKenzie <sebmck@gmail.com>
 Sebastian Silbermann <silbermann.sebastian@gmail.com>
+Sebastian Wachter <sebastian.wachter@online.de>
 Sébastien Doeraene <sjrdoeraene@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
@@ -321,6 +329,7 @@ Tom Hudson <mail@tomnomnom.com>
 Tom Jenkinson <tjenkinson@users.noreply.github.com>
 Tom Taylor <tom@tomtaylor.co.uk>
 ulteriorlife <ulteriorlife@gmail.com>
+ushiboy <ushikic@gmail.com>
 Vadim Baryshev <vadimbaryshev@gmail.com>
 Vegard B. Bugge <vegabug@live.no>
 Viachaslau <pmstss@gmail.com>
@@ -331,6 +340,7 @@ vsemozhetbyt <vsemozhetbyt@gmail.com>
 Vytautas Jakutis <vytautas@jakutis.lt>
 waslogic <waslogic@gmail.com>
 Wei Dai <x@wei23.net>
+Will Harney <62956339+wjhsf@users.noreply.github.com>
 William Cunningham <w.a.cunningham.ii@gmail.com>
 Xavi <xavi.rmz@gmail.com>
 Yonathan <yonathan@gmail.com>

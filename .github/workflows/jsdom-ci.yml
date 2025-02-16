@@ -19,10 +19,10 @@ jobs:
           submodules: 'recursive'
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 22
       - name: Install dependencies
         run: npm ci
-      - name: Run syntax rules check with ESLint
+      - name: Run ESLint
         run: npm run lint
   build-with-canvas:
     name: Tests with node-canvas
@@ -32,18 +32,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: 'recursive'
+          submodules: recursive
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 22
       - name: Install required image manipulation packages with APT
         run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      - name: Setup HOSTS file for Web Platform Test server
+      - name: Setup hosts file for web platform tests server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies and canvas
+        run: npm ci && npm i canvas@3
       - name: Run tests
-        run: npm install canvas && npm test -- --retries 1
+        run: npm test -- --retries 1
   build:
     name: Tests
     runs-on: ubuntu-latest
@@ -53,17 +53,18 @@ jobs:
         node-version:
           - 18
           - 20
+          - 22
           - latest
     steps:
     - uses: actions/checkout@v4
       with:
-        submodules: 'recursive'
+        submodules: recursive
     - uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Setup HOSTS file for Web Platform Test server
+    - name: Setup hosts file for web platform tests server
       run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --engine-strict
     - name: Run tests
-      run: npm run test -- --retries 1
+      run: npm test -- --retries 1

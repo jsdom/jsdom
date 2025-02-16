@@ -7,7 +7,7 @@ const { Canvas } = require("../../lib/jsdom/utils.js");
 
 const hasCanvas = Boolean(Canvas);
 
-const nodeMajorVersion = process.versions.node.split(".")[0];
+const nodeMajorVersion = Number.parseInt(process.versions.node.split(".")[0]);
 
 exports.resolveReason = reason => {
   if (["fail-slow", "timeout", "flaky"].includes(reason)) {
@@ -18,8 +18,12 @@ exports.resolveReason = reason => {
     return "skip";
   }
 
-  if (reason === "fail-node18" && nodeMajorVersion === "18") {
+  if (reason === "fail-node18" && nodeMajorVersion === 18) {
     return "skip";
+  }
+
+  if (reason === "fail-lt-node22" && nodeMajorVersion < 22) {
+    return "expect-fail";
   }
 
   if (reason === "fail" ||

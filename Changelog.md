@@ -26,6 +26,51 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 26.0.0
+
+Breaking change: [`canvas`](https://www.npmjs.com/package/canvas) peer dependency requirement has been upgraded from v2 to v3. (sebastianwachter)
+
+Other changes:
+
+* Added `AbortSignal.any()`. (jdbevan)
+* Added initial support for form-associated custom elements, in particular making them labelable and supporting the `ElementInternals` `labels` property. The form-associated callbacks are not yet supported. (hesxenon)
+* Updated `whatwg-url`, adding support for `URL.parse()`.
+* Updated `cssstyle` and `rrweb-cssom`, to improve CSS parsing capabilities.
+* Updated `nwsapi`, improving CSS selector matching.
+* Updated `parse5`, fixing a bug around `<noframes>` elements and HTML entity decoding.
+* Fixed `JSDOM.fromURL()` to properly reject the returned promise if the server redirects to an invalid URL, instead of causing an uncaught exception.
+
+## 25.0.1
+
+* Updated dependencies, notably `tough-cookie`, which no longer prints a deprecation warning.
+
+## 25.0.0
+
+This major release changes the prototype of a jsdom's `EventTarget.prototype` to point to the `Object.prototype` inside the jsdom, instead of pointing to the Node.js `Object.prototype`. Thus, the prototype chain of `Window` stays entirely within the jsdom, never crossing over into the Node.js realm.
+
+This only occurs when `runScripts` is set to non-default values of `"dangerously"` or `"outside-only"`, as with the default value, there is no separate `Object.prototype` inside the jsdom.
+
+This will likely not impact many programs, but could cause some changes in `instanceof` behavior, and so out of an abundance of caution, we're releasing it as a new major version.
+
+## 24.1.3
+
+* Fixed calls to `postMessage()` that were done as a bare property (i.e., `postMessage()` instead of `window.postMessage()`).
+
+## 24.1.2
+
+* Fixed an issue with the `in` operator applied to `EventTarget` methods, e.g. `'addEventListener' in window`, which only appeared in Node.js ≥22.5.0. (legendecas)
+* Fixed the events fired by `blur()`: it no longer fires `focus` and `focusin` on the `Document`, and `blur` and `focusout` no longer have their `relatedTarget` property set. (asamuzaK)
+
+## 24.1.1
+
+* Fixed selection methods to trigger the `selectionchange` event on the `Document` object. (piotr-oles)
+
+## 24.1.0
+
+* Added the `getSetCookie()` method to the `Headers` class. (ushiboy)
+* Fixed the creation and parsing of elements with names from `Object.prototype`, like `"constructor"` or `"toString"`.
+* Updated `rweb-cssom`, which can now parse additional CSS constructs.
+
 ## 24.0.0
 
 This release reverts our selector engine back to [`nwsapi`](https://www.npmjs.com/nwsapi). As discussed in [#3659](https://github.com/jsdom/jsdom/issues/3659), the performance regressions from [`@asamuzakjp/dom-selector`](https://www.npmjs.com/package/@asamuzakjp/dom-selector) turned out to be higher than anticipated. In the future, we can revisit `@asamuzakjp/dom-selector` after it reaches `nwsapi`'s performance on the [two real-world benchmarks provided by the community](https://github.com/jsdom/jsdom/issues/3659#issuecomment-1890852609).

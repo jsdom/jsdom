@@ -47,7 +47,7 @@ async_test(t => {
   }, 50);
   assert_equals(b, a + 1);
 
-  c = setInterval(() => { // eslint-disable-line prefer-const
+  c = setInterval(() => {
     // shouldn't execute since we clear immediately
     assert_true(false);
   }, 50);

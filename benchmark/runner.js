@@ -27,12 +27,10 @@ if (argv.suites) {
 suitesToRun.forEach(consoleReporter);
 
 function runNext() {
-  /* eslint-disable no-invalid-this */
   if (this && this.off) {
     // there is no .once()
     this.off("complete", runNext);
   }
-  /* eslint-enable no-invalid-this */
 
   const suite = suitesToRun.shift();
   if (!suite) {
