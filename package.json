@@ -86,6 +86,7 @@
     "generate-js-globals": "node ./scripts/generate-js-globals.js"
   },
   "main": "./lib/api.js",
+  "type": "commonjs",
   "engines": {
     "node": ">=18"
   }
