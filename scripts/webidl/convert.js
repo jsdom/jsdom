@@ -64,8 +64,6 @@ const transformer = new Webidl2js({
       if (!isSimpleIDLType(idl.idlType, "USVString") && !isSimpleIDLType(idl.idlType, "DOMString")) {
         throw new Error("[ReflectURL] specified on non-USVString, non-DOMString IDL attribute");
       }
-      const parseURLToResultingURLRecord =
-        this.addImport("../helpers/document-base-url", "parseURLToResultingURLRecord");
       const serializeURL = this.addImport("whatwg-url", "serializeURL");
       return {
         get: `
@@ -73,7 +71,7 @@ const transformer = new Webidl2js({
           if (value === null) {
             return "";
           }
-          const urlRecord = ${parseURLToResultingURLRecord}(value, ${implObj}._ownerDocument);
+          const urlRecord = ${implObj}._ownerDocument.encodingParseAURL(value);
           if (urlRecord !== null) {
             return ${serializeURL}(urlRecord);
           }
