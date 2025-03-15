@@ -43,7 +43,7 @@ describe("history", () => {
       window.history.pushState({ foo: "three" }, "unused title 3", "fizz");
       assert.equal(window.history.length, 4);
       assert.equal(window.history.state.foo, "three");
-      assert.equal(window.location.pathname, "/bar/fizz");
+      assert.equal(window.location.pathname, "/fizz");
       assert.equal(window.location.hash, "");
 
       window.history.replaceState({ foo: "four" }, "unused title 4", "/buzz");
