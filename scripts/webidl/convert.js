@@ -71,11 +71,20 @@ const transformer = new Webidl2js({
           if (value === null) {
             return "";
           }
+
+          if (this._${attrName}URLCacheKey === value) {
+            return this._${attrName}URLCache;
+          }
+
+          this._${attrName}URLCacheKey = value;
+
           const urlRecord = ${implObj}._ownerDocument.encodingParseAURL(value);
           if (urlRecord !== null) {
-            return ${serializeURL}(urlRecord);
+            this._${attrName}URLCache = ${serializeURL}(urlRecord);
+            return this._${attrName}URLCache;
           }
-          return conversions.USVString(value);
+          this._${attrName}URLCache = conversions.USVString(value);
+          return this._${attrName}URLCache;
         `,
         set: `
           ${implObj}._reflectSetTheContentAttribute("${attrName}", V);
