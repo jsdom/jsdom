@@ -337,5 +337,34 @@ module.exports = (transformer, idl, implObj) => {
     };
   }
 
+  if (isSimpleIDLType(idl.idlType, "SVGAnimatedPreserveAspectRatio")) {
+    const createSVGAnimatedPreserveAspectRatio = transformer.addImport("./SVGAnimatedPreserveAspectRatio", "create");
+    if (attrName !== "preserveAspectRatio") {
+      throw new Error("SVGAnimatedPreserveAspectRatio can only be used with the preserveAspectRatio attribute");
+    }
+
+    return {
+      get: `
+        return ${createSVGAnimatedPreserveAspectRatio}(globalObject, [], {
+          element: ${implObj}
+        });
+      `
+    };
+  }
+
+  if (isSimpleIDLType(idl.idlType, "SVGAnimatedRect")) {
+    const createSVGAnimatedRect = transformer.addImport("./SVGAnimatedRect", "create");
+    checkAttributeNamespace(attrName);
+
+    return {
+      get: `
+        return ${createSVGAnimatedRect}(globalObject, [], {
+          element: ${implObj},
+          attribute: "${attrName}"
+        });
+      `
+    };
+  }
+
   throw new Error("Unrecognized reflection type " + idl.idlType.idlType);
 };
