@@ -1,5 +1,7 @@
 "use strict";
 
+const { XLINK_NS } = require("../../lib/jsdom/living/helpers/namespaces.js");
+
 const recognizedReflectXAttrNames = new Set([
   "Reflect",
   "ReflectURL",
@@ -15,12 +17,46 @@ function isSimpleIDLType(idlType, expected) {
   return idlType.idlType === expected;
 }
 
+function getExtAttrValue(idl, extAttrName) {
+  const foundAttr = idl.extAttrs.find(extAttr => extAttr.name === extAttrName);
+  if (foundAttr) {
+    return JSON.parse(foundAttr.rhs.value);
+  }
+  return undefined;
+}
+
+function checkAttributeNamespace(attr) {
+  if (attr.includes(":")) {
+    throw new Error(`Namespace not supported for attribute ${attr}`);
+  }
+}
+
+function extractAttributeInfo(attr) {
+  if (attr === undefined) {
+    return undefined;
+  }
+
+  const parts = attr.split(":");
+  if (parts.length === 1) {
+    return { ns: null, name: parts[0] };
+  }
+  if (parts.length === 2) {
+    let ns;
+    if (parts[0] === "xlink") {
+      ns = XLINK_NS;
+    } else {
+      throw new Error(`Unrecognized attribute namespace name ${parts[0]}`);
+    }
+    return { ns, name: parts[1] };
+  }
+  throw new Error(`Invalid attribute "${attr}"`);
+}
+
 module.exports = (transformer, idl, implObj) => {
   const reflectAttr = idl.extAttrs.find(attr => recognizedReflectXAttrNames.has(attr.name));
   const attrName = reflectAttr?.rhs ? JSON.parse(reflectAttr.rhs.value) : idl.name.toLowerCase();
 
-  const reflectDefaultAttr = idl.extAttrs.find(attr => attr.name === "ReflectDefault");
-  const reflectDefault = reflectDefaultAttr?.rhs ? JSON.parse(reflectDefaultAttr.rhs.value) : undefined;
+  const reflectDefault = getExtAttrValue(idl, "ReflectDefault");
 
   const reflectRangeAttr = idl.extAttrs.find(attr => attr.name === "ReflectRange");
   const reflectRange = reflectRangeAttr?.rhs ? reflectRangeAttr.rhs.value.map(v => JSON.parse(v.value)) : undefined;
@@ -192,8 +228,7 @@ module.exports = (transformer, idl, implObj) => {
 
     let get;
     if (reflectRange) {
-      const clampedMinimum = reflectRange[0];
-      const clampedMaximum = reflectRange[1];
+      const [clampedMinimum, clampedMaximum] = reflectRange;
       const clampedDefaultValue = reflectDefault !== undefined ? reflectDefault : clampedMinimum;
 
       get = `
@@ -272,6 +307,32 @@ module.exports = (transformer, idl, implObj) => {
       `,
       set: `
         ${implObj}._reflectSetTheContentAttribute("${attrName}", String(V));
+      `
+    };
+  }
+
+  if (isSimpleIDLType(idl.idlType, "SVGAnimatedString")) {
+    const createSVGAnimatedString = transformer.addImport("./SVGAnimatedString", "create");
+    checkAttributeNamespace(attrName);
+    const deprecatedAttr = extractAttributeInfo(getExtAttrValue(idl, "ReflectDeprecated"));
+    const initialValue = getExtAttrValue(idl, "ReflectInitial");
+    if (initialValue !== undefined && typeof initialValue !== "string") {
+      throw new Error("Initial value of SVGAnimatedString must be a string");
+    }
+
+    return {
+      get: `
+        return ${createSVGAnimatedString}(globalObject, [], {
+          element: ${implObj},
+          attribute: "${attrName}",
+          ${deprecatedAttr !== undefined ?
+            `attributeDeprecatedNamespace: ${JSON.stringify(deprecatedAttr.ns)},
+             attributeDeprecated: ${JSON.stringify(deprecatedAttr.name)},` :
+            ""}
+          ${initialValue !== undefined ?
+            `initialValue: ${JSON.stringify(initialValue)},` :
+            ""}
+        });
       `
     };
   }
