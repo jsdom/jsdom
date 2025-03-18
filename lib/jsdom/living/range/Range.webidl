@@ -35,6 +35,8 @@ interface Range : AbstractRange {
 
   boolean intersectsNode(Node node);
 
+  [NewObject] sequence<DOMRect> getClientRects();
+
   stringifier;
 };
 
