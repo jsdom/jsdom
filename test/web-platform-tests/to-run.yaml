@@ -263,7 +263,8 @@ xml-stylesheet-pi-in-doctype.xhtml: [fail, Unknown]
 DIR: css/cssom-view
 
 CaretPosition-001.html: [fail, Unknown]
-DOMRectList.html: [fail, Unknown]
+DOMRectList.html:
+  "Element getClientRects()": [fail, Unknown]
 Element-currentCSSZoom.html: [fail, Not implemented]
 GetBoundingRect.html: [fail, Not implemented]
 HTMLBody-ScrollArea_quirksmode.html: [fail, Unknown]
