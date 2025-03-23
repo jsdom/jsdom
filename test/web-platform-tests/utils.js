@@ -65,3 +65,28 @@ exports.doHeadRequestWithNoCertChecking = url => {
     req.end();
   });
 };
+
+exports.spawnSyncFiltered = (command, args, options = {}) => {
+  // We need to capture the output to filter it, so override any stdio settings
+  const modifiedOptions = { ...options, stdio: "pipe" };
+  const result = childProcess.spawnSync(command, args, modifiedOptions);
+
+  for (const stream of ["stdout", "stderr"]) {
+    if (result[stream]) {
+      const filtered = result[stream].toString()
+        .split("\n")
+        .filter(line => {
+          return !line.includes("[notice] A new release of pip is available") &&
+                 !line.includes("[notice] To update, run: python") &&
+                 !line.includes("is outside repository at");
+        })
+        .join("\n");
+
+      if (filtered) {
+        process[stream].write(filtered);
+      }
+    }
+  }
+
+  return result;
+};
