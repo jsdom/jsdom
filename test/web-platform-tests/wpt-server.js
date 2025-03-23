@@ -1,10 +1,10 @@
 "use strict";
 /* eslint-disable no-console */
-const dns = require("dns").promises;
-const path = require("path");
-const childProcess = require("child_process");
+const dns = require("node:dns").promises;
+const path = require("node:path");
+const childProcess = require("node:child_process");
+const delay = require("node:timers/promises").setTimeout;
 const { killSubprocess, doHeadRequestWithNoCertChecking } = require("./utils.js");
-const delay = require("timers/promises").setTimeout;
 
 const wptDir = path.resolve(__dirname, "tests");
 

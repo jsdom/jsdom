@@ -1,38 +1,8 @@
 "use strict";
-const childProcess = require("child_process");
-const http = require("http");
-const https = require("https");
-const os = require("os");
-const { Canvas } = require("../../lib/jsdom/utils.js");
-
-const hasCanvas = Boolean(Canvas);
-
-const nodeMajorVersion = Number.parseInt(process.versions.node.split(".")[0]);
-
-exports.resolveReason = reason => {
-  if (["fail-slow", "timeout", "flaky"].includes(reason)) {
-    return "skip";
-  }
-
-  if (["fail-with-canvas", "needs-canvas"].includes(reason) && !hasCanvas) {
-    return "skip";
-  }
-
-  if (reason === "fail-node18" && nodeMajorVersion === 18) {
-    return "skip";
-  }
-
-  if (reason === "fail-lt-node22" && nodeMajorVersion < 22) {
-    return "expect-fail";
-  }
-
-  if (reason === "fail" ||
-    (reason === "fail-with-canvas" && hasCanvas)) {
-    return "expect-fail";
-  }
-
-  return "run";
-};
+const childProcess = require("node:child_process");
+const http = require("node:http");
+const https = require("node:https");
+const os = require("node:os");
 
 exports.killSubprocess = subprocess => {
   if (os.platform() === "win32") {
