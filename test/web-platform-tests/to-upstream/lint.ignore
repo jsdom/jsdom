@@ -1,0 +1,5 @@
+SET TIMEOUT:html/webappapis/animation-frames/no-interference-timers.html
+SET TIMEOUT:html/webappapis/timers/**
+
+WEB-PLATFORM.TEST:**/**-dont-upstream.html
+SET TIMEOUT:**/**-dont-upstream.html
