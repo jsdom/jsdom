@@ -1,21 +1,19 @@
 "use strict";
 /* eslint-disable no-console */
-const path = require("path");
-const { URL } = require("url");
+const path = require("node:path");
+const { URL } = require("node:url");
 const { specify } = require("mocha-sugar-free");
-const { JSDOM, VirtualConsole } = require("../../lib/api.js");
-const ResourceLoader = require("../../lib/jsdom/browser/resources/resource-loader");
-const { resolveReason } = require("./utils.js");
+const { JSDOM, VirtualConsole, ResourceLoader } = require("../../lib/api.js");
 
 const reporterPathname = "/resources/testharnessreport.js";
-const unexpectedPassingTestMessage = `
-            Hey, did you fix a bug? This test used to be failing, but during
-            this run there were no errors. If you have fixed the issue covered
-            by this test, you can edit the "to-run.yaml" file and remove the line
-            containing this test. Thanks!
-            `;
 
-module.exports = urlPrefixFactory => {
+function unexpectedPassingTestMessage(expectationsFilename) {
+  return `Hey, did you fix a bug? This test used to be failing, but during this run there were no errors. If you ` +
+    `have fixed the issue covered by this test, you can edit the "${expectationsFilename}" file and remove the line ` +
+    `containing this test. Thanks!`;
+}
+
+module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
   return (testPath, title = testPath, expectFail = false) => {
     specify({
       title,
@@ -24,7 +22,7 @@ module.exports = urlPrefixFactory => {
       timeout: 120_000,
       slow: 10_000,
       fn() {
-        return createJSDOM(urlPrefixFactory(), testPath, expectFail);
+        return createJSDOM(urlPrefixFactory(), testPath, expectFail, expectationsFilenameForErrorMessage);
       }
     });
   };
@@ -54,10 +52,12 @@ class CustomResourceLoader extends ResourceLoader {
   }
 }
 
-function formatFailedTest(test) {
+function formatFailedTest(test, expectationsFilenameForErrorMessage) {
   switch (test.status) {
     case test.PASS:
-      return `Unexpected passing test: ${JSON.stringify(test.name)}${unexpectedPassingTestMessage}`;
+      return "Unexpected passing test: " +
+        JSON.stringify(test.name) +
+        unexpectedPassingTestMessage(expectationsFilenameForErrorMessage);
     case test.FAIL:
     case test.PRECONDITION_FAILED:
       return `Failed in ${JSON.stringify(test.name)}:\n${test.message}\n\n${test.stack}`;
@@ -70,7 +70,7 @@ function formatFailedTest(test) {
   }
 }
 
-function createJSDOM(urlPrefix, testPath, expectFail) {
+function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErrorMessage) {
   const unhandledExceptions = [];
 
   let allowUnhandledExceptions = false;
@@ -177,7 +177,7 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
 
           window.add_result_callback(test => {
             if (test.status === test.FAIL || test.status === test.TIMEOUT || test.status === test.NOTRUN) {
-              errors.push(formatFailedTest(test));
+              errors.push(formatFailedTest(test, expectationsFilenameForErrorMessage));
             }
           });
 
@@ -203,7 +203,7 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
             }
 
             if (errors.length === 0 && expectFail) {
-              reject(new Error(unexpectedPassingTestMessage));
+              reject(new Error(unexpectedPassingTestMessage(expectationsFilenameForErrorMessage)));
             } else if ((errors.length === 1 && (tests.length === 1 || harnessFail)) && !expectFail) {
               reject(new Error(errors[0]));
             } else if (errors.length && !expectFail) {
@@ -213,12 +213,9 @@ function createJSDOM(urlPrefix, testPath, expectFail) {
             } else {
               const unexpectedErrors = [];
               for (const test of tests) {
-                const data = expectFail[test.name];
-                const reason = data && data[0];
-
-                const innerExpectFail = resolveReason(reason) === "expect-fail";
+                const innerExpectFail = expectFail[test.name] === "expect-fail";
                 if (innerExpectFail ? test.status === test.PASS : test.status !== test.PASS) {
-                  unexpectedErrors.push(formatFailedTest(test));
+                  unexpectedErrors.push(formatFailedTest(test, expectationsFilenameForErrorMessage));
                 }
               }
 

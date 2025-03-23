@@ -1,6 +1,8 @@
+# Contributing to jsdom
+
 ## Mission
 
-jsdom is, as said in our tagline, “A JavaScript implementation of the DOM and HTML standards.” Anything that helps us be better at that is welcome.
+jsdom is, as said in our tagline, “A JavaScript implementation of many web standards.” Anything that helps us be better at that is welcome.
 
 ## Architecture
 
@@ -26,15 +28,15 @@ If you can, then you've almost certainly found a bug in or missing feature of js
 
 **What spec covers this potential contribution?**
 
-Almost all of our relevant functionality is covered in either the [DOM Living Standard](https://dom.spec.whatwg.org/) or the [HTML Living Standard](https://html.spec.whatwg.org/multipage/). There are various obsolete W3C specs ("DOM Level 2" etc.) that were never really implemented in browsers, and there is also the "DOM Level 4" W3C fork of the WHATWG DOM Living Standard. But we try to stick to the two main WHATWG specs for jsdom these days.
+In jsdom, we implement features from their web specifications. Some core ones are the [DOM Living Standard](https://dom.spec.whatwg.org/) or the [HTML Living Standard](https://html.spec.whatwg.org/multipage/). But there are many other specifications too.
 
-Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relevant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links). [https://html-now.github.io](https://html-now.github.io/) is also pretty comprehensive.
+You can often find the relevant specification listed at the bottom of the feature's MDN article. [https://html-now.github.io](https://html-now.github.io/) is also a pretty comprehensive list of all possible specs.
 
 ## Tests
 
 ### Running the tests
 
-First you'll want to run `npm install` to install all dependencies. Then, configure your system to run the web platform tests as described in [their README](https://github.com/web-platform-tests/wpt/blob/master/README.md).
+First you'll want to run `npm install` to install all dependencies. Then, configure your system to run the web platform tests as described in [their documentation](https://web-platform-tests.org/running-tests/from-local-system.html#system-setup).
 
 **To run all the tests:** `npm test`
 
@@ -48,21 +50,25 @@ All tests for web platform features (as opposed to features of jsdom itself, suc
 
 We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browse the web-platform-tests repository and find the test covering your work, and then ensure it is being run against jsdom.
 
-To control what tests we run against jsdom, we use [the `to-run.yaml` file](https://github.com/jsdom/jsdom/blob/main/test/web-platform-tests/to-run.yaml). It contains a variety of lines like `DIR: FileAPI` or `DIR: css/css-scoping`, which enable a directory's worth of tests. And then, underneath those lines, there are usually other lines which expect failure for or skip some tests within that directory, since we're usually not passing 100% of the tests for a directory. (You can see the full list of possible expectations for tests in the [`resolveReason` function](https://github.com/jsdom/jsdom/blob/main/test/web-platform-tests/utils.js#L12).)
+To control what tests we run against jsdom, we use [the `to-run.yaml` file](https://github.com/jsdom/jsdom/blob/main/test/web-platform-tests/to-run.yaml). It contains a variety of lines like `DIR: FileAPI` or `DIR: css/css-scoping`, which enable a directory's worth of tests. And then, underneath those lines, there are usually other lines which expect failure for or skip some tests within that directory, since we're usually not passing 100% of the tests for a directory. (You can see the full list of possible expectations for tests in the [`expectation-utils.js` file](https://github.com/jsdom/jsdom/blob/main/test/web-platform-tests/expectation-utils.js).)
 
 So if you've found a tests in the [`web-platform-tests/wpt`](https://github.com/web-platform-tests/wpt) repository which covers the feature you're implementing, the usual procedure is to find the section of `to-run.yaml` that covers it, and remove the lines disabling those tests. Or, if there's no section in `to-run.yaml` for the directory you're working on, then add that section.
 
-Sometimes, especially when working on bug fixes, there are no web platform tests covering the specific thing you need to test. In that case, we still write our tests in the web platform tests format, but we place them in the [`to-upstream`](https://github.com/jsdom/jsdom/tree/main/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new directory structure, paralleling that of the main [`web-platform-tests/wpt`](https://github.com/web-platform-tests/wpt) repository.
-
 **To run all web-platform-tests:** `npm run test-wpt`
-
-**To run the to-upstream web-platform-tests:** `npm run test-tuwpt`
 
 **To run specific web-platform-tests already enabled via `to-run.yaml`**: `npm run test-wpt -- --fgrep dom/events`
 
+Also, to update web platform tests to their latest revision from the source repository: `npm run update-wpt`. (This can take a long time, like 10 minutes.)
+
+### To-upstream web platform feature tests
+
+Sometimes, especially when working on bug fixes, there are no web platform tests covering the specific thing you need to test. In that case, we still write our tests in the web platform tests format, but we place them in the [`to-upstream`](https://github.com/jsdom/jsdom/tree/main/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new subdirectory, paralleling the directory structure of the main [`web-platform-tests/wpt`](https://github.com/web-platform-tests/wpt) repository.
+
+**To run the to-upstream web-platform-tests:** `npm run test-tuwpt`
+
 **To run specific to-upstream web-platform-tests**: `npm run test-tuwpt -- --fgrep domparsing`
 
-Also, to update web platform tests to their latest revision from the source repository: `npm run update-wpt`. (This can take a long time, like 10 minutes.)
+If you end up writing a test which passes in browsers, but you cannot get it to pass in jsdom, then it might be worthwhile submitting the test anyway, for future jsdom contributors. To do this, place the test in the appropriate part of the `to-upstream` directory as normal, and then add a line to [the `to-upstream-expectations.yaml` file](https://github.com/jsdom/jsdom/blob/main/test/web-platform-tests/to-upstream-expectations.yaml) saying that the test fails, and pointing to the issue which reports on your progress.
 
 ### jsdom API tests
 
