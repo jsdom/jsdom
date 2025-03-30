@@ -17,7 +17,7 @@ interface HTMLFormElement : HTMLElement {
 
   [SameObject] readonly attribute HTMLFormControlsCollection elements;
   readonly attribute unsigned long length;
-//  getter Element (unsigned long index);
+  [WebIDL2JSValueAsUnsupported=_null] getter Element (unsigned long index);
 //  getter (RadioNodeList or Element) (DOMString name);
 
   undefined submit();
