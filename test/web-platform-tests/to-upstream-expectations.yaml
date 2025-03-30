@@ -5,6 +5,7 @@ dom/nodes/Element-matches-disabled-pseudo-class.html:
 dom/nodes/ParentNode-querySelector-case-insensitive.html: [fail, https://github.com/jsdom/jsdom/issues/3612]
 dom/nodes/ParentNode-querySelector-host-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3618]
 dom/nodes/ParentNode-querySelector-hyphen-prefix.html: [fail, https://github.com/jsdom/jsdom/issues/3620]
+dom/nodes/ParentNode-querySelector-is-nested-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3432]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]
