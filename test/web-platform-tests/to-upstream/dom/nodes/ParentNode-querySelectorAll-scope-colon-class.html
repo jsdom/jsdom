@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<title>:scope selector on element with only colon-prefixed classes</title>
+<meta charset="utf-8">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3692 -->
+
+<div class="sm:block" id="parentDiv">
+  <span id="targetSpan"></span>
+</div>
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("parentDiv");
+  const expectedSpan = document.getElementById("targetSpan");
+
+  const result = div.querySelectorAll(":scope > span");
+
+  assert_array_equals(result, [expectedSpan]);
+});
+
+</script>
