@@ -1,4 +1,7 @@
 dom/nodes/Element-matches-active-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3610]
+dom/nodes/Element-matches-disabled-pseudo-class.html:
+  "querySelectorAll(':enabled') should not select elements in disabled fieldset": [fail, https://github.com/jsdom/jsdom/issues/3603]
+  "querySelector('input:enabled') should return the first enabled input": [fail, https://github.com/jsdom/jsdom/issues/3603]
 dom/nodes/ParentNode-querySelector-case-insensitive.html: [fail, https://github.com/jsdom/jsdom/issues/3612]
 dom/nodes/ParentNode-querySelector-host-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3618]
 dom/nodes/ParentNode-querySelector-hyphen-prefix.html: [fail, https://github.com/jsdom/jsdom/issues/3620]
