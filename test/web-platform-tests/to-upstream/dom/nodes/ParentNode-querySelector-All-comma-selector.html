@@ -4,6 +4,7 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/3706 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2680 -->
 
 <h1>Hello world</h1>
 <h2>Goodbye, world</h2>
@@ -12,5 +13,16 @@
 "use strict";
 test(() => {
   assert_equals(document.querySelectorAll("h1,h2").length, 2);
-});
+}, "Basic comma-separated selector");
+
+test(() => {
+  const el = document.createElement("div");
+  const selector = ".foo, .foo, .bar";
+
+  const results1 = el.querySelectorAll(selector);
+  assert_equals(results1.length, 0);
+
+  const results2 = el.querySelectorAll(selector);
+  assert_equals(results2.length, 0);
+}, "Repeated identical querySelectorAll calls with repeated selectors should work on empty elements");
 </script>
