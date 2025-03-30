@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<title>Case-insensitive tag names in selectors</title>
+<meta charset="utf-8">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3612 -->
+
+<div id="container">
+  <div class="box">
+    <p id="p1">Paragraph 1</p>
+    <p id="p2">Paragraph 2</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+test(() => {
+  const boxDiv = document.querySelector("div.box");
+  assert_not_equals(boxDiv, null);
+
+  const boxDivUpper = document.querySelector("DIV.box");
+  assert_not_equals(boxDivUpper, null);
+
+  assert_equals(boxDiv, boxDivUpper);
+}, "The same element should be found with both lowercase and uppercase div selectors");
+
+test(() => {
+  const para1 = document.querySelector("#container p#p1");
+  assert_not_equals(para1, null);
+
+  const para1Upper = document.querySelector("#container P#p1");
+  assert_not_equals(para1Upper, null);
+
+  assert_equals(para1, para1Upper);
+}, "The same paragraph should be found with both lowercase and uppercase p selectors");
+
+test(() => {
+  const allParas = document.querySelectorAll("div.box p");
+  const allParasUpper = document.querySelectorAll("div.box P");
+
+  assert_array_equals(allParas, allParasUpper);
+}, "The same NodeList should be returned for querySelectorAll with lowercase and uppercase p selectors");
+
+test(() => {
+  const mixedCase = document.querySelectorAll("DIV.box p");
+  assert_equals(mixedCase.length, 2);
+
+  const moreComplexMixedCase = document.querySelector("div#container DIV.box P#p2");
+  assert_not_equals(moreComplexMixedCase, null);
+  assert_equals(moreComplexMixedCase.id, "p2");
+}, "Mixed case selectors should work correctly");
+</script>
