@@ -15,7 +15,9 @@ dom/nodes/ParentNode-querySelector-hyphen-prefix.html: [fail, https://github.com
 dom/nodes/ParentNode-querySelector-is-nested-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3432]
 dom/nodes/ParentNode-querySelector-scope-numeric-id.xhtml: [fail, https://github.com/jsdom/jsdom/issues/3321]
 dom/nodes/ParentNode-querySelectorAll-case-insensitive-attribute-flag.html: [fail, https://github.com/jsdom/jsdom/issues/3370]
-dom/nodes/ParentNode-querySelectorAll-scope-colon-class.html: [fail, https://github.com/jsdom/jsdom/issues/3692]
+dom/nodes/ParentNode-querySelectorAll-scope-colon-id-class.html:
+  ":scope child selector on element with colon-prefixed class": [fail, https://github.com/jsdom/jsdom/issues/3692]
+  ":scope selector on element with colon-prefixed ID": [fail, https://github.com/jsdom/jsdom/issues/3818]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]
