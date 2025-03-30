@@ -3,7 +3,13 @@ dom/nodes/Element-matches-active-pseudo-class.html: [fail, https://github.com/js
 dom/nodes/Element-matches-disabled-pseudo-class.html:
   "querySelectorAll(':enabled') should not select elements in disabled fieldset": [fail, https://github.com/jsdom/jsdom/issues/3603]
   "querySelector('input:enabled') should return the first enabled input": [fail, https://github.com/jsdom/jsdom/issues/3603]
-dom/nodes/ParentNode-querySelector-case-insensitive.html: [fail, https://github.com/jsdom/jsdom/issues/3612]
+dom/nodes/ParentNode-querySelector-case-insensitive.html:
+  "The same element should be found with both lowercase and uppercase div selectors": [fail, https://github.com/jsdom/jsdom/issues/3612]
+  "The same paragraph should be found with both lowercase and uppercase p selectors": [fail, https://github.com/jsdom/jsdom/issues/3612]
+  "The same NodeList should be returned for querySelectorAll with lowercase and uppercase p selectors": [fail, https://github.com/jsdom/jsdom/issues/3612]
+  "Mixed case selectors should work correctly": [fail, https://github.com/jsdom/jsdom/issues/3612]
+  "Tag name case-insensitivity with child combinator (>) dynamically created": [fail, https://github.com/jsdom/jsdom/issues/3544]
+  "Case-insensitivity with non-standard tag names": [fail, https://github.com/jsdom/jsdom/issues/3750]
 dom/nodes/ParentNode-querySelector-host-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3618]
 dom/nodes/ParentNode-querySelector-hyphen-prefix.html: [fail, https://github.com/jsdom/jsdom/issues/3620]
 dom/nodes/ParentNode-querySelector-is-nested-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3432]

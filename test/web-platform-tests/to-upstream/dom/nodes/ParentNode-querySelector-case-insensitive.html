@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<title>Case-insensitive tag names in selectors</title>
+<title>Case-insensitive tag names and attributes in selectors</title>
 <meta charset="utf-8">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/3612 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3544 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3750 -->
 
 <div id="container">
   <div class="box">
@@ -11,6 +13,8 @@
     <p id="p2">Paragraph 2</p>
   </div>
 </div>
+
+<div id="container-for-3750"></div>
 
 <script>
 "use strict";
@@ -50,4 +54,31 @@ test(() => {
   assert_not_equals(moreComplexMixedCase, null);
   assert_equals(moreComplexMixedCase.id, "p2");
 }, "Mixed case selectors should work correctly");
+
+test(() => {
+  const div = document.createElement("div");
+  const ul = document.createElement("ul");
+  const li = document.createElement("li");
+  ul.appendChild(li);
+  div.appendChild(ul);
+
+  assert_array_equals(div.querySelectorAll("ul"), [ul], "Lowercase ul");
+  assert_array_equals(div.querySelectorAll("UL"), [ul], "Uppercase UL");
+
+  assert_array_equals(div.querySelectorAll("ul > li"), [li], "Lowercase ul > li");
+  assert_array_equals(div.querySelectorAll("UL > LI"), [li], "Uppercase UL > LI");
+}, "Tag name case-insensitivity with child combinator (>) dynamically created");
+
+test(() => {
+  const container = document.getElementById("container-for-3750");
+  const customEl = document.createElement("myElement");
+  customEl.textContent = "Hello world";
+  container.appendChild(customEl);
+
+  const resultLower = container.querySelector("myelement");
+  assert_equals(resultLower, customEl, "Lowercase selector should find custom element");
+
+  const resultOriginal = container.querySelector("myElement");
+  assert_equals(resultOriginal, customEl, "Original case selector should find custom element");
+}, "Case-insensitivity with non-standard tag names");
 </script>
