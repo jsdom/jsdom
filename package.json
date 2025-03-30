@@ -26,7 +26,6 @@
     "cssstyle": "^4.2.1",
     "data-urls": "^5.0.0",
     "decimal.js": "^10.5.0",
-    "form-data": "^4.0.1",
     "html-encoding-sniffer": "^4.0.0",
     "http-proxy-agent": "^7.0.2",
     "https-proxy-agent": "^7.0.6",
