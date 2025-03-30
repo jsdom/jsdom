@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>
-  querySelector(All) must work with comma seperated :scope pseudo selector
-</title>
+<title>:scope pseudo-class tests</title>
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/2359 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3067 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2998 -->
 
 <div>
   <p><span>hello</span></p>
   <p id="p2">hey</p>
   <div id="d2">div</div>
 </div>
+
+<div id="structure1">
+  <div>
+    <span id="descendant-span"></span>
+  </div>
+</div>
+
+<ul id="structure2">
+  <li id="alpha">Alpha</li>
+  <li id="beta">
+    Beta
+    <ul>
+      <li id="gamma">Gamma</li>
+      <li id="delta">Delta</li>
+    </ul>
+  </li>
+</ul>
 
 <script>
 "use strict";
@@ -37,4 +54,20 @@ test(() => {
 test(() => {
   assert_array_equals(div.querySelectorAll(":scope > p, :scope > div"), [p, p2, div2]);
 }, "querySelectorAll comma separated");
+
+// Test based on https://github.com/jsdom/jsdom/issues/2998
+test(() => {
+  const scopeDiv = document.getElementById("structure1");
+  const result = scopeDiv.querySelector(":scope > span");
+  assert_equals(result, null, ":scope > span should not match descendant span");
+}, "querySelector with :scope > child should not match descendants");
+
+// Test based on https://github.com/jsdom/jsdom/issues/3067
+test(() => {
+  const ul = document.getElementById("structure2");
+  const result = ul.querySelectorAll(":scope > li");
+  const resultIDs = Array.from(result, el => el.id);
+  assert_array_equals(resultIDs, ["alpha", "beta"], ":scope > li should only match direct children");
+}, "querySelectorAll with :scope > child should only match direct children");
+
 </script>
