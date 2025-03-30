@@ -22,6 +22,10 @@
 <input id="disabled-input" disabled>
 <input id="enabled-input">
 
+<fieldset id="fieldset-with-legend">
+  <legend>A Legend</legend>
+</fieldset>
+
 <script>
 "use strict";
 
@@ -112,4 +116,11 @@ test(() => {
   const expectedIds = ["input-in-disabled-fieldset", "disabled-input"];
   assert_array_equals(disabledInputIds, expectedIds);
 }, "querySelectorAll('input:disabled') should select inputs with disabled attribute and in disabled fieldset");
+
+// Regression test for https://github.com/jsdom/jsdom/issues/3232
+test(() => {
+  const fieldset = document.getElementById("fieldset-with-legend");
+  assert_false(fieldset.matches(":disabled"), "Fieldset with legend should not match :disabled");
+  assert_true(fieldset.matches(":enabled"), "Fieldset with legend should match :enabled");
+}, "Fieldset with legend should not be considered disabled by default");
 </script>
