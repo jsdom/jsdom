@@ -3,7 +3,7 @@
     jsdom
 </h1>
 
-jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG [DOM](https://dom.spec.whatwg.org/) and [HTML](https://html.spec.whatwg.org/multipage/) Standards, for use with Node.js. In general, the goal of the project is to emulate enough of a subset of a web browser to be useful for testing and scraping real-world web applications.
+jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG [DOM](https://dom.spec.whatwg.org/) and [HTML](https://html.spec.whatwg.org/multipage/) Standards, for use with Node.js. In general, the goal of the project is to emulate enough of a subset of a web browser for fun and to be useful for testing and scraping real-world web applications. Performance is a secondary objective.
 
 The latest versions of jsdom require Node.js v18 or newer. (Versions of jsdom below v23 still work with previous Node.js versions, but are unsupported.)
 
