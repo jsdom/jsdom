@@ -6,6 +6,8 @@
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/2359 -->
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/3067 -->
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/2998 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3469 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3802 -->
 
 <div>
   <p><span>hello</span></p>
@@ -69,5 +71,34 @@ test(() => {
   const resultIDs = Array.from(result, el => el.id);
   assert_array_equals(resultIDs, ["alpha", "beta"], ":scope > li should only match direct children");
 }, "querySelectorAll with :scope > child should only match direct children");
+
+// Test based on https://github.com/jsdom/jsdom/issues/3469
+test(() => {
+  const doc = new DOMParser().parseFromString('<svg><defs></defs><g id="g"></g></svg>', "image/svg+xml");
+  const svg = doc.documentElement;
+  const g = doc.getElementById("g");
+  const result = svg.querySelectorAll("g");
+  assert_array_equals([...result], [g], ":scope descend match descendants");
+}, "querySelectorAll with :scope in unattached svg document");
+
+// Test based on https://github.com/jsdom/jsdom/issues/3802
+test(() => {
+  const xml = `
+    <bar>
+      <bar id="theBar"><child-bars/></bar>
+      <child-bars id="theChildBar"/>
+    </bar>
+  `.trim();
+  const doc = new DOMParser().parseFromString(xml, "text/xml");
+  const theBar = doc.getElementById("theBar");
+  const childBar = doc.getElementById("theChildBar");
+  for (const bar of [...doc.querySelectorAll("bar")]) {
+    if (!bar.parentElement) {
+      continue;
+    }
+    bar.parentElement.querySelector(":scope > child-bars").appendChild(bar);
+  }
+  assert_true(theBar.parentNode === childBar);
+}, "querySelectorAll with :scope in document where element moved");
 
 </script>
