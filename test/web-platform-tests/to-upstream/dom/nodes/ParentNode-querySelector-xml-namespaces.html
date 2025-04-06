@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>querySelectorAll must work with namespace attribute selectors on SVG</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2149 -->
+
+<script>
+"use strict";
+const doc = new DOMParser().parseFromString('<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:title></dc:title></cp:coreProperties>', "text/xml");
+const root = doc.documentElement; // <cp:coreProperties/>
+
+test(() => {
+  const result = doc.querySelector("coreProperties");
+  assert_equals(result, root, "match without namespace");
+}, "querySelector without namespace");
+
+test(() => {
+  const result = doc.querySelector("*|coreProperties");
+  assert_equals(result, root, "match with universal namespace");
+}, "querySelector with universal namespace");
+
+test(() => {
+  const result = doc.querySelector("cp|coreProperties");
+  assert_equals(result, root, "match with specific namespace");
+}, "querySelector with specific namespace");
+</script>
