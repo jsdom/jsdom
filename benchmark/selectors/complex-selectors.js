@@ -43,11 +43,7 @@ exports.matches = () => {
       node = document.getElementById(`p${x - 1}-${y - 1}-${z - 1}`);
     },
     fn() {
-      const div = node.ownerDocument.createElement("div");
-      node.ownerDocument.body.appendChild(div);
       const selector = ".box:first-child ~ .box:nth-of-type(4n) + .box .block.inner > .content";
-      node.matches(selector);
-      div.remove();
       node.matches(selector);
     }
   });
@@ -95,11 +91,7 @@ exports.closest = function () {
       node = document.getElementById(`p${x - 1}-${y - 1}-${z - 1}`);
     },
     fn() {
-      const div = node.ownerDocument.createElement("div");
-      node.ownerDocument.body.appendChild(div);
       const selector = ".box:first-child ~ .box:nth-of-type(4n) + .box .block.inner > .content";
-      node.closest(selector);
-      div.remove();
       node.closest(selector);
     }
   });
@@ -147,11 +139,7 @@ exports.querySelector = () => {
       node = document;
     },
     fn() {
-      const div = node.createElement("div");
-      node.body.appendChild(div);
       const selector = ".box:first-child ~ .box:nth-of-type(4n) + .box .block.inner > .content";
-      node.querySelector(selector);
-      div.remove();
       node.querySelector(selector);
     }
   });
@@ -199,11 +187,7 @@ exports.querySelectorAll = function () {
       node = document;
     },
     fn() {
-      const div = node.createElement("div");
-      node.body.appendChild(div);
       const selector = ".box:first-child ~ .box:nth-of-type(4n) + .box .block.inner > .content";
-      node.querySelectorAll(selector);
-      div.remove();
       node.querySelectorAll(selector);
     }
   });
