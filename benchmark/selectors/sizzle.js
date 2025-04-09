@@ -30,10 +30,6 @@ exports.querySelectorAll = function () {
     fn() {
       for (const selector of selectors) {
         try {
-          const div = document.createElement("div");
-          document.body.appendChild(div);
-          document.querySelectorAll(selector);
-          div.remove();
           document.querySelectorAll(selector);
         } catch {
           count++;
@@ -75,10 +71,6 @@ exports.querySelector = function () {
     fn() {
       for (const selector of selectors) {
         try {
-          const div = document.createElement("div");
-          document.body.appendChild(div);
-          document.querySelector(selector);
-          div.remove();
           document.querySelector(selector);
         } catch {
           count++;
