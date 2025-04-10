@@ -5,8 +5,8 @@
 <title>Selectors-API Test Suite: HTML</title>
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
-<script src="selectors.js"></script>
-<script src="ParentNode-querySelector-All.js"></script>
+<script src="/dom/nodes/selectors.js"></script>
+<script src="/dom/nodes/ParentNode-querySelector-All.js"></script>
 <style>iframe { visibility: hidden; position: absolute; }</style>
 
 <div id="log">This test requires JavaScript.</div>
@@ -16,7 +16,7 @@ async_test(function() {
   var frame = document.createElement("iframe");
   var self = this;
   frame.onload = () => self.step_func(init(frame, self));
-  frame.src = "ParentNode-querySelector-All-content.html#target";
+  frame.src = "/dom/nodes/ParentNode-querySelector-All-content.html#target";
   document.body.appendChild(frame);
 });
 
