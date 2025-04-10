@@ -3,6 +3,3 @@ SET TIMEOUT:html/webappapis/timers/**
 
 WEB-PLATFORM.TEST:**/**-dont-upstream.html
 SET TIMEOUT:**/**-dont-upstream.html
-
-DUPLICATE-BASENAME-PATH: dom/nodes/ParentNode-querySelector-All-content.xht
-DUPLICATE-BASENAME-PATH: dom/nodes/ParentNode-querySelector-All-content.html

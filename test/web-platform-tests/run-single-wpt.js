@@ -46,8 +46,20 @@ class CustomResourceLoader extends ResourceLoader {
         .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
 
       return super.fetch(`file://${filePath}`, options);
+    } else if (url.pathname.startsWith("/dom/nodes/")) {
+      // Some tests require extra resources.
+      // Add them from the one in ./tests.
+      const extraResources = [
+        "/dom/nodes/ParentNode-querySelector-All-content.html",
+        "/dom/nodes/ParentNode-querySelector-All.js",
+        "/dom/nodes/selectors.js"
+      ];
+      if (extraResources.includes(url.pathname)) {
+        const filePath = path.resolve(__dirname, "tests" + url.pathname + (url.hash ? url.hash : ""));
+        return super.fetch(`file://${filePath}`, options);
+      }
+      return super.fetch(urlString, options);
     }
-
     return super.fetch(urlString, options);
   }
 }

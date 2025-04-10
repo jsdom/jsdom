@@ -20,8 +20,6 @@ export default [
       "test/to-port-to-wpts/script.js",
       "test/web-platform-tests/tests/**",
       "test/web-platform-tests/to-upstream/dom/nodes/Document-createComment-createTextNode.js",
-      "test/web-platform-tests/to-upstream/dom/nodes/ParentNode-querySelector-All.js",
-      "test/web-platform-tests/to-upstream/dom/nodes/selectors.js",
       "test/web-platform-tests/to-upstream/svg/element-svg.html",
       "test/web-platform-tests/to-upstream/svg/svgstringlist.html",
       "test/web-platform-tests/to-upstream/**/*dont-upstream*"
