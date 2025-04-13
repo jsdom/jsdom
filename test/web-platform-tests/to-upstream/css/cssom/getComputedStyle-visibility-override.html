@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Inherited visibility can be unset</title>
+<title>Inherited visibility can be overridden</title>
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
 
 <style>
   #parent {
@@ -10,9 +11,6 @@
   }
   #child {
     visibility: visible;
-  }
-  div#child {
-    visibility: unset;
   }
 </style>
 
@@ -32,6 +30,6 @@ test(() => {
 
 test(() => {
   const element = document.querySelector("#child");
-  assert_equals(getComputedStyle(element).visibility, "hidden");
-}, "computed visibility gets unset and inherits from parent");
+  assert_equals(getComputedStyle(element).visibility, "visible");
+}, "computed visibility can be visible even if the parent is not");
 </script>

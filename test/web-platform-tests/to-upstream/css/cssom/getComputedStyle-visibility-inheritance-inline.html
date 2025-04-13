@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Computed visibility is inherited</title>
+<title>Computed visibility is inherited for inline styles</title>
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
 
-<!-- Test for https://github.com/jsdom/jsdom/issues/2616 -->
-
-<style>
-  #parent {
-    visibility: hidden;
-  }
-</style>
+<!-- Test for https://github.com/jsdom/jsdom/issues/2865 -->
 
 <body>
-  <div id="parent">
+  <div id="parent" style="visibility: hidden;">
       <div id="child">Hello, Dave!</div>
   </div>
 </body>
@@ -24,10 +19,10 @@
 test(() => {
   const element = document.querySelector("#parent");
   assert_equals(getComputedStyle(element).visibility, "hidden");
-}, "Sanity check: getComputedStyle returns apparent visibility");
+}, "Sanity check: getComputedStyle returns apparent visibility for inline styles");
 
 test(() => {
   const element = document.querySelector("#child");
   assert_equals(getComputedStyle(element).visibility, "hidden");
-}, "Children inherit visibility from their parents");
+}, "Children inherit visibility from their parents inline styles");
 </script>
