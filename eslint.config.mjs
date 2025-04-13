@@ -11,7 +11,7 @@ export default [
       "lib/jsdom/level3/xpath.js",
       "lib/jsdom/living/generated/**",
       "test/api/fixtures/**",
-      "test/jquery-fixtures/**",
+      "test/to-port-to-wpts/jquery-fixtures/**",
       "test/to-port-to-wpts/files/**",
       "test/to-port-to-wpts/frame.js",
       "test/to-port-to-wpts/level1/**",

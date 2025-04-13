@@ -54,19 +54,19 @@ To control what tests we run against jsdom, we use [the `to-run.yaml` file](http
 
 So if you've found a tests in the [`web-platform-tests/wpt`](https://github.com/web-platform-tests/wpt) repository which covers the feature you're implementing, the usual procedure is to find the section of `to-run.yaml` that covers it, and remove the lines disabling those tests. Or, if there's no section in `to-run.yaml` for the directory you're working on, then add that section.
 
-**To run all web-platform-tests:** `npm run test-wpt`
+**To run all web-platform-tests:** `npm run test:wpt`
 
-**To run specific web-platform-tests already enabled via `to-run.yaml`**: `npm run test-wpt -- --fgrep dom/events`
+**To run specific web-platform-tests already enabled via `to-run.yaml`**: `npm run test:wpt -- --fgrep dom/events`
 
-Also, to update web platform tests to their latest revision from the source repository: `npm run update-wpt`. (This can take a long time, like 10 minutes.)
+Also, to update web platform tests to their latest revision from the source repository: `npm run wpt:update`. (This can take a long time, like 10 minutes.)
 
 ### To-upstream web platform feature tests
 
 Sometimes, especially when working on bug fixes, there are no web platform tests covering the specific thing you need to test. In that case, we still write our tests in the web platform tests format, but we place them in the [`to-upstream`](https://github.com/jsdom/jsdom/tree/main/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new subdirectory, paralleling the directory structure of the main [`web-platform-tests/wpt`](https://github.com/web-platform-tests/wpt) repository.
 
-**To run the to-upstream web-platform-tests:** `npm run test-tuwpt`
+**To run the to-upstream web-platform-tests:** `npm run test:tuwpt`
 
-**To run specific to-upstream web-platform-tests**: `npm run test-tuwpt -- --fgrep domparsing`
+**To run specific to-upstream web-platform-tests**: `npm run test:tuwpt -- --fgrep domparsing`
 
 If you end up writing a test which passes in browsers, but you cannot get it to pass in jsdom, then it might be worthwhile submitting the test anyway, for future jsdom contributors. To do this, place the test in the appropriate part of the `to-upstream` directory as normal, and then add a line to [the `to-upstream-expectations.yaml` file](https://github.com/jsdom/jsdom/blob/main/test/web-platform-tests/to-upstream-expectations.yaml) saying that the test fails, and pointing to the issue which reports on your progress.
 
@@ -76,9 +76,9 @@ If you are testing something that can only be accomplished through the jsdom API
 
 To write such a test, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
 
-**To run all API tests:** `npm run test-api`
+**To run all API tests:** `npm run test:api`
 
-**To run a specific API test:** `npm run test-mocha test/api/from-file.js`
+**To run a specific API test:** `npx mocha test/api/from-file.js`
 
 ### Older tests
 
@@ -88,7 +88,7 @@ Although ideally you should not need to worry about this, there are some tests t
 
 This project cares about performance. There are a number of benchmarks that you can run. If you suspect your contribution has an impact on the performance of existing functionality, make sure you run the benchmarks before and after your change so that you can compare.
 
-**To run benchmarks:** `npm benchmark`
+**To run benchmarks:** `npm run benchmark`
 
 ## Issues
 
