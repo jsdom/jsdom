@@ -26,6 +26,16 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 26.1.0
+
+* Added at least partial support for various SVG elements and their classes: `<defs>` (`SVGDefsElement`), `<desc>` (`SVGDescElement`), `<g>` (`SVGGElement`), `<metadata>` (`SVGMetadataElement`), `<switch>` (`SVGSwitchElement`), and `<symbol>` (`SVGSymbolElement`).
+* Added `SVGAnimatedPreserveAspectRatio` and `SVGAnimatedRect`, including support in the reflection layer.
+* Added the `SVGSVGElement` `createSVGRect()` method, and the `SVGRect` type (which is distinct from `DOMRect`.)
+* Added indexed property support to `HTMLFormElement`.
+* Updated the `SVGElement` `viewportElement()` method to correctly establish the viewport based on ancestor elements.
+* Removed the now-bloated `form-data` dependency in favor of our own smaller implementation of `multipart/form-data` serialization. No functional changes are expected.
+* Various performance improvements, caches, microoptimizations, and deferred object creation.
+
 ## 26.0.0
 
 Breaking change: [`canvas`](https://www.npmjs.com/package/canvas) peer dependency requirement has been upgraded from v2 to v3. (sebastianwachter)
