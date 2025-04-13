@@ -4,7 +4,7 @@ const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const enableDestroy = require("server-destroy");
-const { JSDOM } = require("..");
+const { JSDOM, VirtualConsole } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
 const { pathToFileURL } = require("url");
 
@@ -97,6 +97,19 @@ exports.createHTTPSServer = handler => {
     enablePromisifiedServerDestroy(server);
     server.listen(() => resolve(server));
   });
+};
+
+exports.createCSSErrorDetectingVirtualConsole = () => {
+  const virtualConsole = new VirtualConsole();
+  virtualConsole.cssParsingErrorOccurred = false;
+
+  virtualConsole.on("jsdomError", error => {
+    if (error.message.includes("Could not parse CSS stylesheet")) {
+      virtualConsole.cssParsingErrorOccurred = true;
+    }
+  });
+
+  return virtualConsole;
 };
 
 function enablePromisifiedServerDestroy(server) {

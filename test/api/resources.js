@@ -158,6 +158,24 @@ describe("API: resource loading configuration", () => {
       assert.equal(dom.window.getComputedStyle(dom.window.document.body).color, "rgb(0, 0, 255)");
     });
 
+    it("should not download stylesheet links if disableCSS: true is also set", { slow: 500 }, async () => {
+      const [url, neverRequestedPromise] = await neverRequestedServer();
+      const dom = new JSDOM(``, { resources: "usable", disableCSS: true });
+
+      const element = dom.window.document.createElement("link");
+      setUpLoadingAsserts(element);
+      element.rel = "stylesheet";
+      element.href = url;
+      dom.window.document.body.appendChild(element);
+
+      await Promise.all([
+        assertNotLoaded(element),
+        neverRequestedPromise
+      ]);
+
+      assert.equal(element.sheet, null);
+    });
+
     it("should download and run scripts, if runScripts: \"dangerously\" is also set", { slow: 500 }, async () => {
       const sourceString = `window.x = 5;`;
       const url = await resourceServer(

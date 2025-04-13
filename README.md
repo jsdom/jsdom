@@ -115,6 +115,21 @@ We strongly advise against trying to "execute scripts" by mashing together the j
 
 Finally, for advanced use cases you can use the `dom.getInternalVMContext()` method, documented below.
 
+### Disabling CSS
+
+By default, jsdom will parse CSS stylesheets, `style=""` elements, etc., including the default user agent stylesheet. This allows it to give somewhat-accurate values for properties like `element.style.color` or `window.getComputedStyle(element).color`. (But, our CSS support is [incomplete](https://github.com/jsdom/jsdom/issues?q=state%3Aopen%20label%3A%22css%22), and since there is [no layout or rendering](#unimplemented-parts-of-the-web-platform), properties like `left` or `width` are generally not going to be accurate.)
+
+If you do not plan on doing any CSS-related things with your jsdom document, then you can disable this functionality with the `disableCSS: true` option to get a performance boost:
+
+```js
+const { window } = new JSDOM(`
+  <style>p { color: red; }</style>
+  <p>Hello world</p>
+`);
+
+console.log(window.getComputedStyle(window.document.querySelector("p"))); // TODO what will this actually give...
+```
+
 ### Pretending to be a visual browser
 
 jsdom does not have the capability to render visual content, and will act like a headless browser by default. It provides hints to web pages through APIs such as `document.hidden` that their content is not visible.

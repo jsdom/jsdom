@@ -2,7 +2,9 @@
 const path = require("path");
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
-const { JSDOM, VirtualConsole } = require("../..");
+const { pathToFileURL } = require("url");
+const { JSDOM } = require("../..");
+const { createCSSErrorDetectingVirtualConsole } = require("../util.js");
 
 describe("CSS parsing errors", () => {
   it("should detect invalid CSS", () => {
@@ -69,12 +71,11 @@ describe("CSS parsing errors", () => {
   it("should not have any errors on sweetalert2.css (GH-2177)", async () => {
     const virtualConsole = createCSSErrorDetectingVirtualConsole();
 
-    const resourcesPath = path.resolve(__dirname, "fixtures/resources");
+    const url = pathToFileURL(path.resolve(__dirname, "fixtures/resources"));
     const options = {
-      runScripts: "dangerously",
       resources: "usable",
       virtualConsole,
-      url: `file://${resourcesPath}/`
+      url
     };
 
     const dom = new JSDOM(`
@@ -92,16 +93,3 @@ describe("CSS parsing errors", () => {
     assert.equal(virtualConsole.cssParsingErrorOccurred, false);
   });
 });
-
-function createCSSErrorDetectingVirtualConsole() {
-  const virtualConsole = new VirtualConsole();
-  virtualConsole.cssParsingErrorOccurred = false;
-
-  virtualConsole.on("jsdomError", error => {
-    if (error.message.includes("Could not parse CSS stylesheet")) {
-      virtualConsole.cssParsingErrorOccurred = true;
-    }
-  });
-
-  return virtualConsole;
-}
