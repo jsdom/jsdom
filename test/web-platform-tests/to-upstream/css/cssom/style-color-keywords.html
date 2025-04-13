@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<title>CSSOM: Setting style.color to keywords transparent and currentcolor</title>
+<meta charset="utf-8">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2516 -->
+
+<div id="test"></div>
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("test");
+
+  div.style.color = "transparent";
+  assert_equals(div.style.color, "transparent", "Setting color to transparent");
+
+  div.style.color = "currentcolor";
+  assert_equals(div.style.color, "currentcolor", "Setting color to currentcolor");
+
+}, "Setting style.color to transparent and currentcolor keywords should serialize correctly");
+
+</script>
