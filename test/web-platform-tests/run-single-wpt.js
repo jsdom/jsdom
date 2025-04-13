@@ -55,7 +55,7 @@ class CustomResourceLoader extends ResourceLoader {
         "/dom/nodes/selectors.js"
       ];
       if (extraResources.includes(url.pathname)) {
-        const filePath = path.resolve(__dirname, "tests" + url.pathname + (url.hash ? url.hash : ""));
+        const filePath = path.resolve(__dirname, "tests" + url.pathname + url.hash);
         return super.fetch(`file://${filePath}`, options);
       }
       return super.fetch(urlString, options);
