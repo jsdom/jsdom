@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<title>Dynamically inserted script execution order</title>
+<meta charset="utf-8">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/159 -->
+
+<script>
+"use strict";
+const executionOrder = [];
+
+const t = async_test();
+window.addEventListener("load", t.step_func_done(() => {
+  assert_array_equals(
+    executionOrder,
+    ["First script", "Middle script", "Second script"]
+  );
+}));
+</script>
+
+<body>
+
+<script>
+"use strict";
+executionOrder.push("First script");
+</script>
+
+<script>
+"use strict";
+const s = document.createElement("script");
+s.type = "text/javascript";
+s.appendChild(document.createTextNode('executionOrder.push("Middle script");'));
+document.getElementsByTagName("body")[0].appendChild(s);
+</script>
+
+<script>
+"use strict";
+executionOrder.push("Second script");
+</script>
