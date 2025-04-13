@@ -74,4 +74,23 @@ describe("Test cases only possible to test from the outside", () => {
     const { window } = new JSDOM();
     assert.equal(window.document.currentScript, null);
   });
+
+  it("should process data: URLs in stylesheets even with external resources disabled (GH-743)", () => {
+    const html = `
+      <html><head>
+        <style id="test-style">
+          @font-face {
+            font-family: "testfont";
+            src: url(data:font/opentype;base64,AAEAAAABAAgAAAE=);
+          }
+        </style>
+      </head><body></body></html>
+    `;
+    const { window } = new JSDOM(html);
+    const { sheet } = window.document.getElementById("test-style");
+
+    assert.equal(sheet.cssRules.length, 1, "Should contain one CSS rule");
+    const [fontFaceRule] = sheet.cssRules;
+    assert.equal(fontFaceRule.type, window.CSSRule.FONT_FACE_RULE, "Rule should be a CSSFontFaceRule");
+  });
 });
