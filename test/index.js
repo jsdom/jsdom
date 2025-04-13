@@ -2,6 +2,7 @@
 // This includes all tests that are run using Mocha, including web-platform-tests.
 
 require("./api/basics.js");
+require("./api/css-parsing-errors.js");
 require("./api/cookies.js");
 require("./api/encoding.js");
 require("./api/file-url-functionality.js");
