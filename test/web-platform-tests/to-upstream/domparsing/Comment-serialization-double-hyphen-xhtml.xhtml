@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Serialization of comments containing '--' in XHTML</title>
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+  <!-- Regression test for https://github.com/jsdom/jsdom/issues/243 -->
+</head>
+<body>
+  <script>
+  //<![CDATA[
+  "use strict";
+
+  test(() => {
+    const p = document.createElement("p");
+    const comment = document.createComment("abc--def");
+    p.appendChild(comment);
+    assert_throws_dom("InvalidStateError", () => {
+      // eslint-disable-next-line no-unused-expressions
+      p.innerHTML;
+    });
+  }, "Serializing a comment containing '--' via innerHTML in XHTML should throw");
+
+  test(() => {
+    const p = document.createElement("p");
+    const comment = document.createComment("abc-->def<!--ghj");
+    p.appendChild(comment);
+    assert_throws_dom("InvalidStateError", () => {
+      // eslint-disable-next-line no-unused-expressions
+      p.innerHTML;
+    });
+  }, "Serializing a comment containing '-->' via innerHTML in XHTML should throw");
+
+  test(() => {
+    const p = document.createElement("p");
+    const comment = document.createComment("--");
+    p.appendChild(comment);
+    assert_throws_dom("InvalidStateError", () => {
+      // eslint-disable-next-line no-unused-expressions
+      p.innerHTML;
+    });
+  }, "Serializing a comment containing only '--' via innerHTML in XHTML should throw");
+  //]]>
+  </script>
+</body>
+</html>
