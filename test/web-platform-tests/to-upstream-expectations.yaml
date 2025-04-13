@@ -1,3 +1,4 @@
+css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/cssom/style-width-calc-vh-vw.html: [fail, https://github.com/jsdom/jsdom/issues/1332]
 dom/nodes/Element-closest-null-selectors.html: [fail, https://github.com/jsdom/jsdom/issues/3466]
 dom/nodes/Element-matches-active-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3610]
