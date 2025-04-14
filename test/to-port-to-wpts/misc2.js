@@ -511,7 +511,7 @@ describe("jsdom/miscellaneous", () => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const script = window.document.createElement("script");
-      script.src = "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js");
+      script.src = "file:" + path.resolve(__dirname, "./jquery-fixtures/jquery-1.11.0.js");
       script.onload = () => {
         window.$("body").append(`<html><body><select id="foo"><option value="first">f</option>
                                  <option value="last">l</option></select></body></html>`);
@@ -554,7 +554,7 @@ describe("jsdom/miscellaneous", () => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const script = window.document.createElement("script");
-      script.src = "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js");
+      script.src = "file:" + path.resolve(__dirname, "./jquery-fixtures/jquery-1.11.0.js");
       script.onload = () => {
         const $el = window.$(`<div mixedcase="blah"></div>`);
 
@@ -568,7 +568,7 @@ describe("jsdom/miscellaneous", () => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const script = window.document.createElement("script");
-      script.src = "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js");
+      script.src = "file:" + path.resolve(__dirname, "./jquery-fixtures/jquery-1.11.0.js");
       script.onload = () => {
         const $el = window.$("<div></div>");
 
@@ -585,7 +585,7 @@ describe("jsdom/miscellaneous", () => {
       const { window } = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const script = window.document.createElement("script");
-      script.src = "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js");
+      script.src = "file:" + path.resolve(__dirname, "./jquery-fixtures/jquery-1.11.0.js");
       script.onload = () => {
         const $el1 = window.$("<div></div>");
         const $el2 = window.$("<span></span>");

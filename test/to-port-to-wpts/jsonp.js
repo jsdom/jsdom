@@ -7,7 +7,7 @@ const { JSDOM } = require("../..");
 const { URL } = require("whatwg-url");
 const path = require("path");
 
-const jQueryFile = path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.4.min.js");
+const jQueryFile = path.resolve(__dirname, "./jquery-fixtures/jquery-1.6.4.min.js");
 
 describe("jsonp/jsonp", () => {
   specify("making a JSONP request from a jsdom window using jQuery", () => {
