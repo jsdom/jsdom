@@ -1,5 +1,6 @@
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
+css/cssom/css-rule-selector-text.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/193]
 css/cssom/style-width-calc-vh-vw.html: [fail, https://github.com/jsdom/jsdom/issues/1332]
 html/semantics/scripting-1/the-script-element/execution-timing/insert-script.html: [fail, https://github.com/jsdom/jsdom/issues/159]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
