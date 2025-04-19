@@ -75,3 +75,15 @@ partial dictionary MouseEventInit {
   double clientX = 0.0;
   double clientY = 0.0;
 };
+
+// https://w3c.github.io/pointerlock/#extensions-to-the-mouseevent-interface
+partial interface MouseEvent {
+  readonly attribute double movementX;
+  readonly attribute double movementY;
+};
+
+// https://w3c.github.io/pointerlock/#extensions-to-the-mouseeventinit-dictionary
+partial dictionary MouseEventInit {
+  double movementX = 0;
+  double movementY = 0;
+};
