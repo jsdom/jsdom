@@ -617,12 +617,6 @@ Document-URL.html: [fail, Unknown]
 Document-characterSet-normalization-1.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-characterSet-normalization-2.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-createEvent.https.html:
-  "DeviceMotionEvent should be an alias for DeviceMotionEvent.": [fail, Interface not implemented]
-  "createEvent('DeviceMotionEvent') should be initialized correctly.": [fail, Interface not implemented]
-  "devicemotionevent should be an alias for DeviceMotionEvent.": [fail, Interface not implemented]
-  "createEvent('devicemotionevent') should be initialized correctly.": [fail, Interface not implemented]
-  "DEVICEMOTIONEVENT should be an alias for DeviceMotionEvent.": [fail, Interface not implemented]
-  "createEvent('DEVICEMOTIONEVENT') should be initialized correctly.": [fail, Interface not implemented]
   "DragEvent should be an alias for DragEvent.": [fail, Interface not implemented]
   "createEvent('DragEvent') should be initialized correctly.": [fail, Interface not implemented]
   "dragevent should be an alias for DragEvent.": [fail, Interface not implemented]
@@ -1864,6 +1858,12 @@ settimeout-cross-realm-callback-report-exception.html: [fail, No relevant realm 
 DIR: mediacapture-record
 
 "**/!(BlobEvent-constructor.html)": [fail-slow, Not implemented]
+
+---
+
+DIR: orientation-event/motion
+
+"**/!(create-event.https.html|optional-event-properties.https.html)": [fail-slow, Not implemented]
 
 ---
 
