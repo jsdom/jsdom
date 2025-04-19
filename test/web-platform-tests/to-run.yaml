@@ -1872,6 +1872,12 @@ settimeout-cross-realm-callback-report-exception.html: [fail, No relevant realm 
 
 ---
 
+DIR: mediacapture-record
+
+"**/!(BlobEvent-constructor.html)": [fail-slow, Not implemented]
+
+---
+
 DIR: selection
 
 bidi/modify.tentative.html: [fail, Not implemented]
