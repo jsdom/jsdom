@@ -3,6 +3,7 @@
 interface EventTarget {
   constructor();
 
+  // webidl2js cannot handle = {} with unions it seems
   undefined addEventListener(DOMString type, EventListener? callback, optional (AddEventListenerOptions or boolean) options);
   undefined removeEventListener(DOMString type, EventListener? callback, optional (EventListenerOptions or boolean) options);
   boolean dispatchEvent(Event event);
@@ -17,7 +18,7 @@ dictionary EventListenerOptions {
 };
 
 dictionary AddEventListenerOptions : EventListenerOptions {
-  boolean passive = false;
+  boolean passive;
   boolean once = false;
   AbortSignal signal;
 };
