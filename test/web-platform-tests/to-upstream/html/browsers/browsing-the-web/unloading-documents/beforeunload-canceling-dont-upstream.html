@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- Omits the real navigation tests since we don't support real navigation. -->
+<meta charset="utf-8">
+<title>beforeunload return value cancelation behavior</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#the-event-handler-processing-algorithm">
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="log"></div>
+
+<script>
+"use strict";
+
+promise_test(t => {
+  let onbeforeunloadHappened = false;
+  window.onbeforeunload = t.step_func(() => {
+    onbeforeunloadHappened = true;
+    return "cancel me";
+  });
+
+  const eventWatcher = new EventWatcher(t, window, "beforeunload");
+  const promise = eventWatcher.wait_for("beforeunload").then(e => {
+    assert_true(onbeforeunloadHappened, "CustomEvent must be able to trigger the event handler");
+    assert_false(e.defaultPrevented, "The event must not have been canceled");
+    window.onbeforeunload = null;
+  });
+
+  window.dispatchEvent(new CustomEvent("beforeunload"));
+
+  return promise;
+}, "Returning a string must not cancel the event: CustomEvent, non-cancelable");
+
+promise_test(t => {
+  let onbeforeunloadHappened = false;
+  window.onbeforeunload = t.step_func(() => {
+    onbeforeunloadHappened = true;
+    return "cancel me";
+  });
+
+  const eventWatcher = new EventWatcher(t, window, "beforeunload");
+  const promise = eventWatcher.wait_for("beforeunload").then(e => {
+    assert_true(onbeforeunloadHappened, "CustomEvent must be able to trigger the event handler");
+    assert_false(e.defaultPrevented, "The event must not have been canceled");
+    window.onbeforeunload = null;
+    t.done();
+  });
+
+  window.dispatchEvent(new CustomEvent("beforeunload", { cancelable: true }));
+
+  return promise;
+}, "Returning a string must not cancel the event: CustomEvent, cancelable");
+
+promise_test(t => {
+  let onbeforeunloadHappened = false;
+  window.onbeforeunload = t.step_func(() => {
+    onbeforeunloadHappened = true;
+    return false;
+  });
+
+  const eventWatcher = new EventWatcher(t, window, "beforeunload");
+  const promise = eventWatcher.wait_for("beforeunload").then(e => {
+    assert_true(onbeforeunloadHappened, "CustomEvent must be able to trigger the event handler");
+    assert_false(e.defaultPrevented, "The event must not have been canceled");
+    window.onbeforeunload = null;
+    t.done();
+  });
+
+  window.dispatchEvent(new CustomEvent("beforeunload", { cancelable: true }));
+
+  return promise;
+}, "Returning false must not cancel the event, because it's coerced to the DOMString \"false\" which does not cancel " +
+   "CustomEvents: CustomEvent, cancelable");
+
+// This test can be removed if we update the DOM Standard to disallow createEvent("BeforeUnloadEvent"). Browser support
+// is inconsistent. https://github.com/whatwg/dom/issues/362
+promise_test(t => {
+  const eventWatcher = new EventWatcher(t, window, "click");
+  const promise = eventWatcher.wait_for("click").then(e => {
+    assert_false(e.defaultPrevented, "The event must not have been canceled");
+    window.onbeforeunload = null;
+    t.done();
+  });
+
+  const ev = document.createEvent("BeforeUnloadEvent");
+  ev.initEvent("click", false, true);
+  window.dispatchEvent(ev);
+
+  return promise;
+}, "Returning a string must not cancel the event: BeforeUnloadEvent with type \"click\", cancelable");
+</script>
