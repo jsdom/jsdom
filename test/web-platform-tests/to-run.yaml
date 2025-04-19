@@ -1847,6 +1847,12 @@ messageevent-constructor.https.html: [fail, uses MessageChannel]
 
 ---
 
+DIR: html/webappapis/scripting/processing-model-2/unhandled-promise-rejections
+
+"**/!(promise-rejection-event-constructor.html)": [fail-slow, Not implemented]
+
+---
+
 DIR: html/webappapis/system-state-and-capabilities/the-navigator-object
 
 clientinformation.window.html: [fail, window.clientInformation is not implemented]
