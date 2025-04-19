@@ -111,6 +111,12 @@ stylesheet-title-002.html: [fail, Unknown]
 
 ---
 
+DIR: css/css-transitions
+
+"**/!(transitionevent-interface.html)": [fail-slow, Not implemented]
+
+---
+
 DIR: css/cssom
 
 CSS-namespace-object-class-string.html: [fail, Unknown]
