@@ -1920,6 +1920,12 @@ DIR: mediacapture-record
 
 ---
 
+DIR: pointerlock
+
+"**/!(constructor.html)": [fail-slow, Not implemented]
+
+---
+
 DIR: selection
 
 bidi/modify.tentative.html: [fail, Not implemented]
