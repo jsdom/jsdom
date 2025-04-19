@@ -594,7 +594,6 @@ event-global-is-still-set-when-coercing-beforeunload-result.html: [fail-slow, un
 event-global-is-still-set-when-reporting-exception-onerror.html: [fail, unknown iframe issue]
 event-global-set-before-handleEvent-lookup.window.html: [fail, unknown iframe issue]
 mouse-event-retarget.html: [fail, Requires a layout engine]
-passive-by-default.html: [fail, Pointer events not implemented]
 relatedTarget.window.html: [fail, Unknown]
 scrolling/scrollend-fires-to-text-input.html: [fail-slow, Unknown]
 scrolling/scrollend-with-snap-on-fractional-offset.html: [fail, Unknown]
