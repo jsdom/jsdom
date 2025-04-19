@@ -23,6 +23,7 @@
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
   "dependencies": {
+    "@asamuzakjp/dom-selector": "^6.5.0",
     "cssstyle": "^4.2.1",
     "data-urls": "^5.0.0",
     "decimal.js": "^10.5.0",
@@ -30,7 +31,6 @@
     "http-proxy-agent": "^7.0.2",
     "https-proxy-agent": "^7.0.6",
     "is-potential-custom-element-name": "^1.0.1",
-    "nwsapi": "^2.2.16",
     "parse5": "^7.2.1",
     "rrweb-cssom": "^0.8.0",
     "saxes": "^6.0.0",

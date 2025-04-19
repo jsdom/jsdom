@@ -1,26 +1,7 @@
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
+css/cssom/css-rule-selector-text.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/193]
 css/cssom/style-width-calc-vh-vw.html: [fail, https://github.com/jsdom/jsdom/issues/1332]
-dom/nodes/Element-closest-null-selectors.html: [fail, https://github.com/jsdom/jsdom/issues/3466]
-dom/nodes/Element-matches-active-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3610]
-dom/nodes/Element-matches-disabled-pseudo-class.html:
-  "querySelectorAll(':enabled') should not select elements in disabled fieldset": [fail, https://github.com/jsdom/jsdom/issues/3603]
-  "querySelector('input:enabled') should return the first enabled input": [fail, https://github.com/jsdom/jsdom/issues/3603]
-dom/nodes/ParentNode-querySelector-case-insensitive.html:
-  "The same element should be found with both lowercase and uppercase div selectors": [fail, https://github.com/jsdom/jsdom/issues/3612]
-  "The same paragraph should be found with both lowercase and uppercase p selectors": [fail, https://github.com/jsdom/jsdom/issues/3612]
-  "The same NodeList should be returned for querySelectorAll with lowercase and uppercase p selectors": [fail, https://github.com/jsdom/jsdom/issues/3612]
-  "Mixed case selectors should work correctly": [fail, https://github.com/jsdom/jsdom/issues/3612]
-  "Tag name case-insensitivity with child combinator (>) dynamically created": [fail, https://github.com/jsdom/jsdom/issues/3544]
-  "Case-insensitivity with non-standard tag names": [fail, https://github.com/jsdom/jsdom/issues/3750]
-dom/nodes/ParentNode-querySelector-host-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3618]
-dom/nodes/ParentNode-querySelector-hyphen-prefix.html: [fail, https://github.com/jsdom/jsdom/issues/3620]
-dom/nodes/ParentNode-querySelector-is-nested-pseudo-class.html: [fail, https://github.com/jsdom/jsdom/issues/3432]
-dom/nodes/ParentNode-querySelector-scope-numeric-id.xhtml: [fail, https://github.com/jsdom/jsdom/issues/3321]
-dom/nodes/ParentNode-querySelectorAll-case-insensitive-attribute-flag.html: [fail, https://github.com/jsdom/jsdom/issues/3370]
-dom/nodes/ParentNode-querySelectorAll-scope-colon-id-class.html:
-  ":scope child selector on element with colon-prefixed class": [fail, https://github.com/jsdom/jsdom/issues/3692]
-  ":scope selector on element with colon-prefixed ID": [fail, https://github.com/jsdom/jsdom/issues/3818]
 html/semantics/scripting-1/the-script-element/execution-timing/insert-script.html: [fail, https://github.com/jsdom/jsdom/issues/159]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
