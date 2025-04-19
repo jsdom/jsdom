@@ -88,7 +88,7 @@ describe("inline-event-handlers", () => {
       const div = doc.body.firstElementChild;
 
       div.onclick = function (event) {
-        assert.equal(event.constructor, doc.defaultView.MouseEvent);
+        assert.equal(event.constructor, doc.defaultView.PointerEvent);
         t.done();
       };
 
