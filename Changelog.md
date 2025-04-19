@@ -26,6 +26,33 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 27.0.0-beta.0
+
+This release includes several changes that might be disruptive, and so are being tested as a beta release before the next major release. Hopefully, they will not be breaking, but your help testing would be appreciated.
+
+### New selector engine
+
+Mostly notably, this switches our CSS selector engine from [`nwsapi`](https://www.npmjs.com/nwsapi) to [`@asamuzakjp/dom-selector`](https://www.npmjs.com/package/@asamuzakjp/dom-selector). This was attempted back in 23.2.0, but reverted in 24.0.0 because of performance concerns. Since that time, `@asamuzakjp/dom-selector` has improved its performance significantly. On the real-world benchmarks from [#3659](https://github.com/jsdom/jsdom/issues/3659), we see the new version taking 1.1x as long (compared to 1.5x with the previous attempt). We hope this lower performance overhead will be enough to allow us to stick with the new selector engine. As a sample of how much more capable it is, 19 independent selector-related bugs were closed by merging in this new version.
+
+Please test with the new selector engine and report back with any performance concerns on the issue tracker, ideally before we make the next stable release.
+
+### New event constructors
+
+The other major change in this prerelease is the addition of many new event constructors. Previously, we have avoided implementing event constructors unless we implemented their attendant specification. For example, we did not implement `BeforeUnloadEvent` since we don't implement unloading of documents; we did not implement `BlobEvent` since we did not implement the [MediaStream Recording](https://w3c.github.io/mediacapture-record/) specification; etc. However, these are common popular requests, and so we've chosen to implement these event constructors without implementing their related specifications.
+
+If this causes you any problems, e.g. due to breaking feature detection, please open an issue on the issue tracker, ideally before we make the next stable release.
+
+The full list of implemented event constructors is: `BeforeUnloadEvent`, `BlobEvent`, `DeviceMotionEvent` (omitting `requestPermission()`), `DeviceOrientationEvent` (omitting `requestPermission()`), `PointerEvent`, `PromiseRejectionEvent`, and `TransitionEvent`.
+
+### Additional changes
+
+The following non-breaking changes are included in this release:
+
+* Added `movementX` and `movementY` to `MouseEvent`. (These are from the [Pointer Lock](https://w3c.github.io/pointerlock/) specification, the rest of which is not implemented.)
+* Changed `element.click()` to fire a `PointerEvent` instead of a `MouseEvent`.
+* Changed certain events to be passive by default.
+* Fixed `document.createEvent()` to accept a more correct set of event names.
+
 ## 26.1.0
 
 * Added at least partial support for various SVG elements and their classes: `<defs>` (`SVGDefsElement`), `<desc>` (`SVGDescElement`), `<g>` (`SVGGElement`), `<metadata>` (`SVGMetadataElement`), `<switch>` (`SVGSwitchElement`), and `<symbol>` (`SVGSymbolElement`).
