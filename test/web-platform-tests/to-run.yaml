@@ -1914,6 +1914,12 @@ DIR: orientation-event/orientation
 
 ---
 
+DIR: pointerevents
+
+"**/!(pointerevent_constructor.https.html|pointerevent_on_event_handlers.html)": [fail-slow, Not implemented]
+
+---
+
 DIR: pointerlock
 
 "**/!(constructor.html)": [fail-slow, Not implemented]
@@ -2024,7 +2030,6 @@ scripted/SVGPoint.html: [fail, Not implemented]
 DIR: uievents
 
 idlharness.window.html: [fail, Depends on fetch]
-interface/click-event.htm: [fail, Pointer events not implemented]
 legacy-domevents-tests/approved/ProcessingInstruction.DOMCharacterDataModified.html: [timeout, Mutation Events not implemented]
 legacy-domevents-tests/approved/domnodeinserted.html: [timeout, Mutation Events not implemented]
 textInput/api.html: [fail, Unknown]
