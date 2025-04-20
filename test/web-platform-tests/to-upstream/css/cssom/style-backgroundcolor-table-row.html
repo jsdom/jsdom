@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<title>CSSOM: Setting style.backgroundColor to oklch()</title>
+<title>CSSOM: Setting style.backgroundColor on table rows</title>
 <meta charset="utf-8">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
@@ -27,5 +27,5 @@ test(() => {
     tr.style.backgroundColor = "pink";
     assert_equals(tr.style.getPropertyValue("background-color"), "pink");
   }
-}, "Setting style.backgroundColor");
+});
 </script>
