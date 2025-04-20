@@ -2,6 +2,17 @@ css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
 css/cssom/css-rule-selector-text.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/193]
 css/cssom/style-width-calc-vh-vw.html: [fail, https://github.com/jsdom/jsdom/issues/1332]
+custom-elements/ElementInternals-accessibility.html:
+  "ariaActiveDescendantElement": [fail, Element reflection not implemented]
+  "ariaBrailleLabel": [fail, Element reflection not implemented]
+  "ariaBrailleRoleDescription": [fail, Element reflection not implemented]
+  "ariaControlsElements": [fail, Element reflection not implemented]
+  "ariaDescribedByElements": [fail, Element reflection not implemented]
+  "ariaDetailsElements": [fail, Element reflection not implemented]
+  "ariaErrorMessageElements": [fail, Element reflection not implemented]
+  "ariaFlowToElements": [fail, Element reflection not implemented]
+  "ariaLabelledByElements": [fail, Element reflection not implemented]
+  "ariaOwnsElements": [fail, Element reflection not implemented]
 html/semantics/scripting-1/the-script-element/execution-timing/insert-script.html: [fail, https://github.com/jsdom/jsdom/issues/159]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
