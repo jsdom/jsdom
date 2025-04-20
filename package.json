@@ -65,7 +65,7 @@
     "npm-run-all2": "^7.0.2",
     "pngjs": "^7.0.0",
     "server-destroy": "^1.0.1",
-    "webidl2js": "^18.0.0",
+    "webidl2js": "^18.0.1",
     "yargs": "^17.7.2"
   },
   "scripts": {
