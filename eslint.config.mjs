@@ -7,7 +7,6 @@ export default [
   {
     ignores: [
       "benchmark/selectors/sizzle-speed/**",
-      "lib/jsdom/browser/default-stylesheet.js",
       "lib/jsdom/level3/xpath.js",
       "lib/jsdom/living/generated/**",
       "test/api/fixtures/**",
