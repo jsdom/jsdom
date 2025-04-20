@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@asamuzakjp/dom-selector": "^6.5.0",
-    "cssstyle": "^4.2.1",
+    "cssstyle": "^4.3.1",
     "data-urls": "^5.0.0",
     "decimal.js": "^10.5.0",
     "html-encoding-sniffer": "^4.0.0",
@@ -35,13 +35,13 @@
     "rrweb-cssom": "^0.8.0",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
-    "tough-cookie": "^5.1.1",
+    "tough-cookie": "^5.1.2",
     "w3c-xmlserializer": "^5.0.0",
     "webidl-conversions": "^7.0.0",
     "whatwg-encoding": "^3.1.1",
     "whatwg-mimetype": "^4.0.0",
     "whatwg-url": "^14.1.1",
-    "ws": "^8.18.0",
+    "ws": "^8.18.1",
     "xml-name-validator": "^5.0.0"
   },
   "peerDependencies": {
@@ -55,9 +55,9 @@
   "devDependencies": {
     "@domenic/eslint-config": "^4.0.1",
     "benchmark": "^2.1.4",
-    "eslint": "^9.20.0",
+    "eslint": "^9.24.0",
     "eslint-plugin-html": "^8.1.2",
-    "globals": "^15.14.0",
+    "globals": "^16.0.0",
     "js-yaml": "^4.1.0",
     "minimatch": "^9.0.5",
     "mocha": "^11.1.0",
