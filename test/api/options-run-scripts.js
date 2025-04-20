@@ -41,8 +41,8 @@ describe("API: runScripts constructor option", () => {
       const promise = new Promise((resolve, reject) => {
         virtualConsole.on("jsdomError", err => {
           try {
-            assert.equal(err.type, "unhandled exception");
-            assert.equal(err.detail.stack.includes("at about:blank:2"), true);
+            assert.equal(err.type, "unhandled-exception");
+            assert.equal(err.cause.stack.includes("at about:blank:2"), true);
             resolve();
           } catch (actualErr) {
             reject(actualErr);

@@ -56,7 +56,7 @@ describe("Test cases only possible to test from the outside", () => {
 
   it("window.close() should work from within a load event listener", async () => {
     const errors = [];
-    const virtualConsole = new VirtualConsole().sendTo(console);
+    const virtualConsole = new VirtualConsole().forwardTo(console);
     virtualConsole.on("jsdomError", e => {
       errors.push(e);
     });

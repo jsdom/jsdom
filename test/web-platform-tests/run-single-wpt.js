@@ -87,16 +87,16 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
 
   let allowUnhandledExceptions = false;
 
-  const virtualConsole = new VirtualConsole().sendTo(console, { omitJSDOMErrors: true });
+  const virtualConsole = new VirtualConsole().forwardTo(console, { jsdomErrors: "none" });
   virtualConsole.on("jsdomError", e => {
-    if (e.type === "unhandled exception" && !allowUnhandledExceptions) {
+    if (e.type === "unhandled-exception" && !allowUnhandledExceptions) {
       unhandledExceptions.push(e);
 
       // Some failing tests make a lot of noise.
       // There's no need to log these messages
       // for errors we're already aware of.
       if (!expectFail) {
-        console.error(e.detail.stack);
+        console.error(e.cause.stack);
       }
     }
   });

@@ -63,22 +63,6 @@ describe("API: virtual consoles", () => {
     assert.deepEqual(messages, ["from the parent", "from the iframe"]);
   });
 
-  it("should show not-implemented messages as \"jsdomError\"s", () => {
-    const virtualConsole = new VirtualConsole();
-    const dom = new JSDOM(``, { virtualConsole });
-
-    let called = false;
-    virtualConsole.on("jsdomError", error => {
-      assert(error instanceof Error);
-      assert.equal(error.message, "Not implemented: window.alert");
-      called = true;
-    });
-
-    dom.window.alert();
-
-    assert.equal(called, true, "The \"jsdomError\" event must have been emitted");
-  });
-
   describe("passing through arguments", () => {
     for (const method of consoleMethods) {
       it(`should pass through arguments to ${method}`, () => {
@@ -101,7 +85,7 @@ describe("API: virtual consoles", () => {
     }
   });
 
-  describe("proxying console methods when using sendTo()", () => {
+  describe("proxying console methods when using forwardTo()", () => {
     for (const method of consoleMethods) {
       it(`should pass through arguments to ${method}`, () => {
         const virtualConsole = new VirtualConsole();
@@ -117,7 +101,7 @@ describe("API: virtual consoles", () => {
             assert.equal(arg4, null);
           }
         };
-        virtualConsole.sendTo(destinationConsole);
+        virtualConsole.forwardTo(destinationConsole);
 
         dom.window.console[method]("1", 2, true, null);
 
@@ -127,41 +111,97 @@ describe("API: virtual consoles", () => {
 
     it("should return the instance it was called on", () => {
       const virtualConsole = new VirtualConsole();
-      const returnValue = virtualConsole.sendTo({});
+      const returnValue = virtualConsole.forwardTo({});
 
       assert.equal(returnValue, virtualConsole);
     });
 
-    it("should forward \"jsdomError\"s to the error method by default", () => {
-      const e = new Error("Test message");
-      e.detail = { foo: "bar" };
+    describe("jsdom errors", () => {
+      it("should forward to the error() method by default, sending the message for most types", () => {
+        let calledTimes = 0;
+        const virtualConsole = (new VirtualConsole()).forwardTo({
+          error(...args) {
+            assert.deepEqual(args, ["Test message"]);
+            ++calledTimes;
+          }
+        });
 
-      let called = false;
-      const virtualConsole = (new VirtualConsole()).sendTo({
-        error(arg1, arg2) {
-          assert.equal(arg1, e.stack, "The first argument to error must be the stack property");
-          assert.equal(arg2, e.detail, "The second argument to error must be the detail property");
-          called = true;
+        const typesToTest = ["css-parsing", "not-implemented", "resource-loading"];
+        for (const type of typesToTest) {
+          const e = new Error("Test message");
+          e.type = type;
+          virtualConsole.emit("jsdomError", e);
         }
+        assert.equal(
+          calledTimes,
+          typesToTest.length,
+          "The error method on the destination console must have been called for each type"
+        );
       });
 
-      virtualConsole.emit("jsdomError", e);
-      assert.equal(called, true, "The error method on the destination console must have been called");
-    });
+      it("should forward \"unhandled-exception\"s to the error() method by default, sending the cause stack", () => {
+        const cause = new Error("Test cause");
+        const e = new Error("Test message", { cause });
+        e.type = "unhandled-exception";
 
-    it("should not forward \"jsdomError\"s to the error method when asked not to", () => {
-      const e = new Error("Test message");
-      e.detail = { foo: "bar" };
+        let called = false;
+        const virtualConsole = (new VirtualConsole()).forwardTo({
+          error(...args) {
+            assert.deepEqual(args, [e.cause.stack]);
+            called = true;
+          }
+        });
 
-      let called = false;
-      const virtualConsole = (new VirtualConsole()).sendTo({
-        error() {
-          called = true;
+        virtualConsole.emit("jsdomError", e);
+        assert.equal(called, true, "The error method on the destination console must have been called");
+      });
+
+      it("should not forward to the error method when set to \"none\"", () => {
+        let called = false;
+        const virtualConsole = (new VirtualConsole()).forwardTo({
+          error() {
+            called = true;
+          }
+        }, { jsdomErrors: "none" });
+
+        const typesToTest = ["css-parsing", "not-implemented", "resource-loading", "unhandled-exception", "bogus-type"];
+        for (const type of typesToTest) {
+          const e = new Error("Test message");
+          e.type = type;
+          virtualConsole.emit("jsdomError", e);
         }
-      }, { omitJSDOMErrors: true });
 
-      virtualConsole.emit("jsdomError", e);
-      assert.equal(called, false, "The error method on the destination console must *not* have been called");
+        assert.equal(called, false, "The error method on the destination console must *not* have been called");
+      });
+
+      it("should only forward specific types when they are specified as an array", () => {
+        const typesToForward = ["css-parsing", "not-implemented"];
+
+        const records = [];
+        const virtualConsole = (new VirtualConsole()).forwardTo({
+          error(...args) {
+            records.push(args);
+          }
+        }, { jsdomErrors: typesToForward });
+
+        const typesToTest = ["css-parsing", "not-implemented", "resource-loading", "unhandled-exception", "bogus-type"];
+        for (const type of typesToTest) {
+          const e = new Error(type);
+          e.type = type;
+          virtualConsole.emit("jsdomError", e);
+        }
+
+        assert.deepEqual(records, [
+          ["css-parsing"],
+          ["not-implemented"]
+        ]);
+      });
+
+      it("should not accept an invalid jsdomErrors option", () => {
+        assert.throws(() => {
+          (new VirtualConsole()).forwardTo({}, { jsdomErrors: "not an array or none" });
+        }, TypeError);
+      });
     });
   });
 });

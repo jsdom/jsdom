@@ -200,9 +200,11 @@ class CustomResourceLoader extends jsdom.ResourceLoader {
 
 ### Virtual consoles
 
-Like web browsers, jsdom has the concept of a "console". This records both information directly sent from the page, via scripts executing inside the document, as well as information from the jsdom implementation itself. We call the user-controllable console a "virtual console", to distinguish it from the Node.js `console` API and from the inside-the-page `window.console` API.
+Like web browsers, jsdom has the concept of a "console". This records both information directly sent from the page, via scripts executing inside the document using the `window.console` API, as well as information from the jsdom implementation itself. We call the user-controllable console a "virtual console", to distinguish it from the Node.js `console` API and from the inside-the-page `window.console` API.
 
-By default, the `JSDOM` constructor will return an instance with a virtual console that forwards all its output to the Node.js console. To create your own virtual console and pass it to jsdom, you can override this default by doing
+By default, the `JSDOM` constructor will return an instance with a virtual console that forwards all its output to the Node.js console. This includes both jsdom output (such as not-implemented warnings or CSS parsing errors) and in-page `window.console` calls.
+
+To create your own virtual console and pass it to jsdom, you can override this default by doing
 
 ```js
 const virtualConsole = new jsdom.VirtualConsole();
@@ -224,20 +226,48 @@ virtualConsole.on("dir", () => { ... });
 If you simply want to redirect the virtual console output to another console, like the default Node.js one, you can do
 
 ```js
-virtualConsole.sendTo(console);
+virtualConsole.forwardTo(console);
 ```
 
-There is also a special event, `"jsdomError"`, which will fire with error objects to report errors from jsdom itself. This is similar to how error messages often show up in web browser consoles, even if they are not initiated by `console.error`. So far, the following errors are output this way:
+There is also a special event, `"jsdomError"`, which will fire with error objects to report errors from jsdom itself. This is similar to how error messages often show up in web browser consoles, even if they are not initiated by `console.error`.
 
-- Errors loading or parsing subresources (scripts, stylesheets, frames, and iframes)
-- Script execution errors that are not handled by a window `onerror` event handler that returns `true` or calls `event.preventDefault()`
-- Not-implemented errors resulting from calls to methods, like `window.alert`, which jsdom does not implement, but installs anyway for web compatibility
-
-If you're using `sendTo(c)` to send errors to `c`, by default it will call `c.error(errorStack[, errorDetail])` with information from `"jsdomError"` events. If you'd prefer to maintain a strict one-to-one mapping of events to method calls, and perhaps handle `"jsdomError"`s yourself, then you can do
+As mentioned above, the default behavior for jsdom is to send these to the Node.js console. This done via `console.error(jsdomError.message)`, or in the case of `"unhandled-exception"`-type jsdom errors that occur from scripts running in the jsdom, via `console.error(jsdomError.cause.stack)`. Using `forwardTo()` will give the same behavior. If you want a non-default behavior, you can customize it in the following ways:
 
 ```js
-virtualConsole.sendTo(c, { omitJSDOMErrors: true });
+// Do not send any jsdom errors to the Node.js console:
+virtualConsole.forwardTo(console, { jsdomErrors: "none" });
+
+// Send only certain jsdom errors to the Node.js console, ignoring others:
+virtualConsole.forwardTo(console, { jsdomErrors: ["unhandled-exception", "not-implemented"]});
+
+// Customize the handling of all jsdom errors:
+virtualConsole.forwardTo(console, { jsdomErrors: "none" });
+virtualConsole.on("jsdomError", err => {
+  switch (err.type) {
+    case "unhandled-exception": {
+      // ... process ...
+      break;
+    }
+    case "css-parsing": {
+      // ... process in some other way ...
+      break;
+    }
+    // ... etc. ...
+  }
+});
 ```
+
+The details for each type of jsdom error, listed by their `type` property, are:
+
+- `"css-parsing"`: an error parsing CSS stylesheets
+  - `cause`: the exception object from our CSS parser library, [`rrweb-cssom`](https://github.com/rrweb-io/CSSOM)
+  - `sheetText`: the full text of the stylesheet that we attempted to parse
+- `"not-implemented"`: an error emitted when certain stub methods from [unimplemented parts of the web platform](#unimplemented-parts-of-the-web-platform) are called
+- `"resource-loading"`: an error [loading resources](#loading-subresources), e.g. due to a network error or a bad response code from the server
+  - `cause` property: the exception object from the internal Node.js network calls jsdom made when retrieving the resource, or from the developer's custom resource loader
+  - `url` property: the URL of the resource that was attempted to be fetched
+- `"unhandled-exception"`: a [script execution](#executing-scripts) error that was not handled by a `Window` `"error"` event listener
+  - `cause` property: contains the original exception object
 
 ### Cookie jars
 
