@@ -5,6 +5,7 @@
 <link rel="help" href="https://drafts.csswg.org/cssom/#the-elementcssinlinestyle-mixin">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<!-- regression test for https://github.com/jsdom/cssstyle/issues/129 -->
 <!-- regression test for https://github.com/jsdom/cssstyle/issues/189 -->
 <!-- regression test for https://github.com/jsdom/cssstyle/issues/196 -->
 
@@ -113,4 +114,43 @@ test(() => {
   const value = div.style.getPropertyValue("background-color");
   assert_equals(value, "green");
 }, "set undefined for div.style[property]");
+
+/* tests from https://github.com/jsdom/cssstyle/issues/129 */
+test(() => {
+  assert_throws_js(TypeError, () => {
+    div.style.opacity = Symbol("1");
+  });
+}, "set Symbol for div.style[property]");
+
+test(() => {
+  assert_throws_js(TypeError, () => {
+    div.target.style.opacity = { toString: () => [0] };
+  });
+}, "set Object.toString for div.style[property]");
+
+test(() => {
+  div.style.opacity = BigInt(1);
+  const value = div.style.getPropertyValue("opacity");
+  assert_equals(value, "1");
+}, "set BigInt for div.style[property]");
+
+test(() => {
+  div.style.setProperty("--custom", undefined);
+  const value = div.style.getPropertyValue("--custom");
+  assert_equals(value, "undefined");
+}, "set undefined for div.style.setProperty custom property");
+
+test(() => {
+  div.style.setProperty("--custom", true);
+  const value = div.style.getPropertyValue("--custom");
+  assert_equals(value, "true");
+}, "set true for div.style.setProperty custom property");
+
+test(() => {
+  div.style.setProperty("--custom", {
+    toString: () => null
+  });
+  const value = div.style.getPropertyValue("--custom");
+  assert_equals(value, "null");
+}, "set toString for div.style.setProperty custom property");
 </script>
