@@ -19,6 +19,7 @@ const validReasons = new Set([
   "fail",
   "fail-slow",
   "fail-with-canvas",
+  "fail-lt-node24",
   "timeout",
   "flaky",
   "needs-canvas"
@@ -195,11 +196,11 @@ function resolveReason(reason) {
     return "skip";
   }
 
-  if (reason === "fail-node18" && nodeMajorVersion === 18) {
-    return "skip";
+  if (reason === "fail-lt-node22" && nodeMajorVersion < 22) {
+    return "expect-fail";
   }
 
-  if (reason === "fail-lt-node22" && nodeMajorVersion < 22) {
+  if (reason === "fail-lt-node24" && nodeMajorVersion < 24) {
     return "expect-fail";
   }
 
