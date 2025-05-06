@@ -21,10 +21,7 @@ const validReasons = new Set([
   "fail-with-canvas",
   "timeout",
   "flaky",
-  "needs-canvas",
-  // Node 18 has a bug in its vm module that causes certain property redefinition tests to fail.
-  // They start passing again on Node 19.
-  "fail-node18"
+  "needs-canvas"
 ]);
 
 exports.checkToUpstreamExpectations = (toUpstreamExpectationsFilename, possibleTestFilePaths) => {
