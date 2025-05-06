@@ -2055,9 +2055,6 @@ url-origin.any.html: [fail, Depends on fetch]
 url-setters-a-area.window.html**: [fail, Depends on fetch]
 url-setters.any.html**: [fail, Depends on fetch]
 urlencoded-parser.any.html: [fail, Depends on fetch]
-urlsearchparams-delete.any.html:
-  "Changing the query of a URL with an opaque path with trailing spaces": [fail, Unknown]
-  "Changing the query of a URL with an opaque path with trailing spaces and a fragment": [fail, Unknown]
 
 ---
 

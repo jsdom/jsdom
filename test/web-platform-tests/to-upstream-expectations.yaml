@@ -9,7 +9,6 @@ css/cssom/style-set-property.html:
   "set BigInt for div.style[property]": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
   "set undefined for div.style.setProperty custom property": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
   "set toString for div.style.setProperty custom property": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
-css/cssom/style-width-calc-vh-vw.html: [fail, https://github.com/jsdom/jsdom/issues/1332]
 css/selectors/attribute-selector-escape.html: [fail, https://github.com/jsdom/jsdom/issues/3033]
 custom-elements/ElementInternals-accessibility.html:
   "ariaActiveDescendantElement": [fail, Element reflection not implemented]
