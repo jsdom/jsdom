@@ -26,6 +26,24 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 27.0.0-beta.1
+
+Breaking changes:
+
+* Node.js v20+ is now the minimum supported version.
+* The user agent stylesheet is now derived from the HTML Standard, instead of from Chromium. This might change the results you see from `getComputedStyle()`.
+* The [virtual console](https://github.com/jsdom/jsdom/blob/15987493ac91d8c24f434902a12a5de6b6d39881/README.md#virtual-consoles) has seen a number of changes:
+  * `"jsdomError"` events are now documented, with specific `type` properties and other properties that depend on the type.
+  * `sendTo()` was renamed to `forwardTo()`.
+  * The `jsdomErrors` option to `sendTo()` can be used to control which errors are sent to the Node.js console. This replaces the previous `omitJSDOMErrors` boolean option.
+  * `"jsdomError"`s for failed `XMLHttpRequest` fetches are no longer emitted.
+  * The values that are printed when forwarding `"jsdomError"`s to the Node.js console are streamlined.
+
+Other changes:
+
+* Fixed the `ElementInternals` accessibility getters and setters. (They were introduced in v23.1.0, but due to inadequate test coverage never actually worked.)
+* Fixed using `Object.defineProperty()` on certain objects, such as `HTMLSelectElement` instances.
+
 ## 27.0.0-beta.0
 
 This release includes several changes that might be disruptive, and so are being tested as a beta release before the next major release. Hopefully, they will not be breaking, but your help testing would be appreciated.
