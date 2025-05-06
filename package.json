@@ -31,7 +31,7 @@
     "http-proxy-agent": "^7.0.2",
     "https-proxy-agent": "^7.0.6",
     "is-potential-custom-element-name": "^1.0.1",
-    "parse5": "^7.2.1",
+    "parse5": "^7.3.0",
     "rrweb-cssom": "^0.8.0",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
@@ -40,8 +40,8 @@
     "webidl-conversions": "^7.0.0",
     "whatwg-encoding": "^3.1.1",
     "whatwg-mimetype": "^4.0.0",
-    "whatwg-url": "^14.1.1",
-    "ws": "^8.18.1",
+    "whatwg-url": "^14.2.0",
+    "ws": "^8.18.2",
     "xml-name-validator": "^5.0.0"
   },
   "peerDependencies": {
@@ -55,14 +55,14 @@
   "devDependencies": {
     "@domenic/eslint-config": "^4.0.1",
     "benchmark": "^2.1.4",
-    "eslint": "^9.24.0",
+    "eslint": "^9.26.0",
     "eslint-plugin-html": "^8.1.2",
     "globals": "^16.0.0",
     "js-yaml": "^4.1.0",
-    "minimatch": "^9.0.5",
-    "mocha": "^11.1.0",
+    "minimatch": "^10.0.1",
+    "mocha": "^11.2.2",
     "mocha-sugar-free": "^1.4.0",
-    "npm-run-all2": "^7.0.2",
+    "npm-run-all2": "^8.0.1",
     "pngjs": "^7.0.0",
     "server-destroy": "^1.0.1",
     "webidl2js": "^18.0.1",
@@ -89,6 +89,6 @@
   "main": "./lib/api.js",
   "type": "commonjs",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }
