@@ -4,7 +4,7 @@ const { JSDOM } = require("../../..");
 const { window } = new JSDOM();
 
 function registerTimerWithClosure() {
-  const hugeArray = Array(10000000)
+  const hugeArray = Array(2**25)
     .fill(0)
     .map((_, idx) => idx);
 
