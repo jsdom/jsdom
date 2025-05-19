@@ -14,8 +14,8 @@
 test(() => {
   const div = document.getElementById("test");
 
-  div.style.backgroundImage = "linear-gradient(green, blue)";
-  assert_equals(div.style.backgroundImage, "linear-gradient(green, blue)");
+  div.style.backgroundImage = "linear-gradient(270deg, blue 0%, red 100%)";
+  assert_equals(div.style.backgroundImage, "linear-gradient(270deg, blue 0%, red 100%)");
 
 }, "Setting style.backgroundImage using linear-gradient()");
 
