@@ -26,6 +26,12 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 27.0.0-beta.2
+
+Significantly improved specification conformance for the `Window` object, including named properties and changing various data properties to accessor properties. This is not likely to be breaking, but since it's a complex change to such a core object, we're happy to do another beta testing release with this included before graduating the v27 line to stable.
+
+Additionally, updated [`cssstyle`](https://github.com/jsdom/cssstyle) to v4.4.0, which brings along various conformance fixes to the `CSSStyleDeclaration` object and its properties.
+
 ## 27.0.0-beta.1
 
 Breaking changes:
