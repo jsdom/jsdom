@@ -1,15 +1,9 @@
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
 css/cssom/css-rule-selector-text.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/193]
-css/cssom/style-global-variable.html: [fail, https://github.com/jsdom/jsdom/issues/3833]
-css/cssom/style-set-custom-property.html: [fail, https://github.com/jsdom/jsdom/issues/3878]
 css/cssom/style-set-property.html:
   "set null for cssRule.style.setProperty": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/196]
   "set undefined for cssRule.style.setProperty": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/196]
-  "set undefined for div.style[property]": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/189]
-  "set Symbol for div.style[property]": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
-  "set BigInt for div.style[property]": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
-  "set undefined for div.style.setProperty custom property": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
   "set toString for div.style.setProperty custom property": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
 css/selectors/attribute-selector-escape.html: [fail, https://github.com/jsdom/jsdom/issues/3033]
 custom-elements/ElementInternals-accessibility.html:
@@ -23,6 +17,9 @@ custom-elements/ElementInternals-accessibility.html:
   "ariaFlowToElements": [fail, Element reflection not implemented]
   "ariaLabelledByElements": [fail, Element reflection not implemented]
   "ariaOwnsElements": [fail, Element reflection not implemented]
+html/semantics/document-metadata/the-link-element/stylesheet-appropriate-time-to-obtain.html: [fail, "CanvasText not resolving to rgb(0, 0, 0); https://github.com/jsdom/jsdom/issues/3887"]
+html/semantics/document-metadata/the-style-element/no-browsing-context.html:
+  "no impact on getComputedStyle": [fail, "CanvasText not resolving to rgb(0, 0, 0); https://github.com/jsdom/jsdom/issues/3887"]
 html/semantics/scripting-1/the-script-element/execution-timing/insert-script.html: [fail, https://github.com/jsdom/jsdom/issues/159]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:

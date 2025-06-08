@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@asamuzakjp/dom-selector": "^6.5.0",
-    "cssstyle": "^4.3.1",
+    "cssstyle": "^4.4.0",
     "data-urls": "^5.0.0",
     "decimal.js": "^10.5.0",
     "html-encoding-sniffer": "^4.0.0",
@@ -55,18 +55,18 @@
   "devDependencies": {
     "@domenic/eslint-config": "^4.0.1",
     "benchmark": "^2.1.4",
-    "eslint": "^9.26.0",
-    "eslint-plugin-html": "^8.1.2",
-    "globals": "^16.0.0",
+    "eslint": "^9.28.0",
+    "eslint-plugin-html": "^8.1.3",
+    "globals": "^16.2.0",
     "js-yaml": "^4.1.0",
     "minimatch": "^10.0.1",
     "mocha": "^11.2.2",
     "mocha-sugar-free": "^1.4.0",
-    "npm-run-all2": "^8.0.1",
+    "npm-run-all2": "^8.0.4",
     "pngjs": "^7.0.0",
     "server-destroy": "^1.0.1",
     "webidl2js": "^18.0.2",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "scripts": {
     "prepare": "npm-run-all prepare:*",
