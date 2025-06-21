@@ -16,18 +16,28 @@
 <script>
 "use strict";
 
+const parentNode = document.getElementById("parent");
+const div = document.getElementById("div");
+const initialColor = window.getComputedStyle(document.documentElement).color;
+
 test(() => {
-  const div = document.getElementById("div");
   assert_equals(div.style.color, "", "Initial value of specified value is empty string.");
+  assert_false(
+    /canvastext/i.test(initialColor),
+    "Initial color is not system color keyword."
+  );
+  assert_true(
+    initialColor.startsWith("rgb(") && initialColor.endsWith(")"),
+    "Initial color is in rgb() format."
+  );
   assert_equals(
     window.getComputedStyle(div).color,
-    "rgb(0, 0, 0)",
+    initialColor,
     "Initial value of resolved value is in rgb() format."
   );
 }, "Sanity check");
 
 test(() => {
-  const div = document.getElementById("div");
   div.style.color = "CanvasText";
   assert_equals(
     div.style.color,
@@ -36,13 +46,12 @@ test(() => {
   );
   assert_equals(
     window.getComputedStyle(div).color,
-    "rgb(0, 0, 0)",
+    initialColor,
     "Resolved value for system color keyword is in rgb() format."
   );
 }, "System color keyword");
 
 test(() => {
-  const div = document.getElementById("div");
   div.style.color = "green";
   assert_equals(
     div.style.color,
@@ -57,7 +66,6 @@ test(() => {
 }, "Color keyword");
 
 test(() => {
-  const div = document.getElementById("div");
   div.style.color = "#008000";
   assert_equals(
     div.style.color,
@@ -72,7 +80,6 @@ test(() => {
 }, "Hex color notation");
 
 test(() => {
-  const div = document.getElementById("div");
   div.style.color = "rgb(0 128 0 / 1)";
   assert_equals(
     div.style.color,
@@ -87,9 +94,7 @@ test(() => {
 }, "Color function");
 
 test(() => {
-  const parent = document.getElementById("parent");
-  const div = document.getElementById("div");
-  parent.style.color = "blue";
+  parentNode.style.color = "blue";
   div.style.color = "inherit";
   assert_equals(
     div.style.color,
