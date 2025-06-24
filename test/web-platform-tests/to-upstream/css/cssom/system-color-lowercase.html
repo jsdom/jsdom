@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>System color keyword to lower case</title>
+<link rel="help" href="https://drafts.csswg.org/css-color/#css-system-colors">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<!-- Test for https://github.com/jsdom/jsdom/pull/3892 -->
+
+<body>
+  <div id="ref"></div>
+  <div id="div"></div>
+</body>
+
+<script>
+"use strict";
+
+const ref = document.getElementById("ref");
+ref.style.backgroundColor = "mark";
+const markedBg = window.getComputedStyle(ref).backgroundColor;
+const div = document.getElementById("div");
+
+test(() => {
+  div.style.backgroundColor = "";
+  assert_equals(div.style.getPropertyValue("background-color"), "");
+  assert_equals(window.getComputedStyle(div).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_not_equals(window.getComputedStyle(div).backgroundColor, markedBg);
+  div.style.backgroundColor = "mark";
+  assert_equals(div.style.getPropertyValue("background-color"), "mark");
+  assert_not_equals(window.getComputedStyle(div).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(window.getComputedStyle(div).backgroundColor, markedBg);
+  div.style.backgroundColor = null;
+  assert_equals(div.style.getPropertyValue("background-color"), "");
+  assert_equals(window.getComputedStyle(div).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_not_equals(window.getComputedStyle(div).backgroundColor, markedBg);
+}, "Sanity check");
+
+test(() => {
+  div.style.backgroundColor = "marK";
+  assert_equals(div.style.getPropertyValue("background-color"), "mark");
+  assert_equals(window.getComputedStyle(div).backgroundColor, markedBg);
+  div.style.backgroundColor = null;
+}, "Color with upper cased letter");
+
+test(() => {
+  div.style.backgroundColor = "mar\u212A";
+  assert_equals(div.style.getPropertyValue("background-color"), "");
+  assert_equals(window.getComputedStyle(div).backgroundColor, "rgba(0, 0, 0, 0)");
+  div.style.backgroundColor = null;
+}, "Color with upper cased kelvin sign");
+</script>
