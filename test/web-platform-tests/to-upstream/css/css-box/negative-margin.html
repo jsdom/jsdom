@@ -12,49 +12,64 @@
 "use strict";
 const div = document.getElementById("div");
 
-test(() => {
+test(t => {
+  t.add_cleanup(() => {
+    div.style.marginTop = null;
+  });
   div.style.marginTop = "-10px";
   assert_equals(div.style.getPropertyValue("margin-top"), "-10px");
-  div.style.marginTop = null;
 }, "margin-top accepts negative margin");
 
-test(() => {
+test(t => {
+  t.add_cleanup(() => {
+    div.style.marginRight = null;
+  });
   div.style.marginRight = "-10px";
   assert_equals(div.style.getPropertyValue("margin-right"), "-10px");
-  div.style.marginRight = null;
 }, "margin-right accepts negative margin");
 
-test(() => {
+test(t => {
+  t.add_cleanup(() => {
+    div.style.marginBottom = null;
+  });
   div.style.marginBottom = "-10px";
   assert_equals(div.style.getPropertyValue("margin-bottom"), "-10px");
-  div.style.marginBottom = null;
 }, "margin-bottom accepts negative margin");
 
-test(() => {
+test(t => {
+  t.add_cleanup(() => {
+    div.style.marginLeft = null;
+  });
   div.style.marginLeft = "-10px";
   assert_equals(div.style.getPropertyValue("margin-left"), "-10px");
-  div.style.marginLeft = null;
 }, "margin-left accepts negative margin");
 
-test(() => {
+test(t => {
+  t.add_cleanup(() => {
+    div.style.margin = null;
+  });
   div.style.margin = "-10px";
   assert_equals(div.style.getPropertyValue("margin-top"), "-10px");
   assert_equals(div.style.getPropertyValue("margin-right"), "-10px");
   assert_equals(div.style.getPropertyValue("margin-bottom"), "-10px");
   assert_equals(div.style.getPropertyValue("margin-left"), "-10px");
-  div.style.margin = null;
 }, "margin shorthand with 1 value should get/set negative margins");
 
-test(() => {
+test(t => {
+  t.add_cleanup(() => {
+    div.style.margin = null;
+  });
   div.style.margin = "-10px -20px";
   assert_equals(div.style.getPropertyValue("margin-top"), "-10px");
   assert_equals(div.style.getPropertyValue("margin-right"), "-20px");
   assert_equals(div.style.getPropertyValue("margin-bottom"), "-10px");
   assert_equals(div.style.getPropertyValue("margin-left"), "-20px");
-  div.style.margin = null;
 }, "margin shorthand with 2 values should get/set negative margins");
 
-test(() => {
+test(t => {
+  t.add_cleanup(() => {
+    div.style.margin = null;
+  });
   div.style.margin = "-10px -20px -30px";
   assert_equals(div.style.getPropertyValue("margin-top"), "-10px");
   assert_equals(div.style.getPropertyValue("margin-right"), "-20px");
@@ -63,12 +78,14 @@ test(() => {
   div.style.margin = null;
 }, "margin shorthand with 3 values should get/set negative margins");
 
-test(() => {
+test(t => {
+  t.add_cleanup(() => {
+    div.style.margin = null;
+  });
   div.style.margin = "-10px -20px -30px -40px";
   assert_equals(div.style.getPropertyValue("margin-top"), "-10px");
   assert_equals(div.style.getPropertyValue("margin-right"), "-20px");
   assert_equals(div.style.getPropertyValue("margin-bottom"), "-30px");
   assert_equals(div.style.getPropertyValue("margin-left"), "-40px");
-  div.style.margin = null;
 }, "margin shorthand with 4 values should get/set negative margins");
 </script>
