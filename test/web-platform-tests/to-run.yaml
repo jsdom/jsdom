@@ -97,7 +97,6 @@ parsing/color-valid-hwb.html: [fail, Unknown]
 parsing/color-valid-lab.html: [fail, Unknown]
 parsing/color-valid-relative-color.html: [fail, Unknown]
 parsing/color-valid-rgb.html: [fail, Unknown]
-parsing/color-valid-system-color.html: [fail, Unknown]
 parsing/opacity-computed.html: [fail, Unknown]
 parsing/opacity-valid.html: [fail, Unknown]
 parsing/relative-color-out-of-gamut.html: [fail, Unknown]
@@ -117,8 +116,6 @@ system-color-compute.html:
   "Inherited system color keyword is observable on fill": [fail, computedStyleMap not implemented]
   "Inherited system color keyword is observable on stroke": [fail, computedStyleMap not implemented]
 system-color-consistency.html: [fail, Depends on CSS]
-system-color-support.html:
-  "System color SelectedItem works": [fail, Needs cssstyle fix]
 
 ---
 
@@ -243,7 +240,6 @@ cssstyledeclaration-setter-logical.html: [fail, Unknown]
 delete-namespace-rule-when-child-rule-exists.html: [fail, Unknown]
 escape.html: [fail, Unknown]
 flex-serialization.html: [fail, Unknown]
-font-family-serialization-001.html: [fail, https://github.com/jsdom/cssstyle/issues/212]
 font-shorthand-serialization.html: [fail, Unknown]
 font-variant-shorthand-serialization.html: [fail, Unknown]
 getComputedStyle-animations-replaced-into-ib-split.html: [fail, Unknown]
