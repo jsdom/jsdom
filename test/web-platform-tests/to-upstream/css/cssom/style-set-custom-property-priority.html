@@ -57,7 +57,8 @@ test(t => {
   });
   div.style.setProperty("--foo", "purple", "important");
   div.style.color = "var(--foo)";
-  assert_equals(window.getComputedStyle(div).getPropertyPriority("--foo"), "", "Priority is empty");
+  assert_equals(div.style.getPropertyPriority("--foo"), "important", "Priority of specified value is impotant");
+  assert_equals(window.getComputedStyle(div).getPropertyPriority("--foo"), "", "Priority of computed value is empty");
   assert_equals(window.getComputedStyle(div).getPropertyValue("--foo"), "purple", "Value is purple");
   assert_equals(window.getComputedStyle(div).color, "rgb(128, 0, 128)", "Computed color is rgb(128, 0, 128)");
 }, "Set custom property with priority to self");
