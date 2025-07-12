@@ -1,0 +1,107 @@
+DIR: dom/abort
+
+---
+
+DIR: dom/collections
+
+---
+
+DIR: dom/events
+
+Event-dispatch-click.tentative.html: [fail, Test is wrong, https://github.com/web-platform-tests/wpt/issues/27819]
+Event-dispatch-single-activation-behavior.html: [fail, Unknown]
+Event-dispatch-throwing-multiple-globals.html: [fail-slow, Unknown]
+Event-timestamp-high-resolution.html: [fail, Not implemented]
+Event-timestamp-high-resolution.https.html: [fail, Not implemented]
+EventListener-handleEvent-cross-realm.html: [fail, No relevant realm support for callbacks in webidl2js]
+EventListener-incumbent-global-1.sub.html: [timeout, Multi-globals]
+EventListener-incumbent-global-2.sub.html: [timeout, Multi-globals]
+EventListener-invoke-legacy.html: [timeout, Animation stuff not implemented]
+EventTarget-dispatchEvent.html: [fail, We don't support every event interface yet]
+event-global-extra.window.html: [fail, We're supposed to check the event listener's global (not the Event's global)]
+event-global-is-still-set-when-coercing-beforeunload-result.html: [fail-slow, unknown iframe issue]
+event-global-is-still-set-when-reporting-exception-onerror.html: [fail, unknown iframe issue]
+event-global-set-before-handleEvent-lookup.window.html: [fail, unknown iframe issue]
+mouse-event-retarget.html: [fail, Requires a layout engine]
+relatedTarget.window.html: [fail, Unknown]
+scrolling/scrollend-fires-to-text-input.html: [fail-slow, Unknown]
+scrolling/scrollend-with-snap-on-fractional-offset.html: [fail, Unknown]
+webkit-animation-end-event.html: [fail-slow, WebKit-prefixed events not implemented]
+webkit-animation-iteration-event.html: [fail-slow, WebKit-prefixed events not implemented]
+webkit-animation-start-event.html: [fail-slow, WebKit-prefixed events not implemented]
+webkit-transition-end-event.html: [fail-slow, WebKit-prefixed events not implemented]
+
+---
+
+DIR: dom/lists
+
+DOMTokenList-coverage-for-attributes.html: [fail, Several DOMTokenList attributes have not been implemented; has dont-upstream version]
+
+---
+
+DIR: dom/nodes
+
+Document-URL.html: [fail, Unknown]
+Document-characterSet-normalization-1.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
+Document-characterSet-normalization-2.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
+Document-createEvent.https.html:
+  "DragEvent should be an alias for DragEvent.": [fail, Interface not implemented]
+  "createEvent('DragEvent') should be initialized correctly.": [fail, Interface not implemented]
+  "dragevent should be an alias for DragEvent.": [fail, Interface not implemented]
+  "createEvent('dragevent') should be initialized correctly.": [fail, Interface not implemented]
+  "DRAGEVENT should be an alias for DragEvent.": [fail, Interface not implemented]
+  "createEvent('DRAGEVENT') should be initialized correctly.": [fail, Interface not implemented]
+  "TextEvent should be an alias for TextEvent.": [fail, Interface not implemented]
+  "createEvent('TextEvent') should be initialized correctly.": [fail, Interface not implemented]
+  "textevent should be an alias for TextEvent.": [fail, Interface not implemented]
+  "createEvent('textevent') should be initialized correctly.": [fail, Interface not implemented]
+  "TEXTEVENT should be an alias for TextEvent.": [fail, Interface not implemented]
+  "createEvent('TEXTEVENT') should be initialized correctly.": [fail, Interface not implemented]
+Document-getElementById.html: [fail, We cache IDs in insertion order]
+Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
+Element-firstElementChild-entity.svg: [fail, Unknown]
+Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
+MutationObserver-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
+MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
+Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not implemented]
+Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
+Node-lookupNamespaceURI.html: [fail, Unknown]
+Node-mutation-adoptNode.html:
+  "Adopting an element into a different document update's the element's owner doc as well as the owner docs of it's attributes": [fail, Unknown]
+NodeList-static-length-getter-tampered*: [flaky, Nested for-loops are really slow and these often time out]
+ParentNode-querySelector-All-xht.xht: [fail-slow, Depends on requestAnimationFrame; has dont-upstream version]
+ParentNode-querySelector-All.html: [fail-slow, Depends on requestAnimationFrame; has dont-upstream version]
+ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
+adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
+attributes-namednodemap-cross-document.window.html: [fail, Unknown]
+insertion-removing-steps/*.tentative.html: [fail, Unknown]
+insertion-removing-steps/Node-appendChild-script-with-mutation-observer-takeRecords.html: [fail, Unknown]
+insertion-removing-steps/insertion-removing-steps-iframe.window.html:
+  "Insertion steps: load event fires synchronously *after* iframe DOM insertion, as part of the iframe element's insertion steps": [fail, Unknown]
+insertion-removing-steps/insertion-removing-steps-script.window.html: [fail, Unknown]
+moveBefore/**: [fail-slow, Not implemented]
+remove-and-adopt-thcrash.html: [fail, window.open not implemented]
+
+---
+
+DIR: dom/ranges
+Range-cloneContents.html: [fail-slow, Unknown]
+Range-cloneRange.html: [fail, Unknown]
+Range-collapse.html: [fail, Unknown]
+Range-commonAncestorContainer.html: [fail, Unknown]
+Range-compareBoundaryPoints.html: [timeout, Passes locally sometimes but has 8666 subtests and times out the CI runner]
+Range-comparePoint.html: [fail-slow, Unknown]
+Range-deleteContents.html: [fail-slow, Unknown]
+Range-extractContents.html: [fail-slow, Unknown]
+Range-insertNode.html: [fail-slow, Unknown]
+Range-isPointInRange.html: [fail-slow, Unknown]
+Range-selectNode.html: [fail, Unknown]
+Range-set.html: [fail-slow, Unknown]
+Range-surroundContents.html: [fail-slow, Unknown]
+
+---
+
+DIR: dom/traversal
+
+NodeIterator-removal.html: [fail, Unknown]
+TreeWalker-acceptNode-filter-cross-realm-null-browsing-context.html: [fail, No relevant realm support for callbacks in webidl2js]
