@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@asamuzakjp/dom-selector": "^6.5.0",
-    "cssstyle": "^4.4.0",
+    "cssstyle": "^4.6.0",
     "data-urls": "^5.0.0",
     "decimal.js": "^10.5.0",
     "html-encoding-sniffer": "^4.0.0",
