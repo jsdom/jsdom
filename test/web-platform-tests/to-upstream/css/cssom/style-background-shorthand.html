@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<title>background shorthand</title>
+<meta charset="utf-8">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#background">
+<!-- Regression test for https://github.com/jsdom/cssstyle/issues/209 -->
+
+<div id="test"></div>
+
+<script>
+"use strict";
+
+const div = document.getElementById("test");
+
+test(() => {
+  div.style.backgroundColor = "red";
+  div.style.backgroundImage = "url(example.png)";
+  div.style.backgroundPosition = "left";
+  div.style.backgroundSize = "50%";
+  div.style.backgroundRepeat = "repeat";
+  div.style.backgroundOrigin = "padding-box";
+  div.style.backgroundClip = "border-box";
+  div.style.backgroundAttachment = "fixed";
+
+  div.style.background = null;
+  assert_equals(div.style.backgroundColor, "", "color");
+  assert_equals(div.style.backgroundImage, "", "image");
+  assert_equals(div.style.backgroundPosition, "", "position");
+  assert_equals(div.style.backgroundSize, "", "size");
+  assert_equals(div.style.backgroundRepeat, "", "repeat");
+  assert_equals(div.style.backgroundOrigin, "", "origin");
+  assert_equals(div.style.backgroundClip, "", "clip");
+  assert_equals(div.style.backgroundAttachment, "", "attachment");
+  assert_equals(div.style.background, "", "background");
+}, "Sanity check");
+
+test(t => {
+  t.add_cleanup(() => {
+    div.style.background = null;
+  });
+
+  div.style.background = "none";
+  assert_equals(div.style.background, "none", "background");
+  assert_equals(div.style.backgroundImage, "none", "image");
+  assert_equals(div.style.backgroundPosition, "0% 0%", "position");
+  assert_equals(div.style.backgroundSize, "auto", "size");
+  assert_equals(div.style.backgroundRepeat, "repeat", "repeat");
+  assert_equals(div.style.backgroundOrigin, "padding-box", "origin");
+  assert_equals(div.style.backgroundClip, "border-box", "clip");
+  assert_equals(div.style.backgroundAttachment, "scroll", "attachment");
+  assert_equals(div.style.backgroundColor, "transparent", "color");
+}, "`none` sets default longhand values");
+
+test(t => {
+  t.add_cleanup(() => {
+    div.style.background = null;
+  });
+
+  div.style.background = "transparent";
+  assert_equals(div.style.background, "transparent", "background");
+  assert_equals(div.style.backgroundImage, "none", "image");
+  assert_equals(div.style.backgroundPosition, "0% 0%", "position");
+  assert_equals(div.style.backgroundSize, "auto", "size");
+  assert_equals(div.style.backgroundRepeat, "repeat", "repeat");
+  assert_equals(div.style.backgroundOrigin, "padding-box", "origin");
+  assert_equals(div.style.backgroundClip, "border-box", "clip");
+  assert_equals(div.style.backgroundAttachment, "scroll", "attachment");
+  assert_equals(div.style.backgroundColor, "transparent", "color");
+}, "`transparent` sets default longhand values");
+
+test(t => {
+  t.add_cleanup(() => {
+    div.style.background = null;
+  });
+
+  div.style.background = "fixed left / 50% repeat url(example.png) green";
+  const value = div.style.background;
+  // Firefox omits properties with default value, i.e. `repeat` in this case.
+  const expectedValues = [
+    "green",
+    'url("example.png")',
+    "left center / 50%",
+    "fixed"
+  ];
+  for (const expectedValue of expectedValues) {
+    assert_true(value.includes(expectedValue), expectedValue);
+  }
+  // Unspecified properties with default value should not be included in shorthand
+  const unexpectedValues = [
+    "padding-box",
+    "border-box"
+  ];
+  for (const unexpectedValue of unexpectedValues) {
+    assert_false(value.includes(unexpectedValue), unexpectedValue);
+  }
+  assert_equals(div.style.backgroundImage, 'url("example.png")', "image");
+  assert_equals(div.style.backgroundPosition, "left center", "position");
+  assert_equals(div.style.backgroundSize, "50%", "size");
+  assert_equals(div.style.backgroundRepeat, "repeat", "repeat");
+  assert_equals(div.style.backgroundOrigin, "padding-box", "origin");
+  assert_equals(div.style.backgroundClip, "border-box", "clip");
+  assert_equals(div.style.backgroundAttachment, "fixed", "attachment");
+  assert_equals(div.style.backgroundColor, "green", "color");
+}, "Background shorthand sets longhand values");
+
+test(t => {
+  t.add_cleanup(() => {
+    div.style.background = null;
+  });
+
+  div.style.background = "fixed left / 50% repeat url(example.png) red";
+  div.style.backgroundColor = "green";
+  const value = div.style.background;
+  // Firefox omits properties with default value, i.e. `repeat` in this case.
+  const expectedValues = [
+    "green",
+    'url("example.png")',
+    "left center / 50%",
+    "fixed"
+  ];
+  for (const expectedValue of expectedValues) {
+    assert_true(value.includes(expectedValue), expectedValue);
+  }
+  // Unspecified properties with default value should not be included in shorthand
+  const unexpectedValues = [
+    "padding-box",
+    "border-box"
+  ];
+  for (const unexpectedValue of unexpectedValues) {
+    assert_false(value.includes(unexpectedValue), unexpectedValue);
+  }
+  assert_equals(div.style.backgroundImage, 'url("example.png")', "image");
+  assert_equals(div.style.backgroundPosition, "left center", "position");
+  assert_equals(div.style.backgroundSize, "50%", "size");
+  assert_equals(div.style.backgroundRepeat, "repeat", "repeat");
+  assert_equals(div.style.backgroundOrigin, "padding-box", "origin");
+  assert_equals(div.style.backgroundClip, "border-box", "clip");
+  assert_equals(div.style.backgroundAttachment, "fixed", "attachment");
+  assert_equals(div.style.backgroundColor, "green", "color");
+}, "Update longhand sets background value with its updated value");
+
+test(t => {
+  t.add_cleanup(() => {
+    div.style.background = null;
+  });
+
+  div.style.background = "fixed left / 50% repeat url(example.png) green var(--foo)";
+  assert_equals(div.style.background, "fixed left / 50% repeat url(example.png) green var(--foo)", "background");
+  assert_equals(div.style.backgroundImage, "", "image");
+  assert_equals(div.style.backgroundPosition, "", "position");
+  assert_equals(div.style.backgroundSize, "", "size");
+  assert_equals(div.style.backgroundRepeat, "", "repeat");
+  assert_equals(div.style.backgroundOrigin, "", "origin");
+  assert_equals(div.style.backgroundClip, "", "clip");
+  assert_equals(div.style.backgroundAttachment, "", "attachment");
+  assert_equals(div.style.backgroundColor, "", "color");
+}, "Background with var() sets empty longhand values");
+
+test(t => {
+  t.add_cleanup(() => {
+    div.style.background = null;
+  });
+
+  div.style.background = "fixed left / 50% repeat url(example.png) red";
+  div.style.backgroundColor = "var(--foo)";
+  assert_equals(div.style.background, "", "background");
+  assert_equals(div.style.backgroundImage, 'url("example.png")', "image");
+  assert_equals(div.style.backgroundPosition, "left center", "position");
+  assert_equals(div.style.backgroundSize, "50%", "size");
+  assert_equals(div.style.backgroundRepeat, "repeat", "repeat");
+  assert_equals(div.style.backgroundOrigin, "padding-box", "origin");
+  assert_equals(div.style.backgroundClip, "border-box", "clip");
+  assert_equals(div.style.backgroundAttachment, "fixed", "attachment");
+  assert_equals(div.style.backgroundColor, "var(--foo)", "color");
+}, "Update longhand with var() sets empty background value");
+</script>
