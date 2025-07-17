@@ -22,6 +22,7 @@ custom-elements/ElementInternals-accessibility.html:
   "ariaFlowToElements": [fail, Element reflection not implemented]
   "ariaLabelledByElements": [fail, Element reflection not implemented]
   "ariaOwnsElements": [fail, Element reflection not implemented]
+dom/nodes/ParentNode-querySelectorAll-scope-change.html: [fail, https://github.com/jsdom/jsdom/issues/3906]
 html/semantics/scripting-1/the-script-element/execution-timing/insert-script.html: [fail, https://github.com/jsdom/jsdom/issues/159]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
