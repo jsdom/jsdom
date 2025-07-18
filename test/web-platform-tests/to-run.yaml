@@ -119,6 +119,29 @@ system-color-consistency.html: [fail, Depends on CSS]
 
 ---
 
+DIR: css/css-display
+
+animations/display-interpolation.html: [fail, Depends on CSS]
+animations/display-interpolation.tentative.html: [fail, Depends on CSS]
+display-contents-blockify-dynamic.html: [fail, Unknown]
+display-contents-computed-style.html: [fail, Unknown]
+display-contents-focusable-001.html: [fail, Unknown]
+display-contents-parsing-001.html: [fail, Unknown]
+display-first-line-001.html: [fail, Unknown]
+display-list-item-height-after-dom-change.html: [fail, Unknown]
+display-math-on-non-mathml-elements.html: [fail, Unknown]
+display-math-on-pseudo-elements-001.html: [fail, Unknown]
+display-with-float-dynamic.html: [fail, Unknown]
+inheritance.html: [fail, Unknown]
+parsing/display-computed.html: [fail, Depends on CSS]
+parsing/display-invalid.html: [fail, Unknown]
+parsing/display-valid.html: [fail, Unknown]
+parsing/tentative/display-computed.html: [fail, Unknown]
+reading-flow/tentative/**/!(reading-flow-valid.html|reading-order-invalid.html): [fail, Unknown]
+textarea-display.html: [fail, Unknown]
+
+---
+
 DIR: css/css-scoping
 
 css-scoping-shadow-dynamic-remove-style-detached.html: [fail-slow, Unknown]
