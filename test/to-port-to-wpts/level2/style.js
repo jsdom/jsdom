@@ -282,38 +282,6 @@ describe("level2/style", () => {
     });
   });
 
-  specify("setStyleToInvalidCSSSyntax", () => {
-    const node = (new JSDOM()).window.document.createElement("div");
-
-    const invalidStyles = [
-      "color: red; }",
-      "color: \"red",
-      "color: red;' ",
-      "color: red; /*",
-      "color: attr(",
-      "color: ",
-      "color: /*red"
-    ];
-
-    invalidStyles.forEach(function (style) {
-      node.setAttribute("style", "color: red");
-      assert.doesNotThrow(function () {
-        node.setAttribute("style", style);
-      });
-      assert.equal(node.getAttribute("style"), style);
-      assert.equal(node.style.color, "");
-      assert.equal(node.style.cssText, "");
-
-      node.style.cssText = "color: red";
-      assert.doesNotThrow(function () {
-        node.style.cssText = style;
-      });
-      assert.equal(node.style.color, "");
-      assert.equal(node.style.cssText, "");
-    });
-
-  });
-
   specify("getStyleSheetByItem", (t) => {
     const { window } = new JSDOM(`<html><head><style>p{color:red}</style><style>div{color:green}</style></head><body>`);
     var sheets = window.document.styleSheets;
