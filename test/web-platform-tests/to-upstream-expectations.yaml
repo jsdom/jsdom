@@ -1,6 +1,7 @@
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
 css/css-images/gradient-specified-values.html: [fail, https://github.com/jsdom/cssstyle/pull/232]
+css/css-syntax/parse-invalid-input.html: [fail, Need cssstyle fix]
 css/cssom/css-rule-selector-text.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/193]
 css/cssom/style-background-position.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/209]
 css/cssom/style-background-repeat.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/209]
