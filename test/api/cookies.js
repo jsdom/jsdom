@@ -53,6 +53,7 @@ describe("Cookie processing", () => {
       assertCookies(window.document.cookie, [
         "Test1=Basic",
         "Test2=PathMatch",
+        "Test7=Secure",
         "Test9=Duplicate",
         "Test10={\"prop1\":5,\"prop2\":\"value\"}",
         "Malformed"
@@ -64,6 +65,7 @@ describe("Cookie processing", () => {
         assertCookies(window.document.cookie, [
           "Test1=Basic",
           "Test2=PathMatch",
+          "Test7=Secure",
           "Test9=Duplicate",
           "Test10={\"prop1\":5,\"prop2\":\"value\"}",
           "Malformed"
@@ -85,6 +87,7 @@ describe("Cookie processing", () => {
           assertCookies(window.document.cookie, [
             "Test1=Basic",
             "Test2=PathMatch",
+            "Test7=Secure",
             "Test9=Duplicate",
             "Test10={\"prop1\":5,\"prop2\":\"value\"}",
             "Malformed"
@@ -109,6 +112,7 @@ describe("Cookie processing", () => {
           assertCookies(window.document.cookie, [
             "Test1=Basic",
             "Test2=PathMatch",
+            "Test7=Secure",
             "Test9=Duplicate",
             "Test10={\"prop1\":5,\"prop2\":\"value\"}",
             "Malformed"
@@ -147,6 +151,7 @@ describe("Cookie processing", () => {
               "Test1=Basic",
               "Test2=PathMatch",
               "Test6=HttpOnly",
+              "Test7=Secure",
               "Test9=Duplicate",
               "Test10={\"prop1\":5,\"prop2\":\"value\"}",
               "Malformed"
@@ -173,6 +178,7 @@ describe("Cookie processing", () => {
             assertCookies(iframe.contentDocument.cookie, [
               "Test1=Basic",
               "Test2=PathMatch",
+              "Test7=Secure",
               "Test9=Duplicate",
               "Test10={\"prop1\":5,\"prop2\":\"value\"}",
               "Malformed"
@@ -181,6 +187,7 @@ describe("Cookie processing", () => {
               "Test1=Basic",
               "Test2=PathMatch",
               "Test6=HttpOnly",
+              "Test7=Secure",
               "Test9=Duplicate",
               "Test10={\"prop1\":5,\"prop2\":\"value\"}",
               "Malformed"
@@ -206,6 +213,7 @@ describe("Cookie processing", () => {
               "Test1=Basic",
               "Test2=PathMatch",
               "Test6=HttpOnly",
+              "Test7=Secure",
               "Test9=Duplicate",
               "Test10={\"prop1\":5,\"prop2\":\"value\"}",
               "Malformed"
@@ -247,7 +255,7 @@ describe("Cookie processing", () => {
 
     const loadPromise = new Promise(resolve => {
       xhr.onload = () => {
-        assertCookies(xhr.responseText, ["OptionsTest=FooBar"]);
+        assertCookies(xhr.responseText, ["OptionsTest=FooBar", "SecureAliasUrlTest=Baz"]);
         resolve();
       };
     });
@@ -270,6 +278,7 @@ describe("Cookie processing", () => {
         "Test1=Basic",
         "Test2=PathMatch",
         "Test6=HttpOnly",
+        "Test7=Secure",
         "Test9=Duplicate",
         "Test10={\"prop1\":5,\"prop2\":\"value\"}",
         "Malformed"
@@ -278,6 +287,7 @@ describe("Cookie processing", () => {
       assertCookies(window.document.cookie, [
         "Test1=Basic",
         "Test2=PathMatch",
+        "Test7=Secure",
         "Test9=Duplicate",
         "Test10={\"prop1\":5,\"prop2\":\"value\"}",
         "Malformed"
