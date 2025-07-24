@@ -22,11 +22,11 @@ const testCookies = [
 let testHost, testSecuredHost;
 
 describe("Cookie processing", () => {
-  let unsecuredServer, securedServer;
+  let server, securedServer;
 
   before(() => {
     return setupServer().then(s => {
-      unsecuredServer = s;
+      server = s;
       testHost = `http://127.0.0.1:${s.address().port}`;
 
       return setupSecuredServer();
@@ -38,17 +38,14 @@ describe("Cookie processing", () => {
 
   after(() => {
     return Promise.all([
-      unsecuredServer.destroy(),
+      server.destroy(),
       securedServer.destroy()
     ]);
   });
 
   describe("document.cookie", () => {
     it("reflects back what is set to it", () => {
-      const { window } = new JSDOM(``, {
-        url: testHost + "/TestPath/test-page",
-        cookieJar: createCookieJarForUnsecuredServer()
-      });
+      const { window } = new JSDOM(``, { url: testHost + "/TestPath/test-page" });
       for (const cookieStr of testCookies) {
         window.document.cookie = cookieStr;
       }
@@ -56,6 +53,7 @@ describe("Cookie processing", () => {
       assertCookies(window.document.cookie, [
         "Test1=Basic",
         "Test2=PathMatch",
+        "Test7=Secure",
         "Test9=Duplicate",
         "Test10={\"prop1\":5,\"prop2\":\"value\"}",
         "Malformed"
@@ -63,12 +61,11 @@ describe("Cookie processing", () => {
     });
 
     it("reflects back cookies set from the server while requesting the page", () => {
-      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", {
-        cookieJar: createCookieJarForUnsecuredServer()
-      }).then(({ window }) => {
+      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server").then(({ window }) => {
         assertCookies(window.document.cookie, [
           "Test1=Basic",
           "Test2=PathMatch",
+          "Test7=Secure",
           "Test9=Duplicate",
           "Test10={\"prop1\":5,\"prop2\":\"value\"}",
           "Malformed"
@@ -80,8 +77,7 @@ describe("Cookie processing", () => {
       const { window } = new JSDOM(``, {
         url: testHost + "/TestPath/test-page",
         resources: "usable",
-        runScripts: "dangerously",
-        cookieJar: createCookieJarForUnsecuredServer()
+        runScripts: "dangerously"
       });
 
       const script = window.document.createElement("script");
@@ -91,6 +87,7 @@ describe("Cookie processing", () => {
           assertCookies(window.document.cookie, [
             "Test1=Basic",
             "Test2=PathMatch",
+            "Test7=Secure",
             "Test9=Duplicate",
             "Test10={\"prop1\":5,\"prop2\":\"value\"}",
             "Malformed"
@@ -106,10 +103,7 @@ describe("Cookie processing", () => {
     });
 
     it("reflects back cookies set from the server on an XHR response", () => {
-      const { window } = new JSDOM(``, {
-        url: testHost + "/TestPath/test-page",
-        cookieJar: createCookieJarForUnsecuredServer()
-      });
+      const { window } = new JSDOM(``, { url: testHost + "/TestPath/test-page" });
 
       const xhr = new window.XMLHttpRequest();
 
@@ -118,6 +112,7 @@ describe("Cookie processing", () => {
           assertCookies(window.document.cookie, [
             "Test1=Basic",
             "Test2=PathMatch",
+            "Test7=Secure",
             "Test9=Duplicate",
             "Test10={\"prop1\":5,\"prop2\":\"value\"}",
             "Malformed"
@@ -133,10 +128,7 @@ describe("Cookie processing", () => {
     });
 
     it("should not contain expired cookies (GH-1027)", () => {
-      const { window } = new JSDOM(``, {
-        url: testHost + "/TestPath/test-page",
-        cookieJar: createCookieJarForUnsecuredServer()
-      });
+      const { window } = new JSDOM(``, { url: testHost + "/TestPath/test-page" });
 
       const timeNow = Date.now();
       const expiredDate = new Date(timeNow - 24 * 60 * 60 * 1000);
@@ -151,11 +143,7 @@ describe("Cookie processing", () => {
 
   describe("sent with requests", () => {
     it("should send the Cookies header with a script request", () => {
-      const options = {
-        runScripts: "dangerously",
-        resources: "usable",
-        cookieJar: createCookieJarForUnsecuredServer()
-      };
+      const options = { runScripts: "dangerously", resources: "usable" };
       return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", options).then(({ window }) => {
         const loadPromise = new Promise(resolve => {
           window.scriptCallback = cookiesHeader => {
@@ -163,6 +151,7 @@ describe("Cookie processing", () => {
               "Test1=Basic",
               "Test2=PathMatch",
               "Test6=HttpOnly",
+              "Test7=Secure",
               "Test9=Duplicate",
               "Test10={\"prop1\":5,\"prop2\":\"value\"}",
               "Malformed"
@@ -180,10 +169,7 @@ describe("Cookie processing", () => {
     });
 
     it("should send the Cookies header with iframes", () => {
-      const options = {
-        resources: "usable",
-        cookieJar: createCookieJarForUnsecuredServer()
-      };
+      const options = { resources: "usable" };
       return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", options).then(({ window }) => {
         const iframe = window.document.createElement("iframe");
 
@@ -192,6 +178,7 @@ describe("Cookie processing", () => {
             assertCookies(iframe.contentDocument.cookie, [
               "Test1=Basic",
               "Test2=PathMatch",
+              "Test7=Secure",
               "Test9=Duplicate",
               "Test10={\"prop1\":5,\"prop2\":\"value\"}",
               "Malformed"
@@ -200,6 +187,7 @@ describe("Cookie processing", () => {
               "Test1=Basic",
               "Test2=PathMatch",
               "Test6=HttpOnly",
+              "Test7=Secure",
               "Test9=Duplicate",
               "Test10={\"prop1\":5,\"prop2\":\"value\"}",
               "Malformed"
@@ -216,9 +204,7 @@ describe("Cookie processing", () => {
     });
 
     it("should send the Cookies header with an XHR request", () => {
-      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", {
-        cookieJar: createCookieJarForUnsecuredServer()
-      }).then(({ window }) => {
+      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server").then(({ window }) => {
         const xhr = new window.XMLHttpRequest();
 
         const loadPromise = new Promise(resolve => {
@@ -227,6 +213,7 @@ describe("Cookie processing", () => {
               "Test1=Basic",
               "Test2=PathMatch",
               "Test6=HttpOnly",
+              "Test7=Secure",
               "Test9=Duplicate",
               "Test10={\"prop1\":5,\"prop2\":\"value\"}",
               "Malformed"
@@ -243,9 +230,7 @@ describe("Cookie processing", () => {
     });
 
     it("should gather cookies from redirects (GH-1089)", () => {
-      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-redirect-chain", {
-        cookieJar: createCookieJarForUnsecuredServer()
-      }).then(({ window }) => {
+      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-redirect-chain").then(({ window }) => {
         assertCookies(window.document.cookie, [
           "Test1=Redirect1",
           "Test2=Redirect2",
@@ -270,10 +255,7 @@ describe("Cookie processing", () => {
 
     const loadPromise = new Promise(resolve => {
       xhr.onload = () => {
-        assertCookies(xhr.responseText, [
-          "OptionsTest=FooBar",
-          "SecureAliasUrlTest=Baz"
-        ]);
+        assertCookies(xhr.responseText, ["OptionsTest=FooBar", "SecureAliasUrlTest=Baz"]);
         resolve();
       };
     });
@@ -285,7 +267,8 @@ describe("Cookie processing", () => {
   });
 
   it("should share cookies when a cookie jar is shared", () => {
-    const cookieJar = createCookieJarForUnsecuredServer();
+    const cookieJar = new CookieJar();
+
     return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", { cookieJar }).then(() => {
       return JSDOM.fromURL(testHost + "/TestPath/html-get-cookie-header", { cookieJar });
     }).then(({ window }) => {
@@ -295,6 +278,7 @@ describe("Cookie processing", () => {
         "Test1=Basic",
         "Test2=PathMatch",
         "Test6=HttpOnly",
+        "Test7=Secure",
         "Test9=Duplicate",
         "Test10={\"prop1\":5,\"prop2\":\"value\"}",
         "Malformed"
@@ -303,6 +287,7 @@ describe("Cookie processing", () => {
       assertCookies(window.document.cookie, [
         "Test1=Basic",
         "Test2=PathMatch",
+        "Test7=Secure",
         "Test9=Duplicate",
         "Test10={\"prop1\":5,\"prop2\":\"value\"}",
         "Malformed"
@@ -379,15 +364,6 @@ function setupSecuredServer() {
         res.end("<body></body>");
       }
     }
-  });
-}
-
-function createCookieJarForUnsecuredServer() {
-  // The `unsecuredServer` creates an `http`-based server on `localhost` which is considered a
-  // secure context. Secure cookies will be allowed under this setup unless the `allowSecureOnLocal = false`
-  // configuration is passed. This will help simulate how an unsecured host should behave.
-  return new CookieJar(null, {
-    allowSecureOnLocal: false
   });
 }
 
