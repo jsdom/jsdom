@@ -35,7 +35,7 @@
     "rrweb-cssom": "^0.8.0",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
-    "tough-cookie": "^6.0.0-rc.1",
+    "tough-cookie": "^6.0.0-rc.2",
     "w3c-xmlserializer": "^5.0.0",
     "webidl-conversions": "^7.0.0",
     "whatwg-encoding": "^3.1.1",
