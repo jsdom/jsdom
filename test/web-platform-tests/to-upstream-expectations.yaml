@@ -1,3 +1,5 @@
+css/css-borders/border-style-length.html:
+  "Set border as 1px solid black": [fail, https://github.com/jsdom/cssstyle/issues/228]
 css/css-borders/border-style-none.html:
   "Set border as none": [fail, https://github.com/jsdom/cssstyle/issues/228]
   "Set cssText as none": [fail, https://github.com/jsdom/cssstyle/issues/228]
