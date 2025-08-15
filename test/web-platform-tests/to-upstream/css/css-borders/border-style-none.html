@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Dynamically set border values to none</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#border-shorthands">
+<link rel="help" href="https://drafts.csswg.org/cssom/#css-declaration-blocks">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#initial-values">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/cssstyle/issues/228 -->
+<!-- See also https://bugzilla.mozilla.org/show_bug.cgi?id=1982973 -->
+
+<div id="div"></div>
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "";
+  assert_equals(div.style.length, 0, "length");
+  assert_equals(div.style.cssText, "", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Sanity check");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "none";
+  // Chrome fails; returns "border: none;"
+  assert_equals(div.style.cssText, "border: medium;", "cssText");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.border, "medium", "border");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderWidth, "medium", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.cssText = "border: none;";
+  // Chrome fails; returns "border: none;"
+  assert_equals(div.style.cssText, "border: medium;", "cssText");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.border, "medium", "border");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderWidth, "medium", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set cssText as none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.setProperty("border", "none", "");
+  // Chrome fails; returns "border: none;"
+  assert_equals(div.style.cssText, "border: medium;", "cssText");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.border, "medium", "border");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderWidth, "medium", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set setProperty as none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderStyle = "none";
+  assert_equals(div.style.cssText, "border-style: none;", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-style as none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderTop = "none";
+  // Chrome fails; returns "border-top: none;"
+  assert_equals(div.style.cssText, "border-top: medium;", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-top as none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "1px";
+  div.style.borderStyle = "none";
+  // Chrome fails; returns "border: 1px none;"
+  assert_equals(div.style.cssText, "border: 1px;", "cssText");
+  // Chrome fails; returns "1px none"
+  assert_equals(div.style.border, "1px", "border");
+  assert_equals(div.style.borderWidth, "1px", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  // Chrome fails; returns "1px none"
+  assert_equals(div.style.borderTop, "1px", "border-top");
+  assert_equals(div.style.borderTopWidth, "1px", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as 1px and change border-style to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "none";
+  div.style.borderStyle = null;
+  // Chrome fails; returns "border-width: initial; border-color: initial; border-image: initial;"
+  assert_equals(
+    div.style.cssText,
+    "border-width: medium; border-color: currentcolor; border-image: none;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderWidth, "medium", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as none and change border-style to null");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "none";
+  div.style.borderTop = null;
+  // Chrome fails;
+  // returns "border-right: none; border-bottom: none; border-left: none; border-image: initial;"
+  assert_equals(
+    div.style.cssText,
+    "border-right: medium; border-bottom: medium; border-left: medium; border-image: none;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as none and change border-top to null");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "1px solid";
+  div.style.borderStyle = "none";
+  // Chrome fails; returns "border: 1px none;"
+  assert_equals(div.style.cssText, "border: 1px;", "cssText");
+  // Chrome fails; returns "1px none"
+  assert_equals(div.style.border, "1px", "border");
+  assert_equals(div.style.borderWidth, "1px", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  // Chrome fails; returns "1px none"
+  assert_equals(div.style.borderTop, "1px", "border-top");
+  assert_equals(div.style.borderTopWidth, "1px", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as 1px solid and change border-style to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "1px";
+  div.style.borderTop = "none";
+  // Chrome fails;
+  // returns "border-top: none; border-right: 1px; border-bottom: 1px; border-left: 1px; border-image: initial;"
+  assert_equals(
+    div.style.cssText,
+    "border-width: medium 1px 1px; border-style: none; border-color: currentcolor; border-image: none;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  // Chrome fails; returns ""
+  assert_equals(div.style.borderWidth, "medium 1px 1px", "border-width");
+  // Chrome fails; returns ""
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as 1px and change border-top to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "1px solid";
+  div.style.borderTop = "none";
+  // Chrome fails; returns "border-top: none; border-right: 1px solid; border-bottom: 1px solid;" +
+  // "border-left: 1px solid; border-image: initial;"
+  assert_equals(
+    div.style.cssText,
+    "border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor; border-image: none;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  // Chrome fails; returns ""
+  assert_equals(div.style.borderWidth, "medium 1px 1px", "border-width");
+  assert_equals(div.style.borderStyle, "none solid solid", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as 1px solid and change border-top to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderStyle = "solid";
+  div.style.borderTop = "none";
+  // Chrome fails; returns "border-style: none solid solid; border-top-width: initial; border-top-color: initial;"
+  assert_equals(
+    div.style.cssText,
+    "border-style: none solid solid; border-top-width: medium; border-top-color: currentcolor;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "none solid solid", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-style as solid and change border-top to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderTop = "solid";
+  div.style.borderStyle = "none";
+  // Chrome fails;
+  // returns "border-top: none; border-right-style: none; border-bottom-style: none; border-left-style: none;"
+  assert_equals(div.style.cssText, "border-top: medium; border-style: none;", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-top as solid and change border-style to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderStyle = "solid";
+  div.style.borderTop = null;
+  assert_equals(
+    div.style.cssText,
+    "border-right-style: solid; border-bottom-style: solid; border-left-style: solid;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-style as solid and change border-top to null");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderTop = "solid";
+  div.style.borderStyle = null;
+  // Chrome fails; returns "border-top-width: initial; border-top-color: initial;"
+  assert_equals(div.style.cssText, "border-top-width: medium; border-top-color: currentcolor;", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-top as solid and change border-style to null");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderTopWidth = "1px";
+  div.style.border = "none";
+  // Chrome fails; returns "border: none;"
+  assert_equals(div.style.cssText, "border: medium;", "cssText");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.border, "medium", "border");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderWidth, "medium", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border-top-width as 1px and change border to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderTopWidth = "1px";
+  div.style.borderStyle = "none";
+  assert_equals(div.style.cssText, "border-top-width: 1px; border-style: none;", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "none", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "1px", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-top-width as 1px and change border-style to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderTopWidth = "1px";
+  div.style.borderTop = "none";
+  // Chrome fails; returns "border-top: none;"
+  assert_equals(div.style.cssText, "border-top: medium;", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  // Chrome fails; returns "none"
+  assert_equals(div.style.borderTop, "medium", "border-top");
+  // Chrome fails; returns "initial"
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-top-width as 1px and change border-top to none");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderTopWidth = "1px";
+  div.style.borderTopStyle = "none";
+  assert_equals(div.style.cssText, "border-top-width: 1px; border-top-style: none;", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "1px", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "none", "border-top-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-top-width as 1px and change border-top-style to none");
+</script>
