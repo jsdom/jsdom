@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Dynamically set border values to var()</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#border-shorthands">
+<link rel="help" href="https://drafts.csswg.org/cssom/#css-declaration-blocks">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/cssstyle/issues/228 -->
+<!-- Regression test for https://bugzilla.mozilla.org/show_bug.cgi?id=1982973 -->
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "var(--foo)";
+  assert_equals(div.style.cssText, "border: var(--foo);", "cssText");
+  assert_equals(div.style.border, "var(--foo)", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderRight, "", "border-right");
+  assert_equals(div.style.borderRightWidth, "", "border-right-width");
+  assert_equals(div.style.borderRightStyle, "", "border-right-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+
+  // reset
+  div.style.border = null;
+
+  div.style.borderStyle = "var(--foo)";
+  assert_equals(div.style.cssText, "border-style: var(--foo);", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "var(--foo)", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderRight, "", "border-right");
+  assert_equals(div.style.borderRightWidth, "", "border-right-width");
+  assert_equals(div.style.borderRightStyle, "", "border-right-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+
+  // reset
+  div.style.border = null;
+
+  div.style.borderTop = "var(--foo)";
+  assert_equals(div.style.cssText, "border-top: var(--foo);", "cssText");
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "var(--foo)", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderRight, "", "border-right");
+  assert_equals(div.style.borderRightWidth, "", "border-right-width");
+  assert_equals(div.style.borderRightStyle, "", "border-right-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Sanity check");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "none";
+  div.style.borderStyle = "var(--foo)";
+  assert_equals(
+    div.style.cssText,
+    "border-width: medium; border-style: var(--foo); border-color: currentcolor; border-image: none;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "medium", "border-width");
+  assert_equals(div.style.borderStyle, "var(--foo)", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderRight, "", "border-right");
+  assert_equals(div.style.borderRightWidth, "medium", "border-right-width");
+  assert_equals(div.style.borderRightStyle, "", "border-right-style");
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as none and change border-style to var()");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "none";
+  div.style.borderTop = "var(--foo)";
+  assert_equals(
+    div.style.cssText,
+    "border-top: var(--foo); border-right: medium; border-bottom: medium; border-left: medium; border-image: none;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "var(--foo)", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderRight, "medium", "border-right");
+  assert_equals(div.style.borderRightWidth, "medium", "border-right-width");
+  assert_equals(div.style.borderRightStyle, "none", "border-right-style");
+  assert_equals(div.style.borderImage, "none", "border-image");
+}, "Set border as none and change border-top to var()");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderStyle = "none";
+  div.style.borderTop = "var(--foo)";
+  assert_equals(
+    div.style.cssText,
+    "border-top: var(--foo); border-right-style: none; border-bottom-style: none; border-left-style: none;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "", "border-style");
+  assert_equals(div.style.borderTop, "var(--foo)", "border-top");
+  assert_equals(div.style.borderTopWidth, "", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderRight, "", "border-right");
+  assert_equals(div.style.borderRightWidth, "", "border-right-width");
+  assert_equals(div.style.borderRightStyle, "none", "border-right-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-style as none and change border-top to var()");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderTop = "none";
+  div.style.borderStyle = "var(--foo)";
+  assert_equals(
+    div.style.cssText,
+    "border-top-width: medium; border-style: var(--foo); border-top-color: currentcolor;",
+    "cssText"
+  );
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "", "border-width");
+  assert_equals(div.style.borderStyle, "var(--foo)", "border-style");
+  assert_equals(div.style.borderTop, "", "border-top");
+  assert_equals(div.style.borderTopWidth, "medium", "border-top-width");
+  assert_equals(div.style.borderTopStyle, "", "border-top-style");
+  assert_equals(div.style.borderRight, "", "border-right");
+  assert_equals(div.style.borderRightWidth, "", "border-right-width");
+  assert_equals(div.style.borderRightStyle, "", "border-right-style");
+  assert_equals(div.style.borderImage, "", "border-image");
+}, "Set border-top as none and change border-style to var()");
+</script>
