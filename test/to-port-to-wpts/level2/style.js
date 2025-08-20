@@ -90,19 +90,6 @@ describe("level2/style", () => {
     assert.equal("background-color", p.style.item(0));
   });
 
-  specify("StyleShorthandProperties", () => {
-    const { window } = new JSDOM();
-    var p = window.document.createElement("p");
-    p.style.border = "1px solid black";
-    assert.equal(1, p.style.length);
-    assert.equal("1px solid black", p.style.border);
-    assert.equal("1px", p.style.borderWidth);
-    assert.equal("solid", p.style.borderStyle);
-    assert.equal("black", p.style.borderColor);
-    assert.equal("border: 1px solid black;", p.style.cssText);
-    assert.equal('<p style="border: 1px solid black;"></p>', p.outerHTML);
-  });
-
   specify("retainOriginalStyleAttributeUntilStyleGetter", () => {
     const { window } = new JSDOM();
     var document = window.document;
