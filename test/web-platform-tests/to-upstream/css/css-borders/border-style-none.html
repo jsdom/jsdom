@@ -312,7 +312,12 @@ test(() => {
   div.style.borderStyle = "none";
   // Chrome fails;
   // returns "border-top: none; border-right-style: none; border-bottom-style: none; border-left-style: none;"
-  assert_equals(div.style.cssText, "border-top: medium; border-style: none;", "cssText");
+  // Firefox fails; returns "border-top: medium; border-style: none;"
+  assert_equals(
+    div.style.cssText,
+    "border-top-width: medium; border-top-color: currentcolor; border-style: none;",
+    "cssText"
+  );
   assert_equals(div.style.border, "", "border");
   assert_equals(div.style.borderWidth, "", "border-width");
   assert_equals(div.style.borderStyle, "none", "border-style");
