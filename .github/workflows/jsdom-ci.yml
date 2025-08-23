@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: 22
       - name: Install required image manipulation packages with APT
-        run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+        run: sudo apt-get update && sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Setup hosts file for web platform tests server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies and canvas
