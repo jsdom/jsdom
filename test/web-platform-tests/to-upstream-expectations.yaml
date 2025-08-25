@@ -24,12 +24,10 @@ css/css-borders/border-style-none.html:
   "Set border-top-width as 1px and change border-top-style to none": [fail, https://github.com/jsdom/cssstyle/issues/228]
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
-css/css-images/gradient-specified-values.html: [fail, https://github.com/jsdom/cssstyle/pull/232]
-css/css-syntax/parse-invalid-input.html: [fail, Need cssstyle fix]
+css/css-display/display-initial.html:
+  "Revert value of display": [fail, Revert keyword is not supported]
+  "Revert-layer value of display": [fail, Revert-layer keyword is not supported]
 css/cssom/css-rule-selector-text.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/193]
-css/cssom/style-background-position.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/209]
-css/cssom/style-background-repeat.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/209]
-css/cssom/style-background-shorthand.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/209]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 css/cssom/style-set-property.html:
   "set null for cssRule.style.setProperty": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/196]
@@ -47,7 +45,6 @@ custom-elements/ElementInternals-accessibility.html:
   "ariaFlowToElements": [fail, Element reflection not implemented]
   "ariaLabelledByElements": [fail, Element reflection not implemented]
   "ariaOwnsElements": [fail, Element reflection not implemented]
-dom/nodes/ParentNode-querySelectorAll-scope-change.html: [fail, https://github.com/jsdom/jsdom/issues/3906]
 html/semantics/scripting-1/the-script-element/execution-timing/insert-script.html: [fail, https://github.com/jsdom/jsdom/issues/159]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
