@@ -59,6 +59,7 @@ Christof Marti <chrmarti@microsoft.com>
 Christoph Pojer <christoph.pojer@gmail.com>
 Christophe Coevoet <stof@notk.org>
 cjroebuck <tophtfc@gmail.com>
+Colin Casey <casey.colin@gmail.com>
 Connor Meredith <4907463+connormeredith@users.noreply.github.com>
 Cyril Auburtin <cyril.auburtin@gmail.com>
 daishi <daishi@axlight.com>
@@ -215,6 +216,7 @@ Marak Squires <marak.squires@gmail.com>
 Marc-Andre Lafortune <github@marc-andre.ca>
 Mariusz Nowak <mariusz@medikoo.com>
 Martin Naumann <mr.avgp@gmail.com>
+mash-graz <mash-graz@users.noreply.github.com>
 Matt Broadstone <mbroadst@gmail.com>
 Matthew Crinklaw-Vogt <mlaw@fb.com>
 Matthew Glazar <strager.nds@gmail.com>

@@ -26,6 +26,18 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 27.0.0-beta.3
+
+* Breaking change: upgraded `tough-cookie`, which now considers URLs like `http://localhost/` to be secure contexts (per [the spec](https://w3c.github.io/webappsec-secure-contexts/#is-origin-trustworthy)), and thus will return `Secure`-flagged cookies for such URLs. (colincasey)
+* Added `customElements.getName()`. (mash-graz)
+* Changed the `<input>` element's `pattern=""` attribute to use the `v` regular expression flag, instead of `u`.
+* Fixed `jsdom.reconfigure({ url })` not updating `document.baseURI` or properties derived from it. This regressed in v26.1.0.
+* Fixed CSS system colors, as well as the `initial`, `inherit`, and `unset` keywords, to resolve correctly. This is especially important since the change in v27.0.0-beta.1 to use system colors in the user agent stylesheet. (asamuzaK)
+* Fixed CSS `background` property parsing and serialization. (asamuzaK)
+* Fixed CSS color parsing and serialization inside of gradients. (asamuzaK)
+* Fixed CSS `display` style resolution. (asamuzaK)
+* Upgraded `@asamuzakjp/dom-selector`, which notably fixed repeated use of the `:scope` selector. (asamuzaK)
+
 ## 27.0.0-beta.2
 
 Significantly improved specification conformance for the `Window` object, including named properties and changing various data properties to accessor properties. This is not likely to be breaking, but since it's a complex change to such a core object, we're happy to do another beta testing release with this included before graduating the v27 line to stable.
