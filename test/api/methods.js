@@ -338,6 +338,19 @@ describe("API: JSDOM class's methods", () => {
 
         assert.equal(window.document.URL, "http://localhost/");
       });
+
+      it("should update the document base URL", () => {
+        const dom = new JSDOM(`<img src="foo.jpg">`, { url: "http://example.com/" });
+        const { window } = dom;
+
+        assert.equal(window.document.baseURI, "http://example.com/");
+        assert.equal(window.document.querySelector("img").src, "http://example.com/foo.jpg");
+
+        dom.reconfigure({ url: "http://localhost/bar/index.html" });
+
+        assert.equal(window.document.baseURI, "http://localhost/bar/index.html");
+        assert.equal(window.document.querySelector("img").src, "http://localhost/bar/foo.jpg");
+      });
     });
   });
 });
