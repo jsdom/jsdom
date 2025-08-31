@@ -690,7 +690,6 @@ webkit-pseudo-element.html: [fail, Unknown]
 
 DIR: custom-elements
 
-CustomElementRegistry-getName.html: [fail, Unknown]
 CustomElementRegistry.html:
   "customElements.define must get \"observedAttributes\" property on the constructor prototype when \"attributeChangedCallback\" is present": [fail, Unknown]
   "customElements.define must get four additional callbacks on the prototype if formAssociated is converted to true": [fail, formAssociated not fully implemented]
