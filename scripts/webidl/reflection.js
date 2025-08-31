@@ -72,18 +72,21 @@ module.exports = (transformer, idl, implObj) => {
     const serializeURL = transformer.addImport("whatwg-url", "serializeURL");
     return {
       get: `
-        const value = ${implObj}._reflectGetTheContentAttribute("${attrName}");
+        const impl = ${implObj};
+        const value = impl._reflectGetTheContentAttribute("${attrName}");
         if (value === null) {
           return "";
         }
 
-        if (this._${attrName}URLCacheKey === value) {
+        const document = impl._ownerDocument;
+        if (this._${attrName}URLCacheKey === value && this._baseURLCache === document._baseURLCache) {
           return this._${attrName}URLCache;
         }
 
         this._${attrName}URLCacheKey = value;
+        this._baseURLCache = document._baseURLCache;
 
-        const urlRecord = ${implObj}._ownerDocument.encodingParseAURL(value);
+        const urlRecord = document.encodingParseAURL(value);
         if (urlRecord !== null) {
           this._${attrName}URLCache = ${serializeURL}(urlRecord);
           return this._${attrName}URLCache;
