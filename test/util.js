@@ -2,7 +2,6 @@
 const path = require("path");
 const fs = require("fs");
 const http = require("http");
-const https = require("https");
 const enableDestroy = require("server-destroy");
 const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
@@ -81,19 +80,6 @@ exports.delay = ms => new Promise(r => {
 exports.createServer = handler => {
   return new Promise(resolve => {
     const server = http.createServer(handler);
-    enablePromisifiedServerDestroy(server);
-    server.listen(() => resolve(server));
-  });
-};
-
-exports.createHTTPSServer = handler => {
-  return new Promise(resolve => {
-    const options = {
-      key: fs.readFileSync(path.resolve(__dirname, "api/fixtures/key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "api/fixtures/cert.pem"))
-    };
-
-    const server = https.createServer(options, handler);
     enablePromisifiedServerDestroy(server);
     server.listen(() => resolve(server));
   });

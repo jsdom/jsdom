@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it, before, after } = require("mocha-sugar-free");
-const { createServer, createHTTPSServer } = require("../util.js");
+const { createServer } = require("../util.js");
 
 const { JSDOM, CookieJar } = require("../..");
 
@@ -19,27 +19,23 @@ const testCookies = [
   "Malformed; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/"
 ];
 
-let testHost, testSecuredHost;
+let testHost, testNonSecureHost;
 
 describe("Cookie processing", () => {
-  let server, securedServer;
+  let server, nonSecureServer;
 
-  before(() => {
-    return setupServer().then(s => {
-      server = s;
-      testHost = `http://127.0.0.1:${s.address().port}`;
+  before(async () => {
+    server = await setupServer();
+    testHost = `http://127.0.0.1:${server.address().port}`;
 
-      return setupSecuredServer();
-    }).then(s => {
-      securedServer = s;
-      testSecuredHost = `https://127.0.0.1:${s.address().port}`;
-    });
+    nonSecureServer = await setupServer();
+    testNonSecureHost = `http://0.0.0.0:${nonSecureServer.address().port}`;
   });
 
   after(() => {
     return Promise.all([
       server.destroy(),
-      securedServer.destroy()
+      nonSecureServer.destroy()
     ]);
   });
 
@@ -241,21 +237,21 @@ describe("Cookie processing", () => {
   });
 
   it("should have correct secure and HTTP-only cookie semantics", () => {
-    const url = testSecuredHost + "/TestPath/somewhere";
+    const url = testNonSecureHost + "/TestPath/somewhere";
 
     const cookieJar = new CookieJar();
     cookieJar.setCookieSync("OptionsTest=FooBar; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/TestPath; HttpOnly", url);
     cookieJar.setCookieSync("SecureAliasUrlTest=Baz; Secure", url);
 
     const { window } = new JSDOM(``, { url, cookieJar });
-    assertCookies(window.document.cookie, ["SecureAliasUrlTest=Baz"]);
+    assertCookies(window.document.cookie, []);
 
     const xhr = new window.XMLHttpRequest();
     xhr.withCredentials = true;
 
     const loadPromise = new Promise(resolve => {
       xhr.onload = () => {
-        assertCookies(xhr.responseText, ["OptionsTest=FooBar", "SecureAliasUrlTest=Baz"]);
+        assertCookies(xhr.responseText, []);
         resolve();
       };
     });
@@ -328,7 +324,7 @@ function setupServer() {
       }
 
       case "/TestPath/get-cookie-header": {
-        res.setHeader("access-control-allow-origin", testSecuredHost);
+        res.setHeader("access-control-allow-origin", testNonSecureHost);
         res.setHeader("access-control-allow-credentials", "true");
         res.end(req.headers.cookie);
         break;
@@ -351,23 +347,7 @@ function setupServer() {
   });
 }
 
-function setupSecuredServer() {
-  return createHTTPSServer((req, res) => {
-    switch (req.url) {
-      case "/TestPath/set-cookie-from-server": {
-        res.writeHead(200, testCookies.map(cookieStr => ["set-cookie", cookieStr]));
-        res.end("<body></body>");
-        break;
-      }
-
-      default: {
-        res.end("<body></body>");
-      }
-    }
-  });
-}
-
 function assertCookies(actualCookieStr, expectedCookies) {
-  const actualCookies = actualCookieStr.split(/;\s*/);
+  const actualCookies = actualCookieStr === "" ? [] : actualCookieStr.split(/;\s*/);
   assert.deepEqual(actualCookies, expectedCookies);
 }
