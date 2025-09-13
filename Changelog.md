@@ -26,6 +26,39 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 27.0.0
+
+### Changes since 26.1.0
+
+* Node.js v20 is now the minimum supported version.
+* Added a variety of event constructors, even though we do not implement their associated specifications or ever fire them: `BeforeUnloadEvent`, `BlobEvent`, `DeviceMotionEvent` (omitting `requestPermission()`), `DeviceOrientationEvent` (omitting `requestPermission()`), `PointerEvent`, `PromiseRejectionEvent`, and `TransitionEvent`.
+* Added `movementX` and `movementY` to `MouseEvent`. (These are from the [Pointer Lock](https://w3c.github.io/pointerlock/) specification, the rest of which is not implemented.)
+* Added `customElements.getName()`. (mash-graz)
+* Updated the [virtual console](https://github.com/jsdom/jsdom/blob/ab384d4e381eb6bb99ade4146698d35167b54837/README.md#virtual-consoles):
+  * `"jsdomError"` events are now documented, with specific `type` properties and other properties that depend on the type.
+  * `sendTo()` was renamed to `forwardTo()`.
+  * The `jsdomErrors` option to `forwardTo()` can be used to control which errors are sent to the Node.js console. This replaces the previous `omitJSDOMErrors` boolean option.
+  * `"jsdomError"`s for failed `XMLHttpRequest` fetches are no longer emitted.
+  * The values that are printed when forwarding `"jsdomError"`s to the Node.js console are streamlined.
+* Switched our CSS selector engine from [`nwsapi`](https://www.npmjs.com/nwsapi) to [`@asamuzakjp/dom-selector`](https://www.npmjs.com/package/@asamuzakjp/dom-selector), closing over 20 selector-related bugs.
+* Upgraded [`tough-cookie`](https://www.npmjs.com/package/tough-cookie), which now considers URLs like `http://localhost/` to be secure contexts (per [the spec](https://w3c.github.io/webappsec-secure-contexts/#is-origin-trustworthy)), and thus will return `Secure`-flagged cookies for such URLs. (colincasey)
+* Upgraded [`cssstyle`](https://github.com/jsdom/cssstyle), which brings along many improvements and fixes to the `CSSStyleDeclaration` object and its properties.
+* Updated the user agent stylesheet to be derived from the HTML Standard, instead of from an old revision of Chromium.
+* Changed `element.click()` to fire a `PointerEvent` instead of a `MouseEvent`.
+* Changed certain events to be passive by default.
+* Changed the `<input>` element's `pattern=""` attribute to use the `v` regular expression flag, instead of `u`.
+* Fixed many specification conformance issues with the `Window` object, including named properties and changing various data properties to accessor properties.
+* Fixed `document.createEvent()` to accept a more correct set of event names.
+* Fixed the `ElementInternals` accessibility getters and setters. (They were introduced in v23.1.0, but due to inadequate test coverage never actually worked.)
+* Fixed using `Object.defineProperty()` on certain objects, such as `HTMLSelectElement` instances.
+* Fixed `jsdom.reconfigure({ url })` not updating `document.baseURI` or properties derived from it. (This regressed in v26.1.0.)
+* Fixed CSS system colors, as well as the `initial`, `inherit`, and `unset` keywords, to resolve correctly. (asamuzaK)
+* Fixed CSS `display` style resolution. (asamuzaK)
+
+### Changes since 27.0.0-beta.3
+
+* Upgraded `cssstyle`, which brings along various CSS parsing fixes.
+
 ## 27.0.0-beta.3
 
 * Breaking change: upgraded `tough-cookie`, which now considers URLs like `http://localhost/` to be secure contexts (per [the spec](https://w3c.github.io/webappsec-secure-contexts/#is-origin-trustworthy)), and thus will return `Secure`-flagged cookies for such URLs. (colincasey)
