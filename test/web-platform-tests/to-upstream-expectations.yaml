@@ -4,6 +4,9 @@ css/css-display/display-initial.html:
   "Revert value of display": [fail, Revert keyword is not supported]
   "Revert-layer value of display": [fail, Revert-layer keyword is not supported]
 css/cssom/css-rule-selector-text.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/193]
+css/cssom/style-flex-shorthand.html:
+  "resolve flex shorthand with auto basis": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/pull/245]
+  "resolve flex shorthand with grow and basis": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/pull/245]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 css/cssom/style-set-property.html:
   "set null for cssRule.style.setProperty": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/196]
