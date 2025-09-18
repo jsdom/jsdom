@@ -93,4 +93,24 @@ describe("Test cases only possible to test from the outside", () => {
     const [fontFaceRule] = sheet.cssRules;
     assert.equal(fontFaceRule.type, window.CSSRule.FONT_FACE_RULE, "Rule should be a CSSFontFaceRule");
   });
+
+  it("should switch node context on querySelector() (GH-3928)", () => {
+    const html = `
+      <div>
+        <span id="s1">Actions</span>
+        <ul>
+          <li>
+            <a href="/">
+              <span id="s2">Link</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    `;
+    const { window } = new JSDOM(html);
+    const { document } = window;
+    const anchor = document.querySelector("a");
+    const span = anchor.querySelector("span");
+    assert.equal(span.innerHTML, "Link");
+  });
 });
