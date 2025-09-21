@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Setting flex shorthand</title>
+<link rel="help" href="https://drafts.csswg.org/css-flexbox/#flex-property">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- regression test for https://github.com/jsdom/cssstyle/pull/245 -->
+
+<div id="div"></div>
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.display = "flex";
+  div.style.flex = "none";
+  assert_equals(div.style.getPropertyValue("flex-grow"), "0");
+  assert_equals(div.style.getPropertyValue("flex-shrink"), "0");
+  assert_equals(div.style.getPropertyValue("flex-basis"), "auto");
+}, "resolve flex none shorthand");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.display = "flex";
+  div.style.flex = "auto";
+  assert_equals(div.style.getPropertyValue("flex-grow"), "1");
+  assert_equals(div.style.getPropertyValue("flex-shrink"), "1");
+  assert_equals(div.style.getPropertyValue("flex-basis"), "auto");
+}, "resolve flex auto shorthand");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.display = "flex";
+  div.style.flex = "0 1 250px";
+  assert_equals(div.style.getPropertyValue("flex-grow"), "0");
+  assert_equals(div.style.getPropertyValue("flex-shrink"), "1");
+  assert_equals(div.style.getPropertyValue("flex-basis"), "250px");
+}, "resolve flex shorthand with explicit basis");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.display = "flex";
+  div.style.flex = "0 0 auto";
+  assert_equals(div.style.getPropertyValue("flex-grow"), "0");
+  assert_equals(div.style.getPropertyValue("flex-shrink"), "0");
+  assert_equals(div.style.getPropertyValue("flex-basis"), "auto");
+}, "resolve flex shorthand with auto basis");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.display = "flex";
+  div.style.flex = "0 auto";
+  assert_equals(div.style.getPropertyValue("flex-grow"), "0");
+  assert_equals(div.style.getPropertyValue("flex-shrink"), "1");
+  assert_equals(div.style.getPropertyValue("flex-basis"), "auto");
+}, "resolve flex shorthand with grow and basis");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.display = "flex";
+  div.style.flex = "2";
+  assert_equals(div.style.getPropertyValue("flex-grow"), "2");
+  assert_equals(div.style.getPropertyValue("flex-shrink"), "1");
+  assert_equals(div.style.getPropertyValue("flex-basis"), "0%");
+}, "resolve flex shorthand with grow only");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.display = "flex";
+  div.style.flex = "20%";
+  assert_equals(div.style.getPropertyValue("flex-grow"), "1");
+  assert_equals(div.style.getPropertyValue("flex-shrink"), "1");
+  assert_equals(div.style.getPropertyValue("flex-basis"), "20%");
+}, "resolve flex shorthand with basis only");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.display = "flex";
+  div.style.flex = "2 2";
+  assert_equals(div.style.getPropertyValue("flex-grow"), "2");
+  assert_equals(div.style.getPropertyValue("flex-shrink"), "2");
+  assert_equals(div.style.getPropertyValue("flex-basis"), "0%");
+}, "resolve flex shorthand with grow and shrink");
+</script>
