@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>HTMLElement.click()</title>
+<title>HTMLElement.click() and querySelectoAll</title>
 <link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#activation">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
@@ -8,58 +8,44 @@
 
 <button id="button"></button>
 <div id="target"></div>
+<div></div>
 
 <script>
 "use strict";
 
 const button = document.getElementById("button");
-const targetById = document.getElementById("target");
+const target = document.getElementById("target");
 
 button.addEventListener("click", () => {
-  targetById.classList.toggle("foo");
+  target.classList.toggle("foo");
 });
 
 test(t => {
   t.add_cleanup(() => {
-    targetById.classList.remove("foo");
+    target.classList.remove("foo");
   });
-  assert_equals(targetById.classList.contains("foo"), false, "initial");
+
+  const targetQuerySelectorAll = document.querySelectorAll(".foo");
+  assert_equals(targetQuerySelectorAll.length, 0, "initial");
 
   button.click();
-  assert_equals(targetById.classList.contains("foo"), true, "1st clicked");
+  assert_equals(targetQuerySelectorAll.length, 0, "1st click");
 
   button.click();
-  assert_equals(targetById.classList.contains("foo"), false, "2nd clicked");
-}, "toggle class with click event - getElementById");
+  assert_equals(targetQuerySelectorAll.length, 0, "2nd click");
+}, "static querySelectorAll");
 
 test(t => {
   t.add_cleanup(() => {
-    targetById.classList.remove("foo");
+    target.classList.remove("foo");
   });
 
-  const target = document.querySelector("#target");
-  assert_equals(target.classList.contains("foo"), false, "initial");
+  assert_equals(document.querySelectorAll(".foo").length, 0, "initial");
 
   button.click();
-  assert_equals(target.classList.contains("foo"), true, "1st clicked");
+  assert_equals(document.querySelectorAll(".foo").length, 1, "1st click");
 
   button.click();
-  assert_equals(target.classList.contains("foo"), false, "2nd clicked");
-}, "toggle class with click event - querySelector");
-
-test(t => {
-  t.add_cleanup(() => {
-    targetById.classList.remove("foo");
-  });
-
-  const targetQuerySelectorAll = document.querySelectorAll("#target");
-  const target = targetQuerySelectorAll.item(0);
-  assert_equals(target.classList.contains("foo"), false, "initial");
-
-  button.click();
-  assert_equals(target.classList.contains("foo"), true, "1st clicked");
-
-  button.click();
-  assert_equals(target.classList.contains("foo"), false, "2nd clicked");
-}, "toggle class with click event - querySelectorAll");
+  assert_equals(document.querySelectorAll(".foo").length, 0, "2nd click");
+}, "dynamic querySelectorAll");
 </script>
