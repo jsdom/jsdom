@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTMLElement.click()</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#activation">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- regression test for https://github.com/jsdom/jsdom/issues/3931 -->
+
+<button id="button"></button>
+<div id="target"></div>
+
+<script>
+"use strict";
+
+const button = document.getElementById("button");
+const targetById = document.getElementById("target");
+
+button.addEventListener("click", () => {
+  targetById.classList.toggle("foo");
+});
+
+test(t => {
+  t.add_cleanup(() => {
+    targetById.classList.remove("foo");
+  });
+  assert_equals(targetById.classList.contains("foo"), false, "initial");
+
+  button.click();
+  assert_equals(targetById.classList.contains("foo"), true, "1st clicked");
+
+  button.click();
+  assert_equals(targetById.classList.contains("foo"), false, "2nd clicked");
+}, "toggle class with click event - getElementById");
+
+test(t => {
+  t.add_cleanup(() => {
+    targetById.classList.remove("foo");
+  });
+
+  const target = document.querySelector("#target");
+  assert_equals(target.classList.contains("foo"), false, "initial");
+
+  button.click();
+  assert_equals(target.classList.contains("foo"), true, "1st clicked");
+
+  button.click();
+  assert_equals(target.classList.contains("foo"), false, "2nd clicked");
+}, "toggle class with click event - querySelector");
+
+test(t => {
+  t.add_cleanup(() => {
+    targetById.classList.remove("foo");
+  });
+
+  const targetQuerySelectorAll = document.querySelectorAll("#target");
+  const target = targetQuerySelectorAll.item(0);
+  assert_equals(target.classList.contains("foo"), false, "initial");
+
+  button.click();
+  assert_equals(target.classList.contains("foo"), true, "1st clicked");
+
+  button.click();
+  assert_equals(target.classList.contains("foo"), false, "2nd clicked");
+}, "toggle class with click event - querySelectorAll");
+</script>
