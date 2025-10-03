@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTMLElement.click() and querySelectoAll</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#activation">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- regression test for https://github.com/jsdom/jsdom/issues/3931 -->
+
+<button id="button"></button>
+<div id="target"></div>
+<div></div>
+
+<script>
+"use strict";
+
+const button = document.getElementById("button");
+const target = document.getElementById("target");
+
+button.addEventListener("click", () => {
+  target.classList.toggle("foo");
+});
+
+test(t => {
+  t.add_cleanup(() => {
+    target.classList.remove("foo");
+  });
+
+  const targetQuerySelectorAll = document.querySelectorAll(".foo");
+  assert_equals(targetQuerySelectorAll.length, 0, "initial");
+
+  button.click();
+  assert_equals(targetQuerySelectorAll.length, 0, "1st click");
+
+  button.click();
+  assert_equals(targetQuerySelectorAll.length, 0, "2nd click");
+}, "static querySelectorAll");
+
+test(t => {
+  t.add_cleanup(() => {
+    target.classList.remove("foo");
+  });
+
+  assert_equals(document.querySelectorAll(".foo").length, 0, "initial");
+
+  button.click();
+  assert_equals(document.querySelectorAll(".foo").length, 1, "1st click");
+
+  button.click();
+  assert_equals(document.querySelectorAll(".foo").length, 0, "2nd click");
+}, "dynamic querySelectorAll");
+</script>
