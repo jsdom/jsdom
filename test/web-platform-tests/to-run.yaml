@@ -1289,7 +1289,6 @@ elements/global-attributes/dataset-prototype.html: [fail, Tests Object.prototype
 elements/global-attributes/dir-assorted.window.html: [fail, Unknown]
 elements/global-attributes/dir-auto-dynamic-changes.window.html: [fail, Unknown]
 elements/global-attributes/dir-slots-directionality.html: [fail, Unknown]
-elements/global-attributes/lang-attribute-shadow.window.html: [fail, Unknown]
 elements/global-attributes/lang-attribute.window.html: [fail, Unknown]
 elements/global-attributes/the-anchor-attribute-001.tentative.html: [fail, Unknown]
 elements/global-attributes/the-anchor-attribute-002.tentative.html: [fail, Unknown]

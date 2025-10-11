@@ -1,3 +1,4 @@
+SET TIMEOUT:dom/events/element-click.html
 SET TIMEOUT:html/webappapis/animation-frames/no-interference-timers.html
 SET TIMEOUT:html/webappapis/timers/**
 
