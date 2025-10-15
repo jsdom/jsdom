@@ -11,8 +11,8 @@ css/cssom/serialize-whitespace.html:
 css/cssom/style-background-shorthand-overwrite.html: [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3944]
 css/cssom/style-border-shorthand-var.html:
   "border shorthand containing var()": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/247]
-css/cssom/style-element-inline.html:
-  "Element CSS inline style": [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3940]
+css/cssom/style-element-inline-important.html:
+  "Element CSS inline style with !important": [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3940]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 css/cssom/style-set-property.html:
   "set null for cssRule.style.setProperty": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/196]
