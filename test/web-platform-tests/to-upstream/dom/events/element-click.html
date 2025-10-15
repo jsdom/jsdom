@@ -5,6 +5,7 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <!-- regression test for https://github.com/jsdom/jsdom/issues/3931 -->
+<!-- regression test for https://github.com/jsdom/jsdom/issues/3947 -->
 
 <button id="button"></button>
 <div id="target"></div>
@@ -16,15 +17,29 @@
 const button = document.getElementById("button");
 const target = document.getElementById("target");
 
-button.addEventListener("click", () => {
+function toggleSync() {
   target.classList.toggle("foo");
-});
+}
+
+function toggleAsync() {
+  target.classList.toggle("foo");
+  window.setTimeout(toggleSync, 1000);
+}
+
+function sleep(msec) {
+  return new Promise(resolve => {
+    setTimeout(resolve, msec);
+  });
+}
 
 test(t => {
   t.add_cleanup(() => {
     target.classList.remove("foo");
+    button.removeEventListener("click", toggleSync);
+    button.removeEventListener("click", toggleAsync);
   });
 
+  button.addEventListener("click", toggleSync);
   const targetQuerySelectorAll = document.querySelectorAll(".foo");
   assert_equals(targetQuerySelectorAll.length, 0, "initial");
 
@@ -38,8 +53,11 @@ test(t => {
 test(t => {
   t.add_cleanup(() => {
     target.classList.remove("foo");
+    button.removeEventListener("click", toggleSync);
+    button.removeEventListener("click", toggleAsync);
   });
 
+  button.addEventListener("click", toggleSync);
   assert_equals(document.querySelectorAll(".foo").length, 0, "initial");
 
   button.click();
@@ -47,5 +65,22 @@ test(t => {
 
   button.click();
   assert_equals(document.querySelectorAll(".foo").length, 0, "2nd click");
-}, "dynamic querySelectorAll");
+}, "dynamic querySelectorAll, toggle sync");
+
+promise_test(async t => {
+  t.add_cleanup(() => {
+    target.classList.remove("foo");
+    button.removeEventListener("click", toggleSync);
+    button.removeEventListener("click", toggleAsync);
+  });
+
+  button.addEventListener("click", toggleAsync);
+  assert_equals(document.querySelectorAll(".foo").length, 0, "initial");
+
+  button.click();
+  assert_equals(document.querySelectorAll(".foo").length, 1, "after click");
+
+  await sleep(1500);
+  assert_equals(document.querySelectorAll(".foo").length, 0, "after timeout");
+}, "dynamic querySelectorAll, toggle async");
 </script>
