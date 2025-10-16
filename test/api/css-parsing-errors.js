@@ -23,7 +23,8 @@ describe("CSS parsing errors", () => {
       </html>
     `, { virtualConsole });
 
-    assert.equal(virtualConsole.cssParsingErrors.length, 1);
+    // The styleSheet has two errors: one invalid style rule and one unclosed style rule
+    assert.equal(virtualConsole.cssParsingErrors.length, 2);
 
     const error = virtualConsole.cssParsingErrors[0];
     assert(error instanceof Error);
