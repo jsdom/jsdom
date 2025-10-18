@@ -26,6 +26,10 @@ Other guidelines:
 * Roughly order changes within those groupings by impact.
 -->
 
+## 27.0.1
+
+* Fixed some regressions in CSS selectors. Most such regression fixes were done in a minor update of a dependency, and thus available for all fresh installs of v27.0.0. However, one related to `class=""` attribute changes is only possible with a new version of jsdom. (asamuzaK)
+
 ## 27.0.0
 
 ### Changes since 26.1.0
