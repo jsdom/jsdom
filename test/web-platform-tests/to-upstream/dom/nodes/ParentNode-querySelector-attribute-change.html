@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Changing attribute resets the result of querySelector</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#interface-parentnode">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/pull/3954 -->
+
+<div id="id">
+  <span id="id-span"></span>
+  <span></span>
+</div>
+
+<div id="class">
+  <span id="class-span" class="foo"></span>
+  <span></span>
+</div>
+
+<div id="hidden">
+  <span id="hidden-span" hidden></span>
+  <span></span>
+</div>
+
+<div id="style">
+  <span id="style-span" style="display:inline-block;"></span>
+  <span></span>
+</div>
+
+<div id="readonly">
+  <input id="readonly-input" readonly>
+  <input>
+</div>
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("id");
+  const node = document.getElementById("id-span");
+  assert_equals(div.querySelector("[id]"), node, "initial");
+  node.removeAttribute("id");
+  assert_equals(div.querySelector("[id]"), null, "change attribute");
+}, "id attribute");
+
+test(() => {
+  const div = document.getElementById("class");
+  const node = document.getElementById("class-span");
+  assert_equals(div.querySelector("[class]"), node, "initial");
+  node.removeAttribute("class");
+  assert_equals(div.querySelector("[class]"), null, "change attribute");
+}, "class attribute");
+
+test(() => {
+  const div = document.getElementById("hidden");
+  const node = document.getElementById("hidden-span");
+  assert_equals(div.querySelector("[hidden]"), node, "initial");
+  node.removeAttribute("hidden");
+  assert_equals(div.querySelector("[hidden]"), null, "change attribute");
+}, "hidden attribute");
+
+test(() => {
+  const div = document.getElementById("style");
+  const node = document.getElementById("style-span");
+  assert_equals(div.querySelector("[style]"), node, "initial");
+  node.removeAttribute("style");
+  assert_equals(div.querySelector("[style]"), null, "change attribute");
+}, "style attribute");
+
+test(() => {
+  const div = document.getElementById("readonly");
+  const node = document.getElementById("readonly-input");
+  assert_equals(div.querySelector("[readonly]"), node, "initial");
+  node.removeAttribute("readonly");
+  assert_equals(div.querySelector("[readonly]"), null, "change attribute");
+}, "readonly attribute");
+</script>
