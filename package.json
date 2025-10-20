@@ -31,7 +31,7 @@
     "http-proxy-agent": "^7.0.2",
     "https-proxy-agent": "^7.0.6",
     "is-potential-custom-element-name": "^1.0.1",
-    "parse5": "^8.0.0",
+    "parse5": "^7.3.0",
     "rrweb-cssom": "^0.8.0",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
