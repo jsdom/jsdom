@@ -1,23 +1,16 @@
 {
-  "name": "jsdom",
-  "version": "27.0.1",
-  "description": "A JavaScript implementation of many web standards",
+  "name": "sdenv-jsdom",
+  "version": "1.1.0",
+  "description": "jsdom的sdenv补环境框架专用",
   "keywords": [
-    "dom",
-    "html",
-    "whatwg",
-    "w3c"
+    "jsdom",
+    "sdenv"
   ],
-  "maintainers": [
-    "Elijah Insua <tmpvar@gmail.com> (http://tmpvar.com)",
-    "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
-    "Sebastian Mayr <sebmaster16@gmail.com> (https://blog.smayr.name/)",
-    "Joris van der Wel <joris@jorisvanderwel.com>",
-    "Timothy Gu <timothygu99@gmail.com> (https://timothygu.me/)",
-    "Magne Andersson <code@zirro.se> (https://zirro.se/)",
-    "Pierre-Marie Dartus <dartus.pierremarie@gmail.com>"
-  ],
-  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "author": "pysunday",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jsdom/jsdom.git"
@@ -69,7 +62,7 @@
     "yargs": "^18.0.0"
   },
   "scripts": {
-    "prepare": "npm-run-all prepare:*",
+    "prepare": "npm-run-all prepare:* && npm run replace",
     "prepare:convert-idl": "node ./scripts/webidl/convert.js",
     "prepare:generate-js-globals": "node ./scripts/generate-js-globals.js",
     "pretest": "npm run prepare && npm run wpt:init",
@@ -83,7 +76,8 @@
     "wpt:reset": "rm -rf ./test/web-platform-tests/tests && npm run wpt:init",
     "wpt:update": "git submodule update --init --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt",
-    "benchmark": "node ./benchmark/runner"
+    "benchmark": "node ./benchmark/runner",
+    "replace": "node ./scripts/replace.js"
   },
   "main": "./lib/api.js",
   "type": "commonjs",

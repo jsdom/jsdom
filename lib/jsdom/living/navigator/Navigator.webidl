@@ -11,6 +11,18 @@ Navigator includes NavigatorCookies;
 Navigator includes NavigatorPlugins;
 Navigator includes NavigatorConcurrentHardware;
 
+// sdenv start
+Navigator includes NavigatorWebdriver;
+Navigator includes NavigatorMaxTouchPoints;
+
+interface mixin NavigatorWebdriver {
+  readonly attribute boolean webdriver;
+};
+interface mixin NavigatorMaxTouchPoints {
+  readonly attribute long maxTouchPoints;
+};
+// sdenv end
+
 // https://html.spec.whatwg.org/#navigatorid
 interface mixin NavigatorID {
   readonly attribute DOMString appCodeName; // constant "Mozilla"

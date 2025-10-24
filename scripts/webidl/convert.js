@@ -13,6 +13,15 @@ const transformer = new Webidl2js({
     const preSteps = this.addImport("../helpers/custom-elements", "ceReactionsPreSteps");
     const postSteps = this.addImport("../helpers/custom-elements", "ceReactionsPostSteps");
 
+    if (code === 'return utils.tryWrapperForImpl(esValue[implSymbol]["body"]);') {
+      code = `
+        const mybody = (() => {
+          ${code}
+        })();
+        if (globalObject.document.readyState === 'loading') return null;
+        return mybody;
+      `;
+    }
     return `
       ${preSteps}(globalObject);
       try {
