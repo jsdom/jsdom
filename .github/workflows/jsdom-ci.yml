@@ -10,27 +10,6 @@ permissions:
   contents: read
 
 jobs:
-  derive-minimum:
-    name: Derive minimum Node version
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.calc.outputs.version }}
-    steps:
-    - uses: actions/checkout@v5
-    - name: Derive lowest Node that matches package.json
-      id: calc
-      run: |
-        npm install --no-save semver
-        MIN=$(node - <<'JS'
-          'use strict';
-          const semver = require('semver');
-          const range  = require('./package.json').engines.node;
-          const v = semver.minVersion(range);
-          if (!v) { throw new Error(`Cannot resolve minimum for "${range}"`); }
-          console.log(v.version);
-        JS
-        )
-        echo "version=$MIN" >>"$GITHUB_OUTPUT"
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -67,15 +46,19 @@ jobs:
         run: npm test
   build:
     name: Tests
-    needs: derive-minimum
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         node-version:
-          - ${{ needs.derive-minimum.outputs.version }}
+          # Explicitly test minimum Node.js versions. Keep in sync with package.json.
+          - 20.19.0
+          - 20
+          - 22.13.0
           - 22
-          - latest
+          - 24.0.0
+          - lts/*   # currently 24
+          - latest  # currently 25
     steps:
     - uses: actions/checkout@v5
       with:
