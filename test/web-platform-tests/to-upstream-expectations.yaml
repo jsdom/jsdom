@@ -12,7 +12,6 @@ css/cssom/style-border-shorthand-var.html:
   "border shorthand containing var()": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/247]
 css/cssom/style-element-inline-important.html:
   "Element CSS inline style with !important": [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3940]
-css/cssom/style-set-cssText.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/pull/249]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 css/cssom/style-set-property.html:
   "set toString for div.style.setProperty custom property": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
