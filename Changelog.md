@@ -31,6 +31,12 @@ Minimum Node.js version changes:
 * Update .github/workflows/jsdom-ci.yml.
 -->
 
+## 27.1.0
+
+* Improved CSS parsing by switching to [`@acemir/cssom`](https://www.npmjs.com/package/@acemir/cssom), including support for nested selectors, nested declarations, layer statements, and improved at-rule validation. (acemir)
+* Fixed some selector cache invalidation issues where changes to attributes were not being picked up. (asamuzaK)
+* Fixed `package.json` `"engines"` field to reflect the new minimum Node.js versions needed to run jsdom, as noted in the changelog for v27.0.1.
+
 ## 27.0.1
 
 **This release inadvertently raised the minimum Node.js version from v20.0.0 to v20.19.0+, v22.12.0+, v24.0.0+**. (This happened via a dependency update.) This probably should have been a breaking (major) change, instead of happening in a patch version, since it prevents using earlier Node.js versions.
