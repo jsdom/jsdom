@@ -6,7 +6,7 @@ body:
     id: node_version
     attributes:
       label: Node.js version
-      description: The version of Node.js you are using. Only v18 and above are supported.
+      description: The version of Node.js you are using. Only versions listed in the `package.json` `"engines"` field are supported.
     validations:
       required: true
   - type: input

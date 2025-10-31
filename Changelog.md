@@ -24,9 +24,22 @@ Other guidelines:
 * Breaking changes get their own section.
 * Group in the order "Added", "Removed", "Changed", "Fixed".
 * Roughly order changes within those groupings by impact.
+
+Minimum Node.js version changes:
+
+* Update "engines" field in package.json.
+* Update .github/workflows/jsdom-ci.yml.
 -->
 
 ## 27.0.1
+
+**This release inadvertently raised the minimum Node.js version from v20.0.0 to v20.19.0+, v22.12.0+, v24.0.0+**. (This happened via a dependency update.) This probably should have been a breaking (major) change, instead of happening in a patch version, since it prevents using earlier Node.js versions.
+
+After further testing, we found that most of our development dependencies also require these versions, and so it's not feasible for the jsdom project to support earlier Node.js versions. (For example, our testing frameworks will not run on them.) If you need to use such earlier versions, or otherwise are working in an environment which gives related errors such as `ERR_REQUIRE_ESM`, then please stick with the v26.1.0 release of jsdom. (Noting, of course, that such versions are unsupported, and we will not respond to bug reports opened against them.)
+
+Subsequent jsdom releases will explicitly require these minimum Node.js versions, and will have CI testing to ensure that the minimum version is not accidentally raised again.
+
+Normal changelog:
 
 * Fixed some regressions in CSS selectors. Most such regression fixes were done in a minor update of a dependency, and thus available for all fresh installs of v27.0.0. However, one related to `class=""` attribute changes is only possible with a new version of jsdom. (asamuzaK)
 
