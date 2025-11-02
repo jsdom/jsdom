@@ -33,41 +33,6 @@ describe("level2/style", () => {
     assert.equal(window.document.styleSheets.length, 1);
   });
 
-  specify("HTMLStyleAttribute01", () => {
-    const { window } = new JSDOM(`<html><body><p style="color:red; background-color: blue">`);
-    var p = window.document.body.lastChild;
-    assert.equal(2, p.style.length);
-    assert.equal("color", p.style[0]);
-    assert.equal("red", p.style.color);
-    assert.equal("background-color", p.style[1]);
-    assert.equal("blue", p.style.backgroundColor);
-  });
-
-  specify("HTMLCanvasStyleAttribute01", () => {
-    const { window } = new JSDOM(`<html><body><canvas style="background-color: blue; z-index:1">`);
-    var c = window.document.body.lastChild;
-    assert.equal(c.style.length, 2);
-    assert.equal(c.style[0], "background-color");
-    assert.equal(c.style.backgroundColor, "blue");
-    assert.equal(c.style[1], "z-index");
-    assert.equal(c.style.zIndex, "1");
-  });
-
-  specify("StylePropertyReflectsStyleAttribute", () => {
-    const { window } = new JSDOM();
-    var p = window.document.createElement("p");
-    p.setAttribute("style", "color:red");
-    assert.equal(1, p.style.length);
-    assert.equal("color", p.style[0]);
-    assert.equal("red", p.style.color);
-    p.setAttribute("style", "");
-    assert.equal(0, p.style.length);
-    assert.equal("", p.style.color);
-    p.setAttribute("style", "color:blue");
-    assert.equal("color", p.style[0]);
-    assert.equal("blue", p.style.color);
-  });
-
   specify("StyleAttributeReflectsStyleProperty", () => {
     const { window } = new JSDOM();
     var p = window.document.createElement("p");

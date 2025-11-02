@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<title>CSSStyleProperties</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+test(() => {
+  assert_equals(typeof window.CSSStyleDeclaration, "function", "declaration");
+  assert_equals(typeof window.CSSStyleProperties, "function", "properties");
+}, "Sanity check");
+
+test(() => {
+  const div = document.createElement("div");
+  const style = window.getComputedStyle(div);
+  assert_equals(style instanceof window.CSSStyleDeclaration, true, "declaration");
+  assert_equals(style instanceof window.CSSStyleProperties, true, "properties");
+}, "Window.getComputedStyle");
+
+test(() => {
+  const sheet = new window.CSSStyleSheet();
+  const content = ".foo { color: green; }";
+  sheet.insertRule(content, 0);
+  const rule = sheet.cssRules[0];
+  assert_equals(rule.style instanceof window.CSSStyleDeclaration, true, "declaration");
+  assert_equals(rule.style instanceof window.CSSStyleProperties, true, "properties");
+}, "CSSStyleRule.style");
+
+test(() => {
+  const div = document.createElement("div");
+  assert_equals(div.style instanceof window.CSSStyleDeclaration, true, "declaration");
+  assert_equals(div.style instanceof window.CSSStyleProperties, true, "properties");
+}, "ElementCSSInlineStyle.style");
+</script>
+</html>

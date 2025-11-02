@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Inline style attribute</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-elementcssinlinestyle-style">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<!-- Rewritten from https://github.com/jsdom/jsdom/blob/main/test/to-port-to-wpts/level2/style.js -->
+
+<p id="p1" style="color:red; background-color: blue"></p>
+<canvas id="c1" style="background-color: blue; z-index:1"></canvas>
+
+<script>
+"use strict";
+const p1 = document.getElementById("p1");
+const c1 = document.getElementById("c1");
+
+test(() => {
+  assert_equals(p1.style.length, 2, "length");
+  assert_equals(p1.style.item(0), "color", "item 0");
+  assert_equals(p1.style.color, "red", "color");
+  assert_equals(p1.style.item(1), "background-color", "item 1");
+  assert_equals(p1.style.backgroundColor, "blue", "background-color");
+}, "HTMLStyleAttribute01");
+
+test(() => {
+  assert_equals(c1.style.length, 2, "length");
+  assert_equals(c1.style.item(0), "background-color", "item 0");
+  assert_equals(c1.style.backgroundColor, "blue", "background-color");
+  assert_equals(c1.style.item(1), "z-index", "item 1");
+  assert_equals(c1.style.zIndex, "1", "z-index");
+}, "HTMLCanvasStyleAttribute01");
+
+test(() => {
+  const p = document.createElement("p");
+  p.setAttribute("style", "color:red");
+  assert_equals(p.style.length, 1, "length-1");
+  assert_equals(p.style.item(0), "color", "item-1");
+  assert_equals(p.style.color, "red", "color-1");
+
+  p.setAttribute("style", "");
+  assert_equals(p.style.length, 0, "length-2");
+  assert_equals(p.style.item(0), "", "item-2");
+  assert_equals(p.style.color, "", "color-2");
+
+  p.setAttribute("style", "color:blue");
+  assert_equals(p.style.length, 1, "length-3");
+  assert_equals(p.style.item(0), "color", "item-3");
+  assert_equals(p.style.color, "blue", "color-3");
+}, "StylePropertyReflectsStyleAttribute");
+</script>

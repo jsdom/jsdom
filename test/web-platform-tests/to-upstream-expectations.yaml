@@ -3,18 +3,15 @@ css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdo
 css/css-display/display-initial.html:
   "Revert value of display": [fail, Revert keyword is not supported]
   "Revert-layer value of display": [fail, Revert-layer keyword is not supported]
-css/cssom/getComputedStyle-shadow-inherit.html:
-  "toggle shadowRoot.host visibility": [fail, https://github.com/jsdom/jsdom/issues/3941]
-css/cssom/serialize-whitespace.html:
-  "Serialize whitespace": [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3939]
+css/cssom/CSSStyleProperties.html:
+  "CSSStyleRule.style": [fail, Need rrweb-cssom fix]
+css/cssom/css-rule-selector-text.html: [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/193]
 css/cssom/style-background-shorthand-overwrite.html: [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3944]
-css/cssom/style-border-shorthand-var.html:
-  "border shorthand containing var()": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/247]
-css/cssom/style-element-inline-important.html:
-  "Element CSS inline style with !important": [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3940]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 css/cssom/style-set-property.html:
   "set toString for div.style.setProperty custom property": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/129]
+  "set null for cssRule.style.setProperty": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/196]
+  "set undefined for cssRule.style.setProperty": [fail, Need cssstyle fix; https://github.com/jsdom/cssstyle/issues/196]
 css/selectors/attribute-selector-escape.html: [fail, https://github.com/jsdom/jsdom/issues/3033]
 custom-elements/ElementInternals-accessibility.html:
   "ariaActiveDescendantElement": [fail, Element reflection not implemented]
