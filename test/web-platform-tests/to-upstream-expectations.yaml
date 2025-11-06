@@ -1,3 +1,5 @@
+css/css-borders/border-color.html:
+  "Set border as 1px solid #ffffff": [fail, Need parseColor fix; https://github.com/jsdom/cssstyle/issues/251]
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
 css/css-display/display-initial.html:
