@@ -36,4 +36,17 @@ test(() => {
   assert_equals(p.style.cssText, "border: 1px solid black;", "cssText");
   assert_equals(p.outerHTML, '<p style="border: 1px solid black;"></p>', "outerHTML");
 }, "Set border as 1px solid black");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "1px solid #ffffff";
+  assert_equals(p.style.length > 0, true, "length");
+  assert_equals(p.style.border, "1px solid #ffffff", "border");
+  assert_equals(p.style.borderWidth, "1px", "border-width");
+  assert_equals(p.style.borderStyle, "solid", "border-style");
+  assert_equals(p.style.borderColor, "#ffffff", "border-color");
+  assert_equals(p.style.borderImage, "none", "border-image");
+  assert_equals(p.style.cssText, "border: 1px solid #ffffff;", "cssText");
+  assert_equals(p.outerHTML, '<p style="border: 1px solid #ffffff;"></p>', "outerHTML");
+}, "Set border as 1px solid #ffffff");
 </script>
