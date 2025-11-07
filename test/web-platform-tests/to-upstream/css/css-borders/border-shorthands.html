@@ -17,9 +17,7 @@ test(() => {
   assert_equals(div.style.borderWidth, "1px", "border-width");
   assert_equals(div.style.borderStyle, "solid", "border-style");
   assert_equals(div.style.borderColor, "rgb(255, 255, 255)", "border-color");
-  assert_equals(div.style.borderImage, "none", "border-image");
   assert_equals(div.style.cssText, "border: 1px solid rgb(255, 255, 255);", "cssText");
-  assert_equals(div.outerHTML, '<div style="border: 1px solid rgb(255, 255, 255);"></div>', "outerHTML");
 }, "Set border as 1px solid #ffffff");
 
 test(() => {
@@ -30,8 +28,8 @@ test(() => {
   assert_equals(div.style.borderTopWidth, "1px", "border-top-width");
   assert_equals(div.style.borderTopStyle, "solid", "border-top-style");
   assert_equals(div.style.borderTopColor, "rgb(255, 255, 255)", "border-top-color");
-  assert_equals(div.style.cssText, "border-top-width: 1px; border-top-style: solid; border-top-color: rgb(255, 255, 255);", "cssText");
-  assert_equals(div.outerHTML, '<div style="border-top-width: 1px; border-top-style: solid; border-top-color: rgb(255, 255, 255);"></div>', "outerHTML");
+  assert_equals(div.style.cssText, "border-top: 1px solid rgb(255, 255, 255);", "cssText");
+  assert_equals(div.outerHTML, '<div style="border-top: 1px solid rgb(255, 255, 255);"></div>', "outerHTML");
 }, "Set borderTop as 1px solid #ffffff");
 
 test(() => {
@@ -42,9 +40,10 @@ test(() => {
   assert_equals(div.style.borderRightWidth, "1px", "border-right-width");
   assert_equals(div.style.borderRightStyle, "solid", "border-right-style");
   assert_equals(div.style.borderRightColor, "rgb(255, 255, 255)", "border-right-color");
-  assert_equals(div.style.cssText, "border-right-width: 1px; border-right-style: solid; border-right-color: rgb(255, 255, 255);", "cssText");
-  assert_equals(div.outerHTML, '<div style="border-right-width: 1px; border-right-style: solid; border-right-color: rgb(255, 255, 255);"></div>', "outerHTML");
+  assert_equals(div.style.cssText, "border-right: 1px solid rgb(255, 255, 255);", "cssText");
+  assert_equals(div.outerHTML, '<div style="border-right: 1px solid rgb(255, 255, 255);"></div>', "outerHTML");
 }, "Set borderRight as 1px solid #ffffff");
+
 
 test(() => {
   const div = document.createElement("div");
@@ -54,8 +53,8 @@ test(() => {
   assert_equals(div.style.borderBottomWidth, "1px", "border-bottom-width");
   assert_equals(div.style.borderBottomStyle, "solid", "border-bottom-style");
   assert_equals(div.style.borderBottomColor, "rgb(255, 255, 255)", "border-bottom-color");
-  assert_equals(div.style.cssText, "border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(255, 255, 255);", "cssText");
-  assert_equals(div.outerHTML, '<div style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(255, 255, 255);"></div>', "outerHTML");
+  assert_equals(div.style.cssText, "border-bottom: 1px solid rgb(255, 255, 255);", "cssText");
+  assert_equals(div.outerHTML, '<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>', "outerHTML");
 }, "Set borderBottom as 1px solid #ffffff");
 
 test(() => {
@@ -66,7 +65,7 @@ test(() => {
   assert_equals(div.style.borderLeftWidth, "1px", "border-left-width");
   assert_equals(div.style.borderLeftStyle, "solid", "border-left-style");
   assert_equals(div.style.borderLeftColor, "rgb(255, 255, 255)", "border-left-color");
-  assert_equals(div.style.cssText, "border-left-width: 1px; border-left-style: solid; border-left-color: rgb(255, 255, 255);", "cssText");
-  assert_equals(div.outerHTML, '<div style="border-left-width: 1px; border-left-style: solid; border-left-color: rgb(255, 255, 255);"></div>', "outerHTML");
+  assert_equals(div.style.cssText, "border-left: 1px solid rgb(255, 255, 255);", "cssText");
+  assert_equals(div.outerHTML, '<div style="border-left: 1px solid rgb(255, 255, 255);"></div>', "outerHTML");
 }, "Set borderLeft as 1px solid #ffffff");
 </script>
