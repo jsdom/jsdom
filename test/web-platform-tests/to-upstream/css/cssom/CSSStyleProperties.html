@@ -9,8 +9,8 @@
 <script>
 "use strict";
 test(() => {
-  assert_equals(typeof window.CSSStyleDeclaration, "function", "declaration");
-  assert_equals(typeof window.CSSStyleProperties, "function", "properties");
+  assert_equals(typeof CSSStyleDeclaration, "function", "declaration");
+  assert_equals(typeof CSSStyleProperties, "function", "properties");
 }, "Sanity check");
 
 test(() => {
@@ -21,7 +21,7 @@ test(() => {
 }, "Window.getComputedStyle");
 
 test(() => {
-  const sheet = new window.CSSStyleSheet();
+  const sheet = new CSSStyleSheet();
   const content = ".foo { color: green; }";
   sheet.insertRule(content, 0);
   const rule = sheet.cssRules[0];
