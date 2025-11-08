@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSSStyleDeclaration item() method and index</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-item">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<style>
+.foo {
+  color: green;
+  background-color: white;
+}
+</style>
+
+<div id="div"></div>
+
+<script>
+"use strict";
+
+test(() => {
+  const rule = document.styleSheets[0].cssRules[0];
+  assert_equals(rule.selectorText, ".foo", "selector");
+  assert_equals(rule.style.length, 2, "rule.style.length");
+
+  const div = document.createElement("div");
+  div.style.cssText = "color: green; background-color: white;";
+  assert_equals(div.style.length, 2, "div.style.length");
+}, "Sanity check");
+
+test(() => {
+  const rule = document.styleSheets[0].cssRules[0];
+  assert_equals(rule.style.item(0), "color", "item 0");
+  assert_equals(rule.style.item(1), "background-color", "item 1");
+  assert_equals(rule.style.item(2), "", "item 2");
+}, "CSSStyleRule.style.item()");
+
+test(() => {
+  const rule = document.styleSheets[0].cssRules[0];
+  assert_equals(rule.style[0], "color", "index 0");
+  assert_equals(rule.style[1], "background-color", "index 1");
+  assert_equals(rule.style[2], undefined, "index 2");
+}, "CSSStyleRule.style[index]");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.cssText = "color: green; background-color: white;";
+  assert_equals(div.style.item(0), "color", "item 0");
+  assert_equals(div.style.item(1), "background-color", "item 1");
+  assert_equals(div.style.item(2), "", "item 2");
+}, "Element.style.item()");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.cssText = "color: green; background-color: white;";
+  assert_equals(div.style[0], "color", "index 0");
+  assert_equals(div.style[1], "background-color", "index 1");
+  assert_equals(div.style[2], undefined, "index 2");
+}, "Element.style[index]");
+</script>
