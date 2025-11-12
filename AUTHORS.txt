@@ -1,3 +1,4 @@
+Acemir Sousa Mendes <acemirsm@gmail.com>
 Adam Faulkner <adamfaulkner1@gmail.com>
 Adrian Lang <mail@adrianlang.de>
 Adrian Makowski <adrian.makowski@gmail.com>
@@ -61,6 +62,7 @@ Christophe Coevoet <stof@notk.org>
 cjroebuck <tophtfc@gmail.com>
 Colin Casey <casey.colin@gmail.com>
 Connor Meredith <4907463+connormeredith@users.noreply.github.com>
+CP Lepage <32472542+cplepage@users.noreply.github.com>
 Cyril Auburtin <cyril.auburtin@gmail.com>
 daishi <daishi@axlight.com>
 Damian Janowski <damian.janowski@gmail.com>
@@ -217,6 +219,7 @@ Marc-Andre Lafortune <github@marc-andre.ca>
 Mariusz Nowak <mariusz@medikoo.com>
 Martin Naumann <mr.avgp@gmail.com>
 mash-graz <mash-graz@users.noreply.github.com>
+Mat Mannion <mat.mannion@gmail.com>
 Matt Broadstone <mbroadst@gmail.com>
 Matthew Crinklaw-Vogt <mlaw@fb.com>
 Matthew Glazar <strager.nds@gmail.com>
