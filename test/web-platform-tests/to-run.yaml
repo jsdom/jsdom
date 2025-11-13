@@ -274,6 +274,7 @@ DIR: css/cssom
 
 CSS-namespace-object-class-string.html: [fail, Unknown]
 CSSFontFeatureValuesRule.html: [fail, Unknown]
+CSSKeyframeRule.html: [fail, Unknown]
 CSSStyleRule-set-selectorText-namespace.html: [fail, Unknown]
 CSSStyleRule-set-selectorText.html: [fail, Unknown]
 CSSStyleRule.html:
@@ -313,9 +314,6 @@ computed-style-005.html: [fail, Unknown]
 computed-style-set-property.html: [fail, Unknown]
 css-style-attr-decl-block.html: [fail, Unknown]
 css-style-declaration-modifications.html: [fail, Unknown]
-cssimportrule-parent.html: [fail, Unknown]
-cssimportrule-sheet-identity.html: [fail, Unknown]
-cssimportrule.html: [fail, Unknown]
 cssom-fontfacerule-constructors.html: [fail, Unknown]
 cssom-fontfacerule.html: [fail, Unknown]
 cssom-getPropertyValue-common-checks.html: [fail, Depends on CSS]
