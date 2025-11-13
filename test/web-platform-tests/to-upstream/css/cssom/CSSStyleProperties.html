@@ -18,7 +18,7 @@ test(() => {
   const style = window.getComputedStyle(div);
   assert_equals(style instanceof window.CSSStyleDeclaration, true, "declaration");
   assert_equals(style instanceof window.CSSStyleProperties, true, "properties");
-}, "Window.getComputedStyle");
+}, "window.getComputedStyle");
 
 test(() => {
   const sheet = new CSSStyleSheet();
