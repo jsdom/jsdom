@@ -1,3 +1,5 @@
+css/css-borders/border-shorthands.html:
+  "Computed value of border shorthand": [fail, https://github.com/jsdom/jsdom/issues/3971]
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
 css/css-display/display-initial.html:
