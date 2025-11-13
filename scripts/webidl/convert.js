@@ -4,13 +4,13 @@
 const path = require("node:path");
 const fs = require("node:fs");
 const Webidl2js = require("webidl2js");
-const { propertyList } = require("cssstyle");
+const { propertyDefinitions } = require("cssstyle");
 const processReflect = require("./reflection.js");
 
 // Generate CSSStyleProperties.webidl.
 const idlAttr = "[CEReactions] attribute [LegacyNullToEmptyString] CSSOMString";
 const idlAttrs = [`${idlAttr} cssFloat;`];
-for (const { styleDeclaration } of Object.values(propertyList)) {
+for (const { styleDeclaration } of Object.values(propertyDefinitions)) {
   if (Array.isArray(styleDeclaration)) {
     for (const property of styleDeclaration) {
       if (property === "float") {
