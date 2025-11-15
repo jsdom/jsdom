@@ -199,7 +199,8 @@ display-math-on-pseudo-elements-001.html: [fail, Unknown]
 parsing/display-computed.html: [fail, Depends on CSS]
 parsing/tentative/display-computed.html: [fail, masonry and inline-masonry not implemented]
 parsing/tentative/display-valid.html: [fail, masonry and inline-masonry not implemented]
-reading-flow/tentative/**/!(reading-flow-valid.html|reading-flow-invalid.html|reading-order-invalid.html): [fail, Unknown]
+reading-flow/tentative/reading-flow-computed.html: [fail, Unknown]
+reading-flow/tentative/reading-order-computed.html: [fail, Unknown]
 textarea-display.html: [fail, Unknown]
 
 ---
