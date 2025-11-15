@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>opacity value in getComputedStyle()</title>
+<link rel="help" href="https://drafts.csswg.org/css-color/#propdef-opacity">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- regression test for https://github.com/jsdom/jsdom/issues/3339 -->
+
+<div id="div"></div>
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("div");
+  assert_equals(window.getComputedStyle(div).getPropertyValue("opacity"), "1");
+});
+</script>

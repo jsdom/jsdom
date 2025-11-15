@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed fontFamily is inherited</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts/#font-family-prop">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3614 -->
+
+<style>
+  #parent {
+    pointer-events: none;
+  }
+</style>
+
+<body>
+  <div id="parent" style="font-family: Arial;">
+    <div id="child">Child</div>
+  </div>
+</body>
+
+<script>
+"use strict";
+
+test(() => {
+  const parent = document.querySelector("#parent");
+  assert_equals(getComputedStyle(parent).fontFamily, "Arial");
+}, "Parent element returns the directly specified value for fontFamily");
+
+test(() => {
+  const child = document.querySelector("#child");
+  assert_equals(getComputedStyle(child).fontFamily, "Arial");
+}, "Child element inherits the fontFamily value from its parent");
+</script>
