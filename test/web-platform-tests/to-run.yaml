@@ -74,7 +74,7 @@ simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 
 
 DIR: css/css-cascade
 
-all-prop-initial-xml.html: [fail-slow, Unknown]
+all-prop-initial-xml.html: [fail-slow, URL.createObjectURL not implemented]
 all-prop-revert-layer.html: [fail, Unknown]
 at-scope-relative-syntax.html: [fail, Unknown]
 idlharness.html: [fail, Unknown]
@@ -558,7 +558,6 @@ invalidation/host-has-shadow-tree-element-at-subject-position.html: [fail, Unkno
 invalidation/host-pseudo-class-in-has.html: [fail, Unknown]
 invalidation/input-pseudo-classes-in-has.html: [fail, Unknown]
 invalidation/is-pseudo-containing-sibling-relationship-in-has.html: [fail, Unknown]
-invalidation/is-where-pseudo-containing-hard-pseudo-and-never-matching.html: [fail-slow, Unknown]
 invalidation/is-where-pseudo-containing-hard-pseudo.html: [fail-slow, Unknown]
 invalidation/is.html: [fail, Unknown]
 invalidation/media-loading-pseudo-classes-in-has.html: [fail-slow, Unknown]
