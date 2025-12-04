@@ -21,10 +21,12 @@ test(() => {
   const rule = document.styleSheets[0].cssRules[0];
   assert_equals(rule.selectorText, ".foo", "selector");
   assert_equals(rule.style.length, 2, "rule.style.length");
+  assert_throws_js(TypeError, () => rule.style.item(), "rule.style.item() empty arg");
 
   const div = document.createElement("div");
   div.style.cssText = "color: green; background-color: white;";
   assert_equals(div.style.length, 2, "div.style.length");
+  assert_throws_js(TypeError, () => div.style.item(), "div.style.item() empty arg");
 }, "Sanity check");
 
 test(() => {

@@ -6,10 +6,12 @@ css/css-display/display-initial.html:
   "Revert value of display": [fail, Revert keyword is not supported]
   "Revert-layer value of display": [fail, Revert-layer keyword is not supported]
 css/cssom/CSSStyleProperties.html:
-  "CSSStyleRule.style": [fail, acemir/cssom use it's own CSSStyleDeclaration]
+  "CSSStyleRule.style": [fail, acemir/CSSOM use it's own CSSStyleDeclaration]
 css/cssom/getComputedStyle-fontFamily.html: [fail, https://github.com/jsdom/jsdom/issues/3614]
 css/cssom/getComputedStyle-shadow-host.html: [fail, https://github.com/jsdom/jsdom/issues/3661]
 css/cssom/style-background-shorthand-overwrite.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/jsdom/issues/3944]
+css/cssom/style-item.html:
+  "Sanity check": [fail, acemir/CSSOM does not throw]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 css/selectors/attribute-selector-escape.html: [fail, https://github.com/jsdom/jsdom/issues/3033]
 custom-elements/ElementInternals-accessibility.html:
