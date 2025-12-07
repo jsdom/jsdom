@@ -352,45 +352,4 @@ describe("level2/style", () => {
     assert.equal(document.body.style.width, "auto");
     assert.equal(document.body.style.cssText, "width: auto;");
   });
-  specify("ensure cssom uses the correct jsdom instance's globalObject", () => {
-    const dom1 = new JSDOM(`<html><head><style></style></head><body>`);
-    const dom2 = new JSDOM(`<html><head><style></style></head><body>`);
-  
-    const dom1ConstructedStylesheet = new dom1.window.CSSStyleSheet();
-    let dom1ConstructedStylesheetThrownError;
-    try {
-      dom1ConstructedStylesheet.insertRule("@layer;");
-    } catch (err) {
-      dom1ConstructedStylesheetThrownError = err;
-    }
-
-    const dom1UnconstructedStylesheet = dom1.window.document.head.lastChild.sheet;
-    let dom1UnconstructedStylesheetThrownError;
-    try {
-      dom1UnconstructedStylesheet.insertRule("@layer;");
-    } catch (err) {
-      dom1UnconstructedStylesheetThrownError = err;
-    }
-
-    const dom2ConstructedStylesheet = new dom2.window.CSSStyleSheet();
-    let dom2ConstructedStylesheetThrownError;
-    try {
-      dom2ConstructedStylesheet.insertRule("@layer;");
-    } catch (err) {
-      dom2ConstructedStylesheetThrownError = err;
-    }
-
-    const dom2UnconstructedStylesheet = dom2.window.document.head.lastChild.sheet;
-    let dom2UnconstructedStylesheetThrownError;
-    try {
-      dom2UnconstructedStylesheet.insertRule("@layer;");
-    } catch (err) {
-      dom2UnconstructedStylesheetThrownError = err;
-    }
-
-    assert.equal(dom1ConstructedStylesheetThrownError instanceof dom1.window.DOMException, true);
-    assert.equal(dom1UnconstructedStylesheetThrownError instanceof dom1.window.DOMException, true);
-    assert.equal(dom2ConstructedStylesheetThrownError instanceof dom2.window.DOMException, true);
-    assert.equal(dom2UnconstructedStylesheetThrownError instanceof dom2.window.DOMException, true);
-  });
 });
