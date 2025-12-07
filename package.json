@@ -23,7 +23,7 @@
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
   "dependencies": {
-    "@acemir/cssom": "^0.9.26",
+    "@acemir/cssom": "^0.9.28",
     "@asamuzakjp/dom-selector": "^6.7.4",
     "cssstyle": "^5.3.3",
     "data-urls": "^6.0.0",
