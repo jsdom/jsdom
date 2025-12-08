@@ -31,6 +31,10 @@ Minimum Node.js version changes:
 * Update .github/workflows/jsdom-ci.yml.
 -->
 
+## 27.3.0
+
+* Improved CSS parsing and CSSOM object APIs via updates to [`@acemir/cssom`](https://www.npmjs.com/package/@acemir/cssom). (acemir)
+
 ## 27.2.0
 
 * Added `CSSGroupingRule`, `CSSNestedDeclarations`, `CSSConditionRule`, `CSSContainerRule`, `CSSScopeRule`, `CSSSupportsRule`, `CSSLayerBlockRule`, and `CSSLayerStatementRule` to jsdom `Window`s. (acemir)
