@@ -14,6 +14,19 @@ const reporterPathname = "/resources/testharnessreport.js";
 // that's fine, since the tests are run sequentially.
 const httpsAgent = new https.Agent({ rejectUnauthorized: false, keepAlive: true, timeout: 5_000 });
 
+// Memory leak debugging
+let testCount = 0;
+function logMemory(testPath) {
+  testCount++;
+  if (global.gc) {
+    global.gc();
+    global.gc();
+  }
+  const m = process.memoryUsage();
+  console.log(`[MEMORY] test=${testCount} heap=${(m.heapUsed / 1024 / 1024).toFixed(1)}MB ` +
+              `rss=${(m.rss / 1024 / 1024).toFixed(1)}MB path=${testPath}`);
+}
+
 function unexpectedPassingTestMessage(expectationsFilename) {
   return `Hey, did you fix a bug? This test used to be failing, but during this run there were no errors. If you ` +
     `have fixed the issue covered by this test, you can edit the "${expectationsFilename}" file and remove the line ` +
@@ -220,6 +233,8 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
             if (typeof expectFail === "object" && (harnessFail || unhandledExceptions.length)) {
               expectFail = false;
             }
+
+            logMemory(testPath);
 
             if (errors.length === 0 && expectFail) {
               reject(new Error(unexpectedPassingTestMessage(expectationsFilenameForErrorMessage)));
