@@ -2,7 +2,6 @@
 const http = require("http");
 const path = require("path");
 const fs = require("fs");
-const nodeURLParse = require("url").parse;
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const { HttpProxyAgent } = require("http-proxy-agent");
@@ -659,11 +658,13 @@ describe("API: resource loading configuration", () => {
       let proxyServerRequestCount = 0;
       const proxyServer = await createServer((proxyServerReq, proxyServerRes) => {
         ++proxyServerRequestCount;
-        const options = nodeURLParse(proxyServerReq.url);
-        options.headers = proxyServerReq.headers;
-        options.method = proxyServerReq.method;
+        const targetURL = new URL(proxyServerReq.url, mainHost);
+        const requestOptions = {
+          headers: proxyServerReq.headers,
+          method: proxyServerReq.method
+        };
 
-        const mainServerReq = http.request(options, mainServerRes => {
+        const mainServerReq = http.request(targetURL, requestOptions, mainServerRes => {
           proxyServerRes.writeHead(mainServerRes.statusCode, mainServerRes.headers);
           mainServerRes.pipe(proxyServerRes);
         });
