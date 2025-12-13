@@ -5,6 +5,9 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <!-- Regression test for https://github.com/jsdom/cssstyle/issues/251 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3971 -->
+
+<div id="div"></div>
 
 <script>
 "use strict";
@@ -67,4 +70,15 @@ test(() => {
   assert_equals(div.style.cssText, "border-left: 1px solid rgb(255, 255, 255);", "cssText");
   assert_equals(div.outerHTML, '<div style="border-left: 1px solid rgb(255, 255, 255);"></div>', "outerHTML");
 }, "Set borderLeft as 1px solid #ffffff");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.setProperty("border", "2px solid gray");
+  assert_equals(div.style.getPropertyValue("border"), "2px solid gray", "specified");
+  const style = window.getComputedStyle(div);
+  assert_equals(style.getPropertyValue("border-width"), "2px", "border-width");
+  assert_equals(style.getPropertyValue("border-style"), "solid", "border-style");
+  assert_equals(style.getPropertyValue("border-color"), "rgb(128, 128, 128)", "border-color");
+  assert_equals(style.getPropertyValue("border"), "2px solid rgb(128, 128, 128)", "border");
+}, "Computed value of border shorthand");
 </script>
