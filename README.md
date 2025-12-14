@@ -154,18 +154,38 @@ To more fully customize jsdom's resource-loading behavior, you can pass an insta
 
 ```js
 const resourceLoader = new jsdom.ResourceLoader({
-  proxy: "http://127.0.0.1:9001",
-  strictSSL: false,
   userAgent: "Mellblomenator/9000",
 });
 const dom = new JSDOM(``, { resources: resourceLoader });
 ```
 
-The three options to the `ResourceLoader` constructor are:
+The options to the `ResourceLoader` constructor are:
 
-- `proxy` is the address of an HTTP proxy to be used.
-- `strictSSL` can be set to false to disable the requirement that SSL certificates be valid.
 - `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
+- `httpAgent` specifies the [`http.Agent`](https://nodejs.org/api/http.html#class-httpagent) to use for HTTP requests. Defaults to `http.globalAgent`.
+- `httpsAgent` specifies the [`https.Agent`](https://nodejs.org/api/https.html#class-httpsagent) to use for HTTPS requests. Defaults to `https.globalAgent`.
+
+Using custom agents allows you to configure proxies, SSL certificate verification, connection pooling, and other network behaviors. For example, to disable SSL certificate verification:
+
+```js
+const https = require("https");
+const resourceLoader = new jsdom.ResourceLoader({
+  httpsAgent: new https.Agent({ rejectUnauthorized: false })
+});
+```
+
+To use an HTTP proxy, you can use packages like [http-proxy-agent](https://www.npmjs.com/package/http-proxy-agent) and [https-proxy-agent](https://www.npmjs.com/package/https-proxy-agent):
+
+```js
+const { HttpProxyAgent } = require("http-proxy-agent");
+const { HttpsProxyAgent } = require("https-proxy-agent");
+const resourceLoader = new jsdom.ResourceLoader({
+  httpAgent: new HttpProxyAgent("http://proxy.example.com:8080"),
+  httpsAgent: new HttpsProxyAgent("http://proxy.example.com:8080")
+});
+```
+
+In recent Node.js versions, you can instead use [Node.js's built-in proxy support](https://nodejs.org/api/http.html#built-in-proxy-support).
 
 You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that overrides the response provided for a specific URL:
 

@@ -2,9 +2,9 @@
 const http = require("http");
 const path = require("path");
 const fs = require("fs");
-const nodeURLParse = require("url").parse;
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
+const { HttpProxyAgent } = require("http-proxy-agent");
 const { delay, createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 const { version: packageVersion } = require("../../package.json");
@@ -652,24 +652,27 @@ describe("API: resource loading configuration", () => {
       });
     });
 
-    it("should be able to customize the proxy option", async () => {
+    it("should be able to customize the httpAgent option for proxying", async () => {
       const [mainServer, mainHost] = await threeRequestServer();
 
       let proxyServerRequestCount = 0;
       const proxyServer = await createServer((proxyServerReq, proxyServerRes) => {
         ++proxyServerRequestCount;
-        const options = nodeURLParse(proxyServerReq.url);
-        options.headers = proxyServerReq.headers;
-        options.method = proxyServerReq.method;
+        const targetURL = new URL(proxyServerReq.url, mainHost);
+        const requestOptions = {
+          headers: proxyServerReq.headers,
+          method: proxyServerReq.method
+        };
 
-        const mainServerReq = http.request(options, mainServerRes => {
+        const mainServerReq = http.request(targetURL, requestOptions, mainServerRes => {
           proxyServerRes.writeHead(mainServerRes.statusCode, mainServerRes.headers);
           mainServerRes.pipe(proxyServerRes);
         });
         proxyServerReq.pipe(mainServerReq);
       });
 
-      const resourceLoader = new ResourceLoader({ proxy: `http://127.0.0.1:${proxyServer.address().port}` });
+      const proxyAgent = new HttpProxyAgent(`http://127.0.0.1:${proxyServer.address().port}`);
+      const resourceLoader = new ResourceLoader({ httpAgent: proxyAgent });
       const options = { resources: resourceLoader, runScripts: "dangerously" };
       const dom = await JSDOM.fromURL(mainHost + "/html", options);
 

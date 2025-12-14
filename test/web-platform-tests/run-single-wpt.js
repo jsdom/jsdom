@@ -1,11 +1,18 @@
 "use strict";
 /* eslint-disable no-console */
+const https = require("node:https");
 const path = require("node:path");
 const { URL } = require("node:url");
 const { specify } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole, ResourceLoader } = require("../../lib/api.js");
 
 const reporterPathname = "/resources/testharnessreport.js";
+
+// WPT server uses self-signed certificates, so we need to disable SSL verification.
+//
+// Note this agent is stored as a module-level variable, and thus shared across all test runs, but
+// that's fine, since the tests are run sequentially.
+const httpsAgent = new https.Agent({ rejectUnauthorized: false, keepAlive: true, timeout: 5_000 });
 
 function unexpectedPassingTestMessage(expectationsFilename) {
   return `Hey, did you fix a bug? This test used to be failing, but during this run there were no errors. If you ` +
@@ -30,7 +37,7 @@ module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
 
 class CustomResourceLoader extends ResourceLoader {
   constructor() {
-    super({ strictSSL: false });
+    super({ httpsAgent });
   }
   fetch(urlString, options) {
     const url = new URL(urlString);
