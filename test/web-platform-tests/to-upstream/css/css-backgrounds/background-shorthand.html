@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>background shorthand</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#background">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3663 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3169 -->
+
+<div id="div" style="background: border-box;"></div>
+<img id="img">
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("div");
+  // Chrome returns "border-box border-box"
+  assert_equals(div.style.background, "border-box");
+}, "Set style attribute by default");
+
+test(() => {
+  const img = document.getElementById("img");
+  img.style.background = 'url("foo.jpg") center/20px no-repeat';
+  assert_equals(img.style.background, 'url("foo.jpg") center center / 20px no-repeat');
+}, "Shorthand value containing '/'");
+</script>
