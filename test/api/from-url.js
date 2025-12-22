@@ -19,7 +19,7 @@ describe("API: JSDOM.fromURL()", () => {
     });
 
     it("should reject when passing an invalid absolute URL for referrer", () => {
-      assert.rejects(JSDOM.fromURL("http://example.com/", { referrer: "asdf" }), TypeError);
+      return assert.rejects(JSDOM.fromURL("http://example.com/", { referrer: "asdf" }), TypeError);
     });
 
     it("should disallow passing a URL manually", () => {
@@ -61,7 +61,7 @@ describe("API: JSDOM.fromURL()", () => {
     it("should give an appropriate error for invalid redirect URLs (GH-3804)", async () => {
       const url = await badRedirectServer();
 
-      assert.rejects(JSDOM.fromURL(url), "Invalid URL");
+      return assert.rejects(JSDOM.fromURL(url), /Invalid URL/);
     });
 
     it("should be able to handle gzipped bodies", async () => {

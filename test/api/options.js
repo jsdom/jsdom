@@ -5,6 +5,16 @@ const { describe, it } = require("mocha-sugar-free");
 const jsdom = require("../..");
 const { JSDOM } = require("../..");
 
+function withResolvers() {
+  if (Promise.withResolvers) {
+    return Promise.withResolvers();
+  }
+  const r = {};
+  // eslint-disable-next-line no-promise-executor-return
+  r.promise = new Promise((resolve, reject) => Object.assign(r, { resolve, reject }));
+  return r;
+}
+
 describe("API: constructor options", () => {
   describe("(general tests)", () => {
     it("should not mutate the passed-in options object", () => {
@@ -231,23 +241,27 @@ describe("API: constructor options", () => {
         assert.equal(document.visibilityState, "visible");
       });
 
-      it("document should call rAF", { async: true }, context => {
+      it("document should call rAF", () => {
+        const { promise, resolve } = withResolvers();
         const { window } = new JSDOM(``, { pretendToBeVisual: true });
 
         window.requestAnimationFrame(() => {
-          context.done();
+          resolve();
         });
         // Further functionality tests are in web platform tests
+        return promise;
       });
 
-      it("child frame document should have rAF", { async: true }, context => {
+      it("child frame document should have rAF", () => {
+        const { promise, resolve } = withResolvers();
         const { window } = new JSDOM(`<body></body>`, { pretendToBeVisual: true });
         const frame = window.document.createElement("iframe");
         window.document.body.appendChild(frame);
 
         frame.contentWindow.requestAnimationFrame(() => {
-          context.done();
+          resolve();
         });
+        return promise;
       });
     });
   });
