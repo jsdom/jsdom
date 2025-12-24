@@ -873,6 +873,10 @@ xpathevaluatorbase-creatensresolver.html: [fail, Unknown]
 
 ---
 
+DIR: encoding
+
+---
+
 DIR: fetch/api/headers
 
 header-setcookie.any.html:
