@@ -913,7 +913,8 @@ legacy-mb-schinese/gbk/gbk-encoder.html: [fail, whatwg-url does not support non-
 "legacy-mb-tchinese/big5/big5-decode-extra.html?!(1-1000)": [pass-slow]
 "legacy-mb-tchinese/big5/big5-decode-x-x-big5.html?!(1-1000)": [pass-slow]
 "legacy-mb-tchinese/big5/big5-decode.html?!(1-1000)": [pass-slow]
-streams/**: [fail, Not implemented]
+"streams/!(realms.window.html)": [fail, Not implemented]
+streams/realms.window.html: [fail-slow, Not implemented]
 
 ---
 
