@@ -22,7 +22,8 @@ const validReasons = new Set([
   "fail-lt-node24",
   "timeout",
   "flaky",
-  "needs-canvas"
+  "needs-canvas",
+  "pass-slow"
 ]);
 
 exports.checkToUpstreamExpectations = (toUpstreamExpectationsFilename, possibleTestFilePaths) => {
@@ -188,7 +189,7 @@ function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } 
 
 
 function resolveReason(reason) {
-  if (["fail-slow", "timeout", "flaky"].includes(reason)) {
+  if (["fail-slow", "pass-slow", "timeout", "flaky"].includes(reason)) {
     return "skip";
   }
 
