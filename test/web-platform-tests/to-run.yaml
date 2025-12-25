@@ -875,9 +875,11 @@ xpathevaluatorbase-creatensresolver.html: [fail, Unknown]
 
 DIR: encoding
 
+big5-encoder.html: [fail, whatwg-url does not support non-UTF-8 query strings]
 encodeInto.any.html:
   "encodeInto() and a detached output buffer": [fail, MessageChannel is not defined]
 idlharness.any.html: [fail, Depends on fetch]
+iso-2022-jp-encoder.html: [fail, whatwg-url does not support non-UTF-8 query strings]
 "legacy-mb-japanese/euc-jp/eucjp-decode-cseucpkdfmtjapanese.html?!(1-1000)": [pass-slow]
 "legacy-mb-japanese/euc-jp/eucjp-decode-x-euc-jp.html?!(1-1000)": [pass-slow]
 "legacy-mb-japanese/euc-jp/eucjp-decode.html?!(1-1000)": [pass-slow]
