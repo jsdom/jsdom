@@ -25,7 +25,7 @@
   "dependencies": {
     "@acemir/cssom": "^0.9.28",
     "@asamuzakjp/dom-selector": "^6.7.6",
-    "@exodus/bytes": "^1.5.0",
+    "@exodus/bytes": "^1.6.0",
     "cssstyle": "^5.3.4",
     "data-urls": "^6.0.0",
     "decimal.js": "^10.6.0",
