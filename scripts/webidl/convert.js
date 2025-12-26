@@ -48,6 +48,7 @@ addDir("../../lib/jsdom/living/cssom");
 addDir("../../lib/jsdom/living/custom-elements");
 addDir("../../lib/jsdom/living/deviceorientation");
 addDir("../../lib/jsdom/living/domparsing");
+addDir("../../lib/jsdom/living/encoding");
 addDir("../../lib/jsdom/living/events");
 addDir("../../lib/jsdom/living/fetch");
 addDir("../../lib/jsdom/living/file-api");

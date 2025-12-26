@@ -873,6 +873,53 @@ xpathevaluatorbase-creatensresolver.html: [fail, Unknown]
 
 ---
 
+DIR: encoding
+
+"**/*-encode-form*": [fail-slow, depends on form submission]
+"**/*-encode-href*": [fail-slow, whatwg-url does not support non-UTF-8 query strings]
+big5-encoder.html: [fail, whatwg-url does not support non-UTF-8 query strings]
+encodeInto.any.html:
+  "encodeInto() and a detached output buffer": [fail, MessageChannel is not defined]
+  "Invalid encodeInto() destination: Float16Array, backed by: ArrayBuffer": [fail-lt-node24]
+  "Invalid encodeInto() destination: Float16Array, backed by: SharedArrayBuffer": [fail-lt-node24]
+idlharness.any.html: [fail, Depends on fetch]
+iso-2022-jp-encoder.html: [fail, whatwg-url does not support non-UTF-8 query strings]
+"legacy-mb-japanese/euc-jp/eucjp-decode-cseucpkdfmtjapanese.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/euc-jp/eucjp-decode-x-euc-jp.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/euc-jp/eucjp-decode.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/iso-2022-jp/iso2022jp-decode-csiso2022jp.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/iso-2022-jp/iso2022jp-decode.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/shift_jis/sjis-decode-csshiftjis.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/shift_jis/sjis-decode-ms932.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/shift_jis/sjis-decode-ms_kanji.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/shift_jis/sjis-decode-shift-jis.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/shift_jis/sjis-decode-sjis.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/shift_jis/sjis-decode-windows-31j.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/shift_jis/sjis-decode-x-sjis.html?!(1-1000)": [pass-slow]
+"legacy-mb-japanese/shift_jis/sjis-decode.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-cseuckr.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-csksc56011987.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-iso-ir-149.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-korean.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-ks_c_5601-1987.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-ks_c_5601-1989.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-ksc5601.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-ksc_5601.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode-windows-949.html?!(1-1000)": [pass-slow]
+"legacy-mb-korean/euc-kr/euckr-decode.html?!(1-1000)": [pass-slow]
+legacy-mb-schinese/gb18030/gb18030-encoder.html: [fail, whatwg-url does not support non-UTF-8 query strings]
+legacy-mb-schinese/gbk/gbk-encoder.html: [fail, whatwg-url does not support non-UTF-8 query strings]
+"legacy-mb-tchinese/big5/big5-decode-big5-hkscs.html?!(1-1000)": [pass-slow]
+"legacy-mb-tchinese/big5/big5-decode-cn-big5.html?!(1-1000)": [pass-slow]
+"legacy-mb-tchinese/big5/big5-decode-csbig5.html?!(1-1000)": [pass-slow]
+"legacy-mb-tchinese/big5/big5-decode-extra.html?!(1-1000)": [pass-slow]
+"legacy-mb-tchinese/big5/big5-decode-x-x-big5.html?!(1-1000)": [pass-slow]
+"legacy-mb-tchinese/big5/big5-decode.html?!(1-1000)": [pass-slow]
+"streams/!(realms.window.html)": [fail, Not implemented]
+streams/realms.window.html: [fail-slow, Not implemented]
+
+---
+
 DIR: fetch/api/headers
 
 header-setcookie.any.html:

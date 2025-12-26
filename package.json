@@ -25,11 +25,11 @@
   "dependencies": {
     "@acemir/cssom": "^0.9.28",
     "@asamuzakjp/dom-selector": "^6.7.6",
-    "@exodus/bytes": "^1.3.0",
+    "@exodus/bytes": "^1.6.0",
     "cssstyle": "^5.3.4",
     "data-urls": "^6.0.0",
     "decimal.js": "^10.6.0",
-    "html-encoding-sniffer": "^5.0.0",
+    "html-encoding-sniffer": "^6.0.0",
     "http-proxy-agent": "^7.0.2",
     "https-proxy-agent": "^7.0.6",
     "is-potential-custom-element-name": "^1.0.1",
