@@ -12,7 +12,8 @@ const nodeMajorVersion = Number.parseInt(process.versions.node.split(".")[0]);
 const validInnerReasons = new Set([
   "fail",
   "fail-with-canvas",
-  "fail-lt-node22"
+  "fail-lt-node22",
+  "fail-lt-node24"
 ]);
 
 const validReasons = new Set([

@@ -880,6 +880,8 @@ DIR: encoding
 big5-encoder.html: [fail, whatwg-url does not support non-UTF-8 query strings]
 encodeInto.any.html:
   "encodeInto() and a detached output buffer": [fail, MessageChannel is not defined]
+  "Invalid encodeInto() destination: Float16Array, backed by: ArrayBuffer": [fail-lt-node24]
+  "Invalid encodeInto() destination: Float16Array, backed by: SharedArrayBuffer": [fail-lt-node24]
 idlharness.any.html: [fail, Depends on fetch]
 iso-2022-jp-encoder.html: [fail, whatwg-url does not support non-UTF-8 query strings]
 "legacy-mb-japanese/euc-jp/eucjp-decode-cseucpkdfmtjapanese.html?!(1-1000)": [pass-slow]
