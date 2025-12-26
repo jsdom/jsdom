@@ -31,6 +31,13 @@ Minimum Node.js version changes:
 * Update .github/workflows/jsdom-ci.yml.
 -->
 
+## 27.4.0
+
+* Added `TextEncoder` and `TextDecoder`.
+* Improved decoding of HTML bytes by using the new [`@exodus/bytes`](https://www.npmjs.com/package/@exodus/bytes) package; it is now much more correct. (ChALkeR)
+* Improved decoding of XML bytes to use UTF-8 more often, instead of sniffing for `<meta charset>` or using the parent frame's encoding.
+* Fixed a memory leak when `Range`s were used and then the elements referred to by those ranges were removed.
+
 ## 27.3.0
 
 * Improved CSS parsing and CSSOM object APIs via updates to [`@acemir/cssom`](https://www.npmjs.com/package/@acemir/cssom). (acemir)

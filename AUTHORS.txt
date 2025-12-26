@@ -250,6 +250,7 @@ Nicklas Gummesson <nicklas.gummesson@gmail.com>
 Nicolas HENRY <icewil@gmail.com>
 Nicolas LaCasse <nicolas.lacasse@gmail.com>
 Nik Nyby <niknyby@gmail.com>
+Nikita Skovoroda <chalkerx@gmail.com>
 ninevra <ninevra@gmail.com>
 Ojek <ojek25@gmail.com>
 Olivier El Mekki <olivier@el-mekki.com>
