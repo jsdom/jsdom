@@ -152,5 +152,13 @@ test(() => {
   });
   const value = div.style.getPropertyValue("--custom");
   assert_equals(value, "null");
-}, "set toString for div.style.setProperty custom property");
+}, "set toString() returning null for div.style.setProperty custom property");
+
+test(() => {
+  div.style.setProperty("--custom", {
+    toString: () => " "
+  });
+  const value = div.style.getPropertyValue("--custom");
+  assert_equals(value, "");
+}, "set toString() returning whitespace for div.style.setProperty custom property");
 </script>
