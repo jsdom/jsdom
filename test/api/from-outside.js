@@ -2,6 +2,7 @@
 const path = require("path");
 const { spawnSync } = require("child_process");
 const assert = require("node:assert/strict");
+const { stripVTControlCharacters } = require("node:util");
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
 const { delay } = require("../util");
@@ -47,7 +48,7 @@ describe("Test cases only possible to test from the outside", () => {
     const { status, stdout } = spawnSync("node", ["--expose-gc", timeoutWithGcFixturePath], { encoding: "utf-8" });
 
     assert.equal(status, 0);
-    const ratio = Number(stdout);
+    const ratio = Number(stripVTControlCharacters(stdout));
     assert(!Number.isNaN(ratio));
 
     // At least 70% of the memory must be freed up.
