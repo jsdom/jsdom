@@ -72,6 +72,135 @@ simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 
 
 ---
 
+DIR: css/css-backgrounds
+
+animations/*: [fail, Not implemented]
+background-331.html: [fail, Unknown]
+background-332.html:
+  "Computed value for background-image after setting background shorthand": [fail, Need getComputedStyle fix]
+  "background_specified_position": [fail, Unknown]
+  "background_specified_size": [fail, Need getComputedStyle fix]
+background-336.html: [fail, Unknown]
+background-clip-001.html:
+  "background-clip_initial": [fail, Not implemented]
+background-image-cors-no-reload.html: [fail, Not implemented]
+background-origin-001.html:
+  "background-origin_initial": [fail, Unknown]
+background-size-001.html:
+  "background-size_initial": [fail, Unknown]
+  "background-size_length_zero": [fail, Unknown]
+  "background-size_length_negative_zero": [fail, Unknown]
+  "background-size_length_positive_zero": [fail, Unknown]
+  "background-size_length_normal": [fail, Unknown]
+  "background-size_percentage_min": [fail, Unknown]
+  "background-size_percentage_normal": [fail, Unknown]
+  "background-size_percentage_max": [fail, Unknown]
+  "background-size_length_auto": [fail, Unknown]
+  "background-size_percentage_auto": [fail, Unknown]
+border-image-slice-shorthand-reset.html: [fail, Not implemented]
+border-radius-css-text.html: [fail, Not implemented]
+border-width-cssom.html: [fail, Unknown]
+inheritance.sub.html: [fail, Unknown]
+parsing/background-attachment-computed.html: [fail, CSS not implemented]
+parsing/background-attachment-invalid.html: [fail, Unknown]
+parsing/background-clip-computed.html: [fail, CSS not implemented]
+parsing/background-color-computed.html: [fail, CSS not implemented]
+parsing/background-computed.html: [fail, CSS not implemented]
+parsing/background-image-computed.sub.html: [fail, CSS not implemented]
+parsing/background-image-valid.html:
+  "e.style['background-image'] = \"cross-fade(50% url(http://www.example.com), 50% url(http://www.example.com))\" should set the property value": [fail, Not implemented]
+  "e.style['background-image'] = \"cross-fade(red 33%, white 33%, blue)\" should set the property value": [fail, Not implemented]
+  "e.style['background-image'] = \"cross-fade(blue, linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(0, 212, 255) 100%))\" should set the property value": [fail, Not implemented]
+  "e.style['background-image'] = \"cross-fade( 1% red, green)\" should set the property value": [fail, Not implemented]
+  "e.style['background-image'] = \"cross-fade(1% red , green)\" should set the property value": [fail, Not implemented]
+  "e.style['background-image'] = \"cross-fade(1% red, green )\" should set the property value": [fail, Not implemented]
+  "e.style['background-image'] = \"cross-fade(red 1%, cross-fade(red 2%, green))\" should set the property value": [fail, Not implemented]
+parsing/background-origin-computed.html: [fail, CSS not implemented]
+parsing/background-position-computed.html: [fail, CSS not implemented]
+parsing/background-position-valid.html:
+  "e.style['background-position'] = \"center right 7%\" should set the property value": [fail, Unknown]
+  "e.style['background-position'] = \"left 10px center\" should set the property value": [fail, Unknown]
+  "e.style['background-position'] = \"top 15px center\" should set the property value": [fail, Unknown]
+parsing/background-position-x-computed.html: [fail, Not implemented]
+parsing/background-position-x-valid.html:
+  "e.style['background-position-x'] = \"calc(10px - 0.5em)\" should set the property value": [fail, Unknown]
+  "e.style['background-position-x'] = \"calc(10px - 0.5em), left -20%, right 10px\" should set the property value": [fail, Unknown]
+parsing/background-position-y-computed.html: [fail, CSS not implemented]
+parsing/background-position-y-valid.html:
+  "e.style['background-position-y'] = \"calc(10px - 0.5em)\" should set the property value": [fail, Unknown]
+  "e.style['background-position-y'] = \"calc(10px - 0.5em), top -20%, bottom 10px\" should set the property value": [fail, Unknown]
+parsing/background-repeat-computed.html: [fail, CSS not implemented]
+parsing/background-shorthand-serialization.html:
+  "background-size with non-initial background-position": [fail, Unknown]
+  "multiple backgrounds with varying values": [fail, Unknown]
+  "all initial values": [fail, Unknown]
+parsing/background-size-computed.html: [fail, CSS not implemented]
+parsing/background-valid.html:
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set the property value": [fail, Unknown]
+  "e.style['background'] = \"none\" should set background-color": [fail, Need getComputedStyle fix]
+  "e.style['background'] = \"none\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-attachment": [fail, Unknown]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-clip": [fail, Unknown]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-color": [fail, Unknown]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-image": [fail, Unknown]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-origin": [fail, Unknown]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-position": [fail, Unknown]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-repeat": [fail, Unknown]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-size": [fail, Unknown]
+  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should not set unrelated longhands": [fail, CSS not implemented]
+parsing/border-color-computed.html: [fail, CSS not implemented]
+parsing/border-color-shorthand.html:
+  "e.style['border-color'] = \"currentcolor\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-color'] = \"red yellow\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-color'] = \"red yellow green\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-color'] = \"red yellow green blue\" should not set unrelated longhands": [fail, CSS not implemented]
+parsing/border-image-outset-computed.html: [fail, CSS not implemented]
+parsing/border-image-repeat-computed.html: [fail, CSS not implemented]
+parsing/border-image-repeat-valid.html:
+  "e.style['border-image-repeat'] = \"space space\" should set the property value": [fail, Not implemented]
+parsing/border-image-shorthand.sub.html: [fail, Not implemented]
+parsing/border-image-slice-computed.html: [fail, CSS not implemented]
+parsing/border-image-slice-valid.html:
+  "e.style['border-image-slice'] = \"fill 1 2% 3 4%\" should set the property value": [fail, Not implemented]
+parsing/border-image-source-computed.sub.html: [fail, Not implemented]
+parsing/border-image-valid.html:
+  "e.style['border-image'] = \"url(\\\"http://www.example.com/\\\") fill 1 2% 3 4%\" should set the property value": [fail, Unknown]
+  "e.style['border-image'] = \"fill 1 2% 3 4% / auto\" should set the property value": [fail, Unknown]
+parsing/border-image-width-computed.html: [fail, CSS not implemented]
+parsing/border-radius-computed.html: [fail, CSS not implemented]
+parsing/border-radius-valid.html:
+  "e.style['border-radius'] = \"1px 1px 1px 2% / 1px 2% 1px 2%\" should set the property value": [fail, Not implemented]
+  "e.style['border-radius'] = \"1px 1px 1px 1px / 1px 1px 2% 1px\" should set the property value": [fail, Not implemented]
+  "e.style['border-radius'] = \"1px 2% 2% 2% / 1px 2% 3px 2%\" should set the property value": [fail, Not implemented]
+parsing/border-shorthand.html:
+  "e.style['border'] = \"5px dotted blue\" should set border-image-outset": [fail, Not implemented]
+  "e.style['border'] = \"5px dotted blue\" should set border-image-repeat": [fail, Not implemented]
+  "e.style['border'] = \"5px dotted blue\" should set border-image-slice": [fail, Not implemented]
+  "e.style['border'] = \"5px dotted blue\" should set border-image-source": [fail, Not implemented]
+  "e.style['border'] = \"5px dotted blue\" should set border-image-width": [fail, Not implemented]
+  "e.style['border'] = \"5px dotted blue\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-top'] = \"thin\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-right'] = \"double\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-bottom'] = \"green\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-left'] = \"1px dotted red\" should not set unrelated longhands": [fail, CSS not implemented]
+parsing/border-style-computed.html: [fail, CSS not implemented]
+parsing/border-style-shorthand.html:
+  "e.style['border-style'] = \"none\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-style'] = \"inset outset\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-style'] = \"hidden dotted dashed\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-style'] = \"solid double groove ridge\" should not set unrelated longhands": [fail, CSS not implemented]
+parsing/border-width-computed.html: [fail, CSS not implemented]
+parsing/border-width-shorthand.html:
+  "e.style['border-width'] = \"5px\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-width'] = \"thick thin\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-width'] = \"thin medium thick\" should not set unrelated longhands": [fail, CSS not implemented]
+  "e.style['border-width'] = \"1px 2px 3px 4px\" should not set unrelated longhands": [fail, CSS not implemented]
+parsing/box-shadow-computed.html: [fail, Not implemented]
+parsing/box-shadow-valid.html: [fail, Not implemented]
+parsing/webkit-border-radius-valid.html: [fail, Not implemented]
+
+---
+
 DIR: css/css-cascade
 
 all-prop-initial-xml.html: [fail-slow, Unknown]
