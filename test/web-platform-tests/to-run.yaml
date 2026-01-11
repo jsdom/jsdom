@@ -773,8 +773,6 @@ DOMTokenList-coverage-for-attributes.html: [fail, Several DOMTokenList attribute
 DIR: dom/nodes
 
 Document-URL.html: [fail, Unknown]
-Document-characterSet-normalization-1.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
-Document-characterSet-normalization-2.html: [timeout, Some encodings are not supported - see the whatwg-encoding module]
 Document-createEvent.https.html:
   "DragEvent should be an alias for DragEvent.": [fail, Interface not implemented]
   "createEvent('DragEvent') should be initialized correctly.": [fail, Interface not implemented]
