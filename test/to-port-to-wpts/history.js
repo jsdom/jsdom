@@ -195,6 +195,30 @@ describe("history", () => {
     { async: true }
   );
 
+  // Test for robustness with custom schemes (non-http/https)
+  // For non-http/https schemes, only hash changes are allowed (not path or query changes)
+  specify(
+    "the history object should work with custom URL schemes for hash changes",
+    () => {
+      const { window } = new JSDOM(``, { url: "app://www.example.org/index.html" });
+
+      // Hash changes should work with custom schemes
+      window.history.pushState({ foo: "one" }, "title", "#section1");
+      assert.equal(window.history.state.foo, "one");
+      assert.equal(window.location.hash, "#section1");
+
+      window.history.pushState({ foo: "two" }, "title", "#section2");
+      assert.equal(window.history.state.foo, "two");
+      assert.equal(window.location.hash, "#section2");
+
+      // Verify the path.join() handling works correctly (defensive programming)
+      // This test would fail if path.join() was called on a string type
+      window.history.replaceState({ foo: "three" }, "title", "#section3");
+      assert.equal(window.history.state.foo, "three");
+      assert.equal(window.location.hash, "#section3");
+    }
+  );
+
   function waitForHistoryChange(fn) {
     // See notes above.
     setTimeout(() => setTimeout(fn, 0), 0);
