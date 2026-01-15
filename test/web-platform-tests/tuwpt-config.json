@@ -1,7 +1,7 @@
 {
   "browser_host": "web-platform.test",
   "doc_root": "../to-upstream",
-  "ws_doc_root": null,
+  "ws_doc_root": "../to-upstream",
   "server_host": null,
   "ports": {
     "h2": [10002],
