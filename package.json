@@ -23,10 +23,10 @@
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
   "dependencies": {
-    "@acemir/cssom": "^0.9.28",
+    "@acemir/cssom": "^0.9.31",
     "@asamuzakjp/dom-selector": "^6.7.6",
-    "@exodus/bytes": "^1.6.0",
-    "cssstyle": "^5.3.4",
+    "@exodus/bytes": "^1.8.0",
+    "cssstyle": "^5.3.7",
     "data-urls": "^6.0.0",
     "decimal.js": "^10.6.0",
     "html-encoding-sniffer": "^6.0.0",
@@ -38,10 +38,10 @@
     "symbol-tree": "^3.2.4",
     "tough-cookie": "^6.0.0",
     "w3c-xmlserializer": "^5.0.0",
-    "webidl-conversions": "^8.0.0",
+    "webidl-conversions": "^8.0.1",
     "whatwg-mimetype": "^4.0.0",
     "whatwg-url": "^15.1.0",
-    "ws": "^8.18.3",
+    "ws": "^8.19.0",
     "xml-name-validator": "^5.0.0"
   },
   "peerDependencies": {
@@ -55,9 +55,9 @@
   "devDependencies": {
     "@domenic/eslint-config": "^4.0.1",
     "benchmark": "^2.1.4",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "eslint-plugin-html": "^8.1.3",
-    "globals": "^16.5.0",
+    "globals": "^17.0.0",
     "js-yaml": "^4.1.1",
     "minimatch": "^10.1.1",
     "mocha": "^11.7.5",
