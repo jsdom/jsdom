@@ -7,6 +7,7 @@ css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdo
 css/css-display/display-initial.html:
   "Revert value of display": [fail, Revert keyword is not supported]
   "Revert-layer value of display": [fail, Revert-layer keyword is not supported]
+css/css-nesting/nested-media-in-layer.html: [fail, https://github.com/jsdom/jsdom/issues/3997]
 css/cssom/getComputedStyle-fontFamily.html:
   "Child element inherits the fontFamily value from its parent": [fail, https://github.com/jsdom/jsdom/issues/3614]
 css/cssom/getComputedStyle-opacity.html: [fail, https://github.com/jsdom/jsdom/issues/3339]
