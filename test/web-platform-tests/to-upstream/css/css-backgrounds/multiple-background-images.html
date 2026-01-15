@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Multiple background-images in getComputedStyle</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#background-image">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/1166 -->
+
+<style>
+  p { background-image: url(http://example.com/foo); }
+  div { background-image: url(http://example.com/foo), url(http://example.com/bar); }
+</style>
+
+<div id="div"></div>
+<p id="p"></p>
+
+<script>
+"use strict";
+
+test(() => {
+  const p = document.getElementById("p");
+  const styles = window.getComputedStyle(p);
+  assert_equals(styles.backgroundImage, 'url("http://example.com/foo")');
+}, "Single background-image should be parsed");
+
+test(() => {
+  const div = document.getElementById("div");
+  const styles = window.getComputedStyle(div);
+  assert_equals(styles.backgroundImage, 'url("http://example.com/foo"), url("http://example.com/bar")');
+}, "Multiple background-images should be parsed");
+</script>
