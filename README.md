@@ -121,9 +121,9 @@ jsdom does not have the capability to render visual content, and will act like a
 
 When the `pretendToBeVisual` option is set to `true`, jsdom will pretend that it is rendering and displaying content. It does this by:
 
-* Changing `document.hidden` to return `false` instead of `true`
-* Changing `document.visibilityState` to return `"visible"` instead of `"prerender"`
-* Enabling `window.requestAnimationFrame()` and `window.cancelAnimationFrame()` methods, which otherwise do not exist
+- Changing `document.hidden` to return `false` instead of `true`
+- Changing `document.visibilityState` to return `"visible"` instead of `"prerender"`
+- Enabling `window.requestAnimationFrame()` and `window.cancelAnimationFrame()` methods, which otherwise do not exist
 
 ```js
 const window = (new JSDOM(``, { pretendToBeVisual: true })).window;
@@ -141,10 +141,10 @@ Note that jsdom still [does not do any layout or rendering](#unimplemented-parts
 
 By default, jsdom will not load any subresources such as scripts, stylesheets, images, or iframes. If you'd like jsdom to load such resources, you can pass the `resources: "usable"` option, which will load all usable resources. Those are:
 
-* Frames and iframes, via `<frame>` and `<iframe>`
-* Stylesheets, via `<link rel="stylesheet">`
-* Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
-* Images, via `<img>`, but only if the `canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
+- Frames and iframes, via `<frame>` and `<iframe>`
+- Stylesheets, via `<link rel="stylesheet">`
+- Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
+- Images, via `<img>`, but only if the `canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
 
 When attempting to load resources, recall that the default value for the `url` option is `"about:blank"`, which means that any resources included via relative URLs will fail to load. (The result of trying to parse the URL `/something` against the URL `about:blank` is an error.) So, you'll likely want to set a non-default value for the `url` option in those cases, or use one of the [convenience APIs](#convenience-apis) that do so automatically.
 
@@ -221,7 +221,7 @@ virtualConsole.on("dir", () => { ... });
 // ... etc. See https://console.spec.whatwg.org/#logging
 ```
 
-(Note that it is probably best to set up these event listeners *before* calling `new JSDOM()`, since errors or console-invoking script might occur during parsing.)
+(Note that it is probably best to set up these event listeners _before_ calling `new JSDOM()`, since errors or console-invoking script might occur during parsing.)
 
 If you simply want to redirect the virtual console output to another console, like the default Node.js one, you can do
 
@@ -377,7 +377,7 @@ console.assert(dom.window.ran === 3);
 
 This is somewhat-advanced functionality, and we advise sticking to normal DOM APIs (such as `window.eval()` or `document.createElement("script")`) unless you have very specific needs.
 
-Note that this method will throw an exception if the `JSDOM` instance was created without `runScripts` set, or if you are [using jsdom in a web browser](#running-jsdom-inside-a-web-browser).
+Note that this method will throw an exception if the `JSDOM` instance was created without `runScripts` set.
 
 ### Reconfiguring the jsdom with `reconfigure(settings)`
 
