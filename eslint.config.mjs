@@ -71,6 +71,13 @@ export default [
           }
         ]
       ],
+      "no-restricted-globals": [
+        "error",
+        {
+          name: "Buffer",
+          message: "Use Uint8Array instead."
+        }
+      ],
       "no-restricted-properties": [
         "error",
         {

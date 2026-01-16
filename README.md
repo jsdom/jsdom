@@ -174,7 +174,8 @@ class CustomResourceLoader extends jsdom.ResourceLoader {
   fetch(url, options) {
     // Override the contents of this script to do something unusual.
     if (url === "https://example.com/some-specific-script.js") {
-      return Promise.resolve(Buffer.from("window.someGlobal = 5;"));
+      const result = (new TextEncoder()).encode("window.someGlobal = 5;");
+      return Promise.resolve(result);
     }
 
     return super.fetch(url, options);
@@ -182,7 +183,7 @@ class CustomResourceLoader extends jsdom.ResourceLoader {
 }
 ```
 
-jsdom will call your custom resource loader's `fetch()` method whenever it encounters a "usable" resource, per the above section. The method takes a URL string, as well as a few options which you should pass through unmodified if calling `super.fetch()`. It must return a promise for a Node.js `Buffer` object, or return `null` if the resource is intentionally not to be loaded. In general, most cases will want to delegate to `super.fetch()`, as shown.
+jsdom will call your custom resource loader's `fetch()` method whenever it encounters a "usable" resource, per the above section. The method takes a URL string, as well as a few options which you should pass through unmodified if calling `super.fetch()`. It must return a promise for a `Uint8Array`, or return `null` if the resource is intentionally not to be loaded. In general, most cases will want to delegate to `super.fetch()`, as shown.
 
 One of the options you will receive in `fetch()` will be the element (if applicable) that is fetching a resource.
 
@@ -471,7 +472,7 @@ jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/ca
 
 ### Encoding sniffing
 
-In addition to supplying a string, the `JSDOM` constructor can also be supplied binary data, in the form of a Node.js [`Buffer`](https://nodejs.org/docs/latest/api/buffer.html) or a standard JavaScript binary data type like `ArrayBuffer`, `Uint8Array`, `DataView`, etc. When this is done, jsdom will [sniff the encoding](https://html.spec.whatwg.org/multipage/syntax.html#encoding-sniffing-algorithm) from the supplied bytes, scanning for `<meta charset>` tags just like a browser does.
+In addition to supplying a string, the `JSDOM` constructor can also be supplied binary data, in the form of a standard JavaScript binary data type like `ArrayBuffer`, `Uint8Array`, `DataView`, etc. When this is done, jsdom will [sniff the encoding](https://html.spec.whatwg.org/multipage/syntax.html#encoding-sniffing-algorithm) from the supplied bytes, scanning for `<meta charset>` tags just like a browser does.
 
 If the supplied `contentType` option contains a `charset` parameter, that encoding will override the sniffed encoding—unless a UTF-8 or UTF-16 BOM is present, in which case those take precedence. (Again, this is just like a browser.)
 
