@@ -1,6 +1,7 @@
 import domenicConfig from "@domenic/eslint-config";
 import globals from "globals";
 import html from "eslint-plugin-html";
+import n from "eslint-plugin-n";
 import jsdomInternal from "./scripts/eslint-plugin/index.mjs";
 
 export default [
@@ -59,7 +60,17 @@ export default [
   },
   {
     files: ["lib/**"],
+    plugins: { n },
     rules: {
+      "n/no-restricted-require": [
+        "error",
+        [
+          {
+            name: "@exodus/bytes/utf8.js",
+            message: "Use lib/jsdom/living/helpers/encoding.js instead."
+          }
+        ]
+      ],
       "no-restricted-properties": [
         "error",
         {
