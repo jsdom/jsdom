@@ -104,12 +104,12 @@ describe("htmlcanvaselement", () => {
       const expectedImg = PNG.sync.read(expectedPNG);
 
       const gotDataURL = parseDataURL(canvas.toDataURL());
-      const gotPNG = Buffer.from(gotDataURL.body);
+      const gotPNG = Buffer.copyBytesFrom(gotDataURL.body);
       const gotImg = PNG.sync.read(gotPNG);
 
       assert.equal(gotImg.width, expectedImg.width, "width");
       assert.equal(gotImg.height, expectedImg.height, "height");
-      assert.equal(Buffer.compare(expectedImg.data, gotImg.data), 0, "byte-level comparison");
+      assert.deepEqual(expectedImg.data, gotImg.data, "byte-level comparison");
       t.done();
     },
     { async: true }
