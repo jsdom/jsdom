@@ -2,6 +2,7 @@
 const path = require("path");
 const fs = require("fs");
 const http = require("http");
+const { after } = require("mocha-sugar-free");
 const enableDestroy = require("server-destroy");
 const { JSDOM } = require("..");
 const { Canvas } = require("../lib/jsdom/utils");
@@ -77,18 +78,31 @@ exports.delay = ms => new Promise(r => {
   setTimeout(r, ms);
 });
 
+// Track all created servers for cleanup
+const activeServers = new Set();
+
 exports.createServer = handler => {
   return new Promise(resolve => {
     const server = http.createServer(handler);
     enablePromisifiedServerDestroy(server);
+    activeServers.add(server);
     server.listen(() => resolve(server));
   });
 };
+
+// Clean up any servers that weren't explicitly destroyed (e.g., due to test timeout)
+// This runs once at the very end of all tests
+after(async () => {
+  const serversToDestroy = [...activeServers];
+  activeServers.clear();
+  await Promise.all(serversToDestroy.map(s => s.destroy().catch(() => {})));
+});
 
 function enablePromisifiedServerDestroy(server) {
   enableDestroy(server);
   const originalDestroy = server.destroy;
   server.destroy = function () {
+    activeServers.delete(this);
     return new Promise((resolve, reject) => {
       originalDestroy.call(this, err => {
         if (err) {

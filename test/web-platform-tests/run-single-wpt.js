@@ -29,14 +29,14 @@ module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
 };
 
 class CustomResourceLoader extends ResourceLoader {
-  constructor() {
-    super({ strictSSL: false });
-  }
   fetch(urlString, options) {
     const url = new URL(urlString);
 
     if (url.pathname === reporterPathname) {
-      return Promise.resolve(Buffer.from("window.shimTest();", "utf-8"));
+      return Promise.resolve(new Response("window.shimTest();", {
+        status: 200,
+        headers: { "Content-Type": "text/javascript" }
+      }));
     } else if (url.pathname.startsWith("/resources/")) {
       // When running to-upstream tests, the server doesn't have a /resources/ directory.
       // So, always go to the one in ./tests.
