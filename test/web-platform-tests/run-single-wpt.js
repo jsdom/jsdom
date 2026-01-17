@@ -2,10 +2,18 @@
 /* eslint-disable no-console */
 const path = require("node:path");
 const { URL } = require("node:url");
+const { Agent } = require("undici");
 const { specify } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole, ResourceLoader } = require("../../lib/api.js");
 
 const reporterPathname = "/resources/testharnessreport.js";
+
+// Create a dispatcher that doesn't verify SSL certificates (for self-signed WPT test server certs)
+const insecureDispatcher = new Agent({
+  connect: {
+    rejectUnauthorized: false
+  }
+});
 
 function unexpectedPassingTestMessage(expectationsFilename) {
   return `Hey, did you fix a bug? This test used to be failing, but during this run there were no errors. If you ` +
@@ -29,6 +37,10 @@ module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
 };
 
 class CustomResourceLoader extends ResourceLoader {
+  constructor() {
+    super({ dispatcher: insecureDispatcher });
+  }
+
   fetch(urlString, options) {
     const url = new URL(urlString);
 

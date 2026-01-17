@@ -2347,6 +2347,8 @@ back-forward-cache-with-closed-websocket-connection-ccns.tentative.window.html: 
 back-forward-cache-with-closed-websocket-connection.window.html: [timeout, Unknown]
 back-forward-cache-with-open-websocket-connection-ccns.tentative.window.html: [timeout, Unknown]
 back-forward-cache-with-open-websocket-connection.window.html: [timeout, Unknown]
+constructor/014.html?default: [fail, 'https://github.com/nodejs/undici/issues/4743']
+constructor/014.html?wss: [fail, 'https://github.com/nodejs/undici/issues/4743']
 cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
 idlharness.any.html: [fail, Depends on fetch]
 mixed-content.https.any.html: [fail, Unknown]
