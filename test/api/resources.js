@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
-const { ProxyAgent } = require("undici");
+const { Agent } = require("undici");
 const { delay, createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 const { version: packageVersion } = require("../../package.json");
@@ -703,31 +703,34 @@ describe("API: resource loading configuration", () => {
     it("should be able to customize the dispatcher option", async () => {
       const [mainServer, mainHost] = await threeRequestServer();
 
-      let proxyServerRequestCount = 0;
-      const proxyServer = await createServer((proxyServerReq, proxyServerRes) => {
-        ++proxyServerRequestCount;
+      // Create a custom dispatcher that records all requests
+      const requestedUrls = [];
+      const baseAgent = new Agent();
+      const recordingDispatcher = {
+        dispatch(options, handler) {
+          requestedUrls.push(options.origin + options.path);
+          return baseAgent.dispatch(options, handler);
+        },
+        destroy() {
+          return baseAgent.destroy();
+        },
+        close() {
+          return baseAgent.close();
+        }
+      };
 
-        const options = { headers: proxyServerReq.headers, method: proxyServerReq.method };
-        const mainServerReq = http.request(proxyServerReq.url, options, mainServerRes => {
-          proxyServerRes.writeHead(mainServerRes.statusCode, mainServerRes.headers);
-          mainServerRes.pipe(proxyServerRes);
-        });
-        proxyServerReq.pipe(mainServerReq);
-      });
-
-      const dispatcher = new ProxyAgent(`http://127.0.0.1:${proxyServer.address().port}`);
-      const resourceLoader = new ResourceLoader({ dispatcher });
+      const resourceLoader = new ResourceLoader({ dispatcher: recordingDispatcher });
       const options = { resources: resourceLoader, runScripts: "dangerously" };
       const dom = await JSDOM.fromURL(mainHost + "/html", options);
 
       return new Promise(resolve => {
         dom.window.done = resolve;
       }).then(() => {
-        assert.equal(proxyServerRequestCount, 3);
-        return Promise.all([
-          mainServer.destroy(),
-          proxyServer.destroy()
-        ]);
+        assert.equal(requestedUrls.length, 3);
+        assert.ok(requestedUrls.some(url => url.endsWith("/html")), "Should have requested /html");
+        assert.ok(requestedUrls.some(url => url.endsWith("/js")), "Should have requested /js");
+        assert.ok(requestedUrls.some(url => url.endsWith("/xhr")), "Should have requested /xhr");
+        return mainServer.destroy();
       });
     });
 
