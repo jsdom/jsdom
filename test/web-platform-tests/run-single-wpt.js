@@ -1,7 +1,7 @@
 "use strict";
 /* eslint-disable no-console */
 const path = require("node:path");
-const { URL } = require("node:url");
+const { pathToFileURL } = require("node:url");
 const { Agent } = require("undici");
 const { specify } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole, ResourceLoader } = require("../../lib/api.js");
@@ -57,7 +57,7 @@ class CustomResourceLoader extends ResourceLoader {
       const filePath = path.resolve(__dirname, "tests" + url.pathname)
         .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
 
-      return super.fetch(`file://${filePath}`, options);
+      return super.fetch(pathToFileURL(filePath).href, options);
     } else if (url.pathname.startsWith("/dom/nodes/")) {
       // Some tests require extra resources.
       // Add them from the one in ./tests.
@@ -67,8 +67,8 @@ class CustomResourceLoader extends ResourceLoader {
         "/dom/nodes/selectors.js"
       ];
       if (extraResources.includes(url.pathname)) {
-        const filePath = path.resolve(__dirname, "tests" + url.pathname + url.hash);
-        return super.fetch(`file://${filePath}`, options);
+        const filePath = path.resolve(__dirname, "tests" + url.pathname);
+        return super.fetch(pathToFileURL(filePath).href + url.hash, options);
       }
       return super.fetch(urlString, options);
     }

@@ -6,7 +6,19 @@ The jsdom project has several relevant test suites. They largely divide into tes
 
 You almost never want to run the full `npm test` command, since it's too slow (takes ~25 minutes).
 
-You often make the mistake of running the tests once, using `| grep` or `| head`, and then realizing this did not give you enough information, so then running it again with different `| grep` or `| head` patterns. Avoid this temptation to false economy. Consider just looking at the full output instead, without `| grep` or `| head`; this will usually use less tokens, in the end. Or writing the full output to a file, and then using such commands to inspect it.
+**IMPORTANT: Never pipe test output through `| head`, `| tail`, or `| grep`.** You repeatedly make this mistake, truncating test output and losing critical information. Instead:
+
+1. **For full test suites**: Write output to a file, then read/inspect it:
+   ```
+   npm run test:wpt -- --fgrep xhr 2>&1 > /tmp/xhr-tests.txt
+   ```
+   Then use the Read tool to examine the file, or use `grep`/`head`/`tail` on the saved file.
+
+2. **For single tests**: Just run them directly without any piping - the output is small enough.
+
+3. **Never do this**: `npm run test:wpt -- --fgrep xhr 2>&1 | tail -100` - this loses the summary and/or the error details.
+
+This avoids the false economy of running tests multiple times with different pipe patterns to get the information you needed from the start.
 
 * `npm run test:api`: relatively quick to run, mostly tests the jsdom API. Often worth running since it will quickly blow up if things are broken.
 
