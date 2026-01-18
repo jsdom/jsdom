@@ -1,5 +1,4 @@
 "use strict";
-const http = require("http");
 const path = require("path");
 const fs = require("fs");
 const assert = require("node:assert/strict");
