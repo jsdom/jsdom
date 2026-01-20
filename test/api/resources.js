@@ -243,8 +243,8 @@ describe("API: resource loading configuration", () => {
 
     describe("resource returns 404", () => {
       if (canvas) {
-        it("should fire an error event downloading images [canvas is installed]", async () => {
-          const url = await resourceServer404();
+        it("should fire a load event downloading images [canvas is installed]", async () => {
+          const url = await imageServer({ statusCode: 404 });
           const virtualConsole = resourceLoadingErrorRecordingVC();
           const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -253,7 +253,7 @@ describe("API: resource loading configuration", () => {
           element.src = url;
           dom.window.document.body.appendChild(element);
 
-          return assertError(element, virtualConsole);
+          return assertLoaded(element, virtualConsole);
         });
       }
 
@@ -327,7 +327,7 @@ describe("API: resource loading configuration", () => {
     describe("resource returns 503", () => {
       if (canvas) {
         it("should fire an error event downloading images [canvas is installed]", async () => {
-          const url = await resourceServer503();
+          const url = await imageServer({ statusCode: 503 });
           const virtualConsole = resourceLoadingErrorRecordingVC();
           const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -336,7 +336,7 @@ describe("API: resource loading configuration", () => {
           element.src = url;
           dom.window.document.body.appendChild(element);
 
-          return assertError(element, virtualConsole);
+          return assertLoaded(element, virtualConsole);
         });
       }
 
@@ -867,8 +867,12 @@ async function neverRequestedServer() {
   return [`http://127.0.0.1:${server.address().port}/`, returnedPromise];
 }
 
-function imageServer() {
-  return resourceServer({ "Content-Type": "image/png", "Content-Length": pngBytes.byteLength }, pngBytes);
+function imageServer({ statusCode = 200 } = {}) {
+  return resourceServer(
+    { "Content-Type": "image/png", "Content-Length": pngBytes.byteLength },
+    pngBytes,
+    { statusCode }
+  );
 }
 
 function htmlServer(sourceString) {
