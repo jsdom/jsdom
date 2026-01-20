@@ -20,7 +20,7 @@ async_test(t => {
     assert_unreached("load event should not fire for 404 response");
   });
 
-  script.src = "resources/script-sets-flag.py?status=404";
+  script.src = "resources/script-sets-flag.js?pipe=status(404)";
   document.body.append(script);
 }, "script should fire error event for 404 response and not execute");
 
@@ -36,7 +36,7 @@ async_test(t => {
     assert_unreached("load event should not fire for 503 response");
   });
 
-  script.src = "resources/script-sets-flag.py?status=503";
+  script.src = "resources/script-sets-flag.js?pipe=status(503)";
   document.body.append(script);
 }, "script should fire error event for 503 response and not execute");
 </script>

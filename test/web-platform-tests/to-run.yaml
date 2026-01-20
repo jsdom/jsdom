@@ -1581,7 +1581,7 @@ currentTime.html: [timeout, Loading metadata is not implemented]
 
 DIR: html/semantics/embedded-content/the-img-element
 
-404-response-with-actual-image-data.html: [needs-canvas, it will timeout if the image is not actually fetched]
+404-response-with-actual-image-data.html: [needs-canvas, image is only fetched when canvas is installed; otherwise it will timeout]
 Image-constructor.html: [fail-with-canvas, wrong-Realm Function, https://github.com/jsdom/jsdom/issues/2727]
 adoption.html: [timeout, Unknown]
 already-loaded-image-sync-width.html: [fail-slow, Requires a layout engine]

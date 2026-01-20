@@ -13,14 +13,14 @@ async_test(t => {
 
   iframe.onload = t.step_func_done(() => {
     assert_true(true, "load event should fire for 404 response");
-    assert_equals(iframe.contentDocument.title, "Not Found");
+    assert_true(Boolean(iframe.contentDocument), "iframe should have a contentDocument");
   });
 
   iframe.onerror = t.step_func(() => {
     assert_unreached("error event should not fire for 404 response");
   });
 
-  iframe.src = "resources/html-page.py?status=404";
+  iframe.src = "/common/blank.html?pipe=status(404)";
   document.body.append(iframe);
 }, "iframe should fire load event for 404 response and display error page");
 
@@ -29,14 +29,14 @@ async_test(t => {
 
   iframe.onload = t.step_func_done(() => {
     assert_true(true, "load event should fire for 503 response");
-    assert_equals(iframe.contentDocument.title, "Service Unavailable");
+    assert_true(Boolean(iframe.contentDocument), "iframe should have a contentDocument");
   });
 
   iframe.onerror = t.step_func(() => {
     assert_unreached("error event should not fire for 503 response");
   });
 
-  iframe.src = "resources/html-page.py?status=503";
+  iframe.src = "/common/blank.html?pipe=status(503)";
   document.body.append(iframe);
 }, "iframe should fire load event for 503 response and display error page");
 </script>

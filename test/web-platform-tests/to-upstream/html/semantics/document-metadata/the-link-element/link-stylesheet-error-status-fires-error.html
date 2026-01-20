@@ -29,7 +29,7 @@ async_test(t => {
     assert_unreached("load event should not fire for 404 response");
   });
 
-  link.href = "resources/stylesheet-colors.py?status=404&id=target404";
+  link.href = "resources/stylesheet-colors.css?pipe=status(404)";
   document.head.append(link);
 }, "link stylesheet should fire error event for 404 response and not apply styles");
 
@@ -52,7 +52,7 @@ async_test(t => {
     assert_unreached("load event should not fire for 503 response");
   });
 
-  link.href = "resources/stylesheet-colors.py?status=503&id=target503";
+  link.href = "resources/stylesheet-colors.css?pipe=status(503)";
   document.head.append(link);
 }, "link stylesheet should fire error event for 503 response and not apply styles");
 </script>
