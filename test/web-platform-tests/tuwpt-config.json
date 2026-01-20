@@ -16,7 +16,6 @@
       "local-dir": "../tests/common/"
     }
   ],
-  "check_subdomains": false,
   "logging": {
     "level": "info"
   },

@@ -13,7 +13,7 @@ async_test(t => {
 
   iframe.onload = t.step_func_done(() => {
     assert_true(true, "load event should fire for 404 response");
-    assert_true(!!iframe.contentDocument, "iframe should have a contentDocument");
+    assert_true(Boolean(iframe.contentDocument), "iframe should have a contentDocument");
   });
 
   iframe.onerror = t.step_func(() => {
@@ -29,7 +29,7 @@ async_test(t => {
 
   iframe.onload = t.step_func_done(() => {
     assert_true(true, "load event should fire for 503 response");
-    assert_true(!!iframe.contentDocument, "iframe should have a contentDocument");
+    assert_true(Boolean(iframe.contentDocument), "iframe should have a contentDocument");
   });
 
   iframe.onerror = t.step_func(() => {
