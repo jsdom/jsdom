@@ -10,7 +10,13 @@
     "ws": [10001],
     "wss": [10444]
   },
-  "check_subdomains": true,
+  "aliases": [
+    {
+      "url-path": "/common/",
+      "local-dir": "../tests/common/"
+    }
+  ],
+  "check_subdomains": false,
   "logging": {
     "level": "info"
   },

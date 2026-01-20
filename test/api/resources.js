@@ -284,7 +284,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element, virtualConsole);
       });
 
-      it("should fire an error event downloading iframes", { slow: 500 }, async () => {
+      it("should fire a load event downloading iframes", { slow: 500 }, async () => {
         const url = await resourceServer404();
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
@@ -294,10 +294,10 @@ describe("API: resource loading configuration", () => {
         element.src = url;
         dom.window.document.body.appendChild(element);
 
-        return assertError(element, virtualConsole);
+        return assertLoaded(element, virtualConsole);
       });
 
-      it("should fire an error event downloading frames", { slow: 500 }, async () => {
+      it("should fire a load event downloading frames", { slow: 500 }, async () => {
         const url = await resourceServer404();
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
@@ -307,7 +307,7 @@ describe("API: resource loading configuration", () => {
         element.src = url;
         dom.window.document.body.appendChild(element);
 
-        return assertError(element, virtualConsole);
+        return assertLoaded(element, virtualConsole);
       });
 
       it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
@@ -367,7 +367,7 @@ describe("API: resource loading configuration", () => {
         return assertError(element, virtualConsole);
       });
 
-      it("should fire an error event downloading iframes", { slow: 500 }, async () => {
+      it("should fire a load event downloading iframes", { slow: 500 }, async () => {
         const url = await resourceServer503();
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
@@ -377,10 +377,10 @@ describe("API: resource loading configuration", () => {
         element.src = url;
         dom.window.document.body.appendChild(element);
 
-        return assertError(element, virtualConsole);
+        return assertLoaded(element, virtualConsole);
       });
 
-      it("should fire an error event downloading frames", { slow: 500 }, async () => {
+      it("should fire a load event downloading frames", { slow: 500 }, async () => {
         const url = await resourceServer503();
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
@@ -390,7 +390,7 @@ describe("API: resource loading configuration", () => {
         element.src = url;
         dom.window.document.body.appendChild(element);
 
-        return assertError(element, virtualConsole);
+        return assertLoaded(element, virtualConsole);
       });
 
       it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
