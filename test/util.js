@@ -78,7 +78,7 @@ exports.delay = ms => new Promise(r => {
   setTimeout(r, ms);
 });
 
-// Track all created servers for cleanup
+// Track all created servers for cleanup.
 const activeServers = new Set();
 
 exports.createServer = handler => {
@@ -90,12 +90,12 @@ exports.createServer = handler => {
   });
 };
 
-// Clean up any servers that weren't explicitly destroyed (e.g., due to test timeout)
-// This runs once at the very end of all tests
+// Clean up any servers that weren't explicitly destroyed (e.g., due to test timeout).
+// This runs once at the very end of all tests.
 after(async () => {
   const serversToDestroy = [...activeServers];
   activeServers.clear();
-  await Promise.all(serversToDestroy.map(s => s.destroy().catch(() => {})));
+  await Promise.all(serversToDestroy.map(server => server.destroy().catch(() => {})));
 });
 
 function enablePromisifiedServerDestroy(server) {
