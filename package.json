@@ -39,7 +39,7 @@
     "tough-cookie": "^6.0.0",
     "w3c-xmlserializer": "^5.0.0",
     "webidl-conversions": "^8.0.1",
-    "whatwg-mimetype": "^4.0.0",
+    "whatwg-mimetype": "^5.0.0",
     "whatwg-url": "^15.1.0",
     "ws": "^8.19.0",
     "xml-name-validator": "^5.0.0"
