@@ -3,7 +3,6 @@ const path = require("path");
 const fs = require("fs");
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
-const { Agent, MockAgent, setGlobalDispatcher, getGlobalDispatcher } = require("undici");
 const { delay, createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 const { version: packageVersion } = require("../../package.json");
@@ -111,7 +110,7 @@ describe("API: resource loading configuration", () => {
       it("should download images [canvas is installed]", { slow: 500 }, async () => {
         const url = await imageServer();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("img");
         setUpLoadingAsserts(element);
@@ -123,7 +122,7 @@ describe("API: resource loading configuration", () => {
     } else {
       it("should not download images [canvas is not installed]", { slow: 500 }, async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
-        const dom = new JSDOM(``, { dispatcher: new Agent() });
+        const dom = new JSDOM(``, { resources: "usable" });
 
         const element = dom.window.document.createElement("img");
         setUpLoadingAsserts(element);
@@ -144,7 +143,7 @@ describe("API: resource loading configuration", () => {
         sourceString
       );
       const virtualConsole = resourceLoadingErrorRecordingVC();
-      const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+      const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
       const element = dom.window.document.createElement("link");
       setUpLoadingAsserts(element);
@@ -164,7 +163,7 @@ describe("API: resource loading configuration", () => {
         sourceString
       );
       const virtualConsole = resourceLoadingErrorRecordingVC();
-      const dom = new JSDOM(``, { dispatcher: new Agent(), runScripts: "dangerously", virtualConsole });
+      const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
       const element = dom.window.document.createElement("script");
       setUpLoadingAsserts(element);
@@ -177,7 +176,7 @@ describe("API: resource loading configuration", () => {
 
     it("should not download or run scripts, if runScripts: \"outside-only\" is set", { slow: 500 }, async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
-      const dom = new JSDOM(``, { dispatcher: new Agent(), runScripts: "outside-only" });
+      const dom = new JSDOM(``, { resources: "usable", runScripts: "outside-only" });
 
       const element = dom.window.document.createElement("script");
       setUpLoadingAsserts(element);
@@ -192,7 +191,7 @@ describe("API: resource loading configuration", () => {
 
     it("should not download or run scripts, if runScripts is not set", { slow: 500 }, async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
-      const dom = new JSDOM(``, { dispatcher: new Agent() });
+      const dom = new JSDOM(``, { resources: "usable" });
 
       const element = dom.window.document.createElement("script");
       setUpLoadingAsserts(element);
@@ -208,7 +207,7 @@ describe("API: resource loading configuration", () => {
     it("should download iframes", { slow: 500 }, async () => {
       const url = await htmlServer("Hello");
       const virtualConsole = resourceLoadingErrorRecordingVC();
-      const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+      const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
       const element = dom.window.document.createElement("iframe");
       setUpLoadingAsserts(element);
@@ -226,7 +225,7 @@ describe("API: resource loading configuration", () => {
     it("should download frames", { slow: 500 }, async () => {
       const url = await htmlServer("Hello");
       const virtualConsole = resourceLoadingErrorRecordingVC();
-      const dom = new JSDOM(`<frameset></frameset>`, { dispatcher: new Agent(), virtualConsole });
+      const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
       const element = dom.window.document.createElement("frame");
       setUpLoadingAsserts(element);
@@ -246,7 +245,7 @@ describe("API: resource loading configuration", () => {
         it("should fire a load event downloading images [canvas is installed]", async () => {
           const url = await imageServer({ statusCode: 404 });
           const virtualConsole = resourceLoadingErrorRecordingVC();
-          const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+          const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
           const element = dom.window.document.createElement("img");
           setUpLoadingAsserts(element);
@@ -260,7 +259,7 @@ describe("API: resource loading configuration", () => {
       it("should fire an error event downloading stylesheets", { slow: 500 }, async () => {
         const url = await resourceServer404();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("link");
         setUpLoadingAsserts(element);
@@ -274,7 +273,7 @@ describe("API: resource loading configuration", () => {
       it("should fire an error event downloading scripts", { slow: 500 }, async () => {
         const url = await resourceServer404();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), runScripts: "dangerously", virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
@@ -287,7 +286,7 @@ describe("API: resource loading configuration", () => {
       it("should fire a load event downloading iframes", { slow: 500 }, async () => {
         const url = await resourceServer404();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("iframe");
         setUpLoadingAsserts(element);
@@ -300,7 +299,7 @@ describe("API: resource loading configuration", () => {
       it("should fire a load event downloading frames", { slow: 500 }, async () => {
         const url = await resourceServer404();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(`<frameset></frameset>`, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("frame");
         setUpLoadingAsserts(element);
@@ -313,7 +312,7 @@ describe("API: resource loading configuration", () => {
       it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
         const url = await resourceServer404();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const { window } = new JSDOM(``, { dispatcher: new Agent(), virtualConsole, url });
+        const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
 
         const xhr = new window.XMLHttpRequest();
         setUpLoadingAsserts(xhr);
@@ -329,7 +328,7 @@ describe("API: resource loading configuration", () => {
         it("should fire an error event downloading images [canvas is installed]", async () => {
           const url = await imageServer({ statusCode: 503 });
           const virtualConsole = resourceLoadingErrorRecordingVC();
-          const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+          const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
           const element = dom.window.document.createElement("img");
           setUpLoadingAsserts(element);
@@ -343,7 +342,7 @@ describe("API: resource loading configuration", () => {
       it("should fire an error event downloading stylesheets", { slow: 500 }, async () => {
         const url = await resourceServer503();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("link");
         setUpLoadingAsserts(element);
@@ -357,7 +356,7 @@ describe("API: resource loading configuration", () => {
       it("should fire an error event downloading scripts", { slow: 500 }, async () => {
         const url = await resourceServer503();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), runScripts: "dangerously", virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
@@ -370,7 +369,7 @@ describe("API: resource loading configuration", () => {
       it("should fire a load event downloading iframes", { slow: 500 }, async () => {
         const url = await resourceServer503();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("iframe");
         setUpLoadingAsserts(element);
@@ -383,7 +382,7 @@ describe("API: resource loading configuration", () => {
       it("should fire a load event downloading frames", { slow: 500 }, async () => {
         const url = await resourceServer503();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(`<frameset></frameset>`, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("frame");
         setUpLoadingAsserts(element);
@@ -396,7 +395,7 @@ describe("API: resource loading configuration", () => {
       it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
         const url = await resourceServer503();
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const { window } = new JSDOM(``, { dispatcher: new Agent(), virtualConsole, url });
+        const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
 
         const xhr = new window.XMLHttpRequest();
         setUpLoadingAsserts(xhr);
@@ -413,7 +412,7 @@ describe("API: resource loading configuration", () => {
       if (canvas) {
         it("should fire an error event downloading images [canvas is installed]", () => {
           const virtualConsole = resourceLoadingErrorRecordingVC();
-          const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+          const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
           const element = dom.window.document.createElement("img");
           setUpLoadingAsserts(element);
@@ -426,7 +425,7 @@ describe("API: resource loading configuration", () => {
 
       it("should fire an error event downloading stylesheets", { slow: 500 }, () => {
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("link");
         setUpLoadingAsserts(element);
@@ -439,7 +438,7 @@ describe("API: resource loading configuration", () => {
 
       it("should fire an error event downloading scripts", { slow: 500 }, () => {
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), runScripts: "dangerously", virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
@@ -451,7 +450,7 @@ describe("API: resource loading configuration", () => {
 
       it("should fire an error event downloading iframes", { slow: 500 }, () => {
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("iframe");
         setUpLoadingAsserts(element);
@@ -463,7 +462,7 @@ describe("API: resource loading configuration", () => {
 
       it("should fire an error event downloading frames", { slow: 500 }, () => {
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(`<frameset></frameset>`, { dispatcher: new Agent(), virtualConsole });
+        const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
         const element = dom.window.document.createElement("frame");
         setUpLoadingAsserts(element);
@@ -475,7 +474,7 @@ describe("API: resource loading configuration", () => {
 
       it("should fire an error event downloading via XHR", { slow: 500 }, () => {
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const { window } = new JSDOM(``, { dispatcher: new Agent(), virtualConsole, url });
+        const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
 
         const xhr = new window.XMLHttpRequest();
         setUpLoadingAsserts(xhr);
@@ -490,7 +489,7 @@ describe("API: resource loading configuration", () => {
       it("should abort a script request when closing the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
         const dom = new JSDOM(`<script>window.y = 6;</script>`, {
-          dispatcher: new Agent(),
+          resources: "usable",
           runScripts: "dangerously"
         });
 
@@ -511,7 +510,7 @@ describe("API: resource loading configuration", () => {
 
       it("should cancel (with no event) an XHR request when closing the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
-        const dom = new JSDOM("", { dispatcher: new Agent() });
+        const dom = new JSDOM("", { resources: "usable" });
 
         const xhr = new dom.window.XMLHttpRequest();
         setUpLoadingAsserts(xhr);
@@ -529,7 +528,7 @@ describe("API: resource loading configuration", () => {
 
       it("should abort an image request when closing the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
-        const dom = new JSDOM("", { dispatcher: new Agent() });
+        const dom = new JSDOM("", { resources: "usable" });
 
         const element = dom.window.document.createElement("img");
         setUpLoadingAsserts(element);
@@ -545,7 +544,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should abort a data: image request when closing the window", () => {
-        const dom = new JSDOM("", { dispatcher: new Agent() });
+        const dom = new JSDOM("", { resources: "usable" });
 
         const element = dom.window.document.createElement("img");
         setUpLoadingAsserts(element);
@@ -563,7 +562,7 @@ describe("API: resource loading configuration", () => {
       it("should abort a script request (with no events) when stopping the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
         const dom = new JSDOM(`<script>window.y = 6;</script>`, {
-          dispatcher: new Agent(),
+          resources: "usable",
           runScripts: "dangerously"
         });
 
@@ -584,7 +583,7 @@ describe("API: resource loading configuration", () => {
 
       it("should abort (with no events) an XHR request when stopping the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
-        const dom = new JSDOM("", { dispatcher: new Agent() });
+        const dom = new JSDOM("", { resources: "usable" });
 
         const xhr = new dom.window.XMLHttpRequest();
         setUpLoadingAsserts(xhr);
@@ -608,12 +607,14 @@ describe("API: resource loading configuration", () => {
       let called = false;
 
       const dom = await JSDOM.fromURL(url, {
-        interceptors: [
-          JSDOM.RequestInterceptor((request, ctx) => {
-            called = true;
-            return undefined; // Pass through
-          })
-        ]
+        resources: {
+          interceptors: [
+            JSDOM.RequestInterceptor((request, ctx) => {
+              called = true;
+              return undefined; // Pass through
+            })
+          ]
+        }
       });
       assert.equal(called, true);
       assert.equal(dom.window.document.body.textContent, "Hello");
@@ -621,14 +622,16 @@ describe("API: resource loading configuration", () => {
 
     it("should allow mocking responses", async () => {
       const dom = await JSDOM.fromURL("http://example.com/test", {
-        interceptors: [
-          JSDOM.RequestInterceptor(() => {
-            return new Response("<html><body>Mocked content</body></html>", {
-              status: 200,
-              headers: { "Content-Type": "text/html" }
-            });
-          })
-        ]
+        resources: {
+          interceptors: [
+            JSDOM.RequestInterceptor(() => {
+              return new Response("<html><body>Mocked content</body></html>", {
+                status: 200,
+                headers: { "Content-Type": "text/html" }
+              });
+            })
+          ]
+        }
       });
       assert.equal(dom.window.document.body.textContent, "Mocked content");
     });
@@ -637,15 +640,17 @@ describe("API: resource loading configuration", () => {
       const dom = new JSDOM(`<script src="/test.js"></script>`, {
         url: "http://example.com/",
         runScripts: "dangerously",
-        interceptors: [
-          JSDOM.RequestInterceptor(request => {
-            if (request.url.endsWith("/test.js")) {
-              return new Response("window.mocked = true;", {
-                headers: { "Content-Type": "application/javascript" }
-              });
-            }
-          })
-        ]
+        resources: {
+          interceptors: [
+            JSDOM.RequestInterceptor(request => {
+              if (request.url.endsWith("/test.js")) {
+                return new Response("window.mocked = true;", {
+                  headers: { "Content-Type": "application/javascript" }
+                });
+              }
+            })
+          ]
+        }
       });
 
       await delay(50);
@@ -655,15 +660,17 @@ describe("API: resource loading configuration", () => {
     it("should allow mocking XHR requests", async () => {
       const dom = new JSDOM(``, {
         url: "http://example.com/",
-        interceptors: [
-          JSDOM.RequestInterceptor(request => {
-            if (request.url.endsWith("/api/data")) {
-              return new Response('{"mocked": true}', {
-                headers: { "Content-Type": "application/json" }
-              });
-            }
-          })
-        ]
+        resources: {
+          interceptors: [
+            JSDOM.RequestInterceptor(request => {
+              if (request.url.endsWith("/api/data")) {
+                return new Response('{"mocked": true}', {
+                  headers: { "Content-Type": "application/json" }
+                });
+              }
+            })
+          ]
+        }
       });
 
       const xhr = new dom.window.XMLHttpRequest();
@@ -690,12 +697,14 @@ describe("API: resource loading configuration", () => {
       const dom = new JSDOM(``, {
         runScripts: "dangerously",
         virtualConsole,
-        interceptors: [
-          JSDOM.RequestInterceptor((request, { element }) => {
-            capturedElement = element;
-            return undefined; // Pass through
-          })
-        ]
+        resources: {
+          interceptors: [
+            JSDOM.RequestInterceptor((request, { element }) => {
+              capturedElement = element;
+              return undefined; // Pass through
+            })
+          ]
+        }
       });
       const element = dom.window.document.createElement("script");
 
@@ -719,12 +728,14 @@ describe("API: resource loading configuration", () => {
       const dom = new JSDOM(``, {
         runScripts: "dangerously",
         virtualConsole,
-        interceptors: [
-          JSDOM.RequestInterceptor((request, { document }) => {
-            capturedDocument = document;
-            return undefined; // Pass through
-          })
-        ]
+        resources: {
+          interceptors: [
+            JSDOM.RequestInterceptor((request, { document }) => {
+              capturedDocument = document;
+              return undefined; // Pass through
+            })
+          ]
+        }
       });
       const element = dom.window.document.createElement("script");
 
@@ -742,12 +753,14 @@ describe("API: resource loading configuration", () => {
 
       const options = {
         runScripts: "dangerously",
-        interceptors: [
-          JSDOM.RequestInterceptor(request => {
-            requestedUrls.push(request.url);
-            return undefined; // Pass through
-          })
-        ]
+        resources: {
+          interceptors: [
+            JSDOM.RequestInterceptor(request => {
+              requestedUrls.push(request.url);
+              return undefined; // Pass through
+            })
+          ]
+        }
       };
       const dom = await JSDOM.fromURL(mainHost + "/html", options);
 
@@ -781,7 +794,7 @@ describe("API: resource loading configuration", () => {
     it("should be able to change the user agent", async () => {
       const url = await htmlServer("<iframe></iframe>");
 
-      const dom = await JSDOM.fromURL(url, { userAgent: "test user agent" });
+      const dom = await JSDOM.fromURL(url, { resources: { userAgent: "test user agent" } });
 
       assert.equal(dom.window.navigator.userAgent, "test user agent");
       return new Promise(resolve => {

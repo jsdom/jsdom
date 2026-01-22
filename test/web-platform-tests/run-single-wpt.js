@@ -142,8 +142,10 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
   return JSDOM.fromURL(urlPrefix + testPath, {
     runScripts: "dangerously",
     virtualConsole,
-    dispatcher: insecureDispatcher,
-    interceptors: [createWPTInterceptor()],
+    resources: {
+      dispatcher: insecureDispatcher,
+      interceptors: [createWPTInterceptor()]
+    },
     pretendToBeVisual: true,
     storageQuota: 100000 // Filling the default quota takes about a minute between two WPTs
   })

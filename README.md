@@ -150,16 +150,17 @@ When attempting to load resources, recall that the default value for the `url` o
 
 #### Advanced configuration
 
-To more fully customize jsdom's resource-loading behavior, you can pass an instance of the `ResourceLoader` class as the `resources` option value:
+To more fully customize jsdom's resource-loading behavior, you can pass an object as the `resources` option value:
 
 ```js
-const resourceLoader = new jsdom.ResourceLoader({
-  userAgent: "Mellblomenator/9000",
+const dom = new JSDOM(``, {
+  resources: {
+    userAgent: "Mellblomenator/9000",
+  }
 });
-const dom = new JSDOM(``, { resources: resourceLoader });
 ```
 
-The options to the `ResourceLoader` constructor are:
+The available options are:
 
 - `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
 - `dispatcher` can be set to a custom [undici `Dispatcher`](https://undici.nodejs.org/#/docs/api/Dispatcher) for advanced use cases such as configuring a proxy or custom TLS settings. For example, to use a proxy, you can use undici's `ProxyAgent`:
@@ -167,43 +168,44 @@ The options to the `ResourceLoader` constructor are:
 ```js
 const { ProxyAgent } = require("undici");
 
-const resourceLoader = new jsdom.ResourceLoader({
-  dispatcher: new ProxyAgent("http://127.0.0.1:9001"),
+const dom = new JSDOM(``, {
+  resources: {
+    dispatcher: new ProxyAgent("http://127.0.0.1:9001"),
+  }
 });
 ```
 
-You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that overrides the response provided for a specific URL:
+- `interceptors` can be set to an array of request interceptors. Interceptors can modify or mock requests before they are sent. The easiest way to create an interceptor is using the `JSDOM.RequestInterceptor()` helper, which receives a [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and context, and can return a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) to mock the request:
 
 ```js
-class CustomResourceLoader extends jsdom.ResourceLoader {
-  fetch(url, options) {
-    // Override the contents of this script to do something unusual.
-    if (url === "https://example.com/some-specific-script.js") {
-      return Promise.resolve(new Response("window.someGlobal = 5;", {
-        status: 200,
-        headers: { "Content-Type": "application/javascript" }
-      }));
-    }
-
-    return super.fetch(url, options);
+const dom = new JSDOM(`<script src="https://example.com/some-specific-script.js"></script>`, {
+  url: "https://example.com/",
+  runScripts: "dangerously",
+  resources: {
+    interceptors: [
+      JSDOM.RequestInterceptor((request, context) => {
+        // Override the contents of this script to do something unusual.
+        if (request.url === "https://example.com/some-specific-script.js") {
+          return new Response("window.someGlobal = 5;", {
+            headers: { "Content-Type": "application/javascript" }
+          });
+        }
+        // Return undefined to let the request proceed normally
+      })
+    ]
   }
-}
+});
 ```
 
-jsdom will call your custom resource loader's `fetch()` method whenever it encounters a "usable" resource, per the above section. The method takes a URL string, as well as a few options which you should pass through unmodified if calling `super.fetch()`. It must return a promise for a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object. In general, most cases will want to delegate to `super.fetch()`, as shown.
-
-One of the options you will receive in `fetch()` will be the element (if applicable) that is fetching a resource.
+The context object passed to the interceptor includes `element` (the DOM element that initiated the request, if applicable) and `document`. This can be useful for logging:
 
 ```js
-class CustomResourceLoader extends jsdom.ResourceLoader {
-  fetch(url, options) {
-    if (options.element) {
-      console.log(`Element ${options.element.localName} is requesting the url ${url}`);
-    }
-
-    return super.fetch(url, options);
+JSDOM.RequestInterceptor((request, { element }) => {
+  if (element) {
+    console.log(`Element ${element.localName} is requesting ${request.url}`);
   }
-}
+  // Return undefined to let the request proceed normally
+})
 ```
 
 ### Virtual consoles
