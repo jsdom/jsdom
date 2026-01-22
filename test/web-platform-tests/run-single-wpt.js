@@ -1,10 +1,11 @@
 "use strict";
 /* eslint-disable no-console */
+const fs = require("node:fs");
 const path = require("node:path");
 const { pathToFileURL } = require("node:url");
 const { Agent } = require("undici");
 const { specify } = require("mocha-sugar-free");
-const { JSDOM, VirtualConsole, ResourceLoader } = require("../../lib/api.js");
+const { JSDOM, VirtualConsole } = require("../../lib/api.js");
 
 const reporterPathname = "/resources/testharnessreport.js";
 
@@ -36,19 +37,43 @@ module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
   };
 };
 
-class CustomResourceLoader extends ResourceLoader {
-  constructor() {
-    super({ dispatcher: insecureDispatcher });
+// Helper to read a local file and return as a Response
+function readLocalFile(filePath) {
+  try {
+    const content = fs.readFileSync(filePath);
+    // Guess content type from extension
+    const ext = path.extname(filePath).toLowerCase();
+    const contentTypes = {
+      ".js": "application/javascript",
+      ".html": "text/html",
+      ".css": "text/css",
+      ".json": "application/json",
+      ".svg": "image/svg+xml",
+      ".png": "image/png",
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg"
+    };
+    const contentType = contentTypes[ext] || "application/octet-stream";
+    return new Response(content, {
+      status: 200,
+      headers: { "Content-Type": contentType }
+    });
+  } catch (e) {
+    return new Response("Not found", { status: 404 });
   }
+}
 
-  fetch(urlString, options) {
-    const url = new URL(urlString);
+// Create an interceptor that handles special WPT test resources
+function createWPTInterceptor() {
+  return JSDOM.RequestInterceptor(async (request, { document }) => {
+    const url = new URL(request.url);
 
     if (url.pathname === reporterPathname) {
-      return Promise.resolve(new Response("window.shimTest();", {
+      // Return custom test harness reporter
+      return new Response("window.shimTest();", {
         status: 200,
         headers: { "Content-Type": "text/javascript" }
-      }));
+      });
     } else if (url.pathname.startsWith("/resources/")) {
       // When running to-upstream tests, the server doesn't have a /resources/ directory.
       // So, always go to the one in ./tests.
@@ -57,7 +82,8 @@ class CustomResourceLoader extends ResourceLoader {
       const filePath = path.resolve(__dirname, "tests" + url.pathname)
         .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
 
-      return super.fetch(pathToFileURL(filePath).href, options);
+      // Read and return the local file
+      return readLocalFile(filePath);
     } else if (url.pathname.startsWith("/dom/nodes/")) {
       // Some tests require extra resources.
       // Add them from the one in ./tests.
@@ -68,12 +94,12 @@ class CustomResourceLoader extends ResourceLoader {
       ];
       if (extraResources.includes(url.pathname)) {
         const filePath = path.resolve(__dirname, "tests" + url.pathname);
-        return super.fetch(pathToFileURL(filePath).href + url.hash, options);
+        return readLocalFile(filePath);
       }
-      return super.fetch(urlString, options);
     }
-    return super.fetch(urlString, options);
-  }
+    // Pass through to the real server
+    return undefined;
+  });
 }
 
 function formatFailedTest(test, expectationsFilenameForErrorMessage) {
@@ -116,7 +142,8 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
   return JSDOM.fromURL(urlPrefix + testPath, {
     runScripts: "dangerously",
     virtualConsole,
-    resources: new CustomResourceLoader(),
+    dispatcher: insecureDispatcher,
+    interceptors: [createWPTInterceptor()],
     pretendToBeVisual: true,
     storageQuota: 100000 // Filling the default quota takes about a minute between two WPTs
   })
