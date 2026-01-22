@@ -46,6 +46,9 @@ export default [
       "prefer-template": "off",
       "new-cap": ["error", { capIsNewExceptions: ["ByteString", "USVString", "DOMString"] }],
 
+      // probably disable this in @domenic/eslint-config; throwing from async functions is convenient
+      "require-await": "off",
+
       // Custom rules
       "jsdom-internal/hook-super-invocation": [
         "error",

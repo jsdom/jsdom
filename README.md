@@ -154,18 +154,23 @@ To more fully customize jsdom's resource-loading behavior, you can pass an insta
 
 ```js
 const resourceLoader = new jsdom.ResourceLoader({
-  proxy: "http://127.0.0.1:9001",
-  strictSSL: false,
   userAgent: "Mellblomenator/9000",
 });
 const dom = new JSDOM(``, { resources: resourceLoader });
 ```
 
-The three options to the `ResourceLoader` constructor are:
+The options to the `ResourceLoader` constructor are:
 
-- `proxy` is the address of an HTTP proxy to be used.
-- `strictSSL` can be set to false to disable the requirement that SSL certificates be valid.
 - `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
+- `dispatcher` can be set to a custom [undici `Dispatcher`](https://undici.nodejs.org/#/docs/api/Dispatcher) for advanced use cases such as configuring a proxy or custom TLS settings. For example, to use a proxy, you can use undici's `ProxyAgent`:
+
+```js
+const { ProxyAgent } = require("undici");
+
+const resourceLoader = new jsdom.ResourceLoader({
+  dispatcher: new ProxyAgent("http://127.0.0.1:9001"),
+});
+```
 
 You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that overrides the response provided for a specific URL:
 
@@ -174,8 +179,10 @@ class CustomResourceLoader extends jsdom.ResourceLoader {
   fetch(url, options) {
     // Override the contents of this script to do something unusual.
     if (url === "https://example.com/some-specific-script.js") {
-      const result = (new TextEncoder()).encode("window.someGlobal = 5;");
-      return Promise.resolve(result);
+      return Promise.resolve(new Response("window.someGlobal = 5;", {
+        status: 200,
+        headers: { "Content-Type": "application/javascript" }
+      }));
     }
 
     return super.fetch(url, options);
@@ -183,7 +190,7 @@ class CustomResourceLoader extends jsdom.ResourceLoader {
 }
 ```
 
-jsdom will call your custom resource loader's `fetch()` method whenever it encounters a "usable" resource, per the above section. The method takes a URL string, as well as a few options which you should pass through unmodified if calling `super.fetch()`. It must return a promise for a `Uint8Array`, or return `null` if the resource is intentionally not to be loaded. In general, most cases will want to delegate to `super.fetch()`, as shown.
+jsdom will call your custom resource loader's `fetch()` method whenever it encounters a "usable" resource, per the above section. The method takes a URL string, as well as a few options which you should pass through unmodified if calling `super.fetch()`. It must return a promise for a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object. In general, most cases will want to delegate to `super.fetch()`, as shown.
 
 One of the options you will receive in `fetch()` will be the element (if applicable) that is fetching a resource.
 
