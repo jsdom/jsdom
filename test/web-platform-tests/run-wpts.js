@@ -24,9 +24,7 @@ before({ timeout: 30_000 }, async () => {
   serverProcess = subprocess;
 });
 
-after(() => {
-  killSubprocess(serverProcess);
-});
+after({ timeout: 5000 }, () => killSubprocess(serverProcess));
 
 describe("web-platform-tests", () => {
   for (const toRunDoc of toRunDocs) {

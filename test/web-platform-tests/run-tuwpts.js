@@ -55,9 +55,7 @@ before({ timeout: 30_000 }, async () => {
   serverProcess = subprocess;
 });
 
-after(() => {
-  killSubprocess(serverProcess);
-});
+after({ timeout: 5000 }, () => killSubprocess(serverProcess));
 
 describe("Local tests in web-platform-test format (to-upstream)", () => {
   for (const testFilePath of possibleTestFilePaths) {
