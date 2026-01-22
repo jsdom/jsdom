@@ -41,7 +41,6 @@
     "webidl-conversions": "^8.0.1",
     "whatwg-mimetype": "^5.0.0",
     "whatwg-url": "^15.1.0",
-    "ws": "^8.19.0",
     "xml-name-validator": "^5.0.0"
   },
   "peerDependencies": {
@@ -66,6 +65,7 @@
     "npm-run-all2": "^8.0.4",
     "pngjs": "^7.0.0",
     "server-destroy": "^1.0.1",
+    "undici": "^7.18.2",
     "webidl2js": "^19.1.0",
     "yargs": "^18.0.0"
   },
