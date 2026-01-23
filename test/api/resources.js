@@ -6,7 +6,7 @@ const { describe, it } = require("mocha-sugar-free");
 const { delay, createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 const { version: packageVersion } = require("../../package.json");
-const { JSDOM, VirtualConsole, RequestInterceptor } = require("../..");
+const { JSDOM, VirtualConsole, requestInterceptor } = require("../..");
 
 const pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
 
@@ -609,7 +609,7 @@ describe("API: resource loading configuration", () => {
       const dom = await JSDOM.fromURL(url, {
         resources: {
           interceptors: [
-            JSDOM.RequestInterceptor((request, ctx) => {
+            requestInterceptor(() => {
               called = true;
               return undefined; // Pass through
             })
@@ -624,12 +624,10 @@ describe("API: resource loading configuration", () => {
       const dom = await JSDOM.fromURL("http://example.com/test", {
         resources: {
           interceptors: [
-            JSDOM.RequestInterceptor(() => {
-              return new Response("<html><body>Mocked content</body></html>", {
-                status: 200,
-                headers: { "Content-Type": "text/html" }
-              });
-            })
+            requestInterceptor(() => new Response("<html><body>Mocked content</body></html>", {
+              status: 200,
+              headers: { "Content-Type": "text/html" }
+            }))
           ]
         }
       });
@@ -642,12 +640,13 @@ describe("API: resource loading configuration", () => {
         runScripts: "dangerously",
         resources: {
           interceptors: [
-            JSDOM.RequestInterceptor(request => {
+            requestInterceptor(request => {
               if (request.url.endsWith("/test.js")) {
                 return new Response("window.mocked = true;", {
                   headers: { "Content-Type": "application/javascript" }
                 });
               }
+              return undefined;
             })
           ]
         }
@@ -662,12 +661,13 @@ describe("API: resource loading configuration", () => {
         url: "http://example.com/",
         resources: {
           interceptors: [
-            JSDOM.RequestInterceptor(request => {
+            requestInterceptor(request => {
               if (request.url.endsWith("/api/data")) {
                 return new Response('{"mocked": true}', {
                   headers: { "Content-Type": "application/json" }
                 });
               }
+              return undefined;
             })
           ]
         }
@@ -699,7 +699,7 @@ describe("API: resource loading configuration", () => {
         virtualConsole,
         resources: {
           interceptors: [
-            JSDOM.RequestInterceptor((request, { element }) => {
+            requestInterceptor((request, { element }) => {
               capturedElement = element;
               return undefined; // Pass through
             })
@@ -730,7 +730,7 @@ describe("API: resource loading configuration", () => {
         virtualConsole,
         resources: {
           interceptors: [
-            JSDOM.RequestInterceptor((request, { document }) => {
+            requestInterceptor((request, { document }) => {
               capturedDocument = document;
               return undefined; // Pass through
             })
@@ -755,7 +755,7 @@ describe("API: resource loading configuration", () => {
         runScripts: "dangerously",
         resources: {
           interceptors: [
-            JSDOM.RequestInterceptor(request => {
+            requestInterceptor(request => {
               requestedUrls.push(request.url);
               return undefined; // Pass through
             })
@@ -803,16 +803,6 @@ describe("API: resource loading configuration", () => {
           resolve();
         };
       });
-    });
-  });
-
-  describe("RequestInterceptor export", () => {
-    it("should be exported from the jsdom module", () => {
-      assert.equal(typeof RequestInterceptor, "function");
-    });
-
-    it("should also be available as JSDOM.RequestInterceptor", () => {
-      assert.equal(JSDOM.RequestInterceptor, RequestInterceptor);
     });
   });
 });

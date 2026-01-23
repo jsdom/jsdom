@@ -2,10 +2,9 @@
 /* eslint-disable no-console */
 const fs = require("node:fs");
 const path = require("node:path");
-const { pathToFileURL } = require("node:url");
 const { Agent } = require("undici");
 const { specify } = require("mocha-sugar-free");
-const { JSDOM, VirtualConsole } = require("../../lib/api.js");
+const { JSDOM, VirtualConsole, requestInterceptor } = require("../../lib/api.js");
 
 const reporterPathname = "/resources/testharnessreport.js";
 
@@ -58,14 +57,14 @@ function readLocalFile(filePath) {
       status: 200,
       headers: { "Content-Type": contentType }
     });
-  } catch (e) {
+  } catch {
     return new Response("Not found", { status: 404 });
   }
 }
 
 // Create an interceptor that handles special WPT test resources
 function createWPTInterceptor() {
-  return JSDOM.RequestInterceptor(async (request, { document }) => {
+  return requestInterceptor(async request => {
     const url = new URL(request.url);
 
     if (url.pathname === reporterPathname) {
