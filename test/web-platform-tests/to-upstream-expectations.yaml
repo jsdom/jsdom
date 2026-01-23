@@ -1,3 +1,4 @@
+css/css-animations/animation-name-case-sensitive.html: [fail, https://github.com/jsdom/cssstyle/issues/303]
 css/css-backgrounds/background-shorthand.html: [fail, https://github.com/jsdom/jsdom/issues/3663 https://github.com/jsdom/jsdom/issues/3169]
 css/css-borders/border-color.html: [fail, https://github.com/jsdom/jsdom/issues/3972]
 css/css-borders/border-shorthands.html:
