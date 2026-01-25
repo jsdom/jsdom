@@ -1,9 +1,9 @@
 "use strict";
-const http = require("http");
 const path = require("path");
 const fs = require("fs");
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
+const { Agent } = require("undici");
 const { delay, createServer } = require("../util.js");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 const { version: packageVersion } = require("../../package.json");
@@ -614,6 +614,54 @@ describe("API: resource loading configuration", () => {
       assert.equal(dom.window.document.body.textContent, "Hello");
     });
 
+    it("should allow fulfilling with a Response without calling super.fetch() (GH-3960)", async () => {
+      class MockingResourceLoader extends ResourceLoader {
+        fetch() {
+          return Promise.resolve(new Response("<html><body>Mocked content</body></html>", {
+            status: 200,
+            headers: { "Content-Type": "text/html" }
+          }));
+        }
+      }
+
+      const resourceLoader = new MockingResourceLoader();
+      const dom = await JSDOM.fromURL("http://example.com/test", { resources: resourceLoader });
+      assert.equal(dom.window.document.body.textContent, "Mocked content");
+    });
+
+    it("should allow wrapping the result of super.fetch() (GH-2500)", async () => {
+      class WrapedResourceLoader extends ResourceLoader {
+        fetch(url, options) {
+          return Promise.resolve(super.fetch(url, options));
+        }
+      }
+
+      const url = await htmlServer("Wrapped hello");
+      const resourceLoader = new WrapedResourceLoader();
+
+      const dom = await JSDOM.fromURL(url, { resources: resourceLoader });
+      assert.equal(dom.window.document.body.textContent, "Wrapped hello");
+    });
+
+    it("should work when using JSDOM `Headers` instead of Node.js `Headers`", async () => {
+      const customHeaders = new (new JSDOM()).window.Headers();
+      customHeaders.set("Content-Type", "text/html");
+
+      class HeadersUsingResourceLoader extends ResourceLoader {
+        fetch() {
+          return Promise.resolve(new Response("<html><body>Detected as HTML per the Content-Type</body></html>", {
+            status: 200,
+            headers: customHeaders
+          }));
+        }
+      }
+
+      const result = await JSDOM.fromURL("http://example.com/test", {
+        resources: new HeadersUsingResourceLoader()
+      });
+      assert.equal(result.window.document.body.textContent, "Detected as HTML per the Content-Type");
+    });
+
     // Just this one as a smoke test; no need to repeat all of the above.
     it("should intercept iframe fetches", async () => {
       const url = await htmlServer("Hello");
@@ -651,33 +699,37 @@ describe("API: resource loading configuration", () => {
       });
     });
 
-    it("should be able to customize the proxy option", async () => {
+    it("should be able to customize the dispatcher option", async () => {
       const [mainServer, mainHost] = await threeRequestServer();
 
-      let proxyServerRequestCount = 0;
-      const proxyServer = await createServer((proxyServerReq, proxyServerRes) => {
-        ++proxyServerRequestCount;
+      // Create a custom dispatcher that records all requests
+      const requestedUrls = [];
+      const baseAgent = new Agent();
+      const recordingDispatcher = {
+        dispatch(options, handler) {
+          requestedUrls.push(options.origin + options.path);
+          return baseAgent.dispatch(options, handler);
+        },
+        destroy() {
+          return baseAgent.destroy();
+        },
+        close() {
+          return baseAgent.close();
+        }
+      };
 
-        const options = { headers: proxyServerReq.headers, method: proxyServerReq.method };
-        const mainServerReq = http.request(proxyServerReq.url, options, mainServerRes => {
-          proxyServerRes.writeHead(mainServerRes.statusCode, mainServerRes.headers);
-          mainServerRes.pipe(proxyServerRes);
-        });
-        proxyServerReq.pipe(mainServerReq);
-      });
-
-      const resourceLoader = new ResourceLoader({ proxy: `http://127.0.0.1:${proxyServer.address().port}` });
+      const resourceLoader = new ResourceLoader({ dispatcher: recordingDispatcher });
       const options = { resources: resourceLoader, runScripts: "dangerously" };
       const dom = await JSDOM.fromURL(mainHost + "/html", options);
 
       return new Promise(resolve => {
         dom.window.done = resolve;
       }).then(() => {
-        assert.equal(proxyServerRequestCount, 3);
-        return Promise.all([
-          mainServer.destroy(),
-          proxyServer.destroy()
-        ]);
+        assert.equal(requestedUrls.length, 3);
+        assert.ok(requestedUrls.some(url => url.endsWith("/html")), "Should have requested /html");
+        assert.ok(requestedUrls.some(url => url.endsWith("/js")), "Should have requested /js");
+        assert.ok(requestedUrls.some(url => url.endsWith("/xhr")), "Should have requested /xhr");
+        return mainServer.destroy();
       });
     });
 
