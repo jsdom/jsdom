@@ -747,6 +747,92 @@ describe("API: resource loading configuration", () => {
       assert.equal(capturedDocument, dom.window.document);
     });
 
+    it("should throw a TypeError if interceptor returns null", async () => {
+      const virtualConsole = new VirtualConsole();
+      const jsdomErrorPromise = new Promise(resolve => {
+        virtualConsole.on("jsdomError", resolve);
+      });
+
+      // eslint-disable-next-line no-new
+      new JSDOM(`<script src="/test.js"></script>`, {
+        url: "http://example.com/",
+        runScripts: "dangerously",
+        virtualConsole,
+        resources: {
+          interceptors: [requestInterceptor(() => null)]
+        }
+      });
+
+      const jsdomError = await jsdomErrorPromise;
+
+      assert(jsdomError.cause instanceof TypeError, "The cause should be a TypeError");
+      assert(
+        jsdomError.cause.message.includes("must return undefined or a Response"),
+        `Error message should mention valid return types, got: ${jsdomError.cause.message}`
+      );
+    });
+
+    it("should throw a TypeError if interceptor returns a random object", async () => {
+      const virtualConsole = new VirtualConsole();
+      const jsdomErrorPromise = new Promise(resolve => {
+        virtualConsole.on("jsdomError", resolve);
+      });
+
+      // eslint-disable-next-line no-new
+      new JSDOM(`<script src="/test.js"></script>`, {
+        url: "http://example.com/",
+        runScripts: "dangerously",
+        virtualConsole,
+        resources: {
+          interceptors: [requestInterceptor(() => ({ status: 200, body: "fake" }))]
+        }
+      });
+
+      const jsdomError = await jsdomErrorPromise;
+
+      assert(jsdomError.cause instanceof TypeError, "The cause should be a TypeError");
+      assert(
+        jsdomError.cause.message.includes("must return undefined or a Response"),
+        `Error message should mention valid return types, got: ${jsdomError.cause.message}`
+      );
+    });
+
+    it("should reject fromURL() with TypeError if interceptor returns null", async () => {
+      await assert.rejects(
+        () => JSDOM.fromURL("http://example.com/", {
+          resources: {
+            interceptors: [requestInterceptor(() => null)]
+          }
+        }),
+        err => {
+          assert(err instanceof TypeError, "Should reject with TypeError");
+          assert(
+            err.message.includes("must return undefined or a Response"),
+            `Error message should mention valid return types, got: ${err.message}`
+          );
+          return true;
+        }
+      );
+    });
+
+    it("should reject fromURL() with TypeError if interceptor returns a random object", async () => {
+      await assert.rejects(
+        () => JSDOM.fromURL("http://example.com/", {
+          resources: {
+            interceptors: [requestInterceptor(() => ({ status: 200, body: "fake" }))]
+          }
+        }),
+        err => {
+          assert(err instanceof TypeError, "Should reject with TypeError");
+          assert(
+            err.message.includes("must return undefined or a Response"),
+            `Error message should mention valid return types, got: ${err.message}`
+          );
+          return true;
+        }
+      );
+    });
+
     it("should be able to log requests without modifying them", async () => {
       const requestedUrls = [];
       const [mainServer, mainHost] = await threeRequestServer();
