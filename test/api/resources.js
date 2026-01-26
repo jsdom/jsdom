@@ -716,37 +716,6 @@ describe("API: resource loading configuration", () => {
       assert(capturedElement instanceof dom.window.HTMLScriptElement);
     });
 
-    it("should provide document context in interceptors", async () => {
-      let capturedDocument = null;
-      const sourceString = `window.x = 5;`;
-      const url = await resourceServer(
-        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-        sourceString
-      );
-
-      const virtualConsole = resourceLoadingErrorRecordingVC();
-      const dom = new JSDOM(``, {
-        runScripts: "dangerously",
-        virtualConsole,
-        resources: {
-          interceptors: [
-            requestInterceptor((request, { document }) => {
-              capturedDocument = document;
-              return undefined; // Pass through
-            })
-          ]
-        }
-      });
-      const element = dom.window.document.createElement("script");
-
-      setUpLoadingAsserts(element);
-      element.src = url;
-      dom.window.document.body.appendChild(element);
-
-      await assertLoaded(element, virtualConsole);
-      assert.equal(capturedDocument, dom.window.document);
-    });
-
     it("should throw a TypeError if interceptor returns null", async () => {
       const virtualConsole = new VirtualConsole();
       const jsdomErrorPromise = new Promise(resolve => {

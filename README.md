@@ -175,15 +175,17 @@ const dom = new JSDOM(``, {
 });
 ```
 
-- `interceptors` can be set to an array of request interceptors. Interceptors can modify or mock requests before they are sent. The easiest way to create an interceptor is using the `JSDOM.RequestInterceptor()` helper, which receives a [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and context, and can return a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) to mock the request:
+- `interceptors` can be set to an array of [`undici` interceptor functions](https://undici.nodejs.org/#/docs/api/Dispatcher?id=parameter-interceptor). Interceptors can be used to modify requests or responses without writing an entirely new `Dispatcher`. For the simple case of inspecting an incoming request or returning a synthetic response, you can use jsdom's `requestInterceptor()` helper, which receives a [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and context, and can return a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response):
 
 ```js
+const { JSDOM, requestInterceptor } = require("jsdom");
+
 const dom = new JSDOM(`<script src="https://example.com/some-specific-script.js"></script>`, {
   url: "https://example.com/",
   runScripts: "dangerously",
   resources: {
     interceptors: [
-      JSDOM.RequestInterceptor((request, context) => {
+      requestInterceptor((request, context) => {
         // Override the contents of this script to do something unusual.
         if (request.url === "https://example.com/some-specific-script.js") {
           return new Response("window.someGlobal = 5;", {
@@ -197,10 +199,10 @@ const dom = new JSDOM(`<script src="https://example.com/some-specific-script.js"
 });
 ```
 
-The context object passed to the interceptor includes `element` (the DOM element that initiated the request, if applicable) and `document`. This can be useful for logging:
+The context object passed to the interceptor includes `element` (the DOM element that initiated the request, or `null` for requests that are not from DOM elements). For example:
 
 ```js
-JSDOM.RequestInterceptor((request, { element }) => {
+requestInterceptor((request, { element }) => {
   if (element) {
     console.log(`Element ${element.localName} is requesting ${request.url}`);
   }
