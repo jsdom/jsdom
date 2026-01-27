@@ -28,8 +28,8 @@ npm run test:wpt -- --fgrep "some-test.htm" 2>&1              # Just run it, no 
 
 * `npm run test:api`: relatively quick to run, mostly tests the jsdom API. Often worth running since it will quickly blow up if things are broken.
 
-* `npm run test:tuwpt`: slower, but still relatively quick. Tests a subset of the web platform implementation that we've specifically crafted tests for. Often `npm run test:api` plus `npm run test:tuwpt` is enough to establish everything is working.
-
 * `npm run test:wpt`: very slow (~15 minutes). Should generally only be run with user signoff, or with targeted `-- --fgrep`.
 
-All these commands can be restricted to specific tests, e.g. `npm run test:tuwpt -- --fgrep css-borders` or `npm run test:wpt -- --fgrep WebSocket/readyState/006.html`. It is often best to run a single test in that latter fashion while iterating.
+* `npm run test:tuwpt`: slower, so run sparingly. Tests a subset of the web platform implementation that we've specifically crafted tests for. Worth running once in its entirety as a final check to establish everything is working before turning over control to the user.
+
+All these commands can be restricted to specific tests, e.g. `npm run test:tuwpt -- --fgrep css-borders` or `npm run test:wpt -- --fgrep WebSocket/readyState/006.html`. It is often best to run a single test in that latter fashion while iterating, before finally running a larger suite like `npm run test:wpt -- --fgrep xhr` or `npm run test:tuwpt`.
