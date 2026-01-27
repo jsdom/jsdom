@@ -2441,7 +2441,6 @@ send-entity-body-document.htm: [timeout, https://github.com/jsdom/jsdom/issues/1
 send-entity-body-none.htm: [fail-slow, hard to get Node to not send Content-Length]
 send-redirect-bogus-sync.htm: [flaky, Sometimes time out]
 send-redirect-post-upload.htm:
-  "XMLHttpRequest: The send() method: POSTing to URL that redirects (307 (string))": [fail, 307 redirect body handling]
   "XMLHttpRequest: The send() method: POSTing to URL that redirects (307 (blob))": [fail, 307 redirect body handling]
 send-redirect-to-cors.htm: [fail-slow, request module remove content-type header on redirect]
 send-redirect.htm: [fail, Unknown]
