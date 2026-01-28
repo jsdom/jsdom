@@ -8,7 +8,7 @@ const { JSDOM, VirtualConsole, requestInterceptor } = require("../../lib/api.js"
 
 const reporterPathname = "/resources/testharnessreport.js";
 
-// Create a dispatcher that doesn't verify SSL certificates (for self-signed WPT test server certs)
+// WPT servers use self-signed certificates
 const insecureDispatcher = new Agent({
   connect: {
     rejectUnauthorized: false
@@ -42,7 +42,6 @@ function createWPTInterceptor() {
     const url = new URL(request.url);
 
     if (url.pathname === reporterPathname) {
-      // Return custom test harness reporter
       return new Response("window.shimTest();");
     } else if (url.pathname.startsWith("/resources/")) {
       // When running to-upstream tests, the server doesn't have a /resources/ directory.
@@ -66,7 +65,7 @@ function createWPTInterceptor() {
         return new Response(await readFile(filePath));
       }
     }
-    // Pass through to the real server
+
     return undefined;
   });
 }
