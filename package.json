@@ -40,7 +40,7 @@
     "w3c-xmlserializer": "^5.0.0",
     "webidl-conversions": "^8.0.1",
     "whatwg-mimetype": "^5.0.0",
-    "undici": "github:nodejs/undici#44e437dce491e2576105b7b96015e90d12514b7f",
+    "undici": "^7.12.2",
     "whatwg-url": "^15.1.0",
     "xml-name-validator": "^5.0.0"
   },
@@ -66,7 +66,6 @@
     "npm-run-all2": "^8.0.4",
     "pngjs": "^7.0.0",
     "server-destroy": "^1.0.1",
-    "undici": "github:nodejs/undici#44e437dce491e2576105b7b96015e90d12514b7f",
     "webidl2js": "^19.1.0",
     "yargs": "^18.0.0"
   },
