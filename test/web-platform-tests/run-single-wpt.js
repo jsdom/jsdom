@@ -1,6 +1,6 @@
 "use strict";
 /* eslint-disable no-console */
-const fs = require("node:fs");
+const { readFile } = require("node:fs/promises");
 const path = require("node:path");
 const { Agent } = require("undici");
 const { specify } = require("mocha-sugar-free");
@@ -36,32 +36,6 @@ module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
   };
 };
 
-// Helper to read a local file and return as a Response
-function readLocalFile(filePath) {
-  try {
-    const content = fs.readFileSync(filePath);
-    // Guess content type from extension
-    const ext = path.extname(filePath).toLowerCase();
-    const contentTypes = {
-      ".js": "application/javascript",
-      ".html": "text/html",
-      ".css": "text/css",
-      ".json": "application/json",
-      ".svg": "image/svg+xml",
-      ".png": "image/png",
-      ".jpg": "image/jpeg",
-      ".jpeg": "image/jpeg"
-    };
-    const contentType = contentTypes[ext] || "application/octet-stream";
-    return new Response(content, {
-      status: 200,
-      headers: { "Content-Type": contentType }
-    });
-  } catch {
-    return new Response("Not found", { status: 404 });
-  }
-}
-
 // Create an interceptor that handles special WPT test resources
 function createWPTInterceptor() {
   return requestInterceptor(async request => {
@@ -69,10 +43,7 @@ function createWPTInterceptor() {
 
     if (url.pathname === reporterPathname) {
       // Return custom test harness reporter
-      return new Response("window.shimTest();", {
-        status: 200,
-        headers: { "Content-Type": "text/javascript" }
-      });
+      return new Response("window.shimTest();");
     } else if (url.pathname.startsWith("/resources/")) {
       // When running to-upstream tests, the server doesn't have a /resources/ directory.
       // So, always go to the one in ./tests.
@@ -81,8 +52,7 @@ function createWPTInterceptor() {
       const filePath = path.resolve(__dirname, "tests" + url.pathname)
         .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
 
-      // Read and return the local file
-      return readLocalFile(filePath);
+      return new Response(await readFile(filePath));
     } else if (url.pathname.startsWith("/dom/nodes/")) {
       // Some tests require extra resources.
       // Add them from the one in ./tests.
@@ -93,7 +63,7 @@ function createWPTInterceptor() {
       ];
       if (extraResources.includes(url.pathname)) {
         const filePath = path.resolve(__dirname, "tests" + url.pathname);
-        return readLocalFile(filePath);
+        return new Response(await readFile(filePath));
       }
     }
     // Pass through to the real server

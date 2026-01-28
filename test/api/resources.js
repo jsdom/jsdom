@@ -625,7 +625,6 @@ describe("API: resource loading configuration", () => {
         resources: {
           interceptors: [
             requestInterceptor(() => new Response("<html><body>Mocked content</body></html>", {
-              status: 200,
               headers: { "Content-Type": "text/html" }
             }))
           ]
@@ -635,6 +634,8 @@ describe("API: resource loading configuration", () => {
     });
 
     it("should allow mocking scripts", async () => {
+      const scriptRan = Promise.withResolvers();
+
       const dom = new JSDOM(`<script src="/test.js"></script>`, {
         url: "http://example.com/",
         runScripts: "dangerously",
@@ -642,7 +643,7 @@ describe("API: resource loading configuration", () => {
           interceptors: [
             requestInterceptor(request => {
               if (request.url.endsWith("/test.js")) {
-                return new Response("window.mocked = true;", {
+                return new Response("window.mocked = true; window.scriptDone();", {
                   headers: { "Content-Type": "application/javascript" }
                 });
               }
@@ -652,7 +653,8 @@ describe("API: resource loading configuration", () => {
         }
       });
 
-      await delay(50);
+      dom.window.scriptDone = scriptRan.resolve;
+      await scriptRan.promise;
       assert.equal(dom.window.mocked, true, "The mocked script must have run");
     });
 
@@ -674,15 +676,14 @@ describe("API: resource loading configuration", () => {
       });
 
       const xhr = new dom.window.XMLHttpRequest();
-      let result = null;
-      xhr.onload = () => {
-        result = xhr.responseText;
-      };
+      const loadPromise = new Promise(resolve => {
+        xhr.onload = resolve;
+      });
       xhr.open("GET", "/api/data");
       xhr.send();
 
-      await delay(50);
-      assert.equal(result, '{"mocked": true}');
+      await loadPromise;
+      assert.equal(xhr.responseText, '{"mocked": true}');
     });
 
     it("should provide element context in interceptors", async () => {
@@ -802,8 +803,129 @@ describe("API: resource loading configuration", () => {
       );
     });
 
+    it("should work with async interceptors that return a Response", async () => {
+      const dom = await JSDOM.fromURL("http://example.com/test", {
+        resources: {
+          interceptors: [
+            requestInterceptor(async () => {
+              await delay(1);
+              return new Response("<html><body>Async mocked</body></html>", {
+                headers: { "Content-Type": "text/html" }
+              });
+            })
+          ]
+        }
+      });
+      assert.equal(dom.window.document.body.textContent, "Async mocked");
+    });
+
+    it("should work with async interceptors that pass through", async () => {
+      const url = await htmlServer("Hello from server");
+      let called = false;
+
+      const dom = await JSDOM.fromURL(url, {
+        resources: {
+          interceptors: [
+            requestInterceptor(async () => {
+              await delay(1);
+              called = true;
+              return undefined; // Pass through
+            })
+          ]
+        }
+      });
+      assert.equal(called, true);
+      assert.equal(dom.window.document.body.textContent, "Hello from server");
+    });
+
+    it("should maintain script execution order with mixed async/sync interceptors", async () => {
+      // This tests the case where script1 uses async file read, script2 is sync
+      // Script1 should execute before script2 even though script2's response is ready first
+      const script1Resolvers = Promise.withResolvers();
+      const allDone = Promise.withResolvers();
+
+      const dom = new JSDOM(
+        `<script src="/script1.js"></script><script src="/script2.js"></script>`,
+        {
+          url: "http://example.com/",
+          runScripts: "dangerously",
+          resources: {
+            interceptors: [
+              requestInterceptor(async request => {
+                if (request.url.endsWith("/script1.js")) {
+                  // Wait for signal before returning - simulates async file read
+                  await script1Resolvers.promise;
+                  return new Response("window.order = (window.order || '') + '1';", {
+                    headers: { "Content-Type": "application/javascript" }
+                  });
+                }
+                if (request.url.endsWith("/script2.js")) {
+                  // Sync response - ready immediately
+                  return new Response("window.order = (window.order || '') + '2'; window.allDone();", {
+                    headers: { "Content-Type": "application/javascript" }
+                  });
+                }
+                return undefined;
+              })
+            ]
+          }
+        }
+      );
+
+      dom.window.allDone = allDone.resolve;
+
+      // Release script1's interceptor after a microtask, so script2's response is "ready" first
+      Promise.resolve().then(() => script1Resolvers.resolve());
+
+      await allDone.promise;
+      assert.equal(dom.window.order, "12", "Scripts must run in document order (1 before 2)");
+    });
+
+    it("should reject fromURL() when interceptor throws synchronously", async () => {
+      const expectedError = new Error("Interceptor sync error");
+
+      await assert.rejects(
+        () => JSDOM.fromURL("http://example.com/", {
+          resources: {
+            interceptors: [
+              requestInterceptor(() => {
+                throw expectedError;
+              })
+            ]
+          }
+        }),
+        expectedError
+      );
+    });
+
+    it("should fire script.onerror when interceptor throws synchronously", async () => {
+      const expectedError = new Error("Interceptor sync error for script");
+      const virtualConsole = resourceLoadingErrorRecordingVC();
+
+      const dom = new JSDOM(``, {
+        url: "http://example.com/",
+        runScripts: "dangerously",
+        virtualConsole,
+        resources: {
+          interceptors: [
+            requestInterceptor(() => {
+              throw expectedError;
+            })
+          ]
+        }
+      });
+
+      const element = dom.window.document.createElement("script");
+      setUpLoadingAsserts(element);
+      element.src = "/test.js";
+      dom.window.document.body.appendChild(element);
+
+      await assertError(element, virtualConsole);
+      assert.equal(virtualConsole.resourceLoadingErrors[0].cause, expectedError);
+    });
+
     it("should be able to log requests without modifying them", async () => {
-      const requestedUrls = [];
+      const requestedURLs = [];
       const [mainServer, mainHost] = await threeRequestServer();
 
       const options = {
@@ -811,7 +933,7 @@ describe("API: resource loading configuration", () => {
         resources: {
           interceptors: [
             requestInterceptor(request => {
-              requestedUrls.push(request.url);
+              requestedURLs.push(request.url);
               return undefined; // Pass through
             })
           ]
@@ -823,12 +945,65 @@ describe("API: resource loading configuration", () => {
         dom.window.done = resolve;
       });
 
-      assert.equal(requestedUrls.length, 3);
-      assert.ok(requestedUrls.some(url => url.endsWith("/html")), "Should have requested /html");
-      assert.ok(requestedUrls.some(url => url.endsWith("/js")), "Should have requested /js");
-      assert.ok(requestedUrls.some(url => url.endsWith("/xhr")), "Should have requested /xhr");
+      assert.equal(requestedURLs.length, 3);
+      assert.ok(requestedURLs.some(url => url.endsWith("/html")), "Should have requested /html");
+      assert.ok(requestedURLs.some(url => url.endsWith("/js")), "Should have requested /js");
+      assert.ok(requestedURLs.some(url => url.endsWith("/xhr")), "Should have requested /xhr");
 
       mainServer.destroy();
+    });
+
+    it("should work with async streaming ReadableStream bodies", async () => {
+      const chunks = ["<html><body>", "Streamed ", "content", "</body></html>"];
+
+      const dom = await JSDOM.fromURL("http://example.com/test", {
+        resources: {
+          interceptors: [
+            requestInterceptor(() => {
+              const stream = new ReadableStream({
+                async start(controller) {
+                  for (const chunk of chunks) {
+                    await delay(1);
+                    controller.enqueue(new TextEncoder().encode(chunk));
+                  }
+                  controller.close();
+                }
+              });
+              return new Response(stream, {
+                headers: { "Content-Type": "text/html" }
+              });
+            })
+          ]
+        }
+      });
+
+      assert.equal(dom.window.document.body.textContent, "Streamed content");
+    });
+
+    it("should reject fromURL() when ReadableStream errors mid-stream", async () => {
+      const streamError = new Error("Stream failed mid-way");
+
+      await assert.rejects(
+        () => JSDOM.fromURL("http://example.com/test", {
+          resources: {
+            interceptors: [
+              requestInterceptor(() => {
+                const stream = new ReadableStream({
+                  async start(controller) {
+                    controller.enqueue(new TextEncoder().encode("<html><body>"));
+                    await delay(1);
+                    controller.error(streamError);
+                  }
+                });
+                return new Response(stream, {
+                  headers: { "Content-Type": "text/html" }
+                });
+              })
+            ]
+          }
+        }),
+        streamError
+      );
     });
   });
 
