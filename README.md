@@ -150,32 +150,17 @@ When attempting to load resources, recall that the default value for the `url` o
 
 #### Advanced configuration
 
-To more fully customize jsdom's resource-loading behavior, you can pass an object as the `resources` option value:
-
-```js
-const dom = new JSDOM(``, {
-  resources: {
-    userAgent: "Mellblomenator/9000",
-  }
-});
-```
+To more fully customize jsdom's resource-loading behavior, including the initial load made by [`JSDOM.fromURL()`](#fromurl) or any loads made with `dom.window.XMLHttpRequest` or `dom.window.WebSocket`, you can pass an options object as the `resources` option value. Doing so will opt you in to the above-described `resources: "usable"` behavior as the baseline, on top of which your customizations can be layered.
 
 The available options are:
 
 - `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
+
 - `dispatcher` can be set to a custom [undici `Dispatcher`](https://undici.nodejs.org/#/docs/api/Dispatcher) for advanced use cases such as configuring a proxy or custom TLS settings. For example, to use a proxy, you can use undici's `ProxyAgent`:
 
-```js
-const { ProxyAgent } = require("undici");
+- `interceptors` can be set to an array of [`undici` interceptor functions](https://undici.nodejs.org/#/docs/api/Dispatcher?id=parameter-interceptor). Interceptors can be used to modify requests or responses without writing an entirely new `Dispatcher`.
 
-const dom = new JSDOM(``, {
-  resources: {
-    dispatcher: new ProxyAgent("http://127.0.0.1:9001"),
-  }
-});
-```
-
-- `interceptors` can be set to an array of [`undici` interceptor functions](https://undici.nodejs.org/#/docs/api/Dispatcher?id=parameter-interceptor). Interceptors can be used to modify requests or responses without writing an entirely new `Dispatcher`. For the simple case of inspecting an incoming request or returning a synthetic response, you can use jsdom's `requestInterceptor()` helper, which receives a [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and context, and can return a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response):
+For the simple case of inspecting an incoming request or returning a synthetic response, you can use jsdom's `requestInterceptor()` helper, which receives a [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and context, and can return a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response):
 
 ```js
 const { JSDOM, requestInterceptor } = require("jsdom");
@@ -184,6 +169,8 @@ const dom = new JSDOM(`<script src="https://example.com/some-specific-script.js"
   url: "https://example.com/",
   runScripts: "dangerously",
   resources: {
+    userAgent: "Mellblomenator/9000",
+    dispatcher: new ProxyAgent("http://127.0.0.1:9001"),
     interceptors: [
       requestInterceptor((request, context) => {
         // Override the contents of this script to do something unusual.
@@ -209,6 +196,8 @@ requestInterceptor((request, { element }) => {
   // Return undefined to let the request proceed normally
 })
 ```
+
+To be clear on the flow: when something in your jsdom fetches resources, first the request is set up by jsdom, then it is passed through any `interceptors` in the order provided, then it reaches any provided `dispatcher` (defaulting to [`undici`'s global dispatcher](https://undici.nodejs.org/#/?id=undicigetglobaldispatcher)). If you use jsdom's `requestInterceptor()`, returning promise fulfilled with a `Response` will prevent any further interceptors from running, or the base dispatcher from being reached.
 
 ### Virtual consoles
 
