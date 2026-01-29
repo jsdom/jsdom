@@ -285,7 +285,10 @@ describe("API: resources interceptors option", () => {
       });
 
       it("should work for script requests", async () => {
-        const scriptRan = Promise.withResolvers();
+        let scriptRanResolve;
+        const scriptRanPromise = new Promise(resolve => {
+          scriptRanResolve = resolve;
+        });
         let capturedElement = null;
 
         const dom = new JSDOM(`<script src="/test.js"></script>`, {
@@ -306,8 +309,8 @@ describe("API: resources interceptors option", () => {
           }
         });
 
-        dom.window.scriptDone = scriptRan.resolve;
-        await scriptRan.promise;
+        dom.window.scriptDone = scriptRanResolve;
+        await scriptRanPromise;
         assert.equal(dom.window.mocked, true, "The mocked script must have run");
         assert.equal(
           capturedElement,
@@ -520,7 +523,10 @@ describe("API: resources interceptors option", () => {
       });
 
       it("should work for script requests", async () => {
-        const scriptRan = Promise.withResolvers();
+        let scriptRanResolve;
+        const scriptRanPromise = new Promise(resolve => {
+          scriptRanResolve = resolve;
+        });
         let capturedElement = null;
 
         const dom = new JSDOM(`<script src="/test.js"></script>`, {
@@ -541,8 +547,8 @@ describe("API: resources interceptors option", () => {
           }
         });
 
-        dom.window.scriptDone = scriptRan.resolve;
-        await scriptRan.promise;
+        dom.window.scriptDone = scriptRanResolve;
+        await scriptRanPromise;
         assert.equal(dom.window.mocked, true, "The mocked script must have run");
         assert.equal(
           capturedElement,
@@ -750,8 +756,13 @@ describe("API: resources interceptors option", () => {
     it("should maintain script execution order regardless of interceptor timing", async () => {
       // Script1 uses async delay, script2 returns immediately
       // Script1 should execute before script2 even though script2's response is ready first
-      const script1Resolvers = Promise.withResolvers();
-      const allDone = Promise.withResolvers();
+      let script1Resolve, allDoneResolve;
+      const script1Promise = new Promise(resolve => {
+        script1Resolve = resolve;
+      });
+      const allDonePromise = new Promise(resolve => {
+        allDoneResolve = resolve;
+      });
 
       const dom = new JSDOM(
         `<script src="/script1.js"></script><script src="/script2.js"></script>`,
@@ -763,7 +774,7 @@ describe("API: resources interceptors option", () => {
               requestInterceptor(async request => {
                 if (request.url.endsWith("/script1.js")) {
                   // Wait for signal before returning - simulates async file read
-                  await script1Resolvers.promise;
+                  await script1Promise;
                   return new Response("window.order = (window.order || '') + '1';", {
                     headers: { "Content-Type": "application/javascript" }
                   });
@@ -781,12 +792,12 @@ describe("API: resources interceptors option", () => {
         }
       );
 
-      dom.window.allDone = allDone.resolve;
+      dom.window.allDone = allDoneResolve;
 
       // Release script1's interceptor after a microtask, so script2's response is "ready" first
-      Promise.resolve().then(() => script1Resolvers.resolve());
+      Promise.resolve().then(() => script1Resolve());
 
-      await allDone.promise;
+      await allDonePromise;
       assert.equal(dom.window.order, "12", "Scripts must run in document order (1 before 2)");
     });
   });
