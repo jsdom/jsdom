@@ -156,7 +156,7 @@ The available options are:
 
 - `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
 
-- `dispatcher` can be set to a custom [undici `Dispatcher`](https://undici.nodejs.org/#/docs/api/Dispatcher) for advanced use cases such as configuring a proxy or custom TLS settings. For example, to use a proxy, you can use undici's `ProxyAgent`:
+- `dispatcher` can be set to a custom [undici `Dispatcher`](https://undici.nodejs.org/#/docs/api/Dispatcher) for advanced use cases such as configuring a proxy or custom TLS settings. For example, to use a proxy, you can use undici's `ProxyAgent`.
 
 - `interceptors` can be set to an array of [`undici` interceptor functions](https://undici.nodejs.org/#/docs/api/Dispatcher?id=parameter-interceptor). Interceptors can be used to modify requests or responses without writing an entirely new `Dispatcher`.
 
@@ -198,6 +198,9 @@ requestInterceptor((request, { element }) => {
 ```
 
 To be clear on the flow: when something in your jsdom fetches resources, first the request is set up by jsdom, then it is passed through any `interceptors` in the order provided, then it reaches any provided `dispatcher` (defaulting to [`undici`'s global dispatcher](https://undici.nodejs.org/#/?id=undicigetglobaldispatcher)). If you use jsdom's `requestInterceptor()`, returning promise fulfilled with a `Response` will prevent any further interceptors from running, or the base dispatcher from being reached.
+
+> [!WARNING]
+> All resource loading customization is ignored when scripts inside the jsdom use synchronous `XMLHttpRequest`. This is a technical limitation as we cannot transfer dispatchers or interceptors across a process boundary.
 
 ### Virtual consoles
 
