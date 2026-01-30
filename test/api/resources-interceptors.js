@@ -1060,6 +1060,59 @@ describe("API: resources interceptors option", () => {
     });
   });
 
+  describe("canceling requests", () => {
+    it("should abort the request signal synchronously when window.close() is called", async () => {
+      let interceptorCalledResolve, interceptorCalledReject, capturedWindow;
+      const interceptorCalledPromise = new Promise((resolve, reject) => {
+        interceptorCalledResolve = resolve;
+        interceptorCalledReject = reject;
+      });
+
+      const dom = new JSDOM(``, {
+        url: "http://example.com/",
+        runScripts: "dangerously",
+        resources: {
+          interceptors: [
+            requestInterceptor(request => {
+              try {
+                const { signal } = request;
+
+                // Signal should not be aborted before window.close()
+                assert.equal(signal.aborted, false, "Signal must not be aborted before window.close()");
+
+                // Call window.close() synchronously within the interceptor
+                capturedWindow.close();
+
+                // The signal should be aborted synchronously
+                assert.equal(signal.aborted, true, "Signal must be aborted synchronously after window.close()");
+                assert(
+                  signal.reason instanceof globalThis.DOMException,
+                  "Signal reason must be a DOMException"
+                );
+                assert.equal(signal.reason.name, "AbortError", "Signal reason must be an AbortError");
+
+                interceptorCalledResolve();
+              } catch (e) {
+                interceptorCalledReject(e);
+              }
+
+              // Return a synthetic response to complete the request
+              return new Response("", { headers: { "Content-Type": "application/javascript" } });
+            })
+          ]
+        }
+      });
+
+      capturedWindow = dom.window;
+
+      const element = dom.window.document.createElement("script");
+      element.src = "/test.js";
+      dom.window.document.body.appendChild(element);
+
+      await interceptorCalledPromise;
+    });
+  });
+
   describe("error handling", () => {
     describe("invalid return values", () => {
       it("should cause a jsdomError if interceptor returns null for a script", async () => {
