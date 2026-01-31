@@ -763,6 +763,29 @@ describe("API: resources interceptors option", () => {
         assert.equal(dom.window.x, "unchanged", "Empty script should not change anything");
       });
     });
+
+    describe("multiple Set-Cookie headers", () => {
+      it("should preserve all Set-Cookie headers for JSDOM.fromURL()", async () => {
+        const headers = new Headers([
+          ["Content-Type", "text/html"],
+          ["Set-Cookie", "a=1"],
+          ["Set-Cookie", "b=2"],
+          ["Set-Cookie", "c=3"]
+        ]);
+
+        const dom = await JSDOM.fromURL("http://example.com/test", {
+          resources: {
+            interceptors: [
+              requestInterceptor(() => {
+                return new Response("<html><body>Hello</body></html>", { headers });
+              })
+            ]
+          }
+        });
+
+        assert.equal(dom.window.document.cookie, "a=1; b=2; c=3");
+      });
+    });
   });
 
   describe("async interceptors", () => {
