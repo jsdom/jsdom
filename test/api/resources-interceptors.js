@@ -715,6 +715,54 @@ describe("API: resources interceptors option", () => {
         assert.equal(xhr.responseText, '{"mocked": true}');
       });
     });
+
+    describe("null bodies", () => {
+      it("should work for JSDOM.fromURL()'s initial request", async () => {
+        const dom = await JSDOM.fromURL("http://example.com/test", {
+          resources: {
+            interceptors: [
+              requestInterceptor(() => {
+                return new Response(null, {
+                  headers: { "Content-Type": "text/html" }
+                });
+              })
+            ]
+          }
+        });
+        assert.equal(dom.window.document.body.textContent, "");
+      });
+
+      it("should work for script requests", async () => {
+        const virtualConsole = resourceLoadingErrorRecordingVC();
+
+        const dom = new JSDOM(``, {
+          url: "http://example.com/",
+          runScripts: "dangerously",
+          virtualConsole,
+          resources: {
+            interceptors: [
+              requestInterceptor(request => {
+                if (request.url.endsWith("/test.js")) {
+                  return new Response(null, {
+                    headers: { "Content-Type": "application/javascript" }
+                  });
+                }
+                return undefined;
+              })
+            ]
+          }
+        });
+
+        dom.window.x = "unchanged";
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = "/test.js";
+        dom.window.document.body.appendChild(element);
+
+        await assertLoaded(element, virtualConsole);
+        assert.equal(dom.window.x, "unchanged", "Empty script should not change anything");
+      });
+    });
   });
 
   describe("async interceptors", () => {
