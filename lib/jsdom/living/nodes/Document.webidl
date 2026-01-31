@@ -119,11 +119,6 @@ partial interface Document {
 //  [SameObject] readonly attribute HTMLAllCollection all;
 };
 
-// https://drafts.csswg.org/cssom/#extensions-to-the-document-interface
-partial interface Document {
-  [SameObject] readonly attribute StyleSheetList styleSheets;
-};
-
 // https://w3c.github.io/page-visibility/#extensions-to-the-document-interface
 enum VisibilityState { "hidden", "visible", "prerender" };
 
