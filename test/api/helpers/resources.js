@@ -216,12 +216,60 @@ function createWebSocketServer() {
   });
 }
 
+/**
+ * Creates a server that streams a response slowly, allowing tests to abort mid-stream.
+ * Returns [url, serverState] where serverState has:
+ * - headersReceived: Promise that resolves when the request handler starts
+ * - aborted: Promise that resolves when the request is aborted/closed
+ * - destroy(): Cleanup function
+ */
+async function slowStreamingServer() {
+  let headersReceivedResolve, abortedResolve;
+  const headersReceived = new Promise(resolve => {
+    headersReceivedResolve = resolve;
+  });
+
+  const aborted = new Promise(resolve => {
+    abortedResolve = resolve;
+  });
+
+  const server = await createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.write("start");
+    headersReceivedResolve();
+
+    // Stream slowly - write a chunk every 50ms
+    const interval = setInterval(() => {
+      res.write(".");
+    }, 50);
+
+    req.on("close", () => {
+      clearInterval(interval);
+      abortedResolve();
+    });
+
+    req.on("error", () => {
+      clearInterval(interval);
+    });
+  });
+
+  return [
+    `http://127.0.0.1:${server.address().port}/`,
+    {
+      headersReceived,
+      aborted,
+      destroy: () => server.destroy()
+    }
+  ];
+}
+
 module.exports = {
   pngBytes,
   resourceServer,
   resourceServer404,
   resourceServer503,
   neverRequestedServer,
+  slowStreamingServer,
   imageServer,
   htmlServer,
   threeRequestServer,
