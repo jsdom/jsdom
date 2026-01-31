@@ -1,11 +1,19 @@
 "use strict";
 /* eslint-disable no-console */
+const { readFile } = require("node:fs/promises");
 const path = require("node:path");
-const { URL } = require("node:url");
+const { Agent } = require("undici");
 const { specify } = require("mocha-sugar-free");
-const { JSDOM, VirtualConsole, ResourceLoader } = require("../../lib/api.js");
+const { JSDOM, VirtualConsole, requestInterceptor } = require("../../lib/api.js");
 
 const reporterPathname = "/resources/testharnessreport.js";
+
+// WPT servers use self-signed certificates
+const insecureDispatcher = new Agent({
+  connect: {
+    rejectUnauthorized: false
+  }
+});
 
 function unexpectedPassingTestMessage(expectationsFilename) {
   return `Hey, did you fix a bug? This test used to be failing, but during this run there were no errors. If you ` +
@@ -28,15 +36,13 @@ module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
   };
 };
 
-class CustomResourceLoader extends ResourceLoader {
-  constructor() {
-    super({ strictSSL: false });
-  }
-  fetch(urlString, options) {
-    const url = new URL(urlString);
+// Create an interceptor that handles special WPT test resources
+function createWPTInterceptor() {
+  return requestInterceptor(async request => {
+    const url = new URL(request.url);
 
     if (url.pathname === reporterPathname) {
-      return Promise.resolve(Buffer.from("window.shimTest();", "utf-8"));
+      return new Response("window.shimTest();");
     } else if (url.pathname.startsWith("/resources/")) {
       // When running to-upstream tests, the server doesn't have a /resources/ directory.
       // So, always go to the one in ./tests.
@@ -45,7 +51,7 @@ class CustomResourceLoader extends ResourceLoader {
       const filePath = path.resolve(__dirname, "tests" + url.pathname)
         .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
 
-      return super.fetch(`file://${filePath}`, options);
+      return new Response(await readFile(filePath));
     } else if (url.pathname.startsWith("/dom/nodes/")) {
       // Some tests require extra resources.
       // Add them from the one in ./tests.
@@ -55,13 +61,13 @@ class CustomResourceLoader extends ResourceLoader {
         "/dom/nodes/selectors.js"
       ];
       if (extraResources.includes(url.pathname)) {
-        const filePath = path.resolve(__dirname, "tests" + url.pathname + url.hash);
-        return super.fetch(`file://${filePath}`, options);
+        const filePath = path.resolve(__dirname, "tests" + url.pathname);
+        return new Response(await readFile(filePath));
       }
-      return super.fetch(urlString, options);
     }
-    return super.fetch(urlString, options);
-  }
+
+    return undefined;
+  });
 }
 
 function formatFailedTest(test, expectationsFilenameForErrorMessage) {
@@ -104,7 +110,10 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
   return JSDOM.fromURL(urlPrefix + testPath, {
     runScripts: "dangerously",
     virtualConsole,
-    resources: new CustomResourceLoader(),
+    resources: {
+      dispatcher: insecureDispatcher,
+      interceptors: [createWPTInterceptor()]
+    },
     pretendToBeVisual: true,
     storageQuota: 100000 // Filling the default quota takes about a minute between two WPTs
   })
