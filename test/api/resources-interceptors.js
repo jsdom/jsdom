@@ -1384,4 +1384,49 @@ describe("API: resources interceptors option", () => {
       });
     });
   });
+
+  describe("abort handling", () => {
+    it("should not dispatch the real request if aborted while async interceptor is pending", async () => {
+      let requestDispatched = false;
+      let resolveInterceptor;
+      const interceptorPromise = new Promise(resolve => {
+        resolveInterceptor = resolve;
+      });
+
+      const dom = new JSDOM("", {
+        url: "http://example.com/",
+        resources: {
+          interceptors: [
+            requestInterceptor(async () => {
+              await interceptorPromise;
+              return undefined; // Pass through
+            }),
+            // Second interceptor to detect if dispatch happened
+            requestInterceptor(() => {
+              requestDispatched = true;
+              return undefined;
+            })
+          ]
+        }
+      });
+
+      const xhr = new dom.window.XMLHttpRequest();
+      xhr.open("GET", "/test");
+      xhr.send();
+
+      // Abort while the first interceptor is pending
+      xhr.abort();
+
+      // Now let the first interceptor complete
+      resolveInterceptor();
+
+      // Flush the promise chain - the .then() after fn() needs to run
+      await new Promise(r => {
+        setImmediate(r);
+      });
+
+      // The second interceptor should not have been called
+      assert.equal(requestDispatched, false, "Request should not have been dispatched after abort");
+    });
+  });
 });
