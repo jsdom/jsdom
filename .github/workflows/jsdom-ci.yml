@@ -25,7 +25,13 @@ jobs:
       - name: Run ESLint
         run: npm run lint
   build-with-canvas:
-    name: Tests with node-canvas
+    name: Tests with ${{ matrix.canvas-library }}
+    strategy:
+      fail-fast: false
+      matrix:
+        canvas-library:
+          - canvas
+          - '@napi-rs/canvas'
     env:
       TEST_SUITE: 'node-canvas'
     runs-on: ubuntu-latest
@@ -37,13 +43,22 @@ jobs:
         with:
           node-version: 22
       - name: Install required image manipulation packages with APT
+        if: ${{ matrix.canvas-library == 'canvas' }}
         run: sudo apt-get update && sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Setup hosts file for web platform tests server
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies and canvas
+        if: ${{ matrix.canvas-library == 'canvas' }}
         run: npm ci && npm i canvas@3
+      - name: Install @napi-rs/canvas
+        if: ${{ matrix.canvas-library == '@napi-rs/canvas' }}
+        run: npm ci && npm i @napi-rs/canvas
       - name: Run tests
+        if: ${{ matrix.canvas-library == 'canvas' }}
         run: npm test
+      - name: Run tests (excluding byte-level comparison tests)
+        if: ${{ matrix.canvas-library == '@napi-rs/canvas' }}
+        run: npm run test:api && npm run test:tuwpt && npm run test:wpt && npx mocha test/to-port-to-wpts/ --grep "canvas must resize correctly|produce the expected result" --invert && npx mocha test/to-port-to-wpts/level1/ && npx mocha test/to-port-to-wpts/level2/ && npx mocha test/to-port-to-wpts/level3/
   build:
     name: Tests
     runs-on: ubuntu-latest

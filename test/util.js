@@ -66,12 +66,16 @@ exports.readTestFixture = relativePath => {
 
 exports.isCanvasInstalled = (t, done) => {
   if (!Canvas) {
-    t.ok(true, "test ignored; not running with the canvas npm package installed");
+    t.ok(true, "test ignored; not running with a canvas package installed");
     done();
     return false;
   }
 
   return true;
+};
+
+exports.getCanvasLibraryName = () => {
+  return Canvas ? Canvas.libraryName : null;
 };
 
 exports.delay = ms => new Promise(r => {
