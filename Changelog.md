@@ -31,6 +31,19 @@ Minimum Node.js version changes:
 * Update .github/workflows/jsdom-ci.yml.
 -->
 
+## 28.0.0
+
+* Overhauled resource loading customization. See [the new README](https://github.com/jsdom/jsdom/blob/2b65c6a80af2c899e32933c5e0cb842164852149/README.md#loading-subresources) for details on the new API.
+* Added MIME type sniffing to `<iframe>` and `<frame>` loads.
+* Regression: `WebSocket`s are no longer correctly throttled to one connection per origin. This is a result of the bug at [nodejs/undici#4743](https://github.com/nodejs/undici/issues/4743).
+* Fixed decoding of the query components of `<a>` and `<area>` elements in non-UTF-8 documents.
+* Fixed `XMLHttpRequest` fetches and `WebSocket` upgrade requests to be interceptable by the new customizable resource loading. (Except synchronous `XMLHttpRequest`s.)
+* Fixed the referrer of a document to be set correctly when redirects are involved; it is now the initiating page, not the last hop in the redirect chain.
+* Fixed correctness bugs when passing `ArrayBuffer`s or typed arrays to various APIs, where they would not correctly snapshot the data.
+* Fixed `require("url").parse()` deprecation warning when using `WebSocket`s.
+* Fixed `<iframe>`, `<frame>`, and `<img>` (when `canvas` is installed) to fire `load` events, not `error` events, on non-OK HTTP responses.
+* Fixed many small issues in `XMLHttpRequest`.
+
 ## 27.4.0
 
 * Added `TextEncoder` and `TextDecoder`.
