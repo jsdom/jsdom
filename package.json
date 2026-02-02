@@ -37,10 +37,10 @@
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
     "tough-cookie": "^6.0.0",
+    "undici": "^7.20.0",
     "w3c-xmlserializer": "^5.0.0",
     "webidl-conversions": "^8.0.1",
     "whatwg-mimetype": "^5.0.0",
-    "undici": "^7.12.2",
     "whatwg-url": "^15.1.0",
     "xml-name-validator": "^5.0.0"
   },
