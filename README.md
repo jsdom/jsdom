@@ -150,54 +150,57 @@ When attempting to load resources, recall that the default value for the `url` o
 
 #### Advanced configuration
 
-To more fully customize jsdom's resource-loading behavior, you can pass an instance of the `ResourceLoader` class as the `resources` option value:
+To more fully customize jsdom's resource-loading behavior, including the initial load made by [`JSDOM.fromURL()`](#fromurl) or any loads made with `dom.window.XMLHttpRequest` or `dom.window.WebSocket`, you can pass an options object as the `resources` option value. Doing so will opt you in to the above-described `resources: "usable"` behavior as the baseline, on top of which your customizations can be layered.
 
-```js
-const resourceLoader = new jsdom.ResourceLoader({
-  proxy: "http://127.0.0.1:9001",
-  strictSSL: false,
-  userAgent: "Mellblomenator/9000",
-});
-const dom = new JSDOM(``, { resources: resourceLoader });
-```
+The available options are:
 
-The three options to the `ResourceLoader` constructor are:
-
-- `proxy` is the address of an HTTP proxy to be used.
-- `strictSSL` can be set to false to disable the requirement that SSL certificates be valid.
 - `userAgent` affects the `User-Agent` header sent, and thus the resulting value for `navigator.userAgent`. It defaults to <code>\`Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}\`</code>.
 
-You can further customize resource fetching by subclassing `ResourceLoader` and overriding the `fetch()` method. For example, here is a version that overrides the response provided for a specific URL:
+- `dispatcher` can be set to a custom [undici `Dispatcher`](https://undici.nodejs.org/#/docs/api/Dispatcher) for advanced use cases such as configuring a proxy or custom TLS settings. For example, to use a proxy, you can use undici's `ProxyAgent`.
+
+- `interceptors` can be set to an array of [`undici` interceptor functions](https://undici.nodejs.org/#/docs/api/Dispatcher?id=parameter-interceptor). Interceptors can be used to modify requests or responses without writing an entirely new `Dispatcher`.
+
+For the simple case of inspecting an incoming request or returning a synthetic response, you can use jsdom's `requestInterceptor()` helper, which receives a [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and context, and can return a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response):
 
 ```js
-class CustomResourceLoader extends jsdom.ResourceLoader {
-  fetch(url, options) {
-    // Override the contents of this script to do something unusual.
-    if (url === "https://example.com/some-specific-script.js") {
-      const result = (new TextEncoder()).encode("window.someGlobal = 5;");
-      return Promise.resolve(result);
-    }
+const { JSDOM, requestInterceptor } = require("jsdom");
 
-    return super.fetch(url, options);
+const dom = new JSDOM(`<script src="https://example.com/some-specific-script.js"></script>`, {
+  url: "https://example.com/",
+  runScripts: "dangerously",
+  resources: {
+    userAgent: "Mellblomenator/9000",
+    dispatcher: new ProxyAgent("http://127.0.0.1:9001"),
+    interceptors: [
+      requestInterceptor((request, context) => {
+        // Override the contents of this script to do something unusual.
+        if (request.url === "https://example.com/some-specific-script.js") {
+          return new Response("window.someGlobal = 5;", {
+            headers: { "Content-Type": "application/javascript" }
+          });
+        }
+        // Return undefined to let the request proceed normally
+      })
+    ]
   }
-}
+});
 ```
 
-jsdom will call your custom resource loader's `fetch()` method whenever it encounters a "usable" resource, per the above section. The method takes a URL string, as well as a few options which you should pass through unmodified if calling `super.fetch()`. It must return a promise for a `Uint8Array`, or return `null` if the resource is intentionally not to be loaded. In general, most cases will want to delegate to `super.fetch()`, as shown.
-
-One of the options you will receive in `fetch()` will be the element (if applicable) that is fetching a resource.
+The context object passed to the interceptor includes `element` (the DOM element that initiated the request, or `null` for requests that are not from DOM elements). For example:
 
 ```js
-class CustomResourceLoader extends jsdom.ResourceLoader {
-  fetch(url, options) {
-    if (options.element) {
-      console.log(`Element ${options.element.localName} is requesting the url ${url}`);
-    }
-
-    return super.fetch(url, options);
+requestInterceptor((request, { element }) => {
+  if (element) {
+    console.log(`Element ${element.localName} is requesting ${request.url}`);
   }
-}
+  // Return undefined to let the request proceed normally
+})
 ```
+
+To be clear on the flow: when something in your jsdom fetches resources, first the request is set up by jsdom, then it is passed through any `interceptors` in the order provided, then it reaches any provided `dispatcher` (defaulting to [`undici`'s global dispatcher](https://undici.nodejs.org/#/?id=undicigetglobaldispatcher)). If you use jsdom's `requestInterceptor()`, returning promise fulfilled with a `Response` will prevent any further interceptors from running, or the base dispatcher from being reached.
+
+> [!WARNING]
+> All resource loading customization is ignored when scripts inside the jsdom use synchronous `XMLHttpRequest`. This is a technical limitation as we cannot transfer dispatchers or interceptors across a process boundary.
 
 ### Virtual consoles
 

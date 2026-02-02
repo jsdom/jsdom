@@ -6,8 +6,12 @@ const { pathToFileURL } = require("url");
 
 const { JSDOM } = require("../..");
 
+function fixturePath(fixture) {
+  return path.resolve(__dirname, "fixtures/from-file", fixture);
+}
+
 function fromFixtureFile(fixture, options) {
-  return JSDOM.fromFile(path.resolve(__dirname, "fixtures/from-file", fixture), options);
+  return JSDOM.fromFile(fixturePath(fixture), options);
 }
 
 describe("API: JSDOM.fromFile()", () => {
@@ -26,13 +30,22 @@ describe("API: JSDOM.fromFile()", () => {
   });
 
   it("should work even for Unicode main resource and subresource filenames (GH-3016)", async () => {
-    const dom = await fromFixtureFile("unicode-진 シーン-i 🥰 you.html", { resources: "usable" });
+    const fixture = fixturePath("unicode-진 シーン-i 🥰 you.html");
+    const dom = await JSDOM.fromFile(fixture, { resources: "usable" });
 
     await new Promise(resolve => {
       dom.window.onload = resolve;
     });
 
     assert.equal(dom.window.getComputedStyle(dom.window.document.querySelector("p")).color, "rgb(255, 0, 0)");
+    assert.equal(dom.window.document.URL, pathToFileURL(fixture).href);
+  });
+
+  it("should properly encode # in filenames", async () => {
+    const fixture = fixturePath("file#with#hash.html");
+    const dom = await JSDOM.fromFile(fixture);
+
+    assert.equal(dom.window.document.URL, pathToFileURL(fixture).href);
   });
 
   describe("contentType option defaulting", () => {

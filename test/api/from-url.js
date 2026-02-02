@@ -143,11 +143,18 @@ describe("API: JSDOM.fromURL()", () => {
         assert.equal(dom.window.document.referrer, "http://example.com/");
       });
 
-      it("should use the redirect source URL as the referrer, overriding a provided one", async () => {
-        const [requestURL] = await redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
+      it("should preserve the provided referrer through redirects", async () => {
+        let refererOnRedirectTarget;
+        const [requestURL] = await refererRecordingRedirectServer(referer => {
+          refererOnRedirectTarget = referer;
+        });
 
         const dom = await JSDOM.fromURL(requestURL, { referrer: "http://example.com/" });
-        assert.equal(dom.window.document.referrer, requestURL);
+        // Browser behavior: referrer is preserved through redirects, not replaced with redirect source
+        assert.equal(dom.window.document.referrer, "http://example.com/");
+        // Verify the actual Referer header sent to the redirect target is the original referrer,
+        // not the intermediate URL that redirected
+        assert.equal(refererOnRedirectTarget, "http://example.com/");
       });
     });
 
@@ -278,6 +285,26 @@ async function redirectServer(body, extraInitialResponseHeaders, ultimateRespons
     } else if (req.url.endsWith("/2")) {
       res.writeHead(200, ultimateResponseHeaders);
       res.end(body);
+      server.destroy();
+    } else {
+      throw new Error("Unexpected route hit in redirect test server");
+    }
+  });
+
+  const base = `http://127.0.0.1:${server.address().port}/`;
+
+  return [base + "1", base + "2"];
+}
+
+async function refererRecordingRedirectServer(onReferer) {
+  const server = await createServer((req, res) => {
+    if (req.url.endsWith("/1")) {
+      res.writeHead(301, { Location: "/2" });
+      res.end();
+    } else if (req.url.endsWith("/2")) {
+      onReferer(req.headers.referer);
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end("<p>Hello</p>");
       server.destroy();
     } else {
       throw new Error("Unexpected route hit in redirect test server");
