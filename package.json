@@ -25,9 +25,9 @@
   "dependencies": {
     "@acemir/cssom": "^0.9.31",
     "@asamuzakjp/dom-selector": "^6.7.6",
-    "@exodus/bytes": "^1.10.0",
+    "@exodus/bytes": "^1.11.0",
     "cssstyle": "^5.3.7",
-    "data-urls": "^6.0.1",
+    "data-urls": "^7.0.0",
     "decimal.js": "^10.6.0",
     "html-encoding-sniffer": "^6.0.0",
     "http-proxy-agent": "^7.0.2",
@@ -40,7 +40,7 @@
     "w3c-xmlserializer": "^5.0.0",
     "webidl-conversions": "^8.0.1",
     "whatwg-mimetype": "^5.0.0",
-    "whatwg-url": "^15.1.0",
+    "whatwg-url": "^16.0.0",
     "ws": "^8.19.0",
     "xml-name-validator": "^5.0.0"
   },
