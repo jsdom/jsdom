@@ -36,6 +36,25 @@ describe("API: runScripts constructor option", () => {
       assert.equal(dom.window.document.body.children.length, 3);
     });
 
+    it("should make window instanceof Window true from inside scripts (GH-2740)", () => {
+      const dom = new JSDOM(`<body>
+        <script>window.__windowInstanceofWindow = window instanceof Window;</script>
+      </body>`, { runScripts: "dangerously" });
+      assert.strictEqual(dom.window.__windowInstanceofWindow, true, "window instanceof Window must be true in browsers");
+    });
+
+    it("should throw when DOM methods are called through a Proxy (GH-2265)", () => {
+      const dom = new JSDOM("<body></body>");
+      const document = dom.window.document;
+      document.body.innerHTML = "<span></span>";
+      const span = document.querySelector("span");
+      const proxy = new Proxy(span, {});
+      assert.throws(
+        () => { proxy.innerHTML = "miami"; },
+        /not a valid instance of Element|Illegal invocation/
+      );
+    });
+
     it("should execute <script>s with correct location when set to \"dangerously\" and includeNodeLocations", () => {
       const virtualConsole = new VirtualConsole();
       const promise = new Promise((resolve, reject) => {

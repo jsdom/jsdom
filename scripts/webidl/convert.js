@@ -73,8 +73,50 @@ const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
 fs.rmSync(outputDir, { force: true, recursive: true, maxRetries: 2 });
 fs.mkdirSync(outputDir);
 
+function applyGH2265Patches() {
+  // 1) Patch utils.js: WeakMap + registerWrapper + implForWrapper uses WeakMap (GH-2265)
+  const utilsPath = path.join(outputDir, "utils.js");
+  let utilsCode = fs.readFileSync(utilsPath, "utf8");
+  if (!utilsCode.includes("wrapperToImpl")) {
+    utilsCode = utilsCode.replace(
+      "const ctorRegistrySymbol = Symbol.for(\"[webidl2js] constructor registry\");",
+      "const ctorRegistrySymbol = Symbol.for(\"[webidl2js] constructor registry\");\n\nconst wrapperToImpl = new WeakMap();"
+    );
+    utilsCode = utilsCode.replace(
+      "function implForWrapper(wrapper) {\n  return wrapper ? wrapper[implSymbol] : null;\n}",
+      "function registerWrapper(wrapper, impl) {\n  wrapperToImpl.set(wrapper, impl);\n}\n\nfunction implForWrapper(wrapper) {\n  if (!wrapper) return null;\n  const impl = wrapperToImpl.get(wrapper);\n  return impl !== undefined ? impl : null;\n}"
+    );
+    utilsCode = utilsCode.replace(
+      "  wrapperForImpl,\n  implForWrapper,",
+      "  registerWrapper,\n  wrapperForImpl,\n  implForWrapper,"
+    );
+    fs.writeFileSync(utilsPath, utilsCode);
+  }
+
+  // 2) Add registerWrapper after each wrapper setup; fix exports.is to use implForWrapper
+  const files = fs.readdirSync(outputDir).filter((f) => f.endsWith(".js") && f !== "utils.js");
+  const registerBlock = "\n  utils.registerWrapper(wrapper, wrapper[implSymbol]);\n  if (Impl.init)";
+  const setupPattern = /  wrapper\[implSymbol]\[utils\.wrapperSymbol\] = wrapper;\r?\n  if \(Impl\.init\)/g;
+  const isOld = "Object.hasOwn(value, implSymbol) && value[implSymbol] instanceof";
+  const isNew = "utils.implForWrapper(value) instanceof";
+
+  for (const f of files) {
+    const p = path.join(outputDir, f);
+    let s = fs.readFileSync(p, "utf8");
+    if (s.includes("wrapper[implSymbol][utils.wrapperSymbol] = wrapper") && !s.includes("utils.registerWrapper(wrapper, wrapper[implSymbol])")) {
+      s = s.replace(setupPattern, "  wrapper[implSymbol][utils.wrapperSymbol] = wrapper;" + registerBlock);
+      fs.writeFileSync(p, s);
+    }
+    if (s.includes(isOld)) {
+      s = s.split(isOld).join(isNew);
+      fs.writeFileSync(p, s);
+    }
+  }
+}
+
 transformer.generate(outputDir)
-  .catch(err => {
+  .then(applyGH2265Patches)
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
