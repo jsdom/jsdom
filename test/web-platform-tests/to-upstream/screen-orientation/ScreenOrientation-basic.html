@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Screen Orientation API - window.screen.orientation</title>
+<link rel="author" title="jsdom" href="https://github.com/jsdom/jsdom">
+<link rel="help" href="https://w3c.github.io/screen-orientation/#screenorientation-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  assert_own_property(window.screen, "orientation", "window.screen must have orientation property");
+  assert_equals(typeof window.screen.orientation.type, "string", "orientation.type must be a string");
+  assert_equals(typeof window.screen.orientation.angle, "number", "orientation.angle must be a number");
+  assert_true(["portrait-primary", "portrait-secondary", "landscape-primary", "landscape-secondary"].includes(window.screen.orientation.type),
+    "orientation.type must be a valid OrientationType");
+}, "window.screen.orientation exists and has type and angle");
+
+test(() => {
+  assert_true(window.screen.orientation.lock("portrait-primary") instanceof Promise, "lock() must return a Promise");
+}, "lock() returns a Promise");
+
+test(() => {
+  assert_equals(typeof window.screen.orientation.unlock, "function", "unlock must be a function");
+  window.screen.orientation.unlock();
+}, "unlock() is callable");
+</script>

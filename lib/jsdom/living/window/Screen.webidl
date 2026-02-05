@@ -1,3 +1,4 @@
+// https://drafts.csswg.org/cssom-view-1/#the-screen-interface
 [Exposed=Window]
 interface Screen {
   readonly attribute long availWidth;
