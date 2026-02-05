@@ -13,8 +13,16 @@ test(() => {
   assert_own_property(window.screen, "orientation", "window.screen must have orientation property");
   assert_equals(typeof window.screen.orientation.type, "string", "orientation.type must be a string");
   assert_equals(typeof window.screen.orientation.angle, "number", "orientation.angle must be a number");
-  assert_true(["portrait-primary", "portrait-secondary", "landscape-primary", "landscape-secondary"].includes(window.screen.orientation.type),
-    "orientation.type must be a valid OrientationType");
+  const validTypes = [
+    "portrait-primary",
+    "portrait-secondary",
+    "landscape-primary",
+    "landscape-secondary"
+  ];
+  assert_true(
+    validTypes.includes(window.screen.orientation.type),
+    "orientation.type must be a valid OrientationType"
+  );
 }, "window.screen.orientation exists and has type and angle");
 
 test(() => {
