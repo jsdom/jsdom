@@ -353,4 +353,21 @@ describe("API: JSDOM class's methods", () => {
       });
     });
   });
+
+  describe("window.screen.orientation (Screen Orientation API, GH-4007)", () => {
+    it("should expose screen.orientation with type and angle", () => {
+      const { window } = new JSDOM(``);
+
+      assert.ok(window.screen.orientation, "window.screen.orientation should exist");
+      assert.strictEqual(window.screen.orientation.type, "landscape-primary");
+      assert.strictEqual(window.screen.orientation.angle, 0);
+    });
+
+    it("should support lock() and unlock()", async () => {
+      const { window } = new JSDOM(``);
+
+      await assert.doesNotReject(window.screen.orientation.lock("portrait-primary"));
+      window.screen.orientation.unlock();
+    });
+  });
 });

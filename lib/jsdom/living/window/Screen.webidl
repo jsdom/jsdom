@@ -6,4 +6,5 @@ interface Screen {
   readonly attribute long height;
   readonly attribute unsigned long colorDepth;
   readonly attribute unsigned long pixelDepth;
+  [SameObject] readonly attribute ScreenOrientation orientation;
 };
