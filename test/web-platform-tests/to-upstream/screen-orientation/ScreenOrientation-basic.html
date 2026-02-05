@@ -10,7 +10,7 @@
 "use strict";
 
 test(() => {
-  assert_own_property(window.screen, "orientation", "window.screen must have orientation property");
+  assert_true("orientation" in window.screen, "window.screen must have orientation property");
   assert_equals(typeof window.screen.orientation.type, "string", "orientation.type must be a string");
   assert_equals(typeof window.screen.orientation.angle, "number", "orientation.angle must be a number");
   const validTypes = [
