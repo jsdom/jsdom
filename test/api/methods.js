@@ -353,4 +353,82 @@ describe("API: JSDOM class's methods", () => {
       });
     });
   });
+
+  describe("getHTML", () => {
+    it("should exist on Element and ShadowRoot and return a string", () => {
+      const dom = new JSDOM("<!DOCTYPE html><div>Hello World</div>");
+      const { document } = dom.window;
+
+      assert.equal(typeof document.body.getHTML, "function");
+      const html = document.body.getHTML();
+      assert.equal(typeof html, "string");
+    });
+
+    it("should match innerHTML when called with no options", () => {
+      const dom = new JSDOM("<!DOCTYPE html><div>Hello World</div>");
+      const { document } = dom.window;
+
+      assert.equal(document.body.getHTML(), document.body.innerHTML);
+    });
+
+    it("should match innerHTML when called with default options", () => {
+      const dom = new JSDOM("<!DOCTYPE html><p>Foo</p>");
+      const { document } = dom.window;
+
+      assert.equal(document.body.getHTML({}), document.body.innerHTML);
+      assert.equal(
+        document.body.getHTML({ serializableShadowRoots: false, shadowRoots: [] }),
+        document.body.innerHTML
+      );
+    });
+
+    it("should exist on ShadowRoot and match innerHTML with no options", () => {
+      const dom = new JSDOM("<!DOCTYPE html><div></div>");
+      const { document } = dom.window;
+      const div = document.querySelector("div");
+      const root = div.attachShadow({ mode: "open" });
+      root.innerHTML = "<span>shadow</span>";
+
+      assert.equal(typeof root.getHTML, "function");
+      assert.equal(root.getHTML(), root.innerHTML);
+    });
+
+    it("should include shadow roots when passed in shadowRoots option", () => {
+      const dom = new JSDOM("<!DOCTYPE html><div></div>");
+      const { document } = dom.window;
+      const div = document.querySelector("div");
+      const root = div.attachShadow({ mode: "open" });
+      root.innerHTML = "<span>shadow</span>";
+
+      const html = document.body.getHTML({ shadowRoots: [root] });
+      assert.ok(html.includes("<template shadowrootmode=\"open\">"));
+      assert.ok(html.includes("<span>shadow</span>"));
+      assert.ok(html.includes("</template>"));
+    });
+
+    it("should include serializable shadow roots when serializableShadowRoots is true", () => {
+      const dom = new JSDOM("<!DOCTYPE html><div></div>");
+      const { document } = dom.window;
+      const div = document.querySelector("div");
+      const root = div.attachShadow({ mode: "open", serializable: true });
+      root.innerHTML = "<span>serializable</span>";
+
+      assert.equal(root.serializable, true);
+      const html = document.body.getHTML({ serializableShadowRoots: true });
+      assert.ok(html.includes("<template shadowrootmode=\"open\">"));
+      assert.ok(html.includes("<span>serializable</span>"));
+    });
+
+    it("should not include non-serializable shadow roots when only serializableShadowRoots is true", () => {
+      const dom = new JSDOM("<!DOCTYPE html><div></div>");
+      const { document } = dom.window;
+      const div = document.querySelector("div");
+      const root = div.attachShadow({ mode: "open", serializable: false });
+      root.innerHTML = "<span>hidden</span>";
+
+      const html = document.body.getHTML({ serializableShadowRoots: true });
+      assert.ok(!html.includes("<template shadowrootmode"));
+      assert.ok(!html.includes("hidden"));
+    });
+  });
 });

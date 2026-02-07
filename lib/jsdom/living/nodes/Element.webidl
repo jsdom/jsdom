@@ -47,6 +47,7 @@ interface Element : Node {
 
 dictionary ShadowRootInit {
   required ShadowRootMode mode;
+  boolean serializable = false;
 };
 
 // https://w3c.github.io/DOM-Parsing/#extensions-to-the-element-interface

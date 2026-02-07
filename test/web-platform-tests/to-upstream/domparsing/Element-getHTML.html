@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Element.getHTML() and ShadowRoot.getHTML()</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html#dom-element-gethtml">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<div id="host"></div>
+</body>
+
+<script>
+"use strict";
+
+test(() => {
+  const host = document.getElementById("host");
+  host.innerHTML = "<span>light</span>";
+  assert_equals(typeof host.getHTML, "function");
+  const html = host.getHTML();
+  assert_equals(typeof html, "string");
+  assert_equals(html, host.innerHTML, "getHTML() with no options equals innerHTML");
+}, "Element.getHTML() exists and without options matches innerHTML");
+
+test(() => {
+  const host = document.getElementById("host");
+  host.innerHTML = "";
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = "<span>shadow</span>";
+  assert_equals(typeof root.getHTML, "function");
+  assert_equals(root.getHTML(), root.innerHTML, "ShadowRoot.getHTML() with no options matches innerHTML");
+}, "ShadowRoot.getHTML() exists and without options matches innerHTML");
+
+test(() => {
+  const host = document.createElement("div");
+  host.innerHTML = "<p>content</p>";
+  document.body.appendChild(host);
+  const html = host.getHTML({ shadowRoots: [] });
+  host.remove();
+  assert_equals(html, host.innerHTML, "getHTML({ shadowRoots: [] }) equals innerHTML");
+}, "getHTML({ shadowRoots: [] }) includes only light DOM");
+
+test(() => {
+  const host = document.createElement("div");
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = "<span>in shadow</span>";
+  document.body.appendChild(host);
+  const html = host.getHTML({ shadowRoots: [root] });
+  host.remove();
+  assert_true(html.includes("<template shadowrootmode=\"open\">"), "includes template with shadowrootmode");
+  assert_true(html.includes("<span>in shadow</span>"), "includes serialized shadow content");
+  assert_true(html.includes("</template>"), "includes closing template tag");
+}, "getHTML({ shadowRoots: [root] }) serializes shadow root in Declarative Shadow DOM form");
+
+test(() => {
+  const host = document.createElement("div");
+  const root = host.attachShadow({ mode: "open", serializable: true });
+  root.innerHTML = "<span>serializable</span>";
+  document.body.appendChild(host);
+  assert_equals(root.serializable, true);
+  const html = host.getHTML({ serializableShadowRoots: true });
+  host.remove();
+  assert_true(html.includes("<template shadowrootmode=\"open\">"));
+  assert_true(html.includes("<span>serializable</span>"));
+}, "getHTML({ serializableShadowRoots: true }) includes shadow roots created with serializable: true");
+</script>
