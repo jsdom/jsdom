@@ -1,4 +1,3 @@
-css/css-animations/animation-name-case-sensitive.html: [fail, https://github.com/jsdom/cssstyle/issues/303]
 css/css-backgrounds/background-shorthand.html: [fail, https://github.com/jsdom/jsdom/issues/3663 https://github.com/jsdom/jsdom/issues/3169]
 css/css-borders/border-color.html: [fail, https://github.com/jsdom/jsdom/issues/3972]
 css/css-borders/border-shorthands.html:
@@ -20,9 +19,6 @@ css/cssom/getComputedStyle-shadow-inherit.html:
   "toggle shadowRoot.host visibility": [fail, https://github.com/jsdom/jsdom/issues/3941]
 css/cssom/getComputedStyle-specificity.html: [fail, https://github.com/jsdom/jsdom/issues/3318]
 css/cssom/style-background-shorthand-overwrite.html: [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3944]
-css/cssom/style-element-inline-important.html:
-  "Element CSS inline style with !important": [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3940]
-css/cssom/style-element-inline.html: [fail, https://github.com/jsdom/jsdom/issues/3940]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 css/mediaqueries/nested-media-queries.html: [fail, conditionText serialization doesn't include spaces]
 css/selectors/attribute-selector-escape.html: [fail, https://github.com/jsdom/jsdom/issues/3033]
