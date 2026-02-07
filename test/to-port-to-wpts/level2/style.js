@@ -7,7 +7,8 @@ const assert = require("node:assert/strict");
 const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../../..");
-const { createServer, delay } = require("../../util.js");
+const delay = require("node:timers/promises").setTimeout;
+const { createServer } = require("../../util.js");
 
 describe("level2/style", () => {
   specify("HTMLStyleElement01", () => {

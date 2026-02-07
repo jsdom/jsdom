@@ -4,7 +4,7 @@ const { spawnSync } = require("child_process");
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
-const { delay } = require("../util");
+const delay = require("node:timers/promises").setTimeout;
 const { slowStreamingServer } = require("./helpers/resources");
 
 describe("Test cases only possible to test from the outside", () => {
