@@ -4,7 +4,8 @@ const fs = require("fs");
 const crypto = require("crypto");
 const http = require("http");
 const assert = require("node:assert/strict");
-const { delay, createServer } = require("../../util.js");
+const delay = require("node:timers/promises").setTimeout;
+const { createServer } = require("../../util.js");
 const { VirtualConsole } = require("../../..");
 const enableDestroy = require("server-destroy");
 

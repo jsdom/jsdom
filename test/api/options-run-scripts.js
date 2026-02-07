@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
-const { delay } = require("../util.js");
+const delay = require("node:timers/promises").setTimeout;
 
 const { JSDOM, VirtualConsole } = require("../..");
 const jsGlobals = Object.keys(require("../../lib/jsdom/browser/js-globals.json"));

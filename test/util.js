@@ -74,10 +74,6 @@ exports.isCanvasInstalled = (t, done) => {
   return true;
 };
 
-exports.delay = ms => new Promise(r => {
-  setTimeout(r, ms);
-});
-
 // Track all created servers for cleanup.
 const activeServers = new Set();
 
