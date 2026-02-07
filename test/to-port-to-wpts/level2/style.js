@@ -1,5 +1,4 @@
 "use strict";
-const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
@@ -8,7 +7,7 @@ const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free")
 
 const { JSDOM } = require("../../..");
 const delay = require("node:timers/promises").setTimeout;
-const { createServer } = require("../../util.js");
+const { createServer } = require("../../api/helpers/servers.js");
 
 describe("level2/style", () => {
   specify("HTMLStyleElement01", () => {
@@ -199,7 +198,7 @@ describe("level2/style", () => {
         }).then(() => {
           var style = window.getComputedStyle(window.document.body);
           assert.equal(style.color, "rgb(255, 0, 0)", "computed color of body is red");
-          s.close();
+          s.destroy();
         });
       });
     });
@@ -231,7 +230,7 @@ describe("level2/style", () => {
           var div = window.document.getElementsByTagName("div")[0];
           var style = window.getComputedStyle(div);
           assert.equal(style.color, "rgb(255, 0, 0)", "computed color of div is red");
-          s.close();
+          s.destroy();
           resolve();
         };
       });

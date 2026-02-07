@@ -5,7 +5,7 @@ const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
 const delay = require("node:timers/promises").setTimeout;
-const { slowStreamingServer } = require("./helpers/resources");
+const { streamingServer } = require("./helpers/servers.js");
 
 describe("Test cases only possible to test from the outside", () => {
   it("window.close() should prevent timers from registering and cause them to return 0", async () => {
@@ -163,7 +163,7 @@ describe("Test cases only possible to test from the outside", () => {
   });
 
   it("should cancel the underlying network request when aborting XHR after headers received", async () => {
-    const [url, serverState] = await slowStreamingServer();
+    const [url, serverState] = await streamingServer();
     const dom = new JSDOM("", { url });
 
     const xhr = new dom.window.XMLHttpRequest();

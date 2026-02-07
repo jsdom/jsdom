@@ -2,7 +2,13 @@
 const zlib = require("zlib");
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
-const { createServer } = require("../util.js");
+const {
+  emptyServer,
+  resourceServer,
+  htmlServer,
+  recordingServer,
+  redirectServer
+} = require("./helpers/servers.js");
 
 const jsdom = require("../..");
 const { JSDOM } = require("../..");
@@ -33,19 +39,19 @@ describe("API: JSDOM.fromURL()", () => {
 
   describe("tests that use a server", () => {
     it("should return a rejected promise for a 404", async () => {
-      const url = await simpleServer(404);
+      const url = await emptyServer({ status: 404 });
 
       return assert.rejects(JSDOM.fromURL(url));
     });
 
     it("should return a rejected promise for a 500", async () => {
-      const url = await simpleServer(500);
+      const url = await emptyServer({ status: 500 });
 
       return assert.rejects(JSDOM.fromURL(url));
     });
 
     it("should use the body of 200 responses", async () => {
-      const url = await simpleServer(200, { "Content-Type": "text/html" }, "<p>Hello</p>");
+      const url = await htmlServer("<p>Hello</p>");
 
       const dom = await JSDOM.fromURL(url);
       assert.equal(dom.serialize(), "<html><head></head><body><p>Hello</p></body></html>");
@@ -59,7 +65,7 @@ describe("API: JSDOM.fromURL()", () => {
     });
 
     it("should give an appropriate error for invalid redirect URLs (GH-3804)", async () => {
-      const url = await badRedirectServer();
+      const url = await resourceServer({ Location: "https://" }, undefined, { status: 301 });
 
       assert.rejects(JSDOM.fromURL(url), "Invalid URL");
     });
@@ -67,7 +73,7 @@ describe("API: JSDOM.fromURL()", () => {
     it("should be able to handle gzipped bodies", async () => {
       const body = zlib.gzipSync("<p>Hello world!</p>");
       const headers = { "Content-Type": "text/html", "Content-Length": body.byteLength, "Content-Encoding": "gzip" };
-      const url = await simpleServer(200, headers, body);
+      const url = await resourceServer(headers, body);
 
       const dom = await JSDOM.fromURL(url);
       assert.equal(dom.serialize(), "<html><head></head><body><p>Hello world!</p></body></html>");
@@ -75,7 +81,7 @@ describe("API: JSDOM.fromURL()", () => {
 
     it("should send a HTML-preferring Accept header", async () => {
       let recordedHeader;
-      const url = await requestRecordingServer(req => {
+      const url = await recordingServer(req => {
         recordedHeader = req.headers.accept;
       });
 
@@ -85,7 +91,7 @@ describe("API: JSDOM.fromURL()", () => {
 
     it("should send an Accept-Language: en header", async () => {
       let recordedHeader;
-      const url = await requestRecordingServer(req => {
+      const url = await recordingServer(req => {
         recordedHeader = req.headers["accept-language"];
       });
 
@@ -99,7 +105,7 @@ describe("API: JSDOM.fromURL()", () => {
                         `(KHTML, like Gecko) jsdom/${packageVersion}`;
 
         let recordedHeader;
-        const url = await requestRecordingServer(req => {
+        const url = await recordingServer(req => {
           recordedHeader = req.headers["user-agent"];
         });
 
@@ -112,7 +118,7 @@ describe("API: JSDOM.fromURL()", () => {
     describe("referrer", () => {
       it("should not send a Referer header when no referrer option is given", async () => {
         let hasHeader;
-        const url = await requestRecordingServer(req => {
+        const url = await recordingServer(req => {
           hasHeader = "referer" in req.headers;
         });
 
@@ -123,7 +129,7 @@ describe("API: JSDOM.fromURL()", () => {
 
       it("should use the supplied referrer option as a Referer header", async () => {
         let recordedHeader;
-        const url = await requestRecordingServer(req => {
+        const url = await recordingServer(req => {
           recordedHeader = req.headers.referer;
         });
 
@@ -134,7 +140,7 @@ describe("API: JSDOM.fromURL()", () => {
 
       it("should canonicalize referrer URLs before using them as a Referer header", async () => {
         let recordedHeader;
-        const url = await requestRecordingServer(req => {
+        const url = await recordingServer(req => {
           recordedHeader = req.headers.referer;
         });
 
@@ -145,8 +151,8 @@ describe("API: JSDOM.fromURL()", () => {
 
       it("should preserve the provided referrer through redirects", async () => {
         let refererOnRedirectTarget;
-        const [requestURL] = await refererRecordingRedirectServer(referer => {
-          refererOnRedirectTarget = referer;
+        const [requestURL] = await redirectServer("<p>Hello</p>", {}, { "Content-Type": "text/html" }, req => {
+          refererOnRedirectTarget = req.headers.referer;
         });
 
         const dom = await JSDOM.fromURL(requestURL, { referrer: "http://example.com/" });
@@ -161,14 +167,14 @@ describe("API: JSDOM.fromURL()", () => {
     describe("inferring options from the response", () => {
       describe("url", () => {
         it("should use the URL fetched for a 200", async () => {
-          const url = await simpleServer(200, { "Content-Type": "text/html" });
+          const url = await htmlServer();
 
           const dom = await JSDOM.fromURL(url);
           assert.equal(dom.window.document.URL, url);
         });
 
         it("should preserve full request URL", async () => {
-          const url = await simpleServer(200, { "Content-Type": "text/html" });
+          const url = await htmlServer();
           const path = "t";
           const search = "?a=1";
           const fragment = "#fragment";
@@ -200,7 +206,7 @@ describe("API: JSDOM.fromURL()", () => {
 
       describe("contentType", () => {
         it("should use the content type fetched for a 200", async () => {
-          const url = await simpleServer(200, { "Content-Type": "application/xml" }, "<doc/>");
+          const url = await resourceServer({ "Content-Type": "application/xml" }, "<doc/>");
 
           const dom = await JSDOM.fromURL(url);
           assert.equal(dom.window.document.contentType, "application/xml");
@@ -222,7 +228,7 @@ describe("API: JSDOM.fromURL()", () => {
     describe("cookie jar integration", () => {
       it("should send applicable cookies in a supplied cookie jar", async () => {
         let recordedHeader;
-        const url = await requestRecordingServer(req => {
+        const url = await recordingServer(req => {
           recordedHeader = req.headers.cookie;
         });
 
@@ -235,7 +241,7 @@ describe("API: JSDOM.fromURL()", () => {
       });
 
       it("should store cookies set by the server in a supplied cookie jar", async () => {
-        const url = await simpleServer(200, { "Set-Cookie": "bar=baz", "Content-Type": "text/html" });
+        const url = await resourceServer({ "Set-Cookie": "bar=baz", "Content-Type": "text/html" });
 
         const cookieJar = new jsdom.CookieJar();
 
@@ -245,7 +251,7 @@ describe("API: JSDOM.fromURL()", () => {
       });
 
       it("should store cookies set by the server in a newly-created cookie jar", async () => {
-        const url = await simpleServer(200, { "Set-Cookie": "baz=qux", "Content-Type": "text/html" });
+        const url = await resourceServer({ "Set-Cookie": "baz=qux", "Content-Type": "text/html" });
 
         const dom = await JSDOM.fromURL(url);
         assert.equal(dom.cookieJar.getCookieStringSync(url), "baz=qux");
@@ -254,74 +260,3 @@ describe("API: JSDOM.fromURL()", () => {
     });
   });
 });
-
-async function simpleServer(responseCode, headers, body) {
-  const server = await createServer((req, res) => {
-    res.writeHead(responseCode, headers);
-    res.end(body);
-    server.destroy();
-  });
-
-  return `http://127.0.0.1:${server.address().port}/`;
-}
-
-async function requestRecordingServer(recorder) {
-  const server = await createServer((req, res) => {
-    recorder(req);
-
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end("<p>Hello</p>");
-    server.destroy();
-  });
-
-  return `http://127.0.0.1:${server.address().port}/`;
-}
-
-async function redirectServer(body, extraInitialResponseHeaders, ultimateResponseHeaders) {
-  const server = await createServer((req, res) => {
-    if (req.url.endsWith("/1")) {
-      res.writeHead(301, { Location: "/2", ...extraInitialResponseHeaders });
-      res.end();
-    } else if (req.url.endsWith("/2")) {
-      res.writeHead(200, ultimateResponseHeaders);
-      res.end(body);
-      server.destroy();
-    } else {
-      throw new Error("Unexpected route hit in redirect test server");
-    }
-  });
-
-  const base = `http://127.0.0.1:${server.address().port}/`;
-
-  return [base + "1", base + "2"];
-}
-
-async function refererRecordingRedirectServer(onReferer) {
-  const server = await createServer((req, res) => {
-    if (req.url.endsWith("/1")) {
-      res.writeHead(301, { Location: "/2" });
-      res.end();
-    } else if (req.url.endsWith("/2")) {
-      onReferer(req.headers.referer);
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end("<p>Hello</p>");
-      server.destroy();
-    } else {
-      throw new Error("Unexpected route hit in redirect test server");
-    }
-  });
-
-  const base = `http://127.0.0.1:${server.address().port}/`;
-
-  return [base + "1", base + "2"];
-}
-
-async function badRedirectServer() {
-  const server = await createServer((req, res) => {
-    res.writeHead(301, { Location: "https://" });
-    res.end();
-    server.destroy();
-  });
-
-  return `http://127.0.0.1:${server.address().port}/`;
-}

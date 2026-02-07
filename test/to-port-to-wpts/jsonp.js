@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
-const { createServer } = require("../util.js");
+const { createServer } = require("../api/helpers/servers.js");
 
 const { JSDOM } = require("../..");
 const { URL } = require("whatwg-url");
@@ -26,7 +26,7 @@ describe("jsonp/jsonp", () => {
         window.onload = () => {
           window.jQuery.getJSON(host + "?jsoncallback=?", data => {
             assert.equal(data.message, "jsonp works!");
-            s.close();
+            s.destroy();
             resolve();
           });
         };

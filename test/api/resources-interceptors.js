@@ -12,7 +12,9 @@ const {
   imageServer,
   htmlServer,
   threeRequestServer,
-  createWebSocketServer,
+  webSocketServer
+} = require("./helpers/servers.js");
+const {
   setUpLoadingAsserts,
   assertLoaded,
   assertError,
@@ -186,7 +188,7 @@ describe("API: resources interceptors option", () => {
     });
 
     it("should be called for WebSocket connection requests", async () => {
-      const wsServer = await createWebSocketServer();
+      const [wsServer, wsURL] = await webSocketServer();
       let capturedElement, capturedURL;
 
       const dom = new JSDOM(``, {
@@ -202,7 +204,7 @@ describe("API: resources interceptors option", () => {
         }
       });
 
-      const ws = new dom.window.WebSocket(wsServer.wsURL);
+      const ws = new dom.window.WebSocket(wsURL);
       const openPromise = new Promise((resolve, reject) => {
         ws.onopen = resolve;
         ws.onerror = reject;
@@ -214,7 +216,7 @@ describe("API: resources interceptors option", () => {
 
       assert.equal(capturedElement, null, "Element must be null for WebSocket requests");
       // WebSocket URLs are converted to http:// for the upgrade request
-      const expectedHttpURL = wsServer.wsURL.replace("ws://", "http://");
+      const expectedHttpURL = wsURL.replace("ws://", "http://");
       assert.equal(capturedURL, expectedHttpURL, "WebSocket URL must be captured (as http://)");
     });
 
@@ -974,7 +976,7 @@ describe("API: resources interceptors option", () => {
       });
 
       it("should call both interceptors for WebSocket requests", async () => {
-        const wsServer = await createWebSocketServer();
+        const [wsServer, wsURL] = await webSocketServer();
         const callOrder = [];
 
         const dom = new JSDOM(``, {
@@ -993,7 +995,7 @@ describe("API: resources interceptors option", () => {
           }
         });
 
-        const ws = new dom.window.WebSocket(wsServer.wsURL);
+        const ws = new dom.window.WebSocket(wsURL);
         const openPromise = new Promise((resolve, reject) => {
           ws.onopen = resolve;
           ws.onerror = reject;
@@ -1092,7 +1094,7 @@ describe("API: resources interceptors option", () => {
       });
 
       it("should call both interceptors for WebSocket requests", async () => {
-        const wsServer = await createWebSocketServer();
+        const [wsServer, wsURL] = await webSocketServer();
         const callOrder = [];
 
         function firstInterceptor(dispatch) {
@@ -1116,7 +1118,7 @@ describe("API: resources interceptors option", () => {
           }
         });
 
-        const ws = new dom.window.WebSocket(wsServer.wsURL);
+        const ws = new dom.window.WebSocket(wsURL);
         const openPromise = new Promise((resolve, reject) => {
           ws.onopen = resolve;
           ws.onerror = reject;

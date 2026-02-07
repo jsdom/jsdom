@@ -1,17 +1,18 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
-const canvas = require("../../lib/jsdom/utils.js").Canvas;
+const { Canvas } = require("../../lib/jsdom/utils.js");
 const { version: packageVersion } = require("../../package.json");
 const { JSDOM } = require("../..");
 
 const {
+  emptyServer,
   resourceServer,
-  resourceServer404,
-  resourceServer503,
   neverRequestedServer,
   imageServer,
-  htmlServer,
+  htmlServer
+} = require("./helpers/servers.js");
+const {
   setUpLoadingAsserts,
   assertNotLoaded,
   assertLoaded,
@@ -115,7 +116,7 @@ describe("API: resource loading configuration", () => {
   });
 
   describe("with resources: \"usable\"", () => {
-    if (canvas) {
+    if (Canvas) {
       it("should download images [canvas is installed]", { slow: 500 }, async () => {
         const url = await imageServer();
         const virtualConsole = resourceLoadingErrorRecordingVC();
@@ -250,9 +251,9 @@ describe("API: resource loading configuration", () => {
     });
 
     describe("resource returns 404", () => {
-      if (canvas) {
+      if (Canvas) {
         it("should fire a load event downloading images [canvas is installed]", async () => {
-          const url = await imageServer({ statusCode: 404 });
+          const url = await imageServer({ status: 404 });
           const virtualConsole = resourceLoadingErrorRecordingVC();
           const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -266,7 +267,7 @@ describe("API: resource loading configuration", () => {
       }
 
       it("should fire an error event downloading stylesheets", { slow: 500 }, async () => {
-        const url = await resourceServer404();
+        const url = await emptyServer({ status: 404 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -280,7 +281,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should fire an error event downloading scripts", { slow: 500 }, async () => {
-        const url = await resourceServer404();
+        const url = await emptyServer({ status: 404 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
@@ -293,7 +294,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should fire a load event downloading iframes", { slow: 500 }, async () => {
-        const url = await resourceServer404();
+        const url = await emptyServer({ status: 404 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -306,7 +307,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should fire a load event downloading frames", { slow: 500 }, async () => {
-        const url = await resourceServer404();
+        const url = await emptyServer({ status: 404 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
@@ -319,7 +320,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
-        const url = await resourceServer404();
+        const url = await emptyServer({ status: 404 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
 
@@ -333,9 +334,9 @@ describe("API: resource loading configuration", () => {
     });
 
     describe("resource returns 503", () => {
-      if (canvas) {
+      if (Canvas) {
         it("should fire an error event downloading images [canvas is installed]", async () => {
-          const url = await imageServer({ statusCode: 503 });
+          const url = await imageServer({ status: 503 });
           const virtualConsole = resourceLoadingErrorRecordingVC();
           const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -349,7 +350,7 @@ describe("API: resource loading configuration", () => {
       }
 
       it("should fire an error event downloading stylesheets", { slow: 500 }, async () => {
-        const url = await resourceServer503();
+        const url = await emptyServer({ status: 503 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -363,7 +364,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should fire an error event downloading scripts", { slow: 500 }, async () => {
-        const url = await resourceServer503();
+        const url = await emptyServer({ status: 503 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
 
@@ -376,7 +377,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should fire a load event downloading iframes", { slow: 500 }, async () => {
-        const url = await resourceServer503();
+        const url = await emptyServer({ status: 503 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(``, { resources: "usable", virtualConsole });
 
@@ -389,7 +390,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should fire a load event downloading frames", { slow: 500 }, async () => {
-        const url = await resourceServer503();
+        const url = await emptyServer({ status: 503 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable", virtualConsole });
 
@@ -402,7 +403,7 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should fire a load event downloading via XHR", { slow: 500 }, async () => {
-        const url = await resourceServer503();
+        const url = await emptyServer({ status: 503 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
         const { window } = new JSDOM(``, { resources: "usable", virtualConsole, url });
 
@@ -418,7 +419,7 @@ describe("API: resource loading configuration", () => {
     describe("resource is a nonexistent file: URL", () => {
       const url = "file:///nonexistent-asdf-1234.txt"; // hope nobody has a file named this on their system
 
-      if (canvas) {
+      if (Canvas) {
         it("should fire an error event downloading images [canvas is installed]", () => {
           const virtualConsole = resourceLoadingErrorRecordingVC();
           const dom = new JSDOM(``, { resources: "usable", virtualConsole });

@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it, before, after } = require("mocha-sugar-free");
-const { createServer } = require("../util.js");
+const { createServer, serverURL } = require("./helpers/servers.js");
 
 const { JSDOM, CookieJar } = require("../..");
 
@@ -26,10 +26,10 @@ describe("Cookie processing", () => {
 
   before(async () => {
     server = await setupServer();
-    testHost = `http://127.0.0.1:${server.address().port}`;
+    testHost = serverURL(server);
 
     nonSecureServer = await setupServer();
-    testNonSecureHost = `http://0.0.0.0:${nonSecureServer.address().port}`;
+    testNonSecureHost = serverURL(nonSecureServer, { host: "0.0.0.0" });
   });
 
   after(() => {
