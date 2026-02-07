@@ -22,110 +22,103 @@ describe("htmlimageelement", () => {
     }
   );
 
-  specify("loading image from valid external URL", t => {
-    if (!isCanvasInstalled(assert, t.done)) {
-      return;
-    }
-    const { window } = new JSDOM(``, { resources: "usable" });
-    const image = new window.Image();
-    const src = toFileUrl("files/image.png");
-    assert.equal(image.width, 0, "before loading, width should be 0");
-    assert.equal(image.height, 0, "before loading, height should be 0");
-    assert.equal(image.naturalWidth, 0, "before loading, naturalWidth should be 0");
-    assert.equal(image.naturalHeight, 0, "before loading, naturalHeight should be 0");
-    assert.equal(image.complete, true, "before loading or setting src, complete should be true");
-    assert.equal(image.src, "", "before loading, src should be an empty string");
-    assert.equal(image.currentSrc, "", "before loading, currentSrc should be an empty string");
-    image.src = src;
-    assert.equal(image.complete, false, "before loading and after setting src, complete should be false");
-    image.onload = () => {
-      assert.ok(true, "onload should be triggered when loading from valid URL.");
-      assert.equal(image.width, 168, "after loading, width should be 168");
-      assert.equal(image.height, 168, "after loading, height should be 168");
-      assert.equal(image.naturalWidth, 168, "after loading, naturalWidth should be 168");
-      assert.equal(image.naturalHeight, 168, "after loading, naturalHeight should be 168");
-      assert.equal(image.complete, true, "after loading, complete should be true");
-      assert.equal(image.src, src, "after loading, src should be the image's URL");
-      assert.equal(image.currentSrc, src, "after loading, currentSrc should be the image's URL");
-      t.done();
-    };
-    image.onerror = () => {
-      assert.ok(false, "onerror should not be triggered when loading from valid URL");
-      t.done();
-    };
-  }, {
-    async: true
-  });
-
-  specify("loading images should work with relative URLs (GH-1536)", async t => {
-    if (!isCanvasInstalled(assert, t.done)) {
-      return;
-    }
-
-    let requestsSoFar = 0;
-
-    const server = await createServer((request, response) => {
-      if (requestsSoFar === 0) {
-        assert.equal(request.url, "/test.html");
-        response.end(`<img src="/test.jpg">`);
-      } else {
-        assert.equal(request.url, "/test.jpg");
-        response.end(``);
-        server.destroy();
+  if (isCanvasInstalled) {
+    specify("loading image from valid external URL", t => {
+      const { window } = new JSDOM(``, { resources: "usable" });
+      const image = new window.Image();
+      const src = toFileUrl("files/image.png");
+      assert.equal(image.width, 0, "before loading, width should be 0");
+      assert.equal(image.height, 0, "before loading, height should be 0");
+      assert.equal(image.naturalWidth, 0, "before loading, naturalWidth should be 0");
+      assert.equal(image.naturalHeight, 0, "before loading, naturalHeight should be 0");
+      assert.equal(image.complete, true, "before loading or setting src, complete should be true");
+      assert.equal(image.src, "", "before loading, src should be an empty string");
+      assert.equal(image.currentSrc, "", "before loading, currentSrc should be an empty string");
+      image.src = src;
+      assert.equal(image.complete, false, "before loading and after setting src, complete should be false");
+      image.onload = () => {
+        assert.ok(true, "onload should be triggered when loading from valid URL.");
+        assert.equal(image.width, 168, "after loading, width should be 168");
+        assert.equal(image.height, 168, "after loading, height should be 168");
+        assert.equal(image.naturalWidth, 168, "after loading, naturalWidth should be 168");
+        assert.equal(image.naturalHeight, 168, "after loading, naturalHeight should be 168");
+        assert.equal(image.complete, true, "after loading, complete should be true");
+        assert.equal(image.src, src, "after loading, src should be the image's URL");
+        assert.equal(image.currentSrc, src, "after loading, currentSrc should be the image's URL");
         t.done();
-      }
-
-      ++requestsSoFar;
+      };
+      image.onerror = () => {
+        assert.ok(false, "onerror should not be triggered when loading from valid URL");
+        t.done();
+      };
+    }, {
+      async: true
     });
 
-    JSDOM.fromURL(serverURL(server) + "/test.html", { resources: "usable" });
-  }, {
-    async: true
-  });
+    specify("loading images should work with relative URLs (GH-1536)", async () => {
+      let requestsSoFar = 0;
 
-  specify("loading image from data URL", t => {
-    if (!isCanvasInstalled(assert, t.done)) {
-      return;
-    }
-    const { window } = new JSDOM(``, { resources: "usable" });
-    const image = new window.Image();
-    const src = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
-    image.onload = () => {
-      assert.ok(true, "onload should be triggered when loading from data URL.");
-      assert.equal(image.width, 168, "after setting data URL, width should be 168");
-      assert.equal(image.height, 168, "after setting data URL, height should be 168");
-      assert.equal(image.complete, true, "after setting data URL, complete should be true");
-      assert.equal(image.src, src, "after setting data URL, src should be the data URL");
-      assert.equal(image.currentSrc, src, "after setting data URL, currentSrc should be the data URL");
+      let resolveDonePromise;
+      const donePromise = new Promise(resolve => {
+        resolveDonePromise = resolve;
+      });
 
-      t.done();
-    };
-    image.onerror = () => {
-      assert.ok(false, "onerror should not be triggered when loading from valid URL");
-      t.done();
-    };
-    image.src = src;
-  }, {
-    async: true
-  });
+      const server = await createServer((request, response) => {
+        if (requestsSoFar === 0) {
+          assert.equal(request.url, "/test.html");
+          response.end(`<img src="/test.jpg">`);
+        } else {
+          assert.equal(request.url, "/test.jpg");
+          response.end(``);
+          server.destroy();
+          resolveDonePromise();
+        }
 
-  specify("loading image from invalid external URL", t => {
-    if (!isCanvasInstalled(assert, t.done)) {
-      return;
-    }
-    const { window } = new JSDOM(``, { resources: "usable" });
-    const image = new window.Image();
-    const src = "file://" + path.resolve(__dirname, "files/invalid.png");
-    image.onload = () => {
-      assert.ok(false, "onload should not be triggered when loading from invalid URL.");
-      t.done();
-    };
-    image.onerror = () => {
-      assert.ok(true, "onerror should be triggered when loading from valid URL.");
-      t.done();
-    };
-    image.src = src;
-  }, {
-    async: true
-  });
+        ++requestsSoFar;
+      });
+
+      JSDOM.fromURL(serverURL(server) + "/test.html", { resources: "usable" });
+      await donePromise;
+    });
+
+    specify("loading image from data URL", t => {
+      const { window } = new JSDOM(``, { resources: "usable" });
+      const image = new window.Image();
+      const src = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
+      image.onload = () => {
+        assert.ok(true, "onload should be triggered when loading from data URL.");
+        assert.equal(image.width, 168, "after setting data URL, width should be 168");
+        assert.equal(image.height, 168, "after setting data URL, height should be 168");
+        assert.equal(image.complete, true, "after setting data URL, complete should be true");
+        assert.equal(image.src, src, "after setting data URL, src should be the data URL");
+        assert.equal(image.currentSrc, src, "after setting data URL, currentSrc should be the data URL");
+
+        t.done();
+      };
+      image.onerror = () => {
+        assert.ok(false, "onerror should not be triggered when loading from valid URL");
+        t.done();
+      };
+      image.src = src;
+    }, {
+      async: true
+    });
+
+    specify("loading image from invalid external URL", t => {
+      const { window } = new JSDOM(``, { resources: "usable" });
+      const image = new window.Image();
+      const src = toFileUrl("files/invalid.png");
+      image.onload = () => {
+        assert.ok(false, "onload should not be triggered when loading from invalid URL.");
+        t.done();
+      };
+      image.onerror = () => {
+        assert.ok(true, "onerror should be triggered when loading from valid URL.");
+        t.done();
+      };
+      image.src = src;
+    }, {
+      async: true
+    });
+  }
 });
