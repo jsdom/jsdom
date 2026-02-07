@@ -1,7 +1,6 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
-const http = require("http");
 
 const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
@@ -9,6 +8,7 @@ const { describe, specify } = require("mocha-sugar-free");
 const { JSDOM } = require("../..");
 const { isCanvasInstalled } = require("../util.js");
 const toFileUrl = require("../util").toFileUrl(__dirname);
+const { createServer, serverURL } = require("../api/helpers/servers.js");
 
 describe("htmlimageelement", () => {
   specify(
@@ -57,29 +57,28 @@ describe("htmlimageelement", () => {
     async: true
   });
 
-  specify("loading images should work with relative URLs (GH-1536)", t => {
+  specify("loading images should work with relative URLs (GH-1536)", async t => {
     if (!isCanvasInstalled(assert, t.done)) {
       return;
     }
 
     let requestsSoFar = 0;
 
-    const server = http.createServer((request, response) => {
+    const server = await createServer((request, response) => {
       if (requestsSoFar === 0) {
         assert.equal(request.url, "/test.html");
         response.end(`<img src="/test.jpg">`);
       } else {
         assert.equal(request.url, "/test.jpg");
         response.end(``);
-        server.close();
+        server.destroy();
         t.done();
       }
 
       ++requestsSoFar;
-    })
-      .listen();
+    });
 
-    JSDOM.fromURL(`http://127.0.0.1:${server.address().port}/test.html`, { resources: "usable" });
+    JSDOM.fromURL(serverURL(server) + "/test.html", { resources: "usable" });
   }, {
     async: true
   });

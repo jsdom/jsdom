@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const assert = require("node:assert/strict");
 const { describe, it, before, after } = require("mocha-sugar-free");
-const { createServer } = require("../util.js");
+const { createServer } = require("./helpers/servers.js");
 
 const { JSDOM } = require("../..");
 
