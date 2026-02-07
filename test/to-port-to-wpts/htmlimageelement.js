@@ -6,7 +6,7 @@ const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
-const { isCanvasInstalled } = require("../util.js");
+const { Canvas } = require("../../lib/jsdom/utils.js");
 const toFileUrl = require("../util").toFileUrl(__dirname);
 const { createServer, serverURL } = require("../api/helpers/servers.js");
 
@@ -22,7 +22,7 @@ describe("htmlimageelement", () => {
     }
   );
 
-  if (isCanvasInstalled) {
+  if (Canvas) {
     specify("loading image from valid external URL", t => {
       const { window } = new JSDOM(``, { resources: "usable" });
       const image = new window.Image();

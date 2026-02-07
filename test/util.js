@@ -2,7 +2,6 @@
 const path = require("path");
 const fs = require("fs");
 const { JSDOM } = require("..");
-const { Canvas } = require("../lib/jsdom/utils");
 const { pathToFileURL } = require("url");
 
 exports.toFileUrl = dirname => {
@@ -59,14 +58,4 @@ exports.injectIFrameWithScript = (document, scriptStr = "") => {
 
 exports.readTestFixture = relativePath => {
   return fs.promises.readFile(path.resolve(__dirname, relativePath), { encoding: "utf8" });
-};
-
-exports.isCanvasInstalled = (t, done) => {
-  if (!Canvas) {
-    t.ok(true, "test ignored; not running with the canvas npm package installed");
-    done();
-    return false;
-  }
-
-  return true;
 };

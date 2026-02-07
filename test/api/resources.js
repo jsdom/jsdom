@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
-const canvas = require("../../lib/jsdom/utils.js").Canvas;
+const { Canvas } = require("../../lib/jsdom/utils.js");
 const { version: packageVersion } = require("../../package.json");
 const { JSDOM } = require("../..");
 
@@ -116,7 +116,7 @@ describe("API: resource loading configuration", () => {
   });
 
   describe("with resources: \"usable\"", () => {
-    if (canvas) {
+    if (Canvas) {
       it("should download images [canvas is installed]", { slow: 500 }, async () => {
         const url = await imageServer();
         const virtualConsole = resourceLoadingErrorRecordingVC();
@@ -251,7 +251,7 @@ describe("API: resource loading configuration", () => {
     });
 
     describe("resource returns 404", () => {
-      if (canvas) {
+      if (Canvas) {
         it("should fire a load event downloading images [canvas is installed]", async () => {
           const url = await imageServer({ status: 404 });
           const virtualConsole = resourceLoadingErrorRecordingVC();
@@ -334,7 +334,7 @@ describe("API: resource loading configuration", () => {
     });
 
     describe("resource returns 503", () => {
-      if (canvas) {
+      if (Canvas) {
         it("should fire an error event downloading images [canvas is installed]", async () => {
           const url = await imageServer({ status: 503 });
           const virtualConsole = resourceLoadingErrorRecordingVC();
@@ -419,7 +419,7 @@ describe("API: resource loading configuration", () => {
     describe("resource is a nonexistent file: URL", () => {
       const url = "file:///nonexistent-asdf-1234.txt"; // hope nobody has a file named this on their system
 
-      if (canvas) {
+      if (Canvas) {
         it("should fire an error event downloading images [canvas is installed]", () => {
           const virtualConsole = resourceLoadingErrorRecordingVC();
           const dom = new JSDOM(``, { resources: "usable", virtualConsole });
