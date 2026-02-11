@@ -1,188 +1,72 @@
 "use strict";
-const suite = require("../document-suite");
+const documentBench = require("../document-bench");
 
-exports["appendChild: no siblings"] = function () {
-  let parent, children, it;
+module.exports = () => {
+  const { document, bench } = documentBench();
 
-  return suite({
-    setup(document) {
-      parent = [];
-      children = [];
+  bench.add("appendChild: no siblings", () => {
+    const parent = document.createElement("div");
+    const child = document.createElement("div");
+    parent.appendChild(child);
+  });
 
-      for (let i = 0; i < this.count; ++i) {
-        parent.push(document.createElement("div"));
-        children.push(document.createElement("div"));
-      }
-
-      it = 0;
-    },
-    fn() {
-      parent[it].appendChild(children[it]);
-      ++it;
+  bench.add("appendChild: many siblings", () => {
+    const parent = document.createElement("div");
+    for (let i = 0; i < 1000; ++i) {
+      parent.appendChild(document.createElement("span"));
     }
   });
-};
 
-exports["appendChild: many siblings"] = function () {
-  const MIN_SIBLINGS = 10000;
-  let parent, children, it;
-
-  return suite({
-    setup(document) {
-      parent = document.createElement("div");
-      children = [];
-
-      for (let i = 0; i < MIN_SIBLINGS; ++i) {
-        parent.appendChild(document.createElement("span"));
-      }
-
-      for (let i = 0; i < this.count; ++i) {
-        children.push(document.createElement("div"));
-      }
-
-      it = 0;
-    },
-    fn() {
-      parent.appendChild(children[it]);
-      ++it;
+  bench.add("appendChild: many parents", () => {
+    const DEPTH = 500;
+    const nodes = new Array(DEPTH);
+    for (let n = 0; n < DEPTH; ++n) {
+      nodes[n] = document.createElement("div");
+    }
+    for (let n = 1; n < DEPTH; ++n) {
+      nodes[n - 1].appendChild(nodes[n]);
     }
   });
-};
 
-exports["appendChild: many parents"] = function () {
-  const DEPTH = 500;
-  let itData, it;
-
-  return suite({
-    setup(document) {
-      itData = new Array(this.count);
-
-      for (let i = 0; i < this.count; ++i) {
-        const nodes = new Array(DEPTH);
-
-        for (let n = 0; n < DEPTH; ++n) {
-          nodes[n] = document.createElement("div");
-        }
-
-        itData[i] = nodes;
-      }
-
-      it = 0;
-    },
-    fn() {
-      const nodes = itData[it];
-
-      for (let n = 1; n < DEPTH; ++n) {
-        nodes[n - 1].appendChild(nodes[n]);
-      }
-
-      ++it;
+  bench.add("insertBefore: many siblings", () => {
+    const parent = document.createElement("div");
+    for (let i = 0; i < 1000; ++i) {
+      parent.insertBefore(document.createElement("div"), parent.firstChild);
     }
   });
-};
 
-exports["insertBefore: many siblings"] = function () {
-  const MIN_SIBLINGS = 10000;
-  let parent, children, it;
+  bench.add("removeChild: no siblings", () => {
+    const parent = document.createElement("div");
+    const child = document.createElement("div");
+    parent.appendChild(child);
+    parent.removeChild(child);
+  });
 
-  return suite({
-    setup(document) {
-      parent = document.createElement("div");
-      children = [];
-
-      for (let i = 0; i < MIN_SIBLINGS; ++i) {
-        parent.appendChild(document.createElement("span"));
-      }
-
-      for (let i = 0; i < this.count; ++i) {
-        children.push(document.createElement("div"));
-      }
-
-      it = 0;
-    },
-    fn() {
-      const newChild = children[it];
-      parent.insertBefore(newChild, parent.firstChild);
-      ++it;
+  bench.add("removeChild: many siblings", () => {
+    const parent = document.createElement("div");
+    const children = [];
+    for (let i = 0; i < 1000; ++i) {
+      const child = document.createElement("div");
+      children.push(child);
+      parent.appendChild(child);
+    }
+    for (const child of children) {
+      parent.removeChild(child);
     }
   });
-};
 
-exports["removeChild: no siblings"] = function () {
-  let parent, children, it;
-
-  return suite({
-    setup(document) {
-      parent = [];
-      children = [];
-
-      for (let i = 0; i < this.count; ++i) {
-        parent.push(document.createElement("div"));
-        children.push(document.createElement("div"));
-        parent[i].appendChild(children[i]);
-      }
-
-      it = 0;
-    },
-    fn() {
-      parent[it].removeChild(children[it]);
-      ++it;
+  bench.add("removeChild: many parents", () => {
+    const DEPTH = 100;
+    const nodes = new Array(DEPTH + 1);
+    nodes[0] = document.createElement("div");
+    for (let n = 0; n < DEPTH; ++n) {
+      nodes[n + 1] = document.createElement("div");
+      nodes[n].appendChild(nodes[n + 1]);
+    }
+    for (let n = 0; n < DEPTH; ++n) {
+      nodes[n].removeChild(nodes[n + 1]);
     }
   });
-};
 
-exports["removeChild: many siblings"] = function () {
-  let parent, children, it;
-
-  return suite({
-    setup(document) {
-      parent = document.createElement("div");
-      children = [];
-
-      for (let i = 0; i < this.count; ++i) {
-        children.push(document.createElement("div"));
-        parent.appendChild(children[i]);
-      }
-
-      it = 0;
-    },
-    fn() {
-      parent.removeChild(children[it]);
-      ++it;
-    }
-  });
-};
-
-exports["removeChild: many parents"] = function () {
-  const DEPTH = 100;
-  let itData, it;
-
-  return suite({
-    setup(document) {
-      itData = new Array(this.count);
-
-      for (let i = 0; i < this.count; ++i) {
-        const nodes = new Array(DEPTH + 1);
-        nodes[0] = document.createElement("div");
-
-        for (let n = 0; n < DEPTH; ++n) {
-          nodes[n + 1] = document.createElement("div");
-          nodes[n].appendChild(nodes[n + 1]);
-        }
-
-        itData[i] = nodes;
-      }
-
-      it = 0;
-    },
-    fn() {
-      const nodes = itData[it];
-
-      for (let n = 0; n < DEPTH; ++n) {
-        nodes[n].removeChild(nodes[n + 1]);
-      }
-
-      ++it;
-    }
-  });
+  return bench;
 };

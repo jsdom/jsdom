@@ -54,7 +54,6 @@
   },
   "devDependencies": {
     "@domenic/eslint-config": "^4.1.0",
-    "benchmark": "^2.1.4",
     "eslint": "^9.39.2",
     "eslint-plugin-html": "^8.1.4",
     "eslint-plugin-n": "^17.23.2",
@@ -66,8 +65,8 @@
     "npm-run-all2": "^8.0.4",
     "pngjs": "^7.0.0",
     "server-destroy": "^1.0.1",
-    "webidl2js": "^19.1.0",
-    "yargs": "^18.0.0"
+    "tinybench": "^6.0.0",
+    "webidl2js": "^19.1.0"
   },
   "scripts": {
     "prepare": "npm-run-all prepare:*",
