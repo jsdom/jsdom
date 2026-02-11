@@ -1,80 +1,50 @@
 "use strict";
-const suite = require("../document-suite");
+const documentBench = require("../document-bench");
 
-exports["compare siblings"] = function () {
-  const SIBLINGS = 10000;
-  let parent, children, it;
+const SIBLINGS = 10000;
 
-  return suite({
-    setup(document) {
-      parent = document.createElement("div");
-      children = new Array(Math.max(SIBLINGS, this.count));
-      if (children.length % 2 === 1) {
-        ++children.length; // avoid looking up a .5 index
-      }
+module.exports = () => {
+  let parent, children, descendantTree, ancestorTree;
 
-      for (let i = 0; i < children.length; ++i) {
-        children[i] = document.createElement("span");
-        parent.appendChild(children[i]);
-      }
-
-      it = 0;
-    },
-    fn() {
-      children[it].compareDocumentPosition(children[(it + children.length / 2) % children.length]);
-      ++it;
+  const { bench } = documentBench(document => {
+    parent = document.createElement("div");
+    children = new Array(SIBLINGS);
+    for (let i = 0; i < SIBLINGS; ++i) {
+      children[i] = document.createElement("span");
+      parent.appendChild(children[i]);
     }
+
+    descendantTree = buildDeepTree(document, 1000, 10);
+    ancestorTree = buildDeepTree(document, 1000, 10);
   });
+
+  bench.add("compare siblings", () => {
+    children[0].compareDocumentPosition(children[SIBLINGS / 2]);
+  });
+
+  bench.add("compare descendant", () => {
+    descendantTree.parent.compareDocumentPosition(descendantTree.deepest);
+  });
+
+  bench.add("compare ancestor", () => {
+    ancestorTree.deepest.compareDocumentPosition(ancestorTree.parent);
+  });
+
+  return bench;
 };
 
-exports["compare descendant"] = function () {
-  const DEPTH = 1000;
-  const JUNK_CHILDREN = 10;
-  let parent, deepest;
+function buildDeepTree(document, depth, junkChildren) {
+  const parent = document.createElement("div");
+  let deepest = parent;
 
-  return suite({
-    setup(document) {
-      parent = document.createElement("div");
-      deepest = parent;
-
-      for (let i = 0; i < DEPTH; ++i) {
-        const newNode = document.createElement("div");
-        for (let j = 0; j < JUNK_CHILDREN; ++j) {
-          newNode.appendChild(document.createElement("div"));
-        }
-
-        deepest.appendChild(newNode);
-        deepest = newNode;
-      }
-    },
-    fn() {
-      parent.compareDocumentPosition(deepest);
+  for (let i = 0; i < depth; ++i) {
+    const newNode = document.createElement("div");
+    for (let j = 0; j < junkChildren; ++j) {
+      newNode.appendChild(document.createElement("div"));
     }
-  });
-};
+    deepest.appendChild(newNode);
+    deepest = newNode;
+  }
 
-exports["compare ancestor"] = function () {
-  const DEPTH = 1000;
-  const JUNK_CHILDREN = 10;
-  let parent, deepest;
-
-  return suite({
-    setup(document) {
-      parent = document.createElement("div");
-      deepest = parent;
-
-      for (let i = 0; i < DEPTH; ++i) {
-        const newNode = document.createElement("div");
-        for (let j = 0; j < JUNK_CHILDREN; ++j) {
-          newNode.appendChild(document.createElement("div"));
-        }
-
-        deepest.appendChild(newNode);
-        deepest = newNode;
-      }
-    },
-    fn() {
-      deepest.compareDocumentPosition(parent);
-    }
-  });
-};
+  return { parent, deepest };
+}

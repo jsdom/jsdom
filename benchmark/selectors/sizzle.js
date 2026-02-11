@@ -1,88 +1,56 @@
 "use strict";
+/* eslint-disable no-console */
 
 const fs = require("node:fs");
 const path = require("node:path");
-const suite = require("../document-suite");
+const { Bench } = require("tinybench");
 const { JSDOM } = require("../..");
 
-exports.querySelectorAll = function () {
-  let document, selectors, total;
-  let count = 0;
-  let cycle = 0;
+const htmlFile = path.resolve(__dirname, "sizzle-speed/selector.html");
+const domstr = fs.readFileSync(htmlFile, { encoding: "utf8" });
 
-  return suite({
-    setup() {
-      const htmlFile = path.resolve(__dirname, "sizzle-speed/selector.html");
-      const domstr = fs.readFileSync(htmlFile, {
-        encoding: "utf8",
-        flag: "r"
-      });
-      const { window } = new JSDOM(domstr);
-      document = window.document;
-      const cssFile = path.resolve(__dirname, "sizzle-speed/selectors.large.css");
-      const css = fs.readFileSync(cssFile, {
-        encoding: "utf8",
-        flag: "r"
-      });
-      selectors = css.split("\n");
-      total = selectors.length;
-    },
-    fn() {
-      for (const selector of selectors) {
-        try {
-          document.querySelectorAll(selector);
-        } catch {
-          count++;
-        }
+const cssFile = path.resolve(__dirname, "sizzle-speed/selectors.large.css");
+const selectors = fs.readFileSync(cssFile, { encoding: "utf8" }).split("\n");
+const total = selectors.length;
+
+module.exports = () => {
+  const { document } = (new JSDOM(domstr)).window;
+  const bench = new Bench();
+
+  let qsaFails = 0;
+  let qsaCycles = 0;
+  let qsFails = 0;
+  let qsCycles = 0;
+
+  bench.add("querySelectorAll", () => {
+    for (const selector of selectors) {
+      try {
+        document.querySelectorAll(selector);
+      } catch {
+        qsaFails++;
       }
-    },
-    teardown() {
-      cycle++;
-    },
-    onComplete() {
-      // eslint-disable-next-line no-console
-      console.log(`${(count / cycle).toFixed(0)}/${total} fails.`);
+    }
+    qsaCycles++;
+  }, {
+    afterAll() {
+      console.log(`${(qsaFails / qsaCycles).toFixed(0)}/${total} fails.`);
     }
   });
-};
 
-exports.querySelector = function () {
-  let document, selectors, total;
-  let count = 0;
-  let cycle = 0;
-
-  return suite({
-    setup() {
-      const htmlFile = path.resolve(__dirname, "sizzle-speed/selector.html");
-      const domstr = fs.readFileSync(htmlFile, {
-        encoding: "utf8",
-        flag: "r"
-      });
-      const { window } = new JSDOM(domstr);
-      document = window.document;
-      const cssFile = path.resolve(__dirname, "sizzle-speed/selectors.large.css");
-      const css = fs.readFileSync(cssFile, {
-        encoding: "utf8",
-        flag: "r"
-      });
-      selectors = css.split("\n");
-      total = selectors.length;
-    },
-    fn() {
-      for (const selector of selectors) {
-        try {
-          document.querySelector(selector);
-        } catch {
-          count++;
-        }
+  bench.add("querySelector", () => {
+    for (const selector of selectors) {
+      try {
+        document.querySelector(selector);
+      } catch {
+        qsFails++;
       }
-    },
-    teardown() {
-      cycle++;
-    },
-    onComplete() {
-      // eslint-disable-next-line no-console
-      console.log(`${(count / cycle).toFixed(0)}/${total} fails.`);
+    }
+    qsCycles++;
+  }, {
+    afterAll() {
+      console.log(`${(qsFails / qsCycles).toFixed(0)}/${total} fails.`);
     }
   });
+
+  return bench;
 };

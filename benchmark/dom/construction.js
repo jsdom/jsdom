@@ -1,30 +1,36 @@
 "use strict";
-const suite = require("../document-suite");
+const documentBench = require("../document-bench");
 
-exports.createElement = suite(document => {
-  document.createElement("div");
-});
+module.exports = () => {
+  const { document, bench } = documentBench();
 
-exports.createTextNode = suite(document => {
-  document.createTextNode("foo");
-});
+  bench.add("createElement", () => {
+    document.createElement("div");
+  });
 
-exports.createComment = suite(document => {
-  document.createComment("foo");
-});
+  bench.add("createTextNode", () => {
+    document.createTextNode("foo");
+  });
 
-exports.createDocumentFragment = suite(document => {
-  document.createDocumentFragment("foo");
-});
+  bench.add("createComment", () => {
+    document.createComment("foo");
+  });
 
-exports.createNodeIterator = suite(document => {
-  document.createNodeIterator(document.documentElement);
-});
+  bench.add("createDocumentFragment", () => {
+    document.createDocumentFragment("foo");
+  });
 
-exports.createEvent = suite(document => {
-  document.createEvent("Event");
-});
+  bench.add("createNodeIterator", () => {
+    document.createNodeIterator(document.documentElement);
+  });
 
-exports.createProcessingInstruction = suite(document => {
-  document.createProcessingInstruction("php", "echo 123; ?");
-});
+  bench.add("createEvent", () => {
+    document.createEvent("Event");
+  });
+
+  bench.add("createProcessingInstruction", () => {
+    document.createProcessingInstruction("php", "echo 123; ?");
+  });
+
+  return bench;
+};

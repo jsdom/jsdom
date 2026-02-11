@@ -90,6 +90,8 @@ This project cares about performance. There are a number of benchmarks that you 
 
 **To run benchmarks:** `npm run benchmark`
 
+**To run specific suites:** `npm run benchmark -- --suite dom/construction`
+
 ## Issues
 
 If you've read this far, you should know everything there is to know about contributing to jsdom. We have [an active and full issue tracker](https://github.com/jsdom/jsdom/issues) that we'd love you to help with. Go find something broken or missing, and fix it!

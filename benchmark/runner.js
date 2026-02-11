@@ -2,45 +2,52 @@
 "use strict";
 /* eslint-disable no-console */
 
-const consoleReporter = require("./console-reporter");
-const pathToSuites = require("./path-to-suites");
-const benchmarks = require(".");
-const yargs = require("yargs/yargs");
-const { hideBin } = require("yargs/helpers");
+const fs = require("node:fs");
+const path = require("node:path");
+const { parseArgs } = require("node:util");
 
-const { argv } = yargs(hideBin(process.argv))
-  .usage("Run the jsdom benchmark suite")
-  .option("suites", {
-    type: "array",
-    alias: "s",
-    describe: "suites that you want to run, e.g.: dom/construction/createElement dom/foo"
-  })
-  .help();
+const benchmarkDir = __dirname;
+const suites = [];
+for (const category of fs.readdirSync(benchmarkDir, { withFileTypes: true })) {
+  if (!category.isDirectory()) {
+    continue;
+  }
+  for (const file of fs.readdirSync(path.join(benchmarkDir, category.name), { withFileTypes: true })) {
+    if (file.isFile() && file.name.endsWith(".js")) {
+      suites.push(`${category.name}/${path.basename(file.name, ".js")}`);
+    }
+  }
+}
+suites.sort();
 
-let suitesToRun;
-if (argv.suites) {
-  suitesToRun = pathToSuites(benchmarks, argv.suites);
-} else {
-  suitesToRun = pathToSuites(benchmarks);
+const { values } = parseArgs({
+  options: {
+    suite: {
+      type: "string",
+      multiple: true,
+      short: "s"
+    }
+  },
+  strict: false
+});
+
+let suitesToRun = suites;
+if (values.suite) {
+  suitesToRun = suites.filter(s => values.suite.some(f => s.startsWith(f)));
+
+  if (suitesToRun.length === 0) {
+    console.error(`No suites matched: ${values.suite.join(", ")}`);
+    console.error(`Available suites: ${suites.join(", ")}`);
+    process.exitCode = 1;
+  }
 }
 
-suitesToRun.forEach(consoleReporter);
+(async () => {
+  for (const suite of suitesToRun) {
+    const bench = require(`./${suite}`)();
 
-function runNext() {
-  if (this && this.off) {
-    // there is no .once()
-    this.off("complete", runNext);
+    console.log(`\n# ${suite}\n`);
+    await bench.run();
+    console.table(bench.table());
   }
-
-  const suite = suitesToRun.shift();
-  if (!suite) {
-    console.log("Done!");
-    return;
-  }
-
-  suite.off("complete", runNext);
-  suite.on("complete", runNext);
-  suite.run({ async: true });
-}
-
-runNext();
+})();

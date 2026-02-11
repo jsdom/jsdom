@@ -1,33 +1,28 @@
 "use strict";
-const suite = require("../document-suite");
+const documentBench = require("../document-bench");
 
-exports["setAttribute(): Remove a named property from window"] = function () {
-  const NODES = 1000;
-  let nodes, parent;
+const NODES = 1000;
 
-  return suite({
-    setup(document) {
-      parent = document.createElement("div");
+module.exports = () => {
+  const { document, bench } = documentBench();
 
-      nodes = new Array(NODES);
-      for (let i = 0; i < NODES; ++i) {
-        const node = document.createElement("span");
-        nodes[i] = node;
-        node.setAttribute("id", "named" + i);
-        parent.appendChild(node);
-      }
-
-      document.body.appendChild(parent);
-    },
-    tearDown(document) {
-      document.body.removeChild(parent);
-      nodes = null;
-      parent = null;
-    },
-    fn() {
-      for (let i = 0; i < NODES; ++i) {
-        nodes[i].removeAttribute("id");
-      }
+  bench.add("setAttribute(): Remove a named property from window", () => {
+    const parent = document.createElement("div");
+    const nodes = new Array(NODES);
+    for (let i = 0; i < NODES; ++i) {
+      const node = document.createElement("span");
+      nodes[i] = node;
+      node.setAttribute("id", "named" + i);
+      parent.appendChild(node);
     }
+    document.body.appendChild(parent);
+
+    for (let i = 0; i < NODES; ++i) {
+      nodes[i].removeAttribute("id");
+    }
+
+    document.body.removeChild(parent);
   });
+
+  return bench;
 };
