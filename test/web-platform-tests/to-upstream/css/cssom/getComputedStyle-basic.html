@@ -18,6 +18,7 @@ test(() => {
   assert_equals(computed.cssText, "", "Computed CSS text is empty string.");
   assert_equals(div.style.backgroundColor, "", "Specified property value is empty string");
   assert_equals(computed.backgroundColor, "rgba(0, 0, 0, 0)", "Computed property value is resolved initial value.");
+  assert_not_equals(computed, window.getComputedStyle(div), "getComputedStyle() creates new instance each time.");
 }, "Sanity check");
 
 test(() => {
