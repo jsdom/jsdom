@@ -16,16 +16,7 @@ historical.https.html:
 idlharness.any.html: [fail, URL.createObjectURL not implemented]
 idlharness.html: [fail, URL.createObjectURL not implemented]
 reading-data-section/FileReader-multiple-reads.any.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
-reading-data-section/filereader_events.any.html: [fail, Unknown]
-reading-data-section/filereader_result.any.html:
-  'result is null during "loadstart" event for readAsText': [fail, Unknown]
-  'result is null during "loadstart" event for readAsDataURL': [fail, Unknown]
-  'result is null during "loadstart" event for readAsArrayBuffer': [fail, Unknown]
-  'result is null during "loadstart" event for readAsBinaryString': [fail, Unknown]
-  'result is null during "progress" event for readAsText': [fail, Unknown]
-  'result is null during "progress" event for readAsDataURL': [fail, Unknown]
-  'result is null during "progress" event for readAsArrayBuffer': [fail, Unknown]
-  'result is null during "progress" event for readAsBinaryString': [fail, Unknown]
+reading-data-section/filereader_events.any.html: [fail, jsdom lacks microtask checkpoints during event dispatch]
 url/**: [timeout, blob URLs not implemented]
 
 ---
