@@ -3,15 +3,11 @@ DIR: FileAPI
 Blob-methods-from-detached-frame.html: [timeout, Unknown]
 BlobURL/**: [fail, Unknown]
 FileReader/workers.html: [fail, Needs Worker implementation]
-blob/Blob-array-buffer.any.html: [fail, Depends on TextEncoder]
-blob/Blob-bytes.any.html: [fail, Depends on TextEncoder]
-blob/Blob-constructor-dom.window.html:
-  "Passing an platform object that supports indexed properties as the blobParts array should work (select).": [fail, Unknown]
-  "Passing an platform object that supports indexed properties as the blobParts array should work (attributes).": [fail, Unknown]
-blob/Blob-constructor.any.html: [fail, Unknown]
-blob/Blob-slice.any.html: [fail, Unknown]
+blob/Blob-constructor.any.html:
+  "Blob interface object": [fail, function is not instanceof Function]
+  "Passing a Float16Array as element of the blobParts array should work.": [fail-lt-node24, Float16Array not implemented]
+  "Passing a FrozenArray as the blobParts array should work (FrozenArray<MessagePort>).": [fail, MessageChannel not implemented]
 blob/Blob-stream.any.html: [fail, Unknown]
-blob/Blob-text.any.html: [fail, Depends on TextEncoder]
 file/send-file-form*: [fail, DataTransfer not implemented]
 filelist-section/filelist.html:
   "Check if item is a instanceof Function": [fail, function is not instanceof Function]

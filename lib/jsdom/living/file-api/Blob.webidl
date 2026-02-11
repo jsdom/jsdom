@@ -11,6 +11,11 @@ interface Blob {
   Blob slice([Clamp] optional long long start,
             [Clamp] optional long long end,
             optional DOMString contentType);
+
+  // read from the Blob.
+  [NewObject] Promise<USVString> text();
+  [NewObject] Promise<ArrayBuffer> arrayBuffer();
+  [NewObject] Promise<Uint8Array> bytes();
 };
 
 enum EndingType { "transparent", "native" };
