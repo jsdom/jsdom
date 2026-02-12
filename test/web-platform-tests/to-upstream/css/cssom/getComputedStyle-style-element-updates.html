@@ -9,7 +9,7 @@
 
 <style>
   .my-class {
-    font-size: 1.5em;
+    font-size: 24px;
   }
 </style>
 
@@ -21,26 +21,26 @@ const el = document.querySelector(".my-class");
 let insertedStyle;
 
 test(() => {
-  assert_equals(getComputedStyle(el).fontSize, "1.5em");
+  assert_equals(getComputedStyle(el).fontSize, "24px");
 }, "Sanity check: getComputedStyle works as expected");
 
 test(() => {
   insertedStyle = document.createElement("style");
-  insertedStyle.textContent = ".my-class { font-size: 2em; }";
+  insertedStyle.textContent = ".my-class { font-size: 32px; }";
   document.head.appendChild(insertedStyle);
 
-  assert_equals(getComputedStyle(el).fontSize, "2em");
+  assert_equals(getComputedStyle(el).fontSize, "32px");
 }, "Inserting a new CSS element that overrides the old one updates the computed style");
 
 test(() => {
-  insertedStyle.textContent = ".my-class { font-size: 3em; }";
+  insertedStyle.textContent = ".my-class { font-size: 48px; }";
 
-  assert_equals(getComputedStyle(el).fontSize, "3em");
+  assert_equals(getComputedStyle(el).fontSize, "48px");
 }, "Updating the inserted CSS element changes the computed style");
 
 test(() => {
   document.head.removeChild(insertedStyle);
 
-  assert_equals(getComputedStyle(el).fontSize, "1.5em");
+  assert_equals(getComputedStyle(el).fontSize, "24px");
 }, "Removing the inserted CSS element updates the computed style back to original value");
 </script>
