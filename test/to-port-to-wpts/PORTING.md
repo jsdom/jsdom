@@ -7,6 +7,21 @@ Each file here should be resolved by converting to WPT (placing the result in
 `test/web-platform-tests/to-upstream/`), moving to `test/api/`, or deleting
 as redundant with passing upstream WPTs.
 
+## Browser verification
+
+After creating or modifying to-upstream tests, verify they pass in a real
+browser:
+
+```sh
+npm run test:tuwpt:browser                   # all to-upstream tests
+npm run test:tuwpt:browser -- domparsing     # substring filter
+```
+
+This starts the WPT Python server, opens your default browser, runs the tests,
+and prints a summary. Any failures indicate bugs in the test itself (since
+browsers are the reference implementation). Fix or file as dont-upstream before
+committing.
+
 ## Conventions
 
 When porting, prefer enabling upstream WPT coverage over writing new tests:

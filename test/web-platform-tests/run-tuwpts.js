@@ -1,9 +1,8 @@
 "use strict";
 /* eslint-disable no-console */
 const path = require("node:path");
-const { spawnSync } = require("node:child_process");
 const { describe, before, after } = require("mocha-sugar-free");
-const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
+const { regenerateManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const wptServer = require("./wpt-server.js");
 const { killSubprocess, spawnSyncFiltered } = require("./utils.js");
 const { checkToUpstreamExpectations, runTestWithExpectations } = require("./expectations-utils.js");
@@ -14,16 +13,7 @@ const relativeTestsPath = path.relative(wptPath, testsPath);
 const expectationsFilename = "to-upstream-expectations.yaml";
 
 // We can afford to re-generate the manifest each time; we have few enough files that it's cheap.
-const manifestFilename = path.resolve(__dirname, "tuwpt-manifest.json");
-const manifestResult = spawnSync(
-  "python",
-  ["./wpt.py", "manifest", "--tests-root", relativeTestsPath, "--path", path.relative(wptPath, manifestFilename)],
-  { cwd: wptPath, stdio: "inherit" }
-);
-if (manifestResult.status !== 0) {
-  console.error("Manifest generation failed");
-  process.exit(1);
-}
+const manifest = regenerateManifest(testsPath, path.resolve(__dirname, "tuwpt-manifest.json"));
 
 // Similarly we run the lint each time.
 const lintResult = spawnSyncFiltered(
@@ -35,8 +25,6 @@ if (lintResult.status !== 0) {
   console.error("Linting failed");
   process.exit(1);
 }
-
-const manifest = readManifest(manifestFilename);
 const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 
 const { minimatchers, expectations } = checkToUpstreamExpectations(
