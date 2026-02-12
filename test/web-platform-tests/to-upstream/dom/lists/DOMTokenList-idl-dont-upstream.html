@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- Passing subset of upstream dom/idlharness.window.html?exclude=Node,
+     which fails because it depends on fetch. -->
+<meta charset="utf-8">
+<title>DOMTokenList IDL properties via classList</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#interface-domtokenlist">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<p class="a b">test</p>
+
+<script>
+"use strict";
+
+const el = document.querySelector("p");
+
+test(() => {
+  assert_equals(el.classList.constructor, DOMTokenList);
+}, "classList.constructor is DOMTokenList");
+
+test(() => {
+  const classList1 = el.classList;
+  const classList2 = el.classList;
+  assert_equals(classList1, classList2);
+}, "classList returns the same object on repeated access");
+
+test(() => {
+  assert_throws_js(TypeError, () => {
+    el.classList.length = 42;
+  });
+}, "classList.length is readonly");
+</script>

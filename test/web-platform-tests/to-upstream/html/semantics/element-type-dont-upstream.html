@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- Passing subset of upstream html/semantics/interfaces.html, which is not enabled because
+     adding DIR: html/semantics would be too broad. -->
+<meta charset="utf-8">
+<title>Element type for unknown, known, and non-inherited elements</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dom.html#elements-in-the-dom">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<foobar></foobar>
+<div></div>
+
+<script>
+"use strict";
+
+test(() => {
+  const el = document.createElement("foobar");
+  assert_equals(el.constructor, HTMLUnknownElement,
+    "unknown element should be HTMLUnknownElement (createElement)");
+  assert_true(el instanceof HTMLElement,
+    "unknown element should be an instance of HTMLElement (createElement)");
+
+  const el2 = document.querySelector("foobar");
+  assert_equals(el2.constructor, HTMLUnknownElement,
+    "unknown element should be HTMLUnknownElement (parsing)");
+  assert_true(el2 instanceof HTMLElement,
+    "unknown element should be an instance of HTMLElement (parsing)");
+}, "Unknown elements should be HTMLUnknownElement");
+
+test(() => {
+  const el = document.createElement("div");
+  assert_equals(el.constructor, HTMLDivElement,
+    "div element should be HTMLDivElement (createElement)");
+  assert_true(el instanceof HTMLElement,
+    "div element should be an instance of HTMLElement (createElement)");
+
+  const el2 = document.querySelector("div");
+  assert_equals(el2.constructor, HTMLDivElement,
+    "div element should be HTMLDivElement (parsing)");
+  assert_true(el2 instanceof HTMLElement,
+    "div element should be an instance of HTMLElement (parsing)");
+}, "Known elements should have their respective types");
+
+const nonInheritedTags = [
+  "article", "section", "nav", "aside", "hgroup", "header", "footer", "address",
+  "dt", "dd", "figure", "figcaption", "main", "em", "strong", "small", "s",
+  "cite", "abbr", "code", "i", "b", "u"
+];
+
+for (const tag of nonInheritedTags) {
+  test(() => {
+    const parsed = document.createElement("div");
+    parsed.innerHTML = "<" + tag + "></" + tag + ">";
+    assert_equals(parsed.firstChild.constructor, HTMLElement,
+      tag + " element should be HTMLElement (innerHTML)");
+
+    const created = document.createElement(tag);
+    assert_equals(created.constructor, HTMLElement,
+      tag + " element should be HTMLElement (createElement)");
+  }, "Non-inherited element <" + tag + "> should be HTMLElement");
+}
+</script>

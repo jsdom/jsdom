@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- Passing subset of upstream html/dom/documents/dom-tree-accessors/Document.currentScript.html,
+     which is fail-slow due to complex async subtests involving iframes, XHR, and cross-origin scripts. -->
+<meta charset="utf-8">
+<title>document.currentScript for external scripts</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dom.html#dom-document-currentscript">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="support/Document-currentScript-external.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  assert_true(window.__externalCurrentScript instanceof HTMLScriptElement);
+}, "currentScript is an HTMLScriptElement during external script execution");
+
+test(() => {
+  assert_true(window.__externalCurrentScript.src.includes("Document-currentScript-external.js"));
+}, "currentScript.src reflects the external script URL");
+</script>

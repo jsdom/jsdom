@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- Passing subset of upstream html/webappapis/scripting/events/messageevent-constructor.https.html,
+     which partially fails due to MessageChannel/ServiceWorker dependencies. -->
+<meta charset="utf-8">
+<title>MessageEvent constructor</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/comms.html#messageevent">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const event = new MessageEvent("fake type");
+
+  assert_equals(event.type, "fake type");
+  assert_throws_js(TypeError, () => { event.type = "oh no"; });
+}, "MessageEvent type property is read-only");
+
+test(() => {
+  const event = new MessageEvent("fake type", { data: "fake data" });
+
+  assert_equals(event.data, "fake data");
+  assert_throws_js(TypeError, () => { event.data = "oh no"; });
+}, "MessageEvent data property is read-only");
+</script>

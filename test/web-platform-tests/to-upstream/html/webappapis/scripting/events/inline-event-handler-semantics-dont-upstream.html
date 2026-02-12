@@ -1,0 +1,156 @@
+<!doctype html>
+<!-- Passing subset of upstream html/webappapis/scripting/events/event-handler-attributes-body-window.html
+     and event-handler-attributes-windowless-body.html, which fail entirely because their shared
+     event-handler-body.js fetches /interfaces/html.idl. -->
+<meta charset="utf-8">
+<title>Inline event handler semantics</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-content-attributes">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#the-event-handler-processing-algorithm">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="click-scope" onclick="document.scopeResult = 'clicked'"></div>
+<div id="click-return" onclick="return 10"></div>
+<div id="click-event" onclick="document.clickBubbles = event.bubbles"></div>
+
+<script>
+"use strict";
+setup({ allow_uncaught_exception: true });
+
+test(() => {
+  const div = document.getElementById("click-scope");
+  div.click();
+  assert_equals(document.scopeResult, "clicked");
+}, "Inline event handlers have the correct global scope");
+
+test(() => {
+  document.body.setAttribute("onerror", "document.errorScopeResult = 'errored'");
+  const e = new ErrorEvent("error");
+  window.dispatchEvent(e);
+  document.body.removeAttribute("onerror");
+  assert_equals(document.errorScopeResult, "errored");
+}, "Inline error event handlers have the correct global scope");
+
+test(() => {
+  const div = document.getElementById("click-return");
+  assert_equals(div.onclick(), 10);
+}, "Inline event handlers have their return values reflected in the corresponding property");
+
+test(() => {
+  document.body.setAttribute("onerror", "return 10");
+  assert_equals(window.onerror(), 10);
+  document.body.removeAttribute("onerror");
+}, "Inline error event handlers have their return values reflected in the corresponding property");
+
+test(() => {
+  const div = document.getElementById("click-event");
+  div.click();
+  assert_equals(document.clickBubbles, true);
+}, "Inline event handlers have access to an event argument");
+
+test(() => {
+  const errorObj = { should: "be this object" };
+  document.body.setAttribute("onerror", `
+    document.onerrorEvent = event;
+    document.onerrorSource = source;
+    document.onerrorLineno = lineno;
+    document.onerrorColno = colno;
+    document.onerrorError = error;
+  `);
+  const e = new ErrorEvent("error", {
+    message: "message blah",
+    filename: "filenameblahblah",
+    lineno: 5,
+    colno: 10,
+    error: errorObj
+  });
+  window.dispatchEvent(e);
+  document.body.removeAttribute("onerror");
+
+  assert_equals(document.onerrorEvent, "message blah");
+  assert_equals(document.onerrorSource, "filenameblahblah");
+  assert_equals(document.onerrorLineno, 5);
+  assert_equals(document.onerrorColno, 10);
+  assert_equals(document.onerrorError, errorObj);
+}, "Inline error event handlers have access to all five arguments");
+
+test(() => {
+  const div = document.createElement("div");
+  document.body.appendChild(div);
+  div.onclick = function (event) {
+    assert_true(event instanceof PointerEvent);
+  };
+  div.click();
+  div.remove();
+}, "Event handlers set via properties receive the event argument");
+
+test(() => {
+  const errorObj = { should: "be this object" };
+  let receivedArgs;
+
+  window.onerror = function (event, source, lineno, colno, error) {
+    receivedArgs = { event, source, lineno, colno, error };
+    return true;
+  };
+
+  const e = new ErrorEvent("error", {
+    message: "message blah",
+    filename: "filenameblahblah",
+    lineno: 5,
+    colno: 10,
+    error: errorObj
+  });
+  window.dispatchEvent(e);
+  window.onerror = null;
+
+  assert_equals(receivedArgs.event, "message blah");
+  assert_equals(receivedArgs.source, "filenameblahblah");
+  assert_equals(receivedArgs.lineno, 5);
+  assert_equals(receivedArgs.colno, 10);
+  assert_equals(receivedArgs.error, errorObj);
+}, "Error event handlers set via properties receive all five arguments");
+
+const proxiedHandlers = [
+  "onblur", "onerror", "onfocus", "onload", "onresize", "onscroll", "onafterprint",
+  "onbeforeprint", "onbeforeunload", "onhashchange", "onlanguagechange", "onmessage", "onoffline", "ononline",
+  "onpagehide", "onpageshow", "onpopstate", "onstorage", "onunload"
+];
+
+test(() => {
+  for (const name of proxiedHandlers) {
+    function handler() {
+      // doesn't matter for this test
+    }
+
+    document.body[name] = handler;
+    assert_equals(document.body[name], handler, `${name} should be set on the body correctly`);
+    assert_equals(window[name], handler, `${name} should be set on the window correctly`);
+
+    document.body[name] = null;
+    assert_equals(document.body[name], null, `${name} should be unset on the body correctly`);
+    assert_equals(window[name], null, `${name} should be unset on the window correctly`);
+  }
+}, "Proxied body/window event handlers: setting on body as properties reflects on window");
+
+test(() => {
+  for (const name of proxiedHandlers) {
+    document.body.setAttribute(name, "return 5;");
+    assert_equals(document.body[name](), 5, `${name} should be set on the body correctly`);
+    assert_equals(window[name](), 5, `${name} should be set on the window correctly`);
+
+    document.body.removeAttribute(name);
+    assert_equals(document.body[name], null, `${name} should be unset on the body correctly`);
+    assert_equals(window[name], null, `${name} should be unset on the window correctly`);
+  }
+}, "Proxied body/window event handlers: setting on body as attributes reflects on window");
+
+test(() => {
+  const doc = document.implementation.createHTMLDocument();
+
+  for (const name of proxiedHandlers) {
+    doc.body.setAttribute(name, "return 5;");
+    assert_equals(doc.body[name], null, `${name} should be null`);
+    doc.body.removeAttribute(name);
+  }
+}, "Proxied body/window event handlers: setting as attributes should not throw without a window");
+</script>
