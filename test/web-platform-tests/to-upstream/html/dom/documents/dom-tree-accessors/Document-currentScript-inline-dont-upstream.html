@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- Passing subset of upstream html/dom/documents/dom-tree-accessors/Document.currentScript.html,
+     which is fail-slow due to complex async subtests involving external scripts and iframes. -->
+<meta charset="utf-8">
+<title>document.currentScript for inline scripts</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dom.html#dom-document-currentscript">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  assert_true(document.currentScript instanceof HTMLScriptElement,
+    "currentScript should be an HTMLScriptElement during execution");
+  assert_true(document.currentScript.textContent.includes("currentScript instanceof HTMLScriptElement"),
+    "currentScript should reference the currently executing script");
+}, "document.currentScript is the currently executing script element");
+
+async_test(t => {
+  assert_not_equals(document.currentScript, null, "currentScript is non-null during execution");
+  setTimeout(t.step_func_done(() => {
+    assert_equals(document.currentScript, null, "currentScript is null after script execution");
+  }), 0);
+}, "document.currentScript is null at top-level after script execution");
+</script>
