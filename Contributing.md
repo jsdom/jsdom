@@ -70,6 +70,10 @@ Sometimes, especially when working on bug fixes, there are no web platform tests
 
 If you end up writing a test which passes in browsers, but you cannot get it to pass in jsdom, then it might be worthwhile submitting the test anyway, for future jsdom contributors. To do this, place the test in the appropriate part of the `to-upstream` directory as normal, and then add a line to [the `to-upstream-expectations.yaml` file](https://github.com/jsdom/jsdom/blob/main/test/web-platform-tests/to-upstream-expectations.yaml) saying that the test fails, and pointing to the issue which reports on your progress.
 
+**To verify to-upstream tests pass in a real browser:** `npm run test:tuwpt:browser`
+
+This starts a local WPT server, opens your default browser, runs all to-upstream tests, and prints a summary. You can optionally pass substring filters to run specific tests, e.g. `npm run test:tuwpt:browser -- domparsing`.
+
 ### jsdom API tests
 
 If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test. Such tests are written using [Mocha](https://mochajs.org/).
