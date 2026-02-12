@@ -45,8 +45,9 @@ describe("JSDOMDispatcher unit tests", () => {
     const mockBaseDispatcher = {
       dispatch(opts, handler) {
         capturedOpts = opts;
-        handler.onRequestStart?.({});
-        handler.onRequestUpgrade?.({}, 101, {}, { on() {}, removeListener() {} });
+        // Handlers arriving here have been converted to old-style by JSDOMDispatcher.
+        handler.onConnect(() => {});
+        handler.onUpgrade(101, [], { on() {}, removeListener() {} });
         return true;
       },
       close() {},
@@ -156,6 +157,90 @@ describe("JSDOMDispatcher unit tests", () => {
     assert.equal(opaque.customField, "custom-value");
     assert.equal(opaque.customData, customData);
   });
+
+  it("should work with an old-style-only base dispatcher (undici v6 compat)", async () => {
+    const responseBody = Buffer.from("hello from v6");
+    const mockBaseDispatcher = {
+      dispatch(opts, handler) {
+        // Validate old-style handler contract, like undici v6's assertRequestHandler does.
+        // v6 does NOT check for onRequestStart; it requires old-style methods.
+        if (typeof handler.onConnect !== "function") {
+          throw new Error("invalid onConnect method");
+        }
+        if (typeof handler.onError !== "function") {
+          throw new Error("invalid onError method");
+        }
+        if (typeof handler.onHeaders !== "function") {
+          throw new Error("invalid onHeaders method");
+        }
+        if (typeof handler.onData !== "function") {
+          throw new Error("invalid onData method");
+        }
+        if (typeof handler.onComplete !== "function") {
+          throw new Error("invalid onComplete method");
+        }
+
+        // Simulate a v6-style response with raw Buffer headers
+        handler.onConnect(() => {});
+        handler.onHeaders(
+          200,
+          [Buffer.from("content-type"), Buffer.from("text/plain"), Buffer.from("x-test"), Buffer.from("works")],
+          () => {},
+          "OK"
+        );
+        handler.onData(responseBody);
+        handler.onComplete([]);
+        return true;
+      },
+      close() {},
+      destroy() {},
+      closed: false,
+      destroyed: false
+    };
+    const cookieJar = new toughCookie.CookieJar();
+    const dispatcher = new JSDOMDispatcher({
+      baseDispatcher: mockBaseDispatcher,
+      cookieJar
+    });
+
+    const result = await new Promise((resolve, reject) => {
+      const chunks = [];
+      dispatcher.dispatch({
+        origin: "http://localhost",
+        path: "/test",
+        method: "GET",
+        headers: {},
+        opaque: { url: "http://localhost/test" }
+      }, {
+        onRequestStart() {},
+        onResponseStart(controller, statusCode, headers, statusText) {
+          this._status = statusCode;
+          this._headers = headers;
+          this._statusText = statusText;
+        },
+        onResponseData(controller, chunk) {
+          chunks.push(chunk);
+        },
+        onResponseEnd() {
+          resolve({
+            status: this._status,
+            headers: this._headers,
+            statusText: this._statusText,
+            body: Buffer.concat(chunks)
+          });
+        },
+        onResponseError(controller, err) {
+          reject(err);
+        }
+      });
+    });
+
+    assert.equal(result.status, 200);
+    assert.equal(result.statusText, "OK");
+    assert.equal(result.headers["content-type"], "text/plain");
+    assert.equal(result.headers["x-test"], "works");
+    assert.deepEqual(result.body, responseBody);
+  });
 });
 
 function createCapturingDispatcher() {
@@ -163,9 +248,10 @@ function createCapturingDispatcher() {
   const mockBaseDispatcher = {
     dispatch(opts, handler) {
       capturedOpts = opts;
-      handler.onRequestStart?.({});
-      handler.onResponseStart?.({}, 200, {}, "OK");
-      handler.onResponseEnd?.({}, {});
+      // Handlers arriving here have been converted to old-style by JSDOMDispatcher.
+      handler.onConnect(() => {});
+      handler.onHeaders(200, [], () => {}, "OK");
+      handler.onComplete([]);
       return true;
     },
     close() {},
