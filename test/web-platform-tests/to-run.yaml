@@ -1530,7 +1530,6 @@ other-elements-attributes-and-apis/document-color-03.html: [fail, Legacy color a
 other-elements-attributes-and-apis/document-color-04.html: [fail, Legacy color attributes not implemented]
 the-marquee-element-0/marquee-events-historical.html: [timeout, <marquee> is not implemented]
 the-marquee-element-0/marquee-loop.html: [fail, <marquee> is not implemented]
-the-marquee-element-0/marquee-overflow.html: [fail, <marquee> is not implemented]
 the-marquee-element-0/marquee-scrollamount.html: [fail, <marquee> is not implemented]
 the-marquee-element-0/marquee-scrolldelay.html: [fail, <marquee> is not implemented]
 
