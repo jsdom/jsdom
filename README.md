@@ -89,7 +89,7 @@ Again we emphasize to only use this when feeding jsdom code you know is safe. If
 
 If you want to execute _external_ scripts, included via `<script src="">`, you'll also need to ensure that they load them. To do this, add the option `resources: "usable"` [as described below](#loading-subresources). (You'll likely also want to set the `url` option, for the reasons discussed there.)
 
-Event handler attributes, like `<div onclick="">`, are also governed by this setting; they will not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
+Event handler attributes, like `<div onclick="">`, are also governed by this setting; they will not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.) Note that this guarantee covers the web content being processed by jsdom. It does not cover scenarios where the host Node.js environment itself has been compromised (e.g. through prototype pollution). See the [security policy](https://github.com/jsdom/.github/blob/master/SECURITY.md) for more details.
 
 If you are simply trying to execute script "from the outside", instead of letting `<script>` elements and event handlers attributes run "from the inside", you can use the `runScripts: "outside-only"` option, which enables fresh copies of all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
 
