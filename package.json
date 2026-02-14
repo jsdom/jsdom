@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@acemir/cssom": "^0.9.31",
-    "@asamuzakjp/dom-selector": "^6.7.8",
+    "@asamuzakjp/dom-selector": "^6.8.0",
     "@bramus/specificity": "^2.4.2",
     "@exodus/bytes": "^1.11.0",
     "cssstyle": "^6.0.1",
