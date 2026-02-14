@@ -69,4 +69,22 @@ test(() => {
   assert_equals(svgNum.value, 1);
 }, "createSVGNumber");
 
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  document.body.appendChild(svg);
+
+  let svgHandlerCalled = false;
+  svg.onload = () => {
+    svgHandlerCalled = true;
+  };
+
+  assert_not_equals(svg.onload, null, "SVGSVGElement should have its own onload handler");
+  assert_equals(window.onload, null, "Setting onload on SVGSVGElement should not proxy to Window");
+
+  svg.dispatchEvent(new Event("load"));
+  assert_true(svgHandlerCalled, "The handler on the SVGSVGElement should have been called");
+
+  svg.remove();
+}, "SVGSVGElement event handlers should not proxy to Window");
+
 </script>
