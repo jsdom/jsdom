@@ -4,28 +4,39 @@ const fs = require("node:fs");
 const { specify } = require("mocha-sugar-free");
 const jsYAML = require("js-yaml");
 const { Minimatch } = require("minimatch");
+const semver = require("semver");
 const { Canvas } = require("../../lib/jsdom/utils.js");
 
 const hasCanvas = Boolean(Canvas);
-const nodeMajorVersion = Number.parseInt(process.versions.node.split(".")[0]);
 
 const validInnerReasons = new Set([
   "fail",
-  "fail-with-canvas",
-  "fail-lt-node22",
-  "fail-lt-node24"
+  "fail-with-canvas"
 ]);
 
 const validReasons = new Set([
   "fail",
   "fail-slow",
   "fail-with-canvas",
-  "fail-lt-node24",
   "timeout",
   "flaky",
   "needs-canvas",
   "pass-slow"
 ]);
+
+const nodeVersionReasonPattern = /^(fail|skip)-node:(.+)$/;
+
+function parseNodeVersionReason(reason) {
+  const match = nodeVersionReasonPattern.exec(reason);
+  if (!match) {
+    return undefined;
+  }
+  const [, type, range] = match;
+  if (!semver.validRange(range)) {
+    return undefined;
+  }
+  return { type, range };
+}
 
 exports.checkToUpstreamExpectations = (toUpstreamExpectationsFilename, possibleTestFilePaths) => {
   const toRunString = fs.readFileSync(toUpstreamExpectationsFilename, { encoding: "utf-8" });
@@ -162,13 +173,19 @@ function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } 
 
     if (Array.isArray(data)) {
       const reason = data[0];
-      if (!validReasons.has(reason)) {
+      if (!validReasons.has(reason) && !parseNodeVersionReason(reason)) {
         throw new Error(`Bad reason "${reason}" for expectation "${pattern}"`);
       }
     } else {
       for (const [subtest, [innerReason]] of Object.entries(data)) {
         if (!validInnerReasons.has(innerReason)) {
-          if (!validReasons.has(innerReason)) {
+          const parsed = parseNodeVersionReason(innerReason);
+          if (parsed) {
+            if (parsed.type === "skip") {
+              throw new Error(`Reason "${innerReason}" is only supported for files, not subtests (expectation "${
+                pattern}", subtest "${subtest}")`);
+            }
+          } else if (!validReasons.has(innerReason)) {
             throw new Error(`Bad reason "${innerReason}" for expectation "${pattern}" and subtest "${subtest}"`);
           } else {
             throw new Error(`Reason "${innerReason}" is only supported for files, not subtests (expectation "${
@@ -198,12 +215,12 @@ function resolveReason(reason) {
     return "skip";
   }
 
-  if (reason === "fail-lt-node22" && nodeMajorVersion < 22) {
-    return "expect-fail";
-  }
-
-  if (reason === "fail-lt-node24" && nodeMajorVersion < 24) {
-    return "expect-fail";
+  const parsed = parseNodeVersionReason(reason);
+  if (parsed) {
+    if (semver.satisfies(process.versions.node, parsed.range)) {
+      return parsed.type === "skip" ? "skip" : "expect-fail";
+    }
+    return "run";
   }
 
   if (reason === "fail" ||
