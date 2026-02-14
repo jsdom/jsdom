@@ -10,8 +10,8 @@ const transformer = new Webidl2js({
   implSuffix: "-impl",
   suppressErrors: true,
   processCEReactions(code) {
-    const preSteps = this.addImport("../helpers/custom-elements", "ceReactionsPreSteps");
-    const postSteps = this.addImport("../helpers/custom-elements", "ceReactionsPostSteps");
+    const preSteps = this.addImport("../../jsdom/living/helpers/custom-elements", "ceReactionsPreSteps");
+    const postSteps = this.addImport("../../jsdom/living/helpers/custom-elements", "ceReactionsPostSteps");
 
     return `
       ${preSteps}(globalObject);
@@ -23,7 +23,7 @@ const transformer = new Webidl2js({
     `;
   },
   processHTMLConstructor() {
-    const identifier = this.addImport("../helpers/html-constructor", "HTMLConstructor");
+    const identifier = this.addImport("../../jsdom/living/helpers/html-constructor", "HTMLConstructor");
 
     return `
       return ${identifier}(globalObject, interfaceName, new.target);
@@ -67,11 +67,11 @@ addDir("../../lib/jsdom/living/window");
 addDir("../../lib/jsdom/living/xhr");
 addDir("../../lib/jsdom/living/webidl");
 
-const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
+const outputDir = path.resolve(__dirname, "../../lib/generated/idl/");
 
 // Clean up any old stuff lying around.
 fs.rmSync(outputDir, { force: true, recursive: true, maxRetries: 2 });
-fs.mkdirSync(outputDir);
+fs.mkdirSync(outputDir, { recursive: true });
 
 transformer.generate(outputDir)
   .catch(err => {

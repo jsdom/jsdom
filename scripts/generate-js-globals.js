@@ -9,7 +9,9 @@ const assert = require("assert");
 // We generate this at build time instead of runtime because we want to avoid the performance and memory overhead of
 // creating a new context when scripting is disabled in the JSDOM.
 
-const dest = path.resolve(__dirname, "../lib/jsdom/browser/js-globals.json");
+const dest = path.resolve(__dirname, "../lib/generated/js-globals.json");
+
+fs.mkdirSync(path.dirname(dest), { recursive: true });
 
 const context = vm.createContext();
 
