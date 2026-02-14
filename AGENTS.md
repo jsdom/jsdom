@@ -37,6 +37,8 @@ npm run test:wpt -- --fgrep "some-test.htm" 2>&1              # Just run it, no 
 
 All these commands can be restricted to specific tests, e.g. `npm run test:tuwpt -- --fgrep css-borders` or `npm run test:wpt -- --fgrep WebSocket/readyState/006.html`. It is often best to run a single test in that latter fashion while iterating, before finally running a larger suite like `npm run test:wpt -- --fgrep xhr` or `npm run test:tuwpt`.
 
+**IMPORTANT:** The `--fgrep` value is a plain substring match against test titles, NOT a file path. Do not include trailing slashes (e.g. use `--fgrep xhr`, not `--fgrep "xhr/"`).
+
 ## npm scripts
 
 Always use the project's npm scripts rather than running tools directly. Use `npm run lint` instead of `npx eslint`, `npm run test:api` instead of `npx mocha test/api`, etc. The scripts have specific configurations.
