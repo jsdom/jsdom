@@ -916,7 +916,6 @@ Document-createEvent.https.html:
   "createEvent('textevent') should be initialized correctly.": [fail, Interface not implemented]
   "TEXTEVENT should be an alias for TextEvent.": [fail, Interface not implemented]
   "createEvent('TEXTEVENT') should be initialized correctly.": [fail, Interface not implemented]
-Document-getElementById.html: [fail, We cache IDs in insertion order]
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
 Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
