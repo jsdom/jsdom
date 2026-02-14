@@ -65,6 +65,7 @@
     "npm-run-all2": "^8.0.4",
     "opener": "^1.5.2",
     "pngjs": "^7.0.0",
+    "semver": "^7.7.4",
     "server-destroy": "^1.0.1",
     "tinybench": "^6.0.0",
     "webidl2": "^24.5.0",
