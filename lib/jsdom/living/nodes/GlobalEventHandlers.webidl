@@ -1,5 +1,4 @@
-// Must be kept in sync with GlobalEventHandlers-impl.js.
-
+// https://html.spec.whatwg.org/#globaleventhandlers
 interface mixin GlobalEventHandlers {
   attribute EventHandler onabort;
   attribute EventHandler onauxclick;
