@@ -67,11 +67,13 @@
     "pngjs": "^7.0.0",
     "server-destroy": "^1.0.1",
     "tinybench": "^6.0.0",
+    "webidl2": "^24.5.0",
     "webidl2js": "^19.1.0"
   },
   "scripts": {
     "prepare": "npm-run-all prepare:*",
     "prepare:convert-idl": "node ./scripts/webidl/convert.js",
+    "prepare:generate-event-sets": "node ./scripts/generate-event-sets.js",
     "prepare:generate-js-globals": "node ./scripts/generate-js-globals.js",
     "pretest": "npm run prepare && npm run wpt:init",
     "test": "npm-run-all --continue-on-error test:*",
