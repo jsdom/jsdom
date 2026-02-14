@@ -471,7 +471,31 @@ console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
 
 ### Canvas support
 
-jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include `canvas` as a dependency in your project, as a peer of `jsdom`. If jsdom can find version 3.x of the `canvas` package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
+jsdom includes support for using either the [`canvas`](https://www.npmjs.com/package/canvas) package or the [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) package to extend any `<canvas>` elements with the canvas API.
+
+**Recommended**: Install `@napi-rs/canvas` for faster installation with zero system dependencies:
+
+```bash
+npm install @napi-rs/canvas
+```
+
+**Alternative**: Use the `canvas` package (requires system dependencies like Cairo, Pango, etc.):
+
+```bash
+npm install canvas
+```
+
+jsdom will automatically detect which package is installed. If both packages are installed, jsdom will prefer `@napi-rs/canvas`. If neither is installed, then `<canvas>` elements will behave like `<div>`s.
+
+**Migrating from canvas to @napi-rs/canvas**:
+
+If you're currently using `canvas` and want to switch to `@napi-rs/canvas`:
+
+1. Uninstall the old package: `npm uninstall canvas`
+2. Install the new package: `npm install @napi-rs/canvas`
+3. No code changes needed in your application - jsdom handles the rest!
+
+Note: Due to different rendering engines (Cairo vs Skia), there may be minor pixel-level differences in output. If you have tests that do pixel-perfect image comparisons, you may need to update test fixtures.
 
 ### Encoding sniffing
 
