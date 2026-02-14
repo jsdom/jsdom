@@ -4,6 +4,7 @@
 <link rel="help" href="https://drafts.csswg.org/selectors/#specificity-rules">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3318 -->
 
 <style>
   .baz {
@@ -36,7 +37,7 @@
 
 const div = document.getElementById("div");
 
-test((t) => {
+test(t => {
   t.add_cleanup(() => {
     div.classList.remove("foo", "bar", "baz", "qux");
   });
@@ -48,7 +49,7 @@ test((t) => {
   assert_equals(window.getComputedStyle(div).fontSize, "12px", "match .foo.bar font-size");
 }, "Basic");
 
-test((t) => {
+test(t => {
   t.add_cleanup(() => {
     div.classList.remove("foo", "bar", "baz", "qux");
   });
@@ -58,7 +59,7 @@ test((t) => {
   assert_equals(window.getComputedStyle(div).fontSize, "24px", "match :is(.qux) font-size");
 }, "Logical :is()");
 
-test((t) => {
+test(t => {
   t.add_cleanup(() => {
     div.classList.remove("foo", "bar", "baz", "qux");
   });
@@ -68,7 +69,7 @@ test((t) => {
   assert_equals(window.getComputedStyle(div).fontSize, "12px", "match .foo.bar font-size");
 }, "Logical :where()");
 
-test((t) => {
+test(t => {
   t.add_cleanup(() => {
     div.classList.remove("foo", "bar", "baz", "qux");
   });
