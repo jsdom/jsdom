@@ -4,7 +4,7 @@ const { describe, it } = require("mocha-sugar-free");
 const delay = require("node:timers/promises").setTimeout;
 
 const { JSDOM, VirtualConsole } = require("../..");
-const jsGlobals = Object.keys(require("../../lib/jsdom/browser/js-globals.json"));
+const jsGlobals = Object.keys(require("../../lib/generated/js-globals.json"));
 
 describe("API: runScripts constructor option", () => {
   describe("<script>s and eval()", () => {

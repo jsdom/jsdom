@@ -8,5 +8,4 @@ node_modules
 test/web-platform-tests/tuwpt-manifest.json
 npm-debug.log*
 
-lib/jsdom/living/generated/**/*.js
-lib/jsdom/browser/js-globals.json
+lib/generated/

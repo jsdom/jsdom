@@ -9,7 +9,7 @@ export default [
     ignores: [
       "benchmark/selectors/sizzle-speed/**",
       "lib/jsdom/level3/xpath.js",
-      "lib/jsdom/living/generated/**",
+      "lib/generated/**",
       "test/api/fixtures/**",
       "test/to-port-to-wpts/jquery-fixtures/**",
       "test/to-port-to-wpts/files/**",

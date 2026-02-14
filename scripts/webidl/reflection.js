@@ -163,7 +163,7 @@ module.exports = (transformer, idl, implObj) => {
 
   if (isSimpleIDLType(idl.idlType, "long")) {
     const parser = transformer.addImport(
-      "../helpers/strings",
+      "../../jsdom/living/helpers/strings",
       reflectAttr.name === "ReflectNonNegative" ? "parseNonNegativeInteger" : "parseInteger"
     );
 
@@ -208,7 +208,8 @@ module.exports = (transformer, idl, implObj) => {
   }
 
   if (isSimpleIDLType(idl.idlType, "unsigned long")) {
-    const parseNonNegativeInteger = transformer.addImport("../helpers/strings", "parseNonNegativeInteger");
+    const helpers = "../../jsdom/living/helpers/strings";
+    const parseNonNegativeInteger = transformer.addImport(helpers, "parseNonNegativeInteger");
 
     const minimum = reflectAttr.name === "ReflectPositive" || reflectAttr.name === "ReflectPositiveWithFallback" ?
       1 :
@@ -274,7 +275,8 @@ module.exports = (transformer, idl, implObj) => {
   }
 
   if (isSimpleIDLType(idl.idlType, "double")) {
-    const parseFloatingPointNumber = transformer.addImport("../helpers/strings", "parseFloatingPointNumber");
+    const helpers = "../../jsdom/living/helpers/strings";
+    const parseFloatingPointNumber = transformer.addImport(helpers, "parseFloatingPointNumber");
     const defaultValue = reflectDefault !== undefined ? reflectDefault : 0;
 
     if (reflectAttr.name === "ReflectPositive") {
