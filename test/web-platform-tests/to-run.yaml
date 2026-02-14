@@ -1055,6 +1055,7 @@ idlharness.any.html: [fail, Depends on fetch]
 "legacy-mb-tchinese/big5/big5-encode-href-errors-hangul.html?!(1-1000)": [pass-slow]
 "legacy-mb-tchinese/big5/big5-encode-href-errors-misc.html?!(1-1000)": [pass-slow]
 "legacy-mb-tchinese/big5/big5-encode-href.html?!(1-1000)": [pass-slow]
+"single-byte-decoder*": [skip-node:20.x, OOM on Node 20]
 "streams/!(realms.window.html)": [fail, Not implemented]
 streams/realms.window.html: [fail-slow, Not implemented]
 
