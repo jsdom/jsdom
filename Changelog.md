@@ -31,6 +31,19 @@ Minimum Node.js version changes:
 * Update .github/workflows/jsdom-ci.yml.
 -->
 
+## 28.1.0
+
+* Added `blob.text()`, `blob.arrayBuffer()`, and `blob.bytes()` methods.
+* Improved `getComputedStyle()` to account for CSS specificity when multiple rules apply. (asamuzaK)
+* Improved synchronous `XMLHttpRequest` performance by using a persistent worker thread, avoiding ~400ms of setup overhead on every synchronous request after the first one.
+* Improved performance of `node.getRootNode()`, `node.isConnected`, and `event.dispatchEvent()` by caching the root node of document-connected trees.
+* Fixed `getComputedStyle()` to correctly handle `!important` priority. (asamuzaK)
+* Fixed `document.getElementById()` to return the first element in tree order when multiple elements share the same ID.
+* Fixed `<svg>` elements to no longer incorrectly proxy event handlers to the `Window`.
+* Fixed `FileReader` event timing and `fileReader.result` state to more closely follow the spec.
+* Fixed a potential hang when synchronous `XMLHttpRequest` encountered dispatch errors.
+* Fixed compatibility with environments where Node.js's built-in `fetch()` has been used before importing jsdom, by working around undici v6/v7 incompatibilities.
+
 ## 28.0.0
 
 * Overhauled resource loading customization. See [the new README](https://github.com/jsdom/jsdom/blob/2b65c6a80af2c899e32933c5e0cb842164852149/README.md#loading-subresources) for details on the new API.
