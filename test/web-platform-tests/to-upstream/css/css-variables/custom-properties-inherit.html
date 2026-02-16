@@ -23,6 +23,14 @@ div {
 .three {
   --font-size: 30px;
 }
+
+#five {
+  --font-size: 50px;
+}
+
+.six {
+  --font-size: 60px;
+}
 </style>
 
 <div class="one" id="one">
@@ -37,7 +45,12 @@ div {
     </div>
   </div>
 </div>
-
+<div class="five" id="five">
+  <p>Five</p>
+  <div class="six" id="six">
+    <p>Six</p>
+  </div>
+</div>
 <script>
 "use strict";
 
@@ -51,5 +64,7 @@ test(() => {
   assert_equals(window.getComputedStyle(two).getPropertyValue("--font-size"), "20px", "two");
   assert_equals(window.getComputedStyle(three).getPropertyValue("--font-size"), "30px", "three");
   assert_equals(window.getComputedStyle(four).getPropertyValue("--font-size"), "20px", "four");
+  assert_equals(window.getComputedStyle(five).getPropertyValue("--font-size"), "50px", "five");
+  assert_equals(window.getComputedStyle(six).getPropertyValue("--font-size"), "60px", "six");
 }, "Inheritance of custom properties");
 </script>
