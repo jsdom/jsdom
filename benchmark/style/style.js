@@ -48,7 +48,7 @@ module.exports = () => {
 
     bench.add("getComputedStyle: flat (20 siblings)", () => {
       for (const div of divs) {
-        window.getComputedStyle(div).color;
+        window.getComputedStyle(div);
       }
     }, {
       beforeEach() {
@@ -68,7 +68,7 @@ module.exports = () => {
     let leaf;
 
     bench.add("getComputedStyle: deep (10-level nesting)", () => {
-      window.getComputedStyle(leaf).color;
+      window.getComputedStyle(leaf);
     }, {
       beforeEach() {
         document.body.innerHTML = "";
@@ -89,7 +89,7 @@ module.exports = () => {
 
     bench.add("getComputedStyle: deep, all levels (10-level nesting)", () => {
       for (const el of elements) {
-        window.getComputedStyle(el).color;
+        window.getComputedStyle(el);
       }
     }, {
       beforeEach() {
