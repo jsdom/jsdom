@@ -8,6 +8,7 @@ const cssText =
 
 module.exports = () => {
   const { document, bench } = documentBench();
+  const window = document.defaultView;
 
   bench.add("innerHTML: simple divs (no styles)", () => {
     document.body.innerHTML = "<div>Hello</div>".repeat(20);
@@ -39,6 +40,41 @@ module.exports = () => {
     for (let i = 0; i < 20; i++) {
       const div = document.createElement("div");
       div.style.cssText = cssText;
+    }
+  });
+
+  bench.add("getComputedStyle: flat (20 siblings)", () => {
+    for (let i = 0; i < 20; i++) {
+      const div = document.createElement("div");
+      div.style.color = "blue";
+      document.body.appendChild(div);
+      window.getComputedStyle(div).color;
+    }
+  });
+
+  bench.add("getComputedStyle: deep (10-level nesting)", () => {
+    let parent = document.body;
+    for (let i = 0; i < 10; i++) {
+      const div = document.createElement("div");
+      div.style.color = "blue";
+      parent.appendChild(div);
+      parent = div;
+    }
+    window.getComputedStyle(parent).color;
+  });
+
+  bench.add("getComputedStyle: deep, all levels (10-level nesting)", () => {
+    let parent = document.body;
+    for (let i = 0; i < 10; i++) {
+      const div = document.createElement("div");
+      div.style.color = "blue";
+      parent.appendChild(div);
+      parent = div;
+    }
+    let el = parent;
+    while (el !== document.body) {
+      window.getComputedStyle(el).color;
+      el = el.parentElement;
     }
   });
 
