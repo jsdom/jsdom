@@ -43,40 +43,69 @@ module.exports = () => {
     }
   });
 
-  bench.add("getComputedStyle: flat (20 siblings)", () => {
-    for (let i = 0; i < 20; i++) {
-      const div = document.createElement("div");
-      div.style.color = "blue";
-      document.body.appendChild(div);
-      window.getComputedStyle(div).color;
-    }
-  });
+  {
+    let divs = [];
 
-  bench.add("getComputedStyle: deep (10-level nesting)", () => {
-    let parent = document.body;
-    for (let i = 0; i < 10; i++) {
-      const div = document.createElement("div");
-      div.style.color = "blue";
-      parent.appendChild(div);
-      parent = div;
-    }
-    window.getComputedStyle(parent).color;
-  });
+    bench.add("getComputedStyle: flat (20 siblings)", () => {
+      for (const div of divs) {
+        window.getComputedStyle(div).color;
+      }
+    }, {
+      beforeEach() {
+        document.body.innerHTML = "";
+        divs = [];
+        for (let i = 0; i < 20; i++) {
+          const div = document.createElement("div");
+          div.style.color = "blue";
+          document.body.appendChild(div);
+          divs.push(div);
+        }
+      }
+    });
+  }
 
-  bench.add("getComputedStyle: deep, all levels (10-level nesting)", () => {
-    let parent = document.body;
-    for (let i = 0; i < 10; i++) {
-      const div = document.createElement("div");
-      div.style.color = "blue";
-      parent.appendChild(div);
-      parent = div;
-    }
-    let el = parent;
-    while (el !== document.body) {
-      window.getComputedStyle(el).color;
-      el = el.parentElement;
-    }
-  });
+  {
+    let leaf;
+
+    bench.add("getComputedStyle: deep (10-level nesting)", () => {
+      window.getComputedStyle(leaf).color;
+    }, {
+      beforeEach() {
+        document.body.innerHTML = "";
+        let parent = document.body;
+        for (let i = 0; i < 10; i++) {
+          const div = document.createElement("div");
+          div.style.color = "blue";
+          parent.appendChild(div);
+          parent = div;
+        }
+        leaf = parent;
+      }
+    });
+  }
+
+  {
+    let elements = [];
+
+    bench.add("getComputedStyle: deep, all levels (10-level nesting)", () => {
+      for (const el of elements) {
+        window.getComputedStyle(el).color;
+      }
+    }, {
+      beforeEach() {
+        document.body.innerHTML = "";
+        elements = [];
+        let parent = document.body;
+        for (let i = 0; i < 10; i++) {
+          const div = document.createElement("div");
+          div.style.color = "blue";
+          parent.appendChild(div);
+          elements.push(div);
+          parent = div;
+        }
+      }
+    });
+  }
 
   return bench;
 };
