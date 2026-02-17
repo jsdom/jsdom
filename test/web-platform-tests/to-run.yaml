@@ -2510,6 +2510,7 @@ progressevent-constructor.html:
   "Mixed integer and decimal number test.": [fail, Unknown]
   "Negative number.": [fail, Unknown]
 request-content-length.any.html: [fail, needs URL.createObjectURL]
+response-body-errors.any.html: [skip-node:20.x, "XHR worker timeouts seem to occur, so far only on Node v20? Monitor this..."]
 response-method.htm: [flaky, Usually fails with a parse error in Node.js v12 but occasionally passes as it did in previous versions]
 responseType-document-in-worker.html: [fail, Needs Worker implementation]
 responseXML-unavailable-in-worker.html: [fail, Needs Worker implementation]
