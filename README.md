@@ -264,7 +264,7 @@ virtualConsole.on("jsdomError", err => {
 The details for each type of jsdom error, listed by their `type` property, are:
 
 - `"css-parsing"`: an error parsing CSS stylesheets
-  - `cause`: the exception object from our CSS parser library, [`rrweb-cssom`](https://github.com/rrweb-io/CSSOM)
+  - `cause`: the exception object from our CSS parser library, [`@acemir/cssom`](https://github.com/acemir/CSSOM)
   - `sheetText`: the full text of the stylesheet that we attempted to parse
 - `"not-implemented"`: an error emitted when certain stub methods from [unimplemented parts of the web platform](#unimplemented-parts-of-the-web-platform) are called
 - `"resource-loading"`: an error [loading resources](#loading-subresources), e.g. due to a network error or a bad response code from the server
