@@ -36,3 +36,6 @@ html/semantics/scripting-1/the-script-element/execution-timing/insert-script.htm
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]
+svg/painting/paint-stroke.html:
+  "RGB color": [fail, https://github.com/jsdom/jsdom/issues/4077]
+  "Gradient; browsers don't support <gradient> in <paint>": [fail, https://github.com/jsdom/jsdom/issues/4077]
