@@ -76,5 +76,5 @@ test(t => {
   });
   target.style.stroke = "linear-gradient(to top, green, blue)";
   assert_equals(target.style.getPropertyValue("stroke"), "");
-}, "Gradient; gradient is not included in SVG paint syntax");
+}, "Gradient; browsers don't support <gradient> in <paint>");
 </script>
