@@ -38,4 +38,4 @@ jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]
 svg/painting/paint-stroke.html:
   "RGB color": [fail, https://github.com/jsdom/jsdom/issues/4077]
-  "Gradient; browsers don't support <gradient> in <paint>": [fail, https://github.com/jsdom/jsdom/issues/4077]
+  "Gradient, gradient is not included in SVG paint": [fail, https://github.com/jsdom/jsdom/issues/4077]
