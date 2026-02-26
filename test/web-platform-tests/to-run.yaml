@@ -1389,7 +1389,6 @@ DIR: html/canvas/element/drawing-images-to-the-canvas
 2d.drawImage.composite.html: [fail, Not implemented]
 2d.drawImage.detachedcanvas.html: [fail, Not implemented]
 2d.drawImage.floatsource.html: [fail, Not implemented]
-2d.drawImage.incomplete.*.html: [fail, Not implemented]
 2d.drawImage.negativedest.html: [fail, Not implemented]
 2d.drawImage.negativedir.html: [fail, Not implemented]
 2d.drawImage.negativesource.html: [fail, Not implemented]
