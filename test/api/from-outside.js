@@ -214,11 +214,10 @@ describe("Test cases only possible to test from the outside", () => {
 <body>
 </body>
 </html>`;
-    const dom = new JSDOM(file, { contentType: "application/xhtml+xml" });
-    const body = dom.window.document.body;
+    const { window } = new JSDOM(file, { contentType: "application/xhtml+xml" });
 
     assert.doesNotThrow(() => {
-      const style = dom.window.getComputedStyle(body);
+      window.getComputedStyle(window.document.body);
     });
   });
 });
