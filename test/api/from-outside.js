@@ -199,4 +199,26 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(window.document.querySelector("#one").href, "file:///foo.pdf");
     assert.equal(window.document.querySelector("#two").href, "file:///base/foo.pdf");
   });
+
+  it("should not throw when calculating specificity (GH-4083)", () => {
+    const file = `
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <style type="text/css">
+    @page {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+</body>
+</html>`;
+    const dom = new JSDOM(file, { contentType: "application/xhtml+xml" });
+    const body = dom.window.document.body;
+
+    assert.doesNotThrow(() => {
+      const style = dom.window.getComputedStyle(body);
+    });
+  });
 });
