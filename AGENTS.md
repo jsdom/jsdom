@@ -29,13 +29,15 @@ npm run test:wpt -- --fgrep "some-test.htm" 2>&1              # Finally see it -
 npm run test:wpt -- --fgrep "some-test.htm" 2>&1              # Just run it, no pipes
 ```
 
-* `npm run test:api`: relatively quick to run, mostly tests the jsdom API. Often worth running since it will quickly blow up if things are broken.
+**Always pass `--reporter min`** when running tests. The default reporter prints every passing test name, which wastes context window space. The `min` reporter prints only a one-line summary for passing runs, while still showing full details (test name, error message, stack trace) for any failures.
 
-* `npm run test:wpt`: very slow (~15 minutes). Should generally only be run with user signoff, or with targeted `-- --fgrep`.
+* `npm run test:api -- --reporter min`: relatively quick to run, mostly tests the jsdom API. Often worth running since it will quickly blow up if things are broken.
 
-* `npm run test:tuwpt`: slower, so run sparingly. Tests a subset of the web platform implementation that we've specifically crafted tests for. Worth running once in its entirety as a final check to establish everything is working before turning over control to the user.
+* `npm run test:wpt -- --reporter min`: very slow (~15 minutes). Should generally only be run with user signoff, or with targeted `--fgrep`.
 
-All these commands can be restricted to specific tests, e.g. `npm run test:tuwpt -- --fgrep css-borders` or `npm run test:wpt -- --fgrep WebSocket/readyState/006.html`. It is often best to run a single test in that latter fashion while iterating, before finally running a larger suite like `npm run test:wpt -- --fgrep xhr` or `npm run test:tuwpt`.
+* `npm run test:tuwpt -- --reporter min`: slower, so run sparingly. Tests a subset of the web platform implementation that we've specifically crafted tests for. Worth running once in its entirety as a final check to establish everything is working before turning over control to the user.
+
+All these commands can be restricted to specific tests, e.g. `npm run test:tuwpt -- --fgrep css-borders --reporter min` or `npm run test:wpt -- --fgrep WebSocket/readyState/006.html --reporter min`. It is often best to run a single test in that latter fashion while iterating, before finally running a larger suite like `npm run test:wpt -- --fgrep xhr --reporter min` or `npm run test:tuwpt -- --reporter min`.
 
 **IMPORTANT:** The `--fgrep` value is a plain substring match against test titles, NOT a file path. Do not include trailing slashes (e.g. use `--fgrep xhr`, not `--fgrep "xhr/"`).
 
