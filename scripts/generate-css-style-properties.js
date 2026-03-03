@@ -4,7 +4,7 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 const { definitionSyntax } = require("css-tree");
 
-const outputDir = path.resolve(__dirname, "../../lib/generated");
+const outputDir = path.resolve(__dirname, "../lib/generated");
 const styleDeclarationDir = "../jsdom/living/cssom/style-declaration";
 
 const caseSensitiveTypes = ["custom-ident", "dashed-ident", "string"];
@@ -32,7 +32,7 @@ async function main() {
   const cssModule = await import("@webref/css");
   const css = cssModule.default;
 
-  const propertiesDir = path.resolve(__dirname, "../../lib/jsdom/living/cssom/style-declaration/properties");
+  const propertiesDir = path.resolve(__dirname, "../lib/jsdom/living/cssom/style-declaration/properties");
   const propertyFiles = await fs.readdir(propertiesDir);
   const implementedProperties = new Map(propertyFiles.map(file => [file.replace(/\.js$/, ""), file]));
 
