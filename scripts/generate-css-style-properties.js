@@ -79,7 +79,7 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
     }
     const output = `${fileHeader}
 ${requires.sort().join("\n")}
-const { createGenericPropertyDescriptor } = require("../jsdom/living/cssom/generic-property-descriptor.js");
+const { createGenericPropertyDescriptor } = require("../jsdom/living/cssom/helpers/generic-property-descriptor.js");
 
 module.exports = {
   ${descriptors.join(",\n  ")}
