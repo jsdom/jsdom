@@ -127,7 +127,7 @@ describe("Test cases only possible to test from the outside", () => {
     const dom1ConstructedStylesheet = new dom1.window.CSSStyleSheet();
     let dom1ConstructedStylesheetThrownError = null;
     try {
-      dom1ConstructedStylesheet.insertRule("@layer;");
+      dom1ConstructedStylesheet.deleteRule(0);
     } catch (err) {
       dom1ConstructedStylesheetThrownError = err;
     }
@@ -135,7 +135,7 @@ describe("Test cases only possible to test from the outside", () => {
     const dom1UnconstructedStylesheet = dom1.window.document.head.lastChild.sheet;
     let dom1UnconstructedStylesheetThrownError = null;
     try {
-      dom1UnconstructedStylesheet.insertRule("@layer;");
+      dom1UnconstructedStylesheet.deleteRule(0);
     } catch (err) {
       dom1UnconstructedStylesheetThrownError = err;
     }
@@ -143,7 +143,7 @@ describe("Test cases only possible to test from the outside", () => {
     const dom2ConstructedStylesheet = new dom2.window.CSSStyleSheet();
     let dom2ConstructedStylesheetThrownError = null;
     try {
-      dom2ConstructedStylesheet.insertRule("@layer;");
+      dom2ConstructedStylesheet.deleteRule(0);
     } catch (err) {
       dom2ConstructedStylesheetThrownError = err;
     }
@@ -151,7 +151,7 @@ describe("Test cases only possible to test from the outside", () => {
     const dom2UnconstructedStylesheet = dom2.window.document.head.lastChild.sheet;
     let dom2UnconstructedStylesheetThrownError = null;
     try {
-      dom2UnconstructedStylesheet.insertRule("@layer;");
+      dom2UnconstructedStylesheet.deleteRule(0);
     } catch (err) {
       dom2UnconstructedStylesheetThrownError = err;
     }

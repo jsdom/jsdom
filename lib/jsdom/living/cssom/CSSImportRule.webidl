@@ -1,0 +1,9 @@
+// https://drafts.csswg.org/cssom/#the-cssimportrule-interface
+[Exposed=Window]
+interface CSSImportRule : CSSRule {
+  readonly attribute USVString href;
+  [SameObject, PutForwards=mediaText] readonly attribute MediaList media;
+  [SameObject] readonly attribute CSSStyleSheet? styleSheet;
+  readonly attribute CSSOMString? layerName;
+  readonly attribute CSSOMString? supportsText;
+};
