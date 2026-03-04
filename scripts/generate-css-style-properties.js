@@ -86,7 +86,7 @@ function generateDescriptors({ definitions, fileHeader, implementedProperties, s
 
   const output = `${fileHeader}
 ${requires.sort().join("\n")}
-const { createGenericPropertyDescriptor } = require("${styleDeclarationDir}/property-descriptors.js");
+const { createGenericPropertyDescriptor } = require("${styleDeclarationDir}/helpers/generic-property-descriptor.js");
 
 module.exports = {
   ${descriptors.join(",\n  ")}
