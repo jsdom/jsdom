@@ -1,4 +1,4 @@
-// https://drafts.csswg.org/css-animations-1/#interface-csskeyframesrule
+// https://drafts.csswg.org/css-animations/#interface-csskeyframesrule
 [Exposed=Window]
 interface CSSKeyframesRule : CSSRule {
   attribute CSSOMString name;
