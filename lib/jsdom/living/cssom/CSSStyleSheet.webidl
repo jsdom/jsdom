@@ -2,6 +2,7 @@
 [Exposed=Window]
 interface CSSStyleSheet : StyleSheet {
   constructor(optional CSSStyleSheetInit options = {});
+
   readonly attribute CSSRule? ownerRule;
   [SameObject] readonly attribute CSSRuleList cssRules;
   unsigned long insertRule(CSSOMString rule, optional unsigned long index = 0);
@@ -11,6 +12,7 @@ interface CSSStyleSheet : StyleSheet {
   undefined replaceSync(USVString text);
 };
 
+// https://drafts.csswg.org/cssom/#legacy-css-style-sheet-members
 partial interface CSSStyleSheet {
   [SameObject] readonly attribute CSSRuleList rules;
   long addRule(optional DOMString selector = "undefined", optional DOMString style = "undefined", optional unsigned long index);
