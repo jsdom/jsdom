@@ -3,8 +3,8 @@ typedef (CanvasRenderingContext2D or WebGLRenderingContext) RenderingContext;
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLCanvasElement : HTMLElement {
-  [CEReactions] attribute unsigned long width;
-  [CEReactions] attribute unsigned long height;
+  [CEReactions, Reflect, ReflectDefault=300] attribute unsigned long width;
+  [CEReactions, Reflect, ReflectDefault=150] attribute unsigned long height;
 
   RenderingContext? getContext(DOMString contextId, any... arguments);
 
