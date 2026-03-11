@@ -1,0 +1,42 @@
+<!doctype html>
+<title>CSSMediaRule matches property</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-3/#dom-cssmediarule-matches">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  @media screen { #a { color: green } }
+  @media print { #b { color: green } }
+  @media all { #c { color: green } }
+  @media { #d { color: green } }
+  @media screen, print { #e { color: green } }
+  @media not all { #f { color: green } }
+</style>
+<script>
+"use strict";
+
+const rules = document.styleSheets[0].cssRules;
+
+test(() => {
+  assert_equals(rules[0].matches, true);
+}, "@media screen matches");
+
+test(() => {
+  assert_equals(rules[1].matches, false);
+}, "@media print does not match");
+
+test(() => {
+  assert_equals(rules[2].matches, true);
+}, "@media all matches");
+
+test(() => {
+  assert_equals(rules[3].matches, true);
+}, "@media (empty) matches");
+
+test(() => {
+  assert_equals(rules[4].matches, true);
+}, "@media screen, print matches (at least one matches)");
+
+test(() => {
+  assert_equals(rules[5].matches, false);
+}, "@media not all does not match");
+</script>
