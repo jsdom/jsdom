@@ -383,14 +383,27 @@ async function main() {
     }
   });
 
-  proxy.listen(0, () => {
+  const PREFERRED_PORTS = [8023, 8024, 8025];
+
+  function onListening() {
     const { port } = proxy.address();
     const url = `http://web-platform.test:${port}/`;
     console.log(`Opening ${url}\n`);
     console.log("Results will appear below as tests complete.");
     console.log("Press Ctrl+C to stop.\n");
     opener(url, browser ? { command: browser } : {});
+  }
+
+  let portIndex = 0;
+  proxy.on("error", e => {
+    if (e.code === "EADDRINUSE" && portIndex < PREFERRED_PORTS.length) {
+      proxy.listen(PREFERRED_PORTS[portIndex++]);
+    } else {
+      throw e;
+    }
   });
+  proxy.on("listening", onListening);
+  proxy.listen(PREFERRED_PORTS[portIndex++]);
 
   function cleanup() {
     if (results.size > 0 && results.size < filtered.length) {
