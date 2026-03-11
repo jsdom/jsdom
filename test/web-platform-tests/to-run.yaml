@@ -1550,7 +1550,6 @@ link-style-error-01.html: [fail, We don't fire error events]
 link-style-error-limited-quirks.html: [fail, We don't fire error events]
 link-style-error-quirks.html: [fail, We don't fire error events]
 stylesheet-bad-mime-type.html: [fail, Unknown]
-stylesheet-not-removed-until-next-stylesheet-loads.html: [fail, Unknown]
 
 ---
 

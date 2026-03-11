@@ -1,0 +1,78 @@
+<!doctype html>
+<title>StyleSheet and CSSStyleSheet properties on style element sheets</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-stylesheet-interface">
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-cssstylesheet-interface">
+<link rel="help" href="https://drafts.csswg.org/cssom/#remove-a-css-style-sheet">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style id="plain">div { color: green }</style>
+<style id="with-title" title="My Sheet">span { color: red }</style>
+<style id="with-media" media="screen">p { color: blue }</style>
+<script>
+"use strict";
+
+const plainSheet = document.getElementById("plain").sheet;
+const titledSheet = document.getElementById("with-title").sheet;
+const mediaSheet = document.getElementById("with-media").sheet;
+
+test(() => {
+  assert_equals(plainSheet.type, "text/css");
+}, "type is 'text/css'");
+
+test(() => {
+  assert_equals(plainSheet.ownerNode, document.getElementById("plain"));
+}, "ownerNode is the style element");
+
+test(() => {
+  assert_equals(plainSheet.href, null);
+}, "href is null for inline sheets");
+
+test(() => {
+  assert_equals(plainSheet.title, null);
+}, "title is null when the style element has no title attribute");
+
+test(() => {
+  assert_equals(titledSheet.title, "My Sheet");
+}, "title reflects the style element's title attribute");
+
+test(() => {
+  assert_equals(plainSheet.media.mediaText, "");
+  assert_equals(plainSheet.media.length, 0);
+}, "media is empty when the style element has no media attribute");
+
+test(() => {
+  assert_equals(mediaSheet.media.mediaText, "screen");
+  assert_equals(mediaSheet.media.length, 1);
+}, "media reflects the style element's media attribute");
+
+test(() => {
+  assert_false(plainSheet.disabled);
+}, "disabled is false initially");
+
+test(() => {
+  assert_equals(plainSheet.parentStyleSheet, null);
+}, "parentStyleSheet is null for top-level sheets");
+
+test(() => {
+  assert_equals(plainSheet.ownerRule, null);
+}, "ownerRule is null for non-imported sheets");
+
+test(() => {
+  assert_true(plainSheet.cssRules instanceof CSSRuleList);
+  assert_greater_than(plainSheet.cssRules.length, 0);
+}, "cssRules is a CSSRuleList with rules");
+
+test(() => {
+  const style = document.createElement("style");
+  style.textContent = "div { color: green }";
+  document.head.appendChild(style);
+  const { sheet } = style;
+  assert_equals(sheet.ownerNode, style);
+
+  style.remove();
+
+  assert_equals(sheet.ownerNode, null, "ownerNode becomes null after removal");
+  assert_equals(sheet.parentStyleSheet, null, "parentStyleSheet is null after removal");
+  assert_equals(sheet.ownerRule, null, "ownerRule is null after removal");
+}, "Removing a style element nulls ownerNode, parentStyleSheet, and ownerRule");
+</script>
