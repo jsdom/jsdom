@@ -23,12 +23,13 @@ describe("CSS parsing errors", () => {
       </html>
     `, { virtualConsole });
 
-    assert(virtualConsole.cssParsingErrors.length >= 1);
+    assert.equal(virtualConsole.cssParsingErrors.length, 2);
 
     const error = virtualConsole.cssParsingErrors[0];
     assert(error instanceof Error);
     assert.equal(error.type, "css-parsing");
     assert.equal(error.sheetText, sheetText);
+    assert.equal(error.cause.constructor, SyntaxError);
   });
 
   it("should handle spaces in font-family names without errors (GH-2123)", () => {
