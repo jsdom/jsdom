@@ -4,7 +4,7 @@ const dns = require("node:dns").promises;
 const path = require("node:path");
 const childProcess = require("node:child_process");
 const delay = require("node:timers/promises").setTimeout;
-const { killSubprocess, doHeadRequestWithNoCertChecking } = require("./utils.js");
+const { killSubprocess, doHeadRequestWithNoCertChecking, isQuietReporter } = require("./utils.js");
 
 const wptDir = path.resolve(__dirname, "tests");
 
@@ -39,8 +39,9 @@ exports.start = async ({ toUpstream = false } = {}) => {
     stdio: ["inherit", "pipe", "pipe"]
   });
 
-  subprocess.stdout.filter(nonSpammyWPTLog).pipe(process.stdout);
-  subprocess.stderr.filter(nonSpammyWPTLog).pipe(process.stderr);
+  const logFilter = isQuietReporter() ? quietWPTLog : nonSpammyWPTLog;
+  subprocess.stdout.filter(logFilter).pipe(process.stdout);
+  subprocess.stderr.filter(logFilter).pipe(process.stderr);
   subprocess.stderr.on("data", terminateWPTOnKeyError);
   subprocess.on("error", terminateSubprocessOnError);
 
@@ -97,6 +98,20 @@ function nonSpammyWPTLog(buffer) {
   // Probing / on the ws and wss ports will cause a fallback, and log some messages about it.
   // Those are expected and are uninteresting.
   if (/wss? on port \d+\] INFO - (No handler|Fallback to|"HEAD \/ HTTP)/.test(string)) {
+    return false;
+  }
+
+  return true;
+}
+
+function quietWPTLog(buffer) {
+  if (!nonSpammyWPTLog(buffer)) {
+    return false;
+  }
+
+  const string = buffer.toString("utf-8");
+
+  if (string.includes("INFO - Starting")) {
     return false;
   }
 
