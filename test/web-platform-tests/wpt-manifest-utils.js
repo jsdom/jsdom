@@ -2,6 +2,7 @@
 const fs = require("fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
+const { isQuietReporter, spawnSyncFiltered } = require("./utils.js");
 
 const EXPECTED_MANIFEST_VERSION = 9;
 
@@ -60,7 +61,9 @@ exports.readManifest = filename => {
 // Regenerates a WPT manifest for the given tests root directory and manifest output path,
 // then reads and returns the parsed manifest.
 exports.regenerateManifest = (testsRoot, manifestFilename) => {
-  const result = spawnSync(
+  const quiet = isQuietReporter();
+  const spawnFn = quiet ? spawnSyncFiltered : spawnSync;
+  const result = spawnFn(
     "python",
     [
       "./wpt.py", "manifest",

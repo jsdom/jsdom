@@ -40,6 +40,19 @@ exports.doHeadRequestWithNoCertChecking = url => {
   });
 };
 
+exports.isQuietReporter = () => {
+  const args = process.argv;
+  for (let i = 0; i < args.length; i++) {
+    if ((args[i] === "--reporter" || args[i] === "-R") && args[i + 1] === "min") {
+      return true;
+    }
+    if (args[i] === "--reporter=min" || args[i] === "-Rmin") {
+      return true;
+    }
+  }
+  return false;
+};
+
 exports.spawnSyncFiltered = (command, args, options = {}) => {
   // We need to capture the output to filter it, so override any stdio settings
   const modifiedOptions = { ...options, stdio: "pipe" };
@@ -52,7 +65,8 @@ exports.spawnSyncFiltered = (command, args, options = {}) => {
         .filter(line => {
           return !line.includes("[notice] A new release of pip is available") &&
                  !line.includes("[notice] To update, run: python") &&
-                 !line.includes("is outside repository at");
+                 !line.includes("is outside repository at") &&
+                 !line.includes("INFO:manifest:");
         })
         .join("\n");
 
