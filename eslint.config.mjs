@@ -1,8 +1,9 @@
 import domenicConfig from "@domenic/eslint-config";
+import domenicStylistic from "@domenic/eslint-config/stylistic";
 import globals from "globals";
 import html from "eslint-plugin-html";
-import n from "eslint-plugin-n";
 import jsdomInternal from "./scripts/eslint-plugin/index.mjs";
+import n from "eslint-plugin-n";
 
 export default [
   {
@@ -33,13 +34,15 @@ export default [
     }
   },
   ...domenicConfig,
+  ...domenicStylistic,
   {
     plugins: {
       "jsdom-internal": jsdomInternal
     },
     rules: {
       // Overrides for jsdom
-      "array-element-newline": "off",
+      "@stylistic/array-element-newline": "off",
+      "no-await-in-loop": "off",
       "no-implied-eval": "off",
       "no-invalid-this": "off",
       "require-unicode-regexp": "off",
@@ -166,7 +169,7 @@ export default [
       }
     },
     rules: {
-      "padded-blocks": "off", // we like to add spaces around the main test block
+      "@stylistic/padded-blocks": "off", // we like to add spaces around the main test block
       "camelcase": "off", // setting options like allow_uncaught_exception requires this
       "no-implicit-globals": "off", // it doesn't much matter if we use top-level function declarations here
       "new-cap": [

@@ -54,8 +54,9 @@
     }
   },
   "devDependencies": {
-    "@domenic/eslint-config": "^4.1.0",
-    "eslint": "^9.39.4",
+    "@domenic/eslint-config": "^5.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.0.3",
     "eslint-plugin-html": "^8.1.4",
     "eslint-plugin-n": "^17.24.0",
     "globals": "^17.4.0",
@@ -94,6 +95,6 @@
   "main": "./lib/api.js",
   "type": "commonjs",
   "engines": {
-    "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
+    "node": "^20.19.0 || ^22.13.0 || >=24.0.0"
   }
 }

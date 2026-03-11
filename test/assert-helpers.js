@@ -20,8 +20,7 @@ exports.assertThrowsDOMException = (fn, document, name) => {
     `expected #{this} to throw a window.DOMException with name '${name}' and code '${expectedCode}' but ` +
     (thrownError ?
       `#{act} was thrown with name '${thrownError.name}' and code '${thrownError.code}'` :
-      `nothing was thrown`)
-    ,
+      `nothing was thrown`),
     `expected #{this} to not throw a window.DOMException with name '${name}' and code '${expectedCode}'`
   );
 };

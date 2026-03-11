@@ -14,10 +14,10 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: 'recursive'
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
       - name: Install dependencies
@@ -30,10 +30,10 @@ jobs:
       TEST_SUITE: 'node-canvas'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
       - name: Install required image manipulation packages with APT
@@ -54,16 +54,16 @@ jobs:
           # Explicitly test minimum Node.js versions. Keep in sync with package.json.
           - 20.19.0
           - 20
-          - 22.12.0
+          - 22.13.0
           - 22
           - 24.0.0
           - lts/*   # currently 24
           - latest  # currently 25
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         submodules: recursive
-    - uses: actions/setup-node@v5
+    - uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
     - name: Setup hosts file for web platform tests server

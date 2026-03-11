@@ -59,7 +59,7 @@ async function pollForServer(url, lastLogTime = Date.now()) {
     await doHeadRequestWithNoCertChecking(url);
   } catch (err) {
     if (!subprocess) {
-      throw new Error("WPT server terminated");
+      throw new Error("WPT server terminated", { cause: err });
     }
 
     // Only log every 5 seconds to be less spammy.
