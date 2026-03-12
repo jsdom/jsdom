@@ -1,16 +1,65 @@
 <!doctype html>
-<title>@import layer detection should not match layer identifiers in supports() or media queries</title>
+<title>@import layer detection should not match nested layer identifiers or functions</title>
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <link rel="help" href="https://drafts.csswg.org/css-cascade-5/#at-import">
-<style id="supports-layer">
-  @import "data:text/css," supports(layer);
-</style>
 <script>
 "use strict";
 
-test(() => {
-  const rule = document.getElementById("supports-layer").sheet.cssRules[0];
-  assert_equals(rule.layerName, null, "layerName should be null when layer only appears inside supports()");
-}, "@import with supports(layer) should not set layerName");
+function insertRule(t, cssText) {
+  const style = document.createElement("style");
+  style.textContent = cssText;
+  document.head.append(style);
+  t.add_cleanup(() => {
+    style.remove();
+  });
+  return style.sheet.cssRules[0];
+}
+
+const cases = [
+  {
+    title: "@import with layer identifier inside supports declaration should not set layerName",
+    cssText: '@import "data:text/css," supports((font-family: layer));',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") supports((font-family: layer));'
+  },
+  {
+    title: "@import with layer() inside supports() condition should not set layerName",
+    cssText: '@import "data:text/css," supports((color: layer(foo)));',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") supports((color: layer(foo)));'
+  },
+  {
+    title: "@import with layer() inside media query should not set layerName",
+    cssText: '@import "data:text/css," screen and (foo: layer(bar));',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") screen and (foo: layer(bar));'
+  },
+  {
+    title: "@import with nested layer() inside supports() function argument should not set layerName",
+    cssText: '@import "data:text/css," supports((selector(:is(.a, layer(foo)))));',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") supports((selector(:is(.a, layer(foo)))));'
+  },
+  {
+    title: "@import with top-level layer() should still set layerName",
+    cssText: '@import "data:text/css," layer(foo);',
+    expectedLayerName: "foo",
+    expectedCSSText: '@import url("data:text/css,") layer(foo);'
+  },
+  {
+    title: "@import with bare top-level layer should still set empty layerName",
+    cssText: '@import "data:text/css," layer;',
+    expectedLayerName: "",
+    expectedCSSText: '@import url("data:text/css,") layer;'
+  }
+];
+
+for (const { title, cssText, expectedLayerName, expectedCSSText } of cases) {
+  test(t => {
+    const rule = insertRule(t, cssText);
+    assert_equals(rule.layerName, expectedLayerName, "Unexpected layerName");
+    assert_equals(rule.cssText, expectedCSSText, "Unexpected cssText serialization");
+  }, title);
+}
 </script>
