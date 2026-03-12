@@ -9,10 +9,11 @@
 // https://web-platform-tests.org/running-tests/from-local-system.html#system-setup
 //
 // Usage:
-//   node scripts/verify-tuwpts-in-browser.js [--browser=chrome] [filter ...]
+//   node scripts/verify-tuwpts-in-browser.js [--browser=chrome] [--fgrep domparsing]
 //
-// Filters are substring matches against test paths. Without filters, all to-upstream tests are
-// included. Use --browser (-b) to specify a browser command; otherwise opens the default browser.
+// `--fgrep` values are substring matches against test paths. Without them, all to-upstream tests
+// are included. Use --browser (-b) to specify a browser command; otherwise opens the default
+// browser.
 
 /* eslint-disable no-console */
 
@@ -210,12 +211,13 @@ async function main() {
   const manifest = regenerateManifest(toUpstreamDir, resolve(wptDir, "tuwpt-manifest.json"));
   const testPaths = getPossibleTestFilePaths(manifest).map(p => "/" + p);
 
-  const { values: { browser }, positionals: filters } = parseArgs({
-    allowPositionals: true,
+  const { values: { browser, fgrep } } = parseArgs({
     options: {
-      browser: { type: "string", short: "b" }
+      browser: { type: "string", short: "b" },
+      fgrep: { type: "string", multiple: true }
     }
   });
+  const filters = fgrep ?? [];
   const filtered = filters.length > 0 ?
     testPaths.filter(p => filters.some(f => p.includes(f))) :
     testPaths;

@@ -13,8 +13,8 @@ After creating or modifying to-upstream tests, verify they pass in a real
 browser:
 
 ```sh
-npm run test:tuwpt:browser                   # all to-upstream tests
-npm run test:tuwpt:browser -- domparsing     # substring filter
+npm run test:tuwpt:browser                        # all to-upstream tests
+npm run test:tuwpt:browser -- --fgrep domparsing  # substring filter
 ```
 
 This starts the WPT Python server, opens your default browser, runs the tests,
