@@ -5,7 +5,7 @@ const path = require("node:path");
 const { definitionSyntax } = require("css-tree");
 
 const outputDir = path.resolve(__dirname, "../lib/generated");
-const propertiesDir = path.resolve(__dirname, "../lib/jsdom/living/cssom/properties");
+const propertiesDir = path.resolve(__dirname, "../lib/jsdom/living/css/properties");
 
 async function main() {
   const css = await import("@webref/css");
@@ -63,7 +63,7 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
       let descriptorSource;
       if (implementedProperties.has(camelizedProperty)) {
         const fileName = implementedProperties.get(camelizedProperty);
-        requires.push(`const ${camelizedProperty} = require("../jsdom/living/cssom/properties/${fileName}");`);
+        requires.push(`const ${camelizedProperty} = require("../jsdom/living/css/properties/${fileName}");`);
         descriptorSource = `${camelizedProperty}.descriptor`;
       } else if (implementedProperties.has(camelizedAliasProperty)) {
         // No need to add to `requires` since the non-alias branch of the outer
@@ -79,7 +79,7 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
     }
     const output = `${fileHeader}
 ${requires.sort().join("\n")}
-const { createGenericPropertyDescriptor } = require("../jsdom/living/cssom/helpers/generic-property-descriptor.js");
+const { createGenericPropertyDescriptor } = require("../jsdom/living/css/helpers/generic-property-descriptor.js");
 
 module.exports = {
   ${descriptors.join(",\n  ")}

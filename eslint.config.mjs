@@ -12,11 +12,11 @@ const restrictedRequires = [
   },
   {
     name: "css-tree",
-    message: "Use lib/jsdom/living/helpers/patched-csstree.js instead."
+    message: "Use lib/jsdom/living/css/helpers/patched-csstree.js instead."
   },
   {
     name: "@csstools/css-syntax-patches-for-csstree",
-    message: "Use lib/jsdom/living/helpers/patched-csstree.js instead."
+    message: "Use lib/jsdom/living/css/helpers/patched-csstree.js instead."
   }
 ];
 
@@ -115,7 +115,7 @@ export default [
     }
   },
   {
-    files: ["lib/jsdom/living/helpers/patched-csstree.js"],
+    files: ["lib/jsdom/living/css/helpers/patched-csstree.js"],
     rules: {
       "n/no-restricted-require": ["error", restrictedRequires.filter(r => !r.name.includes("css"))]
     }
