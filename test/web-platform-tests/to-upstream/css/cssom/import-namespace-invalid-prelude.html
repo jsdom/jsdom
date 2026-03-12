@@ -1,0 +1,49 @@
+<!doctype html>
+<title>@import and @namespace with invalid preludes should be dropped</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#at-import">
+<link rel="help" href="https://drafts.csswg.org/css-namespaces/#syntax">
+<script>
+"use strict";
+
+function getRules(t, cssText) {
+  const style = document.createElement("style");
+  style.textContent = cssText;
+  document.head.append(style);
+  t.add_cleanup(() => {
+    style.remove();
+  });
+  return style.sheet.cssRules;
+}
+
+test(t => {
+  const rules = getRules(t, "@import ;");
+  assert_equals(rules.length, 0, "@import with no URL should produce no rules");
+}, "@import with empty prelude is dropped");
+
+test(t => {
+  const rules = getRules(t, "@import supports(display:flex);");
+  assert_equals(rules.length, 0, "@import with only supports() and no URL should produce no rules");
+}, "@import with supports() but no URL is dropped");
+
+test(t => {
+  const rules = getRules(t, "@namespace ;");
+  assert_equals(rules.length, 0, "@namespace with no URI should produce no rules");
+}, "@namespace with empty prelude is dropped");
+
+test(t => {
+  const rules = getRules(t, "@namespace foo bar;");
+  assert_equals(rules.length, 0, "@namespace with bare identifier instead of URL should produce no rules");
+}, "@namespace with bare identifier instead of URL is dropped");
+
+test(t => {
+  const rules = getRules(t, '@namespace url("http://example.com");');
+  assert_equals(rules.length, 1, "Valid @namespace should produce one rule");
+}, "Valid @namespace with URL is kept");
+
+test(t => {
+  const rules = getRules(t, '@import "data:text/css,";');
+  assert_equals(rules.length, 1, "Valid @import should produce one rule");
+}, "Valid @import with URL string is kept");
+</script>
