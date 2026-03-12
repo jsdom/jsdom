@@ -1,0 +1,16 @@
+<!doctype html>
+<title>@import layer() detection should not match layer() nested inside supports() or media queries</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#at-import">
+<style id="supports-layer-fn">
+  @import "data:text/css," supports((color: layer(foo)));
+</style>
+<script>
+"use strict";
+
+test(() => {
+  const rule = document.getElementById("supports-layer-fn").sheet.cssRules[0];
+  assert_equals(rule.layerName, null, "layerName should be null when layer() only appears inside supports()");
+}, "@import with layer() inside supports() condition should not set layerName");
+</script>
