@@ -28,7 +28,7 @@
     "@bramus/specificity": "^2.4.2",
     "@csstools/css-syntax-patches-for-csstree": "^1.0.28",
     "@exodus/bytes": "^1.15.0",
-    "css-tree": "^3.1.0",
+    "css-tree": "^3.2.1",
     "data-urls": "^7.0.0",
     "decimal.js": "^10.6.0",
     "html-encoding-sniffer": "^6.0.0",
