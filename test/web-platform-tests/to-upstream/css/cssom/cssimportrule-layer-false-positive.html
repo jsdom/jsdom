@@ -52,6 +52,36 @@ const cases = [
     cssText: '@import "data:text/css," layer;',
     expectedLayerName: "",
     expectedCSSText: '@import url("data:text/css,") layer;'
+  },
+  {
+    title: "@import with invalid layer() followed by media query should preserve both as media",
+    cssText: '@import "data:text/css," layer() screen;',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") not all;'
+  },
+  {
+    title: "@import with invalid layer() followed by compound media query should preserve both as media",
+    cssText: '@import "data:text/css," layer() screen, print;',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") not all, print;'
+  },
+  {
+    title: "@import with invalid layer() followed by supports() and media query drops all modifiers",
+    cssText: '@import "data:text/css," layer() supports((display: grid)) screen;',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") not all;'
+  },
+  {
+    title: "@import with invalid layer(name with space) followed by media query should preserve both as media",
+    cssText: '@import "data:text/css," layer(foo bar) screen;',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") not all;'
+  },
+  {
+    title: "@import with invalid layer(name with space) followed by supports() and media query drops all modifiers",
+    cssText: '@import "data:text/css," layer(foo bar) supports((display: grid)) screen;',
+    expectedLayerName: null,
+    expectedCSSText: '@import url("data:text/css,") not all;'
   }
 ];
 
