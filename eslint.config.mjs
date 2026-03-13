@@ -140,6 +140,7 @@ export default [
         async_test: "readonly",
         promise_test: "readonly",
         promise_rejects: "readonly",
+        promise_rejects_dom: "readonly",
         generate_tests: "readonly",
         setup: "readonly",
         done: "readonly",
