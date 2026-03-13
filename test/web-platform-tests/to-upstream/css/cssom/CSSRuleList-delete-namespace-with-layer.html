@@ -1,0 +1,56 @@
+<!doctype html>
+<title>Deleting @namespace should allow @layer statement rules like insertion does</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<link rel="help" href="https://drafts.csswg.org/cssom/#remove-a-css-rule">
+<script>
+"use strict";
+
+test(() => {
+  const style = document.createElement("style");
+  style.textContent = '@layer a; @namespace x url("urn:x");';
+  document.head.append(style);
+  const { sheet } = style;
+
+  assert_equals(sheet.cssRules.length, 2, "setup: should have 2 rules");
+  assert_equals(sheet.cssRules[0].constructor.name, "CSSLayerStatementRule");
+  assert_equals(sheet.cssRules[1].constructor.name, "CSSNamespaceRule");
+
+  // Should not throw: the only other rule is a @layer statement, which is harmless
+  sheet.deleteRule(1);
+  assert_equals(sheet.cssRules.length, 1);
+
+  style.remove();
+}, "deleteRule() on @namespace succeeds when only @layer statement rules remain");
+
+test(() => {
+  const style = document.createElement("style");
+  style.textContent = '@layer a; @namespace x url("urn:x"); @namespace y url("urn:y");';
+  document.head.append(style);
+  const { sheet } = style;
+
+  assert_equals(sheet.cssRules.length, 3, "setup: should have 3 rules");
+
+  // Delete the first namespace rule
+  sheet.deleteRule(1);
+  assert_equals(sheet.cssRules.length, 2);
+  assert_equals(sheet.cssRules[1].constructor.name, "CSSNamespaceRule");
+
+  style.remove();
+}, "deleteRule() on @namespace succeeds when @layer statement and other @namespace rules remain");
+
+test(() => {
+  const style = document.createElement("style");
+  style.textContent = '@namespace x url("urn:x"); p { color: red; }';
+  document.head.append(style);
+  const { sheet } = style;
+
+  assert_equals(sheet.cssRules.length, 2, "setup: should have 2 rules");
+
+  assert_throws_dom("InvalidStateError", () => {
+    sheet.deleteRule(0);
+  }, "should throw when non-namespace/import/layer rules exist");
+
+  style.remove();
+}, "deleteRule() on @namespace throws InvalidStateError when style rules exist");
+</script>
