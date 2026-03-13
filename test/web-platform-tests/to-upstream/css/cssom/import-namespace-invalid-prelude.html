@@ -38,6 +38,16 @@ test(t => {
 }, "@namespace with bare identifier instead of URL is dropped");
 
 test(t => {
+  const rules = getRules(t, '@namespace foo url("http://example.com") bar;');
+  assert_equals(rules.length, 0, "Trailing identifier after URL should invalidate the rule");
+}, "@namespace with trailing identifier after URL is dropped");
+
+test(t => {
+  const rules = getRules(t, '@namespace url("http://example.com") extra;');
+  assert_equals(rules.length, 0, "Trailing identifier after URL should invalidate the rule");
+}, "@namespace with no prefix and trailing identifier after URL is dropped");
+
+test(t => {
   const rules = getRules(t, '@namespace url("http://example.com");');
   assert_equals(rules.length, 1, "Valid @namespace should produce one rule");
 }, "Valid @namespace with URL is kept");
