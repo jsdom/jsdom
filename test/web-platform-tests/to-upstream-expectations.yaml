@@ -20,7 +20,6 @@ css/cssom/getComputedStyle-shadow-inherit.html:
 css/cssom/style-background-shorthand-overwrite.html: [fail, Need cssstyle fix; https://github.com/jsdom/jsdom/issues/3944]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 css/mediaqueries/nested-media-queries.html: [fail, conditionText serialization doesn't include spaces]
-css/selectors/attribute-selector-escape.html: [fail, https://github.com/jsdom/jsdom/issues/3033]
 custom-elements/ElementInternals-accessibility.html:
   "ariaActiveDescendantElement": [fail, Element reflection not implemented]
   "ariaBrailleLabel": [fail, Element reflection not implemented]
