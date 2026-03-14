@@ -205,6 +205,16 @@ async_test(t => {
       assert_equals(sheet.parentStyleSheet, null, "parentStyleSheet is null after removal");
       assert_equals(sheet.ownerRule, null, "ownerRule is null after removal");
     }, "Removing a <link> element nulls ownerNode, parentStyleSheet, and ownerRule");
+
+    // --- Programmatic title ---
+
+    test(() => {
+      const style = document.createElement("style");
+      style.title = "Dynamic Title";
+      document.head.appendChild(style);
+      assert_equals(style.sheet.title, "Dynamic Title");
+      style.remove();
+    }, "Programmatically setting title on a <style> element is reflected in sheet.title");
   }));
 }, "StyleSheet and CSSStyleSheet properties");
 </script>
