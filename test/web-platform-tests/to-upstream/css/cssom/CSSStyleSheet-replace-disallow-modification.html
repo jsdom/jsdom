@@ -1,0 +1,69 @@
+<!doctype html>
+<title>CSSStyleSheet replace() disallow modification flag</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-replace">
+
+<!-- See if https://github.com/w3c/csswg-drafts/issues/13650 has resolved before upstreaming -->
+
+<script>
+"use strict";
+
+promise_test(async () => {
+  const sheet = new CSSStyleSheet();
+  const promise = sheet.replace("p { color: red; }");
+
+  assert_throws_dom("NotAllowedError", () => {
+    sheet.insertRule("p { color: blue; }");
+  }, "insertRule() should throw while replace() is in progress");
+
+  await promise;
+
+  // After the promise resolves, modification should be allowed again
+  sheet.insertRule("p { color: green; }");
+  assert_equals(sheet.cssRules.length, 2);
+}, "insertRule() throws NotAllowedError while replace() is in progress");
+
+promise_test(async () => {
+  const sheet = new CSSStyleSheet();
+  const promise = sheet.replace("p { color: red; }");
+
+  assert_throws_dom("NotAllowedError", () => {
+    sheet.deleteRule(0);
+  }, "deleteRule() should throw while replace() is in progress");
+
+  await promise;
+
+  // After the promise resolves, modification should be allowed again
+  sheet.deleteRule(0);
+  assert_equals(sheet.cssRules.length, 0);
+}, "deleteRule() throws NotAllowedError while replace() is in progress");
+
+promise_test(async () => {
+  const sheet = new CSSStyleSheet();
+  const promise = sheet.replace("p { color: red; }");
+
+  assert_throws_dom("NotAllowedError", () => {
+    sheet.replaceSync("p { color: blue; }");
+  }, "replaceSync() should throw while replace() is in progress");
+
+  await promise;
+
+  // After the promise resolves, modification should be allowed again
+  sheet.replaceSync("p { color: green; }");
+  assert_equals(sheet.cssRules[0].style.color, "green");
+}, "replaceSync() throws NotAllowedError while replace() is in progress");
+
+promise_test(async t => {
+  const sheet = new CSSStyleSheet();
+  const firstPromise = sheet.replace("p { color: red; }");
+
+  await promise_rejects_dom(t, "NotAllowedError", sheet.replace("p { color: blue; }"));
+
+  await firstPromise;
+
+  // After the first promise resolves, replace should work again
+  const result = await sheet.replace("p { color: green; }");
+  assert_equals(result.cssRules[0].style.color, "green");
+}, "replace() rejects with NotAllowedError while another replace() is in progress");
+</script>

@@ -1,0 +1,6 @@
+// https://drafts.csswg.org/css-conditional-3/#the-cssmediarule-interface
+[Exposed=Window]
+interface CSSMediaRule : CSSConditionRule {
+  [SameObject, PutForwards=mediaText] readonly attribute MediaList media;
+  readonly attribute boolean matches;
+};

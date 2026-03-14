@@ -14,6 +14,10 @@
     {
       "url-path": "/common/",
       "local-dir": "../tests/common/"
+    },
+    {
+      "url-path": "/css/support/",
+      "local-dir": "../tests/css/support/"
     }
   ],
   "logging": {

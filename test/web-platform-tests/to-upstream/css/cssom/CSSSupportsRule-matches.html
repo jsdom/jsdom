@@ -1,0 +1,47 @@
+<!doctype html>
+<title>CSSSupportsRule matches property</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-3/#dom-csssupportsrule-matches">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  @supports (color: green) { #a { color: green } }
+  @supports (color: banana) { #b { color: green } }
+  @supports (color: green) and (display: flex) { #c { color: green } }
+  @supports (color: green) or (color: banana) { #d { color: green } }
+  @supports not (color: banana) { #e { color: green } }
+  @supports not (color: green) { #f { color: green } }
+  @supports (fake-property: 1) { #g { color: green } }
+</style>
+<script>
+"use strict";
+
+const rules = document.styleSheets[0].cssRules;
+
+test(() => {
+  assert_equals(rules[0].matches, true);
+}, "@supports (color: green) matches");
+
+test(() => {
+  assert_equals(rules[1].matches, false);
+}, "@supports (color: banana) does not match");
+
+test(() => {
+  assert_equals(rules[2].matches, true);
+}, "@supports with and: both supported matches");
+
+test(() => {
+  assert_equals(rules[3].matches, true);
+}, "@supports with or: one supported matches");
+
+test(() => {
+  assert_equals(rules[4].matches, true);
+}, "@supports not (unsupported) matches");
+
+test(() => {
+  assert_equals(rules[5].matches, false);
+}, "@supports not (supported) does not match");
+
+test(() => {
+  assert_equals(rules[6].matches, false);
+}, "@supports with unknown property does not match");
+</script>

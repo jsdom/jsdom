@@ -2,6 +2,7 @@
 [Exposed=Window,
  HTMLConstructor]
 interface HTMLStyleElement : HTMLElement {
+  attribute boolean disabled;
   [CEReactions, Reflect] attribute DOMString media;
 
   // also has obsolete members

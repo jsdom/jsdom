@@ -1,0 +1,15 @@
+// https://drafts.csswg.org/css-counter-styles-3/#csscounterstylerule
+[Exposed=Window]
+interface CSSCounterStyleRule : CSSRule {
+  attribute CSSOMString name;
+  attribute CSSOMString system;
+  attribute CSSOMString symbols;
+  attribute CSSOMString additiveSymbols;
+  attribute CSSOMString negative;
+  attribute CSSOMString prefix;
+  attribute CSSOMString suffix;
+  attribute CSSOMString range;
+  attribute CSSOMString pad;
+  attribute CSSOMString speakAs;
+  attribute CSSOMString fallback;
+};
