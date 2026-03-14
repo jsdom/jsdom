@@ -771,8 +771,6 @@ HTMLElement-constructor.html:
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself": [fail, Unknown]
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself via a Proxy object": [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
 adopted-callback.html: [fail, "Failing test due to https://github.com/whatwg/dom/issues/813"]
-attribute-changed-callback.html:
-  "attributedChangedCallback must be enqueued for style attribute change by mutating inline style declaration": [fail, attributeChangedCallback doesn't work with CSSStyleDeclaration, https://github.com/jsdom/cssstyle/issues/113]
 connected-callbacks-html-fragment-parsing.html: [fail-slow, Unknown]
 cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 custom-element-reaction-queue.html:
