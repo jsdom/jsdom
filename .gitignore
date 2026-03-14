@@ -8,4 +8,6 @@ node_modules
 test/web-platform-tests/tuwpt-manifest.json
 npm-debug.log*
 
+.wireit
 lib/generated/
+lib/jsdom/living/css/CSSStyleProperties.webidl
