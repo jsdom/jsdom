@@ -72,14 +72,15 @@
     "server-destroy": "^1.0.1",
     "tinybench": "^6.0.0",
     "webidl2": "^24.5.0",
-    "webidl2js": "^19.1.0"
+    "webidl2js": "^19.1.0",
+    "wireit": "^0.14.12"
   },
   "scripts": {
-    "prepare": "npm-run-all prepare:*",
-    "prepare:convert-idl": "node ./scripts/webidl/convert.js",
-    "prepare:generate-event-sets": "node ./scripts/generate-event-sets.js",
-    "prepare:generate-css-style-properties": "node ./scripts/generate-css-style-properties.js",
-    "prepare:generate-js-globals": "node ./scripts/generate-js-globals.js",
+    "prepare": "wireit",
+    "prepare:convert-idl": "wireit",
+    "prepare:generate-event-sets": "wireit",
+    "prepare:generate-css-style-properties": "wireit",
+    "prepare:generate-js-globals": "wireit",
     "pretest": "npm run prepare && npm run wpt:init",
     "test": "npm-run-all --continue-on-error test:*",
     "test:api": "mocha test/api/",
@@ -93,6 +94,30 @@
     "wpt:update": "git submodule update --init --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt",
     "benchmark": "node ./benchmark/runner"
+  },
+  "wireit": {
+    "prepare": {
+      "dependencies": [
+        "prepare:convert-idl",
+        "prepare:generate-event-sets",
+        "prepare:generate-js-globals"
+      ]
+    },
+    "prepare:convert-idl": {
+      "command": "node ./scripts/webidl/convert.js",
+      "dependencies": [
+        "prepare:generate-css-style-properties"
+      ]
+    },
+    "prepare:generate-event-sets": {
+      "command": "node ./scripts/generate-event-sets.js"
+    },
+    "prepare:generate-css-style-properties": {
+      "command": "node ./scripts/generate-css-style-properties.js"
+    },
+    "prepare:generate-js-globals": {
+      "command": "node ./scripts/generate-js-globals.js"
+    }
   },
   "main": "./lib/api.js",
   "type": "commonjs",
