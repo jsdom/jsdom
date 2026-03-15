@@ -31,6 +31,31 @@ Minimum Node.js version changes:
 * Update .github/workflows/jsdom-ci.yml.
 -->
 
+## 29.0.0
+
+Breaking changes:
+
+* Node.js v22.13.0+ is now the minimum supported v22 version (was v22.12.0+).
+
+Other changes:
+
+* Overhauled the CSSOM implementation, replacing the [`@acemir/cssom`](https://www.npmjs.com/package/@acemir/cssom) and [`cssstyle`](https://github.com/jsdom/cssstyle) dependencies with fresh internal implementations built on webidl2js wrappers and the [`css-tree`](https://www.npmjs.com/package/css-tree) parser. Serialization, parsing, and API behavior is improved in various ways, especially around edge cases.
+* Added `CSSCounterStyleRule` and `CSSNamespaceRule` to jsdom `Window`s.
+* Added `cssMediaRule.matches` and `cssSupportsRule.matches` getters.
+* Added proper media query parsing in `MediaList`, using `css-tree` instead of naive comma-splitting. Invalid queries become `"not all"` per spec.
+* Added `cssKeyframeRule.keyText` getter/setter validation.
+* Added `cssStyleRule.selectorText` setter validation: invalid selectors are now rejected.
+* Added `styleSheet.ownerNode`, `styleSheet.href`, and `styleSheet.title`.
+* Added bad port blocking per the [fetch specification](https://fetch.spec.whatwg.org/#bad-port), preventing fetches to commonly-abused ports.
+* Improved `Document` initialization performance by lazily initializing the CSS selector engine, avoiding ~0.5 ms of overhead per `Document`. (thypon)
+* Fixed a memory leak when stylesheets were removed from the document.
+* Fixed `CSSStyleDeclaration` modifications to properly trigger custom element reactions.
+* Fixed nested `@media` rule parsing.
+* Fixed `CSSStyleSheet`'s "disallow modification" flag not being checked in all mutation methods.
+* Fixed `XMLHttpRequest`'s `response` getter returning parsed JSON during the `LOADING` state instead of `null`.
+* Fixed `getComputedStyle()` crashing in XHTML documents when stylesheets contained at-rules such as `@page` or `@font-face`.
+* Fixed a potential hang in synchronous `XMLHttpRequest` caused by a race condition with the worker thread's idle timeout.
+
 ## 28.1.0
 
 * Added `blob.text()`, `blob.arrayBuffer()`, and `blob.bytes()` methods.
