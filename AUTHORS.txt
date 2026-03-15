@@ -267,6 +267,7 @@ Phil Dokas <pdokas@organic.com>
 Philipp Fritsche <ph.fritsche@gmail.com>
 Philippe Ozil <5071767+pozil@users.noreply.github.com>
 Pierre-Marie Dartus <dartus.pierremarie@gmail.com>
+Pieter Oliver <68863060+pieterocp@users.noreply.github.com>
 Piotr Oleś <piotrek.oles@gmail.com>
 Rafał Chłodnicki <rchl2k@gmail.com>
 Rainer Eli <claushellsing@gmail.com>
