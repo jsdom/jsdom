@@ -92,7 +92,6 @@
     "wpt:init": "git submodule update --init --recursive",
     "wpt:reset": "rm -rf ./test/web-platform-tests/tests && npm run wpt:init",
     "wpt:update": "git submodule update --init --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
-    "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt",
     "benchmark": "node ./benchmark/runner"
   },
   "wireit": {
