@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>border shorthand containing keywords or var()</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#propdef-border">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- regression test for https://github.com/jsdom/jsdom/issues/4112 -->
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.border = "inherit";
+  div.style.borderWidth = "initial";
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderWidth, "initial", "border-width");
+}, "border shorthand with CSS wide keywords");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.borderBottom = "var(--border-width, 1px)";
+  div.style.borderColor = "rgba(117,117,117,1)";
+  assert_equals(div.style.border, "", "border");
+  assert_equals(div.style.borderBottom, "", "border-bottom");
+  assert_equals(div.style.borderColor, "rgb(117, 117, 117)", "border-color");
+}, "border related properties with var()");
+</script>
