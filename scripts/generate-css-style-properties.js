@@ -57,6 +57,7 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
   function generateDescriptors() {
     const requires = [];
     const descriptors = [];
+    const metadata = [];
     for (const [canonicalProperty, { legacyAliasOf, styleDeclaration, syntax }] of definitions) {
       const camelizedProperty = dashedToCamelCase(canonicalProperty);
       const camelizedAliasProperty = legacyAliasOf ? dashedToCamelCase(legacyAliasOf) : "";
@@ -65,6 +66,8 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
         const fileName = implementedProperties.get(camelizedProperty);
         requires.push(`const ${camelizedProperty} = require("../jsdom/living/css/properties/${fileName}");`);
         descriptorSource = `${camelizedProperty}.descriptor`;
+        const opts = createDescriptorOpts(syntax);
+        metadata.push([canonicalProperty, opts]);
       } else if (implementedProperties.has(camelizedAliasProperty)) {
         // No need to add to `requires` since the non-alias branch of the outer
         // loop will ensure the corresponding handler file is included there.
@@ -77,7 +80,7 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
         descriptors.push(`"${property}": ${descriptorSource}`);
       }
     }
-    const output = `"use strict";
+    const descriptorOutput = `"use strict";
 ${requires.sort().join("\n")}
 const { createGenericPropertyDescriptor } = require("../jsdom/living/css/helpers/generic-property-descriptor.js");
 
@@ -85,7 +88,13 @@ module.exports = {
   ${descriptors.join(",\n  ")}
 };
 `;
-    return fs.writeFile(path.resolve(outputDir, "css-property-descriptors.js"), output);
+    const metadataOutput = `"use strict";
+module.exports = new Map(${JSON.stringify(metadata, undefined, 2)});
+`;
+    return Promise.all([
+      fs.writeFile(path.resolve(outputDir, "css-property-descriptors.js"), descriptorOutput),
+      fs.writeFile(path.resolve(outputDir, "css-property-metadata.js"), metadataOutput)
+    ]);
   }
 
   function generateWebIDL() {
