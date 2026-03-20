@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@asamuzakjp/css-color": "^5.0.1",
-    "@asamuzakjp/dom-selector": "^7.0.2",
+    "@asamuzakjp/dom-selector": "^7.0.3",
     "@bramus/specificity": "^2.4.2",
     "@csstools/css-syntax-patches-for-csstree": "^1.1.1",
     "@exodus/bytes": "^1.15.0",
@@ -38,7 +38,7 @@
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
     "tough-cookie": "^6.0.1",
-    "undici": "^7.24.3",
+    "undici": "^7.24.5",
     "w3c-xmlserializer": "^5.0.0",
     "webidl-conversions": "^8.0.1",
     "whatwg-mimetype": "^5.0.0",
@@ -56,7 +56,7 @@
   "devDependencies": {
     "@domenic/eslint-config": "^5.1.0",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@webref/css": "^8.3.0",
+    "@webref/css": "^8.5.0",
     "eslint": "^10.0.3",
     "eslint-plugin-html": "^8.1.4",
     "eslint-plugin-n": "^17.24.0",
