@@ -283,6 +283,12 @@ system-color-compute.html:
   "Inherited system color keyword is observable on caret-color": [fail, computedStyleMap not implemented]
   "Inherited system color keyword is observable on fill": [fail, computedStyleMap not implemented]
   "Inherited system color keyword is observable on stroke": [fail, computedStyleMap not implemented]
+  "System color doesn't compute to itself on box-shadow": [fail, box-shadow not implemented]
+  "System color doesn't compute to itself on text-shadow": [fail, text-shadow not implemented]
+  "System color doesn't compute to itself on column-rule-color": [fail, column-rule-color not implemented]
+  "System color doesn't compute to itself on caret-color": [fail, caret-color not implemented]
+  "System color doesn't compute to itself on fill": [fail, fill not implemented]
+  "System color doesn't compute to itself on stroke": [fail, stroke not implemented]
 system-color-consistency.html: [fail, Depends on CSS]
 
 ---
