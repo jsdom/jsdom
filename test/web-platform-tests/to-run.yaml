@@ -62,7 +62,8 @@ simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 
 DIR: css/css-backgrounds
 
 animations/*: [fail, Not implemented]
-background-331.html: [fail, Unknown]
+background-331.html:
+  "background_initial_position": [fail, background-position not resolved to computed value]
 background-332.html:
   "Computed value for background-image after setting background shorthand": [fail, Need getComputedStyle fix]
   "background_specified_position": [fail, Unknown]
@@ -283,10 +284,6 @@ system-color-compute.html:
   "Inherited system color keyword is observable on stroke": [fail, computedStyleMap not implemented]
   "System color doesn't compute to itself on box-shadow": [fail, box-shadow not implemented]
   "System color doesn't compute to itself on text-shadow": [fail, text-shadow not implemented]
-  "System color doesn't compute to itself on column-rule-color": [fail, column-rule-color not implemented]
-  "System color doesn't compute to itself on caret-color": [fail, caret-color not implemented]
-  "System color doesn't compute to itself on fill": [fail, fill not implemented]
-  "System color doesn't compute to itself on stroke": [fail, stroke not implemented]
 system-color-consistency.html: [fail, Depends on CSS]
 
 ---

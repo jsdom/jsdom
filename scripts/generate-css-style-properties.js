@@ -73,8 +73,9 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
         // loop will ensure the corresponding handler file is included there.
         descriptorSource = `${camelizedAliasProperty}.descriptor`;
       } else {
-        const opts = JSON.stringify(createDescriptorOpts(syntax));
-        descriptorSource = `createGenericPropertyDescriptor("${canonicalProperty}", ${opts})`;
+        const opts = createDescriptorOpts(syntax);
+        descriptorSource = `createGenericPropertyDescriptor("${canonicalProperty}", ${JSON.stringify(opts)})`;
+        metadata.push([canonicalProperty, opts]);
       }
       for (const property of styleDeclaration) {
         descriptors.push(`"${property}": ${descriptorSource}`);
