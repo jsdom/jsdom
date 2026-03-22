@@ -1,6 +1,4 @@
 css/css-backgrounds/background-border-cssText.html: [fail, https://github.com/jsdom/jsdom/issues/4095]
-css/css-backgrounds/background-shorthand.html:
-  "Set style attribute by default": [fail, https://github.com/jsdom/jsdom/issues/3663]
 css/css-borders/border-color.html: [fail, https://github.com/jsdom/jsdom/issues/3972]
 css/css-borders/border-shorthands.html:
   "Computed value of border shorthand": [fail, Regression test for https://github.com/jsdom/jsdom/issues/3971]
