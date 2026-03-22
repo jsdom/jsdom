@@ -260,7 +260,6 @@ inheritance.html:
   "Property opacity does not inherit": [fail, Need cssstyle fix]
 light-dark-basic.html: [fail, Depends on matchMedia]
 light-dark-currentcolor-in-color.html: [fail, Need to fix getComputedStyle]
-nested-color-mix-with-currentcolor.html: [fail, Unknown]
 parsing/color-computed-*.html: [fail, Unknown]
 parsing/color-computed.html: [fail, Unknown]
 parsing/color-mix-out-of-gamut.html: [fail, Unknown]
