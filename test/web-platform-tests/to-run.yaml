@@ -118,7 +118,6 @@ parsing/background-position-y-valid.html:
   "e.style['background-position-y'] = \"calc(10px - 0.5em), top -20%, bottom 10px\" should set the property value": [fail, Unknown]
 parsing/background-repeat-computed.html: [fail, CSS not implemented]
 parsing/background-shorthand-serialization.html:
-  "background-size with non-initial background-position": [fail, Unknown]
   "multiple backgrounds with varying values": [fail, Unknown]
   "all initial values": [fail, Unknown]
 parsing/background-size-computed.html: [fail, CSS not implemented]
