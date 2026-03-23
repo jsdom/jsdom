@@ -18,6 +18,12 @@ test(() => {
 
 test(() => {
   const el = document.createElement("div");
+  el.style.cssText = "background: var(--background-color); color: red;";
+  assert_equals(el.style.cssText, "background: var(--background-color); color: red;");
+}, "background with var()");
+
+test(() => {
+  const el = document.createElement("div");
   el.style.cssText = "border: 1px solid var(--border-color); color: red;";
   assert_equals(el.style.cssText, "border: 1px solid var(--border-color); color: red;");
 }, "border with var()");
