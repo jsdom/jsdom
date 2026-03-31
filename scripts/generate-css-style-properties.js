@@ -44,7 +44,7 @@ async function main() {
   const functionTypes = ["color", "image", "paint"];
   const typeList = new Set([...caseSensitiveTypes, ...dimensionTypes, ...functionTypes]);
 
-  await Promise.all([generateDefinitions(), generateDescriptors(), generateWebIDL()]);
+  await Promise.all([generateDefinitions(), generateDescriptors(), generatePropertyMetadata(), generateWebIDL()]);
 
   function generateDefinitions() {
     const output = `"use strict";
@@ -52,6 +52,38 @@ async function main() {
 module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
 `;
     return fs.writeFile(path.resolve(outputDir, "css-property-definitions.js"), output);
+  }
+
+  function generatePropertyMetadata() {
+    const metadata = [];
+    for (const [name, def] of definitions) {
+      if (def.initial === "see individual properties") {
+        continue;
+      }
+      if (def.computedValue === "see individual properties" || def.longhands) {
+        continue;
+      }
+      const isColor = /<color>/.test(def.syntax) ||
+                      /<paint>/.test(def.syntax) ||
+                      name.endsWith("-color") ||
+                      name === "color";
+      if (!isColor && /color/i.test(def.computedValue || "")) {
+        continue;
+      }
+      metadata.push([
+        name,
+        {
+          inherited: def.inherited === "yes",
+          initial: def.initial,
+          computedValue: isColor ? "computed-color" : "as-specified"
+        }
+      ]);
+    }
+    const output = `"use strict";
+
+module.exports = new Map(${JSON.stringify(metadata, undefined, 2)});
+`;
+    return fs.writeFile(path.resolve(outputDir, "css-property-metadata.js"), output);
   }
 
   function generateDescriptors() {
