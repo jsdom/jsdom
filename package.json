@@ -23,8 +23,8 @@
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
   "dependencies": {
-    "@asamuzakjp/css-color": "^5.1.6",
-    "@asamuzakjp/dom-selector": "^7.0.7",
+    "@asamuzakjp/css-color": "^5.1.8",
+    "@asamuzakjp/dom-selector": "^7.0.8",
     "@bramus/specificity": "^2.4.2",
     "@csstools/css-syntax-patches-for-csstree": "^1.1.1",
     "@exodus/bytes": "^1.15.0",
