@@ -54,4 +54,13 @@ test(() => {
     "Modifying property is not allowed."
   );
 }, "removeProperty");
+
+test(() => {
+  assert_throws_js(
+    TypeError,
+    () => {
+      window.getComputedStyle("foo");
+    }
+  );
+}, "Throws if given param is not an Element.");
 </script>
