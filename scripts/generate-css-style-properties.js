@@ -170,6 +170,10 @@ ${attributes.join("\n")}
             type = "percentage";
             break;
           }
+          case "ratio": {
+            type = "ratio";
+            break;
+          }
           default: {
             type = "dimension";
           }
