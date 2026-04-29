@@ -199,4 +199,14 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(window.document.querySelector("#one").href, "file:///foo.pdf");
     assert.equal(window.document.querySelector("#two").href, "file:///base/foo.pdf");
   });
+
+  it("should get cssText without error (GH-4153)", () => {
+    const styleText = "background: red; background-clip: padding-box; -webkit-text-fill-color: transparent;";
+    const dom = new JSDOM(`<div id="div" style="${styleText}"></div>`, {
+      runScripts: "dangerously"
+    });
+    const div = dom.window.document.getElementById("div");
+
+    assert.equal(div.style.cssText, "background: padding-box red; -webkit-text-fill-color: transparent;");
+  });
 });
