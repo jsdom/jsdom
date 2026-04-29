@@ -68,7 +68,6 @@ background-332.html:
   "Computed value for background-image after setting background shorthand": [fail, Need getComputedStyle fix]
   "background_specified_position": [fail, Unknown]
   "background_specified_size": [fail, Need getComputedStyle fix]
-background-336.html: [fail, Unknown]
 background-image-cors-no-reload.html: [fail, Not implemented]
 background-size-001.html:
   "background-size_length_zero": [fail, Unknown]
@@ -121,14 +120,7 @@ parsing/background-valid.html:
   "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set the property value": [fail, Unknown]
   "e.style['background'] = \"none\" should set background-color": [fail, Need getComputedStyle fix]
   "e.style['background'] = \"none\" should not set unrelated longhands": [fail, CSS not implemented]
-  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-attachment": [fail, Unknown]
-  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-clip": [fail, Unknown]
-  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-color": [fail, Unknown]
-  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-image": [fail, Unknown]
-  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-origin": [fail, Unknown]
   "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-position": [fail, Unknown]
-  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-repeat": [fail, Unknown]
-  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-size": [fail, Unknown]
   "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should not set unrelated longhands": [fail, CSS not implemented]
 parsing/border-color-computed.html: [fail, CSS not implemented]
 parsing/border-color-shorthand.html:
