@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>font-size computed keywords</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts-4/#font-size-prop">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#font-relative-lengths">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<style>
+:root {
+  font-size: 75%;
+}
+.nest1 {
+  font-size: 2em;
+}
+.nest2 {
+  font-size: larger;
+}
+.nest3 {
+  font-size: 1rem;
+}
+.nest4 {
+  font-size: 1lh;
+}
+.nest5 {
+  font-size: 1vw;
+}
+.nest6 {
+  font-size: 1vmax;
+}
+.outer {
+  width: 4em;
+  height: 3em;
+}
+.inner {
+  width: 50%;
+  height: 50%;
+}
+</style>
+
+<div id="div1" class="nest1">
+  <div id="div2">
+    <div id="div3" class="nest2">
+      <div id="div4" class="nest2">
+        <div id="div5" class="nest3">
+          <div id="div6">
+            <div id="div7" class="nest4">
+              <div id="div8">
+                <div id="div9" class="nest5">
+                  <div id="div10" class="nest6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="div11" class="outer">
+  <div id="div12" class="inner"></div>
+</div>
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.documentElement;
+  assert_equals(window.getComputedStyle(div).fontSize, "12px");
+}, "root");
+
+test(() => {
+  const div = document.getElementById("div1");
+  assert_equals(window.getComputedStyle(div).fontSize, "24px");
+}, "div1");
+
+test(() => {
+  const div = document.getElementById("div2");
+  assert_equals(window.getComputedStyle(div).fontSize, "24px");
+}, "div2");
+
+test(() => {
+  const div = document.getElementById("div3");
+  assert_equals(window.getComputedStyle(div).fontSize, "28.8px");
+}, "div3");
+
+test(() => {
+  const div = document.getElementById("div4");
+  assert_equals(window.getComputedStyle(div).fontSize, "34.56px");
+}, "div4");
+
+test(() => {
+  const div = document.getElementById("div5");
+  assert_equals(window.getComputedStyle(div).fontSize, "12px");
+}, "div5");
+
+test(() => {
+  const div = document.getElementById("div6");
+  assert_equals(window.getComputedStyle(div).fontSize, "12px");
+}, "div6");
+
+test(() => {
+  const div = document.getElementById("div7");
+  const lh = parseFloat(window.getComputedStyle(div).fontSize);
+  assert_equals(lh > 12, lh < 24);
+}, "div7");
+
+test(() => {
+  const div = document.getElementById("div8");
+  const lh = parseFloat(window.getComputedStyle(div).fontSize);
+  assert_equals(lh > 12, lh < 24);
+}, "div8");
+
+test(() => {
+  const div = document.getElementById("div9");
+  const viewportWidth = window.innerWidth / 100;
+  assert_equals(window.getComputedStyle(div).fontSize, `${viewportWidth}px`);
+}, "div9");
+
+test(() => {
+  const div = document.getElementById("div10");
+  const viewportWidth = window.innerWidth / 100;
+  assert_equals(window.getComputedStyle(div).fontSize, `${viewportWidth}px`);
+}, "div10");
+
+test(() => {
+  const div = document.getElementById("div11");
+  const cs = window.getComputedStyle(div);
+  assert_equals(cs.fontSize, "12px");
+  assert_equals(cs.width, "48px");
+  assert_equals(cs.height, "36px");
+}, "div11");
+
+test(() => {
+  const div = document.getElementById("div12");
+  const cs = window.getComputedStyle(div);
+  assert_equals(cs.fontSize, "12px");
+  assert_equals(cs.width, "24px");
+  assert_equals(cs.height, "18px");
+}, "div12");
+</script>
