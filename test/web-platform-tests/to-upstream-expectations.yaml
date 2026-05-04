@@ -9,7 +9,7 @@ css/css-fonts/font-size-computed-keyword.html:
   "font size large cascaded by revert": [fail, Revert keyword is not supported]
   "font size large cascaded by revertLayer": [fail, Revert-layer keyword is not supported]
 css/css-fonts/font-size-computed.html:
-  "box3": [fail, JSDOM does not have a layout]
+  "box3": [fail, Need percentage value resolver for width]
 css/css-nesting/nested-media-in-layer.html: [fail, https://github.com/jsdom/jsdom/issues/3997]
 css/css-sizing/aspect-ratio.html:
   "auto number": [fail, aspect-ratio is not fully implemented]
