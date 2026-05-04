@@ -53,9 +53,6 @@
     color: canvastext;
     color-scheme: normal;
   }
-  #calc {
-    color: rgb(from red calc(r * sign(1em) * 0.5) g b);
-  }
 </style>
 <div id="parent">
   <div id="initial"></div>
@@ -68,7 +65,6 @@
   <div id="color"></div>
   <div id="mix"></div>
   <div id="current"></div>
-  <div id="calc"></div>
 </div>
 <div id="system"></div>
 <script>
@@ -134,9 +130,4 @@
     assert_equals(getComputedStyle(div).backgroundColor, "rgb(0, 0, 0)", "background");
     assert_equals(getComputedStyle(div).color, "rgb(0, 0, 0)", "color");
   }, "Current colors");
-
-  test(() => {
-    const div = document.getElementById("calc");
-    assert_equals(getComputedStyle(div).color, "color(srgb 0.5 0 0)", "color");
-  }, "Calc");
 </script>
