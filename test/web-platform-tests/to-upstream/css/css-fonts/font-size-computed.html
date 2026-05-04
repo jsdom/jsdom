@@ -28,13 +28,17 @@
 .nest6 {
   font-size: 1vmax;
 }
-.outer {
-  width: 4em;
-  height: 3em;
+.nest7 {
+  font-size: calc(2em - 1px);
 }
-.inner {
+.box1 {
+  width: 4em;
+}
+.box2 {
+  width: calc(2em - 2px);
+}
+.box3 {
   width: 50%;
-  height: 50%;
 }
 </style>
 
@@ -47,7 +51,12 @@
             <div id="div7" class="nest4">
               <div id="div8">
                 <div id="div9" class="nest5">
-                  <div id="div10" class="nest6"></div>
+                  <div id="div10" class="nest6">
+                    <div id="div11" style="font-size: 1rem">
+                      <div id="div12" class="nest7">
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -58,8 +67,9 @@
   </div>
 </div>
 
-<div id="div11" class="outer">
-  <div id="div12" class="inner"></div>
+<div id="box1" class="box1">
+  <div id="box2" class="box2"></div>
+  <div id="box3" class="box3"></div>
 </div>
 
 <script>
@@ -126,17 +136,32 @@ test(() => {
 
 test(() => {
   const div = document.getElementById("div11");
-  const cs = window.getComputedStyle(div);
-  assert_equals(cs.fontSize, "12px");
-  assert_equals(cs.width, "48px");
-  assert_equals(cs.height, "36px");
+  assert_equals(window.getComputedStyle(div).fontSize, "12px");
 }, "div11");
 
 test(() => {
   const div = document.getElementById("div12");
+  assert_equals(window.getComputedStyle(div).fontSize, "23px");
+}, "div12");
+
+test(() => {
+  const div = document.getElementById("box1");
+  const cs = window.getComputedStyle(div);
+  assert_equals(cs.fontSize, "12px");
+  assert_equals(cs.width, "48px");
+}, "box1");
+
+test(() => {
+  const div = document.getElementById("box2");
+  const cs = window.getComputedStyle(div);
+  assert_equals(cs.fontSize, "12px");
+  assert_equals(cs.width, "22px");
+}, "box2");
+
+test(() => {
+  const div = document.getElementById("box3");
   const cs = window.getComputedStyle(div);
   assert_equals(cs.fontSize, "12px");
   assert_equals(cs.width, "24px");
-  assert_equals(cs.height, "18px");
-}, "div12");
+}, "box3");
 </script>
