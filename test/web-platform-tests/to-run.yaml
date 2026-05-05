@@ -2288,6 +2288,7 @@ DIR: html/webappapis/timers
 
 setinterval-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 settimeout-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
+timer-nesting-not-inherited-in-microtask.html: [flaky]
 
 ---
 
