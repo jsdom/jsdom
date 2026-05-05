@@ -244,6 +244,42 @@ tentative/parsing/box-shadow-spread-valid.html:
 
 ---
 
+DIR: css/css-box
+
+animation/**: [fail, Not implemented]
+inheritance.html:
+  "Property margin-bottom has initial value 0px": [fail, Unknown]
+  "Property margin-left has initial value 0px": [fail, Unknown]
+  "Property margin-right has initial value 0px": [fail, Unknown]
+  "Property margin-top has initial value 0px": [fail, Unknown]
+  "Property padding-bottom has initial value 0px": [fail, Unknown]
+  "Property padding-left has initial value 0px": [fail, Unknown]
+  "Property padding-right has initial value 0px": [fail, Unknown]
+  "Property padding-top has initial value 0px": [fail, Unknown]
+margin-trim/**: [fail, Not implemented]
+parsing/clear-computed.html: [fail, Depends on CSS]
+parsing/float-computed.html: [fail, Depends on CSS]
+parsing/margin-computed.html: [fail, Depends on CSS]
+parsing/margin-shorthand.html:
+  "e.style['margin'] = \"1px 2px 3px 4px\" should not set unrelated longhands": [fail, Depends on CSS]
+  "e.style['margin'] = \"1px 2px 3px\" should not set unrelated longhands": [fail, Depends on CSS]
+  "e.style['margin'] = \"1px 2px\" should not set unrelated longhands": [fail, Depends on CSS]
+  "e.style['margin'] = \"1px\" should not set unrelated longhands": [fail, Depends on CSS]
+parsing/margin-trim-computed.html: [fail, Not implemented]
+parsing/margin-trim.html: [fail, Not implemented]
+parsing/margin-valid.html:
+  "e.style['margin'] = \"auto calc(2em + 3ex) 20%\" should set the property value": [fail, Unknown]
+  "e.style['margin'] = \"10px 20% calc(2em + 3ex) auto\" should set the property value": [fail, Unknown]
+parsing/padding-computed.html: [fail, Depends on CSS]
+parsing/padding-shorthand.html:
+  "e.style['padding'] = \"1px 2px 3px 4px\" should not set unrelated longhands": [fail, Depends on CSS]
+  "e.style['padding'] = \"1px 2px 3px\" should not set unrelated longhands": [fail, Depends on CSS]
+  "e.style['padding'] = \"1px 2px\" should not set unrelated longhands": [fail, Depends on CSS]
+  "e.style['padding'] = \"1px\" should not set unrelated longhands": [fail, Depends on CSS]
+parsing/visibility-computed.html: [fail, Depends on CSS]
+
+---
+
 DIR: css/css-cascade
 
 all-prop-initial-xml.html: [fail-slow, Unknown]
