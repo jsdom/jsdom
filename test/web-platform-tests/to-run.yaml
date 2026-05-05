@@ -205,6 +205,45 @@ parsing/webkit-border-radius-valid.html: [fail, Not implemented]
 
 ---
 
+DIR: css/css-borders
+
+border-image-width-interpolation-math-functions.html: [fail, Unknown]
+border-shape/border-shape-animation.html: [fail, Not implemented]
+border-shape/border-shape-ignore-radius-computed.html: [fail, Not implemented]
+border-shape/border-shape-overflow-clip-margin-hit-test-ref-boxes.html: [fail, Not implemented]
+border-shape/border-shape-overflow-clip-margin-hit-test.html: [fail, Not implemented]
+border-width-rounding.tentative.html: [fail, Unknown]
+corner-shape/**/!(corner-shape-invalid.html|corners-invalid.html): [fail, Not implemented]
+outline-offset-rounding.tentative.html: [fail, Not implemented]
+tentative/parsing/border-block-end-radius-computed.html: [fail, Not implemented]
+tentative/parsing/border-block-start-radius-computed.html: [fail, Not implemented]
+tentative/parsing/border-bottom-radius-computed.html: [fail, Not implemented]
+tentative/parsing/border-clip-computed.html: [fail, Depends on CSS]
+tentative/parsing/border-clip-invalid.html:
+  "e.style['border-clip'] = \"none\" should not set the property value": [fail, Unknown]
+tentative/parsing/border-clip-valid.html:
+  "e.style['border-clip'] = \"normal\" should set the property value": [fail, Unknown]
+  "e.style['border-clip'] = \"0\" should set the property value": [fail, Unknown]
+tentative/parsing/border-inline-end-radius-computed.html: [fail, Not implemented]
+tentative/parsing/border-inline-start-radius-computed.html: [fail, Not implemented]
+tentative/parsing/border-left-radius-computed.html: [fail, Not implemented]
+tentative/parsing/border-right-radius-computed.html: [fail, Not implemented]
+tentative/parsing/border-shape-computed.html: [fail, Not implemented]
+tentative/parsing/border-top-radius-computed.html: [fail, Not implemented]
+tentative/parsing/box-shadow-blur-computed.html: [fail, Not implemented]
+tentative/parsing/box-shadow-blur-valid.html: [fail, Not implemented]
+tentative/parsing/box-shadow-color-computed.html: [fail, Not implemented]
+tentative/parsing/box-shadow-color-valid.html: [fail, Not implemented]
+tentative/parsing/box-shadow-offset-computed.html: [fail, Not implemented]
+tentative/parsing/box-shadow-offset-valid.html:
+  "e.style['box-shadow-offset'] = \"0\" should set the property value": [fail, Not implemented]
+tentative/parsing/box-shadow-position-computed.html: [fail, Not implemented]
+tentative/parsing/box-shadow-spread-computed.html: [fail, Not implemented]
+tentative/parsing/box-shadow-spread-valid.html:
+  "e.style['box-shadow-spread'] = \"0\" should set the property value": [fail, Not implemented]
+
+---
+
 DIR: css/css-cascade
 
 all-prop-initial-xml.html: [fail-slow, Unknown]
