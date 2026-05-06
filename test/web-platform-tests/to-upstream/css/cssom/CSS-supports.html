@@ -52,6 +52,14 @@ test(() => {
     CSS.supports("(color: red) and (not-a-real-property: red)"),
     "'and' operator with one invalid condition should be false"
   );
+  assert_false(
+    CSS.supports("not"),
+    "'not' operator with unexpected end of input should be false"
+  );
+  assert_false(
+    CSS.supports("(color: red) and"),
+    "'and' operator with unexpected end of input should be false"
+  );
 }, "CSS.supports(conditionText) with logical operators");
 
 test(() => {
