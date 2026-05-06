@@ -48,6 +48,7 @@ test(() => {
     CSS.supports("(color: red) or (not-a-real-property: red)"),
     "'or' operator should work"
   );
+  assert_true(CSS.supports("NOT (color: rainbow)"), "Upper cased logical operator should work");
   assert_false(
     CSS.supports("(color: red) and (not-a-real-property: red)"),
     "'and' operator with one invalid condition should be false"
