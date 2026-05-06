@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS Namespace: CSS.escape()</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-css.escape()-method">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(CSS.escape("hello"), "hello", "Simple alphabetic string");
+  assert_equals(CSS.escape("world-123"), "world-123", "Alphanumeric with hyphens");
+  assert_equals(CSS.escape("--custom-prop"), "--custom-prop", "Valid custom property name");
+  assert_equals(CSS.escape("_underscore"), "_underscore", "Leading underscore");
+}, "CSS.escape() with basic valid identifiers");
+
+test(() => {
+  assert_equals(CSS.escape(".foo#bar"), "\\.foo\\#bar", "Class and ID selectors");
+  assert_equals(CSS.escape("a,b"), "a\\,b", "Comma");
+  assert_equals(CSS.escape("hello world"), "hello\\ world", "Space");
+  assert_equals(CSS.escape("a:hover"), "a\\:hover", "Pseudo-class colon");
+  assert_equals(CSS.escape("calc(1px)"), "calc\\(1px\\)", "Parentheses");
+}, "CSS.escape() with punctuation and spaces");
+
+test(() => {
+  assert_equals(CSS.escape("123a"), "\\31 23a", "Leading digit should be unicode escaped");
+  assert_equals(CSS.escape("0"), "\\30 ", "Single digit should be unicode escaped");
+
+  assert_equals(
+    CSS.escape("-1a"),
+    "-\\31 a",
+    "Digit after leading hyphen should be unicode escaped"
+  );
+}, "CSS.escape() with leading digits or hyphen-digits");
+
+test(() => {
+  assert_equals(CSS.escape("-"), "\\-", "Single hyphen must be escaped");
+}, "CSS.escape() with a single hyphen");
+
+test(() => {
+  assert_equals(
+    CSS.escape("\0"),
+    "\uFFFD",
+    "NULL character should be replaced with U+FFFD (Replacement Character)"
+  );
+  assert_equals(CSS.escape("\x01"), "\\1 ", "Control character U+0001 should be escaped");
+  assert_equals(CSS.escape("\x7F"), "\\7f ", "DELETE character U+007F should be escaped");
+}, "CSS.escape() with control and null characters");
+
+test(() => {
+  assert_throws_js(TypeError, () => {
+    CSS.escape();
+  }, "Calling CSS.escape() with no arguments should throw a TypeError");
+}, "CSS.escape() requires at least one argument");
+
+test(() => {
+  assert_equals(
+    CSS.escape(123),
+    "\\31 23",
+    "Number should be converted to string and its leading digit escaped"
+  );
+  assert_equals(CSS.escape(null), "null", "Null should be converted to 'null'");
+  assert_equals(CSS.escape(undefined), "undefined", "Undefined should be converted to 'undefined'");
+}, "CSS.escape() with non-string arguments");
+</script>
