@@ -1,36 +1,27 @@
 <!DOCTYPE html>
-<title>Document.evaluate() with a node-set result type for a non-node-set expression throws</title>
+<title>document.evaluate() with a node-set result type for a non-node-set expression throws</title>
 <meta charset="utf-8">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <!-- https://github.com/jsdom/jsdom/issues/4147 -->
 
-<div id="testDiv">alpha<span>beta</span></div>
-
 <script>
 "use strict";
 
 const nodeSetTypes = [
-  ["UNORDERED_NODE_ITERATOR_TYPE", XPathResult.UNORDERED_NODE_ITERATOR_TYPE],
-  ["ORDERED_NODE_ITERATOR_TYPE", XPathResult.ORDERED_NODE_ITERATOR_TYPE],
-  ["UNORDERED_NODE_SNAPSHOT_TYPE", XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE],
-  ["ORDERED_NODE_SNAPSHOT_TYPE", XPathResult.ORDERED_NODE_SNAPSHOT_TYPE],
-  ["ANY_UNORDERED_NODE_TYPE", XPathResult.ANY_UNORDERED_NODE_TYPE],
-  ["FIRST_ORDERED_NODE_TYPE", XPathResult.FIRST_ORDERED_NODE_TYPE]
+  "UNORDERED_NODE_ITERATOR_TYPE",
+  "ORDERED_NODE_ITERATOR_TYPE",
+  "UNORDERED_NODE_SNAPSHOT_TYPE",
+  "ORDERED_NODE_SNAPSHOT_TYPE",
+  "ANY_UNORDERED_NODE_TYPE",
+  "FIRST_ORDERED_NODE_TYPE"
 ];
 
-for (const [name, type] of nodeSetTypes) {
+for (const name of nodeSetTypes) {
   test(() => {
-    let thrown;
-    try {
-      document.evaluate("string(/)", document, null, type, null);
-    } catch (e) {
-      thrown = e;
-    }
-    assert_true(thrown !== undefined, "expected evaluate() to throw");
-    // Per DOM Level 3 XPath, evaluate() must raise XPathException.TYPE_ERR (code 52)
-    // when the expression result cannot be converted to the requested node-set type.
-    assert_equals(thrown.code, 52, "thrown error should have code 52 (TYPE_ERR)");
-  }, `evaluate("string(/)") with ${name} throws TYPE_ERR`);
+    assert_throws_js(TypeError, () => {
+      document.evaluate("string(/)", document, null, XPathResult[name], null);
+    });
+  }, `evaluate("string(/)") with ${name} throws TypeError`);
 }
 </script>
