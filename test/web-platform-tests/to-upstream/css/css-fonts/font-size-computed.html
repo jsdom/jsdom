@@ -72,6 +72,8 @@
   <div id="box3" class="box3"></div>
 </div>
 
+<div id="inline"></div>
+
 <script>
 "use strict";
 
@@ -164,4 +166,45 @@ test(() => {
   assert_equals(cs.fontSize, "12px");
   assert_equals(cs.width, "24px");
 }, "box3");
+
+test(t => {
+  t.add_cleanup(() => {
+    document.getElementById("inline").style.fontSize = "";
+  });
+
+  const div = document.getElementById("inline");
+  assert_equals(window.getComputedStyle(div).fontSize, "12px", "initial");
+}, "inline initial");
+
+test(t => {
+  t.add_cleanup(() => {
+    document.getElementById("inline").style.fontSize = "";
+  });
+
+  const div = document.getElementById("inline");
+  div.style.fontSize = "2em";
+  assert_equals(window.getComputedStyle(div).fontSize, "24px", "2em");
+}, "inline 2em");
+
+test(t => {
+  t.add_cleanup(() => {
+    document.getElementById("inline").style.fontSize = "";
+  });
+
+  const div = document.getElementById("inline");
+  div.style.fontSize = "0.5em";
+  // Chrome returns 10px
+  assert_equals(window.getComputedStyle(div).fontSize, "6px", "0.5em");
+}, "inline 0.5em");
+
+test(t => {
+  t.add_cleanup(() => {
+    document.getElementById("inline").style.fontSize = "";
+  });
+
+  const div = document.getElementById("inline");
+  div.style.fontSize = "50%";
+  // Chrome returns 10px
+  assert_equals(window.getComputedStyle(div).fontSize, "6px", "50%");
+}, "inline 50%");
 </script>
