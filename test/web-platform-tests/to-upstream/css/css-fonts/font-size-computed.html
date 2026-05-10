@@ -192,10 +192,9 @@ test(t => {
   });
 
   const div = document.getElementById("inline");
-  div.style.fontSize = "0.5em";
-  // Chrome returns 10px
-  assert_equals(window.getComputedStyle(div).fontSize, "6px", "0.5em");
-}, "inline 0.5em");
+  div.style.fontSize = "0.9em";
+  assert_equals(window.getComputedStyle(div).fontSize, "10.8px", "0.9em");
+}, "inline 0.9em");
 
 test(t => {
   t.add_cleanup(() => {
@@ -203,8 +202,7 @@ test(t => {
   });
 
   const div = document.getElementById("inline");
-  div.style.fontSize = "50%";
-  // Chrome returns 10px
-  assert_equals(window.getComputedStyle(div).fontSize, "6px", "50%");
-}, "inline 50%");
+  div.style.fontSize = "90%";
+  assert_equals(window.getComputedStyle(div).fontSize, "10.8px", "90%");
+}, "inline 90%");
 </script>
