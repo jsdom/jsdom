@@ -5,6 +5,8 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 
+<div id="div"></div>
+
 <script>
 "use strict";
 
@@ -79,4 +81,12 @@ test(() => {
     CSS.supports();
   }, "Calling CSS.supports() with no arguments should throw a TypeError");
 }, "CSS.supports() requires at least one argument");
+
+test(() => {
+  const div = document.getElementById("div");
+  div.style.fontSize = "revert";
+  assert_equals(div.style.getPropertyValue("font-size"), "revert", "Specified value");
+  assert_true(CSS.supports("font", "revert"), "CSS.supports");
+  assert_equals(window.getComputedStyle(div).fontSize, "16px", "Computed value");
+}, "CSS.supports and implementation");
 </script>
