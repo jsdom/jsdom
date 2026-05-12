@@ -25,6 +25,7 @@
   "dependencies": {
     "@asamuzakjp/css-color": "^5.1.11",
     "@asamuzakjp/dom-selector": "^7.1.1",
+    "@asamuzakjp/generational-cache": "^1.0.1",
     "@bramus/specificity": "^2.4.2",
     "@csstools/css-syntax-patches-for-csstree": "^1.1.3",
     "@exodus/bytes": "^1.15.0",
@@ -33,7 +34,6 @@
     "decimal.js": "^10.6.0",
     "html-encoding-sniffer": "^6.0.0",
     "is-potential-custom-element-name": "^1.0.1",
-    "lru-cache": "^11.3.5",
     "parse5": "^8.0.1",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
