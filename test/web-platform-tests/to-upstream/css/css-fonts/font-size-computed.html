@@ -72,7 +72,9 @@
   <div id="box3" class="box3"></div>
 </div>
 
-<div id="inline"></div>
+<div id="parent">
+  <div id="inline"></div>
+</div>
 
 <script>
 "use strict";
@@ -169,7 +171,8 @@ test(() => {
 
 test(t => {
   t.add_cleanup(() => {
-    document.getElementById("inline").style.fontSize = "";
+    document.getElementById("parent").style = "";
+    document.getElementById("inline").style = "";
   });
 
   const div = document.getElementById("inline");
@@ -178,7 +181,8 @@ test(t => {
 
 test(t => {
   t.add_cleanup(() => {
-    document.getElementById("inline").style.fontSize = "";
+    document.getElementById("parent").style = "";
+    document.getElementById("inline").style = "";
   });
 
   const div = document.getElementById("inline");
@@ -188,7 +192,8 @@ test(t => {
 
 test(t => {
   t.add_cleanup(() => {
-    document.getElementById("inline").style.fontSize = "";
+    document.getElementById("parent").style = "";
+    document.getElementById("inline").style = "";
   });
 
   const div = document.getElementById("inline");
@@ -198,11 +203,38 @@ test(t => {
 
 test(t => {
   t.add_cleanup(() => {
-    document.getElementById("inline").style.fontSize = "";
+    document.getElementById("parent").style = "";
+    document.getElementById("inline").style = "";
   });
 
   const div = document.getElementById("inline");
   div.style.fontSize = "90%";
   assert_equals(window.getComputedStyle(div).fontSize, "10.8px", "90%");
 }, "inline 90%");
+
+test(t => {
+  t.add_cleanup(() => {
+    document.getElementById("parent").style = "";
+    document.getElementById("inline").style = "";
+  });
+
+  const parent = document.getElementById("parent");
+  const div = document.getElementById("inline");
+  parent.style.fontSize = "50%";
+  div.style.width = "1em";
+  assert_equals(window.getComputedStyle(div).width, "6px", "width:1em");
+}, "parent 50%, inline width:1em");
+
+test(t => {
+  t.add_cleanup(() => {
+    document.getElementById("parent").style = "";
+    document.getElementById("inline").style = "";
+  });
+
+  const parent = document.getElementById("parent");
+  const div = document.getElementById("inline");
+  parent.style.fontSize = "200%";
+  div.style.width = "1em";
+  assert_equals(window.getComputedStyle(div).width, "24px", "width:1em");
+}, "parent 200%, inline width:1em");
 </script>
