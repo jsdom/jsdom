@@ -4,7 +4,8 @@ const documentBench = require("../document-bench");
 // Style benchmarks based on https://github.com/jsdom/jsdom/issues/3985
 
 const cssText =
-  "color: blue; background-color: white; padding: 10px; border: 1px solid black; animation: 3s linear 1s slide-in;";
+  "color: blue; background-color: white; padding: 10px; border: 1px solid black;" +
+  " width: calc(100vw - 20px); animation: 3s linear 1s slide-in;";
 
 module.exports = () => {
   const { document, bench } = documentBench();
@@ -24,6 +25,7 @@ module.exports = () => {
       div.style.backgroundColor = "white";
       div.style.padding = "10px";
       div.style.border = "1px solid black";
+      div.style.width = "calc(100vw - 20px)";
       div.style.animation = "3s linear 1s slide-in";
     }
   });
