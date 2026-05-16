@@ -104,4 +104,9 @@ test(t => {
   assert_true(CSS.supports("width", "min(100px, 50%)"), "value");
   assert_equals(div.style.getPropertyValue("width"), "min(100px, 50%)", "Specified value");
 }, "CSS.supports and implementation: min function");
+
+test(t => {
+  assert_true(CSS.supports("margin", "10px"), "valid shorthand");
+  assert_false(CSS.supports("margin-top", "!invalid"), "invalid longhand");
+}, "CSS.supports and shorthand / longhand");
 </script>
