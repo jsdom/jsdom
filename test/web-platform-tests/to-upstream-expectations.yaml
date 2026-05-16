@@ -5,10 +5,14 @@ css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdo
 css/css-display/display-initial.html:
   "Revert value of display": [fail, Revert keyword is not supported]
   "Revert-layer value of display": [fail, Revert-layer keyword is not supported]
+css/css-fonts/font-size-computed-keyword.html:
+  "font size large cascaded by revert": [fail, Revert keyword is not supported]
+  "font size large cascaded by revertLayer": [fail, Revert-layer keyword is not supported]
+css/css-fonts/font-size-computed.html:
+  "box3": [fail, Need percentage value resolver for width]
 css/css-nesting/nested-media-in-layer.html: [fail, https://github.com/jsdom/jsdom/issues/3997]
 css/css-sizing/aspect-ratio.html:
   "auto number": [fail, aspect-ratio is not fully implemented]
-css/css-values/calc-parentheses.html: [fail, calc() values not resolved to computed values; https://github.com/jsdom/jsdom/issues/3538]
 css/cssom/getComputedStyle-live.html: [fail, https://github.com/jsdom/jsdom/issues/3562]
 css/cssom/getComputedStyle-shadow-host.html: [fail, https://github.com/jsdom/jsdom/issues/3661]
 css/cssom/getComputedStyle-shadow-inherit.html:
