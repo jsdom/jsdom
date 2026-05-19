@@ -2,7 +2,7 @@
 "use strict";
 /* eslint-disable no-console */
 
-const { spawnSync } = require("node:child_process");
+const { spawnSync, execSync } = require("node:child_process");
 const path = require("node:path");
 const { parseArgs } = require("node:util");
 const {
@@ -73,10 +73,7 @@ function checkout(ref) {
 
 function npmInstall() {
   console.error("--- Running npm install ---");
-  const r = spawnSync("npm", ["install"], { stdio: ["ignore", "inherit", "inherit"] });
-  if (r.status !== 0) {
-    throw new Error(`npm install failed (exit ${r.status})`);
-  }
+  execSync("npm install");
 }
 
 function runSuites(suiteFilters) {
