@@ -52,13 +52,11 @@ jobs:
       matrix:
         node-version:
           # Explicitly test minimum Node.js versions. Keep in sync with package.json.
-          - 20.19.0
-          - 20
-          - 22.13.0
+          - 22.22.2
           - 22
-          - 24.0.0
+          - 24.15.0
           - lts/*   # currently 24
-          - latest  # currently 25
+          - latest  # currently 26
     steps:
     - uses: actions/checkout@v6
       with:

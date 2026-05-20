@@ -3,7 +3,6 @@ const path = require("node:path");
 const fs = require("node:fs");
 const { specify } = require("mocha-sugar-free");
 const jsYAML = require("js-yaml");
-const { Minimatch } = require("minimatch");
 const semver = require("semver");
 const { Canvas } = require("../../lib/jsdom/utils.js");
 
@@ -49,14 +48,12 @@ exports.checkToUpstreamExpectations = (toUpstreamExpectationsFilename, possibleT
     expectations = {};
   }
 
-  const minimatchers = checkExpectations(expectations, possibleTestFilePaths);
+  checkExpectations(expectations, possibleTestFilePaths);
 
-  return { minimatchers, expectations };
+  return expectations;
 };
 
 exports.checkToRunFile = (toRunFilename, possibleTestFilePaths) => {
-  const minimatchers = new Map();
-
   const toRunString = fs.readFileSync(toRunFilename, { encoding: "utf-8" });
   const toRunDocs = jsYAML.loadAll(toRunString, null, { filename: toRunFilename, schema: jsYAML.DEFAULT_SAFE_SCHEMA });
 
@@ -81,22 +78,17 @@ exports.checkToRunFile = (toRunFilename, possibleTestFilePaths) => {
     }
     lastDir = doc.DIR;
 
-    const theseMinimatchers = checkExpectations(exports.expectationsInToRunDoc(doc), possibleTestFilePaths, {
+    checkExpectations(exports.expectationsInToRunDoc(doc), possibleTestFilePaths, {
       prefix: doc.DIR + "/"
     });
-
-    for (const [key, minimatcher] of theseMinimatchers.entries()) {
-      minimatchers.set(key, minimatcher);
-    }
   }
 
-  return { minimatchers, toRunDocs };
+  return toRunDocs;
 };
 
-exports.runTestWithExpectations = (testFilePath, expectations, minimatchers, { runSingleWPT, prefix = "" } = {}) => {
+exports.runTestWithExpectations = (testFilePath, expectations, { runSingleWPT, prefix = "" } = {}) => {
   const matchingPattern = Object.keys(expectations).find(pattern => {
-    const matcher = minimatchers.get(prefix + pattern);
-    return matcher.match(testFilePath);
+    return path.matchesGlob(testFilePath, prefix + pattern);
   });
 
   const testFile = testFilePath.slice(prefix.length);
@@ -157,8 +149,6 @@ exports.expectationsInToRunDoc = doc => {
 };
 
 function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } = {}) {
-  const minimatchers = new Map();
-
   let lastPattern = "";
   for (const [pattern, data] of Object.entries(expectations)) {
     if (pattern.startsWith("/")) {
@@ -195,14 +185,10 @@ function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } 
       }
     }
 
-    const matcher = new Minimatch(prefix + pattern);
-    if (!possibleTestFilePaths.some(filename => matcher.match(filename))) {
+    if (!possibleTestFilePaths.some(filename => path.matchesGlob(filename, prefix + pattern))) {
       throw new Error(`Expectation pattern "${pattern}" does not match any test files`);
     }
-    minimatchers.set(prefix + pattern, matcher);
   }
-
-  return minimatchers;
 }
 
 

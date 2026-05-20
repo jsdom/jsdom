@@ -27,7 +27,7 @@ if (lintResult.status !== 0) {
 }
 const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 
-const { minimatchers, expectations } = checkToUpstreamExpectations(
+const expectations = checkToUpstreamExpectations(
   path.resolve(__dirname, expectationsFilename),
   possibleTestFilePaths
 );
@@ -47,6 +47,6 @@ after({ timeout: 5000 }, () => killSubprocess(serverProcess));
 
 describe("Local tests in web-platform-test format (to-upstream)", () => {
   for (const testFilePath of possibleTestFilePaths) {
-    runTestWithExpectations(testFilePath, expectations, minimatchers, { runSingleWPT });
+    runTestWithExpectations(testFilePath, expectations, { runSingleWPT });
   }
 });
