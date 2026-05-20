@@ -13,6 +13,8 @@ css/css-fonts/font-size-computed.html:
 css/css-nesting/nested-media-in-layer.html: [fail, https://github.com/jsdom/jsdom/issues/3997]
 css/css-sizing/aspect-ratio.html:
   "auto number": [fail, aspect-ratio is not fully implemented]
+css/cssom/CSS-supports.html:
+  "CSS.supports and implementation: keyword": [fail, Revert keyword is not supported]
 css/cssom/getComputedStyle-live.html: [fail, https://github.com/jsdom/jsdom/issues/3562]
 css/cssom/getComputedStyle-shadow-host.html: [fail, https://github.com/jsdom/jsdom/issues/3661]
 css/cssom/getComputedStyle-shadow-inherit.html:
