@@ -98,10 +98,6 @@ parsing/background-image-valid.html:
   "e.style['background-image'] = \"cross-fade(red 1%, cross-fade(red 2%, green))\" should set the property value": [fail, Not implemented]
 parsing/background-origin-computed.html: [fail, Need to fix getComputedStyle]
 parsing/background-position-computed.html: [fail, Need to fix getComputedStyle]
-parsing/background-position-valid.html:
-  "e.style['background-position'] = \"center right 7%\" should set the property value": [fail, Unknown]
-  "e.style['background-position'] = \"left 10px center\" should set the property value": [fail, Unknown]
-  "e.style['background-position'] = \"top 15px center\" should set the property value": [fail, Unknown]
 parsing/background-position-x-computed.html: [fail, Not implemented]
 parsing/background-position-x-valid.html:
   "e.style['background-position-x'] = \"calc(10px - 0.5em)\" should set the property value": [fail, Unknown]
@@ -119,7 +115,6 @@ parsing/background-valid.html:
   "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set the property value": [fail, Unknown]
   "e.style['background'] = \"none\" should set background-color": [fail, Need getComputedStyle fix]
   "e.style['background'] = \"none\" should not set unrelated longhands": [fail, Unknown]
-  "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should set background-position": [fail, Unknown]
   "e.style['background'] = \"url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box, rgb(5, 6, 7) url(\\\"https://example.com/\\\") 1px 2px / 3px 4px space round local padding-box content-box\" should not set unrelated longhands": [fail, Unknown]
 parsing/border-image-outset-computed.html: [fail, Need to fix getComputedStyle]
 parsing/border-image-repeat-valid.html:
