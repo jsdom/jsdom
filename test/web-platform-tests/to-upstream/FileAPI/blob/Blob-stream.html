@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>blob.stream()</title>
+<link rel="help" href="https://w3c.github.io/FileAPI/#dom-blob-stream">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+async function readAll(stream) {
+  const reader = stream.getReader();
+  try {
+    const chunks = [];
+    let totalLength = 0;
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) {
+        break;
+      }
+      chunks.push(value);
+      totalLength += value.byteLength;
+    }
+    const combined = new Uint8Array(totalLength);
+    let offset = 0;
+    for (const chunk of chunks) {
+      combined.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    return combined;
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+test(() => {
+  const blob = new Blob(["hello"]);
+  const stream = blob.stream();
+  assert_equals(typeof stream.getReader, "function", "stream() should return an object with a getReader method");
+  assert_equals(typeof stream.pipeTo, "function", "stream() should return an object with a pipeTo method");
+}, "stream() returns a ReadableStream");
+
+test(() => {
+  const blob = new Blob(["hello"]);
+  const a = blob.stream();
+  const b = blob.stream();
+  assert_not_equals(a, b, "stream() should return a new ReadableStream each call");
+}, "stream() returns a new ReadableStream each call");
+
+promise_test(async () => {
+  const blob = new Blob(["hello world"]);
+  const bytes = await readAll(blob.stream());
+  assert_equals(new TextDecoder().decode(bytes), "hello world");
+}, "stream() yields the blob's bytes");
+
+promise_test(async () => {
+  const blob = new Blob([]);
+  const bytes = await readAll(blob.stream());
+  assert_equals(bytes.byteLength, 0, "empty blob should produce zero bytes");
+}, "stream() on an empty blob closes immediately");
+
+promise_test(async () => {
+  const input = new Uint8Array([1, 2, 3, 4, 5]);
+  const blob = new Blob([input]);
+  input[0] = 99;
+
+  const bytes = await readAll(blob.stream());
+  assert_array_equals(
+    Array.from(bytes),
+    [1, 2, 3, 4, 5],
+    "stream() output should not be affected by mutating the input Uint8Array"
+  );
+}, "stream() data is isolated from input mutations");
+
+promise_test(async () => {
+  const blob = new Blob([new Uint8Array([1, 2, 3, 4, 5])]);
+  const sliced = blob.slice(1, 4);
+  const bytes = await readAll(sliced.stream());
+  assert_array_equals(
+    Array.from(bytes),
+    [2, 3, 4],
+    "stream() on a sliced blob should yield only the sliced bytes"
+  );
+}, "stream() on a sliced blob yields only the sliced bytes");
+
+promise_test(async () => {
+  const blob = new Blob(["abc", new Uint8Array([100, 101, 102]), "xyz"]);
+  const bytes = await readAll(blob.stream());
+  assert_equals(bytes.byteLength, blob.size, "stream output length should match blob.size");
+  assert_equals(new TextDecoder().decode(bytes), "abcdefxyz");
+}, "stream() concatenates all blob parts in order");
+
+promise_test(async () => {
+  const blob = new Blob([new Uint8Array([10, 20, 30, 40, 50])]);
+  const stream = blob.stream();
+  const reader = stream.getReader({ mode: "byob" });
+  const buffer = new Uint8Array(10);
+  const { value, done } = await reader.read(buffer);
+  assert_false(done, "BYOB read should return data before completing");
+  assert_array_equals(Array.from(value), [10, 20, 30, 40, 50]);
+}, "stream() supports BYOB readers (type: 'bytes')");
+
+promise_test(async () => {
+  const blob = new Blob(["hello"]);
+  const stream = blob.stream();
+  const bytes1 = await readAll(stream);
+  assert_equals(new TextDecoder().decode(bytes1), "hello");
+
+  // A second read on the same already-consumed stream should yield no more data.
+  const reader = stream.getReader();
+  const { done } = await reader.read();
+  assert_true(done, "stream should be exhausted after being fully read");
+}, "stream() exhausts after being fully read");
+</script>
