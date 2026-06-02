@@ -7,7 +7,6 @@ blob/Blob-constructor.any.html:
   "Blob interface object": [fail, function is not instanceof Function]
   "Passing a Float16Array as element of the blobParts array should work.": [fail-node:<24, Float16Array not implemented]
   "Passing a FrozenArray as the blobParts array should work (FrozenArray<MessagePort>).": [fail, MessageChannel not implemented]
-blob/Blob-stream.any.html: [fail, Unknown]
 file/send-file-form*: [fail, DataTransfer not implemented]
 filelist-section/filelist.html:
   "Check if item is a instanceof Function": [fail, function is not instanceof Function]
@@ -2444,7 +2443,6 @@ responsexml-document-properties.htm: [fail, https://github.com/web-platform-test
 send-after-setting-document-domain.htm: [timeout, document.domain not implemented]
 send-authentication-competing-names-passwords.htm: [fail, Unknown]
 send-authentication-cors-setrequestheader-no-cred.htm: [fail, Unknown]
-send-data-es-object.any.html: [fail, Unknown]
 send-data-sharedarraybuffer.any.html: [fail, Unknown]
 send-redirect-bogus-sync.htm: [flaky, https://github.com/web-platform-tests/wpt/pull/57822]
 send-redirect-to-cors.htm: [fail, Unknown]

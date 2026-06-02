@@ -141,6 +141,8 @@ export default [
         promise_test: "readonly",
         promise_rejects: "readonly",
         promise_rejects_dom: "readonly",
+        promise_rejects_js: "readonly",
+        promise_rejects_exactly: "readonly",
         generate_tests: "readonly",
         setup: "readonly",
         done: "readonly",

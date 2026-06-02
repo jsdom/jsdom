@@ -37,8 +37,7 @@ async function readAll(stream) {
 test(() => {
   const blob = new Blob(["hello"]);
   const stream = blob.stream();
-  assert_equals(typeof stream.getReader, "function", "stream() should return an object with a getReader method");
-  assert_equals(typeof stream.pipeTo, "function", "stream() should return an object with a pipeTo method");
+  assert_true(stream instanceof ReadableStream, "stream() should return a ReadableStream");
 }, "stream() returns a ReadableStream");
 
 test(() => {
