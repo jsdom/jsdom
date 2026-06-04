@@ -673,6 +673,16 @@ describe("xpath", () => {
       stringifyNodeList([img]),
       stringifyNodeList(r));
   });
+  specify("testDocumentEvaluateNonNodeSetResultType", function() {
+    const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
+
+    assert.throws(() => {
+      doc.evaluate("string(/)", doc, null, doc.defaultView.XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+    }, {
+      name: "XPathException",
+      code: doc.defaultView.XPathException.TYPE_ERR
+    });
+  });
   specify("testDocumentEvaluate2", function() {
     const doc = (new JSDOM('<html><body><div>a<div>b</div></div><img></body></html>')).window.document;
     var html = doc.getElementsByTagName('html')[0],
