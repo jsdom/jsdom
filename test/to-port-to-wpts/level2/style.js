@@ -287,6 +287,29 @@ describe("level2/style", () => {
     window.getComputedStyle(window.document.body);
   });
 
+  specify("gridTemplateColumns mixed length + calc (GH-4141)", () => {
+    const document = (new JSDOM()).window.document;
+    const div = document.createElement("div");
+    const values = [
+      "100px 1fr",
+      "40% 60%",
+      "6.25rem 50%",
+      "calc(100px) calc(100% - 100px)",
+      "calc(100%) calc(50%)",
+      "repeat(2, minmax(calc(50% - 2rem), 50%))",
+      "minmax(8rem, calc(100% - 8rem))",
+      "100px calc(100% - 100px)",
+      "6.25rem calc((100% - 6.25rem) / 1)",
+      "6.25rem 60% calc((40% - 6.25rem) / 2) calc((40% - 6.25rem) / 2)"
+    ];
+
+    for (const value of values) {
+      div.style.gridTemplateColumns = "";
+      div.style.gridTemplateColumns = value;
+      assert.equal(div.style.gridTemplateColumns, value);
+    }
+  });
+
   specify("padding and margin component properties work correctly (GH-1353)", () => {
     const document = (new JSDOM()).window.document;
 
