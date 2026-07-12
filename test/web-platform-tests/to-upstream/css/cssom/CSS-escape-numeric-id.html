@@ -19,6 +19,7 @@ test(() => {
   assert_equals(baz, document.querySelector("#baz"), "ID matches");
   assert_equals(baz, document.querySelector("#baz.foo"), "ID and class matches");
   assert_equals(zero, baz.nextElementSibling, "zero exists next to baz");
+  assert_throws_dom("SyntaxError", () => document.querySelector("#000"), "Throws for unescaped numeric ID");
 }, "Sanity check");
 
 test(() => {
