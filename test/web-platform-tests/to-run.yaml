@@ -2180,7 +2180,7 @@ onselectionchange-on-document.html: [fail, Unknown]
 script-and-style-elements.html: [fail,
   toString should return only the text within the selection that is visible to the user
   (https://www.w3.org/Bugs/Public/show_bug.cgi?id=10583, https://bugzilla.mozilla.org/show_bug.cgi?id=1535392)
-]
+  ]
 selection-content-visibility-hidden.html: [fail, Unknown]
 selection-nested-video.html: [fail-slow, Unknown]
 selection-range-in-shadow-after-the-shadow-removed.tentative.html?mode=closed: [fail, Unknown]
