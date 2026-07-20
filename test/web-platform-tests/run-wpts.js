@@ -11,7 +11,7 @@ const manifest = readManifest(manifestFilename);
 const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 const toRunFilename = "to-run.yaml";
 
-const { minimatchers, toRunDocs } = checkToRunFile(path.resolve(__dirname, toRunFilename), possibleTestFilePaths);
+const toRunDocs = checkToRunFile(path.resolve(__dirname, toRunFilename), possibleTestFilePaths);
 
 let wptServerURL, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(
@@ -32,7 +32,7 @@ describe("web-platform-tests", () => {
     describe(toRunDoc.DIR, () => {
       for (const testFilePath of possibleTestFilePaths) {
         if (testFilePath.startsWith(toRunDoc.DIR + "/")) {
-          runTestWithExpectations(testFilePath, expectations, minimatchers, {
+          runTestWithExpectations(testFilePath, expectations, {
             runSingleWPT,
             prefix: toRunDoc.DIR + "/"
           });
