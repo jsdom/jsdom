@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>ReadableStream with a byte controller and BYOB reader</title>
+<link rel="help" href="https://streams.spec.whatwg.org/#rbs-class">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  const stream = new ReadableStream({ type: "bytes" });
+  const reader = stream.getReader({ mode: "byob" });
+  assert_true(stream.locked, "stream should be locked after acquiring a BYOB reader");
+  reader.releaseLock();
+  assert_false(stream.locked);
+}, "getReader({ mode: 'byob' }) locks the stream");
+
+test(() => {
+  const stream = new ReadableStream();
+  assert_throws_js(
+    TypeError,
+    () => stream.getReader({ mode: "byob" }),
+    "BYOB reader on a default (non-byte) stream should throw"
+  );
+}, "BYOB reader cannot be acquired on a non-byte stream");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    type: "bytes",
+    start(controller) {
+      controller.enqueue(new Uint8Array([1, 2, 3, 4]));
+      controller.close();
+    }
+  });
+  const reader = stream.getReader({ mode: "byob" });
+  const buffer = new Uint8Array(8);
+  const { value, done } = await reader.read(buffer);
+  assert_false(done);
+  assert_array_equals(Array.from(value), [1, 2, 3, 4]);
+  assert_equals(value.byteOffset, 0);
+  assert_equals(value.byteLength, 4);
+  assert_not_equals(
+    value.buffer,
+    buffer.buffer,
+    "the input view's buffer should be transferred; result's buffer should be a different reference"
+  );
+}, "BYOB read fills the provided view with the enqueued bytes");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    type: "bytes",
+    start(controller) {
+      controller.close();
+    }
+  });
+  const reader = stream.getReader({ mode: "byob" });
+  const buffer = new Uint8Array(8);
+  const { value, done } = await reader.read(buffer);
+  assert_true(done);
+  assert_equals(value.byteLength, 0);
+  assert_equals(
+    value.constructor,
+    Uint8Array,
+    "the returned view should have the same constructor as the input"
+  );
+}, "BYOB read on an already-closed stream resolves with done=true and a zero-length view");
+
+promise_test(async t => {
+  const stream = new ReadableStream({ type: "bytes" });
+  const reader = stream.getReader({ mode: "byob" });
+  await promise_rejects_js(
+    t,
+    TypeError,
+    reader.read(new Uint8Array(0)),
+    "read with a zero-length view should reject"
+  );
+}, "BYOB read rejects on a zero-length view");
+
+promise_test(async t => {
+  const stream = new ReadableStream({ type: "bytes" });
+  const reader = stream.getReader({ mode: "byob" });
+  await promise_rejects_js(
+    t,
+    TypeError,
+    reader.read(new Uint8Array(8), { min: 0 }),
+    "min: 0 should reject"
+  );
+  await promise_rejects_js(
+    t,
+    RangeError,
+    reader.read(new Uint8Array(2), { min: 5 }),
+    "min greater than view length should reject with RangeError"
+  );
+}, "BYOB read validates the options.min parameter");
+
+promise_test(async () => {
+  let pullCount = 0;
+  const stream = new ReadableStream({
+    type: "bytes",
+    pull(controller) {
+      pullCount += 1;
+      if (pullCount === 1) {
+        controller.enqueue(new Uint8Array([1, 2]));
+      } else if (pullCount === 2) {
+        controller.enqueue(new Uint8Array([3, 4, 5]));
+      } else {
+        controller.close();
+      }
+    }
+  });
+  const reader = stream.getReader();
+  const got = [];
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) {
+      break;
+    }
+    got.push(...value);
+  }
+  assert_array_equals(got, [1, 2, 3, 4, 5]);
+}, "byte stream serves a default reader with chunks from pull()");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    type: "bytes",
+    pull(controller) {
+      const req = controller.byobRequest;
+      assert_not_equals(req, null, "byobRequest should be available during pull when no internal queue is set");
+      const { view } = req;
+      view[0] = 42;
+      view[1] = 43;
+      req.respond(2);
+      controller.close();
+    }
+  });
+  const reader = stream.getReader({ mode: "byob" });
+  const buffer = new Uint8Array(4);
+  const { value, done } = await reader.read(buffer);
+  assert_false(done);
+  assert_array_equals(Array.from(value), [42, 43]);
+}, "byobRequest is exposed during pull and respond() forwards bytes to the reader");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    type: "bytes",
+    pull(controller) {
+      const req = controller.byobRequest;
+      const replacement = new Uint8Array(req.view.buffer, req.view.byteOffset, 3);
+      replacement[0] = 1;
+      replacement[1] = 2;
+      replacement[2] = 3;
+      req.respondWithNewView(replacement);
+      controller.close();
+    }
+  });
+  const reader = stream.getReader({ mode: "byob" });
+  const buffer = new Uint8Array(8);
+  const { value, done } = await reader.read(buffer);
+  assert_false(done);
+  assert_array_equals(Array.from(value), [1, 2, 3]);
+}, "respondWithNewView forwards a different view of the same buffer to the reader");
+
+test(() => {
+  let controllerRef;
+  const stream = new ReadableStream({
+    type: "bytes",
+    start(controller) {
+      controllerRef = controller;
+    }
+  }, { highWaterMark: 16 });
+  assert_false(stream.locked);
+  assert_equals(controllerRef.desiredSize, 16, "desiredSize starts at the high water mark");
+  controllerRef.enqueue(new Uint8Array(5));
+  assert_equals(controllerRef.desiredSize, 11, "desiredSize decreases by the enqueued chunk's byteLength");
+}, "byte controller desiredSize tracks the byte count");
+
+test(() => {
+  let controllerRef;
+  const stream = new ReadableStream({
+    type: "bytes",
+    start(controller) {
+      controllerRef = controller;
+    }
+  });
+  assert_false(stream.locked);
+  assert_throws_js(
+    TypeError,
+    () => controllerRef.enqueue(new Uint8Array(0)),
+    "enqueueing a zero-length view should throw"
+  );
+}, "byte controller refuses zero-length enqueues");
+
+test(() => {
+  assert_throws_js(
+    RangeError,
+    () => new ReadableStream({ type: "bytes" }, { size: () => 1 }),
+    "specifying a size function for a byte stream should throw"
+  );
+}, "byte stream constructor rejects a size function");
+
+promise_test(async t => {
+  const error = new Error("byte boom");
+  const stream = new ReadableStream({
+    type: "bytes",
+    start(controller) {
+      controller.error(error);
+    }
+  });
+  const reader = stream.getReader({ mode: "byob" });
+  const buffer = new Uint8Array(8);
+  await promise_rejects_exactly(t, error, reader.read(buffer));
+  await promise_rejects_exactly(t, error, reader.closed);
+}, "errored byte stream rejects BYOB reads and the closed promise");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    type: "bytes",
+    start(controller) {
+      controller.enqueue(new Uint8Array([1, 2, 3]));
+      controller.close();
+    }
+  });
+  const [b1, b2] = stream.tee();
+
+  async function drain(s) {
+    const reader = s.getReader();
+    const chunks = [];
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) {
+        break;
+      }
+      chunks.push(...value);
+    }
+    return chunks;
+  }
+
+  const [r1, r2] = await Promise.all([drain(b1), drain(b2)]);
+  assert_array_equals(r1, [1, 2, 3]);
+  assert_array_equals(r2, [1, 2, 3]);
+}, "tee() on a byte stream yields the full bytes to both branches via default readers");
+</script>

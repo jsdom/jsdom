@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>ReadableStream with a default controller</title>
+<link rel="help" href="https://streams.spec.whatwg.org/#rs-class">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  const stream = new ReadableStream();
+  assert_true(stream instanceof ReadableStream);
+  assert_false(stream.locked, "a freshly-constructed stream should not be locked");
+}, "construction with no arguments");
+
+test(() => {
+  const stream = new ReadableStream();
+  const reader = stream.getReader();
+  assert_true(stream.locked, "stream should be locked after acquiring a reader");
+  reader.releaseLock();
+  assert_false(stream.locked, "stream should not be locked after releasing the reader");
+}, "locked attribute reflects reader acquisition and release");
+
+test(() => {
+  const stream = new ReadableStream();
+  stream.getReader();
+  assert_throws_js(TypeError, () => stream.getReader(), "second getReader() should throw");
+}, "getReader() throws when stream is already locked");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue("a");
+      controller.enqueue("b");
+      controller.close();
+    }
+  });
+  const reader = stream.getReader();
+  const r1 = await reader.read();
+  assert_equals(r1.value, "a");
+  assert_false(r1.done);
+  const r2 = await reader.read();
+  assert_equals(r2.value, "b");
+  assert_false(r2.done);
+  const r3 = await reader.read();
+  assert_equals(r3.value, undefined);
+  assert_true(r3.done);
+}, "enqueue from start, then close, is consumed in order by a default reader");
+
+promise_test(async () => {
+  let pullCount = 0;
+  const stream = new ReadableStream({
+    pull(controller) {
+      pullCount += 1;
+      if (pullCount > 3) {
+        controller.close();
+        return;
+      }
+      controller.enqueue(pullCount);
+    }
+  });
+  const reader = stream.getReader();
+  const values = [];
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) {
+      break;
+    }
+    values.push(value);
+  }
+  assert_array_equals(values, [1, 2, 3]);
+}, "pull is called repeatedly to satisfy reads");
+
+promise_test(async t => {
+  const error = new Error("boom");
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.error(error);
+    }
+  });
+  const reader = stream.getReader();
+  await promise_rejects_exactly(t, error, reader.read(), "read should reject with the error");
+  await promise_rejects_exactly(t, error, reader.closed, "closed should reject with the error");
+}, "errored stream rejects reads and the closed promise");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.close();
+    }
+  });
+  const reader = stream.getReader();
+  const result = await reader.read();
+  assert_equals(result.value, undefined);
+  assert_true(result.done);
+  await reader.closed;
+}, "closed stream's closed promise fulfills");
+
+promise_test(async () => {
+  let cancelReason;
+  const stream = new ReadableStream({
+    cancel(reason) {
+      cancelReason = reason;
+    }
+  });
+  const reason = new Error("cancelled");
+  await stream.cancel(reason);
+  assert_equals(cancelReason, reason, "the underlying source's cancel was called with the reason");
+}, "cancel forwards the reason to the underlying source");
+
+promise_test(async t => {
+  const stream = new ReadableStream();
+  stream.getReader();
+  await promise_rejects_js(t, TypeError, stream.cancel(), "cancel() on a locked stream should reject");
+}, "cancel rejects when the stream is locked");
+
+promise_test(async t => {
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue("first");
+    }
+  });
+  const reader = stream.getReader();
+  reader.releaseLock();
+  await promise_rejects_js(t, TypeError, reader.read(), "read after release should reject");
+  await promise_rejects_js(t, TypeError, reader.closed, "closed after release should reject");
+}, "releaseLock() detaches a default reader from the stream");
+
+test(() => {
+  let controllerRef;
+  const stream = new ReadableStream({
+    start(controller) {
+      controllerRef = controller;
+    }
+  }, { highWaterMark: 3 });
+  assert_false(stream.locked);
+  assert_equals(controllerRef.desiredSize, 3, "desiredSize starts at the high water mark");
+  controllerRef.enqueue("x");
+  assert_equals(controllerRef.desiredSize, 2, "desiredSize decreases after enqueue with default size of 1");
+}, "default controller desiredSize honors the high water mark");
+
+test(() => {
+  let controllerRef;
+  const stream = new ReadableStream({
+    start(controller) {
+      controllerRef = controller;
+      controller.close();
+    }
+  });
+  assert_false(stream.locked);
+  assert_throws_js(TypeError, () => controllerRef.enqueue("x"), "enqueue after close should throw");
+  assert_throws_js(TypeError, () => controllerRef.close(), "close after close should throw");
+}, "default controller rejects operations after close");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue("a");
+      controller.enqueue("b");
+      controller.enqueue("c");
+    }
+  });
+  const reader = stream.getReader();
+  const collected = [];
+  collected.push((await reader.read()).value);
+  collected.push((await reader.read()).value);
+  reader.releaseLock();
+
+  const reader2 = stream.getReader();
+  collected.push((await reader2.read()).value);
+  assert_array_equals(collected, ["a", "b", "c"]);
+}, "releasing a reader allows another reader to continue consuming");
+
+test(() => {
+  const stream = new ReadableStream();
+  const branches = stream.tee();
+  assert_true(Array.isArray(branches), "tee() returns an array");
+  assert_equals(branches.length, 2);
+  assert_true(branches[0] instanceof ReadableStream);
+  assert_true(branches[1] instanceof ReadableStream);
+  assert_not_equals(branches[0], branches[1]);
+  assert_true(stream.locked, "the original stream should be locked after tee()");
+}, "tee() returns two new ReadableStreams and locks the original");
+
+test(() => {
+  const stream = new ReadableStream();
+  stream.getReader();
+  assert_throws_js(TypeError, () => stream.tee(), "tee() on a locked stream should throw");
+}, "tee() throws when the stream is already locked");
+
+promise_test(async () => {
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue("a");
+      controller.enqueue("b");
+      controller.close();
+    }
+  });
+  const [b1, b2] = stream.tee();
+
+  async function drain(s) {
+    const reader = s.getReader();
+    const out = [];
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) {
+        break;
+      }
+      out.push(value);
+    }
+    return out;
+  }
+
+  const [r1, r2] = await Promise.all([drain(b1), drain(b2)]);
+  assert_array_equals(r1, ["a", "b"]);
+  assert_array_equals(r2, ["a", "b"]);
+}, "tee() branches each see the full sequence of chunks");
+
+promise_test(async () => {
+  let cancelReason;
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue("x");
+    },
+    cancel(reason) {
+      cancelReason = reason;
+    }
+  });
+  const [b1, b2] = stream.tee();
+
+  // Cancelling only one branch leaves the source live; the returned promise from cancel() does not resolve
+  // until the source cancellation runs (which only happens once both branches are cancelled).
+  const cancel1Promise = b1.cancel("one");
+  await Promise.resolve();
+  assert_equals(cancelReason, undefined, "source should not be cancelled while one branch is still live");
+
+  await Promise.all([cancel1Promise, b2.cancel("two")]);
+  assert_true(Array.isArray(cancelReason), "source cancel reason should be a composite array");
+  assert_array_equals(cancelReason, ["one", "two"]);
+}, "tee() cancels the source only after both branches are cancelled");
+</script>
