@@ -78,7 +78,7 @@ This starts a local WPT server, opens your default browser, runs all to-upstream
 
 If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test. Such tests are written using [Mocha](https://mochajs.org/).
 
-To write such a test, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
+To write such a test, add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
 
 **To run all API tests:** `npm run test:api`
 

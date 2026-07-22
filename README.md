@@ -50,7 +50,7 @@ const dom = new JSDOM(``, {
 ```
 
 - `url` sets the value returned by `window.location`, `document.URL`, and `document.documentURI`, and affects things like resolution of relative URLs within the document and the same-origin restrictions and referrer used while fetching subresources. It defaults to `"about:blank"`.
-- `referrer` just affects the value read from `document.referrer`. It defaults to no referrer (which reflects as the empty string).
+- `referrer` only affects the value read from `document.referrer`. It defaults to no referrer (which reflects as the empty string).
 - `contentType` affects the value read from `document.contentType`, as well as how the document is parsed: as HTML or as XML. Values that are not a [HTML MIME type](https://mimesniff.spec.whatwg.org/#html-mime-type) or an [XML MIME type](https://mimesniff.spec.whatwg.org/#xml-mime-type) will throw. It defaults to `"text/html"`. If a `charset` parameter is present, it can affect [binary data processing](#encoding-sniffing).
 - `includeNodeLocations` preserves the location info produced by the HTML parser, allowing you to retrieve it with the `nodeLocation()` method (described below). It also ensures that line numbers reported in exception stack traces for code running inside `<script>` elements are correct. It defaults to `false` to give the best performance, and cannot be used with an XML content type since our XML parser does not support location info.
 - `storageQuota` is the maximum size in code units for the separate storage areas used by `localStorage` and `sessionStorage`. Attempts to store data larger than this limit will cause a `DOMException` to be thrown. By default, it is set to 5,000,000 code units per origin, as inspired by the HTML specification.
@@ -91,7 +91,7 @@ If you want to execute _external_ scripts, included via `<script src="">`, you'l
 
 Event handler attributes, like `<div onclick="">`, are also governed by this setting; they will not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.) Note that this guarantee covers the web content being processed by jsdom. It does not cover scenarios where the host Node.js environment itself has been compromised (e.g. through prototype pollution). See the [security policy](https://github.com/jsdom/.github/blob/master/SECURITY.md) for more details.
 
-If you are simply trying to execute script "from the outside", instead of letting `<script>` elements and event handlers attributes run "from the inside", you can use the `runScripts: "outside-only"` option, which enables fresh copies of all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
+If you want to execute script "from the outside", instead of letting `<script>` elements and event handlers attributes run "from the inside", you can use the `runScripts: "outside-only"` option, which enables fresh copies of all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
 
 ```js
 const dom = new JSDOM(`<body>
@@ -133,7 +133,7 @@ window.requestAnimationFrame(timestamp => {
 });
 ```
 
-Note that jsdom still [does not do any layout or rendering](#unimplemented-parts-of-the-web-platform), so this is really just about _pretending_ to be visual, not about implementing the parts of the platform a real, visual web browser would implement.
+Note that jsdom still [does not do any layout or rendering](#unimplemented-parts-of-the-web-platform), so this is really about _pretending_ to be visual, not about implementing the parts of the platform a real, visual web browser would implement.
 
 ### Loading subresources
 
@@ -227,7 +227,7 @@ virtualConsole.on("dir", () => { ... });
 
 (Note that it is probably best to set up these event listeners _before_ calling `new JSDOM()`, since errors or console-invoking script might occur during parsing.)
 
-If you simply want to redirect the virtual console output to another console, like the default Node.js one, you can do
+To redirect the virtual console output to another console, like the default Node.js one, you can do
 
 ```js
 virtualConsole.forwardTo(console);
@@ -446,7 +446,7 @@ The options provided to `fromFile()` are similar to those provided to the `JSDOM
 
 ### `fragment()`
 
-For the very simplest of cases, you might not need a whole `JSDOM` instance with all its associated power. You might not even need a `Window` or `Document`! Instead, you just need to parse some HTML, and get a DOM object you can manipulate. For that, we have `fragment()`, which creates a `DocumentFragment` from a given string:
+For some cases, you might not need a whole `JSDOM` instance with all its associated power. You might not even need a `Window` or `Document`. Instead, you may only need to parse some HTML, and get a DOM object you can manipulate. For that, we have `fragment()`, which creates a `DocumentFragment` from a given string:
 
 ```js
 const frag = JSDOM.fragment(`<p>Hello</p><p><strong>Hi!</strong>`);
@@ -460,7 +460,7 @@ Here `frag` is a [`DocumentFragment`](https://developer.mozilla.org/en-US/docs/W
 
 All invocations of the `fragment()` factory result in `DocumentFragment`s that share the same template owner `Document`. This allows many calls to `fragment()` with no extra overhead. But it also means that calls to `fragment()` cannot be customized with any options.
 
-Note that serialization is not as easy with `DocumentFragment`s as it is with full `JSDOM` objects. If you need to serialize your DOM, you should probably use the `JSDOM` constructor more directly. But for the special case of a fragment containing a single element, it's pretty easy to do through normal means:
+Note that serialization takes more care with `DocumentFragment`s than with full `JSDOM` objects. If you need to serialize your DOM, you should probably use the `JSDOM` constructor more directly. But for the special case of a fragment containing a single element, you can do it through normal means:
 
 ```js
 const frag = JSDOM.fragment(`<p>Hello</p>`);
@@ -530,7 +530,7 @@ Although we enjoy adding new features to jsdom and keeping it up to date with th
 
 Some features of jsdom are provided by our dependencies. Notable documentation in that regard includes the list of [supported CSS selectors](https://github.com/dperini/nwsapi/wiki/CSS-supported-selectors) for our CSS selector engine, [`nwsapi`](https://github.com/dperini/nwsapi).
 
-Beyond just features that we haven't gotten to yet, there are two major features that are currently outside the scope of jsdom. These are:
+Beyond features that we haven't gotten to yet, there are two major features that are currently outside the scope of jsdom. These are:
 
 - **Navigation**: the ability to change the global object, and all other objects, when clicking a link or assigning `location.href` or similar.
 - **Layout**: the ability to calculate where elements will be visually laid out as a result of CSS, which impacts methods like `getBoundingClientRects()` or properties like `offsetTop`.
