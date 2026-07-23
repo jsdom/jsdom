@@ -241,7 +241,10 @@ describe("Cookie processing", () => {
 
     const cookieJar = new CookieJar();
     cookieJar.setCookieSync("OptionsTest=FooBar; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/TestPath; HttpOnly", url);
-    cookieJar.setCookieSync("SecureAliasUrlTest=Baz; Secure", url);
+    // A Secure cookie set over a non-secure connection is ignored at set-time
+    // (draft-ietf-httpbis-rfc6265bis-22 §5.7 step 13). Pass ignoreError to match
+    // how Document's `cookie` setter routes to tough-cookie.
+    cookieJar.setCookieSync("SecureAliasUrlTest=Baz; Secure", url, { ignoreError: true });
 
     const { window } = new JSDOM(``, { url, cookieJar });
     assertCookies(window.document.cookie, []);
