@@ -31,9 +31,7 @@ describe("web-platform-tests", () => {
 
   for (const toRunDoc of toRunDocs) {
     const dirPrefix = toRunDoc.DIR.endsWith("/") ? toRunDoc.DIR : toRunDoc.DIR + "/";
-    const matchedFiles = possibleTestFilePaths.filter(filePath => 
-      filePath.startsWith(dirPrefix)
-    );
+    const matchedFiles = possibleTestFilePaths.filter(filePath => filePath.startsWith(dirPrefix));
 
     filesByDir.set(toRunDoc, matchedFiles);
   }

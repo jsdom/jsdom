@@ -90,12 +90,12 @@ exports.runTestWithExpectations = (testFilePath, expectations, { runSingleWPT, p
   const testFile = testFilePath.slice(prefix.length);
 
   let matchingPattern = Object.keys(expectations).find(pattern => {
-    return !/[*?\[\]{}()!@+]/.test(pattern) && testFilePath === prefix + pattern;
+    return !/[*?[\]{}()!@+]/.test(pattern) && testFilePath === prefix + pattern;
   });
 
   if (!matchingPattern) {
     matchingPattern = Object.keys(expectations).find(pattern => {
-      return /[*?\[\]{}()!@+]/.test(pattern) && path.matchesGlob(testFilePath, prefix + pattern);
+      return /[*?[\]{}()!@+]/.test(pattern) && path.matchesGlob(testFilePath, prefix + pattern);
     });
   }
 
@@ -150,7 +150,8 @@ exports.runTestWithExpectations = (testFilePath, expectations, { runSingleWPT, p
 };
 
 exports.expectationsInToRunDoc = doc => {
-  const { DIR, ...expectations } = doc;
+  const expectations = structuredClone(doc);
+  delete expectations.DIR;
   return expectations;
 };
 
@@ -195,10 +196,10 @@ function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } 
     }
 
     const fullPattern = prefix + pattern;
-    const isGlob = /[*?\[\]{}()!@+]/.test(fullPattern); 
-    const exists = isGlob
-      ? possibleTestFilePaths.some(filename => path.matchesGlob(filename, fullPattern))
-      : testFilePathSet.has(fullPattern);
+    const isGlob = /[*?[\]{}()!@+]/.test(fullPattern);
+    const exists = isGlob ?
+      possibleTestFilePaths.some(filename => path.matchesGlob(filename, fullPattern)) :
+      testFilePathSet.has(fullPattern);
 
     if (!exists) {
       throw new Error(`Expectation pattern "${pattern}" does not match any test files`);
