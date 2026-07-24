@@ -87,11 +87,18 @@ exports.checkToRunFile = (toRunFilename, possibleTestFilePaths) => {
 };
 
 exports.runTestWithExpectations = (testFilePath, expectations, { runSingleWPT, prefix = "" } = {}) => {
-  const matchingPattern = Object.keys(expectations).find(pattern => {
-    return path.matchesGlob(testFilePath, prefix + pattern);
+  const testFile = testFilePath.slice(prefix.length);
+
+  let matchingPattern = Object.keys(expectations).find(pattern => {
+    return !/[*?\[\]{}()!@+]/.test(pattern) && testFilePath === prefix + pattern;
   });
 
-  const testFile = testFilePath.slice(prefix.length);
+  if (!matchingPattern) {
+    matchingPattern = Object.keys(expectations).find(pattern => {
+      return /[*?\[\]{}()!@+]/.test(pattern) && path.matchesGlob(testFilePath, prefix + pattern);
+    });
+  }
+
   let reason, data;
 
   if (matchingPattern) {
@@ -143,13 +150,15 @@ exports.runTestWithExpectations = (testFilePath, expectations, { runSingleWPT, p
 };
 
 exports.expectationsInToRunDoc = doc => {
-  const expectations = structuredClone(doc);
-  delete expectations.DIR;
+  const { DIR, ...expectations } = doc;
   return expectations;
 };
 
 function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } = {}) {
   let lastPattern = "";
+
+  const testFilePathSet = new Set(possibleTestFilePaths);
+
   for (const [pattern, data] of Object.entries(expectations)) {
     if (pattern.startsWith("/")) {
       throw new Error(`Expectation patterns must not start with a slash: saw "${pattern}"`);
@@ -185,12 +194,17 @@ function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } 
       }
     }
 
-    if (!possibleTestFilePaths.some(filename => path.matchesGlob(filename, prefix + pattern))) {
+    const fullPattern = prefix + pattern;
+    const isGlob = /[*?\[\]{}()!@+]/.test(fullPattern); 
+    const exists = isGlob
+      ? possibleTestFilePaths.some(filename => path.matchesGlob(filename, fullPattern))
+      : testFilePathSet.has(fullPattern);
+
+    if (!exists) {
       throw new Error(`Expectation pattern "${pattern}" does not match any test files`);
     }
   }
 }
-
 
 function resolveReason(reason) {
   if (["fail-slow", "pass-slow", "timeout", "flaky"].includes(reason)) {

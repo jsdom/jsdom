@@ -27,16 +27,27 @@ before({ timeout: 30_000 }, async () => {
 after({ timeout: 5000 }, () => killSubprocess(serverProcess));
 
 describe("web-platform-tests", () => {
+  const filesByDir = new Map();
+
+  for (const toRunDoc of toRunDocs) {
+    const dirPrefix = toRunDoc.DIR.endsWith("/") ? toRunDoc.DIR : toRunDoc.DIR + "/";
+    const matchedFiles = possibleTestFilePaths.filter(filePath => 
+      filePath.startsWith(dirPrefix)
+    );
+
+    filesByDir.set(toRunDoc, matchedFiles);
+  }
+
   for (const toRunDoc of toRunDocs) {
     const expectations = expectationsInToRunDoc(toRunDoc);
+    const dirFiles = filesByDir.get(toRunDoc) || [];
+
     describe(toRunDoc.DIR, () => {
-      for (const testFilePath of possibleTestFilePaths) {
-        if (testFilePath.startsWith(toRunDoc.DIR + "/")) {
-          runTestWithExpectations(testFilePath, expectations, {
-            runSingleWPT,
-            prefix: toRunDoc.DIR + "/"
-          });
-        }
+      for (const testFilePath of dirFiles) {
+        runTestWithExpectations(testFilePath, expectations, {
+          runSingleWPT,
+          prefix: toRunDoc.DIR.endsWith("/") ? toRunDoc.DIR : toRunDoc.DIR + "/"
+        });
       }
     });
   }
