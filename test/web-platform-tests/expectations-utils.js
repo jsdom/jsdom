@@ -48,14 +48,13 @@ exports.checkToUpstreamExpectations = (toUpstreamExpectationsFilename, possibleT
     expectations = {};
   }
 
-  checkExpectations(expectations, possibleTestFilePaths);
-
-  return expectations;
+  return exports.prepareExpectations(expectations, possibleTestFilePaths);
 };
 
 exports.checkToRunFile = (toRunFilename, possibleTestFilePaths) => {
   const toRunString = fs.readFileSync(toRunFilename, { encoding: "utf-8" });
   const toRunDocs = jsYAML.loadAll(toRunString, null, { filename: toRunFilename, schema: jsYAML.DEFAULT_SAFE_SCHEMA });
+  const testGroups = [];
 
   let lastDir = "";
   for (const doc of toRunDocs) {
@@ -78,30 +77,39 @@ exports.checkToRunFile = (toRunFilename, possibleTestFilePaths) => {
     }
     lastDir = doc.DIR;
 
-    checkExpectations(exports.expectationsInToRunDoc(doc), possibleTestFilePaths, {
-      prefix: doc.DIR + "/"
+    const prefix = doc.DIR + "/";
+    const testFilePaths = possibleTestFilePaths.filter(testFilePath => testFilePath.startsWith(prefix));
+    const expectations = structuredClone(doc);
+    delete expectations.DIR;
+
+    const expectationDataByTestFilePath = exports.prepareExpectations(expectations, testFilePaths, { prefix });
+    testGroups.push({
+      dir: doc.DIR,
+      expectationDataByTestFilePath,
+      testFilePaths
     });
   }
 
-  return toRunDocs;
+  return testGroups;
 };
 
-exports.runTestWithExpectations = (testFilePath, expectations, { runSingleWPT, prefix = "" } = {}) => {
-  const matchingPattern = Object.keys(expectations).find(pattern => {
-    return path.matchesGlob(testFilePath, prefix + pattern);
-  });
-
+exports.runTestWithExpectations = (
+  testFilePath,
+  expectationDataByTestFilePath,
+  { runSingleWPT, prefix = "" } = {}
+) => {
+  const expectationData = expectationDataByTestFilePath.get(testFilePath);
   const testFile = testFilePath.slice(prefix.length);
   let reason, data;
 
-  if (matchingPattern) {
+  if (expectationData) {
     // The array case is when the failure affects the whole test file
     // (ex.: testharness timeout or error, uncaught exception, etc.)
-    reason = expectations[matchingPattern][0];
-    if (!Array.isArray(expectations[matchingPattern])) {
+    reason = expectationData[0];
+    if (!Array.isArray(expectationData)) {
       // The non-array case is when some subtests in the test file pass,
       // but others fail, and testharness status is OK.
-      data = expectations[matchingPattern];
+      data = expectationData;
     }
   } else if (prefix.startsWith("html/canvas/")) {
     reason = "needs-canvas";
@@ -142,14 +150,10 @@ exports.runTestWithExpectations = (testFilePath, expectations, { runSingleWPT, p
   }
 };
 
-exports.expectationsInToRunDoc = doc => {
-  const expectations = structuredClone(doc);
-  delete expectations.DIR;
-  return expectations;
-};
-
-function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } = {}) {
+exports.prepareExpectations = (expectations, possibleTestFilePaths, { prefix = "" } = {}) => {
+  const expectationDataByTestFilePath = new Map();
   let lastPattern = "";
+
   for (const [pattern, data] of Object.entries(expectations)) {
     if (pattern.startsWith("/")) {
       throw new Error(`Expectation patterns must not start with a slash: saw "${pattern}"`);
@@ -185,12 +189,23 @@ function checkExpectations(expectations, possibleTestFilePaths, { prefix = "" } 
       }
     }
 
-    if (!possibleTestFilePaths.some(filename => path.matchesGlob(filename, prefix + pattern))) {
+    let matched = false;
+    for (const testFilePath of possibleTestFilePaths) {
+      if (path.matchesGlob(testFilePath, prefix + pattern)) {
+        matched = true;
+        if (!expectationDataByTestFilePath.has(testFilePath)) {
+          expectationDataByTestFilePath.set(testFilePath, data);
+        }
+      }
+    }
+
+    if (!matched) {
       throw new Error(`Expectation pattern "${pattern}" does not match any test files`);
     }
   }
-}
 
+  return expectationDataByTestFilePath;
+};
 
 function resolveReason(reason) {
   if (["fail-slow", "pass-slow", "timeout", "flaky"].includes(reason)) {
