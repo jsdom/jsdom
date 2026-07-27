@@ -11,11 +11,6 @@ const manifest = readManifest(manifestFilename);
 const possibleTestFilePaths = getPossibleTestFilePaths(manifest);
 const toRunFilename = "to-run.yaml";
 
-// WPT serves https over a self-signed cert. The main-thread dispatcher already
-// skips cert checks (insecureDispatcher in run-single-wpt.js), but the sync XHR
-// worker builds its own dispatcher and can't inherit that, so opt it in too.
-process.env.JSDOM_SYNC_WORKER_INSECURE_TLS = "1";
-
 const toRunDocs = checkToRunFile(path.resolve(__dirname, toRunFilename), possibleTestFilePaths);
 
 let wptServerURL, wptServerHTTPSURL, serverProcess;

@@ -2354,6 +2354,7 @@ back-forward-cache-with-open-websocket-connection-ccns.tentative.window.html: [t
 back-forward-cache-with-open-websocket-connection.window.html: [timeout, Unknown]
 constructor/014.html?default: [fail, 'https://github.com/nodejs/undici/issues/4743']
 constructor/014.html?wss: [fail, 'https://github.com/nodejs/undici/issues/4743']
+cookies/007.html?wss&wpt_flags=https: [fail, sync XHR to self-signed https server fails cert validation in the worker]
 cookies/third-party-cookie-accepted.https.html: [fail, 'https://github.com/salesforce/tough-cookie/issues/80']
 idlharness.any.html: [fail, Depends on fetch]
 mixed-content.https.any.html: [fail, Unknown]
