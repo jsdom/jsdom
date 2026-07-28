@@ -15,6 +15,10 @@ css/css-sizing/aspect-ratio.html:
   "auto number": [fail, aspect-ratio is not fully implemented]
 css/cssom/CSS-supports.html:
   "CSS.supports and implementation: keyword": [fail, Revert keyword is not supported]
+css/cssom/getComputedStyle-calc.html:
+  "getComputedStyle() returns computed value for calc(100% - 40px)": [fail, Need to fix calc() with percentages]
+  "getComputedStyle() returns computed value for calc(var(--gap) - 4px)": [fail, Need to fix calc() with var()]
+  "getComputedStyle() returns computed value for calc(608px - env(safe-area-inset-top))": [fail, Need to fix calc() with CSS functions]
 css/cssom/getComputedStyle-live.html: [fail, https://github.com/jsdom/jsdom/issues/3562]
 css/cssom/getComputedStyle-shadow-host.html: [fail, https://github.com/jsdom/jsdom/issues/3661]
 css/cssom/getComputedStyle-shadow-inherit.html:
