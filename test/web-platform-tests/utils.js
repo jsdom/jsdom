@@ -4,6 +4,17 @@ const http = require("node:http");
 const https = require("node:https");
 const os = require("node:os");
 
+exports.getURLPrefix = (urls, testPath) => {
+  const { pathname, searchParams } = new URL(testPath, urls[0]);
+  const filename = pathname.slice(pathname.lastIndexOf("/") + 1);
+  const flags = new Set([
+    ...filename.split(".").slice(1, -1),
+    ...searchParams.getAll("wpt_flags")
+  ]);
+
+  return flags.has("https") ? urls[1] : urls[0];
+};
+
 exports.killSubprocess = subprocess => {
   return new Promise(resolve => {
     subprocess.on("close", resolve);

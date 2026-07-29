@@ -4,7 +4,7 @@ const path = require("node:path");
 const { describe, before, after } = require("mocha-sugar-free");
 const { regenerateManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const wptServer = require("./wpt-server.js");
-const { killSubprocess, spawnSyncFiltered } = require("./utils.js");
+const { getURLPrefix, killSubprocess, spawnSyncFiltered } = require("./utils.js");
 const { checkToUpstreamExpectations, runTestWithExpectations } = require("./expectations-utils.js");
 
 const wptPath = path.resolve(__dirname, "tests");
@@ -32,14 +32,14 @@ const expectationDataByTestFilePath = checkToUpstreamExpectations(
   possibleTestFilePaths
 );
 
-let wptServerURL, serverProcess;
+let wptServerURLs, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(
-  () => wptServerURL,
+  testPath => getURLPrefix(wptServerURLs, testPath),
   expectationsFilename
 );
 before({ timeout: 30_000 }, async () => {
   const { urls, subprocess } = await wptServer.start({ toUpstream: true });
-  wptServerURL = urls[0];
+  wptServerURLs = urls;
   serverProcess = subprocess;
 });
 
