@@ -3,7 +3,7 @@ const path = require("node:path");
 const { describe, before, after } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const wptServer = require("./wpt-server.js");
-const { killSubprocess } = require("./utils.js");
+const { getURLPrefix, killSubprocess } = require("./utils.js");
 const { checkToRunFile, runTestWithExpectations } = require("./expectations-utils.js");
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
@@ -13,14 +13,14 @@ const toRunFilename = "to-run.yaml";
 
 const testGroups = checkToRunFile(path.resolve(__dirname, toRunFilename), possibleTestFilePaths);
 
-let wptServerURL, serverProcess;
+let wptServerURLs, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(
-  () => wptServerURL,
+  testPath => getURLPrefix(wptServerURLs, testPath),
   toRunFilename
 );
 before({ timeout: 30_000 }, async () => {
   const { urls, subprocess } = await wptServer.start({ toUpstream: false });
-  wptServerURL = urls[0];
+  wptServerURLs = urls;
   serverProcess = subprocess;
 });
 

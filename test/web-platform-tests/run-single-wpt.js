@@ -30,7 +30,7 @@ module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
       timeout: 120_000,
       slow: 10_000,
       fn() {
-        return createJSDOM(urlPrefixFactory(), testPath, expectFail, expectationsFilenameForErrorMessage);
+        return createJSDOM(urlPrefixFactory(testPath), testPath, expectFail, expectationsFilenameForErrorMessage);
       }
     });
   };
