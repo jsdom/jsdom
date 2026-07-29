@@ -1,7 +1,7 @@
 // https://drafts.csswg.org/cssom/#namespacedef-css
-[Exposed=Window, LegacyNoInterfaceObject]
-interface CSS {
-  boolean supports(CSSOMString conditionText);
-  boolean supports(CSSOMString property, CSSOMString value);
+[Exposed=Window]
+namespace CSS {
+  [WebIDL2JSCallWithGlobal] boolean supports(CSSOMString conditionText);
+  [WebIDL2JSCallWithGlobal] boolean supports(CSSOMString property, CSSOMString value);
   CSSOMString escape(CSSOMString ident);
 };
