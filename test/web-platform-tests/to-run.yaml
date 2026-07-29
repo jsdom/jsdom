@@ -335,7 +335,6 @@ DIR: css/css-transitions
 
 DIR: css/cssom
 
-CSS-namespace-object-class-string.html: [fail, Unknown]
 CSSFontFeatureValuesRule.html: [fail, Unknown]
 CSSStyleRule-set-selectorText-namespace.html: [fail, csstree does not validate or normalize selectors]
 CSSStyleRule-set-selectorText.html: [fail, csstree does not validate or normalize selectors]
