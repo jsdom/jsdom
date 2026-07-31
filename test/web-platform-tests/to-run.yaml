@@ -1,7 +1,7 @@
 DIR: FileAPI
 
 Blob-methods-from-detached-frame.html: [timeout, Unknown]
-BlobURL/**: [fail, Unknown]
+BlobURL/**: [fail-slow, Unknown]
 FileReader/workers.html: [fail, Needs Worker implementation]
 blob/Blob-constructor-detached-buffer.any.html: [fail, Unknown]
 blob/Blob-constructor.any.html:
@@ -32,21 +32,15 @@ algorithm-discards-context.https.window.html: [fail-slow, Tests non-implemented 
 crypto_key_cached_slots.https.any.html: [fail, Not implemented]
 derive_bits_keys/!(derive_key_and_encrypt.https.any.html): [fail, Not implemented]
 digest/**: [fail, Unknown]
-encap_decap/encap_decap_bits.tentative.https.any.html: [fail, Unknow]
-encap_decap/encap_decap_keys.tentative.https.any.html: [fail, Unknown]
 encrypt_decrypt/**: [fail, Not implemented]
 generateKey/**: [fail, Not implemented]
-getPublicKey.tentative.https.any.html: [fail, Unknown]
 getRandomValues.any.html: [fail, Some IntXXArray not implemented]
 idlharness.https.any.html: [fail, Unknown]
-idlharness.tentative.https.any.html: [fail, Depends on fetch]
 import_export/**: [fail, Not implemented]
 normalize-algorithm-name.https.any.html: [fail, Unknown]
 secure_context/crypto-subtle-secure-context-available.https.sub.html: [fail, Unknown]
 serialization/**: [fail, Unknown]
 sign_verify/**: [fail, Not implemented]
-supports-modern.tentative.https.any.html: [fail, Unknown]
-supports.tentative.https.any.html: [fail, Unknown]
 wrapKey_unwrapKey/wrapKey_unwrapKey.https.any.html: [fail, Not implemented]
 
 ---
@@ -55,7 +49,6 @@ DIR: cors
 
 304.htm: [fail-slow, Unknown]
 access-control-expose-headers-parsing.window.html: [fail, Depends on fetch]
-client-hint-request-headers-2.tentative.htm: [fail, Client Hints not implemented]
 client-hint-request-headers.htm: [fail-slow, Client Hints not implemented]
 cors-safelisted-request-header.any.html: [fail, Depends on fetch]
 image-tainting-in-cross-origin-iframe.sub.html: [timeout, Unknown]
@@ -67,7 +60,6 @@ redirect-preflight-2.htm: [fail, Preflight should also be done before redirected
 remote-origin.htm: [timeout, postMessage event does not contain source]
 request-headers.htm: [timeout, Unknown]
 response-headers.htm: [timeout, I don't find a spec about combining same value response headers; also https://github.com/jsdom/jsdom/issues/1833]
-simple-requests-ch.tentative.htm: [fail-slow, Client Hints not implemented]
 simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 but it fails locally too]
 
 ---
@@ -183,33 +175,7 @@ border-shape/border-shape-overflow-clip-margin-hit-test-ref-boxes.html: [fail, N
 border-shape/border-shape-overflow-clip-margin-hit-test.html: [fail, Not implemented]
 border-width-hairline.html:
   "Computed hairline width is within bounds": [fail, Unknown]
-border-width-rounding.tentative.html: [fail, Unknown]
 corner-shape/**/!(corner-shape-invalid.html|corners-invalid.html): [fail, Not implemented]
-outline-offset-rounding.tentative.html: [fail, Not implemented]
-tentative/parsing/border-block-end-radius-computed.html: [fail, Not implemented]
-tentative/parsing/border-block-start-radius-computed.html: [fail, Not implemented]
-tentative/parsing/border-bottom-radius-computed.html: [fail, Not implemented]
-tentative/parsing/border-clip-computed.html: [fail, Depends on CSS]
-tentative/parsing/border-clip-invalid.html:
-  "e.style['border-clip'] = \"none\" should not set the property value": [fail, Unknown]
-tentative/parsing/border-clip-valid.html:
-  "e.style['border-clip'] = \"normal\" should set the property value": [fail, Unknown]
-  "e.style['border-clip'] = \"0\" should set the property value": [fail, Unknown]
-tentative/parsing/border-inline-end-radius-computed.html: [fail, Not implemented]
-tentative/parsing/border-inline-start-radius-computed.html: [fail, Not implemented]
-tentative/parsing/border-left-radius-computed.html: [fail, Not implemented]
-tentative/parsing/border-right-radius-computed.html: [fail, Not implemented]
-tentative/parsing/border-shape-computed.html: [fail, Not implemented]
-tentative/parsing/border-shape-valid.html: [fail, Not implemented]
-tentative/parsing/border-top-radius-computed.html: [fail, Not implemented]
-tentative/parsing/box-shadow-blur-valid.html: [fail, Not implemented]
-tentative/parsing/box-shadow-color-computed.html: [fail, Not implemented]
-tentative/parsing/box-shadow-color-valid.html: [fail, Not implemented]
-tentative/parsing/box-shadow-offset-computed.html: [fail, Not implemented]
-tentative/parsing/box-shadow-offset-valid.html:
-  "e.style['box-shadow-offset'] = \"0\" should set the property value": [fail, Not implemented]
-tentative/parsing/box-shadow-spread-valid.html:
-  "e.style['box-shadow-spread'] = \"0\" should set the property value": [fail, Not implemented]
 
 ---
 
@@ -383,9 +349,6 @@ display-math-on-pseudo-elements-001.html: [fail, Unknown]
 empty-text-baseline-001.html: [fail, Unknown]
 empty-text-baseline-002.html: [fail, Unknown]
 parsing/display-computed.html: [fail, Unknown]
-parsing/tentative/display-computed.html: [fail, masonry and inline-masonry not implemented]
-parsing/tentative/display-valid.html: [fail, masonry and inline-masonry not implemented]
-reading-flow/tentative/reading-order-computed.html: [fail, Unknown]
 textarea-display.html: [fail, Unknown]
 
 ---
@@ -468,7 +431,6 @@ CSSStyleRule-set-selectorText.html: [fail, csstree does not validate or normaliz
 CSSStyleSheet-constructable-baseURL.html: [fail, Unknown]
 CSSStyleSheet-constructable-cssRules.html: [fail, Unknown]
 CSSStyleSheet-constructable-disabled-regular-sheet-insertion.html: [fail, Unknown]
-CSSStyleSheet-constructable-disallow-import.tentative.html: [fail, Unknown]
 CSSStyleSheet-constructable-duplicate.html: [fail, Unknown]
 CSSStyleSheet-constructable-invalidation.html: [fail, Unknown]
 CSSStyleSheet-constructable-replace-cssRules.html: [fail, Unknown]
@@ -492,9 +454,6 @@ caretPositionFromPoint-audioVideo.html: [fail, Unknown]
 caretPositionFromPoint-in-flex-container.html: [fail, Unknown]
 caretPositionFromPoint-with-transformation.html: [timeout, Unknown]
 caretPositionFromPoint.html: [fail, Unknown]
-caretRangeFromPoint-replace-document.tentative.html: [fail, Unknown]
-caretRangeFromPoint-textarea-transform.tentative.html: [fail, Unknown]
-caretRangeFromPoint.tentative.html: [fail, Unknown]
 computed-style-001.html: [fail, Unknown]
 computed-style-002.html: [fail, Unknown]
 computed-style-003.html: [fail, Unknown]
@@ -507,7 +466,6 @@ cssom-fontfacerule-constructors.html: [fail, Unknown]
 cssom-fontfacerule.html: [fail, No CSSFontFaceDescriptors implementation]
 cssom-getPropertyValue-common-checks.html: [fail, Unknown]
 cssstyledeclaration-all-shorthand.html: [fail, Unknown]
-cssstyledeclaration-cssfontrule.tentative.html: [fail, Unknown]
 cssstyledeclaration-csstext-all-shorthand.html: [fail, Unknown]
 cssstyledeclaration-csstext.html: [fail, Unknown]
 cssstyledeclaration-mutability.html: [fail, Unknown]
@@ -525,7 +483,6 @@ getComputedStyle-display-none-001.html: [fail, Unknown]
 getComputedStyle-display-none-002.html: [fail, Unknown]
 getComputedStyle-display-none-003.html: [fail, Unknown]
 getComputedStyle-dynamic-subdoc.html: [fail, Unknown]
-getComputedStyle-getter-v-properties.tentative.html: [fail, Unknown]
 getComputedStyle-insets-absolute.html: [timeout, Unknown]
 getComputedStyle-insets-fixed.html: [timeout, Unknown]
 getComputedStyle-insets-grid.html: [fail, Unknown]
@@ -679,7 +636,6 @@ scrollLeft-of-scroller-with-wider-scrollbar.html: [fail, Unknown]
 scrollParent-quirks-mode.html: [fail, Unknown]
 scrollParent-shadow-tree.html: [fail, Unknown]
 scrollParent.html: [fail, Unknown]
-scrollWidthHeight-child-border-within-padding.tentative.html: [fail, Unknown]
 scrollWidthHeight-flex-column-padding-001.html: [fail, Unknown]
 scrollWidthHeight-negative-margin-001.html: [fail, Unknown]
 scrollWidthHeight-negative-margin-002.html: [fail, Unknown]
@@ -694,7 +650,6 @@ scrollintoview.html: [fail, Unknown]
 smooth-scroll-in-load-event.html: [fail, Not implemented]
 smooth-scroll-nonstop.html: [fail-slow, Not implemented]
 smooth-scrollIntoView-with-smooth-fragment-scroll.html: [fail-slow, Unknown]
-subpixel-sizes-and-offsets.tentative.html: [fail, Unknown]
 table-client-props.html: [fail, Needs layout]
 table-offset-props.html: [fail, Needs layout]
 table-scroll-props.html: [fail, Needs layout]
@@ -884,7 +839,6 @@ parsing/parse-descendant.html: [fail, Unknown]
 parsing/parse-focus-visible.html: [fail, Unknown]
 parsing/parse-has-disallow-nesting-has-inside-has.html: [fail, Unknown]
 parsing/parse-has-forgiving-selector.html: [fail, Unknown]
-parsing/parse-has-slotted.tentative.html: [fail, Unknown]
 parsing/parse-has.html: [fail, Unknown]
 parsing/parse-heading.html: [fail, Unknown]
 parsing/parse-id.html: [fail, Unknown]
@@ -937,12 +891,10 @@ cross-realm-callback-report-exception.html: [fail, No relevant realm support for
 custom-element-reaction-queue.html:
   "Upgrading a custom element must invoke attributeChangedCallback and connectedCallback before start upgrading another element": [fail, document.write() implementation is not spec compliant]
   "Mutating a undefined custom element while upgrading a custom element must not enqueue or invoke reactions on the mutated element": [fail, document.write() implementation is not spec compliant]
-element-internals-behaviors.tentative.html: [fail, Unknown]
 form-associated/ElementInternals-NotSupportedError.html: [fail, Not implemented]
 form-associated/ElementInternals-form.html: [fail, Not implemented]
 form-associated/ElementInternals-setFormValue-nullish-value.html: [fail, Not implemented]
 form-associated/ElementInternals-setFormValue.html: [fail-slow, Not implemented]
-form-associated/ElementInternals-submit-behavior-dialog.tentative.html: [fail, Unknown]
 form-associated/ElementInternals-validation.html: [fail, Not implemented]
 form-associated/disabled-delegatesFocus.html: [fail, Not implemented]
 form-associated/fieldset-elements.html: [fail, Not implemented]
@@ -1033,7 +985,6 @@ DIR: dom/collections
 
 DIR: dom/events
 
-Event-dispatch-click.tentative.html: [fail, Test is wrong, https://github.com/web-platform-tests/wpt/issues/27819]
 Event-dispatch-single-activation-behavior.html: [fail, Unknown]
 Event-dispatch-throwing-multiple-globals.html: [fail-slow, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
@@ -1161,7 +1112,6 @@ Range-mutations-dataChange.html: [timeout, Usually passes locally but has too ma
 Range-selectNode.html: [fail, Unknown]
 Range-set.html: [fail-slow, Unknown]
 Range-surroundContents.html: [fail-slow, Unknown]
-tentative/**: [fail, Unknown]
 
 ---
 
@@ -1188,16 +1138,11 @@ XMLSerializer-serializeToString.html: [fail, Unknown]
 createContextualFragment-xhtml.xhtml: [fail, Unknown]
 createContextualFragment.html: [fail, Script execution timing]
 innerhtml-05.xhtml: [fail, Unknown]
-tentative/**/!(stream-html-script-safe.html): [fail, Unknown]
 
 ---
 
 DIR: domxpath
 
-evaluator-cross-realm.tentative.html: [fail, Unknown]
-evaluator-different-document.tentative.html: [fail, Unknown]
-expression-cross-realm.tentative.html: [fail, Unknown]
-expression-different-document.tentative.html: [fail, Unknown]
 fn-id.html:
   "id(\"duplicate\"): <root><div id=\"duplicate\">First</div><div id=\"duplicate\">Second</div></root>": [fail, Unknown]
 fn-lang.html: [fail, Unknown]
@@ -1205,7 +1150,6 @@ fn-normalize-space.html: [fail, Unknown]
 lexical-structure.html: [fail, Unknown]
 node-sets.html: [fail, Unknown]
 predicates.html: [fail, Unknown]
-resolver-callback-interface-cross-realm.tentative.html: [fail, Unknown]
 resolver-callback-interface.html: [fail, Unknown]
 resolver-non-string-result.html: [fail, Unknown]
 result-iterateNext.html: [fail, Unknown]
@@ -1368,8 +1312,6 @@ failure-check-sequence.https.html: [fail, Not implemented]
 grandparent_location_aboutsrcdoc.sub.window.html: [timeout, Unknown]
 grandparent_session_aboutsrcdoc.sub.window.html: [fail-slow, Unknown]
 initial-empty-document/*: [fail-slow, Unknown]
-javascript-url-abort/javascript-url-abort-return-value-string.tentative.html: [timeout, Unknown]
-javascript-url-abort/javascript-url-abort-return-value-undefined.tentative.html: [timeout, Unknown]
 javascript-url-load-as-html.xhtml: [fail, Unknown]
 javascript-url-no-beforeunload.window.html: [fail, Unknown]
 javascript-url-referrer.window.html: [fail, Unknown]
@@ -1562,12 +1504,6 @@ window-properties.https.html:
   "Window attribute: opener": [fail, Not implemented]
   "Window method: createImageBitmap": [fail, Not implemented]
   "Window method: matchMedia": [fail, Not implemented]
-window-reuse-in-nested-browsing-contexts.tentative.html:
-  "synchronously navigate iframe with no initial src.": [fail, Unknown]
-  "after the first iframe load event, navigate iframe with no initial src.": [fail, Unknown]
-  'synchronously navigate iframe with initial src == "".': [fail, Unknown]
-  'synchronously navigate iframe with initial src == "about:blank".': [fail, Unknown]
-window-reuse.tentative.html: [fail, Unknown]
 
 ---
 
@@ -1650,7 +1586,6 @@ DIR: html/dom
 
 access-key-label.html:
   "Returns empty string when accesskey is invalid": [fail, Unknown]
-aria-attribute-reflection-enumerated.tentative.html: [fail, Unknown]
 aria-attribute-reflection.html:
   "aria-braillelabel attribute reflects.": [fail, Unknown]
   "aria-brailleroledescription attribute reflects.": [fail, Unknown]
@@ -1671,7 +1606,6 @@ documents/dom-tree-accessors/nameditem-img-name-added.html: [fail, Unknown]
 documents/dom-tree-accessors/nameditem-img-name-dynamic.html: [fail, Unknown]
 documents/dom-tree-accessors/nameditem-img-name-removed.html: [fail, Unknown]
 documents/dom-tree-accessors/nameditem-names.html: [fail, Unknown]
-documents/dom-tree-accessors/nameditem-no-shadowing.tentative.html: [fail, Unknown]
 documents/dom-tree-accessors/nameditem-tree-order.html: [fail, Unknown]
 documents/resource-metadata-management/document-cookie.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified-01.html: [fail, Unknown]
@@ -1703,7 +1637,6 @@ elements/images/bypass-cache-revalidation.html: [fail-slow, Unknown]
 elements/the-innertext-and-outertext-properties/*: [fail, Not implemented]
 historical.html: [fail, Unknown]
 idlharness.https.html*: [fail, Unknown]
-partial-updates/tentative/**/!(template-for-empty.html|template-for-innerHTML-outside.html|template-for-invalid.html|template-for-parsing-only.html|template-for-scripting-nested.html): [fail, Unknown]
 reflection*.html: [fail-slow, Unknown]
 render-blocking/*: [fail-slow, Not implemented]
 self-origin.sub.html: [fail, needs URL.createObjectURL]
@@ -1747,7 +1680,6 @@ DIR: html/interaction/focus
 
 document-level-focus-apis/document-has-system-focus.html: [fail-slow, window.open() not implemented]
 focus-selection.html: [fail, Unknown]
-focusgroup/tentative/idl-reflection.html: [fail, Unknown]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
 processing-model/textarea-scroll-selection.html: [fail, Not implemented]
@@ -1830,7 +1762,6 @@ style_media.html: [fail, Not implemented]
 style_media_change.html: [fail, Not implemented]
 style_type_change.html: [fail, Spec mismatches tests https://github.com/whatwg/html/issues/3391]
 style_type_svg.svg: [fail, Unknown]
-tentative/**: [timeout, Unknown]
 
 ---
 
@@ -1872,7 +1803,6 @@ img-picture-ancestor.html: [fail, Unknown; possibly needs media queries?]
 img.complete.html: [timeout, Unknown]
 invalid-src.html: [timeout, Resource loader doesn't catch bad URLs at the right point in the process]
 invisible-image.html: [fail, images block the window load event not implemented (images not in _queue)]
-list-of-available-images-does-not-coalesce-in-flight-requests.sub.tentative.html: [fail-slow, Unknown]
 list-of-available-images-matching.https.html: [fail, Service worker not implemented]
 move-element-and-scroll.html: [fail, scrollIntoView not implemented]
 natural-size-orientation.html: [timeout, image-orientation CSS property not implemented]
@@ -1924,7 +1854,6 @@ form-validation-willValidate.html:
   "[INPUT in COLOR status] Must be barred from the constraint validation if it is readonly": [fail, Not implemented]
   "[INPUT in FILE status] Must be barred from the constraint validation if it is readonly": [fail, Not implemented]
   "[INPUT in SUBMIT status] Must be barred from the constraint validation if it is readonly": [fail, Not implemented]
-infinite_backtracking.tentative.html: [timeout, Unknown]
 input-maxlength-emoji.html: [fail, Unknown]
 
 ---
@@ -2009,7 +1938,6 @@ input-submit-remove-jssubmit.html: [fail-slow, We do not support form target yet
 input-type-button.html: [fail, Depends on offsetWidth]
 input-type-change-submit.html: [timeout, Unknown]
 input-type-change-value.html: [fail, Unknown]
-input-type-checkbox-switch.tentative.window.html: [fail, Unknown]
 input-untrusted-key-event.html: [fail-slow, Not implemented]
 input-valueasnumber.html:
   "valueAsNumber setter on type month (actual valueAsNumber: -1, expected value: 1969-12)": [fail, Unknown]
@@ -2057,15 +1985,10 @@ DIR: html/semantics/forms/the-progress-element
 DIR: html/semantics/forms/the-select-element
 
 customizable-select/**/!(option-color-inheritance.html): [fail, Unknown]
-filterable-select/select-beforefilter.tentative.html: [fail, Unknown]
 inserted-or-removed.html:
   "If an OPTION says it is selected, it should be selected after it is inserted.": [fail, Not implemented]
-select-clear-reappend.tentative.html: [fail, Unknown]
-select-option-display-inherit.tentative.html: [fail, Unknown]
 select-selectedOptions-nesting.window.html: [fail, Unknown]
 select-validity.html: [fail, Unknown]
-select-validity.tentative.html:
-  "Validation for placeholder option": [fail, Unknown]
 select-value.html:
   "option is child of div": [fail, Unknown]
 select-willvalidate-readonly-attribute.html: [fail, Not implemented]
@@ -2088,7 +2011,6 @@ DIR: html/semantics/grouping-content
 DIR: html/semantics/interactive-elements/the-details-element
 
 auto-expand-details-element-fragment.html: [fail, Ancestor details revealing algorithm is not implemented]
-closed-details-layout-apis.tentative.html: [fail, getBoundingClientRect() is not implemented]
 details-name-exclusivity-fragment-insertion.html: [fail, Unknown]
 name-attribute.html: [fail, Unknown]
 toggleEvent.html: [fail-slow, The ninth test requires a streaming HTML parser to pass]
@@ -2110,7 +2032,6 @@ hyperlink-auditing/headers.optional.html: [fail, Depends on fetch]
 links-created-by-a-and-area-elements/anchor-src-encoding.html: [timeout, Unknown]
 links-created-by-a-and-area-elements/htmlanchorelement_noopener.html: [timeout, noopener is not supported]
 links-created-by-a-and-area-elements/rel-attribute-clearing.html: [fail, Unknown]
-links-created-by-a-and-area-elements/rel-opener-prevents-browsing-context-group-change.tentative.html: [timeout, Unknown]
 links-created-by-a-and-area-elements/target_blank_implicit_noopener.html: [fail, Depends on BroadcastChannel]
 links-created-by-a-and-area-elements/target_blank_implicit_noopener_base.html: [fail, Depends on BroadcastChannel]
 
@@ -2254,8 +2175,6 @@ text-module/**: [fail-slow, Unknown]
 
 DIR: html/semantics/scripting-1/the-template-element
 
-reflect-html-for.tentative.html: [fail, Unknown]
-
 ---
 
 DIR: html/semantics/selectors
@@ -2312,7 +2231,6 @@ pseudo-classes/disabled.html:
   "':disabled' should match elements that are appended to a disabled fieldset dynamically": [fail, Unknown]
 pseudo-classes/focus-autofocus.html: [timeout, Unknown]
 pseudo-classes/focus.html: [timeout, Unknown]
-pseudo-classes/input-checkbox-switch.tentative.window.html: [fail, Unknown]
 
 ---
 
@@ -2354,9 +2272,6 @@ serializing-html-fragments/processing-instructions.html: [fail, Unknown]
 serializing-html-fragments/serializing-cdata-in-html-document.html: [fail, Unknown]
 serializing-html-fragments/serializing-lt-gt.html: [fail, Unknown]
 serializing-html-fragments/serializing.html: [fail, Scripting isn't properly inherited for sub-documents]
-speculative-charset/speculative-script.tentative.html: [fail, Unknown]
-speculative-parsing/generated/document-write/*: [fail-slow, Unknown]
-speculative-parsing/generated/page-load/*: [fail-slow, Unknown]
 xmldecl/xmldecl-1.html: [fail, Unknown; possibly iframes are inheriting encoding from their parent?]
 xmldecl/xmldecl-2.html: [fail, several encodings misdetected?]
 xmldecl/xmldecl-3.html: [fail, Unknown]
@@ -2435,12 +2350,9 @@ DIR: html/webappapis/system-state-and-capabilities/the-navigator-object
 
 clientinformation.window.html: [fail, window.clientInformation is not implemented]
 historical.https.window.html: [fail, Not implemented]
-navigator-window-controls-overlay.tentative.html: [fail, navigator.windowControlsOverlay not implemented]
-navigator_user_agent.https.tentative.html: [fail, navigator.userAgentData not implemented]
 per-global.window.html: [fail, window.clientInformation is not implemented]
 plugins-and-mimetypes.html: [fail, navigator.pdfViewerEnabled is not implemented]
 protocol.https.html: [fail, registerProtocolHandler() is not implemented]
-protocol.tentative.https.html: [fail, registerProtocolHandler() is not implemented]
 
 ---
 
@@ -2486,25 +2398,13 @@ DIR: selection
 
 bidi/modify-extend-by-character.html: [fail, Not implemented]
 bidi/modify-move-by-character.html: [fail, Not implemented]
-bidi/modify.tentative.html: [fail, Not implemented]
 caret-position-should-be-correct-while-moveup-movedown.html: [fail, Not implemented]
 contenteditable/collapse.html: [fail, No spec for how selection changes should impact focus, https://github.com/whatwg/html/issues/6179]
-contenteditable/initial-selection-on-focus.tentative.html?*: [fail, Not implemented]
-contenteditable/modify-around-inline-element-boundary.tentative.html: [fail, Unknown]
 contenteditable/modify-around-non-editable-span.html: [fail, Not implemented]
-contenteditable/modify.tentative.html: [fail, Not implemented]
 extend-selection-backward-on-input.html: [fail, Depends on document.execCommand]
 fire-selectionchange-event-on-document-if-textcontrol-element-is-in-shadow-tree.html:
   "selectionchange event fired on the document in case TextControl element is in Shadow Tree": [fail, Depends on document.execCommand]
 idlharness.window.html: [fail, Depends on fetch]
-modify-extend-word-trailing-inline-block.tentative.html: [fail, Not implemented]
-modify-line-flex-column.tentative.html: [fail, Not implemented]
-modify-line-flex-row.tentative.html: [fail, Not implemented]
-modify-line-grid-basic.tentative.html: [fail, Not implemented]
-modify.tentative.html: [fail, Not implemented]
-move-paragraph-cross-editing-boundary.tentative.html: [fail, Unknown]
-move-paragraphboundary-cross-editing-boundary.tentative.html: [fail, Unknown]
-move-selection-range-into-different-root.tentative.html: [fail, Unknown]
 onselectionchange-on-distinct-text-controls.html: [fail, Unknown]
 onselectionchange-on-document.html: [fail, Unknown]
 script-and-style-elements.html: [fail,
@@ -2514,10 +2414,7 @@ script-and-style-elements.html: [fail,
 selection-content-visibility-hidden.html: [fail, Unknown]
 selection-modify-extend-word-generated-content.html: [fail, Unknown]
 selection-nested-video.html: [fail-slow, Unknown]
-selection-range-in-shadow-after-the-shadow-removed.tentative.html?mode=closed: [fail, Unknown]
-selection-range-in-shadow-after-the-shadow-removed.tentative.html?mode=open: [fail, Unknown]
 shadow-dom/selection-at-nodes-not-part-of-flattened-tree.html: [fail, Unknown]
-shadow-dom/tentative/**: [fail, Unknown]
 textcontrols/onselectionchange-content-attribute.html: [fail-slow, Unknown]
 textcontrols/selectionchange-bubble.html: [timeout, Unknown]
 textcontrols/selectionchange-on-shadow-dom.html: [fail, Unknown]
@@ -2528,7 +2425,6 @@ toString-user-select-none.html: [fail, Unknown]
 
 DIR: shadow-dom
 
-Document-caretPositionFromPoint.tentative.html: [fail, Unknown]
 Document-prototype-currentScript.html: [timeout, Test not up to date next with updating wpt it should work]
 DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
 HighlightRegistry-highlightsFromPoint.html: [fail, Not implemented]
@@ -2542,8 +2438,6 @@ declarative/innerhtml-before-closing-tag.html: [fail, Not implemented]
 declarative/innerhtml-on-ordinary-template.html: [fail, Not implemented]
 declarative/move-template-before-closing-tag.html: [fail, Not implemented]
 declarative/script-access.html: [fail, Not implemented]
-declarative/tentative/shadowrootadoptedstylesheets/**: [fail-slow, Unknown]
-focus-navigation/tentative/focus-scroller-layout-update.html: [fail, Unknown]
 focus-within-shadow.html: [fail, Unknown]
 focus/ShadowRoot-delegatesFocus.html: [fail, DelegatesFocus is not implemented]
 focus/delegatesFocus-tabindex-change.html: [fail, DelegatesFocus is not implemented]
@@ -2556,9 +2450,6 @@ leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemented]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 offsetTop-offsetLeft-across-shadow-boundaries.html: [fail, offsetTop/offsetLeft not implemented]
-reference-target/tentative/event-path.html: [fail, Unknown]
-reference-target/tentative/gethtml-serialization.html: [fail, Unknown]
-reference-target/tentative/shadowrootreferencetarget-idl-reflection.html: [fail, Unknown]
 scroll-restore-shadow.html: [fail, Unknown]
 scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
 shadow-root-clonable.html: [fail, Unknown]
@@ -2652,7 +2543,6 @@ Transferred_objects_unusable.sub.htm: [fail, Cross-document postMessage]
 broadcastchannel/basics.any.html: [fail, BroadcastChannel not implemented]
 broadcastchannel/blobs.html: [fail, BroadcastChannel not implemented]
 broadcastchannel/cross-origin.html: [fail, BroadcastChannel not implemented]
-broadcastchannel/cross-partition.https.tentative.html: [timeout, BroadcastChannel not implemented]
 broadcastchannel/detached-iframe.html: [fail, BroadcastChannel not implemented]
 broadcastchannel/interface.any.html: [fail, BroadcastChannel not implemented]
 broadcastchannel/opaque-origin.html: [timeout, BroadcastChannel not implemented]
@@ -2664,10 +2554,6 @@ broadcastchannel/workers.html: [fail, BroadcastChannel not implemented]
 event.data.sub.htm: [timeout, Cross-document postMessage]
 "event.{origin,ports,source}*": [fail, Cross-document postMessage]
 message-channels/*.any.html: [fail, MessageChannel not implemented]
-message-channels/close-event/document-destroyed.tentative.window.html: [timeout, MessageChannel not implemented]
-message-channels/close-event/entangled-after-back-forward-cache-restore.https.tentative.window.html: [fail, MessageChannel not implemented]
-message-channels/close-event/explicitly-closed.tentative.window.html: [timeout, MessageChannel not implemented]
-message-channels/close-event/garbage-collected.tentative.any.html: [fail, MessageChannel not implemented]
 message-channels/cross-document.html: [fail, MessageChannel not implemented]
 message-channels/detached-iframe.window.html: [fail, MessageChannel not implemented]
 multi-globals/**: [fail, MessageChannel/BroadcastChannel not implemented]
@@ -2708,7 +2594,6 @@ without-ports/014.html: [fail, Cross-document postMessage]
 without-ports/028.html: [needs-canvas]
 "without-ports/{016..021}.html": [fail, Cross-document postMessage]
 "without-ports/{023..026}.html": [fail, Cross-document postMessage]
-worker_postMessage_user_activation.tentative.html: [fail, Worker not implemented]
 
 ---
 
@@ -2723,11 +2608,8 @@ Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
 Create-url-with-windows-1252-encoding.html: [fail, Unknown]
 Send-binary-arraybufferview-float16.any.html?default: [fail-node:<24, Float16Array not implemented]
 Send-binary-arraybufferview-float16.any.html?wss: [fail-node:<24, Float16Array not implemented]
-back-forward-cache-closes-open-websocket-connection.tentative.window.html: [timeout, Unknown]
-back-forward-cache-with-closed-websocket-connection-ccns.tentative.window.html: [timeout, Unknown]
 back-forward-cache-with-closed-websocket-connection.window.html: [timeout, Unknown]
 back-forward-cache-with-open-websocket-connection-and-close-it-in-pagehide.window.html: [timeout, Unknown]
-back-forward-cache-with-open-websocket-connection-ccns.tentative.window.html: [timeout, Unknown]
 back-forward-cache-with-open-websocket-connection.window.html: [timeout, Unknown]
 constructor/014.html?default: [fail, 'https://github.com/nodejs/undici/issues/4743']
 constructor/014.html?wss: [fail, 'https://github.com/nodejs/undici/issues/4743']
@@ -2741,7 +2623,6 @@ multi-globals/url-parsing/url-parsing.html: [fail, Unknown]
 opening-handshake/received-301-code.html: [fail, Unknown]
 remove-own-iframe-during-onerror.window.html?default: [timeout, iframe.srcdoc not implemented]
 remove-own-iframe-during-onerror.window.html?wss: [timeout, iframe.srcdoc not implemented]
-stream/tentative/*: [fail-slow, WebSocketStream not implemented (and no spec exists yet)]
 unload-a-document/*: [timeout, Requires window.open]
 
 ---
@@ -2832,7 +2713,5 @@ status-error.htm: [fail, needs URL.createObjectURL]
 status.h2.window.html: [fail, Unknown]
 sync-no-progress.any.html: [fail, Unknown]
 sync-no-timeout.any.html: [pass-slow]
-sync-xhr-supported-by-permissions-policy.tentative.html: [fail, Unknown]
 xhr-timeout-longtask.any.html: [fail, This is probably impossible to get right in Node.js (without threads)]
-xmlhttprequest-sync-default-permissions-policy.tentative.sub.html: [fail, Unknown]
 xmlhttprequest-timeout-**: [fail-slow, Some need Worker; some pass but take ~7 seconds which we can't spend]
