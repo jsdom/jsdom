@@ -834,7 +834,6 @@ MutationObserver-cross-realm-callback-report-exception.html: [fail, No relevant 
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 Node-appendChild-cereactions-vs-script.window.html: [fail, customElements not implemented]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
-Node-lookupNamespaceURI.html: [fail, Unknown]
 Node-mutation-adoptNode.html:
   "Adopting an element into a different document update's the element's owner doc as well as the owner docs of it's attributes": [fail, Unknown]
 NodeList-static-length-getter-tampered*: [flaky, Nested for-loops are really slow and these often time out]
