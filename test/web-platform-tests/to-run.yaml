@@ -1152,8 +1152,6 @@ innerhtml-05.xhtml: [fail, Unknown]
 
 DIR: domxpath
 
-fn-id.html:
-  "id(\"duplicate\"): <root><div id=\"duplicate\">First</div><div id=\"duplicate\">Second</div></root>": [fail, Unknown]
 fn-lang.html: [fail, Unknown]
 fn-normalize-space.html: [fail, Unknown]
 lexical-structure.html: [fail, Unknown]
