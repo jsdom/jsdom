@@ -1067,10 +1067,6 @@ Node-mutation-adoptNode.html:
 NodeList-static-length-getter-tampered*: [flaky, Nested for-loops are really slow and these often time out]
 ParentNode-querySelector-All-xht.xht: [fail-slow, Depends on requestAnimationFrame; has dont-upstream version]
 ParentNode-querySelector-All.html: [fail-slow, Depends on requestAnimationFrame; has dont-upstream version]
-ParentNode-replaceChildren.html:
-  "Document.replaceChildren() with an element, replacing an existing doctype and element.": [fail, Throws HierarchyRequestError]
-  "Document.replaceChildren() with a DocumentFragment containing a single element, replacing an existing doctype and element.": [fail, Throws HierarchyRequestError]
-  "Document.replaceChildren() with a doctype, replacing an existing doctype and element.": [fail, Throws HierarchyRequestError]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
 attach-shadow-realm-after-adoption.html: [fail, Unknown]
