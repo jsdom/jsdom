@@ -1033,14 +1033,9 @@ DOMTokenList-coverage-for-attributes.html: [fail, Several DOMTokenList attribute
 
 DIR: dom/nodes
 
-DOMImplementation-createDocument.html: [fail, Unknown]
-DOMImplementation-createDocumentType.html: [fail, Unknown]
 Document-URL.html: [fail, Unknown]
 Document-adoptNode-DocumentFragment-with-host.window.html:
   "appendChild() template.content: moves children, fragment ownerDocument stays": [fail, Unknown]
-Document-createAttribute.html: [fail, Unknown]
-Document-createElement.html: [fail, Unknown]
-Document-createElementNS.html: [fail, Unknown]
 Document-createEvent.https.html:
   "DragEvent should be an alias for DragEvent.": [fail, Interface not implemented]
   "createEvent('DragEvent') should be initialized correctly.": [fail, Interface not implemented]
@@ -1075,9 +1070,6 @@ ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 adoption.window.html: [fail, "We do not implement https://github.com/whatwg/dom/pull/754 due to https://github.com/whatwg/dom/issues/813"]
 attach-shadow-realm-after-adoption.html: [fail, Unknown]
 attributes-namednodemap-cross-document.window.html: [fail, Unknown]
-attributes.html:
-  "Basic functionality should be intact. (toggleAttribute)": [fail, Unknown]
-  "Basic functionality should be intact.": [fail, Unknown]
 insertion-removing-steps/Node-append-form-and-script-from-fragment.html: [fail, Unknown]
 insertion-removing-steps/Node-append-meta-referrer-and-script-from-fragment.html: [fail, Unknown]
 insertion-removing-steps/Node-appendChild-script-and-button-from-div.html: [fail, Unknown]
@@ -1098,7 +1090,6 @@ insertion-removing-steps/insertion-removing-steps-iframe.window.html:
 insertion-removing-steps/insertion-removing-steps-script.window.html: [fail, Unknown]
 insertion-removing-steps/later-script-removed-by-earlier-script.html: [fail, Unknown]
 moveBefore/**: [fail-slow, Not implemented]
-name-validation.html: [fail, Unknown]
 processing-instruction-attributes.html: [fail, Not implemented]
 querySelector-mixed-case.html: [fail, Unknown]
 remove-and-adopt-thcrash.html: [fail, window.open not implemented]
@@ -1622,7 +1613,6 @@ documents/resource-metadata-management/document-lastModified.html: [fail, Unknow
 documents/resource-metadata-management/document-readyState.html: [fail, Unknown]
 elements/global-attributes/cdata-dir_auto.html: [fail-slow, Unknown]
 elements/global-attributes/dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
-elements/global-attributes/dataset-set.html: [fail, Unknown]
 elements/global-attributes/dataset.html:
   "MathML elements should have a .dataset": [fail, MathML not implemented]
 elements/global-attributes/dir-assorted.window.html: [fail, Unknown]

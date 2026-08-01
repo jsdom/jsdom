@@ -1,7 +1,7 @@
 // https://dom.spec.whatwg.org/#interface-domimplementation
 [Exposed=Window]
 interface DOMImplementation {
-  [NewObject] DocumentType createDocumentType(DOMString qualifiedName, DOMString publicId, DOMString systemId);
+  [NewObject] DocumentType createDocumentType(DOMString name, DOMString publicId, DOMString systemId);
   [NewObject] XMLDocument createDocument(DOMString? namespace, [LegacyNullToEmptyString] DOMString qualifiedName, optional DocumentType? doctype = null);
   [NewObject] Document createHTMLDocument(optional DOMString title);
 
