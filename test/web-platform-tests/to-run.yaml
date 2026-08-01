@@ -21,7 +21,6 @@ idlharness.any.html: [fail, URL.createObjectURL not implemented]
 idlharness.html: [fail, URL.createObjectURL not implemented]
 reading-data-section/FileReader-multiple-reads.any.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
 reading-data-section/filereader_events.any.html: [fail, jsdom lacks microtask checkpoints during event dispatch]
-reading-data-section/filereader_readAsText_blob_type_charset.any.html: [fail, Unknown]
 url/**: [timeout, blob URLs not implemented]
 
 ---
@@ -1028,12 +1027,7 @@ DOMTokenList-coverage-for-attributes.html: [fail, Several DOMTokenList attribute
 
 DIR: dom/nodes
 
-DOMImplementation-createDocument.html: [fail, Unknown]
-DOMImplementation-createDocumentType.html: [fail, Unknown]
 Document-URL.html: [fail, Unknown]
-Document-createAttribute.html: [fail, Unknown]
-Document-createElement.html: [fail, Unknown]
-Document-createElementNS.html: [fail, Unknown]
 Document-createEvent.https.html:
   "DragEvent should be an alias for DragEvent.": [fail, Interface not implemented]
   "createEvent('DragEvent') should be initialized correctly.": [fail, Interface not implemented]
@@ -1062,9 +1056,6 @@ ParentNode-querySelector-All.html: [fail-slow, Depends on requestAnimationFrame;
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 attach-shadow-realm-after-adoption.html: [fail, Unknown]
 attributes-namednodemap-cross-document.window.html: [fail, Unknown]
-attributes.html:
-  "Basic functionality should be intact. (toggleAttribute)": [fail, Unknown]
-  "Basic functionality should be intact.": [fail, Unknown]
 insertion-removing-steps/Node-append-meta-referrer-and-script-from-fragment.html: [fail, Unknown]
 insertion-removing-steps/Node-appendChild-script-and-default-style-meta-from-fragment.html: [fail, Unknown]
 insertion-removing-steps/Node-appendChild-script-and-source-from-fragment.html: [fail, Unknown]
@@ -1077,7 +1068,6 @@ insertion-removing-steps/insertion-removing-steps-iframe.window.html:
   "Insertion steps: load event fires synchronously *after* iframe DOM insertion, as part of the iframe element's insertion steps": [fail, Unknown]
 insertion-removing-steps/insertion-removing-steps-script.window.html: [fail, Unknown]
 moveBefore/**: [fail-slow, Not implemented]
-name-validation.html: [fail, Unknown]
 processing-instruction-attributes.html: [fail, Not implemented]
 querySelector-mixed-case.html: [fail, Unknown]
 remove-and-adopt-thcrash.html: [fail, window.open not implemented]
@@ -1104,7 +1094,6 @@ Range-surroundContents.html: [fail-slow, Unknown]
 
 DIR: dom/traversal
 
-NodeIterator-removal-during-filtering.html: [fail, Unknown]
 NodeIterator-removal.html: [fail, Unknown]
 TreeWalker-acceptNode-filter-cross-realm-null-browsing-context.html: [fail, No relevant realm support for callbacks in webidl2js]
 
@@ -1595,10 +1584,8 @@ documents/dom-tree-accessors/nameditem-tree-order.html: [fail, Unknown]
 documents/resource-metadata-management/document-cookie.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified-01.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified.html: [fail, Unknown]
-documents/resource-metadata-management/document-readyState.html: [fail, Unknown]
 elements/global-attributes/cdata-dir_auto.html: [fail-slow, Unknown]
 elements/global-attributes/dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
-elements/global-attributes/dataset-set.html: [fail, Unknown]
 elements/global-attributes/dataset.html:
   "MathML elements should have a .dataset": [fail, MathML not implemented]
 elements/global-attributes/dir-assorted.window.html: [fail, Unknown]
@@ -1925,8 +1912,6 @@ input-type-change-value.html: [fail, Unknown]
 input-untrusted-key-event.html: [fail-slow, Not implemented]
 input-valueasnumber.html:
   "valueAsNumber setter on type month (actual valueAsNumber: -1, expected value: 1969-12)": [fail, Unknown]
-  "valueAsNumber setter on type time (actual valueAsNumber: 2.734333707189448e+26, expected value: 10:54:10.944)": [fail, Unknown]
-  "valueAsNumber setter on type datetime-local (actual valueAsNumber: 2.734333707189448e+26, expected value: )": [fail, Unknown]
 radio-disconnected-group-owner.html: [fail, Unknown]
 radio-input-cancel.html:
   "radio input cancel behavior reverts previous selected radio input state": [fail, Unknown]
@@ -1984,7 +1969,6 @@ DIR: html/semantics/forms/the-textarea-element
 
 textarea-placeholder-lineheight.html: [fail, getBoundingClientRect() is not implemented]
 wrap-enumerated-ascii-case-insensitive.html: [timeout, Unknown]
-wrapping-transformation.window.html: [fail, Unknown]
 
 ---
 
