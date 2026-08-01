@@ -2006,7 +2006,6 @@ DIR: html/semantics/forms/the-textarea-element
 
 textarea-placeholder-lineheight.html: [fail, getBoundingClientRect() is not implemented]
 wrap-enumerated-ascii-case-insensitive.html: [timeout, Unknown]
-wrapping-transformation.window.html: [fail, Unknown]
 
 ---
 
