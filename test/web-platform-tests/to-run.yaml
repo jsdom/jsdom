@@ -34,6 +34,7 @@ derive_bits_keys/!(derive_key_and_encrypt.https.any.html): [fail, Not implemente
 digest/**: [fail, Unknown]
 encrypt_decrypt/**: [fail, Not implemented]
 generateKey/**: [fail, Not implemented]
+getRandomValues.any.html: [fail-node:<24, Float16Array not implemented]
 idlharness.https.any.html: [fail, Unknown]
 import_export/**: [fail, Not implemented]
 normalize-algorithm-name.https.any.html: [fail, Unknown]
