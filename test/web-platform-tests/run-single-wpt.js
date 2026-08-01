@@ -23,6 +23,10 @@ function unexpectedPassingTestMessage(expectationsFilename) {
 
 module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
   return (testPath, title = testPath, expectFail = false) => {
+    // Skip tentative tests
+    if (/tentative[./]/.test(testPath)) {
+      return;
+    }
     specify({
       title,
       expectPromise: true,
