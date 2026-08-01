@@ -2374,8 +2374,6 @@ timer-nesting-not-inherited-in-microtask.html: [flaky]
 DIR: mediacapture-record
 
 "**/!(BlobEvent-constructor.html)": [fail-slow, Not implemented]
-BlobEvent-constructor.html:
-  "The BlobEvent instance's timecode defaults to NaN when not specified.": [fail, Unknown]
 
 ---
 
