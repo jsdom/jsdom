@@ -35,6 +35,7 @@ digest/**: [fail, Unknown]
 encrypt_decrypt/**: [fail, Not implemented]
 generateKey/**: [fail, Not implemented]
 getRandomValues.any.html:
+  "Float16 arrays": [fail-node:<24, Not implemented]
   "Large length: Int8Array": [fail, QuotaExceededError.requested is undefined]
   "Large length: Int16Array": [fail, QuotaExceededError.requested is undefined]
   "Large length: Int32Array": [fail, QuotaExceededError.requested is undefined]
@@ -2375,7 +2376,9 @@ timer-nesting-not-inherited-in-microtask.html: [flaky]
 
 DIR: mediacapture-record
 
-"**": [fail-slow, Not implemented]
+"**/!(BlobEvent-constructor.html)": [fail-slow, Not implemented]
+BlobEvent-constructor.html:
+  "The BlobEvent instance's timecode defaults to NaN when not specified.": [fail, Unknown]
 
 ---
 
