@@ -21,7 +21,6 @@ idlharness.any.html: [fail, URL.createObjectURL not implemented]
 idlharness.html: [fail, URL.createObjectURL not implemented]
 reading-data-section/FileReader-multiple-reads.any.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
 reading-data-section/filereader_events.any.html: [fail, jsdom lacks microtask checkpoints during event dispatch]
-reading-data-section/filereader_readAsText_blob_type_charset.any.html: [fail, Unknown]
 url/**: [timeout, blob URLs not implemented]
 
 ---
