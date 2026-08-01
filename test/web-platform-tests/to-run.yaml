@@ -1036,8 +1036,6 @@ DIR: dom/nodes
 DOMImplementation-createDocument.html: [fail, Unknown]
 DOMImplementation-createDocumentType.html: [fail, Unknown]
 Document-URL.html: [fail, Unknown]
-Document-adoptNode-DocumentFragment-with-host.window.html:
-  "appendChild() template.content: moves children, fragment ownerDocument stays": [fail, Unknown]
 Document-createAttribute.html: [fail, Unknown]
 Document-createElement.html: [fail, Unknown]
 Document-createElementNS.html: [fail, Unknown]
