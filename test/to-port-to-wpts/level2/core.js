@@ -47,43 +47,6 @@ describe("level2/core", () => {
      *
      The "createAttributeNS(namespaceURI,qualifiedName)" method for a
     Document should raise NAMESPACE_ERR DOMException
-    if qualifiedName is malformed.
-
-    Invoke method createAttributeNS(namespaceURI,qualifiedName) on
-    the XMLNS Document with namespaceURI being "http://www.ecommerce.org/",
-    qualifiedName as "prefix::local".  Method should raise
-    NAMESPACE_ERR DOMException.
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-    */
-    specify('createAttributeNS01', () => {
-      var success;
-      var namespaceURI = "http://www.ecommerce.org/";
-      var malformedName = "prefix::local";
-      var newAttr;
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-
-      {
-        success = false;
-        try {
-          newAttr = doc.createAttributeNS(namespaceURI,malformedName);
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assert.ok(success, 'throw_INVALID_CHARACTER_ERR');
-      }
-    });
-    /**
-     *
-     The "createAttributeNS(namespaceURI,qualifiedName)" method for a
-    Document should raise NAMESPACE_ERR DOMException
     if qualifiedName has a prefix and namespaceURI is null.
 
     Invoke method createAttributeNS(namespaceURI,qualifiedName) on this document
@@ -115,75 +78,6 @@ describe("level2/core", () => {
           success = (typeof(ex.code) != 'undefined' && ex.code == 14);
         }
         assert.ok(success, 'throw_NAMESPACE_ERR');
-      }
-    });
-    /**
-     *
-     The "createAttributeNS(namespaceURI,qualifiedName)" method for a
-    Document should raise INVALID_CHARACTER_ERR DOMException
-    if qualifiedName contains an illegal character.
-
-    Invoke method createAttributeNS(namespaceURI,qualifiedName) on this document
-    with qualifiedName containing an illegal character from illegalChars[].
-    Method should raise INVALID_CHARACTER_ERR DOMException for all
-    characters in illegalChars[].
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-    */
-    specify('createAttributeNS03', () => {
-      var success;
-      var namespaceURI = "http://www.wedding.com/";
-      var qualifiedName;
-      var newAttr;
-      illegalQNames = new Array();
-      illegalQNames[0] = "person:{";
-      illegalQNames[1] = "person:}";
-      illegalQNames[2] = "person:~";
-      illegalQNames[3] = "person:'";
-      illegalQNames[4] = "person:!";
-      illegalQNames[5] = "person:@";
-      illegalQNames[6] = "person:#";
-      illegalQNames[7] = "person:$";
-      illegalQNames[8] = "person:%";
-      illegalQNames[9] = "person:^";
-      illegalQNames[10] = "person:&";
-      illegalQNames[11] = "person:*";
-      illegalQNames[12] = "person:(";
-      illegalQNames[13] = "person:)";
-      illegalQNames[14] = "person:+";
-      illegalQNames[15] = "person:=";
-      illegalQNames[16] = "person:[";
-      illegalQNames[17] = "person:]";
-      illegalQNames[18] = "person:\\";
-      illegalQNames[19] = "person:/";
-      illegalQNames[20] = "person:;";
-      illegalQNames[21] = "person:`";
-      illegalQNames[22] = "person:<";
-      illegalQNames[23] = "person:>";
-      illegalQNames[24] = "person:,";
-      illegalQNames[25] = "person:a ";
-      illegalQNames[26] = "person:\"";
-
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      for(var indexN10090 = 0;indexN10090 < illegalQNames.length; indexN10090++) {
-        qualifiedName = illegalQNames[indexN10090];
-
-        {
-    success = false;
-    try {
-            newAttr = doc.createAttributeNS(namespaceURI,qualifiedName);
-          }
-    catch(ex) {
-            success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-    }
-    assert.ok(success, 'throw_INVALID_CHARACTER_ERR');
-        }
-
       }
     });
     /**
@@ -284,49 +178,6 @@ describe("level2/core", () => {
   });
 
   describe('createDocument', () => {
-    /**
-     *
-     The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
-    DOMImplementation should raise NAMESPACE_ERR DOMException
-    if parameter qualifiedName is malformed.
-
-    Retrieve the DOMImplementation on the XMLNS Document.
-    Invoke method createDocument(namespaceURI,qualifiedName,doctype)
-    on the retrieved DOMImplementation with namespaceURI being
-    the literal string "http://www.ecommerce.org/", qualifiedName as
-    "prefix::local", and doctype as null.  Method should raise
-    NAMESPACE_ERR DOMException.
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-    */
-    specify('createDocument01', () => {
-      var success;
-      var namespaceURI = "http://www.ecommerce.org/";
-      var malformedName = "prefix::local";
-      var docType = null;
-
-      var domImpl;
-      var aNewDoc;
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      domImpl = doc.implementation;
-
-      {
-        success = false;
-        try {
-          aNewDoc = domImpl.createDocument(namespaceURI,malformedName,docType);
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assert.ok(success, 'throw_INVALID_CHARACTER_ERR');
-      }
-    });
     /**
      *
      The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
@@ -553,120 +404,6 @@ describe("level2/core", () => {
     /**
      *
      The "createDocumentType(qualifiedName,publicId,systemId)" method for a
-    DOMImplementation should raise NAMESPACE_ERR DOMException if
-    qualifiedName is malformed.
-
-    Retrieve the DOMImplementation on the XMLNS Document.
-    Invoke method createDocumentType(qualifiedName,publicId,systemId)
-    on the retrieved DOMImplementation with qualifiedName being the literal
-    string "prefix::local", publicId as "STAFF", and systemId as "staff".
-    Method should raise NAMESPACE_ERR DOMException.
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocType')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-    */
-    specify('createDocumentType01', () => {
-      var success;
-      var publicId = "STAFF";
-      var systemId = "staff.xml";
-      var malformedName = "prefix::local";
-      var domImpl;
-      var newType;
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      domImpl = doc.implementation;
-
-      {
-        success = false;
-        try {
-          newType = domImpl.createDocumentType(malformedName,publicId,systemId);
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assert.ok(success, 'throw_INVALID_CHARACTER_ERR');
-      }
-    });
-    /**
-     *
-     The "createDocumentType(qualifiedName,publicId,systemId)" method for a
-    DOMImplementation should raise INVALID_CHARACTER_ERR DOMException if
-    qualifiedName contains an illegal character.
-
-    Invoke method createDocumentType(qualifiedName,publicId,systemId) on
-    this domimplementation with qualifiedName containing an illegal character
-    from illegalChars[]. Method should raise INVALID_CHARACTER_ERR
-    DOMException for all characters in illegalChars[].
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocType')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-    */
-    specify('createDocumentType02', () => {
-      var success;
-      var publicId = "http://www.localhost.com/";
-      var systemId = "myDoc.dtd";
-      var qualifiedName;
-      var docType = null;
-
-      var domImpl;
-      illegalQNames = new Array();
-      illegalQNames[0] = "edi:{";
-      illegalQNames[1] = "edi:}";
-      illegalQNames[2] = "edi:~";
-      illegalQNames[3] = "edi:'";
-      illegalQNames[4] = "edi:!";
-      illegalQNames[5] = "edi:@";
-      illegalQNames[6] = "edi:#";
-      illegalQNames[7] = "edi:$";
-      illegalQNames[8] = "edi:%";
-      illegalQNames[9] = "edi:^";
-      illegalQNames[10] = "edi:&";
-      illegalQNames[11] = "edi:*";
-      illegalQNames[12] = "edi:(";
-      illegalQNames[13] = "edi:)";
-      illegalQNames[14] = "edi:+";
-      illegalQNames[15] = "edi:=";
-      illegalQNames[16] = "edi:[";
-      illegalQNames[17] = "edi:]";
-      illegalQNames[18] = "edi:\\";
-      illegalQNames[19] = "edi:/";
-      illegalQNames[20] = "edi:;";
-      illegalQNames[21] = "edi:`";
-      illegalQNames[22] = "edi:<";
-      illegalQNames[23] = "edi:>";
-      illegalQNames[24] = "edi:,";
-      illegalQNames[25] = "edi:a ";
-      illegalQNames[26] = "edi:\"";
-
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      for(var indexN1009A = 0;indexN1009A < illegalQNames.length; indexN1009A++) {
-        qualifiedName = illegalQNames[indexN1009A];
-        domImpl = doc.implementation;
-
-        {
-    success = false;
-    try {
-            docType = domImpl.createDocumentType(qualifiedName,publicId,systemId);
-          }
-    catch(ex) {
-            success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-    }
-    assert.ok(success, 'throw_INVALID_CHARACTER_ERR');
-        }
-
-      }
-    });
-    /**
-     *
-     The "createDocumentType(qualifiedName,publicId,systemId)" method for a
     DOMImplementation should return a new DocumentType node
     given that qualifiedName is valid and correctly formed.
 
@@ -701,74 +438,9 @@ describe("level2/core", () => {
 
       assert.equal(nodeValue, null, 'nodeValue should not be null');
     });
-    /**
-     *
-     DOMImplementation.createDocumentType with an empty name should cause an INVALID_CHARACTER_ERR.
-
-    * @author Curt Arnold
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocType')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
-    */
-    specify('createDocumentType04', () => {
-      var success;
-      var publicId = "http://www.example.com/";
-      var systemId = "myDoc.dtd";
-      var qualifiedName;
-      var docType = null;
-      var domImpl = require('./core/files/staffNS.xml').staffNS().implementation;
-
-      {
-        success = false;
-        try {
-          docType = domImpl.createDocumentType("",publicId,systemId);
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assert.ok(success, 'throw_INVALID_CHARACTER_ERR');
-      }
-    });
   });
 
   describe('createElementNS', () => {
-    /**
-     *
-     The "createElementNS(namespaceURI,qualifiedName)" method for a
-    Document should raise NAMESPACE_ERR DOMException if
-    qualifiedName is malformed.
-
-    Invoke method createElementNS(namespaceURI,qualifiedName) on
-    the XMLNS Document with namespaceURI being the literal string
-    "http://www.ecommerce.org/", and qualifiedName as "prefix::local".
-    Method should raise NAMESPACE_ERR DOMException.
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-    */
-    specify('createElementNS01', () => {
-      var success;
-      var namespaceURI = "http://www.ecommerce.org/";
-      var malformedName = "prefix::local";
-      var newElement;
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-
-      {
-        success = false;
-        try {
-          newElement = doc.createElementNS(namespaceURI,malformedName);
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assert.ok(success, 'throw_INVALID_CHARACTER_ERR');
-      }
-    });
     /**
      *
      The "createElementNS(namespaceURI,qualifiedName)" method for a
@@ -1059,112 +731,6 @@ describe("level2/core", () => {
       assert.equal(name, "xmlns", "documentcreateattributeNS02_att2_name");
       assert.equal(nodeValue, "", "documentcreateattributeNS02_att2_nodeValue");
       assert.equal(namespaceURI, "http://www.w3.org/2000/xmlns/", "documentcreateattributeNS02_att2_namespaceURI");
-    });
-    /**
-     *
-
-    The method createAttributeNS raises an INVALID_CHARACTER_ERR if the specified
-
-    qualified name contains an illegal character
-
-
-
-    Invoke the createAttributeNS method on this Document object with a valid value for
-
-    namespaceURI, and qualifiedNames that contain illegal characters.  Check if the an
-
-    INVALID_CHARACTER_ERR was thrown.
-
-
-    * @author IBM
-    * @author Neil Delima
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
-    */
-    specify('documentcreateattributeNS03', () => {
-      var success;
-      var attribute;
-      var namespaceURI = "http://www.w3.org/DOM/Test/Level2";
-      var qualifiedName;
-      qualifiedNames = new Array();
-      qualifiedNames[0] = "/";
-      qualifiedNames[1] = "//";
-      qualifiedNames[2] = "\\";
-      qualifiedNames[3] = ";";
-      qualifiedNames[4] = "&";
-      qualifiedNames[5] = "*";
-      qualifiedNames[6] = "]]";
-      qualifiedNames[7] = ">";
-      qualifiedNames[8] = "<";
-
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      for(var indexN1005A = 0;indexN1005A < qualifiedNames.length; indexN1005A++) {
-        qualifiedName = qualifiedNames[indexN1005A];
-
-        {
-    success = false;
-    try {
-            attribute = doc.createAttributeNS(namespaceURI,qualifiedName);
-          }
-    catch(ex) {
-            success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-    }
-    assert.ok(success, 'documentcreateattributeNS03');
-        }
-
-      }
-    });
-    /**
-     *
-
-    The method createAttributeNS raises a NAMESPACE_ERR if the specified qualified name
-
-    is malformed.
-
-
-
-    Invoke the createAttributeNS method on this Document object with a valid value for
-
-    namespaceURI, and malformed qualifiedNames.  Check if the a NAMESPACE_ERR was thrown.
-
-
-    * @author IBM
-    * @author Neil Delima
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
-    */
-    specify('documentcreateattributeNS04', () => {
-      var success;
-      var attribute;
-      var namespaceURI = "http://www.w3.org/DOM/Test/Level2";
-      var qualifiedName;
-      qualifiedNames = new Array();
-      qualifiedNames[0] = "_:";
-      qualifiedNames[1] = ":0a";
-      qualifiedNames[2] = ":";
-      qualifiedNames[3] = "a:b:c";
-      qualifiedNames[4] = "_::a";
-
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      for(var indexN1004E = 0;indexN1004E < qualifiedNames.length; indexN1004E++) {
-        qualifiedName = qualifiedNames[indexN1004E];
-
-        {
-    success = false;
-    try {
-            attribute = doc.createAttributeNS(namespaceURI,qualifiedName);
-          }
-    catch(ex) {
-            success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-    }
-    assert.ok(success, 'documentcreateattributeNS04');
-        }
-
-      }
     });
     /**
      *
@@ -2296,67 +1862,6 @@ describe("level2/core", () => {
 
       }
     });
-    /**
-     *
-
-    The method createDocumentType should raise a INVALID_CHARACTER_ERR if the qualifiedName
-
-    contains an illegal characters.
-
-
-
-    Invoke createDocument on this DOMImplementation with qualifiedNames having illegal characters.
-
-    Check if an INVALID_CHARACTER_ERR is raised in each case.
-
-
-    * @author IBM
-    * @author Neil Delima
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
-    */
-    specify('domimplementationcreatedocumenttype04', () => {
-      var success;
-      var domImpl;
-      var newDocType;
-      var publicId = "http://www.w3.org/DOM/Test/dom2.dtd";
-      var systemId = "dom2.dtd";
-      var qualifiedName;
-      qualifiedNames = new Array();
-      qualifiedNames[0] = "{";
-      qualifiedNames[1] = "}";
-      qualifiedNames[2] = "'";
-      qualifiedNames[3] = "~";
-      qualifiedNames[4] = "`";
-      qualifiedNames[5] = "@";
-      qualifiedNames[6] = "#";
-      qualifiedNames[7] = "$";
-      qualifiedNames[8] = "%";
-      qualifiedNames[9] = "^";
-      qualifiedNames[10] = "&";
-      qualifiedNames[11] = "*";
-      qualifiedNames[12] = "(";
-      qualifiedNames[13] = ")";
-
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      domImpl = doc.implementation;
-      for(var indexN10073 = 0;indexN10073 < qualifiedNames.length; indexN10073++) {
-        qualifiedName = qualifiedNames[indexN10073];
-
-        {
-    success = false;
-    try {
-            newDocType = domImpl.createDocumentType(qualifiedName,publicId,systemId);
-          }
-    catch(ex) {
-            success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-    }
-    assert.ok(success, 'domimplementationcreatedocumenttype04');
-        }
-
-      }
-    });
   })
 
   describe('domimplementationfeaturecore', () => {
@@ -3069,53 +2574,6 @@ describe("level2/core", () => {
 
       assert.equal(attrName, "defaultAttr", "elementsetattributens03_attrName");
       assert.equal(attrValue, "default1", "elementsetattributens03_attrValue");
-    });
-    /**
-     *
-     The method setAttributeNS adds a new attribute and raises a INVALID_CHARACTER_ERR if
-    the specified qualified name contains an illegal character.
-    Invoke the setAttributeNS method on this Element object with a valid value for
-    namespaceURI, and qualifiedNames that contain illegal characters.  Check if the an
-    INVALID_CHARACTER_ERR was thrown.
-
-    * @author IBM
-    * @author Neil Delima
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
-    */
-    specify('elementsetattributens04', () => {
-      var success;
-      var element;
-      var qualifiedName;
-      qualifiedNames = new Array();
-      qualifiedNames[0] = "/";
-      qualifiedNames[1] = "//";
-      qualifiedNames[2] = "\\";
-      qualifiedNames[3] = ";";
-      qualifiedNames[4] = "&";
-      qualifiedNames[5] = "*";
-      qualifiedNames[6] = "]]";
-      qualifiedNames[7] = ">";
-      qualifiedNames[8] = "<";
-
-
-
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
-      for(var indexN10058 = 0;indexN10058 < qualifiedNames.length; indexN10058++) {
-        qualifiedName = qualifiedNames[indexN10058];
-
-        {
-    success = false;
-    try {
-            element.setAttributeNS("http://www.w3.org/DOM/Test/L2",qualifiedName,"test");
-          }
-    catch(ex) {
-            success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-    }
-    assert.ok(success, 'elementsetattributens04');
-        }
-
-      }
     });
     /**
      *
@@ -6094,42 +5552,6 @@ describe("level2/core", () => {
   });
 
   describe('setAttributeNS', () => {
-    /**
-     *
-     The "setAttributeNS(namespaceURI,qualifiedName,Value)" method raises a
-    INVALID_CHARACTER_ERR DOMException if the specified
-    prefix contains an illegal character.
-
-    Attempt to add a new attribute on the first employee node.
-    An exception should be raised since the "qualifiedName" has an invalid
-    character.
-
-    * @author NIST
-    * @author Mary Brady
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
-    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-    */
-    specify('setAttributeNS01', () => {
-      var doc = require('./core/files/staffNS.xml').staffNS();
-      var success;
-      var namespaceURI = "http://www.nist.gov";
-      var qualifiedName = "emp:qual?name";
-      var elementList;
-      var testAddr;
-      elementList = doc.getElementsByTagName("employee");
-      testAddr = elementList.item(0);
-      {
-        success = false;
-        try {
-          testAddr.setAttributeNS(namespaceURI,qualifiedName,"newValue");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assert.ok(success, 'throw_INVALID_CHARACTER_ERR');
-      }
-    });
     /**
      *
      The "setAttributeNS(namespaceURI,qualifiedName,value)" method raises a
