@@ -131,12 +131,15 @@ exports.runTestWithExpectations = (
       let failCount = 0;
       let expectFail = false;
       if (data) {
-        expectFail = {};
+        const subtestExpectations = {};
         for (const [subtestName, subtestReason] of Object.entries(data)) {
-          expectFail[subtestName] = resolveReason(subtestReason[0]);
-          if (expectFail[subtestName] === "expect-fail") {
+          subtestExpectations[subtestName] = resolveReason(subtestReason[0]);
+          if (subtestExpectations[subtestName] === "expect-fail") {
             ++failCount;
           }
+        }
+        if (failCount > 0) {
+          expectFail = subtestExpectations;
         }
       }
 
