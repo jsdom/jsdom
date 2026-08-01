@@ -1141,8 +1141,6 @@ DOMParser-parseFromString-url-moretests.html: [fail, Unknown]
 DOMParser-parseFromString-url-pushstate.html: [fail, iframe onload timing]
 DOMParser-parseFromString-url.html: [fail, iframe onload timing]
 DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD validation]
-DOMParser-parseFromString-xml-parsererror.html:
-  "A lone surrogate is replaced with U+FFFD": [fail, Unknown]
 XMLSerializer-serializeToString.html: [fail, Unknown]
 createContextualFragment-xhtml.xhtml: [fail, Unknown]
 createContextualFragment.html: [fail, Script execution timing]
