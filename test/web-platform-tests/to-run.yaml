@@ -1224,8 +1224,6 @@ idlharness.any.html: [fail, Depends on fetch]
 "legacy-mb-tchinese/big5/big5-encode-href.html?!(1-1000)": [pass-slow]
 "streams/!(realms.window.html)": [fail, Not implemented]
 streams/realms.window.html: [fail-slow, Not implemented]
-textdecoder-arguments.any.html: [fail, Unknown]
-
 ---
 
 DIR: fetch/api/headers
