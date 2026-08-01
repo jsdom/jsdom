@@ -15,6 +15,7 @@ interface HTMLLinkElement : HTMLElement {
 //  [CEReactions] attribute USVString imageSrcset;
 //  [CEReactions] attribute DOMString imageSizes;
 //  [CEReactions] attribute DOMString referrerPolicy;
+  [CEReactions] attribute DOMString fetchPriority;
 
   // also has obsolete members
 };

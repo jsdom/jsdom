@@ -1741,7 +1741,6 @@ base_target_does_not_affect_location_assignment.html: [timeout, We don't support
 
 DIR: html/semantics/document-metadata/the-link-element
 
-attr-link-fetchpriority.html: [fail, Unknown]
 link-load-error-events.html: [fail, We don't fire error events]
 link-load-error-events.https.html: [fail, We don't fire error events]
 link-multiple-load-events.html: [fail, Unknown]
