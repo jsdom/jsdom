@@ -1,0 +1,28 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>document.write() does not queue character data mutation records while parsing</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#insert-a-character">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const iframe = document.createElement("iframe");
+  document.body.append(iframe);
+  t.add_cleanup(() => iframe.remove());
+
+  const { contentDocument, contentWindow } = iframe;
+  contentDocument.open();
+
+  const observer = new contentWindow.MutationObserver(() => {});
+  observer.observe(contentDocument, { characterData: true, subtree: true });
+
+  contentDocument.write("a b c d");
+  contentDocument.close();
+
+  assert_equals(observer.takeRecords().length, 0);
+}, "The HTML parser does not queue character data mutation records when appending to a Text node");
+</script>
