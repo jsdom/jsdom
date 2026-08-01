@@ -1950,8 +1950,6 @@ input-type-change-value.html: [fail, Unknown]
 input-untrusted-key-event.html: [fail-slow, Not implemented]
 input-valueasnumber.html:
   "valueAsNumber setter on type month (actual valueAsNumber: -1, expected value: 1969-12)": [fail, Unknown]
-  "valueAsNumber setter on type time (actual valueAsNumber: 2.734333707189448e+26, expected value: 10:54:10.944)": [fail, Unknown]
-  "valueAsNumber setter on type datetime-local (actual valueAsNumber: 2.734333707189448e+26, expected value: )": [fail, Unknown]
 radio-disconnected-group-owner.html: [fail, Unknown]
 radio-input-cancel.html:
   "radio input cancel behavior reverts previous selected radio input state": [fail, Unknown]
