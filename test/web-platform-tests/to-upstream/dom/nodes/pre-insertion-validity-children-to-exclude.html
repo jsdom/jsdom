@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Pre-insertion validity with excluded children</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const doc = document.implementation.createDocument(null, null);
+  const firstComment = doc.appendChild(doc.createComment("first"));
+  doc.appendChild(doc.createComment("second"));
+  doc.appendChild(doc.implementation.createDocumentType("html", "", ""));
+
+  assert_throws_dom("HierarchyRequestError", () => doc.insertBefore(doc.createElement("html"), firstComment));
+}, "insertBefore() rejects an element when a non-adjacent doctype follows the reference child");
+
+test(() => {
+  const doc = document.implementation.createDocument(null, "html");
+  doc.appendChild(doc.createComment("first"));
+  const secondComment = doc.appendChild(doc.createComment("second"));
+
+  const doctype = doc.implementation.createDocumentType("html", "", "");
+  assert_throws_dom("HierarchyRequestError", () => doc.insertBefore(doctype, secondComment));
+}, "insertBefore() rejects a doctype when a non-adjacent element precedes the reference child");
+
+test(() => {
+  const doc = document.implementation.createDocument(null, null);
+  const firstComment = doc.appendChild(doc.createComment("first"));
+  doc.appendChild(doc.createComment("second"));
+  doc.appendChild(doc.implementation.createDocumentType("html", "", ""));
+
+  assert_throws_dom("HierarchyRequestError", () => doc.replaceChild(doc.createElement("html"), firstComment));
+}, "replaceChild() rejects an element when a non-adjacent doctype follows the replaced child");
+
+test(() => {
+  const doc = document.implementation.createDocument(null, "html");
+  doc.appendChild(doc.createComment("first"));
+  const secondComment = doc.appendChild(doc.createComment("second"));
+
+  const doctype = doc.implementation.createDocumentType("html", "", "");
+  assert_throws_dom("HierarchyRequestError", () => doc.replaceChild(doctype, secondComment));
+}, "replaceChild() rejects a doctype when a non-adjacent element precedes the replaced child");
+
+test(() => {
+  const doc = document.implementation.createDocument(null, null);
+  const doctype = doc.appendChild(doc.implementation.createDocumentType("html", "", ""));
+  const element = doc.createElement("html");
+
+  assert_equals(doc.replaceChild(element, doctype), doctype);
+  assert_array_equals(doc.childNodes, [element]);
+}, "replaceChild() excludes the replaced doctype when validating an element");
+
+test(() => {
+  const doc = document.implementation.createHTMLDocument();
+  const { documentElement } = doc;
+
+  doc.replaceChildren(documentElement);
+  assert_array_equals(doc.childNodes, [documentElement]);
+}, "replaceChildren() excludes all current children when validating a retained element");
+</script>
