@@ -23,7 +23,7 @@
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
   "dependencies": {
-    "@cdoublev/css": "cdoublev/css#packaged",
+    "@cdoublev/css": "cdoublev/css#46b20f7",
     "@exodus/bytes": "^1.15.1",
     "data-urls": "^7.0.0",
     "decimal.js": "^10.6.0",
