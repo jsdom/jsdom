@@ -9,7 +9,7 @@ const SIBLINGS = 20;
 const DEPTH = 10;
 
 module.exports = () => {
-  const { document, bench } = documentBench();
+  const { document, bench } = documentBench(null, 'task');
   const window = document.defaultView;
 
   {
