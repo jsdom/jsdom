@@ -13,20 +13,12 @@
 
 test(() => {
   const div = document.getElementById("test");
-  assert_throws_js(
-    TypeError,
-    () => getComputedStyle(div, "::part(foo)"),
-    "getComputedStyle with ::part(...) throws"
-  );
-}, "Shadow DOM ::part(...) pseudo-element throws");
+  assert_equals(getComputedStyle(div, "::part(foo)").color, "");
+}, "Shadow DOM ::part(...) returns the empty string");
 
 test(() => {
   const div = document.getElementById("test");
-  assert_throws_js(
-    TypeError,
-    () => getComputedStyle(div, "::slotted(foo)"),
-    "getComputedStyle with ::slotted(...) throws"
-  );
-}, "Shadow DOM ::slotted(...) pseudo-element throws");
+  assert_equals(getComputedStyle(div, "::slotted(foo)").color, "");
+}, "Shadow DOM ::slotted(...) returns the empty string");
 
 </script>
