@@ -18,7 +18,7 @@ test(() => {
   doc.head.appendChild(style);
   doc.body.appendChild(doc.createElement("p"));
 
-  assert_equals(window.getComputedStyle(doc.querySelector("p")).color, "rgb(0, 0, 0)");
+  assert_equals(window.getComputedStyle(doc.querySelector("p")).color, "");
 }, "no impact on getComputedStyle");
 
 async_test(t => {

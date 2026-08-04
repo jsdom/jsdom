@@ -8,3 +8,9 @@ ShadowRoot includes DocumentOrShadowRoot;
 partial interface mixin DocumentOrShadowRoot {
   readonly attribute Element? activeElement;
 };
+
+// https://drafts.csswg.org/cssom/#extensions-to-the-document-or-shadow-root-interface
+partial interface mixin DocumentOrShadowRoot {
+  [SameObject] readonly attribute StyleSheetList styleSheets;
+  //attribute ObservableArray<CSSStyleSheet> adoptedStyleSheets;
+};

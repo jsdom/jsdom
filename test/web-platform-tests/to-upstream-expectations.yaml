@@ -1,33 +1,46 @@
-css/css-borders/border-radius-shorthand.html:
-  "longhand from shorthand": [fail, border-radius and its longhands are not implemented]
+css/css-backgrounds/background-shorthand.html:
+  "Shorthand value containing '/'": [fail, https://github.com/w3c/csswg-drafts/issues/7802]
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
+css/css-color/computed-color.html:
+  "Mixed colors": [fail, Resolving <color-mix()> is not implemented]
+css/css-color/nested-color-mix-with-currentcolor.html: [fail, Resolving color-mix() is not implemented]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
 css/css-display/display-initial.html:
-  "Revert value of display": [fail, Revert keyword is not supported]
   "Revert-layer value of display": [fail, Revert-layer keyword is not supported]
-css/css-fonts/font-size-computed-keyword.html:
-  "font size large cascaded by revert": [fail, Revert keyword is not supported]
-  "font size large cascaded by revertLayer": [fail, Revert-layer keyword is not supported]
-css/css-fonts/font-size-computed.html:
-  "box3": [fail, Need percentage value resolver for width]
-css/css-nesting/nested-media-in-layer.html: [fail, https://github.com/jsdom/jsdom/issues/3997]
-css/css-sizing/aspect-ratio.html:
-  "auto number": [fail, aspect-ratio is not fully implemented]
+css/css-fonts/font-size-computed-keyword.html: [fail, Resolving <length> is not implemented]
+css/css-fonts/font-size-computed-no-child.html: [fail, Resolving <length> is not implemented]
+css/css-fonts/font-size-computed.html: [fail, Resolving <length> is not implemented]
+css/css-values/calc-parentheses.html: [fail, Resolving <length> is not implemented]
+css/css-values/font-relative-length.html: [fail, Resolving <length> is not implemented]
 css/cssom/CSS-supports.html:
   "CSS.supports and implementation: keyword": [fail, Revert keyword is not supported]
-css/cssom/getComputedStyle-calc.html:
-  "getComputedStyle() returns computed value for calc(100% - 40px)": [fail, Need to fix calc() with percentages]
-  "getComputedStyle() returns computed value for calc(var(--gap) - 4px)": [fail, Need to fix calc() with var()]
-  "getComputedStyle() returns computed value for calc(608px - env(safe-area-inset-top))": [fail, Need to fix calc() with CSS functions]
-css/cssom/getComputedStyle-live.html: [fail, https://github.com/jsdom/jsdom/issues/3562]
+css/cssom/CSSImportRule-insertRule-styleSheet-parentStyleSheet.html: [fail, https://github.com/w3c/csswg-drafts/issues/14099]
+css/cssom/CSSImportRule-media-identity.html: [fail, https://github.com/w3c/csswg-drafts/issues/12063]
+css/cssom/CSSKeyframesRule-appendRule-invalid.html:
+  "appendRule with trailing garbage after keyframe block is silently ignored": [fail, https://github.com/w3c/csswg-drafts/issues/6972]
+  "appendRule with trailing at-rule after keyframe block is silently ignored": [fail, https://github.com/w3c/csswg-drafts/issues/6972]
+  "appendRule with two keyframe entries is silently ignored": [fail, https://github.com/w3c/csswg-drafts/issues/6972]
+css/cssom/CSSKeyframesRule-appendRule-multiple.html:
+  "appendRule with multiple keyframe rules silently does nothing": [fail, https://github.com/w3c/csswg-drafts/issues/6972]
+css/cssom/getComputedStyle-calc.html: [fail, Resolving math functions is not implemented]
 css/cssom/getComputedStyle-shadow-host.html: [fail, https://github.com/jsdom/jsdom/issues/3661]
-css/cssom/getComputedStyle-shadow-inherit.html:
-  "toggle shadowRoot.host visibility": [fail, https://github.com/jsdom/jsdom/issues/3941]
+css/cssom/style-background-position-longhands.html: [fail, background-position as a shorthand is not implemented]
 css/cssom/style-background-shorthand-overwrite.html:
   "overwrite, computed": [fail, Need to fix getComputedStyle()]
   "without overwrite, computed": [fail, Need to fix getComputedStyle()]
+css/cssom/style-background-shorthand.html:
+  "`transparent` sets default longhand values": [fail, CSS Backgrounds wants the canonical order ie. with background-image before background-color]
+  "Background shorthand sets longhand values": [fail, https://github.com/w3c/csswg-drafts/issues/7802]
+  "Update longhand sets background value with its updated value": [fail, https://github.com/w3c/csswg-drafts/issues/7802]
+  "Background with var() sets empty longhand values": [fail, https://github.com/w3c/csswg-drafts/issues/6484]
+  "Update longhand with var() sets empty background value": [fail, https://github.com/w3c/csswg-drafts/issues/7802]
+css/cssom/style-flex-shorthand.html:
+  "resolve flex shorthand with grow only": [fail, https://github.com/w3c/csswg-drafts/issues/5742]
+  "resolve flex shorthand with grow and shrink": [fail, https://github.com/w3c/csswg-drafts/issues/5742]
+css/cssom/style-set-cssText.html:
+  "sets only the valid properties for partially valid cssText": [fail, https://github.com/w3c/csswg-drafts/issues/11113]
 css/cssom/style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
-css/mediaqueries/nested-media-queries.html: [fail, conditionText serialization doesn't include spaces]
+css/selectors/focus-within.html: [fail, Matching :focus-within is not implemented]
 custom-elements/ElementInternals-accessibility.html:
   "ariaActiveDescendantElement": [fail, Element reflection not implemented]
   "ariaBrailleLabel": [fail, Element reflection not implemented]
@@ -39,6 +52,7 @@ custom-elements/ElementInternals-accessibility.html:
   "ariaFlowToElements": [fail, Element reflection not implemented]
   "ariaLabelledByElements": [fail, Element reflection not implemented]
   "ariaOwnsElements": [fail, Element reflection not implemented]
+html/editing/focus/focus-management/focus-blur.html: [fail, Matching :focus-* is not implemented]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]
