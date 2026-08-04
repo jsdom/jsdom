@@ -1,8 +1,5 @@
-/* Omitting the below because of https://github.com/jsdom/cssstyle/issues/193.
-   And we don't implement namespace constraints anyway.
 
 @namespace "http://www.w3.org/1999/xhtml";
-*/
 
 /* https://html.spec.whatwg.org/multipage/rendering.html#the-page */
 

@@ -23,12 +23,8 @@
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
   "dependencies": {
-    "@asamuzakjp/css-color": "^6.0.5",
-    "@asamuzakjp/dom-selector": "^8.3.0",
-    "@bramus/specificity": "^2.4.2",
-    "@csstools/css-syntax-patches-for-csstree": "^1.1.7",
+    "@cdoublev/css": "cdoublev/css#46b20f7",
     "@exodus/bytes": "^1.15.1",
-    "css-tree": "^3.2.1",
     "data-urls": "^7.0.0",
     "decimal.js": "^10.6.0",
     "html-encoding-sniffer": "^6.0.0",
@@ -78,7 +74,6 @@
     "prepare": "wireit",
     "prepare:convert-idl": "wireit",
     "prepare:generate-event-sets": "wireit",
-    "prepare:generate-css-style-properties": "wireit",
     "prepare:generate-js-globals": "wireit",
     "pretest": "npm run prepare && npm run wpt:init",
     "test": "npm-run-all --continue-on-error test:*",
@@ -103,16 +98,10 @@
       ]
     },
     "prepare:convert-idl": {
-      "command": "node ./scripts/webidl/convert.js",
-      "dependencies": [
-        "prepare:generate-css-style-properties"
-      ]
+      "command": "node ./scripts/webidl/convert.js"
     },
     "prepare:generate-event-sets": {
       "command": "node ./scripts/generate-event-sets.js"
-    },
-    "prepare:generate-css-style-properties": {
-      "command": "node ./scripts/generate-css-style-properties.js"
     },
     "prepare:generate-js-globals": {
       "command": "node ./scripts/generate-js-globals.js"

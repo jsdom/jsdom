@@ -315,7 +315,7 @@ test(() => {
   // Firefox fails; returns "border-top: medium; border-style: none;"
   assert_equals(
     div.style.cssText,
-    "border-top-width: medium; border-top-color: currentcolor; border-style: none;",
+    "border-top: medium; border-right-style: none; border-bottom-style: none; border-left-style: none;",
     "cssText"
   );
   assert_equals(div.style.border, "", "border");
