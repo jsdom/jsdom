@@ -15,11 +15,21 @@ const el = document.getElementById("target");
 
 test(() => {
   el.style.width = "min(180px, calc(80vw - 24px))";
-  assert_equals(el.style.width, "min(180px, -24px + 80vw)", "Serialized calc");
+  assert_equals(el.style.width, "min(180px, -24px + 80vw)", "Serialized min");
 }, "min() with nested calc()");
 
 test(() => {
+  el.style.width = "min(180px, calc(80vw - 24px + 1em))";
+  assert_equals(el.style.width, "min(180px, 1em - 24px + 80vw)", "Serialized min");
+}, "min() with nested complex calc()");
+
+test(() => {
   el.style.width = "max(10px, calc(1vw + 1px))";
-  assert_equals(el.style.width, "max(10px, 1px + 1vw)", "Serialized calc");
+  assert_equals(el.style.width, "max(10px, 1px + 1vw)", "Serialized max");
 }, "max() with nested calc()");
+
+test(() => {
+  el.style.width = "max(10px, calc(1vw + 1px - 1em))";
+  assert_equals(el.style.width, "max(10px, -1em + 1px + 1vw)", "Serialized max");
+}, "max() with nested complex calc()");
 </script>
