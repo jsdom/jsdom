@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Element.querySelectorAll including the context element</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/4227 -->
+
+<div id="test-container">
+  <div class="root" id="root">
+    <table>
+      <tbody>
+        <tr id="row"></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+const root = document.getElementById("root");
+const target = document.getElementById("row");
+
+test(() => {
+  const queryFromDocument = document.querySelectorAll(".root table tbody tr");
+  assert_equals(queryFromDocument.length, 1, "document.querySelectorAll('.root table tbody tr') should return 1 element");
+  assert_equals(queryFromDocument[0], target, "The matched element should be target");
+}, "Query from document");
+
+test(() => {
+  const queryWithoutRootClass = root.querySelectorAll("table tbody tr");
+  assert_equals(queryWithoutRootClass.length, 1, "root.querySelectorAll('table tbody tr') should return 1 element");
+  assert_equals(queryWithoutRootClass[0], target, "The matched element should be target");
+}, "Query without root class");
+
+test(() => {
+  const queryWithRootClass = root.querySelectorAll(".root table tbody tr");
+  assert_equals(queryWithRootClass.length, 1, "root.querySelectorAll('.root table tbody tr') should return 1 element");
+  assert_equals(queryWithRootClass[0], target, "The matched element should be target");
+}, "Query with root class");
+</script>
