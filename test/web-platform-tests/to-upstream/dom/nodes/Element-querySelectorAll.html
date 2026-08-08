@@ -24,19 +24,19 @@ const target = document.getElementById("row");
 
 test(() => {
   const queryFromDocument = document.querySelectorAll(".root table tbody tr");
-  assert_equals(queryFromDocument.length, 1, "document.querySelectorAll('.root table tbody tr') should return 1 element");
+  assert_equals(queryFromDocument.length, 1, "Should return 1 element");
   assert_equals(queryFromDocument[0], target, "The matched element should be target");
 }, "Query from document");
 
 test(() => {
   const queryWithoutRootClass = root.querySelectorAll("table tbody tr");
-  assert_equals(queryWithoutRootClass.length, 1, "root.querySelectorAll('table tbody tr') should return 1 element");
+  assert_equals(queryWithoutRootClass.length, 1, "Should return 1 element");
   assert_equals(queryWithoutRootClass[0], target, "The matched element should be target");
 }, "Query without root class");
 
 test(() => {
   const queryWithRootClass = root.querySelectorAll(".root table tbody tr");
-  assert_equals(queryWithRootClass.length, 1, "root.querySelectorAll('.root table tbody tr') should return 1 element");
+  assert_equals(queryWithRootClass.length, 1, "Should return 1 element");
   assert_equals(queryWithRootClass[0], target, "The matched element should be target");
 }, "Query with root class");
 </script>
