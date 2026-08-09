@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Element.querySelectorAll including the context element</title>
+<title>element.querySelectorAll() with the context element in the selector</title>
 <link rel="help" href="https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
@@ -24,19 +24,16 @@ const target = document.getElementById("row");
 
 test(() => {
   const queryFromDocument = document.querySelectorAll(".root table tbody tr");
-  assert_equals(queryFromDocument.length, 1, "Should return 1 element");
-  assert_equals(queryFromDocument[0], target, "The matched element should be target");
+  assert_array_equals(queryFromDocument, [target]);
 }, "Query from document");
 
 test(() => {
   const queryWithoutRootClass = root.querySelectorAll("table tbody tr");
-  assert_equals(queryWithoutRootClass.length, 1, "Should return 1 element");
-  assert_equals(queryWithoutRootClass[0], target, "The matched element should be target");
+  assert_array_equals(queryWithoutRootClass, [target]);
 }, "Query without root class");
 
 test(() => {
   const queryWithRootClass = root.querySelectorAll(".root table tbody tr");
-  assert_equals(queryWithRootClass.length, 1, "Should return 1 element");
-  assert_equals(queryWithRootClass[0], target, "The matched element should be target");
+  assert_array_equals(queryWithRootClass, [target]);
 }, "Query with root class");
 </script>
