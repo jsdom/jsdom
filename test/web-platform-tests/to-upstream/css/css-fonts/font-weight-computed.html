@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed values of font-weight</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts-4/#font-weight-prop">
+<link rel="help" href="https://drafts.csswg.org/css-fonts-4/#relative-weights">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="target"></div>
+
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+
+for (const [specified, computed] of [
+  ["normal", "400"],
+  ["bold", "700"],
+  ["425", "425"],
+  ["bolder", "700"],
+  ["lighter", "100"]
+]) {
+  test(() => {
+    target.style.fontWeight = specified;
+    assert_equals(getComputedStyle(target).fontWeight, computed);
+  }, `font-weight: ${specified} computes to ${computed}`);
+}
+
+for (const [parentWeight, bolder, lighter] of [
+  ["50", "400", "50"],
+  ["300", "400", "100"],
+  ["400", "700", "100"],
+  ["600", "900", "400"],
+  ["800", "900", "700"],
+  ["950", "950", "700"]
+]) {
+  test(() => {
+    target.style.fontWeight = parentWeight;
+    const child = document.createElement("div");
+    target.appendChild(child);
+
+    child.style.fontWeight = "bolder";
+    assert_equals(getComputedStyle(child).fontWeight, bolder, "bolder");
+
+    child.style.fontWeight = "lighter";
+    assert_equals(getComputedStyle(child).fontWeight, lighter, "lighter");
+
+    child.remove();
+  }, `relative weights compute from ${parentWeight}`);
+}
+</script>
