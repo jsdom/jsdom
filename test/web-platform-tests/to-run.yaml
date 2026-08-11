@@ -414,6 +414,29 @@ stylesheet-title-002.html: [fail, Unknown]
 
 ---
 
+DIR: css/css-syntax
+
+anb-parsing.html: [fail, Unknown]
+anb-serialization.html: [fail, Unknown]
+at-rule-in-declaration-list.html: [fail, Unknown]
+charset/page-windows-1251-charset-attribute-bogus.html: [fail, Unknown]
+charset/page-windows-1251-css-at-charset-1250-charset-attribute-windows-1253.html: [fail, Unknown]
+charset/page-windows-1251-css-at-charset-utf16.html: [fail, Unknown]
+charset/page-windows-1251-css-at-charset-utf16be.html: [fail, Unknown]
+charset/page-windows-1251-css-http-bogus-at-charset-windows-1250.html: [fail, Unknown]
+charset/page-windows-1251-css-http-windows-1250-at-charset-windows-1253.html: [fail, Unknown]
+charset/xml-stylesheet-page-windows-1251-charset-attribute-windows-1250.xhtml: [fail, Unknown]
+custom-property-rule-ambiguity.html: [fail, Unknown]
+escaped-eof.html: [fail, Unknown]
+input-preprocessing.html: [fail, Unknown]
+invalid-nested-rules.html: [fail, Unknown]
+non-ascii-codepoints.html: [fail, Unknown]
+serialize-consecutive-tokens.html: [fail, Unknown]
+urange-parsing.html: [fail, Unknown]
+var-with-blocks.html: [fail, Unknown]
+
+---
+
 DIR: css/css-transitions
 
 "**/!(transitionevent-interface.html)": [fail-slow, Not implemented]
