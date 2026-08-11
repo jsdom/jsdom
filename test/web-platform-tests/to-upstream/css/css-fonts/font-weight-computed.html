@@ -22,17 +22,27 @@ for (const [specified, computed] of [
 ]) {
   test(() => {
     target.style.fontWeight = specified;
-    assert_equals(getComputedStyle(target).fontWeight, computed);
+    const style = getComputedStyle(target);
+    assert_equals(style.fontWeight, computed, "IDL attribute");
+    assert_equals(style.getPropertyValue("font-weight"), computed, "getPropertyValue");
   }, `font-weight: ${specified} computes to ${computed}`);
 }
 
 for (const [parentWeight, bolder, lighter] of [
+  ["1", "400", "1"],
   ["50", "400", "50"],
-  ["300", "400", "100"],
-  ["400", "700", "100"],
-  ["600", "900", "400"],
-  ["800", "900", "700"],
-  ["950", "950", "700"]
+  ["100", "400", "100"],
+  ["200", "400", "100"],
+  ["349", "400", "100"],
+  ["350", "700", "100"],
+  ["549", "700", "100"],
+  ["550", "900", "400"],
+  ["749", "900", "400"],
+  ["750", "900", "700"],
+  ["899", "900", "700"],
+  ["900", "900", "700"],
+  ["950", "950", "700"],
+  ["1000", "1000", "700"]
 ]) {
   test(() => {
     target.style.fontWeight = parentWeight;
@@ -40,10 +50,14 @@ for (const [parentWeight, bolder, lighter] of [
     target.appendChild(child);
 
     child.style.fontWeight = "bolder";
-    assert_equals(getComputedStyle(child).fontWeight, bolder, "bolder");
+    let style = getComputedStyle(child);
+    assert_equals(style.fontWeight, bolder, "bolder IDL attribute");
+    assert_equals(style.getPropertyValue("font-weight"), bolder, "bolder getPropertyValue");
 
     child.style.fontWeight = "lighter";
-    assert_equals(getComputedStyle(child).fontWeight, lighter, "lighter");
+    style = getComputedStyle(child);
+    assert_equals(style.fontWeight, lighter, "lighter IDL attribute");
+    assert_equals(style.getPropertyValue("font-weight"), lighter, "lighter getPropertyValue");
 
     child.remove();
   }, `relative weights compute from ${parentWeight}`);
