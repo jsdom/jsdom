@@ -358,6 +358,34 @@
       input2.remove();
     }, "The labels NodeList stays live when label associations change.");
 
+    test(function () {
+      var label = document.createElement("label");
+      var customElement = document.createElement("live-labels-control");
+      var input = document.createElement("input");
+      label.append(customElement, input);
+      document.body.append(label);
+
+      var labels = input.labels;
+      assert_array_equals(labels, [label]);
+
+      var internals;
+      customElements.define("live-labels-control", class extends HTMLElement {
+        static get formAssociated() {
+          return true;
+        }
+
+        constructor() {
+          super();
+          internals = this.attachInternals();
+        }
+      });
+
+      assert_array_equals(labels, [], "Upgrading the first descendant should update the old control's labels.");
+      assert_array_equals(internals.labels, [label], "The upgraded form-associated element should get the label.");
+
+      label.remove();
+    }, "The labels NodeList stays live when a form-associated custom element upgrades.");
+
     // form attribute
     test(function () {
       assert_equals(document.getElementById("lbl0").form, null,

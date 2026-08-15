@@ -21,6 +21,11 @@ module.exports = () => {
 
   const inputs = document.querySelectorAll("input");
 
+  bench.add(`read labels for 1 of ${CONTROLS} controls after mutation`, () => {
+    document.body.toggleAttribute("data-mutated");
+    return inputs[0].labels.length;
+  });
+
   bench.add(`read labels for ${CONTROLS} controls after mutation`, () => {
     document.body.toggleAttribute("data-mutated");
     let labelCount = 0;
