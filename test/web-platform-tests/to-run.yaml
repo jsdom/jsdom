@@ -1581,8 +1581,6 @@ aria-element-reflection.html: [fail, WAI-ARIA not implemented]
 documents/dom-tree-accessors/Document.currentScript.html: [fail-slow, Unknown]
 documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-namespace-xhtml.xhtml: [fail, Needs MathML support]
 documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-namespace.html: [fail, Needs MathML support]
-documents/dom-tree-accessors/nameditem-img-name-added-cached-list.html:
-  [fail, The test uses querySelector(img#foo) which returns null when an earlier element shares the id]
 documents/dom-tree-accessors/nameditem-names.html:
   "An embed name does not appears in a document's property names if the embed is inside another embed.":
     [fail, Test nests <embed> elements which HTML parsing does not produce]
