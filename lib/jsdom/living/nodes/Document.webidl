@@ -61,7 +61,7 @@ partial interface Document {
   readonly attribute DocumentReadyState readyState;
 
   // DOM tree accessors
-//  getter object (DOMString name);
+  getter object (DOMString name);
   [CEReactions] attribute DOMString title;
   [CEReactions] attribute DOMString dir;
   [CEReactions] attribute HTMLElement? body;
