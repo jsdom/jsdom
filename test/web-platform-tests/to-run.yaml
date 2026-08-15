@@ -1585,9 +1585,9 @@ documents/dom-tree-accessors/nameditem-names.html:
   "An embed name does not appears in a document's property names if the embed is inside another embed.":
     [fail, Test nests <embed> elements which HTML parsing does not produce]
   "An object name does not appear in a document's property names if the object is inside another object.":
-    [fail, The exposedness algorithm depends on unimplemented object element rendering state]
+    [fail, jsdom follows Firefox by ignoring object exposedness; https://github.com/whatwg/html/issues/12787]
   "An object id does not appear in a document's property names if the object is inside another object.":
-    [fail, The exposedness algorithm depends on unimplemented object element rendering state]
+    [fail, jsdom follows Firefox by ignoring object exposedness; https://github.com/whatwg/html/issues/12787]
 documents/resource-metadata-management/document-cookie.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified-01.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified.html: [fail, Unknown]
