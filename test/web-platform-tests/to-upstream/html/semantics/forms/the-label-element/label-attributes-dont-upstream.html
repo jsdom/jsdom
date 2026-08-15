@@ -368,7 +368,7 @@
       var labels = input.labels;
       assert_array_equals(labels, [label]);
 
-      var internals;
+      var elementInternals;
       customElements.define("live-labels-control", class extends HTMLElement {
         static get formAssociated() {
           return true;
@@ -376,12 +376,12 @@
 
         constructor() {
           super();
-          internals = this.attachInternals();
+          elementInternals = this.attachInternals();
         }
       });
 
       assert_array_equals(labels, [], "Upgrading the first descendant should update the old control's labels.");
-      assert_array_equals(internals.labels, [label], "The upgraded form-associated element should get the label.");
+      assert_array_equals(elementInternals.labels, [label], "The upgraded form-associated element should get the label.");
 
       label.remove();
     }, "The labels NodeList stays live when a form-associated custom element upgrades.");
