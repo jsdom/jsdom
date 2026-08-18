@@ -23,25 +23,6 @@ module.exports = () => {
     });
   }
 
-  // Event dispatch (bubbling) on a deep tree.
-  // Event dispatch calls nodeRoot internally multiple times per ancestor
-  // in the event path, making it O(depth^2) without caching.
-  {
-    const DEPTH = 100;
-    const { document, Event } = (new JSDOM()).window;
-    let deepest = document.body;
-    for (let i = 0; i < DEPTH; i++) {
-      const child = document.createElement("div");
-      deepest.appendChild(child);
-      deepest = child;
-    }
-    const event = new Event("test", { bubbles: true });
-
-    bench.add(`dispatchEvent (bubbling): depth ${DEPTH}`, () => {
-      deepest.dispatchEvent(event);
-    });
-  }
-
   // isConnected on a deep static tree.
   // isConnected uses shadowIncludingRoot -> nodeRoot internally.
   // Common in frameworks to check if an element is still in the DOM.
