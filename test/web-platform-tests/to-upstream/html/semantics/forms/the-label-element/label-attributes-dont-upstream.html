@@ -377,6 +377,7 @@
         constructor() {
           super();
           elementInternals = this.attachInternals();
+          assert_array_equals(elementInternals.labels, [label]);
         }
       });
 
@@ -385,6 +386,36 @@
 
       label.remove();
     }, "The labels NodeList stays live when a form-associated custom element upgrades.");
+
+    test(function () {
+      var label = document.createElement("label");
+      var customElement = document.createElement("failed-labels-control");
+      var input = document.createElement("input");
+      label.append(customElement, input);
+      document.body.append(label);
+
+      function preventExpectedError(event) {
+        event.preventDefault();
+      }
+      window.addEventListener("error", preventExpectedError, { once: true });
+
+      customElements.define("failed-labels-control", class extends HTMLElement {
+        static get formAssociated() {
+          return true;
+        }
+
+        constructor() {
+          super();
+          this.attachInternals().labels.item(0);
+          throw new Error("Expected constructor failure");
+        }
+      });
+
+      window.removeEventListener("error", preventExpectedError);
+      assert_array_equals(input.labels, [label]);
+
+      label.remove();
+    }, "Label associations are restored when a form-associated custom element constructor fails.");
 
     // form attribute
     test(function () {
