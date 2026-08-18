@@ -353,6 +353,18 @@ textarea-display.html: [fail, Unknown]
 
 ---
 
+DIR: css/css-fonts
+
+"**/!(font-weight-computed.html)": [fail-slow, Not implemented]
+parsing/font-weight-computed.html:
+  "Property font-weight value 'calc(100)'": [fail, calc() is not fully resolved in computed values]
+  "Property font-weight value 'calc(0)'": [fail, calc() is not fully resolved in computed values]
+  "Property font-weight value 'calc(-100)'": [fail, calc() is not fully resolved in computed values]
+  "Property font-weight value 'calc(100 + 100)'": [fail, calc() is not fully resolved in computed values]
+  "Property font-weight value 'calc(100 + (sign(20cqw - 10px) * 5))'": [fail, calc() is not fully resolved in computed values]
+
+---
+
 DIR: css/css-nesting
 
 block-skipping.html: [fail, Unknown]
