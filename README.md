@@ -491,7 +491,7 @@ If you want to be sure to shut down a jsdom window, use `window.close()`, which 
 
 ### Debugging the DOM using Chrome DevTools
 
-In Node.js you can debug programs using Chrome DevTools. See the [official documentation](https://nodejs.org/en/docs/inspector/) for how to get started.
+In Node.js you can debug programs using Chrome DevTools. See the [official documentation](https://nodejs.org/en/learn/getting-started/debugging) for how to get started.
 
 By default jsdom elements are formatted as plain old JS objects in the console. To make it easier to debug, you can use [jsdom-devtools-formatter](https://github.com/jsdom/jsdom-devtools-formatter), which lets you inspect them like real DOM elements.
 
