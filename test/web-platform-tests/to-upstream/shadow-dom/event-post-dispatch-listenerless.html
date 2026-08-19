@@ -45,4 +45,31 @@ test(t => {
   assert_equals(event.target, host, "target is retargeted to the host");
   assert_equals(event.relatedTarget, relatedTarget, "relatedTarget retains its final retargeted value");
 }, "relatedTarget is preserved after listenerless dispatch");
+
+test(t => {
+  const { host: firstHost, target: firstTarget } = createShadowTree();
+  const { host: secondHost, target: secondTarget } = createShadowTree();
+  const reachedTargets = [];
+  function recordCurrentTarget(event) {
+    reachedTargets.push(event.currentTarget);
+  }
+  t.add_cleanup(() => {
+    firstHost.remove();
+    secondHost.remove();
+    document.removeEventListener("test", recordCurrentTarget);
+  });
+
+  const event = new MouseEvent("test", { bubbles: true, composed: true, relatedTarget: secondTarget });
+  firstTarget.dispatchEvent(event);
+  assert_equals(event.relatedTarget, secondHost, "relatedTarget is initially retargeted to the second host");
+
+  secondTarget.addEventListener("test", recordCurrentTarget);
+  secondHost.addEventListener("test", recordCurrentTarget);
+  document.addEventListener("test", recordCurrentTarget);
+  secondTarget.dispatchEvent(event);
+
+  assert_array_equals(reachedTargets, [secondTarget], "redispatched event stops before its relatedTarget");
+  assert_equals(event.target, null, "shadow-tree target is cleared after redispatch");
+  assert_equals(event.relatedTarget, null, "relatedTarget is cleared with the shadow-tree target");
+}, "relatedTarget remains retargetable after listenerless dispatch");
 </script>
