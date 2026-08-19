@@ -329,6 +329,35 @@
         "The labeled cotrol should be associated with the control whose ID is equal to the value of the 'for' attribute.");
     }, "A form control has no label 2.");
 
+    test(function () {
+      var label = document.createElement("label");
+      var input1 = document.createElement("input");
+      var input2 = document.createElement("input");
+      label.htmlFor = "live-labels-1";
+      input1.id = "live-labels-1";
+      input2.id = "live-labels-2";
+      document.body.append(label, input1, input2);
+
+      var labels1 = input1.labels;
+      var labels2 = input2.labels;
+      assert_array_equals(labels1, [label]);
+      assert_array_equals(labels2, []);
+
+      label.htmlFor = "live-labels-2";
+      assert_array_equals(labels1, [], "Changing 'for' should update the old control's labels.");
+      assert_array_equals(labels2, [label], "Changing 'for' should update the new control's labels.");
+
+      input2.id = "live-labels-3";
+      assert_array_equals(labels2, [], "Changing the control's ID should update its labels.");
+
+      input2.id = "live-labels-2";
+      assert_array_equals(labels2, [label], "Restoring the control's ID should update its labels.");
+
+      label.remove();
+      input1.remove();
+      input2.remove();
+    }, "The labels NodeList stays live when label associations change.");
+
     // form attribute
     test(function () {
       assert_equals(document.getElementById("lbl0").form, null,
