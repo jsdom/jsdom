@@ -7,6 +7,7 @@ v8.log
 node_modules
 test/web-platform-tests/tuwpt-manifest.json
 npm-debug.log*
+.idea
 
 .wireit
 lib/generated/

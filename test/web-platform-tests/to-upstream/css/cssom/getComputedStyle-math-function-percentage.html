@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>getComputedStyle() returns computed values for math functions containing percentages</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#calc-computed-value">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- regression test for https://github.com/jsdom/jsdom/issues/4224 -->
+
+<div id="target" style="display: none; font-size: 20px"></div>
+
+<script>
+"use strict";
+
+// display: none keeps layout out of the picture, so getComputedStyle() returns the computed
+// value rather than a used value. Lengths inside math functions absolutize at computed-value
+// time; only the percentage has to remain for layout.
+const cases = [
+  ["width", "calc(100% - 1rem)", "calc(100% - 16px)"],
+  ["width", "calc(100% - 1em)", "calc(100% - 20px)"],
+  ["margin-left", "calc(50% - 0.5rem)", "calc(50% - 8px)"],
+  ["width", "min(20rem, 100%)", "min(320px, 100%)"],
+  ["width", "max(20rem, 100%)", "max(320px, 100%)"],
+  ["width", "clamp(10rem, 50%, 20rem)", "clamp(160px, 50%, 320px)"],
+  ["width", "calc(2rem + 8px)", "40px"],
+  ["width", "50%", "50%"]
+];
+
+for (const [property, specified, computed] of cases) {
+  test(() => {
+    const div = document.getElementById("target");
+    div.style.setProperty(property, specified);
+    const res = window.getComputedStyle(div).getPropertyValue(property);
+    div.style.removeProperty(property);
+    assert_equals(res, computed);
+  }, `getComputedStyle() returns computed value for ${property}: ${specified}`);
+}
+</script>
