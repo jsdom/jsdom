@@ -5,6 +5,7 @@ const documentBench = require("../document-bench");
 // properties via getPropertyValue after getComputedStyle.
 
 const FEW_PROPERTIES = ["color", "display", "visibility", "opacity"];
+const NON_COLOR_OR_LENGTH_PROPERTIES = ["display", "visibility", "opacity", "position"];
 const MANY_PROPERTIES = [
   "color", "display", "visibility", "opacity",
   "background-color", "font-size", "font-weight", "font-style",
@@ -29,6 +30,13 @@ module.exports = () => {
   bench.add("few properties (4)", () => {
     const cs = window.getComputedStyle(document.body.firstChild);
     for (const prop of FEW_PROPERTIES) {
+      cs.getPropertyValue(prop);
+    }
+  });
+
+  bench.add("without color or length context (4)", () => {
+    const cs = window.getComputedStyle(document.body.firstChild);
+    for (const prop of NON_COLOR_OR_LENGTH_PROPERTIES) {
       cs.getPropertyValue(prop);
     }
   });
