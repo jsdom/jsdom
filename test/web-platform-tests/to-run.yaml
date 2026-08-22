@@ -1056,7 +1056,6 @@ Document-createEvent.https.html:
   "createEvent('TEXTEVENT') should be initialized correctly.": [fail, Interface not implemented]
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
-Element-getElementsByTagName-change-document-HTMLNess.html: [fail, Unknown]
 MutationObserver-cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
 MutationObserver-document.html: [fail, Usage of external scripts doesn't block HTML parsing, https://github.com/jsdom/jsdom/issues/2413]
 Node-cloneNode-document-allow-declarative-shadow-roots.window.html: [fail, Unknown]
