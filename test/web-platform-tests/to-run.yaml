@@ -353,6 +353,52 @@ textarea-display.html: [fail, Unknown]
 
 ---
 
+DIR: css/css-fonts/parsing
+
+font-computed.html: [fail, Unknown]
+font-face-metric-overrides.html: [fail, Unknown]
+font-face-size-adjust.html: [fail, Unknown]
+font-face-src-format.html: [fail, Unknown]
+font-face-src-list.html: [fail, Unknown]
+font-face-src-local.html: [fail, Unknown]
+font-face-src-tech.html: [fail, Unknown]
+font-family-computed.html: [fail, Unknown]
+font-family-valid.html: [fail, Unknown]
+font-feature-settings-computed.html: [fail, Unknown]
+font-feature-settings-invalid.html: [fail, Unknown]
+font-feature-settings-valid.html: [fail, Unknown]
+font-language-override-computed.html: [fail, Unknown]
+font-language-override-invalid.html: [fail, Unknown]
+font-language-override-valid.html: [fail, Unknown]
+font-palette-values-invalid.html: [fail, Unknown]
+font-palette-values-valid.html: [fail, Unknown]
+font-shorthand-variant.html: [fail, Unknown]
+font-size-adjust-computed.html: [fail, Unknown]
+font-size-adjust-valid.html: [fail, Unknown]
+font-size-computed.html: [fail, Unknown]
+font-stretch-alias.html: [fail, Unknown]
+font-style-computed.html: [fail, Unknown]
+font-style-valid.html: [fail, Unknown]
+font-synthesis-computed.html: [fail, Unknown]
+font-synthesis-valid.html: [fail, Unknown]
+font-valid.html: [fail, Unknown]
+font-variant-east-asian-valid.html: [fail, Unknown]
+font-variant-invalid.html: [fail, Unknown]
+font-variant-serialization.html: [fail, Unknown]
+font-variant-valid.html: [fail, Unknown]
+font-variation-settings-computed.html: [fail, Unknown]
+font-variation-settings-invalid.html: [fail, Unknown]
+font-variation-settings-valid.html: [fail, Unknown]
+font-weight-computed.html:
+  "Property font-weight value 'calc(100)'": [fail, calc() is not fully resolved in computed values]
+  "Property font-weight value 'calc(0)'": [fail, calc() is not fully resolved in computed values]
+  "Property font-weight value 'calc(-100)'": [fail, calc() is not fully resolved in computed values]
+  "Property font-weight value 'calc(100 + 100)'": [fail, calc() is not fully resolved in computed values]
+  "Property font-weight value 'calc(100 + (sign(20cqw - 10px) * 5))'": [fail, calc() is not fully resolved in computed values]
+font-width-computed.html: [fail, Unknown]
+
+---
+
 DIR: css/css-nesting
 
 block-skipping.html: [fail, Unknown]
