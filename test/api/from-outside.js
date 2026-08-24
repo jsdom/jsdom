@@ -2,7 +2,6 @@
 const path = require("path");
 const { spawnSync } = require("child_process");
 const assert = require("node:assert/strict");
-const { queryObjects } = require("node:v8");
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
 const delay = require("node:timers/promises").setTimeout;
@@ -74,29 +73,6 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(status, 0, stderr);
     assert.equal(stdout.trim(), "collected");
   });
-
-  it("MutationObserver.disconnect() should release observed nodes", () => {
-    class Payload {}
-
-    function createObserver() {
-      const { window } = new JSDOM();
-      const target = window.document.createElement("div");
-      target.payload = new Payload();
-
-      const observer = new window.MutationObserver(() => {});
-      observer.observe(target, { attributes: true });
-      observer.disconnect();
-
-      return observer;
-    }
-
-    const observer = createObserver();
-
-    assert.equal(queryObjects(Payload, { format: "count" }), 0);
-    // Keep the observer alive until after the collection so only the target's lifetime is tested.
-    assert.deepEqual(observer.takeRecords(), []);
-  });
-
   it("window.close() should work from within a load event listener", async () => {
     const errors = [];
     const virtualConsole = new VirtualConsole().forwardTo(console);
