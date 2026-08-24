@@ -25,6 +25,17 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(ran, false);
   });
 
+  it("window.close() should prevent animation frames from registering and cause them to return 0", () => {
+    const { window } = new JSDOM("", { pretendToBeVisual: true });
+
+    window.close();
+
+    const handle = window.requestAnimationFrame(() => {});
+    window.cancelAnimationFrame(handle);
+
+    assert.equal(handle, 0);
+  });
+
   it("window.close() should stop a setInterval()", async () => {
     const { window } = new JSDOM(`<script>
       window.counter = 0;
