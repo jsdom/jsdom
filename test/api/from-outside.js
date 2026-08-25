@@ -66,6 +66,14 @@ describe("Test cases only possible to test from the outside", () => {
     assert(ratio < 0.3);
   });
 
+  it("does not retain removed children through live collections", { timeout: 5000 }, () => {
+    const fixturePath = path.resolve(__dirname, "./fixtures/live-collections-with-gc.js");
+    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
+
+    assert.equal(status, 0, stderr);
+    assert.equal(stdout.trim(), "collected");
+  });
+
   it("window.close() should work from within a load event listener", async () => {
     const errors = [];
     const virtualConsole = new VirtualConsole().forwardTo(console);
