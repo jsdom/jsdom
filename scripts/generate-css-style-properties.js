@@ -44,7 +44,8 @@ async function main() {
   const functionTypes = ["color", "image", "paint"];
   const typeList = new Set([...caseSensitiveTypes, ...dimensionTypes, ...functionTypes]);
 
-  await Promise.all([generateDefinitions(), generateDescriptors(), generateWebIDL()]);
+  await generateDefinitions();
+  await Promise.all([generateDescriptors(), generateWebIDL()]);
 
   function generateDefinitions() {
     const output = `"use strict";
@@ -56,6 +57,8 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
 
   function generateDescriptors() {
     const requires = [];
+    const computedValueResolverRequires = [];
+    const computedValueResolvers = [];
     const descriptors = [];
     const metadata = [];
     for (const [canonicalProperty, { legacyAliasOf, styleDeclaration, syntax }] of definitions) {
@@ -66,6 +69,13 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
         const fileName = implementedProperties.get(camelizedProperty);
         requires.push(`const ${camelizedProperty} = require("../jsdom/living/css/properties/${fileName}");`);
         descriptorSource = `${camelizedProperty}.descriptor`;
+        const implementation = require(path.resolve(propertiesDir, fileName));
+        if (typeof implementation.resolveComputedValue === "function") {
+          computedValueResolverRequires.push(
+            `const ${camelizedProperty} = require("../jsdom/living/css/properties/${fileName}");`
+          );
+          computedValueResolvers.push(`["${canonicalProperty}", ${camelizedProperty}.resolveComputedValue]`);
+        }
         const opts = createDescriptorOpts(syntax);
         metadata.push([canonicalProperty, opts]);
       } else if (implementedProperties.has(camelizedAliasProperty)) {
@@ -89,10 +99,21 @@ module.exports = {
   ${descriptors.join(",\n  ")}
 };
 `;
+    const computedValueResolverOutput = `"use strict";
+${computedValueResolverRequires.sort().join("\n")}
+
+module.exports = new Map([
+  ${computedValueResolvers.join(",\n  ")}
+]);
+`;
     const metadataOutput = `"use strict";
 module.exports = new Map(${JSON.stringify(metadata, undefined, 2)});
 `;
     return Promise.all([
+      fs.writeFile(
+        path.resolve(outputDir, "css-property-computed-value-resolvers.js"),
+        computedValueResolverOutput
+      ),
       fs.writeFile(path.resolve(outputDir, "css-property-descriptors.js"), descriptorOutput),
       fs.writeFile(path.resolve(outputDir, "css-property-metadata.js"), metadataOutput)
     ]);
