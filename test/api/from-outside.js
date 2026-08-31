@@ -82,6 +82,14 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(stdout.trim(), "collected");
   });
 
+  it("does not retain targets or callbacks of removed signal-bound event listeners", { timeout: 5000 }, () => {
+    const fixturePath = path.resolve(__dirname, "./fixtures/event-listener-signal-with-gc.js");
+    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
+
+    assert.equal(status, 0, stderr);
+    assert.equal(stdout.trim(), "collected");
+  });
+
   it("window.close() should work from within a load event listener", async () => {
     const errors = [];
     const virtualConsole = new VirtualConsole().forwardTo(console);
