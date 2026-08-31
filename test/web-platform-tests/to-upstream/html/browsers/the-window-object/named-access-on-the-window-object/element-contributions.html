@@ -1,0 +1,65 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Named access element contributions</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#named-access-on-the-window-object">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+test(() => {
+  const element = document.createElement("div");
+  element.id = "removedId";
+  document.body.append(element);
+  assert_equals(window.removedId, element, "before removal");
+
+  element.removeAttribute("id");
+  assert_equals(window.removedId, undefined, "after removal");
+  element.remove();
+}, "Removing an id stops it from contributing to named access");
+
+test(() => {
+  const img = document.createElement("img");
+  img.name = "sharedName";
+  img.id = "sharedName";
+  document.body.append(img);
+
+  img.removeAttribute("id");
+  assert_equals(window.sharedName, img, "name still contributes");
+
+  img.removeAttribute("name");
+  assert_equals(window.sharedName, undefined, "both attributes removed");
+  img.remove();
+}, "Removing one of equal id and name attributes preserves the other contribution");
+
+test(() => {
+  const element = document.createElement("div");
+  element.setAttribute("name", "nonContributorName");
+  element.id = "nonContributorName";
+  document.body.append(element);
+
+  element.id = "contributorId";
+  assert_equals(window.nonContributorName, undefined);
+  assert_equals(window.contributorId, element);
+  element.remove();
+}, "A name on a non-contributor does not preserve an old id contribution");
+
+test(() => {
+  const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "img");
+  const otherElement = document.createElementNS("urn:example", "form");
+  svgElement.setAttribute("id", "svgId");
+  svgElement.setAttribute("name", "svgName");
+  otherElement.setAttribute("id", "otherId");
+  otherElement.setAttribute("name", "otherName");
+  document.body.append(svgElement, otherElement);
+
+  assert_equals(window.svgId, undefined, "SVG id");
+  assert_equals(window.svgName, undefined, "SVG name");
+  assert_equals(window.otherId, undefined, "other namespace id");
+  assert_equals(window.otherName, undefined, "other namespace name");
+  svgElement.remove();
+  otherElement.remove();
+}, "Only HTML namespace elements contribute ids or names");
+</script>

@@ -6,22 +6,59 @@ const NODES = 1000;
 module.exports = () => {
   const { document, bench } = documentBench();
 
-  bench.add("setAttribute(): Remove a named property from window", () => {
-    const parent = document.createElement("div");
-    const nodes = new Array(NODES);
+  let nodes, parent;
+
+  function createSubtree() {
+    parent = document.createElement("div");
+    nodes = new Array(NODES);
     for (let i = 0; i < NODES; ++i) {
       const node = document.createElement("span");
       nodes[i] = node;
-      node.setAttribute("id", "named" + i);
       parent.appendChild(node);
     }
-    document.body.appendChild(parent);
+  }
 
+  bench.add("setAttribute(): Set irrelevant attributes on connected elements", () => {
+    for (let i = 0; i < NODES; ++i) {
+      const node = nodes[i];
+      node.setAttribute("class", "item");
+      node.setAttribute("data-state", "ready");
+      node.setAttribute("aria-hidden", "false");
+    }
+  }, {
+    beforeEach() {
+      createSubtree();
+      document.body.appendChild(parent);
+    },
+    afterEach() {
+      parent.remove();
+    }
+  });
+
+  bench.add("appendChild()/remove(): Attach and remove an irrelevant subtree", () => {
+    document.body.appendChild(parent);
+    parent.remove();
+  }, {
+    beforeEach() {
+      createSubtree();
+    }
+  });
+
+  bench.add("removeAttribute(): Remove named ids from connected elements", () => {
     for (let i = 0; i < NODES; ++i) {
       nodes[i].removeAttribute("id");
     }
-
-    document.body.removeChild(parent);
+  }, {
+    beforeEach() {
+      createSubtree();
+      for (let i = 0; i < NODES; ++i) {
+        nodes[i].setAttribute("id", "named" + i);
+      }
+      document.body.appendChild(parent);
+    },
+    afterEach() {
+      parent.remove();
+    }
   });
 
   return bench;
