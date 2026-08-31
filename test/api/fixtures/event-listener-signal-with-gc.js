@@ -8,32 +8,51 @@ const { JSDOM } = require("../../..");
   const { window } = new JSDOM();
   const controller = new window.AbortController();
   let manuallyRemovedTarget = new window.EventTarget();
+  let manuallyRemovedListener = () => {};
   let onceTarget = new window.EventTarget();
+  let onceListener = () => {};
+  let closedWindowListener = () => {};
+  let closedDocument = window.document;
+  let closedDocumentListener = () => {};
 
-  const manuallyRemovedTargetRef = new WeakRef(manuallyRemovedTarget);
-  const onceTargetRef = new WeakRef(onceTarget);
-  function listener() {}
+  const references = new Map([
+    ["manually removed target", new WeakRef(manuallyRemovedTarget)],
+    ["manually removed listener", new WeakRef(manuallyRemovedListener)],
+    ["once target", new WeakRef(onceTarget)],
+    ["once listener", new WeakRef(onceListener)],
+    ["closed window listener", new WeakRef(closedWindowListener)],
+    ["closed document listener", new WeakRef(closedDocumentListener)]
+  ]);
 
-  manuallyRemovedTarget.addEventListener("test", listener, { signal: controller.signal });
-  manuallyRemovedTarget.removeEventListener("test", listener);
+  manuallyRemovedTarget.addEventListener("test", manuallyRemovedListener, { signal: controller.signal });
+  manuallyRemovedTarget.removeEventListener("test", manuallyRemovedListener);
 
-  onceTarget.addEventListener("test", listener, { once: true, signal: controller.signal });
+  onceTarget.addEventListener("test", onceListener, { once: true, signal: controller.signal });
   onceTarget.dispatchEvent(new window.Event("test"));
 
-  manuallyRemovedTarget = undefined;
-  onceTarget = undefined;
+  window.addEventListener("test", closedWindowListener, { signal: controller.signal });
+  closedDocument.addEventListener("test", closedDocumentListener, { signal: controller.signal });
+  window.close();
 
-  let collected = false;
+  manuallyRemovedTarget = undefined;
+  manuallyRemovedListener = undefined;
+  onceTarget = undefined;
+  onceListener = undefined;
+  closedWindowListener = undefined;
+  closedDocument = undefined;
+  closedDocumentListener = undefined;
+
+  let retained;
   for (let i = 0; i < 10; ++i) {
     await setImmediate();
     global.gc();
-    if (manuallyRemovedTargetRef.deref() === undefined && onceTargetRef.deref() === undefined) {
-      collected = true;
+    retained = [...references].filter(([, reference]) => reference.deref() !== undefined);
+    if (retained.length === 0) {
       break;
     }
   }
 
   // Keep the controller and its un-aborted signal reachable throughout the test.
   assert.equal(controller.signal.aborted, false);
-  console.log(collected ? "collected" : "retained");
+  console.log(retained.length === 0 ? "collected" : `retained: ${retained.map(([name]) => name).join(", ")}`);
 })();

@@ -82,7 +82,7 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(stdout.trim(), "collected");
   });
 
-  it("does not retain targets of removed signal-bound event listeners", { timeout: 5000 }, () => {
+  it("does not retain targets or callbacks of removed signal-bound event listeners", { timeout: 5000 }, () => {
     const fixturePath = path.resolve(__dirname, "./fixtures/event-listener-signal-with-gc.js");
     const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
 
