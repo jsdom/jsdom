@@ -420,7 +420,6 @@ set-selector-text.html: [fail, Unknown]
 
 DIR: css/css-shadow
 
-css-scoping-shadow-dynamic-remove-style-detached.html: [fail-slow, Unknown]
 font-face-001.html: [fail, Not implemented]
 font-face-002.html: [fail, Not implemented]
 font-face-003.html: [fail, Not implemented]
