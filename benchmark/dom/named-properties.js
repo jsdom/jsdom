@@ -35,6 +35,28 @@ module.exports = () => {
     }
   });
 
+  bench.add("document.body: Read after every irrelevant attribute mutation", () => {
+    let body;
+    for (let i = 0; i < NODES; ++i) {
+      nodes[i].toggleAttribute("data-state");
+      body = document.body;
+    }
+    if (body === null) {
+      throw new Error("Document body unexpectedly missing");
+    }
+  }, {
+    beforeEach() {
+      createSubtree();
+      document.body.appendChild(parent);
+      if (document.body === null) {
+        throw new Error("Document body unexpectedly missing");
+      }
+    },
+    afterEach() {
+      parent.remove();
+    }
+  });
+
   bench.add("appendChild()/remove(): Attach and remove an irrelevant subtree", () => {
     document.body.appendChild(parent);
     parent.remove();
