@@ -62,4 +62,55 @@ test(() => {
   svgElement.remove();
   otherElement.remove();
 }, "Only HTML namespace elements contribute ids or names");
+
+test(() => {
+  const idElement = document.createElement("div");
+  const nameElement = document.createElement("form");
+  idElement.id = "";
+  nameElement.name = "";
+  document.body.append(idElement, nameElement);
+
+  assert_false("" in window);
+  assert_equals(window[""], undefined);
+
+  idElement.remove();
+  nameElement.remove();
+
+  const changedIdElement = document.createElement("div");
+  const changedNameElement = document.createElement("form");
+  document.body.append(changedIdElement, changedNameElement);
+  changedIdElement.id = "";
+  changedNameElement.name = "";
+
+  assert_false("" in window, "after setting empty values on connected elements");
+  assert_equals(window[""], undefined, "after setting empty values on connected elements");
+
+  changedIdElement.remove();
+  changedNameElement.remove();
+}, "Empty id and name attributes do not contribute to named access");
+
+test(() => {
+  const idElement = document.createElement("div");
+  const nameElement = document.createElement("form");
+  const beforeInsertionElement = document.createElement("div");
+  beforeInsertionElement.setAttributeNS("urn:example", "id", "namespacedBeforeInsertion");
+  document.body.append(idElement, nameElement, beforeInsertionElement);
+
+  idElement.setAttributeNS("urn:example", "id", "namespacedId");
+  nameElement.setAttributeNS("urn:example", "name", "namespacedName");
+
+  assert_equals(window.namespacedId, undefined, "id");
+  assert_equals(window.namespacedName, undefined, "name");
+  assert_equals(window.namespacedBeforeInsertion, undefined, "id set before insertion");
+
+  idElement.setAttributeNS(null, "id", "nullNamespaceId");
+  assert_equals(window.nullNamespaceId, idElement, "null-namespace id");
+
+  idElement.removeAttributeNS("urn:example", "id");
+  assert_equals(window.nullNamespaceId, idElement, "after removing a namespaced id");
+
+  idElement.remove();
+  nameElement.remove();
+  beforeInsertionElement.remove();
+}, "Namespaced id and name attributes do not contribute to named access");
 </script>

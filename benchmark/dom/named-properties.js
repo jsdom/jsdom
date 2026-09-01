@@ -5,6 +5,7 @@ const NODES = 1000;
 
 module.exports = () => {
   const { document, bench } = documentBench();
+  const { defaultView: window } = document;
 
   let nodes, parent;
 
@@ -80,6 +81,33 @@ module.exports = () => {
     },
     afterEach() {
       parent.remove();
+    }
+  });
+
+  bench.add("Window named access: Read single matches", () => {
+    for (let i = 0; i < NODES; ++i) {
+      if (window["named" + i] !== nodes[i]) {
+        throw new Error("Window named property unexpectedly missing");
+      }
+    }
+  }, {
+    beforeEach() {
+      createSubtree();
+      for (let i = 0; i < NODES; ++i) {
+        nodes[i].id = "named" + i;
+      }
+      document.body.appendChild(parent);
+    },
+    afterEach() {
+      parent.remove();
+    }
+  });
+
+  bench.add("Window named access: Read misses without tracked names", () => {
+    for (let i = 0; i < NODES; ++i) {
+      if (window["missingNamedProperty" + i] !== undefined) {
+        throw new Error("Unexpected Window named property");
+      }
     }
   });
 
