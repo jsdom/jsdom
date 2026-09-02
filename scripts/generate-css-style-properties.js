@@ -59,6 +59,8 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
     const requires = [];
     const computedValueResolverRequires = [];
     const computedValueResolvers = [];
+    const resolvedValueResolverRequires = [];
+    const resolvedValueResolvers = [];
     const descriptors = [];
     const metadata = [];
     for (const [canonicalProperty, { legacyAliasOf, styleDeclaration, syntax }] of definitions) {
@@ -75,6 +77,12 @@ module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
             `const ${camelizedProperty} = require("../jsdom/living/css/properties/${fileName}");`
           );
           computedValueResolvers.push(`["${canonicalProperty}", ${camelizedProperty}.resolveComputedValue]`);
+        }
+        if (typeof implementation.getResolvedValue === "function") {
+          resolvedValueResolverRequires.push(
+            `const ${camelizedProperty} = require("../jsdom/living/css/properties/${fileName}");`
+          );
+          resolvedValueResolvers.push(`["${canonicalProperty}", ${camelizedProperty}.getResolvedValue]`);
         }
         const opts = createDescriptorOpts(syntax);
         metadata.push([canonicalProperty, opts]);
@@ -106,6 +114,13 @@ module.exports = new Map([
   ${computedValueResolvers.join(",\n  ")}
 ]);
 `;
+    const resolvedValueResolverOutput = `"use strict";
+${resolvedValueResolverRequires.sort().join("\n")}
+
+module.exports = new Map([
+  ${resolvedValueResolvers.join(",\n  ")}
+]);
+`;
     const metadataOutput = `"use strict";
 module.exports = new Map(${JSON.stringify(metadata, undefined, 2)});
 `;
@@ -113,6 +128,10 @@ module.exports = new Map(${JSON.stringify(metadata, undefined, 2)});
       fs.writeFile(
         path.resolve(outputDir, "css-property-computed-value-resolvers.js"),
         computedValueResolverOutput
+      ),
+      fs.writeFile(
+        path.resolve(outputDir, "css-property-resolved-value-resolvers.js"),
+        resolvedValueResolverOutput
       ),
       fs.writeFile(path.resolve(outputDir, "css-property-descriptors.js"), descriptorOutput),
       fs.writeFile(path.resolve(outputDir, "css-property-metadata.js"), metadataOutput)
