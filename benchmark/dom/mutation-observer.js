@@ -9,15 +9,15 @@ const recordsPerDeliveryValues = [1, 10, 100, 1000];
 module.exports = () => {
   const bench = new Bench();
 
-  addQueueBenchmark(bench, "queue 100 attribute records, no observers", () => []);
-  addQueueBenchmark(bench, "queue 100 attribute records, one observer", (window, ancestor, target) => {
+  addQueueBenchmark(bench, "setAttribute(): 100 mutations, no observers", () => []);
+  addQueueBenchmark(bench, "setAttribute(): 100 mutations, one observer", (window, ancestor, target) => {
     const observer = new window.MutationObserver(() => {});
     observer.observe(target, { attributes: true });
     return [observer];
   });
   addQueueBenchmark(
     bench,
-    "queue 100 attribute records, one observer on target and ancestor",
+    "setAttribute(): 100 mutations, one observer on target and ancestor",
     (window, ancestor, target) => {
       const observer = new window.MutationObserver(() => {});
       observer.observe(target, { attributes: true });
@@ -25,7 +25,7 @@ module.exports = () => {
       return [observer];
     }
   );
-  addQueueBenchmark(bench, "queue 100 attribute records, two observers", (window, ancestor, target) => {
+  addQueueBenchmark(bench, "setAttribute(): 100 mutations, two observers", (window, ancestor, target) => {
     const targetObserver = new window.MutationObserver(() => {});
     targetObserver.observe(target, { attributes: true });
 
