@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Computed color is inherited correctly</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<!-- Test for https://github.com/jsdom/jsdom/issues/3607 -->
+
+<style>
+  .test-1, .test-2 {
+    color: rgb(255, 0, 0);
+  }
+
+  .test-1:hover,
+  .test-2:hover {
+    color: rgb(0, 0, 255);
+  }
+
+  .test-2:has(span) {
+    color: rgb(0, 255, 0);
+  }
+</style>
+
+<body>
+  <div class="test-1">
+    <p id="p1">test</p>
+  </div>
+  <div class="test-2">
+    <p id="p2">test</p>
+  </div>
+</body>
+
+<script>
+  "use strict";
+
+  test(() => {
+    const element = document.getElementById("p1");
+
+    assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+  }, "Initial text color should be red");
+
+  test(() => {
+    const element = document.getElementById("p2");
+    assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+
+    element.appendChild(document.createElement("span"));
+
+    assert_equals(getComputedStyle(element).color, "rgb(0, 255, 0)");
+  }, "Adding a span should change the text color to green");
+</script>
