@@ -45,6 +45,14 @@ test(() => {
 }, "fill-opacity accepts calc() percentages");
 
 test(() => {
+  assertKeeps("font", "calc(50%) serif");
+}, "font accepts a calc() percentage in its font-size position");
+
+test(() => {
+  assertRejects("font", "calc(50%) 16px serif");
+}, "font rejects a calc() percentage outside its font-size position");
+
+test(() => {
   assertRejects("boxShadow", "1px calc(2px + 2%)");
 }, "box-shadow rejects mixed length + percentage calc() at a <length> offset");
 
