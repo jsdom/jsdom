@@ -47,6 +47,21 @@ test(t => {
   assert_equals(input.form, null, "a namespaced ID does not associate the control");
 }, "The form attribute only matches null-namespace ID attributes");
 
+test(t => {
+  const host = document.createElement("div");
+  t.add_cleanup(() => host.remove());
+  document.body.append(host);
+
+  const root = host.attachShadow({ mode: "open" });
+  const form = document.createElement("form");
+  form.id = "shadow-form";
+  const input = document.createElement("input");
+  input.setAttribute("form", form.id);
+  root.append(form, input);
+
+  assert_equals(input.form, form);
+}, "The form attribute associates controls within a shadow root");
+
 
 async_test(t => {
 
