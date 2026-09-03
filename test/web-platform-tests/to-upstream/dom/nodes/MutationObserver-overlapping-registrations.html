@@ -7,6 +7,23 @@
   "use strict";
 
   test(() => {
+    const firstTarget = document.createElement("div");
+    const secondTarget = document.createElement("div");
+    const firstObserver = new MutationObserver(() => {});
+    const secondObserver = new MutationObserver(() => {});
+
+    firstObserver.observe(firstTarget, { attributes: true });
+    secondObserver.observe(secondTarget, { attributes: true });
+
+    firstTarget.setAttribute("data-value", "after");
+    assert_equals(firstObserver.takeRecords().length, 1, "the first observer receives the mutation");
+    assert_equals(secondObserver.takeRecords().length, 0, "the second observer does not receive the mutation");
+
+    firstObserver.disconnect();
+    secondObserver.disconnect();
+  }, "Observers registered on separate targets do not share registrations");
+
+  test(() => {
     for (const [targetRequestsOldValue, ancestorRequestsOldValue] of [[false, true], [true, false]]) {
       const ancestor = document.createElement("div");
       const target = ancestor.appendChild(document.createElement("div"));
