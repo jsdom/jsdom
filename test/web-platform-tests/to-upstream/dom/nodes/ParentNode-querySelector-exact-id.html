@@ -1,0 +1,150 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>ParentNode querySelector with exact ID attribute selectors</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-parentnode-queryselector">
+<link rel="help" href="https://drafts.csswg.org/selectors/#attribute-representation">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics-other.html#case-sensitivity-of-selectors">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(t => {
+  const container = document.createElement("div");
+  const target = container.appendChild(document.createElement("span"));
+  target.id = "base-ui-«r1»-label";
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+
+  const selector = '[id="base-ui-«r1»-label"]';
+  assert_equals(document.querySelector(selector), target, "Document context");
+  assert_equals(container.querySelector(selector), target, "Element context");
+}, "Exact ID attribute selectors support Document and Element contexts and Unicode IDs");
+
+test(t => {
+  const outside = document.createElement("div");
+  outside.id = "duplicate-id";
+
+  const container = document.createElement("div");
+  const inside = container.appendChild(document.createElement("span"));
+  inside.id = "duplicate-id";
+
+  document.body.append(outside, container);
+  t.add_cleanup(() => {
+    outside.remove();
+    container.remove();
+  });
+
+  assert_equals(container.querySelector('[id="duplicate-id"]'), inside);
+}, "Element context finds a duplicate ID when the document's first match is outside the context");
+
+test(t => {
+  const context = document.createElement("div");
+  context.id = "context-id";
+  const child = context.appendChild(document.createElement("span"));
+  child.id = "context-id";
+  document.body.append(context);
+  t.add_cleanup(() => context.remove());
+
+  assert_equals(context.querySelector('[id="context-id"]'), child);
+}, "Element context does not select itself");
+
+test(t => {
+  const detached = document.createElement("div");
+  const detachedTarget = detached.appendChild(document.createElement("span"));
+  detachedTarget.id = "detached-id";
+  assert_equals(detached.querySelector('[id="detached-id"]'), detachedTarget, "detached Element");
+
+  const fragment = document.createDocumentFragment();
+  const fragmentTarget = fragment.appendChild(document.createElement("span"));
+  fragmentTarget.id = "fragment-id";
+  assert_equals(fragment.querySelector('[id="fragment-id"]'), fragmentTarget, "DocumentFragment");
+
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const shadowRoot = host.attachShadow({ mode: "open" });
+  const shadowTarget = shadowRoot.appendChild(document.createElement("span"));
+  shadowTarget.id = "shadow-id";
+  assert_equals(shadowRoot.querySelector('[id="shadow-id"]'), shadowTarget, "ShadowRoot");
+}, "Exact ID attribute selectors work in detached and shadow trees");
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+
+  target.id = "";
+  assert_equals(document.querySelector('[id=""]'), target, "empty value");
+
+  target.id = 'quote"value';
+  assert_equals(document.querySelector('[id="quote\\"value"]'), target, "escaped quote");
+
+  target.id = "back\\slash";
+  assert_equals(document.querySelector('[id="back\\\\slash"]'), target, "escaped backslash");
+
+  target.id = "line\nbreak";
+  assert_equals(document.querySelector('[id="line\\a break"]'), target, "escaped control character");
+  assert_throws_dom("SyntaxError", () => document.querySelector('[id="line\nbreak"]'), "raw control character");
+  assert_throws_dom("SyntaxError", () => document.querySelector('[id="unterminated]'), "unterminated string");
+}, "Selectors requiring CSS parsing are handled correctly");
+
+test(t => {
+  const namespaced = document.createElement("div");
+  namespaced.setAttributeNS("urn:example", "x:id", "namespaced-id");
+  const nonLowercase = document.createElement("div");
+  nonLowercase.setAttributeNS(null, "ID", "non-lowercase-id");
+  document.body.append(namespaced, nonLowercase);
+  t.add_cleanup(() => {
+    namespaced.remove();
+    nonLowercase.remove();
+  });
+
+  assert_equals(document.querySelector('[id="namespaced-id"]'), null, "namespaced attribute");
+  assert_equals(document.querySelector('[id="non-lowercase-id"]'), null, "non-lowercase attribute");
+
+  const target = document.createElement("span");
+  target.id = "namespaced-id";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+
+  assert_equals(document.querySelector('[id="namespaced-id"]'), target);
+}, "Exact ID attribute selectors only match lowercase null-namespace attributes");
+
+test(t => {
+  const first = document.createElement("div");
+  const second = document.createElement("div");
+  const target = first.appendChild(document.createElement("span"));
+  target.id = "before";
+  document.body.append(first, second);
+  t.add_cleanup(() => {
+    first.remove();
+    second.remove();
+  });
+
+  assert_equals(first.querySelector('[id="before"]'), target, "before changing the ID");
+  target.id = "after";
+  assert_equals(first.querySelector('[id="before"]'), null, "old ID after changing the ID");
+  assert_equals(first.querySelector('[id="after"]'), target, "new ID after changing the ID");
+
+  second.append(target);
+  assert_equals(first.querySelector('[id="after"]'), null, "old parent after moving the element");
+  assert_equals(second.querySelector('[id="after"]'), target, "new parent after moving the element");
+
+  target.removeAttribute("id");
+  assert_equals(second.querySelector('[id="after"]'), null, "after removing the ID");
+}, "ID changes and moves update exact ID attribute selector results");
+
+test(t => {
+  const target = document.createElement("div");
+  target.id = "adopted-id";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+
+  const otherDocument = document.implementation.createHTMLDocument();
+  otherDocument.body.append(target);
+
+  assert_equals(document.querySelector('[id="adopted-id"]'), null, "old document");
+  assert_equals(otherDocument.querySelector('[id="adopted-id"]'), target, "new document");
+}, "Cross-document adoption updates exact ID attribute selector results");
+</script>
