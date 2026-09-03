@@ -195,9 +195,6 @@ parsing/margin-computed.html:
   "Property margin value '30%'": [fail, Need to fix getComputedStyle]
 parsing/margin-trim-computed.html: [fail, Not implemented]
 parsing/margin-trim.html: [fail, Not implemented]
-parsing/margin-valid.html:
-  "e.style['margin'] = \"auto calc(2em + 3ex) 20%\" should set the property value": [fail, Unknown]
-  "e.style['margin'] = \"10px 20% calc(2em + 3ex) auto\" should set the property value": [fail, Unknown]
 parsing/padding-computed.html:
   "Property padding value '20%'": [fail, Need to fix getComputedStyle]
   "Property padding value '10px 20% 30% 40px'": [fail, Need to fix getComputedStyle]
