@@ -33,6 +33,20 @@ test(() => {
   });
 }, "`form` property of elements connected via 'form' attribute is correct");
 
+test(t => {
+  const form = document.createElement("form");
+  const input = document.createElement("input");
+  t.add_cleanup(() => {
+    form.remove();
+    input.remove();
+  });
+  input.setAttribute("form", "namespaced-id");
+  document.body.append(form, input);
+
+  form.setAttributeNS("https://example.com/", "id", "namespaced-id");
+  assert_equals(input.form, null, "a namespaced ID does not associate the control");
+}, "The form attribute only matches null-namespace ID attributes");
+
 
 async_test(t => {
 
