@@ -2,7 +2,7 @@
 const { Bench } = require("tinybench");
 const { JSDOM } = require("../..");
 
-const depths = [10, 25, 50, 100];
+const depths = [10, 50, 100];
 const listenerPatterns = ["none", "delegated", "every tree node"];
 
 // Build each tree and its listeners once, then time dispatch alone. Varying both depth and listener density separates
