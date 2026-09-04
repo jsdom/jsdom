@@ -4,6 +4,8 @@ const { Bench } = require("tinybench");
 const { JSDOM } = require("../..");
 
 const CONTROL_COUNT = 120;
+const FORM_CONTROL_COUNTS = [1, 100];
+const OUTSIDE_ELEMENT_COUNTS = [0, 1000, 10000];
 
 module.exports = () => {
   const bench = new Bench();
@@ -21,6 +23,8 @@ module.exports = () => {
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < count; i++) {
       const control = document.createElement("input");
+      control.name = `field-${i}`;
+      control.value = "value";
       if (formId !== null) {
         control.setAttribute("form", formId);
       }
@@ -68,12 +72,39 @@ module.exports = () => {
     });
   }
 
-  function addElementsTask(name, controlCount) {
-    const fixture = createExplicitOwnerFixture(100, { controlCount });
-    const { elements } = fixture.form;
-    bench.add(name, () => {
-      fixture.app.toggleAttribute("data-updated");
+  function createFormOperationsFixture(controlCount, outsideElementCount, external) {
+    const { window } = new JSDOM();
+    const { document } = window;
+    appendElements(document, document.body, outsideElementCount);
+
+    const form = document.createElement("form");
+    if (external) {
+      form.id = "settings-form";
+    }
+    document.body.append(form);
+    appendControls(document, external ? document.body : form, external ? form.id : null, controlCount);
+
+    return { body: document.body, FormData: window.FormData, form };
+  }
+
+  function addFormOperationsTasks(controlCount, outsideElementCount, external) {
+    const { body, FormData, form } = createFormOperationsFixture(controlCount, outsideElementCount, external);
+    const association = external ? "external" : "nested";
+    const controls = `${controlCount} ${association} control${controlCount === 1 ? "" : "s"}`;
+    const fixture = `${external ? "identified" : "unidentified"} form, ${controls}, ` +
+      `${outsideElementCount} unrelated elements`;
+    const { elements } = form;
+
+    bench.add(`refresh form.elements (${fixture})`, () => {
+      body.toggleAttribute("data-updated");
       return elements.length;
+    });
+    bench.add(`checkValidity() (${fixture})`, () => {
+      body.toggleAttribute("data-updated");
+      return form.checkValidity();
+    });
+    bench.add(`new FormData(form) (${fixture})`, () => {
+      return new FormData(form).get("field-0");
     });
   }
 
@@ -84,13 +115,17 @@ module.exports = () => {
     return countOwners(controls, form);
   });
 
-  addElementsTask("refresh form.elements after mutation (1 external control)", 1);
-  addElementsTask(`refresh form.elements after mutation (${CONTROL_COUNT} external controls)`, CONTROL_COUNT);
-
   addExplicitOwnerTask(`read form owners for ${CONTROL_COUNT} controls (form after 1,000 elements)`, 1000);
   addExplicitOwnerTask(`read form owners for ${CONTROL_COUNT} controls (form before 1,000 elements)`, 1000, {
     formBeforeContent: true
   });
+
+  for (const controlCount of FORM_CONTROL_COUNTS) {
+    for (const outsideElementCount of OUTSIDE_ELEMENT_COUNTS) {
+      addFormOperationsTasks(controlCount, outsideElementCount, false);
+      addFormOperationsTasks(controlCount, outsideElementCount, true);
+    }
+  }
 
   return bench;
 };
