@@ -21,5 +21,15 @@ module.exports = () => {
     new JSDOM(html);
   });
 
+  bench.add("new JSDOM() and close", () => {
+    const dom = new JSDOM();
+    dom.window.close();
+  });
+
+  bench.add("new JSDOM() and close with runScripts: outside-only", () => {
+    const dom = new JSDOM("", { runScripts: "outside-only" });
+    dom.window.close();
+  });
+
   return bench;
 };
