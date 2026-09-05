@@ -14,19 +14,16 @@
 "use strict";
 
 test(() => {
-  const form = document.querySelector("form");
+  const { 0: form } = document.forms;
+  const { elements } = form;
 
-  assert_equals(form.elements.length, 0);
-}, "`form.elements` should not contain elements inside form with different form owner");
-
-test(() => {
-  const form = document.querySelector("form");
-
-  assert_equals(form.elements.length, 0, "pre-condition");
+  assert_equals(elements.length, 0, "without an ID");
 
   form.id = "testForm";
+  assert_equals(elements.length, 2, "with a matching ID");
 
-  assert_equals(form.elements.length, 2);
-}, "`form.elements` should update on form.id change");
+  form.id = "";
+  assert_equals(elements.length, 0, "after changing to an empty ID");
+}, "`form.elements` should update on form ID changes");
 
 </script>
