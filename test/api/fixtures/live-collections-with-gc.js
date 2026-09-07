@@ -8,10 +8,14 @@ const { JSDOM } = require("../../..");
   const { document } = new JSDOM().window;
   const parent = document.body.appendChild(document.createElement("div"));
   let child = parent.appendChild(document.createElement("span"));
+  child.setAttribute("data-testid", "child");
 
-  // Materialize both live collections before removing their shared child.
+  // Materialize live collections and selector results before removing their shared child.
   assert.equal(parent.childNodes.length, 1);
   assert.equal(parent.children.length, 1);
+  assert.equal(parent.querySelectorAll("[data-testid]").length, 1);
+  assert.equal(parent.querySelectorAll("[data-testid]").length, 1);
+  assert.equal(document.querySelectorAll("[data-testid]").length, 1);
 
   const childRef = new WeakRef(child);
   parent.removeChild(child);
@@ -27,7 +31,7 @@ const { JSDOM } = require("../../..");
     }
   }
 
-  // Keep the parent and its cached live collections reachable throughout the test.
+  // Keep the parent and its caches reachable throughout the test, without another query after removal.
   assert.equal(parent.isConnected, true);
   console.log(collected ? "collected" : "retained");
 })();
