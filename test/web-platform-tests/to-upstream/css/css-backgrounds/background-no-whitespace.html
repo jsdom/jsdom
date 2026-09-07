@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Background shorthand without whitespace</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#background">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- regression test for https://github.com/jsdom/jsdom/issues/4285 -->
+
+<div id="div" style="background:url(a.png)no-repeat;color:red"></div>
+
+<script>
+test(() => {
+  const div = document.getElementById("div");
+
+  assert_equals(div.style.background, "url(\"a.png\") no-repeat", "The background shorthand should be correctly parsed.");
+
+  assert_equals(div.style.color, "red", "The color property should be parsed and set despite the missing space in background.");
+
+  assert_true(div.style.backgroundImage.includes("a.png"), "The background-image should be correctly parsed.");
+
+  assert_equals(div.style.backgroundRepeat, "no-repeat", "The background-repeat should be correctly parsed.");
+
+}, "A background shorthand with no space between url() and no-repeat should not break CSS parsing");
+</script>
