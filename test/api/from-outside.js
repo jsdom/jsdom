@@ -90,6 +90,42 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(stdout.trim(), "collected");
   });
 
+  it("does not retain removed iframe windows", { timeout: 5000 }, () => {
+    const fixturePath = path.resolve(__dirname, "./fixtures/removed-iframe-with-gc.js");
+    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
+
+    assert.equal(status, 0, stderr);
+    assert.equal(stdout.trim(), "collected");
+  });
+
+  it("does not dispatch storage events to removed iframe windows", async () => {
+    const dom = new JSDOM("", { url: "https://example.com/" });
+    try {
+      const removedFrame = dom.window.document.createElement("iframe");
+      const liveFrame = dom.window.document.createElement("iframe");
+      dom.window.document.body.append(removedFrame, liveFrame);
+
+      const removedWindow = removedFrame.contentWindow;
+      removedFrame.remove();
+
+      let removedWindowEvents = 0;
+      removedWindow.addEventListener("storage", () => {
+        ++removedWindowEvents;
+      });
+
+      const liveWindowEvent = new Promise(resolve => {
+        liveFrame.contentWindow.addEventListener("storage", resolve, { once: true });
+      });
+
+      dom.window.localStorage.setItem("key", "value");
+      await liveWindowEvent;
+
+      assert.equal(removedWindowEvents, 0);
+    } finally {
+      dom.window.close();
+    }
+  });
+
   it("window.close() should work from within a load event listener", async () => {
     const errors = [];
     const virtualConsole = new VirtualConsole().forwardTo(console);
