@@ -15,10 +15,14 @@ browser:
 ```sh
 npm run test:tuwpt:browser                        # all to-upstream tests
 npm run test:tuwpt:browser -- --fgrep domparsing  # substring filter
+npm run test:tuwpt:browser -- --browser=chromium --browser-arg=--headless --fgrep domparsing --reporter min
 ```
 
 This starts the WPT Python server, opens your default browser, runs the tests,
-and prints a summary. Any failures indicate bugs in the test itself (since
+and prints a summary. Explicit Chrome/Chromium launches use a temporary profile
+with popups enabled; use repeatable `--browser-arg` options for browser flags.
+See [browser verification options](../../Contributing.md#to-upstream-web-platform-feature-tests).
+Any failures indicate bugs in the test itself (since
 browsers are the reference implementation). Fix or file as dont-upstream before
 committing.
 
