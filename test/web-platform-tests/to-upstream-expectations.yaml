@@ -1,6 +1,5 @@
 css/css-backgrounds/background-no-whitespace.html:
   "A background shorthand with no space with invalid url() and no-repeat": [fail, Need to fix background shorthand]
-css/css-borders/border-no-whitespace.html: [fail, Need to fix border shorthand]
 css/css-borders/border-radius-shorthand.html:
   "longhand from shorthand": [fail, border-radius and its longhands are not implemented]
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
