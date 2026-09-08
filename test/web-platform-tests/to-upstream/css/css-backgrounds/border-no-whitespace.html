@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Border shorthand without whitespace</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#the-border-shorthands">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="div" style="border:rgb(0 0 0)solid 1px;color:red"></div>
+
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("div");
+
+  assert_equals(
+    div.style.color,
+    "red",
+    "The color property should be parsed and set despite the missing space in border."
+  );
+
+  assert_equals(
+    div.style.border,
+    "1px solid rgb(0, 0, 0)",
+    "The border shorthand should be correctly parsed and serialized."
+  );
+
+  assert_equals(
+    div.style.borderColor,
+    "rgb(0, 0, 0)",
+    "The border-color should be correctly parsed from the modern rgb() syntax."
+  );
+
+  assert_equals(
+    div.style.borderStyle,
+    "solid",
+    "The border-style should be correctly parsed."
+  );
+
+  assert_equals(
+    div.style.borderWidth,
+    "1px",
+    "The border-width should be correctly parsed."
+  );
+}, "A border shorthand with no space between rgb() and solid");
+</script>

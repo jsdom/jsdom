@@ -7,6 +7,7 @@
 <!-- regression test for https://github.com/jsdom/jsdom/issues/4285 -->
 
 <div id="div" style="background:url(a.png)no-repeat;color:red"></div>
+<div id="div2" style="background:url(\"a)b.png\")no-repeat;color:red"></div>
 
 <script>
 "use strict";
@@ -26,8 +27,8 @@ test(() => {
     "The color property should be parsed and set despite the missing space in background."
   );
 
-  assert_true(
-    div.style.backgroundImage.includes("a.png"),
+  assert_equals(
+    div.style.backgroundImage, 'url("a.png")',
     "The background-image should be correctly parsed."
   );
 
@@ -37,4 +38,32 @@ test(() => {
     "The background-repeat should be correctly parsed."
   );
 }, "A background shorthand with no space between url() and no-repeat");
+
+test(() => {
+  const div = document.getElementById("div2");
+
+  assert_equals(
+    div.style.background,
+    'url("\ufffd")',
+    "The background shorthand should be parsed as a url() with replacement character."
+  );
+
+  assert_equals(
+    div.style.color,
+    "",
+    "The color property should not be parsed and returns empty string."
+  );
+
+  assert_equals(
+    div.style.backgroundImage, 'url("\ufffd")',
+    "The background-image should return url() with replacement character."
+  );
+
+  // Chrome returns `initial`.
+  assert_equals(
+    div.style.backgroundRepeat,
+    "repeat",
+    "The background-repeat should return the initial value."
+  );
+}, "A background shorthand with no space with invalid url() and no-repeat");
 </script>
