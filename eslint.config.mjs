@@ -38,7 +38,9 @@ export default [
       "test/web-platform-tests/to-upstream/dom/nodes/Document-createComment-createTextNode.js",
       "test/web-platform-tests/to-upstream/svg/element-svg.html",
       "test/web-platform-tests/to-upstream/svg/svgstringlist.html",
-      "test/web-platform-tests/to-upstream/**/*dont-upstream*"
+      "test/web-platform-tests/to-upstream/**/*dont-upstream*",
+      // Lint the argument-conversion companion until the upstream additions are rolled in.
+      "!test/web-platform-tests/to-upstream/css/cssom/escape-argument-conversion-dont-upstream.html"
     ]
   },
   {
