@@ -14,6 +14,7 @@ function getRules(t, cssText) {
   t.add_cleanup(() => {
     style.remove();
   });
+  assert_not_equals(style.sheet, null, "Stylesheets without imports are available synchronously");
   return style.sheet.cssRules;
 }
 
@@ -52,8 +53,19 @@ test(t => {
   assert_equals(rules.length, 1, "Valid @namespace should produce one rule");
 }, "Valid @namespace with URL is kept");
 
-test(t => {
-  const rules = getRules(t, '@import "data:text/css,";');
+promise_test(async t => {
+  const style = document.createElement("style");
+  style.textContent = '@import "data:text/css,";';
+  const loaded = new Promise(resolve => {
+    style.onload = resolve;
+    style.onerror = resolve;
+  });
+  t.add_cleanup(() => style.remove());
+  document.head.append(style);
+  if (style.sheet === null) {
+    await loaded;
+  }
+  const rules = style.sheet.cssRules;
   assert_equals(rules.length, 1, "Valid @import should produce one rule");
 }, "Valid @import with URL string is kept");
 </script>

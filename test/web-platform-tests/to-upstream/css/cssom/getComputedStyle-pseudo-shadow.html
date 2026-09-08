@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>CSSOM: getComputedStyle() throws on Shadow DOM pseudo-elements</title>
+<title>CSSOM: getComputedStyle() returns empty declarations for Shadow DOM pseudo-elements</title>
 <link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
@@ -11,22 +11,9 @@
 <script>
 "use strict";
 
-test(() => {
-  const div = document.getElementById("test");
-  assert_throws_js(
-    TypeError,
-    () => getComputedStyle(div, "::part(foo)"),
-    "getComputedStyle with ::part(...) throws"
-  );
-}, "Shadow DOM ::part(...) pseudo-element throws");
-
-test(() => {
-  const div = document.getElementById("test");
-  assert_throws_js(
-    TypeError,
-    () => getComputedStyle(div, "::slotted(foo)"),
-    "getComputedStyle with ::slotted(...) throws"
-  );
-}, "Shadow DOM ::slotted(...) pseudo-element throws");
-
+for (const pseudo of ["::part(foo)", "::slotted(foo)"]) {
+  test(() => {
+    assert_equals(getComputedStyle(document.getElementById("test"), pseudo).length, 0);
+  }, `getComputedStyle() returns an empty declaration for ${pseudo}`);
+}
 </script>

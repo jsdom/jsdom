@@ -36,11 +36,14 @@ export default [
       "test/to-port-to-wpts/script.js",
       "test/web-platform-tests/tests/**",
       "test/web-platform-tests/to-upstream/dom/nodes/Document-createComment-createTextNode.js",
-      "test/web-platform-tests/to-upstream/svg/element-svg.html",
+      "test/web-platform-tests/to-upstream/svg/struct/scripted/element-svg.html",
       "test/web-platform-tests/to-upstream/svg/svgstringlist.html",
       "test/web-platform-tests/to-upstream/**/*dont-upstream*",
-      // Lint the argument-conversion companion until the upstream additions are rolled in.
-      "!test/web-platform-tests/to-upstream/css/cssom/escape-argument-conversion-dont-upstream.html"
+      // Lint the focused companions maintained until their upstream additions are rolled in.
+      "!test/web-platform-tests/to-upstream/css/cssom/escape-argument-conversion-dont-upstream.html",
+      "!test/web-platform-tests/to-upstream/css/css-flexbox/parsing/flex-shorthand-dont-upstream.html",
+      "!test/web-platform-tests/to-upstream/uievents/constructors/inputevent-inputtype-dont-upstream.html",
+      "!test/web-platform-tests/to-upstream/css/css-color/nested-color-mix-with-currentcolor-dont-upstream.html"
     ]
   },
   {

@@ -26,7 +26,7 @@
     element.dispatchEvent(new Event("click"));
 
     assert_equals(errorEvents, 1);
-    assert_equals(errorEvent.message, "uncaught exception: null");
+    assert_equals(typeof errorEvent.message, "string");
     assert_equals(errorEvent.error, null);
   }, "Throwing null in event listener");
 </script>

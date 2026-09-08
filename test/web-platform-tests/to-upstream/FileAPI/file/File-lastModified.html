@@ -8,16 +8,11 @@
 <script>
 "use strict";
 
-async_test(t => {
-  const curTime = Date.now();
+promise_test(async t => {
+  const before = Date.now();
   const file = new File([], "dummy");
-
-  t.step_timeout(() => {
-    assert_true(
-      Math.abs(curTime - file.lastModified) < 200,
-      "lastModified should be generated at File construction if not provided"
-    );
-    t.done();
-  }, 400);
-});
+  const after = Date.now();
+  await t.step_wait(() => Date.now() > after, "The clock advances beyond construction");
+  assert_between_inclusive(file.lastModified, before, after);
+}, "lastModified defaults to the time of construction");
 </script>

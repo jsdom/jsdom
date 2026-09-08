@@ -14,19 +14,28 @@
 const el = document.getElementById("target");
 
 const values = [
-  "100px 1fr",
-  "100px calc(100% - 100px)",
-  "calc(100px) calc(100% - 100px)",
-  "6.25rem calc((100% - 6.25rem) / 1)",
-  "6.25rem 60% calc((40% - 6.25rem) / 2) calc((40% - 6.25rem) / 2)"
+  ["100px 1fr", "100px 1fr"],
+  ["100px calc(100% - 100px)", "100px calc(100% - 100px)"],
+  ["calc(100px) calc(100% - 100px)", "calc(100px) calc(100% - 100px)"],
+  ["6.25rem calc((100% - 6.25rem) / 1)", "6.25rem calc(100% - 6.25rem)"],
+  [
+    "6.25rem 60% calc((40% - 6.25rem) / 2) calc((40% - 6.25rem) / 2)",
+    "6.25rem 60% calc(20% - 3.125rem) calc(20% - 3.125rem)"
+  ]
 ];
 
-for (const value of values) {
+for (const [value, expected] of values) {
   test(() => {
     el.style.gridTemplateColumns = "";
     el.style.gridTemplateColumns = value;
-    assert_equals(el.style.gridTemplateColumns, value);
-  }, `grid-template-columns keeps ${JSON.stringify(value)}`);
+    assert_not_equals(el.style.gridTemplateColumns, "", "The declaration is retained");
+  }, `grid-template-columns accepts ${JSON.stringify(value)}`);
+
+  test(() => {
+    el.style.gridTemplateColumns = "";
+    el.style.gridTemplateColumns = value;
+    assert_equals(el.style.gridTemplateColumns, expected);
+  }, `grid-template-columns serializes ${JSON.stringify(value)}`);
 }
 
 test(() => {

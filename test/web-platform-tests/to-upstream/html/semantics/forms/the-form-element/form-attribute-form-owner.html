@@ -10,20 +10,23 @@
 <script>
 "use strict";
 
-test(() => {
+test(t => {
 
   let form = document.createElement("form");
   form.id = "form1";
   document.body.appendChild(form);
   form = document.getElementById("form1");
+  t.add_cleanup(() => form.remove());
 
   const redherring = document.createElement("div");
   redherring.id = "form2";
+  t.add_cleanup(() => redherring.remove());
   document.body.appendChild(redherring);
 
   const elementNames = ["button", "input", "select", "textarea", "fieldset", "object", "output"];
   elementNames.forEach(e => {
     const el = document.createElement(e);
+    t.add_cleanup(() => el.remove());
     document.body.appendChild(el);
     assert_equals(el.form, null, `${e} without form attribute`);
     el.setAttribute("form", "form1");
@@ -68,6 +71,10 @@ async_test(t => {
   const form = document.createElement("form");
   form.id = "form1";
   const button = document.createElement("button");
+  t.add_cleanup(() => {
+    form.remove();
+    button.remove();
+  });
   button.setAttribute("form", "form1");
 
   document.body.appendChild(form);
@@ -78,7 +85,7 @@ async_test(t => {
   }));
 
   button.click();
-  t.step_timeout(() => t.done(), 500);
+
 
 }, "clicking a button with .click() should trigger a submit (form connected via 'form' attribute)");
 

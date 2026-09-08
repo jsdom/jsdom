@@ -21,22 +21,10 @@ function toggleSync() {
   target.classList.toggle("foo");
 }
 
-function toggleAsync() {
-  target.classList.toggle("foo");
-  window.setTimeout(toggleSync, 1000);
-}
-
-function sleep(msec) {
-  return new Promise(resolve => {
-    setTimeout(resolve, msec);
-  });
-}
-
 test(t => {
   t.add_cleanup(() => {
     target.classList.remove("foo");
     button.removeEventListener("click", toggleSync);
-    button.removeEventListener("click", toggleAsync);
   });
 
   button.addEventListener("click", toggleSync);
@@ -54,7 +42,6 @@ test(t => {
   t.add_cleanup(() => {
     target.classList.remove("foo");
     button.removeEventListener("click", toggleSync);
-    button.removeEventListener("click", toggleAsync);
   });
 
   button.addEventListener("click", toggleSync);
@@ -71,16 +58,27 @@ promise_test(async t => {
   t.add_cleanup(() => {
     target.classList.remove("foo");
     button.removeEventListener("click", toggleSync);
-    button.removeEventListener("click", toggleAsync);
   });
 
+  let resolveToggle;
+  const toggled = new Promise(resolve => {
+    resolveToggle = resolve;
+  });
+  function toggleAsync() {
+    toggleSync();
+    t.step_timeout(() => {
+      toggleSync();
+      resolveToggle();
+    }, 0);
+  }
   button.addEventListener("click", toggleAsync);
+  t.add_cleanup(() => button.removeEventListener("click", toggleAsync));
   assert_equals(document.querySelectorAll(".foo").length, 0, "initial");
 
   button.click();
   assert_equals(document.querySelectorAll(".foo").length, 1, "after click");
 
-  await sleep(1500);
+  await toggled;
   assert_equals(document.querySelectorAll(".foo").length, 0, "after timeout");
 }, "dynamic querySelectorAll, toggle async");
 </script>

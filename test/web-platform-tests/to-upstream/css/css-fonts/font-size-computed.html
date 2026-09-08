@@ -3,12 +3,14 @@
 <title>font-size computed keywords</title>
 <link rel="help" href="https://drafts.csswg.org/css-fonts-4/#font-size-prop">
 <link rel="help" href="https://drafts.csswg.org/css-values-4/#font-relative-lengths">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#range">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 
 <style>
 :root {
-  font-size: 75%;
+  font-size: 12px;
+  line-height: 20px;
 }
 .nest1 {
   font-size: 2em;
@@ -84,6 +86,19 @@ test(() => {
   assert_equals(window.getComputedStyle(div).fontSize, "12px");
 }, "root");
 
+test(t => {
+  const root = document.documentElement;
+  t.add_cleanup(() => {
+    root.style.removeProperty("font-size");
+  });
+  root.style.fontSize = "medium";
+  const initialSize = parseFloat(window.getComputedStyle(root).fontSize);
+  root.style.fontSize = "75%";
+  const size = window.getComputedStyle(root).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  assert_approx_equals(parseFloat(size), initialSize * 0.75, 0.02);
+}, "Root percentages resolve against the initial font size");
+
 test(() => {
   const div = document.getElementById("div1");
   assert_equals(window.getComputedStyle(div).fontSize, "24px");
@@ -96,12 +111,17 @@ test(() => {
 
 test(() => {
   const div = document.getElementById("div3");
-  assert_equals(window.getComputedStyle(div).fontSize, "28.8px");
+  const size = window.getComputedStyle(div).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  // Allow implementation-defined precision for fractional pixel values.
+  assert_approx_equals(parseFloat(size), 28.8, 0.02);
 }, "div3");
 
 test(() => {
   const div = document.getElementById("div4");
-  assert_equals(window.getComputedStyle(div).fontSize, "34.56px");
+  const size = window.getComputedStyle(div).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  assert_approx_equals(parseFloat(size), 34.56, 0.02);
 }, "div4");
 
 test(() => {
@@ -117,25 +137,41 @@ test(() => {
 test(() => {
   const div = document.getElementById("div7");
   const lh = parseFloat(window.getComputedStyle(div).fontSize);
-  assert_equals(lh > 12, lh < 24);
+  assert_equals(lh, 20);
 }, "div7");
 
 test(() => {
   const div = document.getElementById("div8");
   const lh = parseFloat(window.getComputedStyle(div).fontSize);
-  assert_equals(lh > 12, lh < 24);
+  assert_equals(lh, 20);
 }, "div8");
+
+test(() => {
+  const parent = window.getComputedStyle(document.getElementById("div7"));
+  const root = window.getComputedStyle(document.documentElement);
+  assert_greater_than(parseFloat(parent.fontSize), parseFloat(root.fontSize));
+}, "The lh font size resolves to a length larger than the root font size");
+
+test(() => {
+  const parent = window.getComputedStyle(document.getElementById("div7"));
+  const child = window.getComputedStyle(document.getElementById("div8"));
+  assert_equals(child.fontSize, parent.fontSize);
+}, "A child inherits its parent's lh-resolved font size");
 
 test(() => {
   const div = document.getElementById("div9");
   const viewportWidth = window.innerWidth / 100;
-  assert_equals(window.getComputedStyle(div).fontSize, `${viewportWidth}px`);
+  const size = window.getComputedStyle(div).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  assert_approx_equals(parseFloat(size), viewportWidth, 0.02);
 }, "div9");
 
 test(() => {
   const div = document.getElementById("div10");
-  const viewportWidth = window.innerWidth / 100;
-  assert_equals(window.getComputedStyle(div).fontSize, `${viewportWidth}px`);
+  const viewportWidth = Math.max(window.innerWidth, window.innerHeight) / 100;
+  const size = window.getComputedStyle(div).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  assert_approx_equals(parseFloat(size), viewportWidth, 0.02);
 }, "div10");
 
 test(() => {
@@ -198,7 +234,9 @@ test(t => {
 
   const div = document.getElementById("inline");
   div.style.fontSize = "0.9em";
-  assert_equals(window.getComputedStyle(div).fontSize, "10.8px", "0.9em");
+  const size = window.getComputedStyle(div).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  assert_approx_equals(parseFloat(size), 10.8, 0.02, "0.9em");
 }, "inline 0.9em");
 
 test(t => {
@@ -209,7 +247,9 @@ test(t => {
 
   const div = document.getElementById("inline");
   div.style.fontSize = "90%";
-  assert_equals(window.getComputedStyle(div).fontSize, "10.8px", "90%");
+  const size = window.getComputedStyle(div).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  assert_approx_equals(parseFloat(size), 10.8, 0.02, "90%");
 }, "inline 90%");
 
 test(t => {

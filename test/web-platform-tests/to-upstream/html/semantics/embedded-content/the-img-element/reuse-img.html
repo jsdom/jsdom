@@ -35,11 +35,5 @@ async_test(t => {
     t.done();
   }
 
-  // JSDOM specific: when image loading is not supported (i.e. when node-canvas is not installed), skip the test.
-  t.step_timeout(() => {
-    if (events.length === 0) {
-      t.done();
-    }
-  }, 1000);
 }, "onload followed by onerror");
 </script>

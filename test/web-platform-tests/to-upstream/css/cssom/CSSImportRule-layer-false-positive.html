@@ -6,13 +6,18 @@
 <script>
 "use strict";
 
-function insertRule(t, cssText) {
+async function insertRule(t, cssText) {
   const style = document.createElement("style");
   style.textContent = cssText;
+  const loaded = new Promise(resolve => {
+    style.onload = resolve;
+    style.onerror = resolve;
+  });
   document.head.append(style);
   t.add_cleanup(() => {
     style.remove();
   });
+  await loaded;
   return style.sheet.cssRules[0];
 }
 
@@ -86,8 +91,8 @@ const cases = [
 ];
 
 for (const { title, cssText, expectedLayerName, expectedCSSText } of cases) {
-  test(t => {
-    const rule = insertRule(t, cssText);
+  promise_test(async t => {
+    const rule = await insertRule(t, cssText);
     assert_equals(rule.layerName, expectedLayerName, "Unexpected layerName");
     assert_equals(rule.cssText, expectedCSSText, "Unexpected cssText serialization");
   }, title);

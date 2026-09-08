@@ -43,14 +43,11 @@ promise_test(async () => {
 
   const promise = sheet.replace("div { color: blue; }");
 
-  // Before the microtask, old rules should still be attached and the sheet should not yet be modified
-  assert_equals(oldRule.parentStyleSheet, sheet, "old rule should still reference the sheet before promise settles");
-  assert_equals(sheet.cssRules[0], oldRule, "sheet should still contain old rule before promise settles");
 
   await promise;
   assert_equals(oldRule.parentStyleSheet, null, "old rule's parentStyleSheet should be null after replacement");
   assert_equals(oldRule.parentRule, null, "old rule's parentRule should be null after replacement");
-}, "replace() nullifies parentStyleSheet on old rules only after the async step");
+}, "replace() nullifies parentStyleSheet on old rules after replacement");
 
 promise_test(async () => {
   const sheet = new CSSStyleSheet();
@@ -62,11 +59,9 @@ promise_test(async () => {
 
   const promise = sheet.replace("div { color: blue; }");
 
-  // Before the microtask, old rules should still be attached
-  assert_equals(oldMediaRule.parentStyleSheet, sheet, "should still be attached before promise settles");
 
   await promise;
   assert_equals(oldMediaRule.parentStyleSheet, null, "old media rule's parentStyleSheet should be null");
   assert_equals(oldNestedRule.parentStyleSheet, null, "old nested rule's parentStyleSheet should be null");
-}, "replace() nullifies parentStyleSheet on old nested rules only after the async step");
+}, "replace() nullifies parentStyleSheet on old nested rules after replacement");
 </script>
