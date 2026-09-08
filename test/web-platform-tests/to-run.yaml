@@ -1102,8 +1102,6 @@ MutationObserver-document.html: [fail, Usage of external scripts doesn't block H
 Node-cloneNode-document-allow-declarative-shadow-roots.window.html: [fail, Unknown]
 Node-isConnected.html: [fail, Last two tests with <iframe> are failing]
 NodeList-static-length-getter-tampered*: [flaky, Nested for-loops are really slow and these often time out]
-ParentNode-querySelector-All-xht.xht: [fail-slow, Depends on requestAnimationFrame; has dont-upstream version]
-ParentNode-querySelector-All.html: [fail-slow, Depends on requestAnimationFrame; has dont-upstream version]
 ProcessingInstruction-escapes-1.xhtml: [fail, Unknown]
 attach-shadow-realm-after-adoption.html: [fail, Unknown]
 insertion-removing-steps/Node-append-meta-referrer-and-script-from-fragment.html: [fail, Unknown]
@@ -1261,7 +1259,9 @@ navigation-start-post-before-unload.html: [fail-slow, postMessage with a single 
 performance-tojson.html: [fail, PerformanceTiming and PerformanceNavigation are not implemented]
 raf-coarsened-time.https.html: [timeout, Unknown]
 test_cross_frame_start.html: [fail, Not implemented]
-timeOrigin.html: [fail, Needs Worker implementation]
+timeOrigin.html:
+  "Window and worker timeOrigins are close when created one after another.": [fail, Worker is not implemented]
+  "Window and worker timeOrigins differ when worker is created after a delay.": [fail, Worker is not implemented]
 timing-attack.html: [fail, Not implemented]
 window-worker-timeOrigin.window.html: [fail, Needs Worker implementation]
 
@@ -1645,7 +1645,8 @@ elements/global-attributes/the-lang-attribute-009.html: [fail, Unknown]
 elements/global-attributes/the-lang-attribute-010.html: [fail, Unknown]
 elements/images/bypass-cache-revalidation.html: [fail-slow, Unknown]
 elements/the-innertext-and-outertext-properties/*: [fail, Not implemented]
-historical.html: [fail, Unknown]
+historical.html:
+  "document.all cannot find applet": [fail, document.all is not implemented]
 idlharness.https.html*: [fail, Unknown]
 reflection*.html: [fail-slow, Unknown]
 render-blocking/*: [fail-slow, Not implemented]
@@ -1963,7 +1964,9 @@ DIR: html/semantics/forms/the-label-element
 
 clicking-noninteractive-unlabelable-content.html: [fail, Need fix activation behavior and interactive content]
 forward-focus-to-associated-element.html: [fail-slow, focus label not implemented correctly]
-label-attributes.sub.html: [fail, Unknown]
+label-attributes.sub.html:
+  "A div element which contains labelable element is removed.": [fail, Retained labels list loses labels in the same detached tree]
+  "A labelable element is moved to iframe.": [fail, Retained labels list does not update after adoption into an iframe]
 
 ---
 
