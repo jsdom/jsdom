@@ -1,0 +1,28 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>UI event constructors reject proxies around Window as view</title>
+<link rel="help" href="https://w3c.github.io/uievents/#dom-uieventinit-view">
+<link rel="help" href="https://webidl.spec.whatwg.org/#implements">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const EventConstructor of [UIEvent, MouseEvent]) {
+  test(() => {
+    assert_equals(new EventConstructor("test", { view: window }).view, window);
+    assert_equals(new EventConstructor("test", { view: null }).view, null);
+  }, `${EventConstructor.name} accepts the actual WindowProxy and null as view`);
+
+  test(() => {
+    const proxy = new Proxy(window, {});
+    assert_throws_js(TypeError, () => new EventConstructor("test", { view: proxy }));
+  }, `${EventConstructor.name} rejects a transparent proxy around Window as view`);
+
+  test(() => {
+    const { proxy, revoke } = Proxy.revocable(window, {});
+    revoke();
+    assert_throws_js(TypeError, () => new EventConstructor("test", { view: proxy }));
+  }, `${EventConstructor.name} rejects a revoked proxy around Window as view`);
+}
+</script>

@@ -71,7 +71,7 @@
     "server-destroy": "^1.0.1",
     "tinybench": "^6.1.2",
     "webidl2": "^24.5.0",
-    "webidl2js": "^20.1.0",
+    "webidl2js": "^21.0.0",
     "wireit": "^0.14.13"
   },
   "scripts": {
