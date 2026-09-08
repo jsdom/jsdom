@@ -8,6 +8,8 @@
 
 <div id="div" style="background:url(a.png)no-repeat;color:red"></div>
 <div id="div2" style="background:url(\"a)b.png\")no-repeat;color:red"></div>
+<div id="div3"></div>
+<div id="div4" style="background:url(&quot;a)b.png&quot;)no-repeat;color:red"></div>
 
 <script>
 "use strict";
@@ -24,7 +26,7 @@ test(() => {
   assert_equals(
     div.style.color,
     "red",
-    "The color property should be parsed and set despite the missing space in background."
+    "The color property should be correctly parsed."
   );
 
   assert_equals(
@@ -67,5 +69,62 @@ test(() => {
     "repeat",
     "The background-repeat should return the initial value."
   );
-}, "A background shorthand with no space with invalid url() and no-repeat");
+}, "A background shorthand with escaped quotes in url()");
+
+test(() => {
+  const div = document.getElementById("div3");
+  div.style.cssText = 'url("a)b.png")no-repeat';
+
+  assert_equals(
+    div.style.background,
+    "",
+    "The background shorthand should be an empty string."
+  );
+
+  assert_equals(
+    div.style.color,
+    "",
+    "The color property should not be parsed and returns empty string."
+  );
+
+  assert_equals(
+    div.style.backgroundImage,
+    "",
+    "The background-image should return an empty string."
+  );
+
+  assert_equals(
+    div.style.backgroundRepeat,
+    "",
+    "The background-repeat should return empty string."
+  );
+}, "Dynamically add a background shorthand with url() and no-repeat");
+
+test(() => {
+  const div = document.getElementById("div4");
+
+  assert_equals(
+    div.style.background,
+    'url("a)b.png") no-repeat',
+    "The background shorthand should be correctly parsed."
+  );
+
+  assert_equals(
+    div.style.color,
+    "red",
+    "The color property should be correctly parsed."
+  );
+
+  assert_equals(
+    div.style.backgroundImage,
+    'url("a)b.png")',
+    "The background-image should be be correctly parsed."
+  );
+
+  assert_equals(
+    div.style.backgroundRepeat,
+    "no-repeat",
+    "The background-repeat should be correctly parsed."
+  );
+}, "A background shorthand with HTML entities in url() and no-repeat");
 </script>
