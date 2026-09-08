@@ -28,7 +28,8 @@ test(() => {
   );
 
   assert_equals(
-    div.style.backgroundImage, 'url("a.png")',
+    div.style.backgroundImage,
+    'url("a.png")',
     "The background-image should be correctly parsed."
   );
 
@@ -55,7 +56,8 @@ test(() => {
   );
 
   assert_equals(
-    div.style.backgroundImage, 'url("\ufffd")',
+    div.style.backgroundImage,
+    'url("\ufffd")',
     "The background-image should return url() with replacement character."
   );
 
