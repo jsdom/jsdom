@@ -124,7 +124,7 @@ test(() => {
 
 test(() => {
   assert_throws_js(TypeError, () => {
-    div.target.style.opacity = { toString: () => [0] };
+    div.style.opacity = { toString: () => [0] };
   });
 }, "set Object.toString for div.style[property]");
 

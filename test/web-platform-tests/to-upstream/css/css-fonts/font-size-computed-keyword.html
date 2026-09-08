@@ -4,6 +4,7 @@
 <link rel="help" href="https://drafts.csswg.org/css-fonts-4/#font-size-prop">
 <link rel="help" href="https://drafts.csswg.org/css-fonts-4/#absolute-size-mapping">
 <link rel="help" href="https://github.com/w3c/csswg-drafts/issues/3906">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#range">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 
@@ -149,13 +150,18 @@ test(t => {
 test(t => {
   t.add_cleanup(cleanup);
   div.classList.add("larger");
-  assert_equals(window.getComputedStyle(div).fontSize, `${16 * 1.2}px`);
+  const size = window.getComputedStyle(div).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  // Allow implementation-defined precision for fractional pixel values.
+  assert_approx_equals(parseFloat(size), 16 * 1.2, 0.02);
 }, "font size larger");
 
 test(t => {
   t.add_cleanup(cleanup);
   div.classList.add("smaller");
-  assert_equals(window.getComputedStyle(div).fontSize, `${(16 / 1.2).toFixed(4)}px`);
+  const size = window.getComputedStyle(div).fontSize;
+  assert_true(size.endsWith("px"), "The computed font size is in pixels");
+  assert_approx_equals(parseFloat(size), 16 / 1.2, 0.02);
 }, "font size smaller");
 
 test(t => {

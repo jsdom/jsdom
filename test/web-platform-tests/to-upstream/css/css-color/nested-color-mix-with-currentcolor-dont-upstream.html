@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Nested sRGB color-mix inherits unresolved currentColor</title>
+<link rel="help" href="https://www.w3.org/TR/css-color-5/#resolving-color-values">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- These additions are submitted to `css/css-color/nested-color-mix-with-currentcolor.html` in https://github.com/web-platform-tests/wpt/pull/62514.
+     Remove this local companion once the rolled upstream test enforces them. -->
+<style>
+  #parent {
+    color: red;
+    background-color: color-mix(in srgb, color-mix(in srgb, black, currentColor), black);
+  }
+  #child {
+    color: white;
+    background-color: inherit;
+  }
+</style>
+<div id="parent">
+  <div id="child"></div>
+</div>
+<script>
+"use strict";
+
+const child = document.getElementById("child");
+test(() => {
+  assert_equals(getComputedStyle(child).backgroundColor, "color(srgb 0.25 0.25 0.25)");
+}, "Nested color-mix function with inner currentColor should inherit unresolved in srgb");
+</script>

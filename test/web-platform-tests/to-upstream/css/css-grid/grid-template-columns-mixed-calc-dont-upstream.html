@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Mixed grid tracks remain intact without requiring calc() simplification</title>
+<link rel="help" href="https://drafts.csswg.org/css-grid-2/#propdef-grid-template-columns">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Covered by `css/css-grid/grid-template-columns-mixed-calc.html` upstream.
+     Keep this local subset while its canonical serialization subtests expect
+     failure in jsdom, so those failures cannot hide dropped or changed tracks. -->
+<div id="target"></div>
+<script>
+"use strict";
+
+const el = document.getElementById("target");
+const values = [
+  ["6.25rem calc((100% - 6.25rem) / 1)", "6.25rem calc(100% - 6.25rem)"],
+  ["6.25rem 60% calc((40% - 6.25rem) / 2) calc((40% - 6.25rem) / 2)",
+    "6.25rem 60% calc(20% - 3.125rem) calc(20% - 3.125rem)"]
+];
+
+for (const [value, canonical] of values) {
+  test(() => {
+    el.style.gridTemplateColumns = "";
+    el.style.gridTemplateColumns = value;
+    assert_in_array(el.style.gridTemplateColumns, [value, canonical]);
+  }, `grid-template-columns retains all tracks in ${JSON.stringify(value)}`);
+}
+</script>

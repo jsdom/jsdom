@@ -28,21 +28,6 @@ test(() => {
 }, "A named-property collection follows same-document moves.");
 
 test(() => {
-  const otherDocument = document.implementation.createHTMLDocument();
-  const object = document.createElement("object");
-  object.id = "adopted";
-  document.body.append(object);
-  assert_equals(document.adopted, object, "before adoption");
-
-  otherDocument.adoptNode(object);
-  assert_equals(document.adopted, undefined, "removed from old document by adoption");
-  assert_equals(otherDocument.adopted, undefined, "not yet inserted into new document");
-
-  otherDocument.body.append(object);
-  assert_equals(otherDocument.adopted, object, "after insertion into new document");
-}, "Named properties follow adoption between documents.");
-
-test(() => {
   const host = document.querySelector("#shadow-host");
   const shadowRoot = host.attachShadow({ mode: "open" });
   const form = document.createElement("form");

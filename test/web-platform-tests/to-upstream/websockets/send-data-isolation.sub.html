@@ -9,14 +9,14 @@
 <script>
 "use strict";
 
-// These tests verify that WebSocket.send() correctly copies its input data,
+// These tests verify that `send()` on a WebSocket correctly copies its input data,
 // so that subsequent modifications to the input do not affect what gets sent.
 
 // We use an echo server that sends back what it receives.
-const echoUrl = "ws://{{host}}:{{ports[ws][0]}}/websockets/handlers/echo";
+const echoURL = "ws://{{host}}:{{ports[ws][0]}}/echo";
 
 promise_test(async () => {
-  const ws = new WebSocket(echoUrl);
+  const ws = new WebSocket(echoURL);
   await new Promise((resolve, reject) => {
     ws.onopen = resolve;
     ws.onerror = () => reject(new Error("WebSocket connection failed"));
@@ -48,7 +48,7 @@ promise_test(async () => {
 }, "Modifying a Uint8Array after send() does not affect the sent data");
 
 promise_test(async () => {
-  const ws = new WebSocket(echoUrl);
+  const ws = new WebSocket(echoURL);
   await new Promise((resolve, reject) => {
     ws.onopen = resolve;
     ws.onerror = () => reject(new Error("WebSocket connection failed"));
@@ -81,7 +81,7 @@ promise_test(async () => {
 }, "Modifying an ArrayBuffer after send() does not affect the sent data");
 
 promise_test(async () => {
-  const ws = new WebSocket(echoUrl);
+  const ws = new WebSocket(echoURL);
   await new Promise((resolve, reject) => {
     ws.onopen = resolve;
     ws.onerror = () => reject(new Error("WebSocket connection failed"));

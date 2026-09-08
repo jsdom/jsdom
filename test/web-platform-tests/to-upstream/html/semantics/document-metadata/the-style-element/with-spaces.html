@@ -23,7 +23,11 @@
 setup({ single_test: true });
 
 const el = document.querySelector(".cool-class");
-assert_equals(window.getComputedStyle(el).fontFamily, `"Helvetica Neue", Helvetica, Arial, sans-serif`);
+// Check whitespace parsing independently of font-family serialization.
+assert_in_array(window.getComputedStyle(el).fontFamily, [
+  `"Helvetica Neue", Helvetica, Arial, sans-serif`,
+  "Helvetica Neue, Helvetica, Arial, sans-serif"
+]);
 
 done();
 </script>

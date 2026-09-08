@@ -19,7 +19,7 @@ async_test(t => {
     assert_equals(xhr.status, 200);
     // The lone surrogate should be encoded as U+FFFD (replacement character)
     // which in UTF-8 is 0xEF 0xBF 0xBD
-    assert_true(xhr.responseText.includes("Hello"), "Response should contain the text");
+    assert_true(xhr.responseText.includes("Hello \uFFFD World"), "Response should contain the text");
   });
   xhr.onerror = t.unreached_func("XHR should not error");
 

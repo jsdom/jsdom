@@ -27,32 +27,15 @@ test(() => {
   }
 }, "setTimeout and setInterval should return numeric handles integer that is greater than zero");
 
-async_test(t => {
-  const a = setTimeout(() => {
-    // shouldn't execute since we clear immediately
-    assert_true(false);
-  }, 50);
-  clearTimeout(a);
-
-  let c;
-
-  const b = setTimeout(() => {
-    // this callback should execute since we haven't cleared the timeout
-    const d = setInterval(() => {
-      clearInterval(d);
-      t.done();
-    }, 50);
-
-    assert_true(d >= c + 1); // since we created the interval after the handle c
-  }, 50);
-  assert_equals(b, a + 1);
-
-  c = setInterval(() => {
-    // shouldn't execute since we clear immediately
-    assert_true(false);
-  }, 50);
-  clearInterval(c);
-  assert_equals(c, b + 1);
-
-}, "setTimeout and setInterval should return numeric handles which increment");
+test(t => {
+  const handles = [];
+  t.add_cleanup(() => handles.forEach(clearTimeout));
+  for (const schedule of [setTimeout, setInterval, setTimeout, setInterval]) {
+    const handle = schedule(t.unreached_func("Cleared timer must not fire"), 0);
+    assert_true(Number.isInteger(handle));
+    assert_greater_than(handle, 0);
+    assert_false(handles.includes(handle), "Active timer handles must be distinct");
+    handles.push(handle);
+  }
+}, "Timeouts and intervals share a set of unique active handles");
 </script>

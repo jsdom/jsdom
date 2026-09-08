@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>InputEvent inputType constructor values</title>
+<link rel="help" href="https://w3c.github.io/uievents/#dom-inputevent-inputtype">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- These additions are submitted to `uievents/constructors/inputevent-constructor.html` in https://github.com/web-platform-tests/wpt/pull/62514.
+     Remove this local companion once the rolled upstream test enforces them. -->
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(new InputEvent("type").inputType, "");
+}, "InputEvent defaults inputType to the empty string");
+
+test(() => {
+  const event = new InputEvent("type", { inputType: "insertText" });
+  assert_equals(event.inputType, "insertText");
+}, "InputEvent accepts an explicit inputType");
+</script>

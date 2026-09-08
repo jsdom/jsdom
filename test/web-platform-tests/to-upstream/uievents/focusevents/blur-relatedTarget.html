@@ -14,14 +14,18 @@
 const input1 = document.getElementById("input1");
 const input2 = document.getElementById("input2");
 
-async_test(t => {
-  input1.focus();
+promise_test(async t => {
+  // Wait for the test window to gain focus before observing blur events.
+  await new Promise(resolve => {
+    input1.addEventListener("focus", resolve, { once: true });
+    input1.focus();
+  });
 
   let blurCount = 0;
   let focusoutCount = 0;
   let focusCount = 0;
   let focusinCount = 0;
-  function watchEvent(evt) {
+  const watchEvent = t.step_func(evt => {
     const { relatedTarget, target, type } = evt;
     if (type === "blur") {
       assert_equals(target, input1, "blur target is input1");
@@ -36,11 +40,19 @@ async_test(t => {
     } else if (type === "focusin") {
       focusinCount++;
     }
-  }
+  });
   document.addEventListener("blur", watchEvent, true);
   document.addEventListener("focusout", watchEvent, true);
   document.addEventListener("focus", watchEvent, true);
   document.addEventListener("focusin", watchEvent, true);
+  t.add_cleanup(() => {
+    document.removeEventListener("blur", watchEvent, true);
+    document.removeEventListener("focusout", watchEvent, true);
+    document.removeEventListener("focus", watchEvent, true);
+    document.removeEventListener("focusin", watchEvent, true);
+    input1.blur();
+    input2.blur();
+  });
 
   input1.blur();
   assert_equals(blurCount, 1, "blur fired once");
@@ -48,22 +60,20 @@ async_test(t => {
   assert_equals(focusCount, 0, "focus not fired");
   assert_equals(focusinCount, 0, "focusin not fired");
   assert_equals(document.activeElement, document.body, "activeElement is body");
-
-  document.removeEventListener("blur", watchEvent, true);
-  document.removeEventListener("focusout", watchEvent, true);
-  document.removeEventListener("focus", watchEvent, true);
-  document.removeEventListener("focusin", watchEvent, true);
-  t.done();
 }, "relatedTarget on self blur");
 
-async_test(t => {
-  input1.focus();
+promise_test(async t => {
+  // Wait for the test window to gain focus before observing blur events.
+  await new Promise(resolve => {
+    input1.addEventListener("focus", resolve, { once: true });
+    input1.focus();
+  });
 
   let blurCount = 0;
   let focusoutCount = 0;
   let focusCount = 0;
   let focusinCount = 0;
-  function watchEvent(evt) {
+  const watchEvent = t.step_func(evt => {
     const { relatedTarget, target, type } = evt;
     if (type === "blur") {
       assert_equals(target, input1, "blur target is input1");
@@ -82,11 +92,19 @@ async_test(t => {
       assert_equals(relatedTarget, input1, "focusin relatedTarget is input1");
       focusinCount++;
     }
-  }
+  });
   document.addEventListener("blur", watchEvent, true);
   document.addEventListener("focusout", watchEvent, true);
   document.addEventListener("focus", watchEvent, true);
   document.addEventListener("focusin", watchEvent, true);
+  t.add_cleanup(() => {
+    document.removeEventListener("blur", watchEvent, true);
+    document.removeEventListener("focusout", watchEvent, true);
+    document.removeEventListener("focus", watchEvent, true);
+    document.removeEventListener("focusin", watchEvent, true);
+    input1.blur();
+    input2.blur();
+  });
 
   input2.focus();
   assert_equals(blurCount, 1, "blur fired once");
@@ -94,12 +112,5 @@ async_test(t => {
   assert_equals(focusCount, 1, "focus fired once");
   assert_equals(focusinCount, 1, "focusin fired once");
   assert_equals(document.activeElement, input2, "activeElement is input2");
-
-  document.removeEventListener("blur", watchEvent, true);
-  document.removeEventListener("focusout", watchEvent, true);
-  document.removeEventListener("focus", watchEvent, true);
-  document.removeEventListener("focusin", watchEvent, true);
-  input2.blur();
-  t.done();
 }, "relatedTarget for blur when focusing on another element");
 </script>
