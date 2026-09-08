@@ -41,6 +41,7 @@ test(() => {
   assert_array_equals(svg.systemLanguage, ["abc\r\ndef", "ghi"]);
   assert_equals(svg.getAttribute("systemLanguage"), " abc\r\ndef\f, ghi ");
 
+  // eslint-disable-next-line no-self-assign -- The indexed setter must reserialize even an unchanged value.
   svg.systemLanguage[1] = svg.systemLanguage[1];
   assert_array_equals(svg.systemLanguage, ["abc\r\ndef", "ghi"]);
   assert_equals(svg.getAttribute("systemLanguage"), "abc\r\ndef, ghi");
