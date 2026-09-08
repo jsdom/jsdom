@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS.escape argument conversion</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-css.escape()-method">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- These additions are submitted to `css/cssom/escape.html` in https://github.com/web-platform-tests/wpt/pull/62514.
+     Remove this local companion once the rolled upstream test enforces them. -->
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(CSS.escape(undefined), "undefined");
+}, "CSS.escape converts an explicit undefined argument to a string");
+
+test(() => {
+  assert_equals(CSS.escape(123), "\\31 23");
+}, "CSS.escape converts a numeric argument before escaping");
+</script>
