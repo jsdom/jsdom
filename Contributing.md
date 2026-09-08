@@ -94,7 +94,17 @@ If you end up writing a test which passes in browsers, but you cannot get it to 
 
 **To verify to-upstream tests pass in a real browser:** `npm run test:tuwpt:browser`
 
-This starts a local WPT server, opens your default browser, runs all to-upstream tests, and prints a summary. You can optionally pass substring filters to run specific tests, e.g. `npm run test:tuwpt:browser -- domparsing`.
+This starts a local WPT server, opens your default browser, runs all to-upstream tests, and prints a summary. You can optionally pass substring filters to run specific tests, e.g. `npm run test:tuwpt:browser -- --fgrep domparsing`. Use `--reporter min` to print only failures and the summary. Test failures and browser launch errors cause a nonzero exit status.
+
+For automatic verification with Chrome or Chromium, specify its executable using `--browser`. The runner uses a temporary profile with popups enabled, then closes the browser and removes the profile when finished. Each test runs in a fresh top-level window, with an independent controller that can advance even if a test navigates or times out. With the default browser, blocked test windows instead show an **Open test window** button in the runner page.
+
+Use repeatable `--browser-arg` options to pass browser flags, for example to run headlessly:
+
+```sh
+npm run test:tuwpt:browser -- --browser=chromium --browser-arg=--headless --fgrep domparsing --reporter min
+```
+
+The runner does not disable the browser sandbox. If your environment requires it, pass `--browser-arg=--no-sandbox` explicitly. A supplied `--browser-arg=--user-data-dir=...` overrides the temporary profile; the runner will not delete that directory.
 
 ### jsdom API tests
 

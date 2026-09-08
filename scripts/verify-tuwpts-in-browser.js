@@ -9,17 +9,21 @@
 // https://web-platform-tests.org/running-tests/from-local-system.html#system-setup
 //
 // Usage:
-//   node scripts/verify-tuwpts-in-browser.js [--browser=chrome] [--fgrep domparsing]
+//   npm run test:tuwpt:browser -- --browser=chrome --browser-arg=--headless --fgrep domparsing
 //
 // `--fgrep` values are substring matches against test paths. Without them, all to-upstream tests
-// are included. Use --browser (-b) to specify a browser command; otherwise opens the default
-// browser.
+// are included. Use --browser (-b) to specify a browser command and repeat --browser-arg to pass
+// arguments; otherwise opens the default browser. Chrome/Chromium gets an isolated temporary
+// profile with popup blocking disabled. Sandbox settings are left to the caller.
 
 /* eslint-disable no-console */
 
 const http = require("node:http");
-const { readFile } = require("node:fs/promises");
-const { resolve, join, extname } = require("node:path");
+const { spawn } = require("node:child_process");
+const { once } = require("node:events");
+const { readFile, mkdtemp, rm } = require("node:fs/promises");
+const { tmpdir } = require("node:os");
+const { resolve, join, extname, basename } = require("node:path");
 const { parseArgs } = require("node:util");
 const opener = require("opener");
 
@@ -36,18 +40,21 @@ const { regenerateManifest, getPossibleTestFilePaths } = require("../test/web-pl
 
 const customReporter = `\
 "use strict";
-add_completion_callback((tests, status) => {
-  if (!window.opener) {
-    return;
-  }
-  const results = {
-    test: location.pathname,
-    status: status.status,
-    message: status.message || null,
-    subtests: tests.map(t => ({ name: t.name, status: t.status, message: t.message || null }))
-  };
-  window.opener.postMessage({ type: "wpt-complete", results }, "*");
-});
+(() => {
+  const testURL = location.pathname + location.search;
+  add_completion_callback((tests, status) => {
+    if (!window.opener) {
+      return;
+    }
+    const results = {
+      test: testURL,
+      status: status.status,
+      message: status.message || null,
+      subtests: tests.map(t => ({ name: t.name, status: t.status, message: t.message || null }))
+    };
+    window.opener.postMessage({ type: "wpt-complete", results }, "*");
+  });
+})();
 `;
 
 // --- Runner page ---
@@ -69,6 +76,7 @@ function generateRunnerHTML(testList) {
 </style>
 
 <div id="progress">Starting...</div>
+<button id="launch" hidden>Open test window</button>
 <div id="results"></div>
 <div id="summary" hidden></div>
 
@@ -80,28 +88,46 @@ let passCount = 0;
 let failCount = 0;
 const TIMEOUT_MS = 30000;
 let timer = null;
+let awaitingResult = false;
 
 const progress = document.getElementById("progress");
 const resultsDiv = document.getElementById("results");
 const summaryDiv = document.getElementById("summary");
+const launchButton = document.getElementById("launch");
 let testWindow = null;
 
-function reportToServer(data) {
-  fetch("/__report__", {
+async function reportToServer(data) {
+  const response = await fetch("/__report__", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   });
+  if (!response.ok) {
+    throw new Error("Could not report test result: " + response.status);
+  }
 }
 
 window.addEventListener("message", e => {
-  if (e.data && e.data.type === "wpt-complete" && e.data.results.test === tests[current]) {
-    clearTimeout(timer);
-    showResult(e.data.results);
-    reportToServer(e.data.results);
-    advance();
+  if (e.source === testWindow && e.origin === location.origin &&
+      e.data && e.data.type === "wpt-complete" && e.data.results.test === tests[current]) {
+    completeTest(e.data.results);
   }
 });
+
+function completeTest(data) {
+  // A late completion message can arrive while a timeout is being reported.
+  if (!awaitingResult) {
+    return;
+  }
+  awaitingResult = false;
+  clearTimeout(timer);
+  showResult(data);
+  reportToServer(data).then(advance).catch(showError);
+}
+
+function showError(error) {
+  progress.textContent = error.message;
+}
 
 function showResult(data) {
   const statusNames = ["PASS", "FAIL", "TIMEOUT", "NOTRUN", "PRECONDITION_FAILED"];
@@ -144,6 +170,13 @@ function runNext() {
   progress.textContent = \`Running \${current + 1}/\${tests.length}: \${tests[current]}\`;
   testWindow?.close();
   testWindow = window.open(tests[current]);
+  if (testWindow === null) {
+    progress.textContent = "The browser blocked the test window. Click below to open it.";
+    launchButton.hidden = false;
+    return;
+  }
+  launchButton.hidden = true;
+  awaitingResult = true;
   timer = setTimeout(() => {
     const timeoutResult = {
       test: tests[current],
@@ -151,9 +184,7 @@ function runNext() {
       message: "Timed out",
       subtests: [{ name: "(entire test)", status: 2, message: "Timed out after " + (TIMEOUT_MS / 1000) + "s" }]
     };
-    showResult(timeoutResult);
-    reportToServer(timeoutResult);
-    advance();
+    completeTest(timeoutResult);
   }, TIMEOUT_MS);
 }
 
@@ -165,6 +196,7 @@ function showSummary() {
   summaryDiv.textContent = passCount + " passed, " + failCount + " failed out of " + tests.length + " tests";
 }
 
+launchButton.addEventListener("click", runNext);
 runNext();
 </script>`;
 }
@@ -207,16 +239,26 @@ async function tryReadFile(filePath) {
 // --- Main ---
 
 async function main() {
+  const { values } = parseArgs({
+    options: {
+      "browser": { type: "string", short: "b" },
+      "browser-arg": { type: "string", multiple: true },
+      "fgrep": { type: "string", multiple: true },
+      "reporter": { type: "string" }
+    }
+  });
+  const { browser, fgrep, reporter } = values;
+  const browserArgs = values["browser-arg"] ?? [];
+  if (browser === undefined && browserArgs.length > 0) {
+    throw new Error("--browser-arg requires --browser");
+  }
+  if (reporter !== undefined && reporter !== "min") {
+    throw new Error("The only supported reporter is min");
+  }
+
   // Regenerate the manifest (cheap since we have few files) and read test paths from it.
   const manifest = regenerateManifest(toUpstreamDir, resolve(wptDir, "tuwpt-manifest.json"));
   const testPaths = getPossibleTestFilePaths(manifest).map(p => "/" + p);
-
-  const { values: { browser, fgrep } } = parseArgs({
-    options: {
-      browser: { type: "string", short: "b" },
-      fgrep: { type: "string", multiple: true }
-    }
-  });
   const filters = fgrep ?? [];
   const filtered = filters.length > 0 ?
     testPaths.filter(p => filters.some(f => p.includes(f))) :
@@ -239,6 +281,9 @@ async function main() {
   const results = new Map();
   const TEST_PASS = 0;
   const HARNESS_OK = 0;
+  let browserProcess = null;
+  let browserProfile = null;
+  let finishing = false;
 
   function printResult(data) {
     const statusNames = ["PASS", "FAIL", "TIMEOUT", "NOTRUN", "PRECONDITION_FAILED"];
@@ -246,7 +291,13 @@ async function main() {
     const total = data.subtests.length;
     const allPass = passed === total && data.status === HARNESS_OK;
 
+    if (allPass && reporter === "min") {
+      return;
+    }
     console.log(`${allPass ? "PASS" : "FAIL"} ${data.test} (${passed}/${total})`);
+    if (data.status !== HARNESS_OK && data.message) {
+      console.log(`  Harness error: ${data.message}`);
+    }
     for (const t of data.subtests) {
       if (t.status !== TEST_PASS) {
         console.log(`  ${statusNames[t.status] || "UNKNOWN"}: ${t.name}`);
@@ -271,6 +322,7 @@ async function main() {
     }
     const missing = filtered.length - results.size;
     console.log(`${passCount} passed, ${failCount} failed` + (missing ? `, ${missing} not run` : ""));
+    return failCount === 0 && missing === 0;
   }
 
   // Proxy server
@@ -314,14 +366,21 @@ async function main() {
       req.on("end", () => {
         try {
           const data = JSON.parse(body);
+          if (data.test !== filtered[results.size]) {
+            throw new Error(`Unexpected test result: ${data.test}`);
+          }
           results.set(data.test, data);
           printResult(data);
           if (results.size === filtered.length) {
-            printSummary();
-            cleanup().then(() => process.exit(0));
+            const passed = printSummary();
+            res.on("finish", () => finish(passed ? 0 : 1));
           }
         } catch (e) {
           console.error("Failed to parse report:", e.message);
+          res.writeHead(400, { "Content-Type": "text/plain" });
+          res.end(e.message);
+          finish(1);
+          return;
         }
         res.writeHead(200, { "Content-Type": "text/plain" });
         res.end("OK");
@@ -387,13 +446,45 @@ async function main() {
 
   const PREFERRED_PORTS = [8023, 8024, 8025];
 
-  function onListening() {
+  async function onListening() {
     const { port } = proxy.address();
     const url = `http://web-platform.test:${port}/`;
     console.log(`Opening ${url}\n`);
     console.log("Results will appear below as tests complete.");
     console.log("Press Ctrl+C to stop.\n");
-    opener(url, browser ? { command: browser } : {});
+    if (browser === undefined) {
+      opener(url, error => {
+        if (error) {
+          console.error(`Could not open the default browser: ${error.message}`);
+          finish(1);
+        }
+      });
+      return;
+    }
+
+    const args = [];
+    const browserName = basename(browser).toLowerCase().replace(/\.exe$/, "");
+    const isChromium = /^(?:chrome|chromium(?:-browser)?|google[- ]chrome(?:-(?:stable|beta|unstable|canary))?)$/
+      .test(browserName);
+    if (isChromium) {
+      args.push("--disable-popup-blocking", "--disable-background-timer-throttling", "--no-first-run");
+      if (!browserArgs.some(arg => arg === "--user-data-dir" || arg.startsWith("--user-data-dir="))) {
+        browserProfile = await mkdtemp(join(tmpdir(), "jsdom-wpt-browser-"));
+        args.push(`--user-data-dir=${browserProfile}`);
+      }
+    }
+
+    browserProcess = spawn(browser, [...args, ...browserArgs, url], { stdio: "inherit" });
+    browserProcess.on("error", error => {
+      console.error(`Could not launch ${browser}: ${error.message}`);
+      finish(1);
+    });
+    browserProcess.on("exit", (code, signal) => {
+      if (!finishing && (code !== 0 || browserProfile !== null)) {
+        console.error(`${browser} exited before verification finished (${signal || `status ${code}`})`);
+        finish(1);
+      }
+    });
   }
 
   let portIndex = 0;
@@ -404,27 +495,61 @@ async function main() {
       throw e;
     }
   });
-  proxy.on("listening", onListening);
+  proxy.on("listening", () => {
+    onListening().catch(error => {
+      console.error(`Could not launch the browser: ${error.message}`);
+      finish(1);
+    });
+  });
   proxy.listen(PREFERRED_PORTS[portIndex++]);
 
-  function cleanup() {
+  async function cleanup() {
     if (results.size > 0 && results.size < filtered.length) {
       printSummary();
     }
     proxy.close();
-    return killSubprocess(wptProcess);
+    try {
+      if (browserProcess !== null && browserProcess.pid !== undefined &&
+          browserProcess.exitCode === null && browserProcess.signalCode === null) {
+        const exited = once(browserProcess, "exit");
+        browserProcess.kill();
+        await exited;
+      }
+      if (browserProfile !== null) {
+        await rm(browserProfile, { recursive: true, force: true, maxRetries: 3 });
+      }
+    } finally {
+      if (wptProcess.exitCode === null && wptProcess.signalCode === null) {
+        await killSubprocess(wptProcess);
+      }
+    }
   }
 
-  process.on("SIGINT", async () => {
-    await cleanup();
-    process.exit(0);
+  async function finish(exitCode) {
+    if (finishing) {
+      return;
+    }
+    finishing = true;
+    try {
+      await cleanup();
+    } catch (error) {
+      console.error(`Cleanup failed: ${error.message}`);
+      exitCode = 1;
+    }
+    process.exit(exitCode);
+  }
+
+  process.on("SIGINT", () => {
+    finish(130);
   });
 
-  process.on("uncaughtException", async e => {
+  process.on("uncaughtException", e => {
     console.error("Uncaught exception:", e);
-    await cleanup();
-    process.exit(1);
+    finish(1);
   });
 }
 
-main();
+main().catch(error => {
+  console.error(error.message);
+  process.exitCode = 1;
+});
