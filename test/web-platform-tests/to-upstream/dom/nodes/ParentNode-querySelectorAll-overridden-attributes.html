@@ -13,7 +13,9 @@ for (const selector of ["[data-test]", '[data-test="target"]', '[data-test^="tar
     const root = document.createElement("div");
     root.innerHTML = '<span data-test="target"></span>';
     const child = root.firstChild;
-    const fail = () => { throw new Error("Public attribute accessor was called"); };
+    function fail() {
+      throw new Error("Public attribute accessor was called");
+    }
     for (const method of ["hasAttribute", "getAttribute", "getAttributeNames", "hasAttributeNS"]) {
       child[method] = fail;
     }
