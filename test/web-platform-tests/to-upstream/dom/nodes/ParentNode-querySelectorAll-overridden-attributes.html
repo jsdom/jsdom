@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Attribute selectors ignore overridden public attribute accessors</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+for (const selector of ["[data-test]", '[data-test="target"]', '[data-test^="tar"]']) {
+  test(() => {
+    const root = document.createElement("div");
+    root.innerHTML = '<span data-test="target"></span>';
+    const child = root.firstChild;
+    const fail = () => { throw new Error("Public attribute accessor was called"); };
+    for (const method of ["hasAttribute", "getAttribute", "getAttributeNames", "hasAttributeNS"]) {
+      child[method] = fail;
+    }
+    Object.defineProperty(child, "attributes", { get: fail });
+
+    const matches = root.querySelectorAll(selector);
+    assert_equals(matches.length, 1);
+    assert_true(matches[0] === child);
+  }, `querySelectorAll(${selector}) ignores overridden attribute accessors`);
+}
+</script>
