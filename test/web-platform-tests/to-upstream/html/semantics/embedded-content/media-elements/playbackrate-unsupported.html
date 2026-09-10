@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>HTMLMediaElement playbackRate unsupported values throw NotSupportedError</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-playbackrate">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-defaultplaybackrate">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+
+<script>
+"use strict";
+
+test(() => {
+  const audio = document.createElement("audio");
+  assert_throws_dom("NotSupportedError", () => {
+    audio.playbackRate = 0;
+  });
+}, "Setting playbackRate to 0 throws NotSupportedError");
+
+test(() => {
+  const audio = document.createElement("audio");
+  assert_throws_dom("NotSupportedError", () => {
+    audio.defaultPlaybackRate = 0;
+  });
+}, "Setting defaultPlaybackRate to 0 throws NotSupportedError");
+</script>
