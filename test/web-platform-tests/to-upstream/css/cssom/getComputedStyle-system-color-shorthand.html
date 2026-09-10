@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed border-color resolves system colors</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+for (const colorScheme of ["light", "dark"]) {
+  for (const declaration of ["border-color: CanvasText", "border: 1px solid CanvasText"]) {
+    test(t => {
+      const element = document.createElement("div");
+      element.style.cssText = `color-scheme: ${colorScheme}; color: CanvasText; ${declaration}`;
+      document.body.append(element);
+      t.add_cleanup(() => element.remove());
+
+      for (let i = 0; i < 3; ++i) {
+        const computed = getComputedStyle(element);
+        assert_equals(computed.borderTopColor, computed.color);
+        assert_equals(computed.borderRightColor, computed.color);
+        assert_equals(computed.borderBottomColor, computed.color);
+        assert_equals(computed.borderLeftColor, computed.color);
+        assert_equals(computed.borderColor, computed.borderTopColor);
+      }
+    }, `${declaration} resolves its shorthand on first and repeated reads in ${colorScheme} mode`);
+  }
+}
+</script>
