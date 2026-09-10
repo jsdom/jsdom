@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Style mutations during custom element reactions and value conversion</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/custom-elements.html#cereactions">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+/* global assert_throws_exactly */
+
+let nextId = 0;
+for (const [setterName, setter] of [
+  [
+    "property assignment", element => {
+      element.style.padding = "1px 2px";
+    }
+  ],
+  [
+    "setProperty()", element => {
+      element.style.setProperty("padding", "1px 2px");
+    }
+  ],
+  [
+    "cssText", element => {
+      element.style.cssText = "padding: 1px 2px;";
+    }
+  ],
+  [
+    "setAttribute()", element => {
+      element.setAttribute("style", "padding: 1px 2px;");
+    }
+  ]
+]) {
+  for (const [name, change, expected] of [
+    [
+      "property assignment", element => {
+        element.style.margin = "3px 4px";
+      }, "padding: 1px 2px; margin: 3px 4px;"
+    ],
+    [
+      "setProperty()", element => {
+        element.style.setProperty("padding", "5px");
+      }, "padding: 5px;"
+    ],
+    [
+      "cssText", element => {
+        element.style.cssText = "color: red;";
+      }, "color: red;"
+    ],
+    [
+      "setAttribute()", element => {
+        element.setAttribute("style", "color: blue;");
+      }, "color: blue;"
+    ],
+    [
+      "removeAttribute()", element => {
+        element.removeAttribute("style");
+      }, null
+    ]
+  ]) {
+    const tag = `style-reentrant-${nextId++}`;
+    test(t => {
+      const callbacks = [];
+      let changed = false;
+      customElements.define(tag, class extends HTMLElement {
+        static observedAttributes = ["style"];
+        attributeChangedCallback(attribute, oldValue, newValue) {
+          callbacks.push([oldValue, newValue, this.getAttribute("style"), this.style.cssText]);
+          if (!changed) {
+            changed = true;
+            change(this);
+          }
+        }
+      });
+      const element = document.createElement(tag);
+      const observer = new MutationObserver(() => {});
+      observer.observe(element, { attributes: true, attributeOldValue: true });
+      t.add_cleanup(() => observer.disconnect());
+      setter(element);
+      assert_equals(callbacks.length, 2, "Both reactions run before returning");
+      assert_array_equals(callbacks[0], [null, "padding: 1px 2px;", "padding: 1px 2px;", "padding: 1px 2px;"]);
+      assert_array_equals(callbacks[1], ["padding: 1px 2px;", expected, expected, expected === null ? "" : expected]);
+      assert_equals(element.getAttribute("style"), expected);
+      assert_equals(element.style.cssText, expected === null ? "" : expected);
+      assert_array_equals(observer.takeRecords().map(record => record.oldValue), [null, "padding: 1px 2px;"]);
+      element.style.color = "green";
+      assert_equals(element.style.color, "green", "Subsequent writes still work");
+      assert_equals(element.getAttribute("style"), element.style.cssText);
+    }, `Style mutation via ${setterName} reenters via ${name} in attributeChangedCallback`);
+  }
+}
+
+for (const useSetProperty of [false, true]) {
+  for (const throws of [false, true]) {
+    test(t => {
+      const element = document.createElement("div");
+      const observer = new MutationObserver(() => {});
+      observer.observe(element, { attributes: true, attributeOldValue: true });
+      t.add_cleanup(() => observer.disconnect());
+      const failure = new Error("conversion failed");
+      const value = {
+        [Symbol.toPrimitive]() {
+          element.style.margin = "3px";
+          assert_equals(element.getAttribute("style"), "margin: 3px;", "Conversion writes synchronously");
+          assert_array_equals(observer.takeRecords().map(record => record.oldValue), [null]);
+          if (throws) {
+            throw failure;
+          }
+          return "1px 2px";
+        }
+      };
+      function setValue() {
+        if (useSetProperty) {
+          element.style.setProperty("padding", value);
+        } else {
+          element.style.padding = value;
+        }
+      }
+      if (throws) {
+        assert_throws_exactly(failure, setValue);
+        assert_equals(element.style.cssText, "margin: 3px;");
+        assert_equals(observer.takeRecords().length, 0);
+      } else {
+        setValue();
+        assert_equals(element.style.cssText, "margin: 3px; padding: 1px 2px;");
+        assert_array_equals(observer.takeRecords().map(record => record.oldValue), ["margin: 3px;"]);
+      }
+      element.style.color = "green";
+      assert_equals(element.getAttribute("style"), element.style.cssText);
+    }, `Reentrant value conversion: setProperty=${useSetProperty}, throws=${throws}`);
+  }
+}
+</script>
