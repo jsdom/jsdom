@@ -1,0 +1,63 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Focused area removal in subtrees</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/infrastructure.html#dom-trees:concept-node-remove-ext">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+async function focusDocument(t) {
+  // Wait for the test window to gain focus before testing synchronous focus changes.
+  const sentinel = document.createElement("button");
+  document.body.append(sentinel);
+  t.add_cleanup(() => sentinel.remove());
+  await new Promise(resolve => {
+    sentinel.addEventListener("focus", resolve, { once: true });
+    sentinel.focus();
+  });
+  sentinel.blur();
+}
+
+promise_test(async t => {
+  await focusDocument(t);
+  const container = document.createElement("div");
+  t.add_cleanup(() => container.remove());
+  const button = document.createElement("button");
+  container.append(button);
+  document.body.append(container);
+  button.focus();
+  assert_equals(document.activeElement, button);
+  assert_true(document.hasFocus());
+
+  container.remove();
+
+  assert_equals(document.activeElement, document.body);
+  assert_true(document.hasFocus());
+}, "removing an ancestor of the activeElement keeps focus on its document");
+
+for (const mode of ["open", "closed"]) {
+  for (const removeHost of [false, true]) {
+    promise_test(async t => {
+      await focusDocument(t);
+      const host = document.createElement("div");
+      t.add_cleanup(() => host.remove());
+      const shadow = host.attachShadow({ mode });
+      const button = document.createElement("button");
+      shadow.append(button);
+      document.body.append(host);
+      button.focus();
+      assert_equals(document.activeElement, host);
+      assert_equals(shadow.activeElement, button);
+      assert_true(document.hasFocus());
+
+      (removeHost ? host : button).remove();
+
+      assert_equals(document.activeElement, document.body);
+      assert_equals(shadow.activeElement, null);
+      assert_true(document.hasFocus());
+    }, `Removing the ${removeHost ? "host" : "focused descendant"} of a ${mode} shadow tree preserves document focus`);
+  }
+}
+</script>

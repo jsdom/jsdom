@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Attribute changes use local names and expose the updated attribute list</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#handle-attribute-changes">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  const calls = [];
+  customElements.define("attribute-change-target", class extends HTMLElement {
+    static observedAttributes = ["class"];
+    attributeChangedCallback(localName, oldValue, value, namespace) {
+      calls.push([localName, oldValue, value, namespace, this.getAttributeNS(namespace, localName)]);
+    }
+  });
+
+  const element = document.createElement("attribute-change-target");
+  const namespace = "https://example.com/attributes";
+  const observer = new MutationObserver(() => {});
+  observer.observe(element, { attributes: true, attributeOldValue: true });
+
+  element.setAttributeNS(namespace, "a:class", "first");
+  assert_equals(element.classList.length, 0, "Adding a namespaced class attribute does not affect classList");
+  element.setAttributeNS(namespace, "a:class", "second");
+  assert_equals(element.classList.length, 0, "Changing a namespaced class attribute does not affect classList");
+  const replacement = document.createAttributeNS(namespace, "b:class");
+  replacement.value = "third";
+  element.setAttributeNodeNS(replacement);
+  assert_equals(element.classList.length, 0, "Replacing a namespaced class attribute does not affect classList");
+  element.removeAttributeNS(namespace, "class");
+
+  assert_equals(calls.length, 4);
+  const values = [null, "first", "second", "third", null];
+  const records = observer.takeRecords();
+  observer.disconnect();
+  assert_equals(records.length, 4);
+  for (let i = 0; i < calls.length; ++i) {
+    assert_array_equals(calls[i], ["class", values[i], values[i + 1], namespace, values[i + 1]]);
+    assert_equals(records[i].attributeName, "class");
+    assert_equals(records[i].attributeNamespace, namespace);
+    assert_equals(records[i].oldValue, values[i]);
+  }
+  assert_equals(element.classList.length, 0, "Namespaced attributes do not affect classList");
+}, "Namespaced attribute mutations report local names, correct values, and the updated attribute list");
+</script>

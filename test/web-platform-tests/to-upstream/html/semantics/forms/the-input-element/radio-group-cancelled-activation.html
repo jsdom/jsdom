@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Cancelled radio activation restores only a current group member</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#the-input-element:legacy-canceled-activation-behavior">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const change of ["none", "name", "tree", "owner"]) {
+  test(t => {
+    const container = document.createElement("div");
+    container.innerHTML = `
+      <form id="owner"><input type="radio" name="group" checked></form>
+      <input type="radio" name="group" form="owner">
+    `;
+    document.body.append(container);
+    t.add_cleanup(() => container.remove());
+    const [previous, target] = container.querySelectorAll("input");
+    target.addEventListener("click", t.step_func(event => {
+      event.preventDefault();
+      assert_false(previous.checked, "Pre-activation unchecks the previous selection");
+      assert_true(target.checked);
+      if (change === "name") {
+        previous.name = "other";
+      } else if (change === "tree") {
+        previous.remove();
+      } else if (change === "owner") {
+        previous.setAttribute("form", "missing-owner");
+      }
+    }));
+    target.click();
+    assert_false(target.checked);
+    assert_equals(previous.checked, change === "none");
+  }, `Cancelled activation with a ${change} change to the previous group member`);
+}
+</script>
