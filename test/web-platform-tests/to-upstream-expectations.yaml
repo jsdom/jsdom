@@ -1,7 +1,6 @@
 css/css-backgrounds/background-no-whitespace.html:
-  "A background shorthand with escaped quotes in url()": [fail, Need to fix background shorthand]
-  "A background shorthand with HTML entities in url() and no-repeat": [fail, Need to fix background shorthand]
-css/css-borders/border-radius-shorthand.html:
+  "A trailing escape in a truncated inline style is replaced at EOF": [fail, Need to fix surrogate code points in input]
+css/css-backgrounds/border-radius-shorthand.html:
   "longhand from shorthand": [fail, border-radius and its longhands are not implemented]
 css/css-cascade/layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
 css/css-conditional/container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
