@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Element pointer capture</title>
+<link rel="help" href="https://w3c.github.io/pointerevents/#pointer-capture">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<button id="a"></button>
+<button id="b"></button>
+
+<script>
+"use strict";
+
+// jsdom has no hit-testing and no real input devices, so it cannot run the upstream web-platform-tests for pointer
+// capture: they all drive input through test_driver.Actions(), which requires a real WebDriver-backed browser.
+// These tests instead exercise the same algorithm (https://w3c.github.io/pointerevents/#pointer-capture) purely
+// through script-dispatched PointerEvents, which is how jsdom's primary consumers (e.g. testing-library's
+// fireEvent) actually drive pointer events in this environment. This is jsdom-only behavior and should not be
+// upstreamed.
+
+function dispatchPointer(target, type, pointerId) {
+  target.dispatchEvent(new PointerEvent(type, { pointerId, bubbles: true }));
+}
+
+test(() => {
+  const a = document.getElementById("a");
+
+  assert_throws_dom("NotFoundError", () => a.setPointerCapture(1));
+  assert_throws_dom("NotFoundError", () => a.releasePointerCapture(1));
+  assert_equals(a.hasPointerCapture(1), false);
+}, "setPointerCapture()/releasePointerCapture() throw NotFoundError for a pointerId with no active pointer");
+
+test(() => {
+  const a = document.getElementById("a");
+
+  dispatchPointer(a, "pointerdown", 1);
+  a.setPointerCapture(1);
+
+  assert_equals(a.hasPointerCapture(1), true, "hasPointerCapture is true synchronously, before any event fires");
+
+  dispatchPointer(a, "pointerup", 1);
+}, "setPointerCapture() sets hasPointerCapture() to true synchronously");
+
+test(() => {
+  const a = document.getElementById("a");
+  const b = document.getElementById("b");
+  const events = [];
+  for (const target of [a, b]) {
+    for (const type of ["gotpointercapture", "pointermove"]) {
+      target.addEventListener(type, e => events.push(`${target.id}:${e.type}:${e.pointerId}`));
+    }
+  }
+
+  dispatchPointer(a, "pointerdown", 1);
+  a.setPointerCapture(1);
+  dispatchPointer(b, "pointermove", 1);
+
+  assert_array_equals(
+    events,
+    ["a:gotpointercapture:1", "a:pointermove:1"],
+    "gotpointercapture fires on the capturing element before the retargeted pointermove, " +
+    "and the pointermove dispatched on b is retargeted to a instead"
+  );
+
+  dispatchPointer(a, "pointerup", 1);
+}, "setPointerCapture() retargets subsequent pointer events to the capturing element");
+
+test(() => {
+  const a = document.getElementById("a");
+  const events = [];
+  a.addEventListener("lostpointercapture", e => events.push(`lostpointercapture:${e.pointerId}`));
+
+  dispatchPointer(a, "pointerdown", 1);
+  a.setPointerCapture(1);
+  dispatchPointer(a, "pointermove", 1); // promotes the pending capture, firing gotpointercapture
+  dispatchPointer(a, "pointerup", 1);
+
+  assert_array_equals(events, ["lostpointercapture:1"]);
+  assert_equals(a.hasPointerCapture(1), false);
+  assert_throws_dom(
+    "NotFoundError",
+    () => a.setPointerCapture(1),
+    "the pointer is no longer active after pointerup"
+  );
+}, "pointerup implicitly releases pointer capture and fires lostpointercapture");
+
+test(() => {
+  const a = document.getElementById("a");
+  const b = document.getElementById("b");
+  b.remove();
+
+  dispatchPointer(a, "pointerdown", 1);
+  assert_throws_dom("InvalidStateError", () => b.setPointerCapture(1));
+
+  dispatchPointer(a, "pointerup", 1);
+  document.body.appendChild(b);
+}, "setPointerCapture() on a disconnected element throws InvalidStateError");
+
+test(() => {
+  const a = document.getElementById("a");
+
+  dispatchPointer(a, "pointerdown", 1);
+
+  // releasePointerCapture() is a no-op (no throw) when the element isn't the (pending) capture target, as long as
+  // the pointerId itself is still active.
+  a.releasePointerCapture(1);
+  assert_equals(a.hasPointerCapture(1), false);
+
+  dispatchPointer(a, "pointerup", 1);
+}, "releasePointerCapture() is a no-op when the element does not have pending capture");
+
+test(() => {
+  const b = document.getElementById("b");
+  const events = [];
+  b.addEventListener("lostpointercapture", e => events.push(`lostpointercapture:${e.pointerId}`));
+
+  dispatchPointer(b, "pointerdown", 1);
+  b.setPointerCapture(1);
+  dispatchPointer(b, "pointermove", 1); // promotes the pending capture, firing gotpointercapture
+
+  b.remove();
+
+  assert_array_equals(events, ["lostpointercapture:1"]);
+  assert_equals(b.hasPointerCapture(1), false);
+
+  document.body.appendChild(b);
+}, "removing a capturing element from the document releases its capture and fires lostpointercapture");
+</script>

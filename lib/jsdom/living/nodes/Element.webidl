@@ -90,3 +90,10 @@ partial interface Element {
 };
 
 Element includes ARIAMixin;
+
+// https://w3c.github.io/pointerevents/#pointerevent-interface
+partial interface Element {
+  undefined setPointerCapture(long pointerId);
+  undefined releasePointerCapture(long pointerId);
+  boolean hasPointerCapture(long pointerId);
+};
