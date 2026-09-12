@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Cloning input state without module scripts</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#the-input-element:concept-node-clone-ext">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+// The upstream `cloning-steps.html` uses module scripts, which jsdom does not yet support.
+for (const type of ["text", "checkbox", "radio"]) {
+  for (const operation of ["clone", "import", "template"]) {
+    test(() => {
+      const input = document.createElement("input");
+      input.type = type;
+      input.indeterminate = true;
+      input.setAttribute("checked", "");
+      input.checked = true;
+      input.value = "current value";
+
+      let copy;
+      if (operation === "clone") {
+        copy = input.cloneNode(true);
+      } else if (operation === "import") {
+        copy = document.implementation.createHTMLDocument("").importNode(input, true);
+      } else {
+        const template = document.createElement("template");
+        template.content.append(input);
+        copy = template.cloneNode(true).content.firstChild;
+      }
+
+      assert_true(copy.indeterminate);
+      assert_true(copy.checked);
+      assert_equals(copy.value, "current value");
+      copy.removeAttribute("checked");
+      assert_true(copy.checked, "Dirty checkedness is copied");
+      if (type === "text") {
+        copy.setAttribute("value", "new default");
+        assert_equals(copy.value, "current value", "The dirty value flag is copied");
+      }
+    }, `${operation} preserves ${type} input state`);
+  }
+}
+</script>

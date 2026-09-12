@@ -67,14 +67,14 @@ export default [
       "new-cap": ["error", { capIsNewExceptions: ["ByteString", "USVString", "DOMString"] }],
 
       // Custom rules
+      // Only hooks with shared base implementations require `super`.
       "jsdom-internal/hook-super-invocation": [
         "error",
-        { ancestor: "NodeImpl", hook: "_attach" },
-        { ancestor: "NodeImpl", hook: "_detach" },
-        { ancestor: "NodeImpl", hook: "_descendantAdded" },
-        { ancestor: "NodeImpl", hook: "_descendantRemoved" },
-        { ancestor: "NodeImpl", hook: "_childTextContentChangeSteps" },
-        { ancestor: "ElementImpl", hook: "_attrModified" }
+        { ancestor: "NodeImpl", hook: "_childrenChangedSteps" },
+        { ancestor: "NodeImpl", hook: "_childrenInsertedSteps" },
+        { ancestor: "NodeImpl", hook: "_removingSteps" },
+        { ancestor: "ElementImpl", hook: "_adoptingSteps" },
+        { ancestor: "ElementImpl", hook: "_attributeChangeSteps" }
       ]
     }
   },
