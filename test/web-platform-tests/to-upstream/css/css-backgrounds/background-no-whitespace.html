@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Background shorthand component boundaries without whitespace</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#background">
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#tokenization">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/4285 -->
+
+<script>
+"use strict";
+
+function assertBackground(style, expected) {
+  assert_equals(style.background, expected.serialized, "background");
+  for (const [property, value] of Object.entries(expected.longhands ?? {})) {
+    assert_equals(style[property], value, property);
+  }
+}
+
+function testBackgroundValue(input, expected, description) {
+  test(() => {
+    const div = document.createElement("div");
+    div.style.background = input;
+    assertBackground(div.style, expected);
+  }, `${description} via the background setter`);
+
+  test(() => {
+    const div = document.createElement("div");
+    div.style.cssText = `background:${input};color:red`;
+    assertBackground(div.style, expected);
+    assert_equals(div.style.color, "red", "following declaration");
+  }, `${description} via cssText before another declaration`);
+}
+
+const backgroundCases = [
+  {
+    input: "url(a.png)no-repeat",
+    serialized: 'url("a.png") no-repeat',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundRepeat: "no-repeat"
+    },
+    description: "An unquoted url() followed by an identifier"
+  },
+  {
+    input: 'url("a.png")no-repeat',
+    serialized: 'url("a.png") no-repeat',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundRepeat: "no-repeat"
+    },
+    description: "A quoted url() followed by an identifier"
+  },
+  {
+    input: 'url("a)b.png")no-repeat',
+    serialized: 'url("a)b.png") no-repeat',
+    longhands: {
+      backgroundImage: 'url("a)b.png")',
+      backgroundRepeat: "no-repeat"
+    },
+    description: "A quoted url() containing a right parenthesis followed by an identifier"
+  },
+  {
+    input: 'url("a)b.png") no-repeat',
+    serialized: 'url("a)b.png") no-repeat',
+    longhands: {
+      backgroundImage: 'url("a)b.png")',
+      backgroundRepeat: "no-repeat"
+    },
+    description: "A quoted url() containing a right parenthesis with ordinary whitespace"
+  },
+  {
+    input: "url(a\\)b.png)no-repeat",
+    serialized: 'url("a)b.png") no-repeat',
+    longhands: {
+      backgroundImage: 'url("a)b.png")',
+      backgroundRepeat: "no-repeat"
+    },
+    description: "An unquoted url() containing an escaped right parenthesis followed by an identifier"
+  },
+  {
+    input: "linear-gradient(red,blue)no-repeat",
+    serialized: "linear-gradient(red, blue) no-repeat",
+    longhands: {
+      backgroundImage: "linear-gradient(red, blue)",
+      backgroundRepeat: "no-repeat"
+    },
+    description: "A function followed by an identifier"
+  },
+  {
+    input: "linear-gradient(rgb(1 2 3),rgb(4 5 6))no-repeat",
+    serialized: "linear-gradient(rgb(1, 2, 3), rgb(4, 5, 6)) no-repeat",
+    longhands: {
+      backgroundImage: "linear-gradient(rgb(1, 2, 3), rgb(4, 5, 6))",
+      backgroundRepeat: "no-repeat"
+    },
+    description: "A function containing nested functions followed by an identifier"
+  },
+  {
+    input: "url(a.png)fixed",
+    serialized: 'url("a.png") fixed',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundAttachment: "fixed"
+    },
+    description: "A url() followed by an attachment keyword"
+  },
+  {
+    input: "url(a.png)10px",
+    serialized: 'url("a.png") 10px center',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundPosition: "10px center"
+    },
+    description: "A url() followed by a dimension"
+  },
+  {
+    input: "url(a.png)50%",
+    serialized: 'url("a.png") 50% center',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundPosition: "50% center"
+    },
+    description: "A url() followed by a percentage"
+  },
+  {
+    input: "url(a.png)center/cover",
+    serialized: 'url("a.png") center center / cover',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundPosition: "center center",
+      backgroundSize: "cover"
+    },
+    description: "A url() followed by a position and size"
+  },
+  {
+    input: "url(a.png)rgb(0 0 0)",
+    serialized: 'url("a.png") rgb(0, 0, 0)',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundColor: "rgb(0, 0, 0)"
+    },
+    description: "A url() followed by a color function"
+  },
+  {
+    input: "url(a.png)#fff",
+    serialized: 'url("a.png") rgb(255, 255, 255)',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundColor: "rgb(255, 255, 255)"
+    },
+    description: "A url() followed by a hash color"
+  },
+  {
+    input: "url(a.png)/**/no-repeat",
+    serialized: 'url("a.png") no-repeat',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundRepeat: "no-repeat"
+    },
+    description: "A url() followed by a comment and an identifier"
+  },
+  {
+    input: "url(a.png)no-repeat,url(b.png)fixed",
+    serialized: 'url("a.png") no-repeat, url("b.png") fixed',
+    description: "Multiple comma-separated layers containing adjacent components"
+  }
+];
+
+for (const { input, description, ...expected } of backgroundCases) {
+  testBackgroundValue(input, expected, description);
+}
+
+test(() => {
+  const container = document.createElement("div");
+  container.innerHTML = '<div style="background:url(a.png)no-repeat;color:red"></div>';
+  const div = container.firstElementChild;
+  assertBackground(div.style, {
+    serialized: 'url("a.png") no-repeat',
+    longhands: {
+      backgroundImage: 'url("a.png")',
+      backgroundRepeat: "no-repeat"
+    }
+  });
+  assert_equals(div.style.color, "red", "following declaration");
+}, "An inline background declaration containing adjacent components");
+
+test(() => {
+  const container = document.createElement("div");
+  container.innerHTML =
+    '<div style="background:url(&quot;a)b.png&quot;)no-repeat;color:red"></div>';
+  const div = container.firstElementChild;
+  assert_equals(
+    div.getAttribute("style"),
+    'background:url("a)b.png")no-repeat;color:red',
+    "decoded style attribute"
+  );
+  assertBackground(div.style, {
+    serialized: 'url("a)b.png") no-repeat',
+    longhands: {
+      backgroundImage: 'url("a)b.png")',
+      backgroundRepeat: "no-repeat"
+    }
+  });
+  assert_equals(div.style.color, "red", "following declaration");
+}, "Character references in an inline style are decoded before CSS parsing");
+
+test(() => {
+  const container = document.createElement("div");
+  container.innerHTML = String.raw`<div style="background:url(\"a)b.png\")no-repeat;color:red"></div>`;
+  const div = container.firstElementChild;
+
+  // A backslash does not escape an HTML attribute delimiter, so the CSS value ends with the backslash.
+  assert_equals(div.getAttribute("style"), "background:url(\\", "truncated style attribute");
+  assert_equals(div.style.background, 'url("\uFFFD")', "background");
+  assert_equals(div.style.backgroundImage, 'url("\uFFFD")', "backgroundImage");
+  // Chrome returns "initial".
+  assert_equals(div.style.backgroundRepeat, "repeat", "backgroundRepeat");
+  assert_equals(div.style.color, "", "color");
+}, "A trailing escape in a truncated inline style is replaced at EOF");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.cssText = 'url("a)b.png")no-repeat';
+  assert_equals(div.style.cssText, "");
+}, "A declaration value without a property name is ignored by cssText");
+
+for (const invalidValue of [")x", "url(x))x", "rgb())x", "foo(])x"]) {
+  test(() => {
+    const div = document.createElement("div");
+    div.style.background = "red";
+    div.style.background = invalidValue;
+    assert_equals(div.style.background, "red", "previous value");
+  }, `An invalid background value is ignored without throwing: ${invalidValue}`);
+}
+</script>
