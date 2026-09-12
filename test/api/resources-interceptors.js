@@ -2,11 +2,14 @@
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const delay = require("node:timers/promises").setTimeout;
+const { Agent, interceptors, cacheStores } = require("undici");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 
 const { JSDOM, VirtualConsole, requestInterceptor } = require("../..");
 
 const {
+  createServer,
+  serverURL,
   pngBytes,
   resourceServer,
   imageServer,
@@ -22,6 +25,41 @@ const {
 } = require("./helpers/resources.js");
 
 describe("API: resources interceptors option", () => {
+  it("should follow a cached redirect without canceling the target request", async () => {
+    const agent = new Agent();
+    const cache = interceptors.cache({ store: new cacheStores.MemoryCacheStore() });
+    let redirectRequests = 0;
+    let targetRequests = 0;
+    const target = await createServer((req, res) => {
+      targetRequests++;
+      res.writeHead(200, { "Content-Type": "text/html", "Cache-Control": "no-store" });
+      res.end("<p>redirect target</p>");
+    });
+    const redirect = await createServer((req, res) => {
+      redirectRequests++;
+      res.writeHead(302, { "Location": serverURL(target), "Cache-Control": "public, max-age=3600" });
+      res.end();
+    });
+
+    try {
+      for (let i = 0; i < 2; i++) {
+        const dom = await JSDOM.fromURL(serverURL(redirect), {
+          resources: { dispatcher: agent, interceptors: [cache] }
+        });
+        try {
+          assert.equal(dom.window.document.querySelector("p").textContent, "redirect target");
+        } finally {
+          dom.window.close();
+        }
+      }
+      assert.equal(redirectRequests, 1, "The second redirect response must come from the cache");
+      assert.equal(targetRequests, 2, "Both loads must reach the redirect target");
+    } finally {
+      await agent.destroy();
+      await Promise.all([redirect.destroy(), target.destroy()]);
+    }
+  });
+
   describe("passing through requests", () => {
     it("should be called for JSDOM.fromURL()'s initial request", async () => {
       const url = await htmlServer("Hello");
