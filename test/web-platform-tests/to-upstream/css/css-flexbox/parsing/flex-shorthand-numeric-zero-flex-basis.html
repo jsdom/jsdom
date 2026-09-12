@@ -5,11 +5,12 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <script src="/css/support/shorthand-testcommon.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/4305 -->
 
 <script>
 "use strict";
-/* global test_shorthand_value */
+/* global test_shorthand_value, test_valid_value, test_invalid_value */
 
 test_shorthand_value("flex", "35 1 0%", {
   "flex-grow": "35",
@@ -28,4 +29,10 @@ test_shorthand_value("flex", "35 1 0", {
   "flex-shrink": "1",
   "flex-basis": "0px"
 });
+
+test_valid_value("flex-basis", "0", "0px");
+
+test_invalid_value("flex-basis", "1");
+
+test_invalid_value("flex-basis", "-1");
 </script>
