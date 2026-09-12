@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Repeated getComputedStyle() calls preserve property values</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+function createElement(t, cssText) {
+  const element = document.createElement("div");
+  element.style.cssText = cssText;
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+for (const [cssText, properties] of [
+  ["font: initial", ["font", "font-family"]],
+  ["color-scheme: dark; color: CanvasText; border: 1px solid CanvasText", ["color", "border-color"]]
+]) {
+  test(t => {
+    const element = createElement(t, cssText);
+    const first = getComputedStyle(element);
+    const values = properties.map(property => first.getPropertyValue(property));
+
+    for (let i = 0; i < 2; ++i) {
+      const repeated = getComputedStyle(element);
+      assert_not_equals(repeated, first);
+      for (let j = 0; j < properties.length; ++j) {
+        assert_equals(repeated.getPropertyValue(properties[j]), values[j], properties[j]);
+      }
+    }
+  }, `Repeated computed styles preserve property values for ${cssText}`);
+}
+
+test(t => {
+  const parent = createElement(t, "font-size: 20px; color: rgb(1, 2, 3)");
+  const child = document.createElement("div");
+  child.style.cssText = "font-size: 150%; padding: 2em; color: inherit; --Marker: TokenValue";
+  parent.append(child);
+  const properties = [...getComputedStyle(child)];
+
+  for (let i = 0; i < 3; ++i) {
+    const computed = getComputedStyle(child);
+    assert_array_equals([...computed], properties);
+    assert_equals(computed.fontSize, "30px");
+    assert_equals(computed.paddingTop, "60px");
+    assert_equals(computed.paddingLeft, "60px");
+    assert_equals(computed.padding, "60px");
+    assert_equals(computed.color, "rgb(1, 2, 3)");
+    assert_equals(computed.getPropertyValue("--Marker"), "TokenValue");
+  }
+
+  // Resolving the child's inherited values may have already computed the parent's style.
+  const parentStyle = getComputedStyle(parent);
+  assert_equals(parentStyle.fontSize, "20px");
+  assert_equals(parentStyle.color, "rgb(1, 2, 3)");
+
+  parent.style.fontSize = "10px";
+  parent.style.color = "rgb(4, 5, 6)";
+  for (let i = 0; i < 2; ++i) {
+    const computed = getComputedStyle(child);
+    assert_array_equals([...computed], properties);
+    assert_equals(computed.fontSize, "15px");
+    assert_equals(computed.padding, "30px");
+    assert_equals(computed.color, "rgb(4, 5, 6)");
+    assert_equals(computed.getPropertyValue("--Marker"), "TokenValue");
+  }
+}, "Repeated computed styles preserve declarations and resolve inherited values after parent mutations");
+
+test(t => {
+  const element = createElement(t, "border: 5px none rgb(1, 2, 3)");
+
+  for (let i = 0; i < 3; ++i) {
+    const computed = getComputedStyle(element);
+    assert_equals(computed.borderTopWidth, "0px");
+    assert_equals(computed.borderTopStyle, "none");
+    assert_equals(computed.borderTopColor, "rgb(1, 2, 3)");
+  }
+}, "Repeated computed styles return resolved border widths");
+
+test(t => {
+  const element = createElement(t, "visibility: hidden");
+  const first = getComputedStyle(element);
+  const repeated = getComputedStyle(element);
+  assert_equals(first.visibility, "hidden");
+  assert_equals(repeated.visibility, "hidden");
+  assert_throws_dom("NoModificationAllowedError", () => repeated.setProperty("visibility", "visible"));
+  assert_throws_dom("NoModificationAllowedError", () => repeated.removeProperty("visibility"));
+
+  element.style.visibility = "visible";
+  assert_equals(getComputedStyle(element).visibility, "visible");
+  assert_equals(getComputedStyle(element).visibility, "visible");
+}, "Repeated computed styles stay read-only and new calls reflect mutations");
+</script>
