@@ -10,6 +10,46 @@ describe("JSDOMDispatcher unit tests", () => {
   // - origin, path, method, body, headers, query, idempotent, blocking,
   //   upgrade, headersTimeout, bodyTimeout, reset, throwOnError, expectContinue
 
+  it("should preserve the first reason when aborting the controller repeatedly", async () => {
+    const abortController = new AbortController();
+    const dispatcher = new JSDOMDispatcher({
+      cookieJar: new toughCookie.CookieJar(),
+      baseDispatcher: {
+        dispatch(opts, handler) {
+          const controller = {
+            abort(reason) {
+              abortController.abort(reason);
+            },
+            get aborted() {
+              return abortController.signal.aborted;
+            },
+            get reason() {
+              return abortController.signal.reason;
+            }
+          };
+          handler.onRequestStart(controller, {});
+          handler.onResponseError(controller, controller.reason);
+          return true;
+        }
+      }
+    });
+    const firstReason = new Error("first abort");
+    let proxyController;
+    const error = await new Promise(resolve => {
+      dispatcher.dispatch({ origin: "http://localhost", path: "/", method: "GET" }, {
+        onRequestStart(controller) {
+          proxyController = controller;
+          controller.abort(firstReason);
+          controller.abort(new Error("second abort"));
+        },
+        onResponseError: (controller, err) => resolve(err)
+      });
+    });
+    assert.equal(error, firstReason);
+    assert.equal(proxyController.aborted, true);
+    assert.equal(proxyController.reason, firstReason);
+  });
+
   it("should pass through method, body, and other DispatchOptions unchanged", async () => {
     const { dispatcher, getCapturedOpts } = createCapturingDispatcher();
     const body = Buffer.from("test body");
