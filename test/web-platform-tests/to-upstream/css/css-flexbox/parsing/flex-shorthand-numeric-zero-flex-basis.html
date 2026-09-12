@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Flex shorthand parsing of numeric 0 flex-basis</title>
+<link rel="help" href="https://drafts.csswg.org/css-flexbox/#propdef-flex">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/shorthand-testcommon.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/4305 -->
+
+<script>
+"use strict";
+/* global test_shorthand_value */
+
+test_shorthand_value("flex", "35 1 0%", {
+  "flex-grow": "35",
+  "flex-shrink": "1",
+  "flex-basis": "0%"
+});
+
+test_shorthand_value("flex", "35 1 0px", {
+  "flex-grow": "35",
+  "flex-shrink": "1",
+  "flex-basis": "0px"
+});
+
+test_shorthand_value("flex", "35 1 0", {
+  "flex-grow": "35",
+  "flex-shrink": "1",
+  "flex-basis": "0px"
+});
+</script>
