@@ -1,6 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
+const { Agent } = require("undici");
 const { Canvas } = require("../../lib/jsdom/utils.js");
 const { version: packageVersion } = require("../../package.json");
 const { JSDOM } = require("../..");
@@ -499,7 +500,10 @@ describe("API: resource loading configuration", () => {
 
     describe("canceling requests", () => {
       it("should not run a redirected script after stopping the window", async () => {
+        const agent = new Agent();
+        let targetRequests = 0;
         const target = await createServer((req, res) => {
+          targetRequests++;
           res.writeHead(200, { "Content-Type": "text/javascript" });
           res.end("window.redirectedScriptRan = true;");
         });
@@ -508,18 +512,25 @@ describe("API: resource loading configuration", () => {
           res.end();
         });
         const { window } = new JSDOM(`<script src="${serverURL(redirect)}"></script>`, {
-          resources: "usable", runScripts: "dangerously"
+          resources: { dispatcher: agent }, runScripts: "dangerously"
         });
         // Stop as the redirect target accepts the connection, before it sends the script.
-        target.once("connection", () => window.stop());
+        const stopped = new Promise(resolve => {
+          target.once("connection", () => {
+            window.stop();
+            resolve();
+          });
+        });
 
         try {
-          await new Promise(resolve => {
-            window.addEventListener("load", resolve, { once: true });
-          });
+          await stopped;
+          // `close()` waits for pending requests to finish without canceling them.
+          await agent.close();
+          assert.equal(targetRequests, 0, "Stopping must cancel the request before it is sent");
           assert.equal(window.redirectedScriptRan, undefined);
         } finally {
           window.close();
+          await agent.destroy();
           await Promise.all([redirect.destroy(), target.destroy()]);
         }
       });
