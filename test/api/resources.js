@@ -6,6 +6,8 @@ const { version: packageVersion } = require("../../package.json");
 const { JSDOM } = require("../..");
 
 const {
+  createServer,
+  serverURL,
   emptyServer,
   resourceServer,
   neverRequestedServer,
@@ -496,6 +498,32 @@ describe("API: resource loading configuration", () => {
     });
 
     describe("canceling requests", () => {
+      it("should not run a redirected script after stopping the window", async () => {
+        const target = await createServer((req, res) => {
+          res.writeHead(200, { "Content-Type": "text/javascript" });
+          res.end("window.redirectedScriptRan = true;");
+        });
+        const redirect = await createServer((req, res) => {
+          res.writeHead(302, { Location: serverURL(target) });
+          res.end();
+        });
+        const { window } = new JSDOM(`<script src="${serverURL(redirect)}"></script>`, {
+          resources: "usable", runScripts: "dangerously"
+        });
+        // Stop as the redirect target accepts the connection, before it sends the script.
+        target.once("connection", () => window.stop());
+
+        try {
+          await new Promise(resolve => {
+            window.addEventListener("load", resolve, { once: true });
+          });
+          assert.equal(window.redirectedScriptRan, undefined);
+        } finally {
+          window.close();
+          await Promise.all([redirect.destroy(), target.destroy()]);
+        }
+      });
+
       it("should abort a script request when closing the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
         const dom = new JSDOM(`<script>window.y = 6;</script>`, {
