@@ -63,6 +63,45 @@ describe("API: virtual consoles", () => {
     assert.deepEqual(messages, ["from the parent", "from the iframe"]);
   });
 
+  it("should not repeat insertion steps for light children inserted by an error listener", () => {
+    const virtualConsole = new VirtualConsole();
+    const { document } = new JSDOM("", { virtualConsole }).window;
+    const root = document.createElement("div");
+    const shadow = root.attachShadow({ mode: "closed" });
+    const host = shadow.appendChild(document.createElement("div"));
+    const nestedShadow = host.attachShadow({ mode: "closed" });
+
+    function createStyle(name) {
+      const style = document.createElement("style");
+      style.textContent = `/* ${name} */ }`;
+      return style;
+    }
+
+    const innerStyle = nestedShadow.appendChild(createStyle("inner"));
+    const hostStyle = host.appendChild(createStyle("host light child"));
+    const rootStyle = root.appendChild(createStyle("root light child"));
+    const insertedStyle = createStyle("inserted light child");
+
+    const errors = [];
+    virtualConsole.on("jsdomError", error => errors.push(error));
+    // CSS errors are synchronous: this runs while visiting the nested shadow tree.
+    virtualConsole.once("jsdomError", () => root.prepend(insertedStyle));
+
+    document.body.appendChild(root);
+
+    assert(errors.every(error => error.type === "css-parsing"));
+    assert.deepEqual(errors.map(error => error.sheetText), [
+      innerStyle.textContent,
+      insertedStyle.textContent,
+      hostStyle.textContent,
+      rootStyle.textContent
+    ]);
+    assert.equal(root.firstChild, insertedStyle);
+    for (const style of [innerStyle, insertedStyle, hostStyle, rootStyle]) {
+      assert.notEqual(style.sheet, null);
+    }
+  });
+
   describe("passing through arguments", () => {
     for (const method of consoleMethods) {
       it(`should pass through arguments to ${method}`, () => {
