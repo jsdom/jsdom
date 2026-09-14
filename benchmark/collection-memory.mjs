@@ -7,9 +7,10 @@ import { setImmediate } from "node:timers/promises";
 
 const { values } = parseArgs({
   options: {
-    size: { type: "string", default: "500" },
-    collections: { type: "string", default: "100" },
-    names: { type: "string", default: "distinct" }
+    "size": { type: "string", default: "500" },
+    "collections": { type: "string", default: "100" },
+    "names": { type: "string", default: "distinct" },
+    "prime-name-keys": { type: "boolean", default: false }
   }
 });
 const size = Number(values.size);
@@ -37,6 +38,26 @@ for (let j = 0; j < collectionCount; ++j) {
   collections.push(parent.children);
 }
 
+function primeNameKeys() {
+  const keys = new Set();
+  for (const collection of collections) {
+    // Indexed access avoids constructing the collection's named cache.
+    for (let element = collection[0]; element !== null; element = element.nextElementSibling) {
+      for (const attribute of ["id", "name"]) {
+        const value = element.getAttribute(attribute);
+        if (value !== null) {
+          keys.add(value);
+        }
+      }
+    }
+  }
+}
+
+if (values["prime-name-keys"]) {
+  // Release the temporary `Set` before either retained-heap measurement.
+  primeNameKeys();
+}
+
 async function retainedHeap() {
   // Allow pending document lifecycle work to finish and collect allocation garbage.
   for (let i = 0; i < 3; ++i) {
@@ -60,6 +81,7 @@ console.log(JSON.stringify({
   size,
   collections: collectionCount,
   names: values.names,
+  primeNameKeys: values["prime-name-keys"],
   beforeBytes,
   afterBytes,
   retainedBytes: afterBytes - beforeBytes,
