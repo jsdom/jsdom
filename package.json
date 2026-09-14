@@ -92,6 +92,8 @@
     "wpt:reset": "rm -rf ./test/web-platform-tests/tests && npm run wpt:init",
     "wpt:update": "git submodule update --init --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
     "benchmark": "node ./benchmark/runner",
+    "benchmark:json": "node ./benchmark/run-suites-json.js",
+    "benchmark:collection-memory": "node --expose-gc ./benchmark/collection-memory.mjs",
     "benchmark:compare": "node ./benchmark/compare"
   },
   "wireit": {

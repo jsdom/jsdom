@@ -1,6 +1,7 @@
 "use strict";
 const documentBench = require("../document-bench");
 
+// The companion `html-collection-named-access-matrix.js` covers sizes, name density, and invalidation costs.
 const ITEM_COUNT = 500;
 
 module.exports = () => {
