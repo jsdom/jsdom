@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Flex shorthand parsing of numeric 0 flex-basis</title>
+<link rel="help" href="https://drafts.csswg.org/css-flexbox/#propdef-flex">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/shorthand-testcommon.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/4305 -->
+
+<script>
+"use strict";
+/* global test_shorthand_value, test_valid_value, test_invalid_value */
+
+test_shorthand_value("flex", "35 1 0%", {
+  "flex-grow": "35",
+  "flex-shrink": "1",
+  "flex-basis": "0%"
+});
+
+test_shorthand_value("flex", "35 1 0px", {
+  "flex-grow": "35",
+  "flex-shrink": "1",
+  "flex-basis": "0px"
+});
+
+for (const zero of ["0", "+0", "-0", "0.0", ".0", "00", "-0.0", "0e0", "0e+10", "0e-10"]) {
+  test_shorthand_value("flex", `35 1 ${zero}`, {
+    "flex-grow": "35",
+    "flex-shrink": "1",
+    "flex-basis": "0px"
+  });
+  test_valid_value("flex", `35 1 ${zero}`, "35 1 0px");
+  test_valid_value("flex-basis", zero, "0px");
+}
+
+test_shorthand_value("flex", "0", {
+  "flex-grow": "0",
+  "flex-shrink": "1",
+  "flex-basis": "0%"
+});
+
+test_shorthand_value("flex", "0 0", {
+  "flex-grow": "0",
+  "flex-shrink": "0",
+  "flex-basis": "0%"
+});
+
+test_shorthand_value("flex", "0 0 0", {
+  "flex-grow": "0",
+  "flex-shrink": "0",
+  "flex-basis": "0px"
+});
+
+test_invalid_value("flex", "35 1 1");
+test_invalid_value("flex", "35 1 -1");
+
+test_invalid_value("flex-basis", "1");
+
+test_invalid_value("flex-basis", "-1");
+
+for (const value of ["-1px", "-1em", "-1%"]) {
+  test_invalid_value("flex-basis", value);
+  test(() => {
+    const { style } = document.createElement("div");
+    style.flex = "2 3 4px";
+    style.flexBasis = value;
+    assert_equals(style.flex, "2 3 4px");
+    assert_equals(style.flexBasis, "4px");
+  }, `Invalid flex-basis ${value} preserves the previous declaration`);
+}
+
+test_valid_value("flex-basis", "calc(-1px)");
+test_valid_value("flex-basis", "calc(-1%)");
+</script>
