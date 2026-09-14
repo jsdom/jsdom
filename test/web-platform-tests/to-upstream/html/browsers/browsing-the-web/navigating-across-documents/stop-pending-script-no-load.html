@@ -1,0 +1,57 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stopping a pending script suppresses the document's load events</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#abort-a-document">
+<meta name="variant" content="?blocking">
+<meta name="variant" content="?async">
+<meta name="variant" content="?defer">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="../resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe, token */
+const mode = location.search.slice(1);
+
+async function nextRequestState(t, key) {
+  const xhr = new XMLHttpRequest();
+  t.add_cleanup(() => xhr.abort());
+  const watcher = new EventWatcher(t, xhr, ["load", "error"]);
+  do {
+    xhr.open("GET", `/fetch/api/resources/stash-take.py?key=${key}`);
+    xhr.responseType = "json";
+    const loaded = watcher.wait_for("load");
+    xhr.send();
+    await loaded;
+    assert_equals(xhr.status, 200, "The request state must be available");
+  } while (xhr.response === null);
+  return xhr.response;
+}
+
+promise_test(async t => {
+  // Keep the test harness's load event independent of the stopped frame.
+  await new Promise(resolve => {
+    window.addEventListener("load", resolve, { once: true });
+  });
+  const stateKey = token();
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const loadEvents = [];
+  frame.addEventListener("load", () => loadEvents.push("iframe"));
+  frame.src = `resources/stop-pending-script.sub.html?stateKey=${stateKey}&attribute=` +
+    (mode === "blocking" ? "" : mode);
+
+  // The response stays open until canceled, so there is no deadline for calling `stop()`.
+  assert_equals(await nextRequestState(t, stateKey), "open", "The script request must have started");
+  const child = frame.contentWindow;
+  child.addEventListener("load", () => loadEvents.push("window"));
+  assert_not_equals(child.document.readyState, "complete", "The child must still be loading");
+  child.stop();
+
+  // Check for load events only after cancellation closes the script's response.
+  assert_equals(await nextRequestState(t, stateKey), "closed", "The script request must have been canceled");
+  assert_array_equals(loadEvents, [], "Neither the stopped child window nor its iframe must fire load");
+}, `window.stop() with a pending ${mode} script suppresses load events`);
+</script>

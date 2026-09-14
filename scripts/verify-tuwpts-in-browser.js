@@ -336,8 +336,8 @@ async function main() {
   //   /*                             -> proxy to WPT server; on 404, try serving from tests/
   //                                     (handles cross-references like /dom/nodes/selectors.js)
 
-  function proxyToWPT(req) {
-    return new Promise((res, reject) => {
+  function proxyToWPT(req, res) {
+    return new Promise((resolveResponse, reject) => {
       const proxyReq = http.request({
         hostname: wptOrigin.hostname,
         port: wptOrigin.port,
@@ -347,9 +347,10 @@ async function main() {
           ...req.headers,
           host: wptOrigin.host
         }
-      }, res);
+      }, resolveResponse);
 
       proxyReq.on("error", reject);
+      res.on("close", () => proxyReq.destroy());
       req.pipe(proxyReq);
     });
   }
@@ -421,7 +422,7 @@ async function main() {
     // server (doc_root ../to-upstream) 404s on these, so we serve them from tests/ instead. This
     // mirrors the hardcoded list in run-single-wpt.js's createWPTInterceptor().
     try {
-      const proxyRes = await proxyToWPT(req);
+      const proxyRes = await proxyToWPT(req, res);
 
       if (proxyRes.statusCode === 404) {
         proxyRes.resume();
@@ -438,6 +439,9 @@ async function main() {
         proxyRes.pipe(res);
       }
     } catch (e) {
+      if (res.destroyed) {
+        return;
+      }
       console.error(`  Proxy error for ${url.pathname}: ${e.message}`);
       res.writeHead(502, { "Content-Type": "text/plain" });
       res.end("Proxy error: " + e.message);

@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>New ordered scripts execute after stopping a pending script</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#abort-a-document">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#list-of-scripts-that-will-execute-in-order-as-soon-as-possible">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="../resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+promise_test(async t => {
+  // Keep the test harness's load event independent of the stopped frame.
+  await new Promise(resolve => {
+    window.addEventListener("load", resolve, { once: true });
+  });
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  const pending = child.document.createElement("script");
+  pending.async = false;
+  pending.src = new URL("resources/stop-pending-script.js", location);
+  child.document.body.append(pending);
+  child.stop();
+
+  const script = child.document.createElement("script");
+  script.async = false;
+  script.src = "data:text/javascript,window.scriptRanAfterStop = true;";
+  const loaded = new EventWatcher(t, script, ["load", "error"]).wait_for("load");
+  child.document.body.append(script);
+  await loaded;
+  assert_equals(child.scriptRanAfterStop, true, "The new script must execute");
+  assert_equals(child.pendingScriptExecuted, undefined, "The stopped script must not execute");
+}, "A new ordered script executes after window.stop() cancels a pending ordered script");
+</script>

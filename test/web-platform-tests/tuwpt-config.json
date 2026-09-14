@@ -18,6 +18,14 @@
     {
       "url-path": "/css/support/",
       "local-dir": "../tests/css/support/"
+    },
+    {
+      "url-path": "/fetch/api/resources/",
+      "local-dir": "../tests/fetch/api/resources/"
+    },
+    {
+      "url-path": "/html/browsers/browsing-the-web/resources/",
+      "local-dir": "../tests/html/browsers/browsing-the-web/resources/"
     }
   ],
   "logging": {
