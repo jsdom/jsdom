@@ -25,6 +25,30 @@ const {
 } = require("./helpers/resources.js");
 
 describe("API: resources interceptors option", () => {
+  it("should finish loading a cached response", async () => {
+    const agent = new Agent();
+    const cache = interceptors.cache({ store: new cacheStores.MemoryCacheStore() });
+    const url = await resourceServer({
+      "Content-Type": "text/html",
+      "Cache-Control": "public, max-age=3600"
+    }, "<p>cached response</p>");
+
+    try {
+      for (let i = 0; i < 2; i++) {
+        const dom = await JSDOM.fromURL(url, {
+          resources: { dispatcher: agent, interceptors: [cache] }
+        });
+        try {
+          assert.equal(dom.window.document.querySelector("p").textContent, "cached response");
+        } finally {
+          dom.window.close();
+        }
+      }
+    } finally {
+      await agent.destroy();
+    }
+  });
+
   it("should follow a cached redirect without canceling the target request", async () => {
     const agent = new Agent();
     const cache = interceptors.cache({ store: new cacheStores.MemoryCacheStore() });

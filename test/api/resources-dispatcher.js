@@ -35,17 +35,18 @@ describe("JSDOMDispatcher unit tests", () => {
     });
     const firstReason = new Error("first abort");
     let proxyController;
-    const error = await new Promise(resolve => {
+    const { controller: errorController, error } = await new Promise(resolve => {
       dispatcher.dispatch({ origin: "http://localhost", path: "/", method: "GET" }, {
         onRequestStart(controller) {
           proxyController = controller;
           controller.abort(firstReason);
           controller.abort(new Error("second abort"));
         },
-        onResponseError: (controller, err) => resolve(err)
+        onResponseError: (controller, err) => resolve({ controller, error: err })
       });
     });
     assert.equal(error, firstReason);
+    assert.equal(errorController, proxyController);
     assert.equal(proxyController.aborted, true);
     assert.equal(proxyController.reason, firstReason);
   });
