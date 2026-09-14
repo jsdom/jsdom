@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS input preprocessing through CSSOM</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#input-preprocessing">
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#consume-escaped-code-point">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+function testFontFamily(input, expected, description) {
+  test(() => {
+    const { style } = document.createElement("div");
+    style.setProperty("font-family", input);
+    assert_equals(style.fontFamily, expected);
+  }, `${description} via style.setProperty()`);
+
+  test(() => {
+    const { style } = document.createElement("div");
+    style.cssText = `font-family:${input}`;
+    assert_equals(style.fontFamily, expected);
+  }, `${description} via style.cssText`);
+}
+
+const preprocessingCases = [
+  ["a\rb", '"a b"', "A carriage return becomes a newline"],
+  ["a\r\nb", '"a b"', "A carriage return followed by a newline becomes a newline"],
+  ["a\fb", '"a b"', "A form feed becomes a newline"],
+  ["a\0b", "a\uFFFDb", "A null becomes a replacement character"],
+  ["a\uD800b", "a\uFFFDb", "A lone high surrogate becomes a replacement character"],
+  ["a\uDFFFb", "a\uFFFDb", "A lone low surrogate becomes a replacement character"],
+  ["a\u{1F600}b", "a\u{1F600}b", "A non-BMP character is preserved"]
+];
+
+for (const [input, expected, description] of preprocessingCases) {
+  testFontFamily(input, expected, description);
+}
+
+// Escaped EOF is handled during tokenization, after input preprocessing.
+testFontFamily("a\\", "a\uFFFD", "An escaped EOF becomes a replacement character");
+</script>
