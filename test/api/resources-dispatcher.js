@@ -2,13 +2,52 @@
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
 const toughCookie = require("tough-cookie");
+const { Agent } = require("undici");
 const { JSDOMDispatcher } = require("../../lib/jsdom/browser/resources/jsdom-dispatcher.js");
+const { createServer, serverURL } = require("./helpers/servers.js");
 
 // Technically not an API test.
 describe("JSDOMDispatcher unit tests", () => {
   // DispatchOptions from undici (per undici/types/dispatcher.d.ts):
   // - origin, path, method, body, headers, query, idempotent, blocking,
   //   upgrade, headersTimeout, bodyTimeout, reset, throwOnError, expectContinue
+
+  it("should preserve the first abort reason while connecting to a redirect target", async () => {
+    const agent = new Agent();
+    const target = await createServer((req, res) => {
+      res.end("redirect target");
+    });
+    const redirect = await createServer((req, res) => {
+      res.writeHead(302, { Location: serverURL(target) });
+      res.end();
+    });
+    const dispatcher = new JSDOMDispatcher({ cookieJar: new toughCookie.CookieJar(), baseDispatcher: agent });
+    const firstReason = new Error("first abort");
+
+    try {
+      await assert.rejects(new Promise((resolve, reject) => {
+        dispatcher.dispatch({
+          origin: serverURL(redirect),
+          path: "/",
+          method: "GET",
+          opaque: { url: serverURL(redirect) + "/" }
+        }, {
+          onRequestStart(controller) {
+            // Abort between hops, so the target request must receive the retained reason.
+            target.once("connection", () => {
+              controller.abort(firstReason);
+              controller.abort(new Error("second abort"));
+            });
+          },
+          onResponseError: (controller, err) => reject(err),
+          onResponseEnd: resolve
+        });
+      }), err => err === firstReason);
+    } finally {
+      await agent.destroy();
+      await Promise.all([redirect.destroy(), target.destroy()]);
+    }
+  });
 
   it("should pass through method, body, and other DispatchOptions unchanged", async () => {
     const { dispatcher, getCapturedOpts } = createCapturingDispatcher();

@@ -1,11 +1,14 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
+const { Agent } = require("undici");
 const { Canvas } = require("../../lib/jsdom/utils.js");
 const { version: packageVersion } = require("../../package.json");
 const { JSDOM } = require("../..");
 
 const {
+  createServer,
+  serverURL,
   emptyServer,
   resourceServer,
   neverRequestedServer,
@@ -496,6 +499,42 @@ describe("API: resource loading configuration", () => {
     });
 
     describe("canceling requests", () => {
+      it("should not run a redirected script after stopping the window", async () => {
+        const agent = new Agent();
+        let targetRequests = 0;
+        const target = await createServer((req, res) => {
+          targetRequests++;
+          res.writeHead(200, { "Content-Type": "text/javascript" });
+          res.end("window.redirectedScriptRan = true;");
+        });
+        const redirect = await createServer((req, res) => {
+          res.writeHead(302, { Location: serverURL(target) });
+          res.end();
+        });
+        const { window } = new JSDOM(`<script src="${serverURL(redirect)}"></script>`, {
+          resources: { dispatcher: agent }, runScripts: "dangerously"
+        });
+        // Stop as the redirect target accepts the connection, before it sends the script.
+        const stopped = new Promise(resolve => {
+          target.once("connection", () => {
+            window.stop();
+            resolve();
+          });
+        });
+
+        try {
+          await stopped;
+          // `close()` waits for pending requests to finish without canceling them.
+          await agent.close();
+          assert.equal(targetRequests, 0, "Stopping must cancel the request before it is sent");
+          assert.equal(window.redirectedScriptRan, undefined);
+        } finally {
+          window.close();
+          await agent.destroy();
+          await Promise.all([redirect.destroy(), target.destroy()]);
+        }
+      });
+
       it("should abort a script request when closing the window", async () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
         const dom = new JSDOM(`<script>window.y = 6;</script>`, {
