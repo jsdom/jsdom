@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Unitless zero length serialization</title>
+<link rel="help" href="https://drafts.csswg.org/css-values/#lengths">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
+
+<script>
+"use strict";
+/* global test_valid_value, test_invalid_value */
+
+for (const property of ["width", "margin-left", "border-top-width"]) {
+  for (const zero of ["0", "+0", "-0", "0.0", ".0", "00", "-0.0", "0e0", "0e+10", "0e-10"]) {
+    test_valid_value(property, zero, "0px");
+  }
+  test_invalid_value(property, "1");
+  test_invalid_value(property, "-1");
+}
+</script>
