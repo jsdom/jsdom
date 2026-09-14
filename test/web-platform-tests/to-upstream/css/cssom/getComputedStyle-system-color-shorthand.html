@@ -10,22 +10,47 @@
 "use strict";
 
 for (const colorScheme of ["light", "dark"]) {
-  for (const declaration of ["border-color: CanvasText", "border: 1px solid CanvasText"]) {
-    test(t => {
-      const element = document.createElement("div");
-      element.style.cssText = `color-scheme: ${colorScheme}; color: CanvasText; ${declaration}`;
-      document.body.append(element);
-      t.add_cleanup(() => element.remove());
+  for (const color of ["CanvasText", "cAnVaStExT", "WindowText"]) {
+    for (const declaration of [`border-color: ${color}`, `border: 1px solid ${color}`]) {
+      test(t => {
+        const element = document.createElement("div");
+        element.style.cssText = `color-scheme: ${colorScheme}; color: ${color}; ${declaration}`;
+        document.body.append(element);
+        t.add_cleanup(() => element.remove());
 
-      for (let i = 0; i < 3; ++i) {
-        const computed = getComputedStyle(element);
-        assert_equals(computed.borderTopColor, computed.color);
-        assert_equals(computed.borderRightColor, computed.color);
-        assert_equals(computed.borderBottomColor, computed.color);
-        assert_equals(computed.borderLeftColor, computed.color);
-        assert_equals(computed.borderColor, computed.borderTopColor);
-      }
-    }, `${declaration} resolves its shorthand on first and repeated reads in ${colorScheme} mode`);
+        for (let i = 0; i < 3; ++i) {
+          const computed = getComputedStyle(element);
+          const shorthand = computed.borderColor;
+          assert_equals(shorthand, computed.color);
+          assert_equals(computed.borderTopColor, shorthand);
+          assert_equals(computed.borderRightColor, shorthand);
+          assert_equals(computed.borderBottomColor, shorthand);
+          assert_equals(computed.borderLeftColor, shorthand);
+        }
+      }, `${declaration} resolves its shorthand before reading longhands in ${colorScheme} mode`);
+    }
   }
+}
+
+for (const [parentScheme, childScheme] of [["dark", "light"], ["light", "dark"]]) {
+  test(t => {
+    const parent = document.createElement("div");
+    parent.style.cssText = `color-scheme: ${parentScheme}; border-color: CanvasText`;
+    const child = document.createElement("div");
+    child.style.cssText = `color-scheme: ${childScheme}; border-color: inherit`;
+    parent.append(child);
+    document.body.append(parent);
+    t.add_cleanup(() => parent.remove());
+
+    for (let i = 0; i < 3; ++i) {
+      const computed = getComputedStyle(child);
+      const shorthand = computed.borderColor;
+      assert_equals(shorthand, getComputedStyle(parent).borderTopColor);
+      assert_equals(computed.borderTopColor, shorthand);
+      assert_equals(computed.borderRightColor, shorthand);
+      assert_equals(computed.borderBottomColor, shorthand);
+      assert_equals(computed.borderLeftColor, shorthand);
+    }
+  }, `A ${childScheme} child inherits its ${parentScheme} parent's resolved system border color`);
 }
 </script>

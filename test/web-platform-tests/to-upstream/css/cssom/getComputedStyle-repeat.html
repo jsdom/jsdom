@@ -37,6 +37,15 @@ for (const [cssText, properties] of [
 }
 
 test(t => {
+  const imageURL = new URL("FooBar.png", document.baseURI).href;
+  const element = createElement(t, `display: none; background: red url("${imageURL}") no-repeat center / cover`);
+
+  for (let i = 0; i < 3; ++i) {
+    assert_equals(getComputedStyle(element).backgroundImage, `url("${imageURL}")`);
+  }
+}, "Repeated computed styles preserve case-sensitive background URLs");
+
+test(t => {
   const parent = createElement(t, "font-size: 20px; color: rgb(1, 2, 3)");
   const child = document.createElement("div");
   child.style.cssText = "font-size: 150%; padding: 2em; color: inherit; --Marker: TokenValue";
@@ -81,6 +90,21 @@ test(t => {
     assert_equals(computed.borderTopColor, "rgb(1, 2, 3)");
   }
 }, "Repeated computed styles return resolved border widths");
+
+test(t => {
+  const parent = createElement(t, "border: 5px none red");
+  const child = document.createElement("div");
+  child.style.cssText = "border: inherit; border-style: solid";
+  parent.append(child);
+
+  assert_equals(getComputedStyle(parent).borderTopWidth, "0px");
+  for (let i = 0; i < 3; ++i) {
+    const computed = getComputedStyle(child);
+    assert_equals(computed.borderTopWidth, "5px");
+    assert_equals(computed.borderWidth, "5px");
+    assert_equals(computed.borderTopStyle, "solid");
+  }
+}, "Repeated computed styles inherit computed border widths rather than resolved border widths");
 
 test(t => {
   const element = createElement(t, "visibility: hidden");
