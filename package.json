@@ -36,7 +36,6 @@
     "lru-cache": "^11.5.2",
     "parse5": "^8.0.1",
     "saxes": "^6.0.0",
-    "symbol-tree": "^3.2.4",
     "tough-cookie": "^6.0.2",
     "undici": "^8.10.2",
     "w3c-xmlserializer": "^5.0.0",
