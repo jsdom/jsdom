@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Border shorthand component boundaries without whitespace</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#the-border-shorthands">
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#tokenization">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+const borderProperties = [
+  { css: "border", idl: "border" },
+  { css: "border-top", idl: "borderTop" },
+  { css: "border-right", idl: "borderRight" },
+  { css: "border-bottom", idl: "borderBottom" },
+  { css: "border-left", idl: "borderLeft" }
+];
+
+const borderCases = [
+  {
+    input: "rgb(0 0 0)solid 1px",
+    serialized: "1px solid rgb(0, 0, 0)",
+    description: "A color function followed by an identifier"
+  },
+  {
+    input: "rgb(0 0 0)1px solid",
+    serialized: "1px solid rgb(0, 0, 0)",
+    description: "A color function followed by a dimension"
+  },
+  {
+    input: "rgb(0 0 0)solid",
+    serialized: "solid rgb(0, 0, 0)",
+    description: "A color function followed by an identifier with an omitted width"
+  },
+  {
+    input: "rgb(calc(0) 0 0)solid 1px",
+    serialized: "1px solid rgb(0, 0, 0)",
+    description: "A color function containing a nested function followed by an identifier"
+  },
+  {
+    input: "rgb(0 0 0)/**/solid 1px",
+    serialized: "1px solid rgb(0, 0, 0)",
+    description: "A color function followed by a comment and an identifier"
+  },
+  {
+    input: "rgb(0 0 0) solid 1px",
+    serialized: "1px solid rgb(0, 0, 0)",
+    description: "A color function followed by ordinary whitespace"
+  }
+];
+
+for (const { css, idl } of borderProperties) {
+  for (const { input, serialized, description } of borderCases) {
+    test(() => {
+      const div = document.createElement("div");
+      div.style[idl] = input;
+      assert_equals(div.style[idl], serialized);
+    }, `${description} via the ${idl} setter`);
+
+    test(() => {
+      const div = document.createElement("div");
+      div.style.cssText = `${css}:${input};color:red`;
+      assert_equals(div.style[idl], serialized, idl);
+      assert_equals(div.style.color, "red", "following declaration");
+    }, `${description} via cssText for ${css}`);
+  }
+}
+
+test(() => {
+  const container = document.createElement("div");
+  container.innerHTML = '<div style="border:rgb(0 0 0)solid 1px;color:red"></div>';
+  const div = container.firstElementChild;
+  assert_equals(div.style.border, "1px solid rgb(0, 0, 0)", "border");
+  assert_equals(div.style.borderWidth, "1px", "borderWidth");
+  assert_equals(div.style.borderStyle, "solid", "borderStyle");
+  assert_equals(div.style.borderColor, "rgb(0, 0, 0)", "borderColor");
+  assert_equals(div.style.color, "red", "following declaration");
+}, "An inline border declaration containing adjacent components");
+
+for (const { idl } of borderProperties) {
+  for (const invalidValue of [")x", "url(x))x", "rgb())x", "foo(])x"]) {
+    test(() => {
+      const div = document.createElement("div");
+      div.style[idl] = "1px solid red";
+      div.style[idl] = invalidValue;
+      assert_equals(div.style[idl], "1px solid red", "previous value");
+    }, `An invalid ${idl} value is ignored without throwing: ${invalidValue}`);
+  }
+}
+</script>
