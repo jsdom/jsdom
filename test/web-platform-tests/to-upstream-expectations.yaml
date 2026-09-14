@@ -45,6 +45,7 @@ custom-elements/ElementInternals-accessibility-values.html:
   "ariaFlowToElements": [fail, Element reflection not implemented]
   "ariaLabelledByElements": [fail, Element reflection not implemented]
   "ariaOwnsElements": [fail, Element reflection not implemented]
+html/browsers/browsing-the-web/navigating-across-documents/stop-pending-script-no-load.html?*: [fail, window.stop() incorrectly fires load on the stopped window and iframe]
 html/semantics/document-metadata/the-style-element/no-browsing-context-import.html: [timeout, Imports do not load without a browsing context]
 html/semantics/document-metadata/the-style-element/no-browsing-context.html:
   "no impact on getComputedStyle": [fail, Computed styles should be empty without a browsing context]
