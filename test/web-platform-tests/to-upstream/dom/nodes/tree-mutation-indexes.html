@@ -150,4 +150,113 @@ test(() => {
   assert_equals(first.startOffset, 0);
   assert_equals(first.endOffset, 0);
 }, "Removing a subtree adjusts descendant and parent Ranges, including offset zero");
+
+test(() => {
+  for (let seed = 1; seed <= 4; ++seed) {
+    let state = seed;
+    function random(max) {
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      return state % max;
+    }
+    const nodes = Array.from({ length: 40 }, () => document.createElement("div"));
+    const children = nodes.map(() => []);
+    const parents = nodes.map(() => -1);
+    const range = document.createRange();
+    function ancestors(id) {
+      const result = [];
+      while (id !== -1) {
+        result.push(id);
+        id = parents[id];
+      }
+      return result;
+    }
+    function descendants(id) {
+      return [id, ...children[id].flatMap(descendants)];
+    }
+    for (let i = 1; i < 30; ++i) {
+      nodes[0].appendChild(nodes[i]);
+      children[0].push(i);
+      parents[i] = 0;
+    }
+    for (let step = 0; step < 150; ++step) {
+      const child = random(nodes.length);
+      const reference = random(nodes.length);
+      const action = random(3);
+      const target = action === 1 ? parents[reference] : reference;
+      if (child === reference || target === -1 || ancestors(target).includes(child)) {
+        continue;
+      }
+      nodes[child].remove();
+      if (parents[child] !== -1) {
+        const siblings = children[parents[child]];
+        siblings.splice(siblings.indexOf(child), 1);
+      }
+      parents[child] = -1;
+      if (action === 0) {
+        nodes[target].appendChild(nodes[child]);
+        children[target].push(child);
+        parents[child] = target;
+      } else if (action === 1) {
+        nodes[target].insertBefore(nodes[child], nodes[reference]);
+        children[target].splice(children[target].indexOf(reference), 0, child);
+        parents[child] = target;
+      }
+      if (step % 11 !== 0) {
+        continue;
+      }
+      for (let id = 0; id < nodes.length; ++id) {
+        assert_array_equals(Array.from(nodes[id].childNodes), children[id].map(i => nodes[i]));
+        if (parents[id] !== -1) {
+          range.selectNode(nodes[id]);
+          assert_equals(range.startContainer, nodes[parents[id]]);
+          assert_equals(range.startOffset, children[parents[id]].indexOf(id));
+        }
+        const walker = document.createTreeWalker(nodes[id]);
+        const visited = [walker.currentNode];
+        while (walker.nextNode()) {
+          visited.push(walker.currentNode);
+        }
+        assert_array_equals(visited, descendants(id).map(i => nodes[i]));
+        const left = ancestors(id);
+        const right = ancestors(reference);
+        let expected;
+        if (id === reference) {
+          expected = 0;
+        } else if (left.includes(reference)) {
+          expected = Node.DOCUMENT_POSITION_CONTAINS | Node.DOCUMENT_POSITION_PRECEDING;
+        } else if (right.includes(id)) {
+          expected = Node.DOCUMENT_POSITION_CONTAINED_BY | Node.DOCUMENT_POSITION_FOLLOWING;
+        } else if (left.at(-1) !== right.at(-1)) {
+          const position = nodes[id].compareDocumentPosition(nodes[reference]);
+          assert_true(Boolean(position & Node.DOCUMENT_POSITION_DISCONNECTED));
+          continue;
+        } else {
+          const order = descendants(left.at(-1));
+          expected = order.indexOf(id) < order.indexOf(reference) ?
+            Node.DOCUMENT_POSITION_FOLLOWING :
+Node.DOCUMENT_POSITION_PRECEDING;
+        }
+        assert_equals(nodes[id].compareDocumentPosition(nodes[reference]), expected);
+      }
+    }
+  }
+}, "Range indexes, tree walking, and document position agree after seeded subtree moves");
+
+test(() => {
+  const otherDocument = document.implementation.createHTMLDocument();
+  const root = otherDocument.createElement("div");
+  const descendants = [root];
+  let parent = root;
+  for (let i = 0; i < 100; ++i) {
+    const shadow = parent.attachShadow({ mode: "closed" });
+    const child = shadow.appendChild(otherDocument.createElement("div"));
+    parent.appendChild(otherDocument.createElement("span"));
+    descendants.push(shadow, child, parent.firstChild);
+    parent = child;
+  }
+  document.adoptNode(root);
+  for (const node of descendants) {
+    assert_equals(node.ownerDocument, document);
+  }
+}, "Adoption visits every node in nested shadow trees and their hosts' light trees");
 </script>

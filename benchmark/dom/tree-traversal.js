@@ -4,7 +4,7 @@ const documentBench = require("../document-bench");
 const { implForWrapper } = require("../../lib/generated/idl/utils");
 const {
   shadowIncludingInclusiveDescendantsIterator
-} = require("../../lib/jsdom/living/helpers/shadow-dom");
+} = require("../../lib/jsdom/living/helpers/dom-tree");
 
 module.exports = () => {
   const { document, bench } = documentBench();
