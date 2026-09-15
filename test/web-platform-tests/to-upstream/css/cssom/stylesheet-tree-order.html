@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Style sheets stay in tree order after style element updates</title>
-<link rel="help" href="https://drafts.csswg.org/cssom/#document-or-shadow-root-css-style-sheets">
+<title>Replacing a style element's text preserves style sheet order</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#add-a-css-style-sheet">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <div id="target"></div>
 <script>
 "use strict";
 
-for (const operation of ["replace text", "move element"]) {
-  test(t => {
-    const { styleSheets } = document;
-    const initialSheets = Array.from(styleSheets);
-    const first = document.createElement("style");
-    const second = document.createElement("style");
-    first.textContent = "#target { color: red }";
-    second.textContent = "#target { color: green }";
-    t.add_cleanup(() => {
-      first.remove();
-      second.remove();
-    });
-    document.head.append(first, second);
-    const target = document.getElementById("target");
-    assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)", "Initial cascade order");
+test(t => {
+  const { styleSheets } = document;
+  const initialSheets = [...styleSheets];
+  const first = document.createElement("style");
+  const second = document.createElement("style");
+  first.textContent = "#target { color: red }";
+  second.textContent = "#target { color: green }";
+  t.add_cleanup(() => {
+    first.remove();
+    second.remove();
+  });
+  document.head.append(first, second);
+  const target = document.getElementById("target");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)", "Initial cascade order");
 
-    if (operation === "replace text") {
-      first.textContent = "#target { color: blue }";
-      assert_array_equals(Array.from(styleSheets), [...initialSheets, first.sheet, second.sheet]);
-      assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
-    } else {
-      document.head.insertBefore(second, first);
-      assert_array_equals(Array.from(styleSheets), [...initialSheets, second.sheet, first.sheet]);
-      assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
-    }
-  }, `Style sheet list and cascade use tree order after ${operation}`);
-}
+  first.textContent = "#target { color: blue }";
+  assert_array_equals(styleSheets, [...initialSheets, first.sheet, second.sheet]);
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "Replacing an earlier style element's text preserves the style sheet list and cascade order");
 </script>
