@@ -1,0 +1,90 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Range traversal respects child offsets and partial boundaries</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-range-stringifier">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-range-deletecontents">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const container of ["element", "fragment", "shadow root"]) {
+  for (const [name, start, end, expected, remaining] of [
+    ["first child", ["root", 0], ["root", 1], "before", "leftmiddlerightafter"],
+    ["middle child", ["root", 2], ["root", 3], "middle", "beforeleftrightafter"],
+    ["last child", ["root", 4], ["root", 5], "after", "beforeleftmiddleright"],
+    ["all children", ["root", 0], ["root", 5], "beforeleftmiddlerightafter", ""],
+    ["collapsed in parent", ["root", 2], ["root", 2], "", "beforeleftmiddlerightafter"],
+    ["collapsed after children", ["root", 5], ["root", 5], "", "beforeleftmiddlerightafter"],
+    ["partial start", ["left", 2], ["root", 3], "ftmiddle", "beforelerightafter"],
+    ["partial end", ["root", 2], ["right", 2], "middleri", "beforeleftghtafter"],
+    ["partial text at both ends", ["left", 2], ["right", 2], "ftmiddleri", "beforeleghtafter"],
+    ["end at first child of a branch", ["left", 2], ["rightParent", 0], "ftmiddle", "beforelerightafter"],
+    ["start after last child of a branch", ["leftParent", 1], ["right", 2], "middleri", "beforeleftghtafter"],
+    ["empty interval between containers", ["leftParent", 1], ["root", 2], "", "beforeleftmiddlerightafter"]
+  ]) {
+    test(() => {
+      const host = document.createElement("div");
+      let root = host;
+      if (container === "fragment") {
+        root = document.createDocumentFragment();
+      } else if (container === "shadow root") {
+        root = host.attachShadow({ mode: "closed" });
+      }
+      const template = document.createElement("template");
+      template.innerHTML = "<i>before</i><section>left</section><b>middle</b><aside>right</aside><i>after</i>";
+      root.append(template.content);
+      const leftParent = root.childNodes[1];
+      const rightParent = root.childNodes[3];
+      const nodes = { root, leftParent, rightParent, left: leftParent.firstChild, right: rightParent.firstChild };
+      const range = document.createRange();
+      range.setStart(nodes[start[0]], start[1]);
+      range.setEnd(nodes[end[0]], end[1]);
+
+      assert_equals(range.toString(), expected);
+      range.deleteContents();
+      assert_equals(root.textContent, remaining);
+      assert_true(range.collapsed);
+      assert_equals(range.toString(), "");
+    }, `${container}: ${name}`);
+  }
+}
+
+test(() => {
+  const root = document.createElement("div");
+  root.innerHTML = "<i>before</i><b>first</b><b>second</b><i>after</i>";
+  const children = Array.from(root.childNodes);
+  const observed = document.createRange();
+  observed.selectNodeContents(children[2].firstChild);
+  const observer = new MutationObserver(() => {});
+  observer.observe(root, { childList: true });
+  const range = document.createRange();
+  range.setStart(root, 1);
+  range.setEnd(root, 3);
+
+  range.deleteContents();
+
+  const records = observer.takeRecords();
+  observer.disconnect();
+  assert_array_equals(records.map(record => record.removedNodes[0]), children.slice(1, 3));
+  assert_array_equals(Array.from(root.childNodes), [children[0], children[3]]);
+  assert_equals(range.startContainer, root);
+  assert_equals(range.startOffset, 1);
+  assert_equals(observed.startContainer, root);
+  assert_equals(observed.startOffset, 1);
+  assert_true(observed.collapsed);
+}, "Deleting children preserves removal order and updates other live Ranges");
+
+test(() => {
+  const root = document.createElement("div");
+  root.innerHTML = "<!--before--><span>light</span><!--after-->";
+  root.children[0].attachShadow({ mode: "closed" }).textContent = "shadow";
+  const range = document.createRange();
+  range.setStart(root.firstChild, 2);
+  range.setEnd(root.lastChild, 2);
+
+  assert_equals(range.toString(), "light");
+  range.deleteContents();
+  assert_equals(root.innerHTML, "<!--be--><!--ter-->");
+}, "Comment boundaries exclude comment data and shadow descendants from stringification");
+</script>

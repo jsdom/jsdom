@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Normalizing a Text node leaves it and its siblings unchanged</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-node-normalize">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const data of ["b", ""]) {
+  test(() => {
+    const parent = document.createElement("div");
+    const nodes = ["a", data, "c"].map(text => document.createTextNode(text));
+    parent.append(...nodes);
+    const observer = new MutationObserver(() => {});
+    observer.observe(parent, { childList: true, characterData: true, subtree: true });
+
+    nodes[1].normalize();
+
+    assert_array_equals(Array.from(parent.childNodes), nodes);
+    assert_array_equals(nodes.map(node => node.data), ["a", data, "c"]);
+    assert_array_equals(observer.takeRecords(), []);
+    observer.disconnect();
+  }, `Normalizing ${data === "" ? "an empty" : "a non-empty"} Text node does not change its parent's children`);
+}
+</script>
