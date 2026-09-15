@@ -1,0 +1,83 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Range contents with ancestor and disjoint boundary containers</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-range-clone">
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-range-extract">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-range-deletecontents">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const before = "<i>before</i>";
+const left = "<section><b>left</b></section>";
+const middle = "<u>middle</u>";
+const right = "<aside><div><em>right</em></div></aside>";
+const after = "<i>after</i>";
+const partialLeft = "<section><b>ft</b></section>";
+const partialRight = "<aside><div><em>ri</em></div></aside>";
+const remainingLeft = "<section><b>le</b></section>";
+const remainingRight = "<aside><div><em>ght</em></div></aside>";
+
+for (const [name, startAtAncestor, endAtAncestor, expected, remaining, collapsedOffset] of [
+  [
+    "disjoint branches", false, false, partialLeft + middle + partialRight,
+    before + remainingLeft + remainingRight + after, 2
+  ],
+  [
+    "start container is the ancestor", true, false, left + middle + partialRight,
+    before + remainingRight + after, 1
+  ],
+  [
+    "end container is the ancestor", false, true, partialLeft + middle + right,
+    before + remainingLeft + after, 2
+  ],
+  ["both containers are the ancestor", true, true, left + middle + right, before + after, 1]
+]) {
+  for (const method of ["cloneContents", "extractContents", "deleteContents"]) {
+    test(() => {
+      const root = document.createElement("div");
+      const original = before + left + middle + right + after;
+      root.innerHTML = original;
+      const leftText = root.querySelector("b").firstChild;
+      const rightText = root.querySelector("em").firstChild;
+      const range = document.createRange();
+      range.setStart(startAtAncestor ? root : leftText, startAtAncestor ? 1 : 2);
+      range.setEnd(endAtAncestor ? root : rightText, endAtAncestor ? 4 : 2);
+      assert_equals(range.commonAncestorContainer, root);
+
+      const result = range[method]();
+
+      if (method !== "deleteContents") {
+        const fragmentContainer = document.createElement("div");
+        fragmentContainer.append(result);
+        assert_equals(fragmentContainer.innerHTML, expected);
+      }
+      if (method === "cloneContents") {
+        assert_equals(root.innerHTML, original);
+        assert_false(range.collapsed);
+      } else {
+        assert_equals(root.innerHTML, remaining);
+        assert_true(range.collapsed);
+        assert_equals(range.startContainer, root);
+        assert_equals(range.startOffset, collapsedOffset);
+      }
+    }, `${method}: ${name}`);
+  }
+}
+
+for (const method of ["cloneContents", "extractContents"]) {
+  test(() => {
+    const doc = document.implementation.createHTMLDocument();
+    const original = Array.from(doc.childNodes);
+    const range = doc.createRange();
+    range.selectNodeContents(doc);
+
+    assert_throws_dom("HierarchyRequestError", () => range[method]());
+    assert_array_equals(Array.from(doc.childNodes), original);
+    assert_equals(range.startContainer, doc);
+    assert_equals(range.startOffset, 0);
+    assert_equals(range.endOffset, original.length);
+  }, `${method} rejects a contained doctype before mutating the tree`);
+}
+</script>

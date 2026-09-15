@@ -1125,9 +1125,6 @@ remove-and-adopt-thcrash.html: [fail, window.open not implemented]
 
 DIR: dom/ranges
 Range-cloneContents.html: [fail-slow, Unknown]
-Range-cloneRange.html: [fail, Unknown]
-Range-collapse.html: [fail, Unknown]
-Range-commonAncestorContainer.html: [fail, Unknown]
 Range-compareBoundaryPoints.html: [timeout, Usually passes locally but has too many subtests and flakily times out on CI, https://github.com/jsdom/jsdom/issues/3154]
 Range-comparePoint.html: [fail-slow, Unknown]
 Range-deleteContents.html: [fail-slow, Unknown]
@@ -1135,7 +1132,6 @@ Range-extractContents.html: [fail-slow, Unknown]
 Range-insertNode.html: [fail-slow, Unknown]
 Range-isPointInRange.html: [fail-slow, Unknown]
 Range-mutations-dataChange.html: [timeout, Usually passes locally but has too many subtests and flakily times out on CI, https://github.com/jsdom/jsdom/issues/3154]
-Range-selectNode.html: [fail, Unknown]
 Range-set.html: [fail-slow, Unknown]
 Range-surroundContents.html: [fail-slow, Unknown]
 
