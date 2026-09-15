@@ -4,27 +4,21 @@
 <link rel="help" href="https://drafts.csswg.org/cssom/#add-a-css-style-sheet">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<style id="first">#target { color: red }</style>
+<style id="second">#target { color: green }</style>
 <div id="target"></div>
 <script>
 "use strict";
 
-test(t => {
+test(() => {
   const { styleSheets } = document;
-  const initialSheets = [...styleSheets];
-  const first = document.createElement("style");
-  const second = document.createElement("style");
-  first.textContent = "#target { color: red }";
-  second.textContent = "#target { color: green }";
-  t.add_cleanup(() => {
-    first.remove();
-    second.remove();
-  });
-  document.head.append(first, second);
+  const first = document.getElementById("first");
+  const second = document.getElementById("second");
   const target = document.getElementById("target");
   assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)", "Initial cascade order");
 
   first.textContent = "#target { color: blue }";
-  assert_array_equals(styleSheets, [...initialSheets, first.sheet, second.sheet]);
+  assert_array_equals(styleSheets, [first.sheet, second.sheet]);
   assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
 }, "Replacing an earlier style element's text preserves the style sheet list and cascade order");
 </script>
