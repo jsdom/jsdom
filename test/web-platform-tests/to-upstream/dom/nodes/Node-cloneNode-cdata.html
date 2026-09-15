@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Cloning CDATA sections preserves data containing the CDATA terminator</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#clone-a-single-node">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-document-importnode">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const method of ["cloneNode", "importNode"]) {
+  test(() => {
+    const xmlDocument = document.implementation.createDocument(null, "root");
+    const original = xmlDocument.createCDATASection("");
+    original.data = "a]]>b";
+
+    const copy = method === "cloneNode" ? original.cloneNode() : document.importNode(original);
+
+    assert_not_equals(copy, original);
+    assert_true(copy instanceof CDATASection);
+    assert_equals(copy.ownerDocument, method === "cloneNode" ? xmlDocument : document);
+    assert_equals(copy.data, "a]]>b");
+    assert_equals(original.ownerDocument, xmlDocument);
+    assert_equals(original.data, "a]]>b");
+  }, `${method} preserves CDATA data containing "]]>"`);
+}
+</script>
