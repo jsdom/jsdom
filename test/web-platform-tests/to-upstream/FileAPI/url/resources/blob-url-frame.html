@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8">
+<script>
+"use strict";
+
+window.addEventListener("message", event => {
+  const { token, create, revoke } = event.data;
+  const url = create ? URL.createObjectURL(new Blob(["frame contents"])) : event.data.url;
+  let text = null;
+  let error = null;
+  try {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.send();
+    text = xhr.responseText;
+  } catch (e) {
+    error = e.name;
+  }
+  if (revoke) {
+    URL.revokeObjectURL(url);
+  }
+  parent.postMessage({ token, url, text, error }, "*");
+});
+</script>
