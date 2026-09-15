@@ -2,6 +2,7 @@
 <meta charset="utf-8">
 <title>Sibling indexes and tree order after subtree moves</title>
 <link rel="help" href="https://dom.spec.whatwg.org/#concept-tree-index">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-range-commonancestorcontainer">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <script>
@@ -93,6 +94,42 @@ test(() => {
   rightLeaf.remove();
   assert_true(Boolean(nested.compareDocumentPosition(leftLeaf) & Node.DOCUMENT_POSITION_DISCONNECTED));
 }, "Tree order follows moves between ancestors and disconnected roots");
+
+test(() => {
+  const root = document.createElement("div");
+  root.innerHTML = "<section><b>left</b></section><aside><div><i>right</i></div></aside>";
+  const section = root.firstChild;
+  const aside = root.lastChild;
+  const left = section.firstChild.firstChild;
+  const right = aside.firstChild.firstChild.firstChild;
+  const range = document.createRange();
+
+  range.setStart(left, 1);
+  range.setEnd(right, 2);
+  assert_equals(range.commonAncestorContainer, root);
+  const clone = document.createElement("div");
+  clone.append(range.cloneContents());
+  assert_equals(clone.innerHTML, "<section><b>eft</b></section><aside><div><i>ri</i></div></aside>");
+
+  section.append(aside);
+  assert_equals(range.endContainer, root);
+  assert_equals(range.commonAncestorContainer, root);
+  range.setEnd(right, 2);
+  assert_equals(range.commonAncestorContainer, section);
+
+  const extracted = document.createElement("div");
+  extracted.append(range.extractContents());
+  assert_equals(extracted.innerHTML, "<b>eft</b><aside><div><i>ri</i></div></aside>");
+  assert_equals(root.textContent, "lght");
+  assert_true(range.collapsed);
+  assert_equals(range.commonAncestorContainer, section);
+
+  range.setStart(section, 0);
+  range.setEnd(left, 1);
+  assert_equals(range.commonAncestorContainer, section);
+  range.collapse(false);
+  assert_equals(range.commonAncestorContainer, left);
+}, "Range common ancestors, cloning, and extraction follow moves between branches of different depths");
 
 test(() => {
   const attribute = document.createAttribute("data-value");
