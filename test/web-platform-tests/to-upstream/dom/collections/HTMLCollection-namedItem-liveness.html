@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<title>HTMLCollection named property liveness</title>
+<meta charset="utf-8">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="container"></div>
+
+<script>
+"use strict";
+
+function reset() {
+  const container = document.getElementById("container");
+  container.textContent = "";
+  return container;
+}
+
+test(() => {
+  const container = reset();
+  const first = container.appendChild(document.createElement("div"));
+  const second = container.appendChild(document.createElement("div"));
+  first.setAttribute("name", "target");
+  second.setAttribute("id", "target");
+
+  const collection = container.children;
+  assert_equals(collection.namedItem("target"), first, "The first matching element in tree order wins");
+
+  container.insertBefore(second, first);
+  assert_equals(collection.namedItem("target"), second, "Reordering changes which element matches first");
+}, "namedItem() returns the first match in tree order and follows reordering");
+
+test(() => {
+  const container = reset();
+  const element = container.appendChild(document.createElement("div"));
+  const collection = container.children;
+
+  assert_equals(collection.namedItem("added"), null, "No element matches before the attribute is set");
+
+  element.setAttribute("id", "added");
+  assert_equals(collection.namedItem("added"), element, "Setting id makes the element match");
+
+  element.setAttribute("id", "renamed");
+  assert_equals(collection.namedItem("added"), null, "Changing id stops the old name from matching");
+  assert_equals(collection.namedItem("renamed"), element, "Changing id makes the new name match");
+
+  element.removeAttribute("id");
+  assert_equals(collection.namedItem("renamed"), null, "Removing id stops the element from matching");
+}, "namedItem() reflects id attribute changes on a member");
+
+test(() => {
+  const container = reset();
+  const element = container.appendChild(document.createElement("div"));
+  element.setAttribute("name", "gone");
+  const collection = container.children;
+
+  assert_equals(collection.namedItem("gone"), element, "The element matches while it is in the collection");
+
+  element.remove();
+  assert_equals(collection.namedItem("gone"), null, "The element stops matching once removed");
+}, "namedItem() reflects removal of a member");
+
+test(() => {
+  const container = reset();
+  const svg = container.appendChild(document.createElementNS("http://www.w3.org/2000/svg", "svg"));
+  svg.setAttribute("name", "svgname");
+  svg.setAttribute("id", "svgid");
+  const collection = container.children;
+
+  assert_equals(collection.namedItem("svgname"), null, "name only matches HTML namespace elements");
+  assert_equals(collection.namedItem("svgid"), svg, "id matches regardless of namespace");
+}, "namedItem() only honours the name attribute for HTML elements");
+
+test(() => {
+  const container = reset();
+  const element = container.appendChild(document.createElement("div"));
+  element.setAttribute("id", "supported");
+  element.setAttribute("name", "alsoSupported");
+  const collection = container.children;
+
+  const names = Object.getOwnPropertyNames(collection);
+  assert_true(names.includes("supported"), "id appears in the supported property names");
+  assert_true(names.includes("alsoSupported"), "name appears in the supported property names");
+
+  element.removeAttribute("name");
+  const updatedNames = Object.getOwnPropertyNames(collection);
+  assert_true(updatedNames.includes("supported"), "id still appears after the name attribute is removed");
+  assert_false(updatedNames.includes("alsoSupported"), "removed name no longer appears");
+}, "Supported property names follow attribute changes");
+</script>
