@@ -1,0 +1,60 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Queued navigation tasks do not run after iframe removal</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-task-runnable">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#update-document-for-history-step-application">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#destroy-a-document">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+for (const hyperlink of [false, true]) {
+  promise_test(async t => {
+    const frame = await addIframe();
+    t.add_cleanup(() => frame.remove());
+    const sentinel = await addIframe();
+    t.add_cleanup(() => sentinel.remove());
+    const events = [];
+    frame.contentWindow.record = () => events.push("navigation");
+
+    function navigate(win) {
+      if (hyperlink) {
+        const link = win.document.createElement("a");
+        link.href = "javascript:void window.record()";
+        link.click();
+      } else {
+        win.location.href = "javascript:void window.record()";
+      }
+    }
+
+    navigate(frame.contentWindow);
+    frame.remove();
+    await new Promise(resolve => {
+      sentinel.contentWindow.record = resolve;
+      navigate(sentinel.contentWindow);
+    });
+    assert_array_equals(events, []);
+  }, `${hyperlink ? "Hyperlink" : "Location"} navigation does not run after its target iframe is removed`);
+}
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const sentinel = await addIframe();
+  t.add_cleanup(() => sentinel.remove());
+  const child = frame.contentWindow;
+  child.location.hash = "new";
+  frame.remove();
+  const events = [];
+  child.addEventListener("hashchange", () => events.push("hashchange"));
+  const changed = new EventWatcher(t, sentinel.contentWindow, "hashchange").wait_for("hashchange");
+  sentinel.contentWindow.location.hash = "new";
+  await changed;
+  assert_array_equals(events, []);
+}, "Queued hashchange events do not fire after the target iframe is removed");
+</script>
