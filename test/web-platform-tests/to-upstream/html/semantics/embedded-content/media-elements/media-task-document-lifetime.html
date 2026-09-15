@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="variant" content="?volumechange">
+<meta name="variant" content="?ratechange">
+<title>Media tasks use the element's relevant global's document</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/media.html#queue-a-media-element-task">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-an-element-task">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-task-runnable">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+const eventName = location.search.slice(1);
+const property = eventName === "volumechange" ? "volume" : "playbackRate";
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const audio = frame.contentDocument.createElement("audio");
+  const changed = new EventWatcher(t, audio, eventName).wait_for(eventName);
+  audio[property] = 0.5;
+  frame.contentWindow.stop();
+  await changed;
+}, `${eventName} tasks survive window.stop()`);
+
+// Each media element has its own task source, so another element's event cannot serve as a checkpoint.
+// Await the event itself, using a surviving relevant global and a removed iframe's node document.
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const audio = document.createElement("audio");
+  frame.contentDocument.body.append(audio);
+  const changed = new EventWatcher(t, audio, eventName).wait_for(eventName);
+  audio[property] = 0.5;
+  frame.remove();
+  await changed;
+}, `An adopted element's ${eventName} task uses its relevant global's document, not its node document`);
+</script>
