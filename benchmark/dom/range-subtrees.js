@@ -55,23 +55,20 @@ module.exports = () => {
 
     const range = document.createRange();
     range.selectNode(selected);
-    bench.add(`toString: one child with ${siblingCount} unrelated subtrees`, () => range.toString(), {
-      beforeEach() {
-        parent.insertBefore(selected, parent.firstChild);
-        range.selectNode(selected);
-      }
-    });
+    bench.add(`toString: one child with ${siblingCount} unrelated subtrees`, () => range.toString());
 
     const collapsed = document.createRange();
     collapsed.setStart(parent, 0);
     collapsed.collapse(true);
     bench.add(`toString: collapsed with ${siblingCount} unrelated subtrees`, () => collapsed.toString());
 
+    const deletionTree = parent.cloneNode(true);
+    const childToDelete = deletionTree.firstChild;
     const deletion = document.createRange();
     bench.add(`deleteContents: one child with ${siblingCount} unrelated subtrees`, () => deletion.deleteContents(), {
       beforeEach() {
-        parent.insertBefore(selected, parent.firstChild);
-        deletion.selectNode(selected);
+        deletionTree.insertBefore(childToDelete, deletionTree.firstChild);
+        deletion.selectNode(childToDelete);
       }
     });
   }
