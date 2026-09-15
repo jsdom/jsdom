@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>A destroyed document remains accessible without changing its DOM</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#destroy-a-document">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  document.body.append(frame);
+  const doc = frame.contentDocument;
+  const paragraph = doc.createElement("p");
+  paragraph.textContent = "Retained content";
+  doc.body.append(paragraph);
+  const observer = new MutationObserver(t.unreached_func("Destruction must not mutate the document"));
+  observer.observe(doc, { childList: true, subtree: true });
+  t.add_cleanup(() => observer.disconnect());
+  frame.remove();
+  assert_array_equals(observer.takeRecords(), []);
+  assert_equals(doc.body.firstChild, paragraph);
+  assert_equals(paragraph.textContent, "Retained content");
+}, "Removing an iframe does not clear or mutate its document's contents");
+
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  document.body.append(frame);
+  const child = frame.contentWindow;
+  frame.remove();
+  const events = [];
+  child.addEventListener("load", () => events.push("load"));
+  child.addEventListener("pageshow", () => events.push("pageshow"));
+  // Complete a DOM manipulation task in the surviving document after the child's initialization work.
+  const sentinel = document.createElement("details");
+  const toggled = new EventWatcher(t, sentinel, "toggle").wait_for("toggle");
+  sentinel.open = true;
+  await toggled;
+  assert_array_equals(events, []);
+}, "A retained window does not receive initial load or pageshow events after its iframe is removed");
+</script>

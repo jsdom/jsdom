@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it } = require("mocha-sugar-free");
-const delay = require("node:timers/promises").setTimeout;
+const { once } = require("node:events");
 
 const { JSDOM, VirtualConsole } = require("../..");
 const jsGlobals = Object.keys(require("../../lib/generated/js-globals.json"));
@@ -160,7 +160,7 @@ describe("API: runScripts constructor option", () => {
 
             assert.equal(dom.window.document.body.onloadRan, undefined);
 
-            return delay().then(() => {
+            return once(dom.window, "load").then(() => {
               assert.equal(dom.window.document.body.onloadRan, undefined);
             });
           });
@@ -183,8 +183,9 @@ describe("API: runScripts constructor option", () => {
           it("should not evaluate the handler", () => {
             const dom = createJSDOMWithParsedHandlers();
 
+            const hashchange = once(dom.window, "hashchange");
             dom.window.location.href = "#foo";
-            return delay().then(() => {
+            return hashchange.then(() => {
               assert.equal(dom.window.document.body.onhashchangeRan, undefined);
             });
           });
@@ -208,8 +209,9 @@ describe("API: runScripts constructor option", () => {
             const dom = createJSDOM();
             dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
+            const hashchange = once(dom.window, "hashchange");
             dom.window.location.href = "#foo";
-            return delay().then(() => {
+            return hashchange.then(() => {
               assert.equal(dom.window.document.body.onhashchangeRan, undefined);
             });
           });
@@ -236,9 +238,7 @@ describe("API: runScripts constructor option", () => {
 
             dom.window.document.querySelector("div").click();
 
-            return delay().then(() => {
-              assert.equal(dom.window.document.body.onclickRan, undefined);
-            });
+            assert.equal(dom.window.document.body.onclickRan, undefined);
           });
 
           it("should not generate the property", () => {
@@ -303,7 +303,7 @@ describe("API: runScripts constructor option", () => {
         it("should evaluate the handler", () => {
           const dom = createJSDOMWithParsedHandlers();
 
-          return delay().then(() => {
+          return once(dom.window, "load").then(() => {
             assert.equal(dom.window.document.body.onloadRan, true);
           });
         });
@@ -327,8 +327,9 @@ describe("API: runScripts constructor option", () => {
         it("should not evaluate the handler", () => {
           const dom = createJSDOMWithParsedHandlers();
 
+          const hashchange = once(dom.window, "hashchange");
           dom.window.location.href = "#foo";
-          return delay().then(() => {
+          return hashchange.then(() => {
             assert.equal(dom.window.document.body.onhashchangeRan, true);
           });
         });
@@ -353,8 +354,9 @@ describe("API: runScripts constructor option", () => {
           const dom = createJSDOM();
           dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
+          const hashchange = once(dom.window, "hashchange");
           dom.window.location.href = "#foo";
-          return delay().then(() => {
+          return hashchange.then(() => {
             assert.equal(dom.window.document.body.onhashchangeRan, true);
           });
         });
@@ -448,8 +450,9 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
         ran = true;
       };
 
+      const hashchange = once(dom.window, "hashchange");
       dom.window.location.href = "#foo";
-      return delay().then(() => {
+      return hashchange.then(() => {
         assert.equal(ran, true);
       });
     });
@@ -473,8 +476,9 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
         ran = true;
       };
 
+      const hashchange = once(dom.window, "hashchange");
       dom.window.location.href = "#foo";
-      return delay().then(() => {
+      return hashchange.then(() => {
         assert.equal(ran, true);
       });
     });
