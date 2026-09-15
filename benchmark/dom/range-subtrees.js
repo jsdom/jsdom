@@ -41,5 +41,40 @@ module.exports = () => {
     });
   }
 
+  for (const siblingCount of [0, 1000]) {
+    const parent = document.createElement("div");
+    const selected = parent.appendChild(document.createElement("b"));
+    selected.textContent = "selected";
+    for (let i = 0; i < siblingCount; ++i) {
+      let node = parent.appendChild(document.createElement("section"));
+      for (let depth = 0; depth < 20; ++depth) {
+        node = node.appendChild(document.createElement("div"));
+      }
+      node.textContent = "unselected";
+    }
+
+    const range = document.createRange();
+    range.selectNode(selected);
+    bench.add(`toString: one child with ${siblingCount} unrelated subtrees`, () => range.toString(), {
+      beforeEach() {
+        parent.insertBefore(selected, parent.firstChild);
+        range.selectNode(selected);
+      }
+    });
+
+    const collapsed = document.createRange();
+    collapsed.setStart(parent, 0);
+    collapsed.collapse(true);
+    bench.add(`toString: collapsed with ${siblingCount} unrelated subtrees`, () => collapsed.toString());
+
+    const deletion = document.createRange();
+    bench.add(`deleteContents: one child with ${siblingCount} unrelated subtrees`, () => deletion.deleteContents(), {
+      beforeEach() {
+        parent.insertBefore(selected, parent.firstChild);
+        deletion.selectNode(selected);
+      }
+    });
+  }
+
   return bench;
 };
