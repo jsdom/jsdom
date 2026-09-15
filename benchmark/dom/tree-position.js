@@ -20,6 +20,13 @@ module.exports = () => {
     bench.add(`compare branches: depths ${leftDepth}/${rightDepth}, shared depth ${sharedDepth}`, () => {
       return left.compareDocumentPosition(right);
     });
+
+    const range = document.createRange();
+    range.setStart(left, 0);
+    range.setEnd(right, 0);
+    bench.add(`common ancestor: depths ${leftDepth}/${rightDepth}, shared depth ${sharedDepth}`, () => {
+      return range.commonAncestorContainer;
+    });
   }
 
   return bench;
