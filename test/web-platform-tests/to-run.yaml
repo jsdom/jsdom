@@ -2409,7 +2409,6 @@ toString-user-select-none.html: [fail, Unknown]
 
 DIR: shadow-dom
 
-Document-prototype-currentScript.html: [timeout, Test not up to date next with updating wpt it should work]
 DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
 HighlightRegistry-highlightsFromPoint.html: [fail, Not implemented]
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
