@@ -48,15 +48,15 @@ custom-elements/ElementInternals-accessibility-values.html:
 html/semantics/document-metadata/the-style-element/no-browsing-context-import.html: [timeout, Imports do not load without a browsing context]
 html/semantics/document-metadata/the-style-element/no-browsing-context.html:
   "no impact on getComputedStyle": [fail, Computed styles should be empty without a browsing context]
-html/semantics/embedded-content/the-iframe-element/initial-blank-after-blocking-script.html: [fail, Our parser does not pause for parsing-blocking scripts]
+html/semantics/embedded-content/the-iframe-element/initial-blank-after-blocking-script.html: [fail, https://github.com/jsdom/jsdom/issues/2413]
 html/semantics/embedded-content/the-img-element/img-complete-after-error.html: [needs-canvas, Image loading requires canvas]
 html/semantics/embedded-content/the-img-element/img-complete-invalid-url.html: [timeout, Malformed image URLs do not dispatch error events]
 html/semantics/embedded-content/the-img-element/reuse-img.html: [needs-canvas, Image loading requires canvas]
 html/semantics/forms/the-option-element/option-ask-for-a-reset.html:
   "Setting an already-present selected attribute does not change selectedness": [fail, A no-op defaultSelected assignment incorrectly changes selectedness]
-html/semantics/scripting-1/the-script-element/execution-timing/async-script-depending-on-previous-sync-dont-upstream.html: [fail, Our parser does not pause for parsing-blocking scripts]
+html/semantics/scripting-1/the-script-element/execution-timing/async-script-depending-on-previous-sync-dont-upstream.html: [fail, https://github.com/jsdom/jsdom/issues/2413]
 html/semantics/scripting-1/the-script-element/parser-created-resources-while-blocked.html?img: [needs-canvas, Image loading requires canvas]
-html/semantics/scripting-1/the-script-element/parser-resource-order.html: [fail-with-canvas, Our parser does not pause for parsing-blocking scripts]
+html/semantics/scripting-1/the-script-element/parser-resource-order.html: [fail-with-canvas, https://github.com/jsdom/jsdom/issues/2413]
 html/syntax/parsing/noscript-template-querySelector.html:
   "noscript contents are escaped when serialized in a template": [fail, Serialization uses the wrong scripting flag for the template contents document]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
