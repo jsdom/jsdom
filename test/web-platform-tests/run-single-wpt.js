@@ -128,6 +128,9 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
         const errors = [];
 
         window.shimTest = () => {
+          // Results are reported through callbacks, so do not build a report in each test document.
+          window.setup({ output: false });
+
           const oldSetup = window.setup;
           window.setup = options => {
             if (options.allow_uncaught_exception) {
