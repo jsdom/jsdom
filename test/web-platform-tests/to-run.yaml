@@ -951,9 +951,6 @@ HTMLElement-constructor.html:
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself via a Proxy object": [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
 connected-callbacks-html-fragment-parsing.html: [fail-slow, Unknown]
 cross-realm-callback-report-exception.html: [fail, No relevant realm support for callbacks in webidl2js]
-custom-element-reaction-queue.html:
-  "Upgrading a custom element must invoke attributeChangedCallback and connectedCallback before start upgrading another element": [fail, document.write() implementation is not spec compliant]
-  "Mutating a undefined custom element while upgrading a custom element must not enqueue or invoke reactions on the mutated element": [fail, document.write() implementation is not spec compliant]
 form-associated/ElementInternals-NotSupportedError.html: [fail, Not implemented]
 form-associated/ElementInternals-form.html: [fail, Not implemented]
 form-associated/ElementInternals-setFormValue-nullish-value.html: [fail, Not implemented]
@@ -1136,10 +1133,6 @@ TreeWalker-acceptNode-filter-cross-realm-null-browsing-context.html: [fail, No r
 DIR: domparsing
 
 DOMParser-parseFromString-stylesheets.html: [fail, Unknown]
-DOMParser-parseFromString-url-base-pushstate.html: [fail, iframe onload timing]
-DOMParser-parseFromString-url-base.html: [fail, iframe onload timing]
-DOMParser-parseFromString-url-pushstate.html: [fail, iframe onload timing]
-DOMParser-parseFromString-url.html: [fail, iframe onload timing]
 DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD validation]
 XMLSerializer-serializeToString.html: [fail, Unknown]
 createContextualFragment-xhtml.xhtml: [fail, Unknown]
@@ -1459,6 +1452,7 @@ same-hash.html: [timeout, Unknown]
 scripted_click_assign_during_load.html: [timeout, Unknown]
 scripted_click_location_assign_during_load.html: [timeout, Unknown]
 scripted_form_submit_assign_during_load.html: [timeout, Unknown]
+security_location_0.htm: [fail, Our parser does not pause for parsing-blocking scripts; initial iframe load precedes handler definition]
 
 ---
 
@@ -2322,7 +2316,7 @@ DIR: html/webappapis/dynamic-markup-insertion/document-writeln
 
 DIR: html/webappapis/dynamic-markup-insertion/opening-the-input-stream
 
-006.html: [fail, document.open does not erase event listeners]
+006.html: [fail-with-canvas, document.open does not erase event listeners]
 015.html: [timeout, document.open retains the load handler so reopening loops and delays parent load]
 016.html: [timeout, document.open retains the load handler so reopening loops and delays parent load]
 abort-refresh-immediate.window.html: [fail, Depends on fetch and refresh navigation]
@@ -2631,6 +2625,7 @@ postMessage_arrays.sub.htm: [fail, Cross-document postMessage]
 postMessage_asterisk_xorigin.sub.htm: [timeout, Cross-document postMessage]
 postMessage_cross_domain_image_transfer_2d.sub.htm: [fail, Cross-document postMessage]
 postMessage_dup_transfer_objects.htm: [fail, Cross-document postMessage]
+postMessage_invalid_targetOrigin.htm: [flaky, Our parser does not pause for parsing-blocking scripts; iframe load can precede handler definition]
 postMessage_objects.sub.htm: [fail, Cross-document postMessage]
 postMessage_origin_mismatch*: [fail, Cross-document postMessage]
 postMessage_solidus_*: [fail, Cross-document postMessage]
