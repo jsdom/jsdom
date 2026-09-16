@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FileReader completion and document lifetime</title>
+<link rel="help" href="https://w3c.github.io/FileAPI/#readOperation">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#abort-a-document">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  const reader = new child.FileReader();
+  const loaded = new EventWatcher(t, reader, ["loadend", "error"]).wait_for("loadend");
+  reader.readAsText(new child.Blob(["text"]));
+  child.stop();
+  await loaded;
+  assert_equals(reader.result, "text");
+}, "FileReader tasks survive window.stop()");
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  const reader = new child.FileReader();
+  const events = [];
+  reader.addEventListener("load", () => {
+    events.push("load");
+    frame.remove();
+  });
+  reader.addEventListener("loadend", () => events.push("loadend"));
+  const loaded = new EventWatcher(t, reader, ["loadend", "error"]).wait_for("loadend");
+  reader.readAsText(new child.Blob(["text"]));
+  await loaded;
+  // Both events are fired by the same task, with no intervening fully-active check.
+  assert_array_equals(events, ["load", "loadend"]);
+}, "FileReader fires loadend after a load listener removes its iframe");
+</script>

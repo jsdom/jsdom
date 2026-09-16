@@ -1,0 +1,107 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Queued tasks and document lifetime</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-task-runnable">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-an-element-task">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#destroy-a-document">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#abort-a-document">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+const operations = {
+  toggle(win, callback) {
+    const details = win.document.createElement("details");
+    details.addEventListener("toggle", callback);
+    details.open = true;
+  },
+  select(win, callback, t) {
+    const input = win.document.createElement("input");
+    input.value = "text";
+    input.addEventListener("select", callback);
+    win.document.body.append(input);
+    t.add_cleanup(() => input.remove());
+    input.select();
+  },
+  textareaSelect(win, callback, t) {
+    const textarea = win.document.createElement("textarea");
+    textarea.value = "text";
+    textarea.addEventListener("select", callback);
+    win.document.body.append(textarea);
+    t.add_cleanup(() => textarea.remove());
+    textarea.select();
+  },
+  postMessage(win, callback, t) {
+    win.addEventListener("message", callback, { once: true });
+    t.add_cleanup(() => win.removeEventListener("message", callback));
+    win.postMessage("task", "*");
+  }
+};
+
+for (const [name, queue] of Object.entries(operations)) {
+  for (const destroy of [false, true]) {
+    promise_test(async t => {
+      const frame = await addIframe();
+      t.add_cleanup(() => frame.remove());
+      let events = 0;
+      const completed = new Promise(resolve => {
+        queue(frame.contentWindow, () => {
+          ++events;
+          resolve();
+        }, t);
+      });
+      if (destroy) {
+        frame.remove();
+      } else {
+        frame.contentWindow.stop();
+        await completed;
+      }
+      // These operations synchronously enqueue a single task on a shared task source.
+      // A later task from that same source in the surviving document is a completion checkpoint.
+      await new Promise(resolve => {
+        queue(window, resolve, t);
+      });
+      assert_equals(events, destroy ? 0 : 1);
+    }, `${name} tasks ${destroy ? "do not run after iframe removal" : "survive window.stop()"}`);
+  }
+}
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  child.postMessage("task", "*");
+  frame.remove();
+  // Register after removal so clearing the window's listeners cannot hide a delivered task.
+  const events = [];
+  child.addEventListener("message", event => events.push(event.data));
+  await new Promise(resolve => {
+    operations.postMessage(window, resolve, t);
+  });
+  assert_array_equals(events, []);
+}, "A queued message does not fire even if a listener is installed after iframe removal");
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const doc = frame.contentDocument;
+  const host = doc.createElement("div");
+  doc.body.append(host);
+  const shadow = host.attachShadow({ mode: "closed" });
+  const nested = doc.createElement("iframe");
+  const loaded = new EventWatcher(t, nested, "load").wait_for("load");
+  shadow.append(nested);
+  await loaded;
+  let events = 0;
+  operations.toggle(nested.contentWindow, () => ++events);
+  frame.remove();
+  await new Promise(resolve => {
+    operations.toggle(window, resolve);
+  });
+  assert_equals(events, 0);
+}, "Iframe removal prevents tasks from running in descendant documents inside shadow trees");
+</script>

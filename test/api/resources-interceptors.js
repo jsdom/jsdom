@@ -1196,6 +1196,35 @@ describe("API: resources interceptors option", () => {
   });
 
   describe("canceling requests", () => {
+    it("should allow an abort listener to reenter window.close()", async () => {
+      let aborts = 0;
+      const { window } = new JSDOM("<p>Retained content</p>", {
+        url: "https://example.test/",
+        runScripts: "dangerously",
+        resources: {
+          interceptors: [
+            requestInterceptor(request => {
+              request.signal.addEventListener("abort", () => {
+                ++aborts;
+                window.close();
+              });
+              return new Promise(() => {});
+            })
+          ]
+        }
+      });
+      const script = window.document.createElement("script");
+      script.src = "/pending.js";
+      window.document.head.append(script);
+      const { document } = window;
+      const markup = document.documentElement.outerHTML;
+      assert.doesNotThrow(() => window.close());
+      await nextTurn();
+      assert.equal(aborts, 1);
+      assert.equal(window.document, document);
+      assert.equal(document.documentElement.outerHTML, markup);
+    });
+
     it("should report cancellation when stopped while an interceptor remains pending", async () => {
       const canceled = Promise.withResolvers();
       let signal;
