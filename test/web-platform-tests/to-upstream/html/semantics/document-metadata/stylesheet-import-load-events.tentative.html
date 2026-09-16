@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="variant" content="?link">
+<meta name="variant" content="?style">
+<title>Stylesheet load events wait for nested imports and fire once</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics.html#the-style-element">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics.html#default-fetch-and-process-the-linked-resource">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/links.html#link-type-stylesheet">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#at-import">
+<link rel="help" href="https://github.com/whatwg/html/issues/968">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+// HTML's critical-subresource fetching and its integration with CSS `@import` are underspecified:
+// https://github.com/whatwg/html/issues/968
+// Chromium and WebKit fire `load` for both `link` and `style` after their imports finish, even when an import fails;
+// Firefox fires `error`. Tentatively test this majority behavior until the specifications are clarified.
+
+const tag = location.search.slice(1);
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  frame.src = `resources/stylesheet-import-load-events.html?tag=${tag}`;
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  document.body.append(frame);
+  await loaded;
+  assert_array_equals(frame.contentWindow.events, ["load"]);
+  assert_equals(frame.contentWindow.rulesAtLoad, 1, "Nested imports are available during the element's load event");
+  assert_equals(frame.contentWindow.colorAtLoad, "rgb(0, 128, 0)", "Nested imports participate in the cascade");
+}, `${tag} fires one load event after its nested imports finish, before the document finishes loading`);
+
+for (const mode of ["error", "cycle"]) {
+  promise_test(async t => {
+    const frame = document.createElement("iframe");
+    t.add_cleanup(() => frame.remove());
+    const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+    frame.src = `resources/stylesheet-import-load-events.html?tag=${tag}&mode=${mode}`;
+    document.body.append(frame);
+    await loaded;
+    assert_array_equals(frame.contentWindow.events, ["load"]);
+    assert_equals(frame.contentWindow.colorAtLoad, "rgb(0, 128, 0)", "Successfully loaded rules still apply");
+  }, mode === "error" ?
+    `${tag} fires one load event after nested import failure and other imports finish` :
+    `${tag} ignores import cycles and finishes loading`);
+}
+</script>

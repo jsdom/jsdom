@@ -30,6 +30,10 @@ describe("web-platform-tests", () => {
   for (const { dir, expectationDataByTestFilePath, testFilePaths } of testGroups) {
     describe(dir, () => {
       for (const testFilePath of testFilePaths) {
+        // Skip upstream tentative tests; local to-upstream tests run regardless of tentative status.
+        if (/tentative[./]/.test(testFilePath)) {
+          continue;
+        }
         runTestWithExpectations(testFilePath, expectationDataByTestFilePath, {
           runSingleWPT,
           prefix: dir + "/"

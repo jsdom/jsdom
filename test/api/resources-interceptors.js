@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { describe, it, beforeEach, afterEach } = require("mocha-sugar-free");
-const { setTimeout: delay, setImmediate: nextTurn } = require("node:timers/promises");
+const { setTimeout: delay, setImmediate } = require("node:timers/promises");
 const { Agent, interceptors, cacheStores } = require("undici");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 
@@ -1196,6 +1196,31 @@ describe("API: resources interceptors option", () => {
   });
 
   describe("canceling requests", () => {
+    for (const attribute of ["href", "rel"]) {
+      it(`should cancel an intercepted stylesheet request when ${attribute} is removed`, async () => {
+        const response = Promise.withResolvers();
+        let signal;
+        const { window } = new JSDOM('<link rel="stylesheet" href="/pending.css">', {
+          url: "https://example.test/",
+          resources: {
+            interceptors: [
+              requestInterceptor(request => {
+                signal = request.signal;
+                return response.promise;
+              })
+            ]
+          }
+        });
+        try {
+          window.document.querySelector("link").removeAttribute(attribute);
+          assert.equal(signal.aborted, true);
+        } finally {
+          response.resolve(new Response(""));
+          window.close();
+        }
+      });
+    }
+
     it("should allow an abort listener to reenter window.close()", async () => {
       let aborts = 0;
       const { window } = new JSDOM("<p>Retained content</p>", {
@@ -1219,7 +1244,7 @@ describe("API: resources interceptors option", () => {
       const { document } = window;
       const markup = document.documentElement.outerHTML;
       assert.doesNotThrow(() => window.close());
-      await nextTurn();
+      await setImmediate();
       assert.equal(aborts, 1);
       assert.equal(window.document, document);
       assert.equal(document.documentElement.outerHTML, markup);
@@ -1280,7 +1305,7 @@ describe("API: resources interceptors option", () => {
         window.stop();
         await assert.rejects(fetched, { name: "AbortError" });
         // Let the interceptor's rejection handler run before checking for duplicate notifications.
-        await nextTurn();
+        await setImmediate();
         assert.equal(errors.length, 1);
         assert.equal(errors[0], signal.reason);
       } finally {
@@ -1354,7 +1379,7 @@ describe("API: resources interceptors option", () => {
         }, { highWaterMark: 0 })));
         await canceled.promise;
         // Let the cleanup rejection reach the interceptor's rejection handler.
-        await nextTurn();
+        await setImmediate();
         assert.equal(errors.length, 1);
         assert.equal(errors[0], signal.reason);
       } finally {
@@ -1526,7 +1551,7 @@ describe("API: resources interceptors option", () => {
           });
 
           requestController.abort(new Error("Canceled after failure"));
-          await nextTurn();
+          await setImmediate();
           assert.equal(errors.length, 1);
         } finally {
           await agent.destroy();
@@ -1675,7 +1700,7 @@ describe("API: resources interceptors option", () => {
         });
         afterEach(async () => {
           cleanup.resolve();
-          await nextTurn();
+          await setImmediate();
         });
 
         for (const sizeSource of ["Content-Length", "streamed body"]) {
@@ -1749,7 +1774,7 @@ describe("API: resources interceptors option", () => {
             }), expectedError);
 
             assert.equal(cancelReason, expectedError, "The body must be canceled with the handler's error");
-            await nextTurn();
+            await setImmediate();
             assert.deepEqual(notifications, ["error"]);
           } finally {
             bodyController.error(new Error("Test cleanup"));
@@ -1859,9 +1884,7 @@ describe("API: resources interceptors option", () => {
       resolveInterceptor();
 
       // Flush the promise chain - the .then() after fn() needs to run
-      await new Promise(r => {
-        setImmediate(r);
-      });
+      await setImmediate();
 
       // The second interceptor should not have been called
       assert.equal(requestDispatched, false, "Request should not have been dispatched after abort");

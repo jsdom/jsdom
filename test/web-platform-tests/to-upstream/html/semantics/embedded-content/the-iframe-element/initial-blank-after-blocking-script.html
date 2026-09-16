@@ -1,0 +1,18 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Initial about:blank iframe load follows parser order</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#shared-attribute-processing-steps-for-iframe-and-frame-elements">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+promise_test(async t => {
+  const frame = await addIframe("resources/initial-blank-after-blocking-script.html");
+  t.add_cleanup(() => frame.remove());
+  assert_array_equals(frame.contentWindow.events, ["setup", "iframe", "following"]);
+}, "The initial about:blank load occurs between preceding and following parser-inserted scripts");
+</script>
