@@ -11,16 +11,16 @@
 <script>
 "use strict";
 
-test((t) => {
+test(t => {
   const one = document.getElementById("one");
   const two = document.getElementById("two");
   const events = [];
-  const blurHandler = t.step_func((e) => {
+  const blurHandler = t.step_func(e => {
     if (e.target === one || e.target === two) {
       events.push({ type: "blur", target: e.target.id, hasFocus: document.hasFocus() });
     }
   });
-  const focusHandler = t.step_func((e) => {
+  const focusHandler = t.step_func(e => {
     if (e.target === one || e.target === two) {
       events.push({ type: "focus", target: e.target.id, hasFocus: document.hasFocus() });
     }
@@ -47,7 +47,7 @@ test((t) => {
   // Second event: blur on #one (due to moving focus to #two)
   assert_equals(events[1].type, "blur", "Second event should be blur");
   assert_equals(events[1].target, "one", "Second event target should be 'one'");
-  assert_true(events[1].hasFocus, "document.hasFocus() should be true during 'one' blur, as focus is shifting within the same document");
+  assert_true(events[1].hasFocus, "document.hasFocus() should be true during 'one' blur");
 
   // Third event: focus on #two
   assert_equals(events[2].type, "focus", "Third event should be focus");
