@@ -1,0 +1,299 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Sibling indexes and tree order after subtree moves</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-tree-index">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-range-commonancestorcontainer">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const parents = [document.createElement("div"), document.createDocumentFragment()];
+  const children = Array.from({ length: 80 }, () => document.createElement("span"));
+  const expected = [children.slice(0, 40), children.slice(40)];
+  parents[0].append(...expected[0]);
+  parents[1].append(...expected[1]);
+  const range = document.createRange();
+
+  function check() {
+    for (let p = 0; p < parents.length; ++p) {
+      const parent = parents[p];
+      const list = expected[p];
+      assert_array_equals(Array.from(parent.childNodes), list);
+      range.selectNodeContents(parent);
+      assert_equals(range.endOffset, list.length);
+
+      // Query in a different order from insertion, with first and last included.
+      for (let i = 0; i < list.length; ++i) {
+        const index = list.length - i - 1;
+        const child = list[index];
+        range.selectNode(child);
+        assert_equals(range.startContainer, parent);
+        assert_equals(range.startOffset, index);
+        assert_equals(range.endOffset, index + 1);
+        assert_equals(child.previousSibling, list[index - 1] || null);
+        assert_equals(child.nextSibling, list[index + 1] || null);
+        if (index + 1 < list.length) {
+          assert_equals(child.compareDocumentPosition(list[index + 1]), Node.DOCUMENT_POSITION_FOLLOWING);
+        }
+      }
+    }
+  }
+
+  check();
+  for (let step = 0; step < 240; ++step) {
+    const source = step % 2;
+    const target = 1 - source;
+    const from = expected[source];
+    const to = expected[target];
+    const index = step % 3 === 0 ? from.length - 1 : (step * 17) % from.length;
+    const child = from.splice(index, 1)[0];
+    const before = step % 4 === 0 ? to.length : (step * 13) % (to.length + 1);
+    parents[target].insertBefore(child, to[before] || null);
+    to.splice(before, 0, child);
+    check();
+  }
+
+  while (expected[0].length > 0) {
+    expected[0].pop().remove();
+    check();
+  }
+}, "Range offsets and sibling order stay correct across insertions, moves, and removals");
+
+test(() => {
+  const fragment = document.createDocumentFragment();
+  const left = document.createElement("div");
+  const right = document.createElement("div");
+  fragment.append(left, right);
+  const leftLeaf = left.appendChild(document.createElement("span"));
+  const rightLeaf = right.appendChild(document.createElement("span"));
+  const nested = rightLeaf.appendChild(document.createElement("i"));
+
+  assert_equals(leftLeaf.compareDocumentPosition(nested), Node.DOCUMENT_POSITION_FOLLOWING);
+  assert_equals(nested.compareDocumentPosition(leftLeaf), Node.DOCUMENT_POSITION_PRECEDING);
+  assert_equals(
+    right.compareDocumentPosition(nested),
+    Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONTAINED_BY
+  );
+  assert_equals(
+    nested.compareDocumentPosition(right),
+    Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONTAINS
+  );
+
+  left.prepend(rightLeaf);
+  assert_equals(nested.compareDocumentPosition(leftLeaf), Node.DOCUMENT_POSITION_FOLLOWING);
+  assert_equals(right.compareDocumentPosition(nested), Node.DOCUMENT_POSITION_PRECEDING);
+  const walker = document.createTreeWalker(fragment);
+  const visited = [];
+  while (walker.nextNode()) {
+    visited.push(walker.currentNode);
+  }
+  assert_array_equals(visited, [left, rightLeaf, nested, leftLeaf, right]);
+
+  rightLeaf.remove();
+  assert_true(Boolean(nested.compareDocumentPosition(leftLeaf) & Node.DOCUMENT_POSITION_DISCONNECTED));
+}, "Tree order follows moves between ancestors and disconnected roots");
+
+test(() => {
+  const root = document.createElement("div");
+  root.innerHTML = "<section><b>left</b></section><aside><div><i>right</i></div></aside>";
+  const section = root.firstChild;
+  const aside = root.lastChild;
+  const left = section.firstChild.firstChild;
+  const right = aside.firstChild.firstChild.firstChild;
+  const range = document.createRange();
+
+  range.setStart(left, 1);
+  range.setEnd(right, 2);
+  assert_equals(range.commonAncestorContainer, root);
+  const clone = document.createElement("div");
+  clone.append(range.cloneContents());
+  assert_equals(clone.innerHTML, "<section><b>eft</b></section><aside><div><i>ri</i></div></aside>");
+
+  section.append(aside);
+  assert_equals(range.endContainer, root);
+  assert_equals(range.commonAncestorContainer, root);
+  range.setEnd(right, 2);
+  assert_equals(range.commonAncestorContainer, section);
+
+  const extracted = document.createElement("div");
+  extracted.append(range.extractContents());
+  assert_equals(extracted.innerHTML, "<b>eft</b><aside><div><i>ri</i></div></aside>");
+  assert_equals(root.textContent, "lght");
+  assert_true(range.collapsed);
+  assert_equals(range.commonAncestorContainer, section);
+
+  range.setStart(section, 0);
+  range.setEnd(left, 1);
+  assert_equals(range.commonAncestorContainer, section);
+  range.collapse(false);
+  assert_equals(range.commonAncestorContainer, left);
+}, "Range common ancestors, cloning, and extraction follow moves between branches of different depths");
+
+test(() => {
+  const attribute = document.createAttribute("data-value");
+  const element = document.createElement("div");
+  assert_true(Boolean(attribute.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED));
+  assert_true(Boolean(element.compareDocumentPosition(attribute) & Node.DOCUMENT_POSITION_DISCONNECTED));
+}, "An unattached attribute is disconnected from an element");
+
+test(() => {
+  const parent = document.createElement("div");
+  const original = Array.from({ length: 10 }, () => document.createElement("span"));
+  parent.append(...original);
+  const range = document.createRange();
+  range.selectNode(original[5]);
+  assert_equals(range.startOffset, 5);
+
+  const added = Array.from({ length: 50 }, () => document.createElement("i"));
+  original[2].before(...added);
+  range.selectNode(added[38]);
+  assert_equals(range.startOffset, 40);
+  range.selectNode(original[5]);
+  assert_equals(range.startOffset, 55);
+
+  for (const child of added) {
+    child.remove();
+  }
+  range.selectNode(original[5]);
+  assert_equals(range.startOffset, 5);
+}, "Range offsets remain correct when a large insertion separates previously indexed siblings");
+
+test(() => {
+  const parent = document.createElement("div");
+  parent.innerHTML = "<i></i><span>text</span><i></i>";
+  const subtree = parent.children[1];
+  const nested = document.createRange();
+  nested.selectNodeContents(subtree.firstChild);
+  const enclosing = document.createRange();
+  enclosing.selectNode(subtree);
+
+  parent.insertBefore(document.createElement("b"), subtree);
+  assert_equals(enclosing.startOffset, 1);
+  assert_equals(enclosing.endOffset, 3);
+  subtree.remove();
+  assert_equals(nested.startContainer, parent);
+  assert_equals(nested.endContainer, parent);
+  assert_equals(nested.startOffset, 2);
+  assert_equals(nested.endOffset, 2);
+  assert_equals(enclosing.startOffset, 1);
+  assert_equals(enclosing.endOffset, 2);
+
+  const first = document.createRange();
+  first.selectNodeContents(parent.firstChild);
+  parent.firstChild.remove();
+  assert_equals(first.startContainer, parent);
+  assert_equals(first.startOffset, 0);
+  assert_equals(first.endOffset, 0);
+}, "Removing a subtree adjusts descendant and parent Ranges, including offset zero");
+
+test(() => {
+  for (let seed = 1; seed <= 4; ++seed) {
+    let state = seed;
+    function random(max) {
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      return state % max;
+    }
+    const nodes = Array.from({ length: 40 }, () => document.createElement("div"));
+    const children = nodes.map(() => []);
+    const parents = nodes.map(() => -1);
+    const range = document.createRange();
+    function ancestors(id) {
+      const result = [];
+      while (id !== -1) {
+        result.push(id);
+        id = parents[id];
+      }
+      return result;
+    }
+    function descendants(id) {
+      return [id, ...children[id].flatMap(descendants)];
+    }
+    for (let i = 1; i < 30; ++i) {
+      nodes[0].appendChild(nodes[i]);
+      children[0].push(i);
+      parents[i] = 0;
+    }
+    for (let step = 0; step < 150; ++step) {
+      const child = random(nodes.length);
+      const reference = random(nodes.length);
+      const action = random(3);
+      const target = action === 1 ? parents[reference] : reference;
+      if (child === reference || target === -1 || ancestors(target).includes(child)) {
+        continue;
+      }
+      nodes[child].remove();
+      if (parents[child] !== -1) {
+        const siblings = children[parents[child]];
+        siblings.splice(siblings.indexOf(child), 1);
+      }
+      parents[child] = -1;
+      if (action === 0) {
+        nodes[target].appendChild(nodes[child]);
+        children[target].push(child);
+        parents[child] = target;
+      } else if (action === 1) {
+        nodes[target].insertBefore(nodes[child], nodes[reference]);
+        children[target].splice(children[target].indexOf(reference), 0, child);
+        parents[child] = target;
+      }
+      if (step % 11 !== 0) {
+        continue;
+      }
+      for (let id = 0; id < nodes.length; ++id) {
+        assert_array_equals(Array.from(nodes[id].childNodes), children[id].map(i => nodes[i]));
+        if (parents[id] !== -1) {
+          range.selectNode(nodes[id]);
+          assert_equals(range.startContainer, nodes[parents[id]]);
+          assert_equals(range.startOffset, children[parents[id]].indexOf(id));
+        }
+        const walker = document.createTreeWalker(nodes[id]);
+        const visited = [walker.currentNode];
+        while (walker.nextNode()) {
+          visited.push(walker.currentNode);
+        }
+        assert_array_equals(visited, descendants(id).map(i => nodes[i]));
+        const left = ancestors(id);
+        const right = ancestors(reference);
+        let expected;
+        if (id === reference) {
+          expected = 0;
+        } else if (left.includes(reference)) {
+          expected = Node.DOCUMENT_POSITION_CONTAINS | Node.DOCUMENT_POSITION_PRECEDING;
+        } else if (right.includes(id)) {
+          expected = Node.DOCUMENT_POSITION_CONTAINED_BY | Node.DOCUMENT_POSITION_FOLLOWING;
+        } else if (left.at(-1) !== right.at(-1)) {
+          const position = nodes[id].compareDocumentPosition(nodes[reference]);
+          assert_true(Boolean(position & Node.DOCUMENT_POSITION_DISCONNECTED));
+          continue;
+        } else {
+          const order = descendants(left.at(-1));
+          expected = order.indexOf(id) < order.indexOf(reference) ?
+            Node.DOCUMENT_POSITION_FOLLOWING :
+Node.DOCUMENT_POSITION_PRECEDING;
+        }
+        assert_equals(nodes[id].compareDocumentPosition(nodes[reference]), expected);
+      }
+    }
+  }
+}, "Range indexes, tree walking, and document position agree after seeded subtree moves");
+
+test(() => {
+  const otherDocument = document.implementation.createHTMLDocument();
+  const root = otherDocument.createElement("div");
+  const descendants = [root];
+  let parent = root;
+  for (let i = 0; i < 100; ++i) {
+    const shadow = parent.attachShadow({ mode: "closed" });
+    const child = shadow.appendChild(otherDocument.createElement("div"));
+    parent.appendChild(otherDocument.createElement("span"));
+    descendants.push(shadow, child, parent.firstChild);
+    parent = child;
+  }
+  document.adoptNode(root);
+  for (const node of descendants) {
+    assert_equals(node.ownerDocument, document);
+  }
+}, "Adoption visits every node in nested shadow trees and their hosts' light trees");
+</script>
