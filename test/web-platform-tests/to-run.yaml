@@ -2328,6 +2328,46 @@ playing-the-media-resource/!(playbackRate.html): [fail-slow, Media loading and p
 
 ---
 
+DIR: html/semantics/embedded-content/the-canvas-element
+
+2d-getcontext-options.html: [fail-with-canvas, Context options are not converted]
+canvas-descendants-focusability-002.html: [fail-with-canvas, Hidden canvas descendants can be focused]
+canvas-descendants-focusability-005.html: [timeout, Requires iframe srcdoc]
+canvas-descendants-focusability-006.html: [timeout, Requires iframe srcdoc]
+context.casesensitive.html: [fail-with-canvas, Unrecognized context names return the existing 2D context]
+context.emptystring.html: [fail-with-canvas, Unrecognized context names return the existing 2D context]
+context.unrecognised.badname.html: [fail-with-canvas, Unrecognized context names return the existing 2D context]
+context.unrecognised.badsuffix.html: [fail-with-canvas, Unrecognized context names return the existing 2D context]
+context.unrecognised.nullsuffix.html: [fail-with-canvas, Unrecognized context names return the existing 2D context]
+context.unrecognised.unicode.html: [fail-with-canvas, Unrecognized context names return the existing 2D context]
+historical.html: [fail, Path2D is not implemented]
+imagedata.html: [fail, ImageData is not implemented]
+security.drawImage.canvas.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.drawImage.canvas.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.drawImage.image.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.drawImage.image.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.canvas.fillStyle.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.canvas.fillStyle.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.canvas.strokeStyle.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.canvas.strokeStyle.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.cross.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.cross.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.fillStyle.sub.html: [timeout, Requires video loading and OffscreenCanvas]
+security.pattern.image.fillStyle.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.image.fillStyle.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.image.strokeStyle.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.pattern.image.strokeStyle.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.reset.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.reset.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.resize.cross.html: [fail-with-canvas, Canvas tainting is not implemented]
+security.resize.redirect.html: [fail-with-canvas, Canvas tainting is not implemented]
+toBlob-cross-realm-callback-report-exception.html: [fail-with-canvas, Requires iframe srcdoc]
+toBlob.null.html: [timeout, Zero-sized JPEG encoding aborts the canvas process]
+toDataURL.jpeg.quality.basic.html: [fail-with-canvas, JPEG pixels differ beyond the test tolerance]
+toDataURL.jpeg.quality.outsiderange.html: [fail-with-canvas, Out-of-range JPEG quality does not use the default]
+
+---
+
 DIR: html/semantics/embedded-content/the-iframe-element
 
 '*srcdoc*': [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']

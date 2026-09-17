@@ -65,7 +65,6 @@
     "mocha-sugar-free": "^1.4.0",
     "npm-run-all2": "^9.0.3",
     "opener": "^1.5.2",
-    "pngjs": "^7.0.0",
     "semver": "^7.8.5",
     "server-destroy": "^1.0.1",
     "tinybench": "^6.2.0",
