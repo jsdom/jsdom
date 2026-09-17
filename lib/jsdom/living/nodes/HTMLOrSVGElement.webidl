@@ -4,6 +4,7 @@ interface mixin HTMLOrSVGElement {
   [Reflect] attribute DOMString nonce; // intentionally no [CEReactions]
 
   [CEReactions] attribute long tabIndex;
+  [CEReactions, Reflect] attribute boolean inert;
 //  We don't support FocusOptions yet
 //  undefined focus(optional FocusOptions options = {});
   undefined focus();
