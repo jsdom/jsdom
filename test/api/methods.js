@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
+const { describe, it } = require("node:test");
 const vm = require("node:vm");
-const { describe, it } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");
 

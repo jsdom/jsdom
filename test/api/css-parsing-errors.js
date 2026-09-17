@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const path = require("node:path");
-const { describe, it } = require("mocha-sugar-free");
+const { describe, it } = require("node:test");
 const { JSDOM, VirtualConsole } = require("../..");
 
 describe("CSS parsing errors", () => {

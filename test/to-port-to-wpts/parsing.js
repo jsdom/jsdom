@@ -1,13 +1,13 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 const { readTestFixture } = require("../util.js");
 
 // These tests are mostly random regression tests, not systematic parsing tests. They are compiled from the bug tracker.
 describe("jsdom/parsing", () => {
-  specify("<template> content document fragment (GH-942)", () => {
+  test("<template> content document fragment (GH-942)", () => {
     const { document } = (new JSDOM("<ul><template><div>Hello world!</div></template></ul>")).window;
 
     const tmpl = document.getElementsByTagName("template");
@@ -16,7 +16,7 @@ describe("jsdom/parsing", () => {
     assert.equal(tmpl[0].innerHTML, "<div>Hello world!</div>");
   });
 
-  specify("unclosed <td> (GH-605)", () => {
+  test("unclosed <td> (GH-605)", () => {
     const { document } = (new JSDOM("<table><tr><td>first td<td>second td</tr></table>")).window;
 
     const tds = document.getElementsByTagName("td");
@@ -26,7 +26,7 @@ describe("jsdom/parsing", () => {
     assert.equal(tds[1].innerHTML, "second td");
   });
 
-  specify("multiline attributes (GH-585)", () => {
+  test("multiline attributes (GH-585)", () => {
     const html = "<a data-title='<strong>hello \nworld</strong>' href='example.org</strong>'>link</a>";
     const { document } = (new JSDOM(html)).window;
 
@@ -38,7 +38,7 @@ describe("jsdom/parsing", () => {
     assert.equal(as[0].getAttribute("href"), "example.org</strong>");
   });
 
-  specify("innerHTML of <script type='text/html'> (GH-575)", () => {
+  test("innerHTML of <script type='text/html'> (GH-575)", () => {
     const { document } = (new JSDOM("<script type='text/html'>script innerHTML</script>")).window;
 
     const scripts = document.getElementsByTagName("script");
@@ -47,7 +47,7 @@ describe("jsdom/parsing", () => {
     assert.equal(scripts[0].innerHTML, "script innerHTML");
   });
 
-  specify("attributes containing '<' and '>' (GH-494)", () => {
+  test("attributes containing '<' and '>' (GH-494)", () => {
     const { document } = (new JSDOM("<p title='<'>stuff</p><p title='>'>more</p><p>just testing</p>")).window;
 
     const ps = document.getElementsByTagName("p");
@@ -57,7 +57,7 @@ describe("jsdom/parsing", () => {
     assert.equal(ps[1].getAttribute("title"), ">");
   });
 
-  specify("empty attributes (GH-488)", () => {
+  test("empty attributes (GH-488)", () => {
     const { document } = (new JSDOM("<div ng-app></div>")).window;
 
     const divs = document.getElementsByTagName("div");
@@ -66,7 +66,7 @@ describe("jsdom/parsing", () => {
     assert.equal(divs[0].getAttribute("ng-app"), "");
   });
 
-  specify("omitting optional closing tags (GH-482)", () => {
+  test("omitting optional closing tags (GH-482)", () => {
     const { document } = (new JSDOM("<p>First<p>Second<p>Third")).window;
 
     const ps = document.getElementsByTagName("p");
@@ -77,7 +77,7 @@ describe("jsdom/parsing", () => {
     assert.equal(ps[2].innerHTML, "Third");
   });
 
-  specify("crazy attribute names (GH-368)", () => {
+  test("crazy attribute names (GH-368)", () => {
     const { document } = (new JSDOM("<p <='' FAIL>stuff</p>")).window;
 
     const ps = document.getElementsByTagName("p");
@@ -88,7 +88,7 @@ describe("jsdom/parsing", () => {
     assert.equal(ps[0].getAttribute("fail"), "");
   });
 
-  specify("attribute named 'constructor' (GH-625)", () => {
+  test("attribute named 'constructor' (GH-625)", () => {
     const { document } = (new JSDOM("<element constructor='Hello'></element>")).window;
 
     const els = document.getElementsByTagName("element");
@@ -99,7 +99,7 @@ describe("jsdom/parsing", () => {
     assert.equal(els[0].outerHTML, "<element constructor=\"Hello\"></element>");
   });
 
-  specify("attribute inherited from Object (GH-1442)", () => {
+  test("attribute inherited from Object (GH-1442)", () => {
     // eslint-disable-next-line no-extend-native
     Object.prototype.attribute = "value";
 
@@ -114,7 +114,7 @@ describe("jsdom/parsing", () => {
     assert.equal(els[0].outerHTML, "<element></element>");
   });
 
-  specify("prefix on attribute named 'hasOwnProperty' (GH-1444)", () => {
+  test("prefix on attribute named 'hasOwnProperty' (GH-1444)", () => {
     const options = { contentType: "application/xml" };
     const { document } = (new JSDOM(`<element xmlns:prefix="https://example.com/" prefix:hasOwnProperty='value'></element>`, options)).window;
 
@@ -130,7 +130,7 @@ describe("jsdom/parsing", () => {
     );
   });
 
-  specify("CDATA should parse as bogus comments (GH-618)", () => {
+  test("CDATA should parse as bogus comments (GH-618)", () => {
     const { document } = (new JSDOM("<html><head></head><body><div><![CDATA[test]]></div></body></html>")).window;
 
     const div = document.getElementsByTagName("div")[0];
@@ -148,7 +148,7 @@ describe("jsdom/parsing", () => {
     );
   });
 
-  specify("innerHTML behavior in <script> vs. <p> (GH-652)", () => {
+  test("innerHTML behavior in <script> vs. <p> (GH-652)", () => {
     const { document } = (new JSDOM()).window;
 
     const script = document.createElement("script");
@@ -160,7 +160,7 @@ describe("jsdom/parsing", () => {
     assert.equal(p.innerHTML, "3 &lt; 5");
   });
 
-  specify("lower-cases tags in outerHTML and innerHTML", () => {
+  test("lower-cases tags in outerHTML and innerHTML", () => {
     const { document } = (new JSDOM("<HTML><HEAD></HEAD><BODY><P ALIGN='RIGHT'>test</P></BODY></HTML>")).window;
 
     assert.equal(
@@ -173,30 +173,30 @@ describe("jsdom/parsing", () => {
     assert.equal(document.body.innerHTML, "<div>test</div>");
   });
 
-  specify("HTML entities without ; (GH-821)", () => {
+  test("HTML entities without ; (GH-821)", () => {
     const { document } = (new JSDOM("<a>&#x61</a>")).window;
 
     assert.equal(document.getElementsByTagName("a")[0].textContent, "a");
   });
 
-  specify("Added < and > near <script> tags (GH-826)", () => {
+  test("Added < and > near <script> tags (GH-826)", () => {
     const { document } = (new JSDOM("<<script>alert(1);//<</script>")).window;
 
     assert.equal(document.body.innerHTML, "&lt;<script>alert(1);//<</script>");
   });
 
-  specify("Chinese characters as a 'tag name' (GH-719)", () => {
+  test("Chinese characters as a 'tag name' (GH-719)", () => {
     const { window } = new JSDOM(`<div>chinese here:<中文></div>`);
     assert.equal(window.document.body.innerHTML, "<div>chinese here:&lt;中文&gt;</div>");
   });
 
-  specify("A single <html> tag (GH-827)", () => {
+  test("A single <html> tag (GH-827)", () => {
     const { document } = (new JSDOM("<html>")).window;
 
     assert.equal(document.documentElement.innerHTML, "<head></head><body></body>");
   });
 
-  specify("Missing <html> tags (GH-555)", () => {
+  test("Missing <html> tags (GH-555)", () => {
     const doctype = "<!DOCTYPE html PUBLIC\"-//W3C//DTD HTML 4.0//EN\">";
     const docA = (new JSDOM(doctype + "<html><head><title></title></head><p>")).window.document;
     const docB = (new JSDOM(doctype + "<head><title></title></head><p>")).window.document;
@@ -205,7 +205,7 @@ describe("jsdom/parsing", () => {
     assert.equal(docB.querySelectorAll("p").length, 1);
   });
 
-  specify("More missing <html> and <body> tag tests (GH-88)", () => {
+  test("More missing <html> and <body> tag tests (GH-88)", () => {
     const doc1 = (new JSDOM("<html><body></body></html>")).window.document;
     assert.equal(doc1.body.innerHTML, "");
 
@@ -216,7 +216,7 @@ describe("jsdom/parsing", () => {
     assert.equal(doc3.body.innerHTML, "gavin!");
   });
 
-  specify(".innerHTML with < character (GH-652)", () => {
+  test(".innerHTML with < character (GH-652)", () => {
     const { document } = (new JSDOM(`<html>`)).window;
 
     const script = document.createElement("script");
@@ -228,13 +228,13 @@ describe("jsdom/parsing", () => {
     assert.equal(p.innerHTML, "5 &lt; 3");
   });
 
-  specify("whitespace after <!DOCTYPE> (GH-160)", () => {
+  test("whitespace after <!DOCTYPE> (GH-160)", () => {
     const { document } = (new JSDOM("<!DOCTYPE html>\n<html></html>")).window;
 
     assert.equal(document.firstChild.nodeName, "html");
   });
 
-  specify("pre tag with < and > characters (GH-755)", () => {
+  test("pre tag with < and > characters (GH-755)", () => {
     const { document } = (new JSDOM("<pre>[task.h:277] - RunnableMethod<DOMStorageDispatcherHost,void " +
       "( DOMStorageDispatcherHost::*)(DOMStorageType,IPC::Message *),Tuple2<DOMStorageType,IPC::Message *>>" +
       "::Run()</pre>")).window;
@@ -244,27 +244,27 @@ describe("jsdom/parsing", () => {
       "<domstoragetype,ipc::message=\"\" *=\"\">&gt;::Run()</domstoragedispatcherhost,void></pre>");
   });
 
-  specify("querySelector applied to document fragments (GH-523)", () => {
+  test("querySelector applied to document fragments (GH-523)", () => {
     const { document } = (new JSDOM("<a href='http://foo'></a>")).window;
 
     assert.equal(document.querySelector("[href]").tagName, "A");
   });
 
-  specify("real-world page with < inside a text node (GH-800)", () => {
+  test("real-world page with < inside a text node (GH-800)", () => {
     return readTestFixture("to-port-to-wpts/files/steam.html").then(content => {
       const doc = (new JSDOM(content)).window.document;
       assert.notEqual(doc.querySelector(".badge_card_set_text"), null);
     });
   });
 
-  specify("void tags with innerHTML (GH-863)", () => {
+  test("void tags with innerHTML (GH-863)", () => {
     const { document } = (new JSDOM()).window;
     document.body.innerHTML = "<p>hello <img src=\"test\"> world</p>";
 
     assert.equal(document.body.firstChild.childNodes.length, 3, "paragraph should contain 3 children");
   });
 
-  specify("void tags set by innerHTML from createElement (GH-863/872)", () => {
+  test("void tags set by innerHTML from createElement (GH-863/872)", () => {
     const { document } = (new JSDOM()).window;
     const div = document.createElement("div");
     div.innerHTML = "first <img src=\"test\"> third";
@@ -275,7 +275,7 @@ describe("jsdom/parsing", () => {
     assert.equal(div.childNodes[2].textContent, " third");
   });
 
-  specify("<template> with whitespace inside (GH-1004)", () => {
+  test("<template> with whitespace inside (GH-1004)", () => {
     const { document } = (new JSDOM("<template>    <div></div>    </template>")).window;
 
     assert.equal(
@@ -284,7 +284,7 @@ describe("jsdom/parsing", () => {
     );
   });
 
-  specify("doctype parsing should work for simple cases (GH-1066)", () => {
+  test("doctype parsing should work for simple cases (GH-1066)", () => {
     const { document } = (new JSDOM("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">")).window;
 
     assert.equal(document.doctype.name, "html");
@@ -292,7 +292,7 @@ describe("jsdom/parsing", () => {
     assert.equal(document.doctype.publicId, "-//W3C//DTD HTML 4.01 Transitional//EN");
   });
 
-  specify("completely empty <!DOCTYPE> (GH-1204)", () => {
+  test("completely empty <!DOCTYPE> (GH-1204)", () => {
     const { document } = (new JSDOM("<!DOCTYPE>")).window;
 
     assert.equal(document.doctype.name, "");
@@ -300,7 +300,7 @@ describe("jsdom/parsing", () => {
     assert.equal(document.doctype.publicId, "");
   });
 
-  specify("incomplete SVG doctype (GH-259)", () => {
+  test("incomplete SVG doctype (GH-259)", () => {
     const { document } = (new JSDOM(`<!DOCTYPE svg>\n<svg version="1.1"></svg>`)).window;
 
     assert.equal(document.doctype.name, "svg");
@@ -308,7 +308,7 @@ describe("jsdom/parsing", () => {
     assert.equal(document.doctype.publicId, "");
   });
 
-  specify("extra HTML after </html> (GH-319)", () => {
+  test("extra HTML after </html> (GH-319)", () => {
     const { document } = (new JSDOM("<!DOCTYPE html><html><head><title>Title</title></head>" +
                                     "<body>My body</body></html><div></div>")).window;
 
@@ -316,7 +316,7 @@ describe("jsdom/parsing", () => {
     assert.equal(document.querySelector("div").parentNode, document.body);
   });
 
-  specify("<%= stuff %> inside <script> tags (GH-58)", () => {
+  test("<%= stuff %> inside <script> tags (GH-58)", () => {
     const content = "<%= cid %>";
     const script = `<script type="text/x-underscore-tmpl">${content}</script>`;
     const html = `<html><head>${script}</head><body><p>hello world!</p></body></html>`;
@@ -328,7 +328,7 @@ describe("jsdom/parsing", () => {
     assert.equal(document.head.childNodes[0].innerHTML, content);
   });
 
-  specify("xmlns doesn't cause empty prefix", () => {
+  test("xmlns doesn't cause empty prefix", () => {
     const html = "<!DOCTYPE html><math xmlns=\"http://www.w3.org/1998/Math/MathML\"></math>";
     const expected = "<!DOCTYPE html><html><head></head>" +
       "<body><math xmlns=\"http://www.w3.org/1998/Math/MathML\"></math></body></html>";

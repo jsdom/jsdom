@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, it } = require("mocha-sugar-free");
+const { describe, it } = require("node:test");
 const toughCookie = require("tough-cookie");
 const { Agent } = require("undici");
 const { JSDOMDispatcher } = require("../../lib/jsdom/browser/resources/jsdom-dispatcher.js");

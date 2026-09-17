@@ -1,5 +1,5 @@
 const assert = require("node:assert/strict");
-const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
+const { beforeEach, afterEach, describe, test } = require("node:test");
 
 describe("level2/core", () => {
   // NB: these tests have been modified to be compliant with the modern DOM, instead of the "DOM Level 2" they were
@@ -19,7 +19,7 @@ describe("level2/core", () => {
     });
 
     // Create a new element and attribute node, attach the attribute to the element. Check the value of owner element of the new attribute node
-    specify('attrgetownerelement02', () => {
+    test('attrgetownerelement02', () => {
       var element = this.doc.createElement("root");
       var attr = this.doc.createAttributeNS("http://www.w3.org/DOM/L1","L1:att");
       element.setAttributeNodeNS(attr);
@@ -27,14 +27,14 @@ describe("level2/core", () => {
     });
 
     // Create a new attribute node for this document node.  Since the newly attribute is not in use its owner element should be null.
-    specify('attrgetownerelement03', () => {
+    test('attrgetownerelement03', () => {
       var attr = this.doc.createAttributeNS("http://www.w3.org/DOM","dom:attr");
       assert.equal(attr.ownerElement, null, 'should be null')
     });
 
     // Retreive an element and its attributes.  Then remove the element and check the name of the ownerElement of attribute of the attribute "street".
     // @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-    specify('attrgetownerelement05', () => {
+    test('attrgetownerelement05', () => {
       var element = this.doc.getElementsByTagNameNS("*","address").item(1);
       element.parentNode.removeChild(element);
       var attr = element.attributes.getNamedItemNS(null, "street");
@@ -59,7 +59,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('createAttributeNS02', () => {
+    test('createAttributeNS02', () => {
       var success;
       var namespaceURI = null;
 
@@ -99,7 +99,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('createAttributeNS04', () => {
+    test('createAttributeNS04', () => {
       var success;
       var namespaceURI = "http://www.w3.org/XML/1998/namespaces";
       var qualifiedName = "xml:attr1";
@@ -133,7 +133,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1112119403
     */
-    specify('createAttributeNS05', () => {
+    test('createAttributeNS05', () => {
       var success;
       var namespaceURI = "http://www.ecommerce.org/";
       var qualifiedName = "econm:local";
@@ -155,7 +155,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
     */
-    specify('createAttributeNS06', () => {
+    test('createAttributeNS06', () => {
       var success;
       var namespaceURI = "http://www.example.com/";
       var qualifiedName;
@@ -194,7 +194,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('createDocument02', () => {
+    test('createDocument02', () => {
       var success;
       var namespaceURI = null;
 
@@ -235,7 +235,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
     */
-    specify('createDocument05', () => {
+    test('createDocument05', () => {
       var success;
       var namespaceURI = "http://www.ecommerce.org/schema";
       var qualifiedName;
@@ -313,7 +313,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('createDocument06', () => {
+    test('createDocument06', () => {
       var success;
       var namespaceURI = "http://ecommerce.org/schema";
       var qualifiedName = "xml:local";
@@ -353,7 +353,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     */
-    specify('createDocument07', () => {
+    test('createDocument07', () => {
       var success;
       var namespaceURI = "http://www.ecommerce.org/schema";
       var qualifiedName = "y:x";
@@ -383,7 +383,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
     */
-    specify('createDocument08', () => {
+    test('createDocument08', () => {
       var success;
       var namespaceURI = "http://www.example.org/schema";
       var docType = null;
@@ -415,7 +415,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
     */
-    specify('createDocumentType03', () => {
+    test('createDocumentType03', () => {
       var success;
       var namespaceURI = "http://ecommerce.org/schema";
       var qualifiedName = "prefix:myDoc";
@@ -457,7 +457,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('createElementNS02', () => {
+    test('createElementNS02', () => {
       var success;
       var namespaceURI = null;
 
@@ -494,7 +494,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
     */
-    specify('createElementNS03', () => {
+    test('createElementNS03', () => {
       var success;
       var namespaceURI = "http://www.wedding.com/";
       var qualifiedName;
@@ -568,7 +568,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('createElementNS04', () => {
+    test('createElementNS04', () => {
       var success;
       var namespaceURI = "http://www.w3.org/XML/1998/namespaces";
       var qualifiedName = "xml:element1";
@@ -602,7 +602,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-104682815
     */
-    specify('createElementNS05', () => {
+    test('createElementNS05', () => {
       var success;
       var namespaceURI = "http://www.nist.gov";
       var qualifiedName = "gov:faculty";
@@ -625,7 +625,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
     */
-    specify('createElementNS06', () => {
+    test('createElementNS06', () => {
       var success;
       var namespaceURI = "http://www.example.com/";
       var qualifiedName;
@@ -663,7 +663,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
     */
-    specify('documentcreateattributeNS01', () => {
+    test('documentcreateattributeNS01', () => {
       var success;
       var attribute;
       var namespaceURI = null;
@@ -694,7 +694,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
     */
-    specify('documentcreateattributeNS02', () => {
+    test('documentcreateattributeNS02', () => {
       var success;
       var attribute1;
       var attribute2;
@@ -745,7 +745,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
     */
-    specify('documentcreateattributeNS05', () => {
+    test('documentcreateattributeNS05', () => {
       var success;
       var newDoc;
       var docType = null;
@@ -786,7 +786,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
     */
-    specify('documentcreateattributeNS06', () => {
+    test('documentcreateattributeNS06', () => {
       var success;
       var newDoc;
       var docType = null;
@@ -833,7 +833,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
     */
-    specify('documentcreateattributeNS07', () => {
+    test('documentcreateattributeNS07', () => {
       var success;
       var attribute;
       var namespaceURI = "http://www.W3.org/2000/xmlns";
@@ -873,7 +873,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
     */
-    specify('documentcreateelementNS01', () => {
+    test('documentcreateelementNS01', () => {
       var success;
       var element;
       var namespaceURI = "http://www.w3.org/DOM/Test/level2";
@@ -920,7 +920,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
     */
-    specify('documentcreateelementNS02', () => {
+    test('documentcreateelementNS02', () => {
       var success;
       var element;
       var namespaceURI = null;
@@ -960,7 +960,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
     */
-    specify('documentcreateelementNS05', () => {
+    test('documentcreateelementNS05', () => {
       var success;
       var element;
       var namespaceURI = null;
@@ -996,7 +996,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
     */
-    specify('documentcreateelementNS06', () => {
+    test('documentcreateelementNS06', () => {
       var success;
       var newDoc;
       var docType = null;
@@ -1044,7 +1044,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBId
     */
-    specify('documentgetelementbyid01', () => {
+    test('documentgetelementbyid01', () => {
       var success;
       var element;
       var elementId = "---";
@@ -1069,7 +1069,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('documentgetelementsbytagnameNS01', () => {
+    test('documentgetelementsbytagnameNS01', () => {
       var success;
       var newDoc;
       var docType = null;
@@ -1103,7 +1103,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('documentgetelementsbytagnameNS02', () => {
+    test('documentgetelementsbytagnameNS02', () => {
       var success;
       var docElem;
       var element;
@@ -1133,7 +1133,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('documentgetelementsbytagnameNS03', () => {
+    test('documentgetelementsbytagnameNS03', () => {
       var success;
       var childList;
 
@@ -1157,7 +1157,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('documentgetelementsbytagnameNS04', () => {
+    test('documentgetelementsbytagnameNS04', () => {
       var success;
       var childList;
       var nullNS = null;
@@ -1184,7 +1184,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('documentgetelementsbytagnameNS05', () => {
+    test('documentgetelementsbytagnameNS05', () => {
       var success;
       var childList;
 
@@ -1210,7 +1210,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode06', () => {
+    test('documentimportnode06', () => {
       var success;
       var docImported;
 
@@ -1244,7 +1244,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode09', () => {
+    test('documentimportnode09', () => {
       var success;
       var docFragment;
       var childList;
@@ -1279,7 +1279,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode10', () => {
+    test('documentimportnode10', () => {
       var success;
       var docFragment;
       var childList;
@@ -1314,7 +1314,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode11', () => {
+    test('documentimportnode11', () => {
       var success;
       var docElement;
       var imported;
@@ -1351,7 +1351,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode12', () => {
+    test('documentimportnode12', () => {
       var success;
       var childList;
       var imported;
@@ -1392,7 +1392,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode13', () => {
+    test('documentimportnode13', () => {
       var success;
       var childList;
       var imported;
@@ -1427,7 +1427,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode15', () => {
+    test('documentimportnode15', () => {
       var success;
       var textImport;
       var textToImport;
@@ -1458,7 +1458,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode17', () => {
+    test('documentimportnode17', () => {
       var success;
       var commentImport;
       var commentToImport;
@@ -1489,7 +1489,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('documentimportnode18', () => {
+    test('documentimportnode18', () => {
       var success;
       var piImport;
       var piToImport;
@@ -1523,7 +1523,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-publicId
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('documenttypepublicid01', () => {
+    test('documenttypepublicid01', () => {
       var success;
       var docType;
       var domImpl;
@@ -1553,7 +1553,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
     */
-    specify('documenttypesystemid01', () => {
+    test('documenttypesystemid01', () => {
       var success;
       var docType;
       var domImpl;
@@ -1594,7 +1594,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     */
-    specify('domimplementationcreatedocument03', () => {
+    test('domimplementationcreatedocument03', () => {
       var success;
       var domImpl;
       var newDoc;
@@ -1646,7 +1646,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     */
-    specify('domimplementationcreatedocument04', () => {
+    test('domimplementationcreatedocument04', () => {
       var success;
       var domImpl;
       var newDoc;
@@ -1693,7 +1693,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     */
-    specify('domimplementationcreatedocument05', () => {
+    test('domimplementationcreatedocument05', () => {
       var success;
       var domImpl;
       var newDoc;
@@ -1735,7 +1735,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     */
-    specify('domimplementationcreatedocument07', () => {
+    test('domimplementationcreatedocument07', () => {
       var success;
       var domImpl;
       var newDoc;
@@ -1770,7 +1770,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
     */
-    specify('domimplementationcreatedocumenttype01', () => {
+    test('domimplementationcreatedocumenttype01', () => {
       var success;
       var domImpl;
       var newDocType;
@@ -1824,7 +1824,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
     */
-    specify('domimplementationcreatedocumenttype02', () => {
+    test('domimplementationcreatedocumenttype02', () => {
       var success;
       var domImpl;
       var newDocType;
@@ -1893,7 +1893,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
     */
-    specify('domimplementationfeaturecore', () => {
+    test('domimplementationfeaturecore', () => {
       var success;
       var domImpl;
       var state;
@@ -1935,7 +1935,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
     */
-    specify('domimplementationfeaturexmlversion2', () => {
+    test('domimplementationfeaturexmlversion2', () => {
       var success;
       var domImpl;
       var state;
@@ -1961,7 +1961,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
     */
-    specify('elementgetattributenodens01', () => {
+    test('elementgetattributenodens01', () => {
       var success;
       var element;
       var attribute1;
@@ -2009,7 +2009,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
     */
-    specify('elementgetattributenodens02', () => {
+    test('elementgetattributenodens02', () => {
       var success;
       var element;
       var attribute;
@@ -2047,7 +2047,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('elementgetelementsbytagnamens02', () => {
+    test('elementgetelementsbytagnamens02', () => {
       var success;
       var element;
       var elementList;
@@ -2074,7 +2074,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('elementgetelementsbytagnamens04', () => {
+    test('elementgetelementsbytagnamens04', () => {
       var success;
       var element;
       var child1;
@@ -2119,7 +2119,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('elementgetelementsbytagnamens05', () => {
+    test('elementgetelementsbytagnamens05', () => {
       var success;
       var element;
       var elementList;
@@ -2148,7 +2148,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
     */
-    specify('elementhasattribute01', () => {
+    test('elementhasattribute01', () => {
       var success;
       var element;
       var state;
@@ -2173,7 +2173,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
     */
-    specify('elementhasattribute03', () => {
+    test('elementhasattribute03', () => {
       var success;
       var element;
       var state;
@@ -2202,7 +2202,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
     */
-    specify('elementhasattribute04', () => {
+    test('elementhasattribute04', () => {
       var success;
       var element;
       var state;
@@ -2233,7 +2233,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
     */
-    specify('elementhasattributens01', () => {
+    test('elementhasattributens01', () => {
       var success;
       var element;
       var state;
@@ -2261,7 +2261,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
     */
-    specify('elementhasattributens02', () => {
+    test('elementhasattributens02', () => {
       var success;
       var element;
       var state;
@@ -2292,7 +2292,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('elementhasattributens03', () => {
+    test('elementhasattributens03', () => {
       var success;
       var element;
       var state;
@@ -2325,7 +2325,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
     */
-    specify('elementremoveattributens01', () => {
+    test('elementremoveattributens01', () => {
       var success;
       var element;
       var state;
@@ -2359,7 +2359,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
     */
-    specify('elementsetattributenodens01', () => {
+    test('elementsetattributenodens01', () => {
       var success;
       var element;
       var attribute1;
@@ -2407,7 +2407,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
     */
-    specify('elementsetattributenodens03', () => {
+    test('elementsetattributenodens03', () => {
       var success;
       var element1;
       var element2;
@@ -2448,7 +2448,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
     */
-    specify('elementsetattributenodens04', () => {
+    test('elementsetattributenodens04', () => {
       var success;
       var element1;
       var element2;
@@ -2487,7 +2487,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     */
-    specify('elementsetattributens01', () => {
+    test('elementsetattributens01', () => {
       var success;
       var element;
       var attribute;
@@ -2518,7 +2518,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     */
-    specify('elementsetattributens02', () => {
+    test('elementsetattributens02', () => {
       var success;
       var element;
       var attribute;
@@ -2552,7 +2552,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     */
-    specify('elementsetattributens03', () => {
+    test('elementsetattributens03', () => {
       var success;
       var element;
       var attribute;
@@ -2587,7 +2587,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('elementsetattributens05', () => {
+    test('elementsetattributens05', () => {
       var success;
       var element;
       var nullNS = null;
@@ -2623,7 +2623,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     */
-    specify('elementsetattributens08', () => {
+    test('elementsetattributens08', () => {
       var success;
       var element;
 
@@ -2662,7 +2662,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     * @see http://dom.spec.whatwg.org/#dom-element-setattributens
     */
-    specify('elementsetattributens09', () => {
+    test('elementsetattributens09', () => {
       var element;
 
       var doc = require('./core/files/staffNS.xml').staffNS();
@@ -2690,7 +2690,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('elementsetattributensurinull', () => {
+    test('elementsetattributensurinull', () => {
       var success;
       var namespaceURI = null;
 
@@ -2731,7 +2731,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
     */
-    specify('getAttributeNS01', () => {
+    test('getAttributeNS01', () => {
       var success;
       var namespaceURI = "http://www.nist.gov";
       var localName = "district";
@@ -2762,7 +2762,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
     */
-    specify('getAttributeNS02', () => {
+    test('getAttributeNS02', () => {
       var success;
       var namespaceURI = "http://www.nist.gov";
       var localName = "district";
@@ -2799,7 +2799,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
     */
-    specify('getAttributeNS03', () => {
+    test('getAttributeNS03', () => {
       var success;
       var namespaceURI = "http://www.nist.gov";
       var localName = "domestic";
@@ -2835,7 +2835,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
     */
-    specify('getAttributeNS04', () => {
+    test('getAttributeNS04', () => {
       var success;
       var namespaceURI = "http://www.nist.gov";
       var localName = "blank";
@@ -2870,7 +2870,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
     */
-    specify('getAttributeNS05', () => {
+    test('getAttributeNS05', () => {
       var success;
       var elementList;
       var testAddr;
@@ -2902,7 +2902,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
     */
-    specify('getAttributeNodeNS01', () => {
+    test('getAttributeNodeNS01', () => {
       var success;
       var namespaceURI = "http://www.nist.gov";
       var localName = "invalidlocalname";
@@ -2932,7 +2932,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
     */
-    specify('getAttributeNodeNS02', () => {
+    test('getAttributeNodeNS02', () => {
       var success;
       var elementList;
       var testAddr;
@@ -2966,7 +2966,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-104682815
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=383
     */
-    specify('getElementById01', () => {
+    test('getElementById01', () => {
       var success;
       var element;
       var tagname;
@@ -2992,7 +2992,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBId
     */
-    specify('getElementById02', () => {
+    test('getElementById02', () => {
       var success;
       var element;
 
@@ -3018,7 +3018,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('getElementsByTagNameNS01', () => {
+    test('getElementsByTagNameNS01', () => {
       var success;
       var namespaceURI = "*";
       var localName = "*";
@@ -3047,7 +3047,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('getElementsByTagNameNS02', () => {
+    test('getElementsByTagNameNS02', () => {
       var success;
       var newList;
       var newElement;
@@ -3082,7 +3082,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('getElementsByTagNameNS03', () => {
+    test('getElementsByTagNameNS03', () => {
       var success;
       var elementList;
       var child;
@@ -3134,7 +3134,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('getElementsByTagNameNS04', () => {
+    test('getElementsByTagNameNS04', () => {
       var success;
       var elementList;
       var child;
@@ -3177,7 +3177,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('getElementsByTagNameNS05', () => {
+    test('getElementsByTagNameNS05', () => {
       var success;
       var namespaceURI = "http://www.nist.gov";
       var localName = "nomatch";
@@ -3204,7 +3204,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('getElementsByTagNameNS06', () => {
+    test('getElementsByTagNameNS06', () => {
       var success;
       var elementList;
 
@@ -3229,7 +3229,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
     */
-    specify('getElementsByTagNameNS07', () => {
+    test('getElementsByTagNameNS07', () => {
       var success;
       var elementList;
 
@@ -3251,7 +3251,7 @@ describe("level2/core", () => {
     * @author Curt Arnold
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
     */
-    specify('getElementsByTagNameNS08', () => {
+    test('getElementsByTagNameNS08', () => {
       var success;
       var docElem;
       var newList;
@@ -3284,7 +3284,7 @@ describe("level2/core", () => {
     * @author Curt Arnold
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
     */
-    specify('getElementsByTagNameNS09', () => {
+    test('getElementsByTagNameNS09', () => {
       var success;
       var newList;
       var newElement;
@@ -3324,7 +3324,7 @@ describe("level2/core", () => {
     * @author Curt Arnold
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
     */
-    specify('getElementsByTagNameNS10', () => {
+    test('getElementsByTagNameNS10', () => {
       var success;
       var docElem;
       var elementList;
@@ -3380,7 +3380,7 @@ describe("level2/core", () => {
     * @author Curt Arnold
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
     */
-    specify('getElementsByTagNameNS11', () => {
+    test('getElementsByTagNameNS11', () => {
       var success;
       var docElem;
       var elementList;
@@ -3426,7 +3426,7 @@ describe("level2/core", () => {
     * @author Curt Arnold
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
     */
-    specify('getElementsByTagNameNS12', () => {
+    test('getElementsByTagNameNS12', () => {
       var success;
       var docElem;
       var elementList;
@@ -3453,7 +3453,7 @@ describe("level2/core", () => {
     * @author Curt Arnold
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
     */
-    specify('getElementsByTagNameNS13', () => {
+    test('getElementsByTagNameNS13', () => {
       var success;
       var docElem;
       var elementList;
@@ -3480,7 +3480,7 @@ describe("level2/core", () => {
     * @author Curt Arnold
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
     */
-    specify('getElementsByTagNameNS14', () => {
+    test('getElementsByTagNameNS14', () => {
       var success;
       var docElem;
       var elementList;
@@ -3510,7 +3510,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
     */
-    specify('getNamedItemNS01', () => {
+    test('getNamedItemNS01', () => {
       var success;
       var elementList;
       var testEmployee;
@@ -3546,7 +3546,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
     */
-    specify('getNamedItemNS02', () => {
+    test('getNamedItemNS02', () => {
       var success;
       var namespaceURI = "http://www.usa.com";
       var localName = "domest";
@@ -3579,7 +3579,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttr
     */
-    specify('hasAttribute01', () => {
+    test('hasAttribute01', () => {
       var success;
       var elementList;
       var testNode;
@@ -3604,7 +3604,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttr
     */
-    specify('hasAttribute03', () => {
+    test('hasAttribute03', () => {
       var success;
       var elementList;
       var testNode;
@@ -3630,7 +3630,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttr
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
     */
-    specify('hasAttribute04', () => {
+    test('hasAttribute04', () => {
       var success;
       var elementList;
       var testNode;
@@ -3661,7 +3661,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
     */
-    specify('hasAttributeNS01', () => {
+    test('hasAttributeNS01', () => {
       var success;
       var localName = "nomatch";
       var namespaceURI = "http://www.usa.com";
@@ -3690,7 +3690,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
     */
-    specify('hasAttributeNS02', () => {
+    test('hasAttributeNS02', () => {
       var success;
       var localName = "domestic";
       var namespaceURI = "http://www.nomatch.com";
@@ -3719,7 +3719,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
     */
-    specify('hasAttributeNS03', () => {
+    test('hasAttributeNS03', () => {
       var success;
       var localName = "blank";
       var namespaceURI = "http://www.nist.gov";
@@ -3749,7 +3749,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
     */
-    specify('hasAttributeNS05', () => {
+    test('hasAttributeNS05', () => {
       var success;
       var localName = "domestic";
       var namespaceURI = "http://www.usa.com";
@@ -3773,7 +3773,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-ElHasAttrNS
     * @see http://dom.spec.whatwg.org/#dom-element-hasattributens
     */
-    specify('hasAttributeNS06', () => {
+    test('hasAttributeNS06', () => {
       var element;
 
       var doc = require('./core/files/staffNS.xml').staffNS();
@@ -3798,7 +3798,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
     */
-    specify('hasAttributes01', () => {
+    test('hasAttributes01', () => {
       var success;
       var addrList;
       var addrNode;
@@ -3823,7 +3823,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
     */
-    specify('hasAttributes02', () => {
+    test('hasAttributes02', () => {
       var success;
       var addrList;
       var addrNode;
@@ -3855,7 +3855,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('importNode03', () => {
+    test('importNode03', () => {
       var comment;
       var aNode;
       var ownerDocument;
@@ -3885,7 +3885,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('importNode04', () => {
+    test('importNode04', () => {
       var success;
       var docFrag;
       var comment;
@@ -3925,7 +3925,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('importNode05', () => {
+    test('importNode05', () => {
       var element;
       var aNode;
       var hasChild;
@@ -3959,7 +3959,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('importNode06', () => {
+    test('importNode06', () => {
       var success;
       var element;
       var aNode;
@@ -4004,7 +4004,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
     */
-    specify('importNode08', () => {
+    test('importNode08', () => {
       var docFrag;
       var aNode;
       var hasChild;
@@ -4033,7 +4033,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('importNode14', () => {
+    test('importNode14', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var aNewDoc = require('./core/files/staffNS.xml').staffNS();
       var pi = aNewDoc.createProcessingInstruction("target1","data1");
@@ -4061,7 +4061,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     */
-    specify('importNode15', () => {
+    test('importNode15', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var aNewDoc = require('./core/files/staffNS.xml').staffNS();
       var text = aNewDoc.createTextNode("this is text data");
@@ -4087,7 +4087,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Core-Document-importNode')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_SUPPORTED_ERR'])
     */
-    specify('importNode17', () => {
+    test('importNode17', () => {
       var success;
       var node;
 
@@ -4124,7 +4124,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
     */
-    specify('localName01', () => {
+    test('localName01', () => {
       var success;
       var elementList;
       var testAddr;
@@ -4156,7 +4156,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
     */
-    specify('localName02', () => {
+    test('localName02', () => {
       var success;
       var createdNode;
       var localName;
@@ -4182,7 +4182,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
     */
-    specify('localName04', () => {
+    test('localName04', () => {
       var success;
       var elementList;
       var testEmployee;
@@ -4212,7 +4212,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
     */
-    specify('namednodemapgetnameditemns02', () => {
+    test('namednodemapgetnameditemns02', () => {
       var success;
       var attributes;
       var element;
@@ -4243,7 +4243,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
     */
-    specify('namednodemapgetnameditemns03', () => {
+    test('namednodemapgetnameditemns03', () => {
       var success;
       var attributes;
       var element;
@@ -4281,7 +4281,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
     */
-    specify('namednodemapgetnameditemns04', () => {
+    test('namednodemapgetnameditemns04', () => {
       var success;
       var attributes;
       var element;
@@ -4317,7 +4317,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
     */
-    specify('namednodemapgetnameditemns05', () => {
+    test('namednodemapgetnameditemns05', () => {
       var success;
       var attributes;
       var element;
@@ -4345,7 +4345,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
     */
-    specify('namednodemapgetnameditemns06', () => {
+    test('namednodemapgetnameditemns06', () => {
       var success;
       var attributesMap1;
       var attributesMap2;
@@ -4389,7 +4389,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
     */
-    specify('namednodemapremovenameditemns01', () => {
+    test('namednodemapremovenameditemns01', () => {
       var success;
       var attributes;
       var element;
@@ -4418,7 +4418,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
     */
-    specify('namednodemapremovenameditemns03', () => {
+    test('namednodemapremovenameditemns03', () => {
       var success;
       var attributes;
       var element;
@@ -4454,7 +4454,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
     */
-    specify('namednodemapremovenameditemns04', () => {
+    test('namednodemapremovenameditemns04', () => {
       var success;
       var attributes;
       var element;
@@ -4481,14 +4481,14 @@ describe("level2/core", () => {
     raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and
     localName in this map
 
-    Retreive an attribute node into a namednodemap.  While removing it from the map specify
+    Retreive an attribute node into a namednodemap.  While removing it from the map test
     an incorrect namespaceURI.  This should raise a NOT_FOUND_ERR.
 
     * @author IBM
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
     */
-    specify('namednodemapremovenameditemns06', () => {
+    test('namednodemapremovenameditemns06', () => {
       var success;
       var attributes;
       var element;
@@ -4519,14 +4519,14 @@ describe("level2/core", () => {
     raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and
     localName in this map
 
-    Retreive an attribute node from a namednodemap.  While removing it from the map specify
+    Retreive an attribute node from a namednodemap.  While removing it from the map test
     an incorrect localName.  This should raise a NOT_FOUND_ERR.
 
     * @author IBM
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
     */
-    specify('namednodemapremovenameditemns07', () => {
+    test('namednodemapremovenameditemns07', () => {
       var success;
       var attributes;
       var element;
@@ -4565,7 +4565,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
     */
-    specify('namednodemapremovenameditemns08', () => {
+    test('namednodemapremovenameditemns08', () => {
       var success;
       var attributes;
       var element;
@@ -4604,7 +4604,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
     */
-    specify('namednodemapremovenameditemns09', () => {
+    test('namednodemapremovenameditemns09', () => {
       var success;
       var attributes;
       var newAttributes;
@@ -4641,7 +4641,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
     */
-    specify('namednodemapsetnameditemns01', () => {
+    test('namednodemapsetnameditemns01', () => {
       var success;
       var attributes;
       var element;
@@ -4679,7 +4679,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
     */
-    specify('namednodemapsetnameditemns02', () => {
+    test('namednodemapsetnameditemns02', () => {
       var success;
       var attributes;
       var element;
@@ -4712,7 +4712,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
     */
-    specify('namednodemapsetnameditemns06', () => {
+    test('namednodemapsetnameditemns06', () => {
       var success;
       var attributes;
       var elementList;
@@ -4760,7 +4760,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
     */
-    specify('namednodemapsetnameditemns07', () => {
+    test('namednodemapsetnameditemns07', () => {
       var success;
       var attributes;
       var elementList;
@@ -4805,7 +4805,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
     */
-    specify('namednodemapsetnameditemns08', () => {
+    test('namednodemapsetnameditemns08', () => {
       var success;
       var attributes;
       var elementList;
@@ -4853,7 +4853,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
     */
-    specify('namespaceURI01', () => {
+    test('namespaceURI01', () => {
       var success;
       var elementList;
       var testAddr;
@@ -4882,7 +4882,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
     */
-    specify('namespaceURI02', () => {
+    test('namespaceURI02', () => {
       var success;
       var elementList;
       var testAddr;
@@ -4911,7 +4911,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
     */
-    specify('namespaceURI03', () => {
+    test('namespaceURI03', () => {
       var success;
       var elementList;
       var testEmployee;
@@ -4938,7 +4938,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
     */
-    specify('namespaceURI04', () => {
+    test('namespaceURI04', () => {
       var success;
       var elementList;
       var testEmployee;
@@ -4967,7 +4967,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
     */
-    specify('nodegetlocalname03', () => {
+    test('nodegetlocalname03', () => {
       var success;
       var element;
       var qelement;
@@ -5011,7 +5011,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('nodegetnamespaceuri03', () => {
+    test('nodegetnamespaceuri03', () => {
       var success;
       var element;
       var elementNS;
@@ -5054,7 +5054,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#node-ownerDoc
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('nodegetownerdocument01', () => {
+    test('nodegetownerdocument01', () => {
       var success;
       var ownerDoc;
       var domImpl;
@@ -5083,7 +5083,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#node-ownerDoc
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
     */
-    specify('nodegetownerdocument02', () => {
+    test('nodegetownerdocument02', () => {
       var success;
       var newDoc;
       var newElem;
@@ -5119,7 +5119,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
     */
-    specify('nodegetprefix03', () => {
+    test('nodegetprefix03', () => {
       var success;
       var element;
       var qelement;
@@ -5163,7 +5163,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
     */
-    specify('nodehasattributes01', () => {
+    test('nodehasattributes01', () => {
       var success;
       var element;
       var elementList;
@@ -5192,7 +5192,7 @@ describe("level2/core", () => {
     * @author Neil Delima
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
     */
-    specify('nodehasattributes04', () => {
+    test('nodehasattributes04', () => {
       var success;
       var newDoc;
       var docType = null;
@@ -5243,7 +5243,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-normalize
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-72AB8359
     */
-    specify('normalize01', () => {
+    test('normalize01', () => {
       var success;
       var root;
       var elementList;
@@ -5281,7 +5281,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#node-ownerDoc
     */
-    specify('ownerDocument01', () => {
+    test('ownerDocument01', () => {
       var success;
       var ownerDocument;
 
@@ -5303,7 +5303,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
     */
-    specify('ownerElement01', () => {
+    test('ownerElement01', () => {
       var success;
       var addressList;
       var testNode;
@@ -5338,7 +5338,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Attr-ownerElement
     */
-    specify('ownerElement02', () => {
+    test('ownerElement02', () => {
       var success;
       var newAttr;
       var elementNode;
@@ -5368,7 +5368,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
     */
-    specify('prefix01', () => {
+    test('prefix01', () => {
       var success;
       var createdNode;
       var prefix;
@@ -5393,7 +5393,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
     */
-    specify('prefix03', () => {
+    test('prefix03', () => {
       var success;
       var elementList;
       var testEmployee;
@@ -5420,7 +5420,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
     */
-    specify('prefix04', () => {
+    test('prefix04', () => {
       var success;
       var elementList;
       var testEmployee;
@@ -5447,7 +5447,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-publicId
     */
-    specify('publicId01', () => {
+    test('publicId01', () => {
       var success;
       var docType;
       var publicId;
@@ -5478,7 +5478,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-19
     * @see http://dom.spec.whatwg.org/#dom-element-removeattributens
     */
-    specify('removeAttributeNS03', () => {
+    test('removeAttributeNS03', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var elementList = doc.getElementsByTagName("emp:address");
       var testAddr = elementList.item(0);
@@ -5500,7 +5500,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1074577549
     */
-    specify('removeNamedItemNS01', () => {
+    test('removeNamedItemNS01', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var testAddress = doc.getElementsByTagName("address").item(1);
       var attributes = testAddress.attributes;
@@ -5528,7 +5528,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-removeNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_FOUND_ERR'])
     */
-    specify('removeNamedItemNS02', () => {
+    test('removeNamedItemNS02', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var success;
       var namespaceURI = "http://www.usa.com";
@@ -5567,7 +5567,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('setAttributeNS02', () => {
+    test('setAttributeNS02', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var success;
       var namespaceURI = "http://www.nist.gov";
@@ -5609,7 +5609,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
     */
-    specify('setAttributeNS04_modified', () => {
+    test('setAttributeNS04_modified', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var resultNamespaceURI;
       var resultLocalName;
@@ -5642,7 +5642,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
     */
-    specify('setAttributeNS05', () => {
+    test('setAttributeNS05', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var localName = "newAttr";
       var namespaceURI = "http://www.newattr.com";
@@ -5670,7 +5670,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('setAttributeNS06', () => {
+    test('setAttributeNS06', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var success;
       var namespaceURI = "http://www.nist.gov";
@@ -5708,7 +5708,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
     */
-    specify('setAttributeNS07', () => {
+    test('setAttributeNS07', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var success;
       var namespaceURI = "http://www.nist.gov";
@@ -5745,7 +5745,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
     */
-    specify('setAttributeNS09', () => {
+    test('setAttributeNS09', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var localName = "newAttr";
       var namespaceURI = "http://www.newattr.com";
@@ -5778,7 +5778,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
     * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
     */
-    specify('setAttributeNS10', () => {
+    test('setAttributeNS10', () => {
       var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
       var success;
       var namespaceURI = "http://www.example.gov";
@@ -5821,7 +5821,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
     */
-    specify('setAttributeNodeNS01', () => {
+    test('setAttributeNodeNS01', () => {
       var success;
       var namespaceURI = "http://www.newattr.com";
       var qualifiedName = "emp:newAttr";
@@ -5868,7 +5868,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
     */
-    specify('setAttributeNodeNS03', () => {
+    test('setAttributeNodeNS03', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var testAddr = doc.getElementsByTagName("emp:address").item(0);
       assert.notEqual(testAddr, null, 'testAddr should not be null');
@@ -5893,7 +5893,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
     */
-    specify('setAttributeNodeNS04', () => {
+    test('setAttributeNodeNS04', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var testAddr = doc.getElementsByTagName("emp:address").item(0);
       assert.notEqual(testAddr, null, 'testAddr should not be null');
@@ -5918,7 +5918,7 @@ describe("level2/core", () => {
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
     */
-    specify('setNamedItemNS01', () => {
+    test('setNamedItemNS01', () => {
       var success;
       var elementList;
       var anotherElement;
@@ -5959,7 +5959,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D080
     */
-    specify('setNamedItemNS03', () => {
+    test('setNamedItemNS03', () => {
       var namespaceURI = "http://www.nist.gov";
       var doc = require('./core/files/staffNS.xml').staffNS();
       var arg = doc.createAttributeNS(namespaceURI, "prefix:newAttr");
@@ -5987,7 +5987,7 @@ describe("level2/core", () => {
     * @author Mary Brady
     * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
     */
-    specify('setNamedItemNS05', () => {
+    test('setNamedItemNS05', () => {
       var doc = require('./core/files/staffNS.xml').staffNS();
       var arg = doc.createAttributeNS("http://www.usa.com", "dmstc:domestic");
       arg.nodeValue = "newValue";
@@ -6003,7 +6003,7 @@ describe("level2/core", () => {
   // @author NIST
   // @author Mary Brady
   // @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
-  specify('systemId01', () => {
+  test('systemId01', () => {
     var doc = require('./core/files/staffNS.xml').staffNS();
     assert.equal(doc.doctype.systemId, 'staffNS.dtd');
   });
@@ -6014,7 +6014,7 @@ describe("level2/core", () => {
    *
    * @author Chris Carpita
    */
-  specify('memoizationQueriesCleared', () => {
+  test('memoizationQueriesCleared', () => {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var oldCount = doc.getElementsByTagNameNS("http://www.nist.gov", "address").length;
     var address = doc.createElementNS("http://www.nist.gov", "address");

@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const hc_staff = require("./html/files/hc_staff.html");
 
@@ -17,7 +17,7 @@ describe("level1/html", () => {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  specify("documentgetdoctypenodtd", () => {
+  test("documentgetdoctypenodtd", () => {
     let doc = require("./html/files/hc_nodtdstaff.html").hc_nodtdstaff();
     assert.equal(doc.doctype, null, "documentGetDocTypeNoDTDAssert");
   });
@@ -36,7 +36,7 @@ describe("level1/html", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  specify("hc_attrcreatedocumentfragment", () => {
+  test("hc_attrcreatedocumentfragment", () => {
     let langAttrCount = 0;
     let doc = hc_staff.hc_staff();
     let docFragment = doc.createDocumentFragment();
@@ -69,7 +69,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  specify("hc_attrcreatetextnode", () => {
+  test("hc_attrcreatetextnode", () => {
     let success;
     let doc;
     let addressList;
@@ -109,7 +109,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  specify("hc_attrcreatetextnode2", () => {
+  test("hc_attrcreatetextnode2", () => {
     let success;
     let doc;
     let addressList;
@@ -145,7 +145,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    */
-  specify("hc_attreffectivevalue", () => {
+  test("hc_attreffectivevalue", () => {
     let success;
     let doc;
     let addressList;
@@ -172,7 +172,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  specify("hc_attrgetvalue1", () => {
+  test("hc_attrgetvalue1", () => {
     let success;
     let doc;
     let acronymList;
@@ -207,7 +207,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  specify("hc_attrname", () => {
+  test("hc_attrname", () => {
     let doc = hc_staff.hc_staff();
     let streetAttr = doc.getElementsByTagName("acronym").item(1).attributes.getNamedItem("class");
     assert.equal(streetAttr.name, "class", "attribute name");
@@ -227,7 +227,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  specify("hc_attrspecifiedvalue", () => {
+  test("hc_attrspecifiedvalue", () => {
     let success;
     let doc;
     let addressList;
@@ -262,7 +262,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  specify("hc_attrspecifiedvaluechanged", () => {
+  test("hc_attrspecifiedvaluechanged", () => {
     let success;
     let doc;
     let addressList;
@@ -299,7 +299,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  specify("hc_characterdataappenddata", () => {
+  test("hc_characterdataappenddata", () => {
     let success;
     let doc;
     let elementList;
@@ -337,7 +337,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  specify("hc_characterdataappenddatagetdata", () => {
+  test("hc_characterdataappenddatagetdata", () => {
     let success;
     let doc;
     let elementList;
@@ -372,7 +372,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedatabegining", () => {
+  test("hc_characterdatadeletedatabegining", () => {
     let success;
     let doc;
     let elementList;
@@ -408,7 +408,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedataend", () => {
+  test("hc_characterdatadeletedataend", () => {
     let success;
     let doc;
     let elementList;
@@ -446,7 +446,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedataexceedslength", () => {
+  test("hc_characterdatadeletedataexceedslength", () => {
     let success;
     let doc;
     let elementList;
@@ -485,7 +485,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedatagetlengthanddata", () => {
+  test("hc_characterdatadeletedatagetlengthanddata", () => {
     let success;
     let doc;
     let elementList;
@@ -527,7 +527,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdatadeletedatamiddle", () => {
+  test("hc_characterdatadeletedatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -565,7 +565,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  specify("hc_characterdatagetdata", () => {
+  test("hc_characterdatagetdata", () => {
     let success;
     let doc;
     let elementList;
@@ -595,7 +595,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    */
-  specify("hc_characterdatagetlength", () => {
+  test("hc_characterdatagetlength", () => {
     let success;
     let doc;
     let elementList;
@@ -629,7 +629,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrdeletedatacountnegative", () => {
+  test("hc_characterdataindexsizeerrdeletedatacountnegative", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     let success = false;
@@ -656,7 +656,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_characterdataindexsizeerrdeletedataoffsetgreater", () => {
+  test("hc_characterdataindexsizeerrdeletedataoffsetgreater", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     let success = false;
@@ -686,7 +686,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  specify("hc_characterdataindexsizeerrdeletedataoffsetnegative", () => {
+  test("hc_characterdataindexsizeerrdeletedataoffsetnegative", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     let success = false;
@@ -716,7 +716,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_characterdataindexsizeerrinsertdataoffsetgreater", () => {
+  test("hc_characterdataindexsizeerrinsertdataoffsetgreater", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     let success = false;
@@ -744,7 +744,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrinsertdataoffsetnegative", () => {
+  test("hc_characterdataindexsizeerrinsertdataoffsetnegative", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     let success = false;
@@ -771,7 +771,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrreplacedatacountnegative", () => {
+  test("hc_characterdataindexsizeerrreplacedatacountnegative", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
 
@@ -797,7 +797,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=242
    */
-  specify("hc_characterdataindexsizeerrreplacedataoffsetgreater", () => {
+  test("hc_characterdataindexsizeerrreplacedataoffsetgreater", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     let success = false;
@@ -827,7 +827,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdataindexsizeerrreplacedataoffsetnegative", () => {
+  test("hc_characterdataindexsizeerrreplacedataoffsetnegative", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     assert.equal(child.substringData(10, -3), " Ave. Dallas, Texas 98551");
@@ -856,7 +856,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_characterdataindexsizeerrsubstringnegativeoffset", () => {
+  test("hc_characterdataindexsizeerrsubstringnegativeoffset", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     let success = false;
@@ -886,7 +886,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_characterdataindexsizeerrsubstringoffsetgreater", () => {
+  test("hc_characterdataindexsizeerrsubstringoffsetgreater", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("acronym").item(0).firstChild;
     let success = false;
@@ -914,7 +914,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("hc_characterdatainsertdatabeginning", () => {
+  test("hc_characterdatainsertdatabeginning", () => {
     let success;
     let doc;
     let elementList;
@@ -950,7 +950,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("hc_characterdatainsertdataend", () => {
+  test("hc_characterdatainsertdataend", () => {
     let success;
     let doc;
     let elementList;
@@ -986,7 +986,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  specify("hc_characterdatainsertdatamiddle", () => {
+  test("hc_characterdatainsertdatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -1021,7 +1021,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedatabegining", () => {
+  test("hc_characterdatareplacedatabegining", () => {
     let success;
     let doc;
     let elementList;
@@ -1057,7 +1057,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedataend", () => {
+  test("hc_characterdatareplacedataend", () => {
     let success;
     let doc;
     let elementList;
@@ -1094,7 +1094,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedataexceedslengthofarg", () => {
+  test("hc_characterdatareplacedataexceedslengthofarg", () => {
     let success;
     let doc;
     let elementList;
@@ -1133,7 +1133,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedataexceedslengthofdata", () => {
+  test("hc_characterdatareplacedataexceedslengthofdata", () => {
     let success;
     let doc;
     let elementList;
@@ -1169,7 +1169,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  specify("hc_characterdatareplacedatamiddle", () => {
+  test("hc_characterdatareplacedatamiddle", () => {
     let success;
     let doc;
     let elementList;
@@ -1199,7 +1199,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  specify("hc_characterdatasetnodevalue", () => {
+  test("hc_characterdatasetnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -1239,7 +1239,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  specify("hc_characterdatasubstringexceedsvalue", () => {
+  test("hc_characterdatasubstringexceedsvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -1271,7 +1271,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  specify("hc_characterdatasubstringvalue", () => {
+  test("hc_characterdatasubstringvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -1303,7 +1303,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=509
    */
-  specify("hc_commentgetcomment", () => {
+  test("hc_commentgetcomment", () => {
     let success;
     let doc;
     let elementList;
@@ -1356,7 +1356,7 @@ describe("level1/html", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_documentcreateattribute", () => {
+  test("hc_documentcreateattribute", () => {
     let doc = hc_staff.hc_staff();
     let newAttrNode = doc.createAttribute("title");
     assert.equal(newAttrNode.nodeValue, "", "value");
@@ -1375,7 +1375,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1334481328
    */
-  specify("hc_documentcreatecomment", () => {
+  test("hc_documentcreatecomment", () => {
     let success;
     let doc;
     let newCommentNode;
@@ -1407,7 +1407,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-35CB04B5
    */
-  specify("hc_documentcreatedocumentfragment", () => {
+  test("hc_documentcreatedocumentfragment", () => {
     let doc = hc_staff.hc_staff();
     let newDocFragment = doc.createDocumentFragment();
     assert.equal(newDocFragment.childNodes.length, 0, "length");
@@ -1429,7 +1429,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    */
-  specify("hc_documentcreateelement", () => {
+  test("hc_documentcreateelement", () => {
     let doc = hc_staff.hc_staff();
     let newElement = doc.createElement("acronym");
     assert.equal(newElement.nodeName, "ACRONYM", "element strong");
@@ -1455,7 +1455,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_documentcreateelementcasesensitive", () => {
+  test("hc_documentcreateelementcasesensitive", () => {
     let doc = hc_staff.hc_staff();
     let newElement1 = doc.createElement("ACRONYM");
     let newElement2 = doc.createElement("acronym");
@@ -1479,7 +1479,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1975348127
    */
-  specify("hc_documentcreatetextnode", () => {
+  test("hc_documentcreatetextnode", () => {
     let success;
     let doc;
     let newTextNode;
@@ -1508,7 +1508,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  specify("hc_documentgetdoctype", () => {
+  test("hc_documentgetdoctype", () => {
     let doc = hc_staff.hc_staff();
     let docType = doc.doctype;
     assert.equal(docType.name, "html", "nodeName");
@@ -1529,7 +1529,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  specify("hc_documentgetelementsbytagnamelength", () => {
+  test("hc_documentgetelementsbytagnamelength", () => {
     let success;
     let doc;
     let nameList;
@@ -1550,7 +1550,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_documentgetelementsbytagnametotallength", () => {
+  test("hc_documentgetelementsbytagnametotallength", () => {
     let expectedNames = ["HTML", "HEAD", "META", "TITLE", "BODY",
                          "P", "EM", "STRONG", "CODE", "SUP", "VAR", "ACRONYM", "P", "EM", "STRONG",
                          "CODE", "SUP", "VAR", "ACRONYM", "P", "EM", "STRONG", "CODE", "SUP", "VAR",
@@ -1580,7 +1580,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  specify("hc_documentgetelementsbytagnamevalue", () => {
+  test("hc_documentgetelementsbytagnamevalue", () => {
     let success;
     let doc;
     let nameList;
@@ -1610,7 +1610,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1B793EBA
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  specify("hc_documentgetimplementation", () => {
+  test("hc_documentgetimplementation", () => {
     let doc = hc_staff.hc_staff();
     assert.ok(doc.implementation.hasFeature("HTML", "1.0"), "supports_HTML_1.0");
   });
@@ -1624,7 +1624,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-87CD092
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_documentgetrootnode", () => {
+  test("hc_documentgetrootnode", () => {
     let doc = hc_staff.hc_staff();
     assert.equal(doc.documentElement.nodeName, "HTML");
   });
@@ -1640,7 +1640,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  specify("hc_documentinvalidcharacterexceptioncreateattribute1", () => {
+  test("hc_documentinvalidcharacterexceptioncreateattribute1", () => {
     let doc = hc_staff.hc_staff();
     let success = false;
     try {
@@ -1662,7 +1662,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  specify("hc_documentinvalidcharacterexceptioncreateelement1", () => {
+  test("hc_documentinvalidcharacterexceptioncreateelement1", () => {
     let doc = hc_staff.hc_staff();
     let success = false;
     try {
@@ -1687,7 +1687,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  specify("hc_domimplementationfeaturenoversion", () => {
+  test("hc_domimplementationfeaturenoversion", () => {
     let doc = hc_staff.hc_staff();
     assert.ok(doc.implementation.hasFeature("HTML", ""), "hasFeatureBlank");
   });
@@ -1707,7 +1707,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  specify("hc_domimplementationfeaturenull", () => {
+  test("hc_domimplementationfeaturenull", () => {
     let doc = hc_staff.hc_staff();
     assert.ok(doc.implementation.hasFeature("HTML", null), "supports_HTML_null");
   });
@@ -1724,7 +1724,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  specify("hc_domimplementationfeaturexml", () => {
+  test("hc_domimplementationfeaturexml", () => {
     let doc = hc_staff.hc_staff();
     assert.ok(doc.implementation.hasFeature("html", "1.0"), "supports_html_1.0");
   });
@@ -1744,7 +1744,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementaddnewattribute", () => {
+  test("hc_elementaddnewattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -1771,7 +1771,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("hc_elementassociatedattribute", () => {
+  test("hc_elementassociatedattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -1808,7 +1808,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  specify("hc_elementchangeattributevalue", () => {
+  test("hc_elementchangeattributevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -1838,7 +1838,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementcreatenewattribute", () => {
+  test("hc_elementcreatenewattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -1870,7 +1870,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  specify("hc_elementgetattributenode", () => {
+  test("hc_elementgetattributenode", () => {
     let doc = hc_staff.hc_staff();
     let nodeName = doc.getElementsByTagName("acronym").item(0).getAttributeNode("title").name;
     assert.equal(nodeName, "title", "attribute nodeName");
@@ -1890,7 +1890,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-217A91B8
    */
-  specify("hc_elementgetattributenodenull", () => {
+  test("hc_elementgetattributenodenull", () => {
     let success;
     let doc;
     let elementList;
@@ -1922,7 +1922,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementgetelementempty", () => {
+  test("hc_elementgetelementempty", () => {
     let success;
     let doc;
     let newAttribute;
@@ -1955,7 +1955,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("hc_elementgetelementsbytagname", () => {
+  test("hc_elementgetelementsbytagname", () => {
     let success;
     let doc;
     let elementList;
@@ -1984,7 +1984,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_elementgetelementsbytagnameaccessnodelist", () => {
+  test("hc_elementgetelementsbytagnameaccessnodelist", () => {
     let doc = hc_staff.hc_staff();
     let firstC = doc.getElementsByTagName("p").item(3).firstChild;
     let nodeType = firstC.nodeType;
@@ -2009,7 +2009,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("hc_elementgetelementsbytagnamenomatch", () => {
+  test("hc_elementgetelementsbytagnamenomatch", () => {
     let success;
     let doc;
     let elementList;
@@ -2033,7 +2033,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  specify("hc_elementgetelementsbytagnamespecialvalue", () => {
+  test("hc_elementgetelementsbytagnamespecialvalue", () => {
     let doc = hc_staff.hc_staff();
     let lastempList = doc.getElementsByTagName("p").item(4).getElementsByTagName("*");
     let actual = [];
@@ -2052,7 +2052,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_elementgettagname", () => {
+  test("hc_elementgettagname", () => {
     let doc = hc_staff.hc_staff();
     assert.equal(doc.documentElement.tagName, "HTML");
   });
@@ -2069,7 +2069,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=244
    */
-  specify("hc_elementinuseattributeerr", () => {
+  test("hc_elementinuseattributeerr", () => {
     let doc = hc_staff.hc_staff();
     let testAddress = doc.getElementsByTagName("body").item(0);
     let newElement = doc.createElement("p");
@@ -2095,7 +2095,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  specify("hc_elementinvalidcharacterexception1", () => {
+  test("hc_elementinvalidcharacterexception1", () => {
     let doc = hc_staff.hc_staff();
     let testAddress = doc.getElementsByTagName("acronym").item(0);
     let success = false;
@@ -2116,7 +2116,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=546
    */
-  specify("hc_elementnormalize", () => {
+  test("hc_elementnormalize", () => {
     let success;
     let doc;
     let root;
@@ -2164,7 +2164,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_elementnotfounderr", () => {
+  test("hc_elementnotfounderr", () => {
     let doc = hc_staff.hc_staff();
     let testAddress = doc.getElementsByTagName("acronym").item(4);
     let oldAttribute = doc.createAttribute("title");
@@ -2188,7 +2188,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  specify("hc_elementremoveattribute", () => {
+  test("hc_elementremoveattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -2222,7 +2222,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementremoveattributeaftercreate", () => {
+  test("hc_elementremoveattributeaftercreate", () => {
     let success;
     let doc;
     let elementList;
@@ -2255,7 +2255,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  specify("hc_elementremoveattributenode", () => {
+  test("hc_elementremoveattributenode", () => {
     let success;
     let doc;
     let elementList;
@@ -2288,7 +2288,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  specify("hc_elementreplaceattributewithself", () => {
+  test("hc_elementreplaceattributewithself", () => {
     let doc = hc_staff.hc_staff();
     let testEmployee = doc.getElementsByTagName("acronym").item(2);
     let streetAttr = testEmployee.getAttributeNode("class");
@@ -2313,7 +2313,7 @@ describe("level1/html", () => {
 
    * @author Curt Arnold
    */
-  specify("hc_elementreplaceexistingattribute", () => {
+  test("hc_elementreplaceexistingattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -2347,7 +2347,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  specify("hc_elementreplaceexistingattributegevalue", () => {
+  test("hc_elementreplaceexistingattributegevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -2378,7 +2378,7 @@ describe("level1/html", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  specify("hc_elementretrieveallattributes", () => {
+  test("hc_elementretrieveallattributes", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(0).attributes;
     let actual = [];
@@ -2400,7 +2400,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    */
-  specify("hc_elementretrieveattrvalue", () => {
+  test("hc_elementretrieveattrvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -2427,7 +2427,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    */
-  specify("hc_elementretrievetagname", () => {
+  test("hc_elementretrievetagname", () => {
     let doc = hc_staff.hc_staff();
     let testEmployee = doc.getElementsByTagName("code").item(1);
     assert.equal(testEmployee.nodeName, "CODE", "element nodeName");
@@ -2451,7 +2451,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_elementsetattributenodenull", () => {
+  test("hc_elementsetattributenodenull", () => {
     let success;
     let doc;
     let elementList;
@@ -2475,7 +2475,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    */
-  specify("hc_entitiesremovenameditem1", () => {
+  test("hc_entitiesremovenameditem1", () => {
     // NOTE: no tests get run here...
   });
 
@@ -2488,7 +2488,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    */
-  specify("hc_entitiessetnameditem1", () => {
+  test("hc_entitiessetnameditem1", () => {
     // NOTE: no tests get run here
   });
 
@@ -2505,7 +2505,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=250
    */
-  specify("hc_namednodemapchildnoderange", () => {
+  test("hc_namednodemapchildnoderange", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(2).attributes;
     assert.equal(attributes.length, 2, "htmlLength");
@@ -2528,7 +2528,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  specify("hc_namednodemapgetnameditem", () => {
+  test("hc_namednodemapgetnameditem", () => {
     let doc = hc_staff.hc_staff();
     let domesticAttr = doc.getElementsByTagName("acronym").item(1).attributes.getNamedItem("title");
     assert.equal(domesticAttr.name, "title", "attribute nodeName");
@@ -2551,7 +2551,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_namednodemapinuseattributeerr", () => {
+  test("hc_namednodemapinuseattributeerr", () => {
     let doc = hc_staff.hc_staff();
     let firstNode = doc.getElementsByTagName("acronym").item(0);
     let domesticAttr = doc.createAttribute("title");
@@ -2585,7 +2585,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D58B193')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_namednodemapnotfounderr", () => {
+  test("hc_namednodemapnotfounderr", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(2).attributes;
     let success = false;
@@ -2606,7 +2606,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=250
    */
-  specify("hc_namednodemapnumberofnodes", () => {
+  test("hc_namednodemapnumberofnodes", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(2).attributes;
     assert.equal(attributes.length, 2, "htmlLength");
@@ -2628,7 +2628,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  specify("hc_namednodemapremovenameditem", () => {
+  test("hc_namednodemapremovenameditem", () => {
     let success;
     let doc;
     let elementList;
@@ -2665,7 +2665,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
-  specify("hc_namednodemapreturnattrnode", () => {
+  test("hc_namednodemapreturnattrnode", () => {
     let doc = hc_staff.hc_staff();
     let streetAttr = doc.getElementsByTagName("acronym").item(1).attributes.getNamedItem("class");
     assert.equal(streetAttr.name, "class", "attribute name");
@@ -2677,7 +2677,7 @@ describe("level1/html", () => {
    the map(test for first item).
 
    Retrieve the second "acronym" get the NamedNodeMap of the attributes. Since the
-   DOM does not specify an order of these nodes the contents
+   DOM does not test an order of these nodes the contents
    of the FIRST node can contain either "title", "class" or "dir".
 
    * @author Curt Arnold
@@ -2686,7 +2686,7 @@ describe("level1/html", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  specify("hc_namednodemapreturnfirstitem", () => {
+  test("hc_namednodemapreturnfirstitem", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(1).attributes;
     let actual = [];
@@ -2703,7 +2703,7 @@ describe("level1/html", () => {
    the map(test for last item).
 
    Retrieve the second "acronym" and get the attribute name. Since the
-   DOM does not specify an order of these nodes the contents
+   DOM does not test an order of these nodes the contents
    of the LAST node can contain either "title" or "class".
    The test should return "true" if the LAST node is either
    of these values.
@@ -2714,7 +2714,7 @@ describe("level1/html", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  specify("hc_namednodemapreturnlastitem", () => {
+  test("hc_namednodemapreturnlastitem", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(1).attributes;
     let actual = [];
@@ -2741,7 +2741,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_namednodemapreturnnull", () => {
+  test("hc_namednodemapreturnnull", () => {
     let success;
     let doc;
     let elementList;
@@ -2778,7 +2778,7 @@ describe("level1/html", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_namednodemapsetnameditem", () => {
+  test("hc_namednodemapsetnameditem", () => {
     let doc = hc_staff.hc_staff();
     let testAddress = doc.getElementsByTagName("acronym").item(1);
     let newAttribute = doc.createAttribute("lang");
@@ -2809,7 +2809,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("hc_namednodemapsetnameditemreturnvalue", () => {
+  test("hc_namednodemapsetnameditemreturnvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -2855,7 +2855,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  specify("hc_namednodemapsetnameditemthatexists", () => {
+  test("hc_namednodemapsetnameditemthatexists", () => {
     let success;
     let doc;
     let elementList;
@@ -2899,7 +2899,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  specify("hc_namednodemapsetnameditemwithnewvalue", () => {
+  test("hc_namednodemapsetnameditemwithnewvalue", () => {
     let success;
     let doc;
     let elementList;
@@ -2929,7 +2929,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeappendchild", () => {
+  test("hc_nodeappendchild", () => {
     let doc = hc_staff.hc_staff();
     let employeeNode = doc.getElementsByTagName("p").item(1);
     let createdNode = doc.createElement("br");
@@ -2953,7 +2953,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodeappendchildchildexists", () => {
+  test("hc_nodeappendchildchildexists", () => {
     let expected = ["STRONG", "CODE", "SUP", "VAR", "ACRONYM", "EM"];
     let doc = hc_staff.hc_staff();
     let childNode = doc.getElementsByTagName("p").item(1);
@@ -2990,7 +2990,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeappendchilddocfragment", () => {
+  test("hc_nodeappendchilddocfragment", () => {
     let success;
     let doc;
     let elementList;
@@ -3050,7 +3050,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeappendchildgetnodename", () => {
+  test("hc_nodeappendchildgetnodename", () => {
     let doc = hc_staff.hc_staff();
     let employeeNode = doc.getElementsByTagName("p").item(1);
     let newChild = doc.createElement("br");
@@ -3075,7 +3075,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  specify("hc_nodeappendchildnodeancestor", () => {
+  test("hc_nodeappendchildnodeancestor", () => {
     let doc = hc_staff.hc_staff();
     let newChild = doc.documentElement;
     let employeeNode = doc.getElementsByTagName("p").item(1);
@@ -3101,7 +3101,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  specify("hc_nodeattributenodeattribute", () => {
+  test("hc_nodeattributenodeattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -3132,7 +3132,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
-  specify("hc_nodeattributenodename", () => {
+  test("hc_nodeattributenodename", () => {
     let doc = hc_staff.hc_staff();
     let addrAttr = doc.getElementsByTagName("acronym").item(0).getAttributeNode("title");
     assert.equal(addrAttr.name, "title", "attribute nodeName");
@@ -3152,7 +3152,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_nodeattributenodevalue", () => {
+  test("hc_nodeattributenodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -3183,7 +3183,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodechildnodes", () => {
+  test("hc_nodechildnodes", () => {
     let success;
     let doc;
     let elementList;
@@ -3241,7 +3241,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodechildnodesappendchild", () => {
+  test("hc_nodechildnodesappendchild", () => {
     let success;
     let doc;
     let elementList;
@@ -3299,7 +3299,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodechildnodesempty", () => {
+  test("hc_nodechildnodesempty", () => {
     let success;
     let doc;
     let elementList;
@@ -3332,7 +3332,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  specify("hc_nodecloneattributescopied", () => {
+  test("hc_nodecloneattributescopied", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(1).cloneNode(false).attributes;
     let actual = [];
@@ -3355,7 +3355,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("hc_nodeclonefalsenocopytext", () => {
+  test("hc_nodeclonefalsenocopytext", () => {
     let success;
     let doc;
     let elementList;
@@ -3390,7 +3390,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("hc_nodeclonegetparentnull", () => {
+  test("hc_nodeclonegetparentnull", () => {
     let success;
     let doc;
     let elementList;
@@ -3422,7 +3422,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  specify("hc_nodeclonenodefalse", () => {
+  test("hc_nodeclonenodefalse", () => {
     let doc = hc_staff.hc_staff();
     let clonedNode = doc.getElementsByTagName("p").item(1).cloneNode(false);
     assert.equal(clonedNode.nodeName, "P", "element strong");
@@ -3445,7 +3445,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodeclonenodetrue", () => {
+  test("hc_nodeclonenodetrue", () => {
     let success;
     let doc;
     let elementList;
@@ -3501,7 +3501,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodeclonetruecopytext", () => {
+  test("hc_nodeclonetruecopytext", () => {
     let success;
     let doc;
     let elementList;
@@ -3537,7 +3537,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=263
    */
-  specify("hc_nodecommentnodeattributes", () => {
+  test("hc_nodecommentnodeattributes", () => {
     let success;
     let doc;
     let commentNode;
@@ -3583,7 +3583,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  specify("hc_nodecommentnodename", () => {
+  test("hc_nodecommentnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -3630,7 +3630,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  specify("hc_nodecommentnodetype", () => {
+  test("hc_nodecommentnodetype", () => {
     let success;
     let doc;
     let testList;
@@ -3676,7 +3676,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  specify("hc_nodecommentnodevalue", () => {
+  test("hc_nodecommentnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -3722,7 +3722,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("hc_nodedocumentfragmentnodename", () => {
+  test("hc_nodedocumentfragmentnodename", () => {
     let doc = hc_staff.hc_staff();
     let docFragment = doc.createDocumentFragment();
     assert.equal(docFragment.nodeName, "#document-fragment", "nodeDocumentFragmentNodeNameAssert1");
@@ -3742,7 +3742,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("hc_nodedocumentfragmentnodetype", () => {
+  test("hc_nodedocumentfragmentnodetype", () => {
     let success;
     let doc;
     let documentFragmentNode;
@@ -3771,7 +3771,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  specify("hc_nodedocumentfragmentnodevalue", () => {
+  test("hc_nodedocumentfragmentnodevalue", () => {
     let success;
     let doc;
     let docFragment;
@@ -3801,7 +3801,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("hc_nodedocumentnodeattribute", () => {
+  test("hc_nodedocumentnodeattribute", () => {
     let success;
     let doc;
     let attrList;
@@ -3825,7 +3825,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("hc_nodedocumentnodename", () => {
+  test("hc_nodedocumentnodename", () => {
     let success;
     let doc;
     let documentName;
@@ -3848,7 +3848,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("hc_nodedocumentnodetype", () => {
+  test("hc_nodedocumentnodetype", () => {
     let success;
     let doc;
     let nodeType;
@@ -3873,7 +3873,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_nodedocumentnodevalue", () => {
+  test("hc_nodedocumentnodevalue", () => {
     let success;
     let doc;
     let documentValue;
@@ -3894,7 +3894,7 @@ describe("level1/html", () => {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  specify("hc_nodeelementnodeattributes", () => {
+  test("hc_nodeelementnodeattributes", () => {
     let doc = hc_staff.hc_staff();
     let attributes = doc.getElementsByTagName("acronym").item(2).attributes;
     let actual = [];
@@ -3915,7 +3915,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_nodeelementnodename", () => {
+  test("hc_nodeelementnodename", () => {
     let doc = hc_staff.hc_staff();
     assert.equal(doc.documentElement.nodeName, "HTML");
   });
@@ -3931,7 +3931,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("hc_nodeelementnodetype", () => {
+  test("hc_nodeelementnodetype", () => {
     let success;
     let doc;
     let rootNode;
@@ -3953,7 +3953,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_nodeelementnodevalue", () => {
+  test("hc_nodeelementnodevalue", () => {
     let success;
     let doc;
     let elementNode;
@@ -3980,7 +3980,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodegetfirstchild", () => {
+  test("hc_nodegetfirstchild", () => {
     let doc = hc_staff.hc_staff();
     let fchildNode = doc.getElementsByTagName("p").item(1).firstChild;
     assert.equal(fchildNode.nodeName, "#text", "firstChild_w_whitespace");
@@ -3998,7 +3998,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodegetfirstchildnull", () => {
+  test("hc_nodegetfirstchildnull", () => {
     let doc = hc_staff.hc_staff();
     let emText = doc.getElementsByTagName("em").item(0).firstChild;
     assert.equal(emText.firstChild, null, "nullChild");
@@ -4016,7 +4016,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  specify("hc_nodegetlastchild", () => {
+  test("hc_nodegetlastchild", () => {
     let success;
     let doc;
     let elementList;
@@ -4047,7 +4047,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodegetlastchildnull", () => {
+  test("hc_nodegetlastchildnull", () => {
     let success;
     let doc;
     let emList;
@@ -4077,7 +4077,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  specify("hc_nodegetnextsibling", () => {
+  test("hc_nodegetnextsibling", () => {
     let success;
     let doc;
     let elementList;
@@ -4114,7 +4114,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  specify("hc_nodegetnextsiblingnull", () => {
+  test("hc_nodegetnextsiblingnull", () => {
     let success;
     let doc;
     let elementList;
@@ -4140,7 +4140,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  specify("hc_nodegetownerdocument", () => {
+  test("hc_nodegetownerdocument", () => {
     let doc = hc_staff.hc_staff();
     let elementName = doc.getElementsByTagName("p").item(1).ownerDocument.documentElement.nodeName;
     assert.equal(elementName, "HTML");
@@ -4163,7 +4163,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    */
-  specify("hc_nodegetownerdocumentnull", () => {
+  test("hc_nodegetownerdocumentnull", () => {
     let success;
     let doc;
     let ownerDocument;
@@ -4186,7 +4186,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  specify("hc_nodegetprevioussibling", () => {
+  test("hc_nodegetprevioussibling", () => {
     let success;
     let doc;
     let elementList;
@@ -4223,7 +4223,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  specify("hc_nodegetprevioussiblingnull", () => {
+  test("hc_nodegetprevioussiblingnull", () => {
     let success;
     let doc;
     let elementList;
@@ -4253,7 +4253,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  specify("hc_nodehaschildnodes", () => {
+  test("hc_nodehaschildnodes", () => {
     let success;
     let doc;
     let elementList;
@@ -4280,7 +4280,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodehaschildnodesfalse", () => {
+  test("hc_nodehaschildnodesfalse", () => {
     let success;
     let doc;
     let emList;
@@ -4311,7 +4311,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=261
    */
-  specify("hc_nodeinsertbefore", () => {
+  test("hc_nodeinsertbefore", () => {
     let success;
     let doc;
     let elementList;
@@ -4371,7 +4371,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeinsertbeforedocfragment", () => {
+  test("hc_nodeinsertbeforedocfragment", () => {
     let doc = hc_staff.hc_staff();
     let employeeNode = doc.getElementsByTagName("p").item(1);
     let refChild = employeeNode.childNodes.item(3);
@@ -4399,7 +4399,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodeinsertbeforenewchildexists", () => {
+  test("hc_nodeinsertbeforenewchildexists", () => {
     let success;
     let doc;
     let elementList;
@@ -4457,7 +4457,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  specify("hc_nodeinsertbeforenodeancestor", () => {
+  test("hc_nodeinsertbeforenodeancestor", () => {
     let doc = hc_staff.hc_staff();
     let newChild = doc.documentElement;
     let employeeNode = doc.getElementsByTagName("p").item(1);
@@ -4486,7 +4486,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeinsertbeforenodename", () => {
+  test("hc_nodeinsertbeforenodename", () => {
     let doc = hc_staff.hc_staff();
     let employeeNode = doc.getElementsByTagName("p").item(1);
     let refChild = employeeNode.childNodes.item(3);
@@ -4514,7 +4514,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_nodeinsertbeforerefchildnonexistent", () => {
+  test("hc_nodeinsertbeforerefchildnonexistent", () => {
     let doc = hc_staff.hc_staff();
     let newChild = doc.createElement("br");
     let refChild = doc.createElement("b");
@@ -4546,7 +4546,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeinsertbeforerefchildnull", () => {
+  test("hc_nodeinsertbeforerefchildnull", () => {
     let refChild = null;
     let doc = hc_staff.hc_staff();
     let employeeNode = doc.getElementsByTagName("p").item(1);
@@ -4569,7 +4569,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistindexequalzero", () => {
+  test("hc_nodelistindexequalzero", () => {
     let doc = hc_staff.hc_staff();
     let employeeList = doc.getElementsByTagName("p").item(2).childNodes;
     assert.equal(employeeList.item(0).nodeName, "#text", "childName_w_whitespace");
@@ -4588,7 +4588,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistindexgetlength", () => {
+  test("hc_nodelistindexgetlength", () => {
     let success;
     let doc;
     let elementList;
@@ -4629,7 +4629,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistindexgetlengthofemptylist", () => {
+  test("hc_nodelistindexgetlengthofemptylist", () => {
     let success;
     let doc;
     let emList;
@@ -4665,7 +4665,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistindexnotzero", () => {
+  test("hc_nodelistindexnotzero", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("p").item(2).childNodes.item(3);
     assert.equal(child.nodeName, "STRONG", "element childName_strong");
@@ -4682,7 +4682,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistreturnfirstitem", () => {
+  test("hc_nodelistreturnfirstitem", () => {
     let doc = hc_staff.hc_staff();
     let child = doc.getElementsByTagName("p").item(2).childNodes.item(0);
     assert.equal(child.nodeName, "#text", "nodeName_w_space");
@@ -4698,7 +4698,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelistreturnlastitem", () => {
+  test("hc_nodelistreturnlastitem", () => {
     let doc = hc_staff.hc_staff();
     let employeeList = doc.getElementsByTagName("p").item(2).childNodes;
     let child = employeeList.item(employeeList.length - 1);
@@ -4718,7 +4718,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodelisttraverselist", () => {
+  test("hc_nodelisttraverselist", () => {
     let success;
     let doc;
     let elementList;
@@ -4770,7 +4770,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    */
-  specify("hc_nodeparentnode", () => {
+  test("hc_nodeparentnode", () => {
     let doc = hc_staff.hc_staff();
     let parentNode = doc.getElementsByTagName("p").item(1).parentNode;
     assert.equal(parentNode.nodeName, "BODY", "element parentNodeName");
@@ -4790,7 +4790,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodeparentnodenull", () => {
+  test("hc_nodeparentnodenull", () => {
     let success;
     let doc;
     let createdNode;
@@ -4818,7 +4818,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_noderemovechild", () => {
+  test("hc_noderemovechild", () => {
     let success;
     let doc;
     let rootNode;
@@ -4854,7 +4854,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_noderemovechildgetnodename", () => {
+  test("hc_noderemovechildgetnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -4894,7 +4894,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_noderemovechildnode", () => {
+  test("hc_noderemovechildnode", () => {
     let doc = hc_staff.hc_staff();
     let employeeNode = doc.getElementsByTagName("p").item(1);
     let childList = employeeNode.childNodes;
@@ -4930,7 +4930,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_noderemovechildoldchildnonexistent", () => {
+  test("hc_noderemovechildoldchildnonexistent", () => {
     let doc = hc_staff.hc_staff();
     let oldChild = doc.createElement("br");
     let elementNode = doc.getElementsByTagName("p").item(1);
@@ -4958,7 +4958,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodereplacechild", () => {
+  test("hc_nodereplacechild", () => {
     let doc = hc_staff.hc_staff();
     let employeeNode = doc.getElementsByTagName("p").item(1);
     let oldChild = employeeNode.childNodes.item(0);
@@ -4979,7 +4979,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  specify("hc_nodereplacechildnewchildexists", () => {
+  test("hc_nodereplacechildnewchildexists", () => {
     let actual = [];
     let expected = ["STRONG", "CODE", "SUP", "VAR", "EM"];
     let doc = hc_staff.hc_staff();
@@ -5017,7 +5017,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  specify("hc_nodereplacechildnodeancestor", () => {
+  test("hc_nodereplacechildnodeancestor", () => {
     let doc = hc_staff.hc_staff();
     let newChild = doc.documentElement;
     let employeeNode = doc.getElementsByTagName("p").item(1);
@@ -5048,7 +5048,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodereplacechildnodename", () => {
+  test("hc_nodereplacechildnodename", () => {
     let doc = hc_staff.hc_staff();
     let employeeNode = doc.getElementsByTagName("p").item(1);
     let oldChild = employeeNode.getElementsByTagName("em").item(0);
@@ -5074,7 +5074,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  specify("hc_nodereplacechildoldchildnonexistent", () => {
+  test("hc_nodereplacechildoldchildnonexistent", () => {
     let doc = hc_staff.hc_staff();
     let newChild = doc.createElement("br");
     let oldChild = doc.createElement("b");
@@ -5102,7 +5102,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    */
-  specify("hc_nodetextnodeattribute", () => {
+  test("hc_nodetextnodeattribute", () => {
     let success;
     let doc;
     let elementList;
@@ -5128,7 +5128,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  specify("hc_nodetextnodename", () => {
+  test("hc_nodetextnodename", () => {
     let success;
     let doc;
     let elementList;
@@ -5165,7 +5165,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  specify("hc_nodetextnodetype", () => {
+  test("hc_nodetextnodetype", () => {
     let success;
     let doc;
     let elementList;
@@ -5196,7 +5196,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_nodetextnodevalue", () => {
+  test("hc_nodetextnodevalue", () => {
     let success;
     let doc;
     let elementList;
@@ -5223,7 +5223,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("hc_nodevalue01", () => {
+  test("hc_nodevalue01", () => {
     let success;
     let doc;
     let newNode;
@@ -5250,7 +5250,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  specify("hc_nodevalue02", () => {
+  test("hc_nodevalue02", () => {
     let success;
     let doc;
     let newNode;
@@ -5277,7 +5277,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  specify("hc_nodevalue04", () => {
+  test("hc_nodevalue04", () => {
     let doc = hc_staff.hc_staff();
     let newNode = doc.doctype;
     assert.notEqual(newNode, null, "docTypeNotNullOrDocIsHTML");
@@ -5296,7 +5296,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  specify("hc_nodevalue05", () => {
+  test("hc_nodevalue05", () => {
     let success;
     let doc;
     let newNode;
@@ -5323,7 +5323,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  specify("hc_nodevalue06", () => {
+  test("hc_nodevalue06", () => {
     let success;
     let newNode;
     let newValue;
@@ -5355,7 +5355,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  specify("hc_textindexsizeerrnegativeoffset", () => {
+  test("hc_textindexsizeerrnegativeoffset", () => {
     let doc = hc_staff.hc_staff();
     let textNode = doc.getElementsByTagName("strong").item(2).firstChild;
     let success = false;
@@ -5385,7 +5385,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  specify("hc_textindexsizeerroffsetoutofbounds", () => {
+  test("hc_textindexsizeerroffsetoutofbounds", () => {
     let doc = hc_staff.hc_staff();
     let textNode = doc.getElementsByTagName("strong").item(2).firstChild;
     let success = false;
@@ -5411,7 +5411,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-745549614
    */
-  specify("hc_textparseintolistofelements", () => {
+  test("hc_textparseintolistofelements", () => {
     let expectedNormal = ["β", " Dallas, ", "γ", "\n 98554"];
     let expectedExpanded = ["β Dallas, γ\n 98554"];
     let doc = hc_staff.hc_staff();
@@ -5447,7 +5447,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("hc_textsplittextfour", () => {
+  test("hc_textsplittextfour", () => {
     let success;
     let doc;
     let elementList;
@@ -5483,7 +5483,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("hc_textsplittextone", () => {
+  test("hc_textsplittextone", () => {
     let success;
     let doc;
     let elementList;
@@ -5523,7 +5523,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("hc_textsplittextthree", () => {
+  test("hc_textsplittextthree", () => {
     let success;
     let doc;
     let elementList;
@@ -5559,7 +5559,7 @@ describe("level1/html", () => {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  specify("hc_textsplittexttwo", () => {
+  test("hc_textsplittexttwo", () => {
     let success;
     let doc;
     let elementList;
@@ -5596,7 +5596,7 @@ describe("level1/html", () => {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  specify("hc_textwithnomarkup", () => {
+  test("hc_textwithnomarkup", () => {
     let success;
     let doc;
     let elementList;

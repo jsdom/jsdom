@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
+const { describe, it } = require("node:test");
 const zlib = require("node:zlib");
-const { describe, it } = require("mocha-sugar-free");
 const {
   emptyServer,
   resourceServer,

@@ -2,8 +2,8 @@
 const assert = require("node:assert/strict");
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
+const { describe, it } = require("node:test");
 const delay = require("node:timers/promises").setTimeout;
-const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
 const { streamingServer } = require("./helpers/servers.js");
 
