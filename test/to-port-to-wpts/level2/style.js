@@ -1,12 +1,12 @@
 "use strict";
-const fs = require("fs");
-const path = require("path");
-
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const delay = require("node:timers/promises").setTimeout;
+
 const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../../..");
-const delay = require("node:timers/promises").setTimeout;
 const { createServer } = require("../../api/helpers/servers.js");
 
 describe("level2/style", () => {

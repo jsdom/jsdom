@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
 "use strict";
-const path = require("path");
-const fs = require("fs");
+const fs = require("node:fs");
+const path = require("node:path");
 const Webidl2js = require("webidl2js");
 const processReflect = require("./reflection.js");
 

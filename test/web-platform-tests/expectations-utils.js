@@ -1,6 +1,6 @@
 "use strict";
-const path = require("node:path");
 const fs = require("node:fs");
+const path = require("node:path");
 const { specify } = require("mocha-sugar-free");
 const jsYAML = require("js-yaml");
 const semver = require("semver");

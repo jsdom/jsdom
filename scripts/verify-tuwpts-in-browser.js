@@ -18,10 +18,10 @@
 
 /* eslint-disable no-console */
 
-const http = require("node:http");
 const { spawn } = require("node:child_process");
 const { once } = require("node:events");
 const { readFile, mkdtemp, rm } = require("node:fs/promises");
+const http = require("node:http");
 const { tmpdir } = require("node:os");
 const { resolve, join, extname, basename } = require("node:path");
 const { parseArgs } = require("node:util");
