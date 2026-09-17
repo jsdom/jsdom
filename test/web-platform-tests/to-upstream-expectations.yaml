@@ -59,3 +59,5 @@ html/syntax/parsing/noscript-template-querySelector.html:
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]
+svg/painting/parsed-svg-default-fill.html:
+  "Default fill after inserting an XML element without the SVG namespace": [fail, https://github.com/jsdom/jsdom/issues/2688]

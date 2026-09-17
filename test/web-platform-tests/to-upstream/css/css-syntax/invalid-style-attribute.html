@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Invalid inline CSS is discarded without disrupting HTML parsing</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#parsing">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression tests for https://github.com/jsdom/jsdom/issues/2084 and https://github.com/jsdom/jsdom/issues/2513 -->
+<div id="invalid-media" style="@media only screen{background-image: url(http://a.com/a.jpg)"></div>
+<div class="first" style="font-size:15px">some text</div>
+<div class="second" style="font-size:1r5px">some text</div>
+<script>
+"use strict";
+
+test(() => {
+  const div = document.getElementById("invalid-media");
+  assert_equals(div.style.length, 0);
+  assert_equals(div.style.cssText, "");
+}, "An unterminated inline @media rule does not prevent document parsing");
+
+test(() => {
+  const first = document.querySelector("div.first");
+  const second = document.querySelector("div.second");
+  assert_equals(first.style.length, 1);
+  assert_equals(first.style.fontSize, "15px");
+  assert_equals(second.style.length, 0);
+  assert_equals(second.style.cssText, "");
+}, "An invalid font-size does not occupy a declaration slot");
+</script>

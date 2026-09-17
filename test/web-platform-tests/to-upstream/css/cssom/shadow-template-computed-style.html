@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Styles in cloned template contents apply inside a shadow root</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3278 -->
+<body>
+<template id="custom-example-template">
+  <style>.abc { color: red; }</style>
+  <div class="abc">hello</div>
+</template>
+<script>
+"use strict";
+
+const localDoc = document.currentScript.ownerDocument;
+// Define the custom element before the parser creates it below.
+customElements.define("custom-example", class extends HTMLElement {
+  constructor() {
+    super();
+    this.shadow = this.attachShadow({ mode: "open" });
+    const template = localDoc.querySelector("#custom-example-template");
+    this.shadow.appendChild(template.content.cloneNode(true));
+  }
+});
+</script>
+<custom-example></custom-example>
+<script>
+"use strict";
+
+test(() => {
+  const shadow = document.body.querySelector("custom-example").shadowRoot;
+  const div = shadow.querySelectorAll(".abc")[0];
+  assert_equals(getComputedStyle(div).color, "rgb(255, 0, 0)");
+}, "A parser-created custom element gets computed style from its cloned shadow stylesheet");
+</script>
