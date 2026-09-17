@@ -8,6 +8,14 @@ const delay = require("node:timers/promises").setTimeout;
 const { streamingServer } = require("./helpers/servers.js");
 
 describe("Test cases only possible to test from the outside", () => {
+  for (const runScripts of [undefined, "outside-only", "dangerously"]) {
+    it(`window should be an instance of window.Window with runScripts set to ${runScripts}`, () => {
+      const { window } = new JSDOM(undefined, { runScripts });
+
+      assert(window instanceof window.Window);
+    });
+  }
+
   it("window.close() should prevent timers from registering and cause them to return 0", async () => {
     const { window } = new JSDOM();
 
