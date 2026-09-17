@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, it, before, after } = require("mocha-sugar-free");
+const { describe, it, before, after } = require("node:test");
 const { createServer, serverURL } = require("./helpers/servers.js");
 
 const { JSDOM, CookieJar } = require("../..");

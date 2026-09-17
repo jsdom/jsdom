@@ -1,15 +1,15 @@
 "use strict";
 
 const assert = require("node:assert/strict");
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM, VirtualConsole } = require("../..");
 const { toFileUrl, todo } = require("../util.js");
 
 describe("on-error", () => {
-  specify(
+  test(
     "onerror catches exceptions thrown in addEventListener event handlers",
-    t => {
+    (t, done) => {
       const doc = docForTests();
 
       const error = new Error("oh no!");
@@ -27,19 +27,16 @@ describe("on-error", () => {
         assert.ok(event.lineno > 0);
         assert.ok(event.colno > 0);
         assert.equal(event.error, error);
-        t.done();
+        done();
       });
 
       doc.body.click();
-    },
-    {
-      async: true
     }
   );
 
-  specify(
+  test(
     "onerror property catches exceptions thrown in addEventListener event handlers",
-    t => {
+    (t, done) => {
       const doc = docForTests();
 
       const errorThrown = new Error("oh no!");
@@ -57,19 +54,16 @@ describe("on-error", () => {
         assert.ok(lineno > 0);
         assert.ok(colno > 0);
         assert.equal(error, errorThrown);
-        t.done();
+        done();
       };
 
       doc.body.click();
-    },
-    {
-      async: true
     }
   );
 
-  specify(
+  test(
     "onerror catches exceptions thrown in addEventListener event handlers (multiline message)",
-    t => {
+    (t, done) => {
       const doc = docForTests();
 
       const error = new Error("oh\nno\n!");
@@ -85,17 +79,14 @@ describe("on-error", () => {
         assert.ok(event.lineno > 0);
         assert.ok(event.colno > 0);
         assert.equal(event.error, error);
-        t.done();
+        done();
       });
 
       doc.body.click();
-    },
-    {
-      async: true
     }
   );
 
-  specify("onerror catches exceptions thrown in inline event handlers", t => {
+  test("onerror catches exceptions thrown in inline event handlers", (t, done) => {
     const doc = docForTests(`<body onclick="throw new Error('oh no!')"></body>`, { runScripts: "dangerously" });
 
     doc.defaultView.addEventListener("error", event => {
@@ -104,17 +95,15 @@ describe("on-error", () => {
       assert.ok(event.lineno > 0, "lineno set");
       assert.ok(event.colno > 0, "colno set");
       assert.ok(event.error);
-      t.done();
+      done();
     });
 
     doc.body.click();
-  }, {
-    async: true
   });
 
-  specify(
+  test(
     "onerror catches exceptions thrown in inline event handler properties",
-    t => {
+    (t, done) => {
       const doc = docForTests();
 
       doc.body.onclick = () => {
@@ -131,17 +120,14 @@ describe("on-error", () => {
         assert.ok(event.lineno > 0, "lineno set");
         assert.ok(event.colno > 0, "colno set");
         assert.ok(event.error);
-        t.done();
+        done();
       });
 
       doc.body.click();
-    },
-    {
-      async: true
     }
   );
 
-  specify("onerror catches exceptions thrown in sync script execution", t => {
+  test("onerror catches exceptions thrown in sync script execution", (t, done) => {
     const doc = docForTests(``, { runScripts: "dangerously" });
 
     doc.defaultView.addEventListener("error", event => {
@@ -150,17 +136,15 @@ describe("on-error", () => {
       assert.ok(event.lineno > 0, "lineno set");
       assert.ok(event.colno > 0, "colno set");
       assert.ok(event.error);
-      t.done();
+      done();
     });
 
     doc.onload = () => {
       doc.write(`<script>throw new Error("oh no!");</script>`);
     };
-  }, {
-    async: true
   });
 
-  specify(
+  test(
     "onerror set during parsing catches exceptions thrown in sync script execution during parsing",
     () => {
       const doc = docForTests(`<script>

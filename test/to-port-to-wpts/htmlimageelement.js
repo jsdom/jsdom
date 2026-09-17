@@ -2,8 +2,7 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
-
-const { describe, specify } = require("mocha-sugar-free");
+const { describe, test } = require("node:test");
 
 const { JSDOM } = require("../..");
 const { Canvas } = require("../../lib/jsdom/utils.js");
@@ -11,7 +10,7 @@ const toFileUrl = require("../util").toFileUrl(__dirname);
 const { createServer, serverURL } = require("../api/helpers/servers.js");
 
 describe("htmlimageelement", () => {
-  specify(
+  test(
     "Image constructor should create a HTMLImageElement with specified width and height",
     () => {
       const { window } = new JSDOM();
@@ -23,7 +22,7 @@ describe("htmlimageelement", () => {
   );
 
   if (Canvas) {
-    specify("loading image from valid external URL", t => {
+    test("loading image from valid external URL", (t, done) => {
       const { window } = new JSDOM(``, { resources: "usable" });
       const image = new window.Image();
       const src = toFileUrl("files/image.png");
@@ -45,17 +44,15 @@ describe("htmlimageelement", () => {
         assert.equal(image.complete, true, "after loading, complete should be true");
         assert.equal(image.src, src, "after loading, src should be the image's URL");
         assert.equal(image.currentSrc, src, "after loading, currentSrc should be the image's URL");
-        t.done();
+        done();
       };
       image.onerror = () => {
         assert.ok(false, "onerror should not be triggered when loading from valid URL");
-        t.done();
+        done();
       };
-    }, {
-      async: true
     });
 
-    specify("loading images should work with relative URLs (GH-1536)", async () => {
+    test("loading images should work with relative URLs (GH-1536)", async () => {
       let requestsSoFar = 0;
 
       let resolveDonePromise;
@@ -81,7 +78,7 @@ describe("htmlimageelement", () => {
       await donePromise;
     });
 
-    specify("loading image from data URL", t => {
+    test("loading image from data URL", (t, done) => {
       const { window } = new JSDOM(``, { resources: "usable" });
       const image = new window.Image();
       const src = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
@@ -93,32 +90,28 @@ describe("htmlimageelement", () => {
         assert.equal(image.src, src, "after setting data URL, src should be the data URL");
         assert.equal(image.currentSrc, src, "after setting data URL, currentSrc should be the data URL");
 
-        t.done();
+        done();
       };
       image.onerror = () => {
         assert.ok(false, "onerror should not be triggered when loading from valid URL");
-        t.done();
+        done();
       };
       image.src = src;
-    }, {
-      async: true
     });
 
-    specify("loading image from invalid external URL", t => {
+    test("loading image from invalid external URL", (t, done) => {
       const { window } = new JSDOM(``, { resources: "usable" });
       const image = new window.Image();
       const src = toFileUrl("files/invalid.png");
       image.onload = () => {
         assert.ok(false, "onload should not be triggered when loading from invalid URL.");
-        t.done();
+        done();
       };
       image.onerror = () => {
         assert.ok(true, "onerror should be triggered when loading from valid URL.");
-        t.done();
+        done();
       };
       image.src = src;
-    }, {
-      async: true
     });
   }
 });

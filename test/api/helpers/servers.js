@@ -3,7 +3,7 @@ const crypto = require("node:crypto");
 const fs = require("node:fs");
 const http = require("node:http");
 const path = require("node:path");
-const { after } = require("mocha-sugar-free");
+const { after } = require("node:test");
 const enableDestroy = require("server-destroy");
 
 const pngBytes = fs.readFileSync(path.resolve(__dirname, "../fixtures/resources/transparent.png"));
@@ -19,7 +19,7 @@ function serverURL(server, { host = "127.0.0.1", scheme = "http" } = {}) {
 /**
  * Creates an HTTP server that is tracked for automatic cleanup at the end of the test suite.
  * Callers should call server.destroy() when done; any still-alive servers are force-destroyed
- * by the mocha `after()` hook.
+ * by the `after()` hook.
  */
 function createServer(handler) {
   return new Promise(resolve => {

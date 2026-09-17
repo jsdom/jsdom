@@ -66,6 +66,8 @@ In the following sections, we'll give commands for running a subset of the tests
 
 **Before running test subsets**: `npm run pretest`
 
+The test suites use Node.js's built-in test runner. Its flags must precede the test filenames, so appending flags with `npm test --` or `npm run test:wpt --` does not work ([nodejs/node#51384](https://github.com/nodejs/node/issues/51384)). The filtering examples below use `NODE_OPTIONS` with POSIX shell syntax; in other shells, set that environment variable before running the npm script. Filters are regular expressions matched against the full test name, including suite names.
+
 ### Web platform feature tests
 
 All tests for web platform features (as opposed to features of jsdom itself, such as the `JSDOM()` constructor) should be in [web-platform-tests](https://github.com/web-platform-tests/wpt) format. These tests are HTML files which use a special library called [testharness.js](https://web-platform-tests.org/writing-tests/testharness-api.html) to report their results.
@@ -78,7 +80,7 @@ So if you've found a tests in the [`web-platform-tests/wpt`](https://github.com/
 
 **To run all web-platform-tests:** `npm run test:wpt`
 
-**To run specific web-platform-tests already enabled via `to-run.yaml`**: `npm run test:wpt -- --fgrep dom/events`
+**To run specific web-platform-tests already enabled via `to-run.yaml`**: `NODE_OPTIONS="--test-name-pattern=dom/events" npm run test:wpt`
 
 Also, to update web platform tests to their latest revision from the source repository: `npm run wpt:update`. (This can take a long time, like 10 minutes.)
 
@@ -88,7 +90,7 @@ Sometimes, especially when working on bug fixes, there are no web platform tests
 
 **To run the to-upstream web-platform-tests:** `npm run test:tuwpt`
 
-**To run specific to-upstream web-platform-tests**: `npm run test:tuwpt -- --fgrep domparsing`
+**To run specific to-upstream web-platform-tests**: `NODE_OPTIONS="--test-name-pattern=domparsing" npm run test:tuwpt`
 
 If you end up writing a test which passes in browsers, but you cannot get it to pass in jsdom, then it might be worthwhile submitting the test anyway, for future jsdom contributors. To do this, place the test in the appropriate part of the `to-upstream` directory as normal, and then add a line to [the `to-upstream-expectations.yaml` file](https://github.com/jsdom/jsdom/blob/main/test/web-platform-tests/to-upstream-expectations.yaml) saying that the test fails, and pointing to the issue which reports on your progress.
 
@@ -108,17 +110,17 @@ The runner does not disable the browser sandbox. If your environment requires it
 
 ### jsdom API tests
 
-If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test. Such tests are written using [Mocha](https://mochajs.org/).
+If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test. Such tests are written using [Node.js's built-in test runner](https://nodejs.org/api/test.html).
 
-To write such a test, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
+To write such a test, simply add a file in `test/api/`, following the surrounding conventions.
 
 **To run all API tests:** `npm run test:api`
 
-**To run a specific API test:** `npx mocha test/api/from-file.js`
+**To run a specific API test:** `node --test test/api/from-file.js`
 
 ### Older tests
 
-Although ideally you should not need to worry about this, there are some tests that are for legacy reasons not in the right format; they use Mocha, but really should be web platform tests. We're keeping them around for coverage until we can convert them. If you run `npm test`, you will get the full test suite, including such old tests.
+Although ideally you should not need to worry about this, there are some tests that are for legacy reasons not in the right format; they use Node.js's test runner directly, but really should be web platform tests. We're keeping them around for coverage until we can convert them. If you run `npm test`, you will get the full test suite, including such old tests.
 
 ## Benchmarks
 

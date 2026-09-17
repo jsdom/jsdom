@@ -1,7 +1,7 @@
 "use strict";
 /* eslint-disable no-console */
 const path = require("node:path");
-const { describe, before, after } = require("mocha-sugar-free");
+const { describe, before, after } = require("node:test");
 const { regenerateManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
 const wptServer = require("./wpt-server.js");
 const { getURLPrefix, killSubprocess, spawnSyncFiltered } = require("./utils.js");
@@ -37,15 +37,16 @@ const runSingleWPT = require("./run-single-wpt.js")(
   testPath => getURLPrefix(wptServerURLs, testPath),
   expectationsFilename
 );
-before({ timeout: 30_000 }, async () => {
-  const { urls, subprocess } = await wptServer.start({ toUpstream: true });
-  wptServerURLs = urls;
-  serverProcess = subprocess;
-});
-
-after({ timeout: 5000 }, () => killSubprocess(serverProcess));
 
 describe("Local tests in web-platform-test format (to-upstream)", () => {
+  before(async () => {
+    const { urls, subprocess } = await wptServer.start({ toUpstream: true });
+    wptServerURLs = urls;
+    serverProcess = subprocess;
+  }, { timeout: 30_000 });
+
+  after(() => killSubprocess(serverProcess), { timeout: 5000 });
+
   for (const testFilePath of possibleTestFilePaths) {
     runTestWithExpectations(testFilePath, expectationDataByTestFilePath, { runSingleWPT });
   }

@@ -1,7 +1,7 @@
 "use strict";
 const fs = require("node:fs");
 const path = require("node:path");
-const { specify } = require("mocha-sugar-free");
+const { test } = require("node:test");
 const jsYAML = require("js-yaml");
 const semver = require("semver");
 const { Canvas } = require("../../lib/jsdom/utils.js");
@@ -118,7 +118,7 @@ exports.runTestWithExpectations = (
 
   switch (resolveReason(reason)) {
     case "skip": {
-      specify.skip(`[${reason}] ${testFile}`);
+      test.skip(`[${reason}] ${testFile}`);
       break;
     }
 

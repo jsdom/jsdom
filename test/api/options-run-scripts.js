@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { once } = require("node:events");
-const { describe, it } = require("mocha-sugar-free");
+const { describe, it } = require("node:test");
 
 const { JSDOM, VirtualConsole } = require("../..");
 const jsGlobals = Object.keys(require("../../lib/generated/js-globals.json"));

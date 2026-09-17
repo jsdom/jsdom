@@ -2,15 +2,14 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
+const { beforeEach, afterEach, describe, test } = require("node:test");
 const delay = require("node:timers/promises").setTimeout;
-
-const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../../..");
 const { createServer } = require("../../api/helpers/servers.js");
 
 describe("level2/style", () => {
-  specify("HTMLStyleElement01", () => {
+  test("HTMLStyleElement01", () => {
     const { window } = new JSDOM(`<html><head><style>p{color:red}</style></head><body>`);
     const style = window.document.head.lastChild;
     assert.equal(style.sheet.cssRules.length, 1);
@@ -18,7 +17,7 @@ describe("level2/style", () => {
     assert.equal(style.sheet.cssRules[0].style.color, "red");
   });
 
-  specify("HTMLStyleElement02", () => {
+  test("HTMLStyleElement02", () => {
     const { window } = new JSDOM(`
       <!doctype html><html><head>
       <style>p { color: green; }</style>
@@ -33,7 +32,7 @@ describe("level2/style", () => {
     assert.equal(window.document.styleSheets.length, 1);
   });
 
-  specify("HTMLStyleAttribute01", () => {
+  test("HTMLStyleAttribute01", () => {
     const { window } = new JSDOM(`<html><body><p style="color:red; background-color: blue">`);
     var p = window.document.body.lastChild;
     assert.equal(2, p.style.length);
@@ -43,7 +42,7 @@ describe("level2/style", () => {
     assert.equal("blue", p.style.backgroundColor);
   });
 
-  specify("HTMLCanvasStyleAttribute01", () => {
+  test("HTMLCanvasStyleAttribute01", () => {
     const { window } = new JSDOM(`<html><body><canvas style="background-color: blue; z-index:1">`);
     var c = window.document.body.lastChild;
     assert.equal(c.style.length, 2);
@@ -53,7 +52,7 @@ describe("level2/style", () => {
     assert.equal(c.style.zIndex, "1");
   });
 
-  specify("StylePropertyReflectsStyleAttribute", () => {
+  test("StylePropertyReflectsStyleAttribute", () => {
     const { window } = new JSDOM();
     var p = window.document.createElement("p");
     p.setAttribute("style", "color:red");
@@ -68,7 +67,7 @@ describe("level2/style", () => {
     assert.equal("blue", p.style.color);
   });
 
-  specify("StyleAttributeReflectsStyleProperty", () => {
+  test("StyleAttributeReflectsStyleProperty", () => {
     const { window } = new JSDOM();
     var p = window.document.createElement("p");
     p.style.setProperty("color", "red");
@@ -90,7 +89,7 @@ describe("level2/style", () => {
     assert.equal("background-color", p.style.item(0));
   });
 
-  specify("retainOriginalStyleAttributeUntilStyleGetter", () => {
+  test("retainOriginalStyleAttributeUntilStyleGetter", () => {
     const { window } = new JSDOM();
     var document = window.document;
     var div = document.createElement("div");
@@ -103,7 +102,7 @@ describe("level2/style", () => {
     assert.equal(div.firstChild.getAttribute("style"), "color: maroon;");
   });
 
-  specify("getComputedStyleFromDefaultStylesheet1", () => {
+  test("getComputedStyleFromDefaultStylesheet1", () => {
     // browsers have default stylesheets, see https://github.com/jsdom/jsdom/issues/994
     var { window } = new JSDOM("<html><head></head><body><div></div></body></html>");
     var div = window.document.getElementsByTagName("div")[0];
@@ -111,7 +110,7 @@ describe("level2/style", () => {
     assert.equal(cs.display, "block", "computed display of div is block by default");
   });
 
-  specify("getComputedStyleFromDefaultStylesheet2", () => {
+  test("getComputedStyleFromDefaultStylesheet2", () => {
     // browsers have default stylesheets, see https://github.com/jsdom/jsdom/issues/994
     var { window } = new JSDOM("<html><head></head><body><ul></ul></body></html>");
     var ul = window.document.getElementsByTagName("ul")[0];
@@ -119,7 +118,7 @@ describe("level2/style", () => {
     assert.equal(cs.display, "block", "computed display of ul is block by default");
   });
 
-  specify("getComputedStyleInline", () => {
+  test("getComputedStyleInline", () => {
     const { window } = new JSDOM();
     var document = window.document;
     var style = document.createElement("style");
@@ -132,7 +131,7 @@ describe("level2/style", () => {
     assert.equal(cs.display, "none", "computed display of p is none");
   });
 
-  specify("getComputedStyleFromEmbeddedSheet1", () => {
+  test("getComputedStyleFromEmbeddedSheet1", () => {
     const { window } = new JSDOM(`
       <html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>
       <div id="id1"><p class="clazz"></p></div>
@@ -142,7 +141,7 @@ describe("level2/style", () => {
     assert.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
   });
 
-  specify("getComputedStyleFromEmbeddedSheet2", () => {
+  test("getComputedStyleFromEmbeddedSheet2", () => {
     // use grouping, see http://www.w3.org/TR/CSS2/selector.html#grouping
     const { window } = new JSDOM(`
         <html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>
@@ -158,7 +157,7 @@ describe("level2/style", () => {
     assert.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
   });
 
-  specify("getComputedStyleFromEmbeddedSheet3", () => {
+  test("getComputedStyleFromEmbeddedSheet3", () => {
     // use grouping with embedded quotes and commas, see https://github.com/jsdom/jsdom/pull/541#issuecomment-18114747
     const { window } = new JSDOM(`
         <html><head><style>#id1 .clazz, button[onclick="ga(this, event)"],
@@ -176,7 +175,7 @@ describe("level2/style", () => {
     assert.equal(cs.marginLeft, "100px", "computed marginLeft of button[0] is 100px");
   });
 
-  specify("ensureRelativeStylesheetFilesAreLoaded", () => {
+  test("ensureRelativeStylesheetFilesAreLoaded", () => {
     return createServer((req, res) => {
       try {
         var content = String(fs.readFileSync(path.resolve(__dirname, "style", req.url.substring(1))));
@@ -204,7 +203,7 @@ describe("level2/style", () => {
     });
   });
 
-  specify("getComputedStyleExternal", () => {
+  test("getComputedStyleExternal", () => {
     return createServer((req, res) => {
       const css = `div { color: red; }`;
       res.writeHead(200, {
@@ -237,7 +236,7 @@ describe("level2/style", () => {
     });
   });
 
-  specify("getComputedStyleWithBadSelectors", () => {
+  test("getComputedStyleWithBadSelectors", () => {
     const { window } = new JSDOM();
     var doc = window.document;
     var style = doc.createElement("style");
@@ -251,7 +250,7 @@ describe("level2/style", () => {
     });
   });
 
-  specify("getComputedStyleWithMediaRules", () => {
+  test("getComputedStyleWithMediaRules", () => {
     const { window } = new JSDOM(`
       <html><head><style>@media screen,handheld { .citation { color: blue; } }
       @media print { .citation { color: red; } }</style></head>
@@ -260,7 +259,7 @@ describe("level2/style", () => {
     assert.equal(style.color, "rgb(0, 0, 255)", "computed color of p is blue");
   });
 
-  specify("getComputedStyleWithKeyframeRules", () => {
+  test("getComputedStyleWithKeyframeRules", () => {
     const { window } = new JSDOM(`
       <html><head><style>@-webkit-keyframes breaking {}</style></head>
       <body><p>Hello</p></body></html>`);
@@ -269,7 +268,7 @@ describe("level2/style", () => {
     });
   });
 
-  specify("getStyleSheetByItem", (t) => {
+  test("getStyleSheetByItem", (t) => {
     const { window } = new JSDOM(`<html><head><style>p{color:red}</style><style>div{color:green}</style></head><body>`);
     var sheets = window.document.styleSheets;
     assert.equal(2, sheets.length);
@@ -279,7 +278,7 @@ describe("level2/style", () => {
     assert.equal("green", sheets.item(1).cssRules[0].style.color);
   });
 
-  specify("parseStyleWithBogusComment", () => {
+  test("parseStyleWithBogusComment", () => {
     // https://github.com/jsdom/jsdom/issues/1214
     const { window } = new JSDOM(`<style>.block-title .block-title-inner a:visited { color: #48484d; } // MAIN MENU - (used to keep mobile menu options hidden and keep weather/search and menu on one line) // #tncms-region-nav-main-nav-right-nav { float:left; }</style>`);
 
@@ -287,7 +286,7 @@ describe("level2/style", () => {
     window.getComputedStyle(window.document.body);
   });
 
-  specify("padding and margin component properties work correctly (GH-1353)", () => {
+  test("padding and margin component properties work correctly (GH-1353)", () => {
     const document = (new JSDOM()).window.document;
 
     for (const prop of ["padding", "margin"]) {
@@ -328,13 +327,13 @@ describe("level2/style", () => {
     }
   });
 
-  specify("StyleSheetList.prototype.item returns null on index out of bounds", () => {
+  test("StyleSheetList.prototype.item returns null on index out of bounds", () => {
     const document = (new JSDOM()).window.document;
     assert.equal(document.styleSheets[0], undefined);
     assert.equal(document.styleSheets.item(0), null);
   });
 
-  specify("setting background to null works correctly (GH-1499)", () => {
+  test("setting background to null works correctly (GH-1499)", () => {
     const document = (new JSDOM()).window.document;
     document.body.innerHTML = `<div id="ctrl" style="background:#111;border:1px"></div>`;
 
@@ -344,7 +343,7 @@ describe("level2/style", () => {
     assert.equal(div.style.background, "");
   });
 
-  specify("setting width to auto works correctly (GH-1458)", () => {
+  test("setting width to auto works correctly (GH-1458)", () => {
     const document = (new JSDOM()).window.document;
 
     document.body.style.width = "auto";
