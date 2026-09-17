@@ -2182,7 +2182,7 @@ DIR: html/interaction/focus
 
 document-level-focus-apis/document-has-system-focus.html: [fail-slow, window.open() not implemented]
 focus-selection.html: [fail, Unknown]
-processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
+processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Depends on ResizeObserver]
 processing-model/preventScroll.html: [fail, Not implemented]
 processing-model/textarea-scroll-selection.html: [fail, Not implemented]
 the-autofocus-attribute/autofocus-area.html: [fail, Not implemented]
