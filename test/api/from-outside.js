@@ -9,10 +9,19 @@ const { streamingServer } = require("./helpers/servers.js");
 
 describe("Test cases only possible to test from the outside", () => {
   for (const runScripts of [undefined, "outside-only", "dangerously"]) {
-    it(`window should be an instance of window.Window with runScripts set to ${runScripts}`, () => {
-      const { window } = new JSDOM(undefined, { runScripts });
+    describe(`with runScripts set to ${runScripts}`, () => {
+      it("an element named eval should not shadow window.eval", () => {
+        const { window } = new JSDOM(`<h2 id="eval">Eval</h2>`, { runScripts });
 
-      assert(window instanceof window.Window);
+        assert.equal(typeof window.eval, "function");
+        assert.equal(window.eval("1 + 1"), 2);
+      });
+
+      it("window should be an instance of window.Window", () => {
+        const { window } = new JSDOM(undefined, { runScripts });
+
+        assert(window instanceof window.Window);
+      });
     });
   }
 

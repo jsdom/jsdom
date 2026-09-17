@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Default fill on XML elements inserted into an HTML document</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2688 -->
+<body>
+<script>
+"use strict";
+
+for (const attributes of [
+  "",
+  ' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"'
+]) {
+  test(t => {
+    const doc = new DOMParser().parseFromString(`<svg${attributes}><g></g></svg>`, "image/svg+xml");
+    const svg = doc.childNodes[0];
+    document.body.appendChild(svg);
+    t.add_cleanup(() => svg.remove());
+
+    assert_equals(getComputedStyle(svg).fill, "rgb(0, 0, 0)");
+  }, `Default fill after inserting an XML element ${attributes ? "with" : "without"} the SVG namespace`);
+}
+</script>

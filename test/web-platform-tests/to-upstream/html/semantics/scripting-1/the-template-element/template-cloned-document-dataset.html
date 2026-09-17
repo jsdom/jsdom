@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTML element interfaces in template contents of cloned documents</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2248 -->
+<script>
+"use strict";
+
+for (const clone of [false, true]) {
+  test(() => {
+    const doc = clone ? document.cloneNode(false) : document;
+    const template = doc.createElement("template");
+    template.innerHTML = "<p></p>";
+    const p = template.content.firstElementChild;
+
+    assert_true(p instanceof HTMLParagraphElement);
+    assert_array_equals(Object.keys(p.dataset), []);
+
+    p.dataset.value = "updated";
+    assert_equals(p.getAttribute("data-value"), "updated");
+  }, `Template contents have HTML interfaces in a ${clone ? "cloned" : "live"} document`);
+}
+</script>

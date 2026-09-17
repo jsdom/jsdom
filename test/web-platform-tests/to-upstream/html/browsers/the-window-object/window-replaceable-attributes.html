@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Assignment replaces Window attributes with data properties</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Extends the descriptor checks in `/html/browsers/the-window-object/window-properties.https.html`. -->
+<body>
+<script>
+"use strict";
+
+for (const name of [
+  "self", "locationbar", "menubar", "personalbar", "scrollbars", "statusbar", "toolbar",
+  "frames", "parent", "external", "length", "origin", "screen", "scrollX", "scrollY",
+  "pageXOffset", "pageYOffset", "innerWidth", "innerHeight", "screenLeft", "screenTop",
+  "screenX", "screenY", "outerWidth", "outerHeight", "devicePixelRatio"
+]) {
+  test(t => {
+    const frame = document.createElement("iframe");
+    document.body.append(frame);
+    t.add_cleanup(() => frame.remove());
+
+    const win = frame.contentWindow;
+    const original = Object.getOwnPropertyDescriptor(win, name);
+    assert_equals(typeof original.get, "function");
+    assert_equals(typeof original.set, "function");
+
+    const replacement = {};
+    win[name] = replacement;
+    assert_equals(win[name], replacement);
+    const replaced = Object.getOwnPropertyDescriptor(win, name);
+    assert_equals(replaced.value, replacement);
+    assert_true(replaced.writable);
+    assert_true(replaced.enumerable);
+    assert_true(replaced.configurable);
+  }, `Assigning window.${name} creates a writable data property`);
+}
+</script>

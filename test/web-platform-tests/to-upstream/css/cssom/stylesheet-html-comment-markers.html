@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Stylesheet rules between HTML comment markers remain active</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#parsing">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/1922 -->
+<body>
+<script>
+"use strict";
+
+for (const withFollowingRule of [false, true]) {
+  test(t => {
+    const frame = document.createElement("iframe");
+    document.body.appendChild(frame);
+    t.add_cleanup(() => frame.remove());
+
+    const firstURL = new URL("/images/green.png", location);
+    const secondURL = new URL("/images/blue.png", location);
+    let css = `<!--
+      body { background-image: url("${firstURL}"); }
+    -->`;
+    if (withFollowingRule) {
+      css += `body { background-image: url("${secondURL}"); }`;
+    }
+
+    const doc = frame.contentDocument;
+    doc.open();
+    doc.write(`<!doctype html><html><head><style>${css}</style></head><body></body></html>`);
+    doc.close();
+
+    assert_equals(doc.styleSheets[0].cssRules.length, withFollowingRule ? 2 : 1);
+    assert_equals(
+      frame.contentWindow.getComputedStyle(doc.body).backgroundImage,
+      `url("${withFollowingRule ? secondURL : firstURL}")`
+    );
+  }, `HTML comment-wrapped body CSS ${withFollowingRule ? "allows a following rule to override it" : "applies"}`);
+}
+</script>

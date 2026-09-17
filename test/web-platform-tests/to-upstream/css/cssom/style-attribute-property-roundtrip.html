@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS property access and serialization preserve inline declarations</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="sample" style="background-position: 0 50%;">
+  <div id="lightgrey" style="background-color: lightgrey;"></div>
+  <div id="hex-color" style="background-color: #CCCCCC;"></div>
+</div>
+<p id="flex">Hello world</p>
+<div id="backdrop" style="backdrop-filter: saturate(20%)"></div>
+<!-- Inert absolute image URLs replace the report's remote image URLs. -->
+<div hidden>
+  <span id="url" style="background-image: url(https://example.com/image.jpg);">
+    <span id="urlQuotes" style="background-image: url('https://example.com/image.jpg');">
+      <span id="color" style="color: rgb(255, 0, 0);">
+        <span id="urlSpaces" style="background-image: url( https://example.com/other-image.jpg );">
+          <span id="colorSpaces" style="color: rgb( 255, 0, 0 );">
+          </span>
+        </span>
+      </span>
+    </span>
+  </span>
+</div>
+<script>
+"use strict";
+
+// https://github.com/jsdom/jsdom/issues/2328 and its background-color follow-up.
+for (const [id, property, expected] of [
+  ["sample", "backgroundPosition", "0px 50%"],
+  ["lightgrey", "backgroundColor", "lightgrey"],
+  ["hex-color", "backgroundColor", "rgb(204, 204, 204)"]
+]) {
+  test(() => {
+    assert_equals(document.getElementById(id).style[property], expected);
+  }, `Parsed ${property} for #${id} is retained`);
+}
+
+// https://github.com/jsdom/jsdom/issues/3009
+for (const [id, property, expected] of [
+  ["url", "backgroundImage", 'url("https://example.com/image.jpg")'],
+  ["urlQuotes", "backgroundImage", 'url("https://example.com/image.jpg")'],
+  ["color", "color", "rgb(255, 0, 0)"],
+  ["urlSpaces", "backgroundImage", 'url("https://example.com/other-image.jpg")'],
+  ["colorSpaces", "color", "rgb(255, 0, 0)"]
+]) {
+  test(() => {
+    assert_equals(document.querySelector(`#${id}`).style[property], expected);
+  }, `Inline function syntax in #${id} is parsed`);
+}
+
+// https://github.com/jsdom/jsdom/issues/2166
+for (const [input, expected] of [
+  ["rgba(248,80,50,1)", "rgb(248, 80, 50)"],
+  ["linear-gradient(red,blue)", "linear-gradient(red, blue)"]
+]) {
+  test(() => {
+    const html = `<div style="background: ${input};"></div>`;
+    const template = document.createElement("template");
+    template.innerHTML = html;
+    const element = template.content.firstChild;
+
+    assert_equals(element.outerHTML, html);
+    assert_equals(element.style.background, expected);
+    assert_equals(element.style.cssText, `background: ${expected};`);
+  }, `A fragment retains the background shorthand ${input}`);
+}
+
+// https://github.com/jsdom/jsdom/issues/2182
+test(() => {
+  const element = document.getElementById("flex");
+  element.style.fontSize = "10px";
+  element.style.display = "flex";
+  element.style.flex = "0 1 auto";
+  element.style.flexDirection = "column";
+  element.style.marginBottom = "1px";
+
+  assert_equals(
+    element.outerHTML,
+    '<p id="flex" style="font-size: 10px; display: flex; flex: 0 1 auto; flex-direction: column; ' +
+      'margin-bottom: 1px;">Hello world</p>'
+  );
+}, "Setting flex declarations updates the serialized style attribute");
+
+// https://github.com/jsdom/jsdom/issues/2430
+test(() => {
+  const element = document.createElement("div");
+  element.style.cssText = "white-space: nowrap; transform-origin: left top;";
+  assert_equals(element.style.transformOrigin, "left top");
+  assert_equals(element.style.cssText, "white-space: nowrap; transform-origin: left top;");
+
+  element.style.transformOrigin = "left top";
+  assert_equals(element.style.transformOrigin, "left top");
+  assert_equals(element.style.cssText, "white-space: nowrap; transform-origin: left top;");
+}, "transform-origin survives cssText assignment and IDL assignment alongside white-space");
+
+// https://github.com/jsdom/jsdom/issues/2512
+test(() => {
+  const element = document.createElement("div");
+  element.style.userSelect = "none";
+  assert_equals(element.outerHTML, '<div style="user-select: none;"></div>');
+}, "Assigning userSelect updates outerHTML");
+
+// https://github.com/jsdom/jsdom/issues/2713
+test(() => {
+  assert_equals(document.getElementById("backdrop").style.backdropFilter, "saturate(20%)");
+}, "backdropFilter reads the declaration parsed from the style attribute");
+
+// https://github.com/jsdom/jsdom/issues/2089
+test(() => {
+  const container = document.createElement("div");
+  container.innerHTML = '<div id="test" style="transform: translate(0,-50%); font-size:10px;"></div>';
+  const target = container.firstChild;
+
+  function assertSerializedStyle() {
+    const reparsed = document.createElement("div");
+    reparsed.innerHTML = container.innerHTML;
+    const { style } = reparsed.firstChild;
+
+    // This regression concerns losing the declaration, independently of zero-length serialization.
+    assert_regexp_match(style.transform, /^translate\(0(?:px)?,\s*-50%\)$/);
+    assert_equals(style.fontSize, "10px");
+    assert_equals(style.fontWeight, "bold");
+  }
+
+  target.style.fontWeight = "bold";
+  assertSerializedStyle();
+
+  target.style.transform = "translate(0,-50%)";
+  assertSerializedStyle();
+
+  target.style.setProperty("transform", "translate(0,-50%)");
+  assertSerializedStyle();
+}, "Unrelated and transform style mutations preserve translate() in innerHTML");
+</script>
