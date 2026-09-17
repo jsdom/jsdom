@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Stylesheet rules between HTML comment markers remain active</title>
+<title>Parsing and serialization of stylesheets with HTML comment markers</title>
 <link rel="help" href="https://drafts.csswg.org/css-syntax-3/#parsing">
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-rule">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/1922 -->
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2043 -->
 <body>
 <script>
 "use strict";
@@ -54,4 +56,30 @@ ${css}
     );
   }, `HTML comment-wrapped body CSS ${withFollowingRule ? "allows a following rule to override it" : "applies"}`);
 }
+
+test(t => {
+  const frame = document.createElement("iframe");
+  document.body.appendChild(frame);
+  t.add_cleanup(() => frame.remove());
+
+  const css = "<!-- P {margin-top:0;margin-bottom:0;} -->";
+  const doc = frame.contentDocument;
+  doc.open();
+  doc.write(`<html><head><style type="text/css">${css}</style></head><body></body></html>`);
+  doc.close();
+
+  const sheet = doc.styleSheets[0];
+  assert_equals(doc.querySelector("style").textContent, css, "The style element retains both comment markers");
+  assert_equals(sheet.toString(), "[object CSSStyleSheet]", "Stringifying a stylesheet does not serialize its CSS");
+  assert_equals(sheet.cssRules.length, 1);
+  const rule = sheet.cssRules[0];
+  assert_equals(rule.selectorText, "P");
+  assert_equals(rule.cssText, "P { margin-top: 0px; margin-bottom: 0px; }");
+
+  const paragraph = doc.createElement("p");
+  doc.body.appendChild(paragraph);
+  const style = frame.contentWindow.getComputedStyle(paragraph);
+  assert_equals(style.marginTop, "0px");
+  assert_equals(style.marginBottom, "0px");
+}, "HTML comment-wrapped CSS preserves source markers, serializes rules, and applies");
 </script>
