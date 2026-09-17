@@ -18,20 +18,38 @@ for (const withFollowingRule of [false, true]) {
     const firstURL = new URL("/images/green.png", location);
     const secondURL = new URL("/images/blue.png", location);
     let css = `<!--
-      body { background-image: url("${firstURL}"); }
-    -->`;
+body {
+  background-color: #333333;
+  color: white;
+  background-image: url(${firstURL});
+}
+-->`;
     if (withFollowingRule) {
       css += `body { background-image: url("${secondURL}"); }`;
     }
 
     const doc = frame.contentDocument;
     doc.open();
-    doc.write(`<!doctype html><html><head><style>${css}</style></head><body></body></html>`);
+    doc.write(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>CSS Test</title>
+<style type="text/css">
+${css}
+</style>
+</head>
+<body>
+</body>
+</html>`);
     doc.close();
 
     assert_equals(doc.styleSheets[0].cssRules.length, withFollowingRule ? 2 : 1);
+    const style = frame.contentWindow.getComputedStyle(doc.body);
+    assert_equals(style.backgroundColor, "rgb(51, 51, 51)");
+    assert_equals(style.color, "rgb(255, 255, 255)");
     assert_equals(
-      frame.contentWindow.getComputedStyle(doc.body).backgroundImage,
+      style.backgroundImage,
       `url("${withFollowingRule ? secondURL : firstURL}")`
     );
   }, `HTML comment-wrapped body CSS ${withFollowingRule ? "allows a following rule to override it" : "applies"}`);
