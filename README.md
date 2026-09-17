@@ -359,7 +359,7 @@ The built-in [`vm`](https://nodejs.org/api/vm.html) module of Node.js is what un
 To get access to the [contextified global object](https://nodejs.org/api/vm.html#vm_what_does_it_mean_to_contextify_an_object), suitable for use with the `vm` APIs, you can use the `getInternalVMContext()` method:
 
 ```js
-const { Script } = require("vm");
+const { Script } = require("node:vm");
 
 const dom = new JSDOM(``, { runScripts: "outside-only" });
 const script = new Script(`

@@ -1,9 +1,9 @@
 "use strict";
-const fs = require("fs");
-const path = require("path");
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const parseDataURL = require("data-urls");
-const assert = require("node:assert/strict");
 const { describe, specify } = require("mocha-sugar-free");
 const { PNG } = require("pngjs");
 

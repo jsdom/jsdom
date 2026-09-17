@@ -1,10 +1,10 @@
 "use strict";
-const path = require("path");
-const { spawnSync } = require("child_process");
 const assert = require("node:assert/strict");
+const { spawnSync } = require("node:child_process");
+const path = require("node:path");
+const delay = require("node:timers/promises").setTimeout;
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
-const delay = require("node:timers/promises").setTimeout;
 const { streamingServer } = require("./helpers/servers.js");
 
 describe("Test cases only possible to test from the outside", () => {
