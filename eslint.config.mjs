@@ -35,12 +35,7 @@ export default [
       "test/to-port-to-wpts/level3/**",
       "test/to-port-to-wpts/script.js",
       "test/web-platform-tests/tests/**",
-      "test/web-platform-tests/to-upstream/**/*dont-upstream*",
-      // Lint the focused companions maintained until their upstream additions are rolled in.
-      "!test/web-platform-tests/to-upstream/css/cssom/escape-argument-conversion-dont-upstream.html",
-      "!test/web-platform-tests/to-upstream/css/css-flexbox/parsing/flex-shorthand-dont-upstream.html",
-      "!test/web-platform-tests/to-upstream/uievents/constructors/inputevent-inputtype-dont-upstream.html",
-      "!test/web-platform-tests/to-upstream/css/css-color/nested-color-mix-with-currentcolor-dont-upstream.html"
+      "test/web-platform-tests/to-upstream/**/*dont-upstream*"
     ]
   },
   {
