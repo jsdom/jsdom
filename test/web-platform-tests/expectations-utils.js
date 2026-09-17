@@ -111,7 +111,8 @@ exports.runTestWithExpectations = (
       // but others fail, and testharness status is OK.
       data = expectationData;
     }
-  } else if (prefix.startsWith("html/canvas/")) {
+  } else if (prefix.startsWith("html/canvas/") ||
+             prefix === "html/semantics/embedded-content/the-canvas-element/") {
     reason = "needs-canvas";
   }
 

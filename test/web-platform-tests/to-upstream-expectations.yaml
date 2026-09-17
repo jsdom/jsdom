@@ -1,6 +1,7 @@
 css/cssom/getComputedStyle-html-svg-inheritance.html:
   "An SVG element inside a div has the initial stroke value": [fail, Initial stroke value none is incorrectly serialized as transparent black]
 html/browsers/browsing-the-web/navigating-across-documents/stop-pending-script-no-load.html?*: [fail, window.stop() incorrectly fires load on the stopped window and iframe]
+html/semantics/embedded-content/the-canvas-element/canvas-serialization.html: [needs-canvas]
 html/semantics/forms/the-option-element/option-ask-for-a-reset.html:
   "Setting an already-present selected attribute does not change selectedness": [fail, A no-op defaultSelected assignment incorrectly changes selectedness]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
