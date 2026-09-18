@@ -2118,7 +2118,6 @@ documents/dom-tree-accessors/nameditem-names.html:
 documents/resource-metadata-management/document-cookie.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified-01.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified.html: [fail, Unknown]
-documents/resource-metadata-management/load-event-after-readystatechange-starts-load.html: [fail, URL.createObjectURL not implemented]
 elements/global-attributes/cdata-dir_auto.html: [fail-slow, Unknown]
 elements/global-attributes/dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
 elements/global-attributes/dataset.html:
@@ -2384,8 +2383,6 @@ cross-site/**: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy l
 document-getters-return-null-for-cross-origin.html: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
 iframe-allow*: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
 iframe-append-to-child-document.html: [fail, Iframe navigation is incomplete]
-iframe-load-event.html:
-  load event of blob URL: [fail, URL.createObjectURL not implemented]
 iframe-loading-lazy*: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
 iframe-network-error.sub.html: [timeout, Iframe navigation is incomplete]
 iframe-src-encoding.html: [fail, Iframe URLs always use UTF-8 encoding]
@@ -2400,7 +2397,6 @@ iframe_javascript_url_xhr.html: [fail, Iframe navigation is incomplete]
 iframe_navigate_ancestor-1.sub.html: [timeout, Iframe navigation is incomplete]
 iframe_navigate_javascript_url.htm:
   location.href = 'javascript:"foo"' should fire a load event: [fail, Iframe navigation is incomplete]
-iframe_remove_src.html: [fail, URL.createObjectURL not implemented]
 iframe_sandbox*: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
 same-origin-contextual-fragment.html: [fail, Iframe navigation is incomplete]
 sandbox*: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
