@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Blob URL access from javascript: iframes with inherited opaque origins</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#javascript-protocol">
+<link rel="help" href="https://w3c.github.io/FileAPI/#check-for-same-partition-blob-url-usage">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const result = new Promise(resolve => {
+    function receive(event) {
+      if (event.data.type === "blob-url-result") {
+        window.removeEventListener("message", receive);
+        resolve(event.data);
+      }
+    }
+    window.addEventListener("message", receive);
+    t.add_cleanup(() => window.removeEventListener("message", receive));
+  });
+  const code = `
+    const url = URL.createObjectURL(new Blob(["parent contents"]));
+    const child = document.createElement("iframe");
+    child.onload = () => {
+      let text = null;
+      let error = null;
+      try {
+        const xhr = new child.contentWindow.XMLHttpRequest();
+        xhr.open("GET", url, false);
+        xhr.send();
+        text = xhr.responseText;
+      } catch (e) {
+        error = e.name;
+      }
+      URL.revokeObjectURL(url);
+      parent.postMessage({ type: "blob-url-result", text, error }, "*");
+    };
+    child.src = "javascript:'<p>child</p>'";
+    document.body.append(child);
+  `;
+  frame.src = `data:text/html,${encodeURIComponent(`<body><script>${code}\x3C/script>`)}`;
+  document.body.append(frame);
+
+  const response = await result;
+  assert_equals(response.error, null);
+  assert_equals(response.text, "parent contents");
+}, "A javascript: iframe inherits its opaque parent origin for blob URL access");
+</script>
