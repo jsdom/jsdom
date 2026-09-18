@@ -1,0 +1,96 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Focusing after removal of the focused element</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/infrastructure.html#dom-trees:concept-node-remove-ext">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focus-update-steps">
+<link rel="help" href="https://w3c.github.io/uievents/#events-focusevent">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+async function focusElement(element) {
+  // Wait for the test window to gain focus before testing synchronous focus changes.
+  await new Promise(resolve => {
+    element.addEventListener("focus", resolve, { once: true });
+    element.focus();
+  });
+}
+
+function watchFocusEvents(t, win) {
+  const events = [];
+  function listener(event) {
+    events.push({ event, hasFocus: win.document.hasFocus() });
+  }
+  for (const type of ["blur", "focusout", "focus", "focusin"]) {
+    win.addEventListener(type, listener, true);
+    t.add_cleanup(() => win.removeEventListener(type, listener, true));
+  }
+  return events;
+}
+
+function assertFocusEvents(events, target) {
+  assert_array_equals(
+    events.map(({ event }) => event.type),
+    ["focus", "focusin"],
+    "Moving focus from the viewport to an element fires no blur or focusout"
+  );
+  for (const { event, hasFocus } of events) {
+    assert_equals(event.target, target, `${event.type} target`);
+    assert_equals(event.relatedTarget, null, `${event.type} relatedTarget`);
+    assert_true(hasFocus, `document.hasFocus() during ${event.type}`);
+  }
+  assert_equals(target.ownerDocument.activeElement, target);
+}
+
+for (const removal of ["element", "ancestor", "shadow host"]) {
+  promise_test(async t => {
+    const container = document.createElement("div");
+    const first = document.createElement("button");
+    const second = document.createElement("button");
+    const root = removal === "shadow host" ? container.attachShadow({ mode: "open" }) : container;
+    root.append(first);
+    document.body.append(container, second);
+    t.add_cleanup(() => {
+      container.remove();
+      second.remove();
+    });
+
+    await focusElement(first);
+    (removal === "element" ? first : container).remove();
+    assert_equals(document.activeElement, document.body);
+    assert_true(document.hasFocus());
+
+    const events = watchFocusEvents(t, window);
+    second.focus();
+    assertFocusEvents(events, second);
+  }, `Focusing after ${removal} removal does not blur the window`);
+}
+
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  await new Promise(resolve => {
+    frame.onload = resolve;
+    document.body.append(frame);
+  });
+  const frameDocument = frame.contentDocument;
+  const first = frameDocument.createElement("button");
+  const second = frameDocument.createElement("button");
+  frameDocument.body.append(first, second);
+
+  await focusElement(first);
+  first.remove();
+  assert_equals(frameDocument.activeElement, frameDocument.body);
+  assert_true(frameDocument.hasFocus());
+
+  const parentEvents = watchFocusEvents(t, window);
+  const frameEvents = watchFocusEvents(t, frame.contentWindow);
+  second.focus();
+  assertFocusEvents(frameEvents, second);
+  assert_array_equals(parentEvents.map(({ event }) => event.type), []);
+  assert_equals(document.activeElement, frame);
+  assert_true(document.hasFocus());
+}, "Focusing after removal inside an iframe does not blur either window or the iframe element");
+</script>
