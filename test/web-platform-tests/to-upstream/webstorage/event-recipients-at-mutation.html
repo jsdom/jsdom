@@ -1,0 +1,89 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Storage event recipients are selected when storage changes</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webstorage.html#concept-storage-broadcast">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe, token */
+
+for (const storageType of ["localStorage", "sessionStorage"]) {
+  for (const operation of ["setItem", "removeItem", "clear"]) {
+    promise_test(async t => {
+      const existing = await addIframe();
+      t.add_cleanup(() => existing.remove());
+      const storage = window[storageType];
+      const key = token();
+      t.add_cleanup(() => storage.removeItem(key));
+      const watcher = new EventWatcher(t, existing.contentWindow, "storage");
+      if (operation !== "setItem") {
+        const initialized = watcher.wait_for("storage");
+        storage.setItem(key, "initial");
+        await initialized;
+      }
+      const delivered = watcher.wait_for("storage");
+      if (operation === "setItem") {
+        storage.setItem(key, "value");
+      } else if (operation === "removeItem") {
+        storage.removeItem(key);
+      } else {
+        storage.clear();
+      }
+      const late = document.createElement("iframe");
+      t.add_cleanup(() => late.remove());
+      document.body.append(late);
+      const events = [];
+      const checkpointKey = token();
+      t.add_cleanup(() => storage.removeItem(checkpointKey));
+      const checkpoint = new Promise(resolve => {
+        late.contentWindow.onstorage = event => {
+          events.push(event.key);
+          if (event.key === checkpointKey) {
+            resolve();
+          }
+        };
+      });
+      const event = await delivered;
+      watcher.stop_watching();
+      assert_equals(event.key, operation === "clear" ? null : key);
+      // Deliver a subsequent storage event to the late document before checking that it missed the earlier one.
+      storage.setItem(checkpointKey, "checkpoint");
+      await checkpoint;
+      assert_array_equals(events, [checkpointKey], "A document created after the mutation is not a recipient");
+    }, `${storageType}.${operation} does not send events to documents created after the mutation`);
+  }
+
+  promise_test(async t => {
+    const source = await addIframe();
+    t.add_cleanup(() => source.remove());
+    const key = token();
+    t.add_cleanup(() => window[storageType].removeItem(key));
+    const delivered = new EventWatcher(t, window, "storage").wait_for("storage");
+    source.contentWindow[storageType].setItem(key, "value");
+    source.remove();
+    assert_equals((await delivered).key, key);
+  }, `${storageType} events survive destruction of the source document`);
+
+  promise_test(async t => {
+    const recipient = await addIframe();
+    t.add_cleanup(() => recipient.remove());
+    const surviving = await addIframe();
+    t.add_cleanup(() => surviving.remove());
+    const child = recipient.contentWindow;
+    const key = token();
+    t.add_cleanup(() => window[storageType].removeItem(key));
+    const delivered = new EventWatcher(t, surviving.contentWindow, "storage").wait_for("storage");
+    window[storageType].setItem(key, "value");
+    recipient.remove();
+    // Install the listener after removal so clearing listeners during destruction cannot make the test pass.
+    const events = [];
+    child.onstorage = event => events.push(event.key);
+    assert_equals((await delivered).key, key);
+    assert_array_equals(events, []);
+  }, `${storageType} events are discarded when the recipient document is destroyed`);
+}
+</script>

@@ -15,6 +15,7 @@ module.exports = () => {
     addUIMountBenchmark(bench, definitionCount);
   }
   addCustomElementControls(bench);
+  addUpgradeBenchmarks(bench);
 
   return bench;
 };
@@ -77,6 +78,30 @@ function addCustomElementControls(bench) {
     document.body.append(subtree);
     subtree.remove();
   });
+}
+
+function addUpgradeBenchmarks(bench) {
+  const { window } = new JSDOM();
+  const { document } = window;
+
+  for (const shape of ["flat", "deep", "fields", "nested shadow"]) {
+    const root = document.createElement("div");
+    let parent = root;
+    for (let i = 0; i < 200; ++i) {
+      const child = parent.appendChild(document.createElement("div"));
+      if (shape === "deep") {
+        parent = child;
+      } else if (shape === "nested shadow") {
+        parent = child.attachShadow({ mode: "closed" });
+      } else if (shape === "fields") {
+        child.innerHTML = "<label><span>Name</span><input></label>";
+      }
+    }
+
+    bench.add(`upgrade(): ${shape} subtree without custom elements`, () => {
+      window.customElements.upgrade(root);
+    });
+  }
 }
 
 function createSubtree(document, localName = "div") {

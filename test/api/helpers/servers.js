@@ -1,8 +1,8 @@
 "use strict";
-const path = require("path");
-const fs = require("fs");
-const crypto = require("crypto");
-const http = require("http");
+const crypto = require("node:crypto");
+const fs = require("node:fs");
+const http = require("node:http");
+const path = require("node:path");
 const { after } = require("mocha-sugar-free");
 const enableDestroy = require("server-destroy");
 

@@ -1,0 +1,37 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed styles update when an imported style sheet loads</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#at-import">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe, token */
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  const doc = frame.contentDocument;
+  const container = doc.createElement("div");
+  container.style.color = "red";
+  const target = doc.createElement("div");
+  target.id = "nested-import";
+  container.append(target);
+  doc.body.append(container);
+
+  const style = doc.createElement("style");
+  const url = new URL(`resources/nested-imported-rules.css?${token()}`, location);
+  style.textContent = `@import "${url}";`;
+  const loaded = new EventWatcher(t, style, ["load", "error"]).wait_for("load");
+  doc.head.append(style);
+
+  assert_equals(child.getComputedStyle(target).color, "rgb(255, 0, 0)", "Read computed style before the import loads");
+  await loaded;
+  assert_equals(child.getComputedStyle(target).color, "rgb(0, 128, 0)", "The imported rule replaces the cached result");
+}, "Computed styles queried before an import loads reflect its rules after loading");
+</script>

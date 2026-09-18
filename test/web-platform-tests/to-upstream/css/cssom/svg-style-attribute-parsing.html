@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Style declarations on parsed and cloned SVG elements</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2384 -->
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const iframe = document.createElement("iframe");
+  document.body.appendChild(iframe);
+  t.add_cleanup(() => iframe.remove());
+
+  const doc = iframe.contentDocument;
+  doc.body.innerHTML = `<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.101ex" height="1.472ex"
+      style="vertical-align: -0.271ex; margin-left: -0.063ex;" viewBox="-27 -517.3 474 633.8"
+      xmlns="http://www.w3.org/2000/svg">
+    <g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+      <use xlink:href="#78" x="0" y="0"></use>
+    </g>
+  </svg>`;
+  const svg = doc.body.querySelector("svg");
+  assert_equals(svg.style["vertical-align"], "-0.271ex");
+  assert_equals(svg.style["margin-left"], "-0.063ex");
+
+  const clone = svg.cloneNode();
+  assert_equals(clone.style["vertical-align"], "-0.271ex");
+  assert_equals(clone.style["margin-left"], "-0.063ex");
+
+  svg.style["vertical-align"] = "1ex";
+  assert_equals(svg.style["vertical-align"], "1ex");
+  assert_equals(svg.style["margin-left"], "-0.063ex");
+}, "SVG styles are available through dashed properties after body parsing, cloning, and mutation");
+</script>

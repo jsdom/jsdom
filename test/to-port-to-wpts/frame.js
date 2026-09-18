@@ -1,7 +1,7 @@
-var path = require('path');
-var fs = require('fs');
-
 const assert = require("node:assert/strict");
+var fs = require('node:fs');
+var path = require('node:path');
+
 const { describe, specify } = require("mocha-sugar-free");
 
 const { JSDOM } = require("../..");

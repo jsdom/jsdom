@@ -1,0 +1,105 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Range operations on CharacterData nodes, including CDATASection</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-node-length">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-range-selectnodecontents">
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-range-clone">
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-range-extract">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-range-deletecontents">
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-range-insert">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-range-stringifier">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const xmlDocument = document.implementation.createDocument(null, "root");
+const data = "a\u{1F4A9}b";
+for (const node of [
+  xmlDocument.createTextNode(data),
+  xmlDocument.createCDATASection(data),
+  xmlDocument.createComment(data),
+  xmlDocument.createProcessingInstruction("target", data)
+]) {
+  test(() => {
+    const range = xmlDocument.createRange();
+    range.selectNodeContents(node);
+    assert_equals(range.startContainer, node);
+    assert_equals(range.startOffset, 0);
+    assert_equals(range.endContainer, node);
+    assert_equals(range.endOffset, data.length);
+
+    range.setStart(node, data.length);
+    assert_true(range.collapsed);
+    assert_throws_dom("IndexSizeError", () => range.setEnd(node, data.length + 1));
+  }, `Range offsets count UTF-16 code units in ${node.nodeName}`);
+}
+
+for (const method of ["cloneContents", "extractContents", "deleteContents"]) {
+  test(() => {
+    const node = xmlDocument.createCDATASection("abcd");
+    const range = xmlDocument.createRange();
+    range.setStart(node, 1);
+    range.setEnd(node, 3);
+    assert_equals(range.toString(), "bc");
+
+    const fragment = range[method]();
+    if (method !== "deleteContents") {
+      assert_equals(fragment.childNodes.length, 1);
+      assert_equals(fragment.firstChild.nodeType, Node.CDATA_SECTION_NODE);
+      assert_equals(fragment.firstChild.data, "bc");
+    }
+    assert_equals(node.data, method === "cloneContents" ? "abcd" : "ad");
+    assert_equals(range.startContainer, node);
+    assert_equals(range.startOffset, 1);
+    assert_equals(range.endOffset, method === "cloneContents" ? 3 : 1);
+  }, `${method} handles offsets within a CDATASection`);
+
+  test(() => {
+    const root = xmlDocument.createElement("root");
+    const left = xmlDocument.createCDATASection("left");
+    const middle = xmlDocument.createElement("b");
+    middle.textContent = "middle";
+    const right = xmlDocument.createCDATASection("right");
+    root.append(left, middle, right);
+    const range = xmlDocument.createRange();
+    range.setStart(left, 2);
+    range.setEnd(right, 2);
+    assert_equals(range.toString(), "ftmiddleri");
+
+    const fragment = range[method]();
+    if (method !== "deleteContents") {
+      assert_equals(fragment.textContent, "ftmiddleri");
+      assert_array_equals(
+        Array.from(fragment.childNodes, node => node.nodeType),
+        [Node.CDATA_SECTION_NODE, Node.ELEMENT_NODE, Node.CDATA_SECTION_NODE]
+      );
+    }
+    assert_equals(root.textContent, method === "cloneContents" ? "leftmiddleright" : "leght");
+    if (method !== "cloneContents") {
+      assert_array_equals(Array.from(root.childNodes), [left, right]);
+      assert_true(range.collapsed);
+      assert_equals(range.startContainer, root);
+      assert_equals(range.startOffset, 1);
+    }
+  }, `${method} handles CDATASection nodes at both boundaries`);
+}
+
+test(() => {
+  const root = xmlDocument.createElement("root");
+  const node = xmlDocument.createCDATASection("abcd");
+  root.append(node);
+  const range = xmlDocument.createRange();
+  range.setStart(node, 2);
+  range.collapse(true);
+  const inserted = xmlDocument.createElement("inserted");
+
+  range.insertNode(inserted);
+
+  assert_equals(root.childNodes.length, 3);
+  assert_equals(root.firstChild, node);
+  assert_equals(node.data, "ab");
+  assert_equals(node.nextSibling, inserted);
+  assert_equals(root.lastChild.data, "cd");
+}, "Inserting at a CDATASection boundary splits the text");
+</script>

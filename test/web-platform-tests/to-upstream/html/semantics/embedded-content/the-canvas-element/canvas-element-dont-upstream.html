@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Canvas element interfaces and dimension reflection</title>
+<!-- Subsets of `/html/semantics/interfaces.html` and `/html/dom/reflection-embedded.html`,
+     which are not enabled and skipped, respectively, in jsdom. -->
+<link rel="help" href="https://html.spec.whatwg.org/multipage/canvas.html#the-canvas-element">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<canvas id="parsed-canvas" width="99" height="101"></canvas>
+<script>
+"use strict";
+
+// https://github.com/jsdom/jsdom/issues/649
+// These failed when jsdom used the native canvas object as the DOM element.
+test(() => {
+  const canvas = document.createElement("canvas");
+  assert_true(canvas instanceof HTMLElement);
+  assert_true(canvas instanceof HTMLCanvasElement);
+}, "Created canvas elements implement HTMLElement and HTMLCanvasElement");
+
+// https://github.com/jsdom/jsdom/commit/f8d890342145bf7ee3ec5f4b12cbef88e7ced9de
+// The canvas wrapper fix also corrected dimension defaults and IDL conversions.
+test(() => {
+  const canvas = document.createElement("canvas");
+  for (const [dimension, defaultValue] of [["width", 300], ["height", 150]]) {
+    assert_equals(canvas[dimension], defaultValue, `Default ${dimension}`);
+    for (const [value, expected] of [[400, 400], ["blasdfhdf", 0], [500, 500], [-1, defaultValue]]) {
+      canvas[dimension] = value;
+      assert_equals(canvas[dimension], expected, `${dimension} after setting ${value}`);
+      assert_equals(canvas.getAttribute(dimension), String(expected), `${dimension} content attribute`);
+    }
+  }
+}, "Canvas dimensions default to 300 by 150 and reflect converted IDL values");
+
+// https://github.com/jsdom/jsdom/issues/737
+// https://github.com/jsdom/jsdom/pull/1025
+// Parsed attributes did not reach the canvas implementation.
+test(() => {
+  const canvas = document.getElementById("parsed-canvas");
+  assert_equals(canvas.width, 99);
+  assert_equals(canvas.height, 101);
+}, "Canvas dimensions reflect parsed attributes");
+
+// https://github.com/jsdom/jsdom/issues/1281
+// Changing attributes did not update the canvas dimensions.
+test(() => {
+  const canvas = document.createElement("canvas");
+  canvas.setAttribute("width", "99");
+  canvas.setAttribute("height", "101");
+  assert_equals(canvas.width, 99);
+  assert_equals(canvas.height, 101);
+}, "Canvas dimensions reflect attributes set after creation");
+</script>

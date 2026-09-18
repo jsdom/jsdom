@@ -30,6 +30,7 @@ promise_test(async t => {
     if (type === "blur") {
       assert_equals(target, input1, "blur target is input1");
       assert_equals(relatedTarget, null, "blur relatedTarget is null");
+      assert_equals(document.activeElement, document.body, "activeElement is body during blur");
       blurCount++;
     } else if (type === "focusout") {
       assert_equals(target, input1, "focusout target is input1");

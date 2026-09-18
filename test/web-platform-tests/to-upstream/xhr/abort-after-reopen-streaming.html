@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Aborting a reopened XMLHttpRequest closes its replacement connection</title>
+<link rel="help" href="https://xhr.spec.whatwg.org/#the-open()-method">
+<link rel="help" href="https://xhr.spec.whatwg.org/#the-abort()-method">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script>
+"use strict";
+/* global token */
+
+function request(url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.onload = () => resolve(xhr.responseText);
+    xhr.onerror = reject;
+    xhr.send();
+  });
+}
+
+promise_test(async t => {
+  const resources = "/fetch/api/resources/";
+  const first = { stateKey: token(), abortKey: token() };
+  const second = { stateKey: token(), abortKey: token() };
+  const xhr = new XMLHttpRequest();
+  xhr.onerror = t.unreached_func("Neither streaming request should fire an error event");
+  xhr.onload = t.unreached_func("Neither streaming request should finish loading");
+  t.add_cleanup(() => {
+    xhr.abort();
+    // Release the server handlers even if the client failed to cancel their requests.
+    return Promise.all([first, second].map(({ abortKey }) => {
+      return request(`${resources}stash-put.py?key=${abortKey}&value=close`);
+    }));
+  });
+
+  function start({ stateKey, abortKey }) {
+    const progress = new Promise(resolve => {
+      xhr.addEventListener("progress", resolve, { once: true });
+    });
+    xhr.open("GET", `${resources}infinite-slow-response.py?stateKey=${stateKey}&abortKey=${abortKey}`);
+    xhr.send();
+    return progress;
+  }
+
+  function waitForClosed({ stateKey }, description) {
+    return t.step_wait(async () => {
+      const state = await request(`${resources}stash-take.py?key=${stateKey}`);
+      return JSON.parse(state) === "closed";
+    }, description);
+  }
+
+  await start(first);
+  await Promise.all([start(second), waitForClosed(first, "The first connection closes after open()")]);
+  xhr.abort();
+  assert_equals(xhr.readyState, xhr.UNSENT);
+  await waitForClosed(second, "The replacement connection closes after abort()");
+}, "Aborting a request started while the previous response was streaming closes the replacement connection");
+</script>

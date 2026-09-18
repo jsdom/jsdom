@@ -1,0 +1,21 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Destroying a child document does not leave its parent waiting for load</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#destroy-a-document">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  frame.src = "resources/destroy-child-during-load.html";
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  document.body.append(frame);
+  await loaded;
+  assert_equals(frame.contentDocument.querySelector("iframe"), null);
+  assert_array_equals(frame.contentWindow.childEvents, []);
+}, "A child that destroys itself during loading does not fire load or delay its parent's load");
+</script>

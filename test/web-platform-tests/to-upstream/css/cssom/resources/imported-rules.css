@@ -1,0 +1,21 @@
+@import "nested-imported-rules.css";
+
+#matching-media {
+  color: red;
+}
+
+#non-matching-media {
+  color: green;
+}
+
+@media all {
+  #matching-media {
+    color: green;
+  }
+}
+
+@media not all {
+  #non-matching-media {
+    color: red;
+  }
+}

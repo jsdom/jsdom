@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Camel-cased property access on style rules</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression tests for https://github.com/jsdom/jsdom/issues/1654 and https://github.com/jsdom/jsdom/issues/2223 -->
+<style id="sheet" type="text/css">
+  #foo { margin-right: 20px; }
+</style>
+<div id="foo" style="margin-right: 10px">aaa</div>
+<script>
+"use strict";
+
+test(() => {
+  const rule = document.getElementById("sheet").sheet.cssRules[0];
+  const foo = document.getElementById("foo");
+
+  assert_equals(rule.style.marginRight, "20px");
+  assert_equals(rule.style["margin-right"], "20px");
+  assert_equals(foo.style.marginRight, "10px");
+  assert_equals(foo.style["margin-right"], "10px");
+
+  rule.style.marginRight = "30px";
+  assert_equals(rule.style.getPropertyValue("margin-right"), "30px");
+  assert_equals(rule.cssText, "#foo { margin-right: 30px; }");
+}, "Camel-cased access reads and updates parsed stylesheet declarations");
+
+test(t => {
+  const element = document.createElement("style");
+  element.setAttribute("type", "text/css");
+  document.head.appendChild(element);
+  t.add_cleanup(() => element.remove());
+
+  const sheet = document.styleSheets[document.styleSheets.length - 1];
+  sheet.insertRule(".workingClass {  dontAddThis }", 0);
+  const rule = sheet.cssRules[0];
+  rule.style.borderColor = "green";
+  assert_equals(rule.style.getPropertyValue("border-color"), "green");
+  assert_equals(rule.cssText, ".workingClass { border-color: green; }");
+
+  rule.style.setProperty("borderColor", "red");
+  assert_equals(rule.cssText, ".workingClass { border-color: green; }");
+}, "Camel-cased assignment serializes with a dashed name; setProperty requires the CSS name");
+
+for (const initial of ["", "color: blue;"]) {
+  test(t => {
+    const element = document.createElement("style");
+    document.head.appendChild(element);
+    t.add_cleanup(() => element.remove());
+
+    const { sheet } = element;
+    const index = sheet.cssRules.length;
+    sheet.insertRule(`body { ${initial} }`, index);
+    const rule = sheet.cssRules[index];
+    assert_true(rule instanceof CSSStyleRule);
+
+    Object.assign(rule.style, { color: "red", background: "green" });
+    assert_equals(rule.style.color, "red");
+    assert_equals(rule.style.background, "green");
+    assert_equals(rule.cssText, "body { color: red; background: green; }");
+  }, `Object.assign adds absent properties to an inserted rule containing ${JSON.stringify(initial)}`);
+}
+</script>

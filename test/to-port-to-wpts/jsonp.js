@@ -1,11 +1,11 @@
 "use strict";
 const assert = require("node:assert/strict");
+const path = require("node:path");
 const { describe, specify } = require("mocha-sugar-free");
 const { createServer } = require("../api/helpers/servers.js");
 
 const { JSDOM } = require("../..");
 const { URL } = require("whatwg-url");
-const path = require("path");
 
 const jQueryFile = path.resolve(__dirname, "./jquery-fixtures/jquery-1.6.4.min.js");
 

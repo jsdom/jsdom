@@ -1,8 +1,8 @@
 "use strict";
 /* eslint-disable no-console */
+const childProcess = require("node:child_process");
 const dns = require("node:dns").promises;
 const path = require("node:path");
-const childProcess = require("node:child_process");
 const delay = require("node:timers/promises").setTimeout;
 const { killSubprocess, doHeadRequestWithNoCertChecking, isQuietReporter } = require("./utils.js");
 

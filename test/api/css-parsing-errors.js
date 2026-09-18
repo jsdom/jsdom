@@ -1,6 +1,6 @@
 "use strict";
-const path = require("path");
 const assert = require("node:assert/strict");
+const path = require("node:path");
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
 
@@ -32,70 +32,37 @@ describe("CSS parsing errors", () => {
     assert.equal(error.cause.constructor, SyntaxError);
   });
 
-  it("should handle spaces in font-family names without errors (GH-2123)", () => {
-    const virtualConsole = cssParsingErrorRecordingVC();
+  for (const [description, css] of [
+    ["nested page-margin rules (GH-1374)", "@page { @top-center { content: element(headerIdentifier); } }"],
+    ["nested font feature values (GH-1374)", "@font-feature-values Font One { @styleset { nice-style: 12; } }"],
+    ["a qualified rule without a selector (GH-2460)", "{ /* rule without parent */ }"],
+    [
+      "spaces in font-family names (GH-2123)",
+      '.cool-class { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }'
+    ],
+    ["@container queries (GH-3597)", "@container (min-width: 700px) { .card h2 { font-size: 2em; } }"],
+    ["@layer (GH-3597)", "@layer { .card h2 { font-size: 2em; } }"]
+  ]) {
+    for (const source of ["inline", "external"]) {
+      it(`should handle ${description} in ${source} stylesheets without CSS parsing errors`, async () => {
+        const virtualConsole = cssParsingErrorRecordingVC();
+        const sheetText = `${css} p { color: green; }`;
+        const html = source === "inline" ?
+          `<style>${sheetText}</style>` :
+          `<link rel="stylesheet" href="data:text/css,${encodeURIComponent(sheetText)}">`;
+        const { window } = new JSDOM(html, { virtualConsole, resources: "usable" });
+        await new Promise(resolve => {
+          window.addEventListener("load", resolve);
+        });
 
-    // eslint-disable-next-line no-new
-    new JSDOM(`
-      <html>
-        <head></head>
-        <body>
-          <style>
-          .cool-class {
-              font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-          }
-          </style>
-          <p class="cool-class">
-          Hello!
-          </p>
-        </body>
-      </html>
-      `, { virtualConsole });
-
-    assert.equal(virtualConsole.cssParsingErrors.length, 0);
-  });
-
-  it("should handle @container queries without errors (GH-3597)", () => {
-    const virtualConsole = cssParsingErrorRecordingVC();
-
-    // eslint-disable-next-line no-new
-    new JSDOM(`
-      <html>
-        <head>
-          <style>
-            @container (min-width: 700px) {
-              .card h2 {
-                font-size: 2em;
-              }
-            }
-          </style>
-        </head>
-      </html>
-    `, { virtualConsole });
-
-    assert.equal(virtualConsole.cssParsingErrors.length, 0);
-  });
-
-  it("should handle @layer without errors (GH-3597)", () => {
-    const virtualConsole = cssParsingErrorRecordingVC();
-
-    // eslint-disable-next-line no-new
-    new JSDOM(`
-      <html>
-        <head>
-          <style>
-            @layer {
-              .card h2 {
-                font-size: 2em;
-              }
-            }
-          </style>
-        </head>
-      </html>
-    `, { virtualConsole });
-
-    assert.equal(virtualConsole.cssParsingErrors.length, 0);
-  });
+        assert.equal(virtualConsole.cssParsingErrors.length, 0);
+        const { cssRules } = window.document.styleSheets[0];
+        const lastRule = cssRules[cssRules.length - 1];
+        assert.equal(lastRule.selectorText, "p");
+        assert.equal(lastRule.style.color, "green");
+      });
+    }
+  }
 
   it("should not have any errors on sweetalert2.css (GH-2177)", async () => {
     const virtualConsole = cssParsingErrorRecordingVC();

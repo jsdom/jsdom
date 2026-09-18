@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Nested classic scripts restore currentScript after exceptions</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#execute-the-script-element">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+setup({ allow_uncaught_exception: true });
+
+const outerScript = document.currentScript;
+for (const source of [
+  "}", "throw new Error('nested');", `
+  document.implementation.createHTMLDocument().body.append(document.currentScript);
+  throw new Error('adopted');
+`
+]) {
+  test(t => {
+    const script = document.createElement("script");
+    const errors = [];
+    function onError(event) {
+      event.preventDefault();
+      errors.push(document.currentScript);
+    }
+    window.addEventListener("error", onError);
+    t.add_cleanup(() => window.removeEventListener("error", onError));
+    t.add_cleanup(() => script.remove());
+    script.textContent = source;
+    document.body.append(script);
+    assert_array_equals(errors, [script], "The error is reported while the nested script is current");
+    assert_equals(document.currentScript, outerScript, "The outer script is restored after the error");
+  }, `Restore currentScript after running ${JSON.stringify(source)}`);
+}
+</script>

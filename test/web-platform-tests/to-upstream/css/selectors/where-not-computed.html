@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed display with nested :where() and :not()</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#zero-matches">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#negation">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3355 -->
+<style>
+  .hide { display: none; }
+  .show { display: block; }
+  .hide-not-with-show:not(.show) { display: none; }
+  .hide-where-not-show:where(:not(.show)) { display: none; }
+</style>
+<div id="shown" class="show">Shown</div>
+<div id="hidden" class="hide">Hidden</div>
+<div id="really-hidden" style="display: none">Really hidden</div>
+<div id="hide-not-with-show_no-show" class="hide-not-with-show">Hidden with :not</div>
+<div id="hide-not-with-show_with-show" class="hide-not-with-show show">Show with :not</div>
+<div id="hide-where-not-show_no-show" class="hide-where-not-show">Hidden with :where(:not())</div>
+<div id="hide-where-not-show_with-show" class="hide-where-not-show show">Shown with :where(:not())</div>
+<script>
+"use strict";
+
+for (const [id, expected] of [
+  ["shown", "block"],
+  ["hidden", "none"],
+  ["really-hidden", "none"],
+  ["hide-not-with-show_no-show", "none"],
+  ["hide-not-with-show_with-show", "block"],
+  ["hide-where-not-show_no-show", "none"],
+  ["hide-where-not-show_with-show", "block"]
+]) {
+  test(() => {
+    const element = document.querySelector(`#${id}`);
+    assert_equals(getComputedStyle(element).getPropertyValue("display"), expected);
+  }, `Computed display for #${id}`);
+}
+</script>

@@ -118,5 +118,55 @@ module.exports = () => {
     }
   });
 
+  for (const [shape, leftDepth, rightDepth, sharedDepth, siblingCount] of [
+    ["deep branches", 200, 200, 0, 0],
+    ["unequal branch depths", 200, 10, 0, 0],
+    ["deep shared ancestor", 10, 10, 200, 0],
+    ["many unrelated siblings", 1, 1, 0, 1000]
+  ]) {
+    for (const method of ["cloneContents", "extractContents", "deleteContents"]) {
+      let left, right, start, end, range;
+
+      function descend(parent, depth) {
+        for (let i = 0; i < depth; ++i) {
+          parent = parent.appendChild(document.createElement("div"));
+        }
+        return parent;
+      }
+
+      function resetBoundaries() {
+        left.replaceChildren();
+        right.replaceChildren();
+        start = descend(left, leftDepth).appendChild(document.createTextNode("start"));
+        end = descend(right, rightDepth).appendChild(document.createTextNode("end"));
+        range.setStart(start, 2);
+        range.setEnd(end, 1);
+      }
+
+      bench.add(`${method}: ${shape}`, () => range[method](), {
+        beforeAll() {
+          const root = descend(document.createElement("div"), sharedDepth);
+          for (let i = 0; i < siblingCount; ++i) {
+            root.appendChild(document.createElement("span"));
+          }
+          left = root.appendChild(document.createElement("section"));
+          right = root.appendChild(document.createElement("section"));
+          for (let i = 0; i < siblingCount; ++i) {
+            root.appendChild(document.createElement("span"));
+          }
+          range = document.createRange();
+          resetBoundaries();
+        },
+        beforeEach() {
+          // Partial boundary ancestors survive extraction and deletion. Restore only
+          // their contents, leaving the unrelated siblings and shared ancestors intact.
+          if (method !== "cloneContents") {
+            resetBoundaries();
+          }
+        }
+      });
+    }
+  }
+
   return bench;
 };

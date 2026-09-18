@@ -1,8 +1,8 @@
 "use strict";
-const path = require("path");
-const fs = require("fs");
+const fs = require("node:fs");
+const path = require("node:path");
+const { pathToFileURL } = require("node:url");
 const { JSDOM } = require("..");
-const { pathToFileURL } = require("url");
 
 exports.toFileUrl = dirname => {
   return function (relativePath) {

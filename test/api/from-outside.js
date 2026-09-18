@@ -1,13 +1,30 @@
 "use strict";
-const path = require("path");
-const { spawnSync } = require("child_process");
 const assert = require("node:assert/strict");
+const { spawnSync } = require("node:child_process");
+const path = require("node:path");
+const delay = require("node:timers/promises").setTimeout;
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
-const delay = require("node:timers/promises").setTimeout;
 const { streamingServer } = require("./helpers/servers.js");
 
 describe("Test cases only possible to test from the outside", () => {
+  for (const runScripts of [undefined, "outside-only", "dangerously"]) {
+    describe(`with runScripts set to ${runScripts}`, () => {
+      it("an element named eval should not shadow window.eval", () => {
+        const { window } = new JSDOM(`<h2 id="eval">Eval</h2>`, { runScripts });
+
+        assert.equal(typeof window.eval, "function");
+        assert.equal(window.eval("1 + 1"), 2);
+      });
+
+      it("window should be an instance of window.Window", () => {
+        const { window } = new JSDOM(undefined, { runScripts });
+
+        assert(window instanceof window.Window);
+      });
+    });
+  }
+
   it("window.close() should prevent timers from registering and cause them to return 0", async () => {
     const { window } = new JSDOM();
 
@@ -68,6 +85,14 @@ describe("Test cases only possible to test from the outside", () => {
 
   it("does not retain removed children through live collections", { timeout: 5000 }, () => {
     const fixturePath = path.resolve(__dirname, "./fixtures/live-collections-with-gc.js");
+    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
+
+    assert.equal(status, 0, stderr);
+    assert.equal(stdout.trim(), "collected");
+  });
+
+  it("does not retain removed subtrees after Range indexing", { timeout: 5000 }, () => {
+    const fixturePath = path.resolve(__dirname, "./fixtures/range-indexes-with-gc.js");
     const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
 
     assert.equal(status, 0, stderr);

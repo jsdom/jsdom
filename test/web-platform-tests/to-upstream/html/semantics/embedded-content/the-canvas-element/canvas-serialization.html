@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Canvas serialization preserves non-default bitmap dimensions and image pixels</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/canvas.html#the-canvas-element">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<canvas id="parsed-canvas" width="400" height="400"></canvas>
+<canvas id="without-context" width="99" height="101"></canvas>
+<script>
+"use strict";
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = src;
+  });
+}
+
+// https://github.com/jsdom/jsdom/pull/1025
+// Serializing a parsed canvas failed before its native dimensions were initialized.
+promise_test(async () => {
+  const canvas = document.getElementById("without-context");
+  const dataURL = canvas.toDataURL();
+  assert_true(dataURL.startsWith("data:image/png;base64,"));
+  const image = await loadImage(dataURL);
+  assert_equals(image.naturalWidth, 99);
+  assert_equals(image.naturalHeight, 101);
+}, "A parsed canvas can be serialized to PNG before creating a rendering context");
+
+for (const source of ["parsed attributes", "setAttribute"]) {
+  // https://github.com/jsdom/jsdom/pull/1025
+  // https://github.com/jsdom/jsdom/issues/1281
+  // Serialization used a 300 by 150 bitmap despite the element's larger dimensions.
+  promise_test(async () => {
+    const canvas = source === "parsed attributes" ?
+      document.getElementById("parsed-canvas") :
+      document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (source === "setAttribute") {
+      canvas.setAttribute("width", "400");
+      canvas.setAttribute("height", "400");
+    }
+    ctx.strokeStyle = "#00ff00";
+    ctx.strokeRect(50.5, 50.5, 250, 250);
+
+    const image = await loadImage(canvas.toDataURL());
+    assert_equals(image.naturalWidth, 400, "Serialized width");
+    assert_equals(image.naturalHeight, 400, "Serialized height");
+
+    const decoded = document.createElement("canvas");
+    decoded.width = 400;
+    decoded.height = 400;
+    const decodedContext = decoded.getContext("2d");
+    decodedContext.drawImage(image, 0, 0);
+    for (const [x, y] of [[50, 200], [300, 200], [200, 50], [200, 300]]) {
+      assert_array_equals(
+        decodedContext.getImageData(x, y, 1, 1).data,
+        [0, 255, 0, 255],
+        `The stroke survives serialization at (${x}, ${y})`
+      );
+    }
+    assert_array_equals(
+      decodedContext.getImageData(200, 200, 1, 1).data,
+      [0, 0, 0, 0],
+      "The rectangle's interior remains transparent"
+    );
+  }, `PNG serialization preserves canvas dimensions set through ${source}`);
+}
+
+// https://github.com/jsdom/jsdom/issues/1365
+// Loading images through the DOM must produce images that can be drawn and exported.
+promise_test(async () => {
+  const image = await loadImage("/common/square.png");
+  const canvas = document.createElement("canvas");
+  canvas.width = image.naturalWidth;
+  canvas.height = image.naturalHeight;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(image, 0, 0);
+
+  const blob = await new Promise(resolve => {
+    canvas.toBlob(resolve, "image/png");
+  });
+  assert_equals(blob.type, "image/png");
+  assert_greater_than(blob.size, 0);
+  const dataURL = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+  const decoded = await loadImage(dataURL);
+  assert_equals(decoded.naturalWidth, 100);
+  assert_equals(decoded.naturalHeight, 100);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(decoded, 0, 0);
+  assert_array_equals(ctx.getImageData(50, 50, 1, 1).data, [0, 100, 0, 255]);
+}, "A loaded image survives drawing to a canvas and serialization to a PNG blob");
+</script>

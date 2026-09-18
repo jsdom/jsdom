@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>textContent on constructed Text nodes</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2144 -->
+<script>
+"use strict";
+
+for (const data of ["", " world", "<b>text</b>"]) {
+  test(() => {
+    const text = new Text(data);
+    assert_equals(text.textContent, data);
+
+    text.textContent = "replacement";
+    assert_equals(text.data, "replacement");
+    assert_equals(text.textContent, "replacement");
+  }, `textContent reads and updates the data of new Text(${JSON.stringify(data)})`);
+}
+
+test(() => {
+  const p = document.createElement("p");
+  p.textContent = "hello,";
+  const text = new Text(" world");
+  const div = document.createElement("div");
+  div.append(p.textContent, text.textContent);
+  assert_equals(div.innerHTML, "hello, world");
+}, "The textContent of a constructed Text node can be appended as a string");
+</script>

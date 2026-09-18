@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Replacing a style element's text preserves style sheet order</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#add-a-css-style-sheet">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style id="first">#target { color: red }</style>
+<style id="second">#target { color: green }</style>
+<div id="target"></div>
+<script>
+"use strict";
+
+test(() => {
+  const { styleSheets } = document;
+  const first = document.getElementById("first");
+  const second = document.getElementById("second");
+  const target = document.getElementById("target");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)", "Initial cascade order");
+
+  first.textContent = "#target { color: blue }";
+  assert_array_equals(styleSheets, [first.sheet, second.sheet]);
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "Replacing an earlier style element's text preserves the style sheet list and cascade order");
+</script>
