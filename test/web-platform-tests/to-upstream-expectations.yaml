@@ -23,4 +23,8 @@ uievents/focusevents/focus-fixup.html:
   "[Async] focus-fixup-rule: When the inert attribute is added to an iframe": [fail, Need to fix isFocusableAreaElement()]
   "[Async] focus-fixup-rule: When the hidden attribute is added to an iframe": [fail, Need to fix isFocusableAreaElement()]
   "[Async] focus-fixup-rule: When display: none is applied to an iframe via CSS": [fail, Need to fix isFocusableAreaElement()]
+  "[Async] focus-fixup-rule: When the disabled attribute is added": [fail, Need to fix blur() and/or focus()]
+  "[Async] focus-fixup-rule: When the tabindex attribute is removed": [fail, Need to fix blur() and/or focus()]
+  "[Async] focus-fixup-rule: When the contenteditable attribute is removed": [fail, Need to fix blur() and/or focus()]
+  "[Async] focus-fixup-rule: When the type of an input element is changed to hidden": [fail, Need to fix blur() and/or focus()]
 uievents/focusevents/hasfocus-focus-blur.html: [fail, Need to fix blur() and/or focus()]
