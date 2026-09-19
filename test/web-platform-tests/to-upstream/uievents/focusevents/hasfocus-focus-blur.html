@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>document.hasFocus() during focus and blur events</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-document-hasfocus">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<input id="one">
+<input id="two">
+
+<script>
+"use strict";
+
+test(t => {
+  const one = document.getElementById("one");
+  const two = document.getElementById("two");
+  const events = [];
+  const blurHandler = t.step_func(e => {
+    if (e.target === one || e.target === two) {
+      events.push({ type: "blur", target: e.target.id, hasFocus: document.hasFocus() });
+    }
+  });
+  const focusHandler = t.step_func(e => {
+    if (e.target === one || e.target === two) {
+      events.push({ type: "focus", target: e.target.id, hasFocus: document.hasFocus() });
+    }
+  });
+
+  document.addEventListener("blur", blurHandler, { capture: true });
+  document.addEventListener("focus", focusHandler, { capture: true });
+
+  t.add_cleanup(() => {
+    document.removeEventListener("blur", blurHandler, { capture: true });
+    document.removeEventListener("focus", focusHandler, { capture: true });
+  });
+
+  one.focus();
+  two.focus();
+
+  assert_equals(events.length, 3, "Focus shifts should fire exactly 3 events");
+
+  // First event: focus on #one
+  assert_equals(events[0].type, "focus", "First event should be focus");
+  assert_equals(events[0].target, "one", "First event target should be 'one'");
+  assert_true(events[0].hasFocus, "document.hasFocus() should be true during 'one' focus");
+
+  // Second event: blur on #one (due to moving focus to #two)
+  assert_equals(events[1].type, "blur", "Second event should be blur");
+  assert_equals(events[1].target, "one", "Second event target should be 'one'");
+  assert_true(events[1].hasFocus, "document.hasFocus() should be true during 'one' blur");
+
+  // Third event: focus on #two
+  assert_equals(events[2].type, "focus", "Third event should be focus");
+  assert_equals(events[2].target, "two", "Third event target should be 'two'");
+  assert_true(events[2].hasFocus, "document.hasFocus() should be true during 'two' focus");
+}, "document.hasFocus() returns true during internal focus shifts");
+</script>
