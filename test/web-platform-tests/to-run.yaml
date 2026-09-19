@@ -3045,6 +3045,26 @@ timer-nesting-not-inherited-in-microtask.html: [flaky]
 
 ---
 
+DIR: inert
+
+dynamic-inert-on-focused-element.html: [fail, Needs to fix focus fixup]
+inert-and-contenteditable.html: [fail, document.execCommand not implemented]
+inert-and-find-flat-tree.html: [fail, dialog element not implemented]
+inert-and-find.html: [fail, iframe.contentWindow.find not implemented]
+inert-canvas-fallback-content.html: [fail, Unknown]
+inert-computed-style.html: [fail, document.elementFromPoint not implemented]
+inert-in-shadow-dom.html: [fail, Unknown]
+inert-inlines-around-selection-range-in-contenteditable.html: [fail, document.execCommand not implemented]
+inert-node-is-unselectable.html: [fail, document.execCommand not implemented]
+inert-on-non-html.html: [fail, Unknown]
+inert-on-slots.html: [fail, Unknown]
+inert-with-modal-dialog-001.html: [fail, dialog element not implemented]
+inert-with-modal-dialog-002.html: [fail, dialog element not implemented]
+inert-with-modal-dialog-003.html: [fail, dialog element not implemented]
+nested-inert-unfocusable.html: [fail, Unknown]
+
+---
+
 DIR: mediacapture-record
 
 "**/!(BlobEvent-constructor.html)": [fail-slow, Not implemented]

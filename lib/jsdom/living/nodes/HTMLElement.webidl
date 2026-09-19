@@ -19,6 +19,8 @@ interface HTMLElement : Element {
 
 //  [CEReactions] attribute [LegacyNullToEmptyString] DOMString innerText;
 
+  [CEReactions, Reflect] attribute boolean inert;
+
   ElementInternals attachInternals();
 };
 
