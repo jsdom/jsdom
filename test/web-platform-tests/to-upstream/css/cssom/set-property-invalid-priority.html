@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Invalid CSS property values preserve existing priority</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const [property, value] of [["color", "red"], ["width", "10px"], ["margin", "1px"]]) {
+  test(() => {
+    const element = document.createElement("div");
+    const observer = new MutationObserver(() => {});
+    element.style.setProperty(property, value, "important");
+    const original = element.getAttribute("style");
+    observer.observe(element, { attributes: true });
+    element.style.setProperty(property, "invalid-value");
+    assert_equals(element.style.getPropertyValue(property), value);
+    assert_equals(element.style.getPropertyPriority(property), "important");
+    assert_equals(element.getAttribute("style"), original);
+    assert_equals(observer.takeRecords().length, 0);
+    observer.disconnect();
+    element.style.setProperty(property, value);
+    assert_equals(element.style.getPropertyPriority(property), "");
+  }, `An invalid ${property} update preserves value, priority, and style attribute`);
+}
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("opacity", "var(--opacity)");
+  assert_equals(style.opacity, "var(--opacity)");
+  style.setProperty("color", "inherit");
+  assert_equals(style.color, "inherit");
+}, "Variable expressions and global keywords remain accepted");
+</script>
