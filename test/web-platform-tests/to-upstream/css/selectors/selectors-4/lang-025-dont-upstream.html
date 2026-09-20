@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta charset="utf-8">
+<title>CSS Selectors 4 - :lang matching (matches API)</title>
+<link rel="author" title="Jonathan Kew" href="mailto:jkew@mozilla.com">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#the-lang-pseudo">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<!-- This can match :lang("art"), because "-x-lojban" is a private subtag,
+     so this is *not* the grandfathered "art-lojban" tag. -->
+<div class="test"><span lang="art-x-lojban">This should be green</span></div>
+
+<script>
+test(() => {
+  const span = document.querySelector("span");
+  assert_equals(span.matches(':lang("art")'), true, "Element with lang='art-x-lojban' should match base tag :lang('art') because private subtag does not prevent match");
+}, "Base language matching with private subtag");
+</script>
+</html>

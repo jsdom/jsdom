@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>test for details:open pseudoclass (matches API)</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#open-state">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<details open=true>
+  <summary>Summary</summary>
+  <p>Detailed content</p>
+</details>
+
+<script>
+test(() => {
+  const details = document.querySelector("details");
+  assert_equals(details.matches(":open"), true, "details element opened via HTML attribute should match :open");
+}, "details element with open attribute matches :open");
+</script>
