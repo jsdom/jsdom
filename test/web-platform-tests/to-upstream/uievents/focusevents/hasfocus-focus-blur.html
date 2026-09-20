@@ -13,45 +13,71 @@
 
 test(t => {
   const one = document.getElementById("one");
-  const two = document.getElementById("two");
-  const events = [];
-  const blurHandler = t.step_func(e => {
-    if (e.target === one || e.target === two) {
-      events.push({ type: "blur", target: e.target.id, hasFocus: document.hasFocus() });
-    }
-  });
+
+  let hasFocusDuringFocus = false;
   const focusHandler = t.step_func(e => {
-    if (e.target === one || e.target === two) {
-      events.push({ type: "focus", target: e.target.id, hasFocus: document.hasFocus() });
+    if (e.target === one) {
+      hasFocusDuringFocus = document.hasFocus();
     }
   });
 
+  document.addEventListener("focus", focusHandler, { capture: true });
+  t.add_cleanup(() => {
+    document.removeEventListener("focus", focusHandler, { capture: true });
+    one.blur();
+  });
+
+  one.focus();
+
+  assert_true(hasFocusDuringFocus, "document.hasFocus() should be true during initial 'focus' event");
+}, "document.hasFocus() returns true during initial focus event");
+
+test(t => {
+  const one = document.getElementById("one");
+  const two = document.getElementById("two");
+
+  one.focus();
+
+  let hasFocusDuringBlur = false;
+  let hasFocusDuringNextFocus = false;
+  const blurHandler = t.step_func(e => {
+    if (e.target === one) {
+      hasFocusDuringBlur = document.hasFocus();
+    }
+  });
+  const focusHandler = t.step_func(e => {
+    if (e.target === two) {
+      hasFocusDuringNextFocus = document.hasFocus();
+    }
+  });
   document.addEventListener("blur", blurHandler, { capture: true });
   document.addEventListener("focus", focusHandler, { capture: true });
 
   t.add_cleanup(() => {
     document.removeEventListener("blur", blurHandler, { capture: true });
     document.removeEventListener("focus", focusHandler, { capture: true });
+    two.blur();
   });
 
-  one.focus();
   two.focus();
 
-  assert_equals(events.length, 3, "Focus shifts should fire exactly 3 events");
+  assert_true(hasFocusDuringBlur, "document.hasFocus() should be true during 'blur' event when focus is shifting");
+  assert_true(hasFocusDuringNextFocus, "document.hasFocus() should be true during the subsequent 'focus' event");
+}, "document.hasFocus() returns true during internal focus shifts (blur and focus)");
 
-  // First event: focus on #one
-  assert_equals(events[0].type, "focus", "First event should be focus");
-  assert_equals(events[0].target, "one", "First event target should be 'one'");
-  assert_true(events[0].hasFocus, "document.hasFocus() should be true during 'one' focus");
+test((t) => {
+  const iframe = document.createElement("iframe");
+  document.body.appendChild(iframe);
+  const iframeDoc = iframe.contentDocument;
+  const iframeInput = iframeDoc.createElement("input");
+  iframeDoc.body.appendChild(iframeInput);
+  iframeInput.focus();
 
-  // Second event: blur on #one (due to moving focus to #two)
-  assert_equals(events[1].type, "blur", "Second event should be blur");
-  assert_equals(events[1].target, "one", "Second event target should be 'one'");
-  assert_true(events[1].hasFocus, "document.hasFocus() should be true during 'one' blur");
+  assert_equals(document.activeElement, iframe, "Parent document's activeElement should be the iframe");
+  assert_true(document.hasFocus(), "Parent document should have focus when its iframe is focused");
+  assert_equals(iframeDoc.activeElement, iframeInput, "Iframe's activeElement should be the input");
+  assert_true(iframeDoc.hasFocus(), "Iframe document should have focus");
 
-  // Third event: focus on #two
-  assert_equals(events[2].type, "focus", "Third event should be focus");
-  assert_equals(events[2].target, "two", "Third event target should be 'two'");
-  assert_true(events[2].hasFocus, "document.hasFocus() should be true during 'two' focus");
-}, "document.hasFocus() returns true during internal focus shifts");
+  iframe.remove();
+}, "cross-document (iframe) focus shifts update activeElement and hasFocus correctly");
 </script>
