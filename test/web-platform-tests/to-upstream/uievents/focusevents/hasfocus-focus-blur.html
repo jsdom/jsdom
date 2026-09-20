@@ -65,7 +65,7 @@ test(t => {
   assert_true(hasFocusDuringNextFocus, "document.hasFocus() should be true during the subsequent 'focus' event");
 }, "document.hasFocus() returns true during internal focus shifts (blur and focus)");
 
-test((t) => {
+test(() => {
   const iframe = document.createElement("iframe");
   document.body.appendChild(iframe);
   const iframeDoc = iframe.contentDocument;

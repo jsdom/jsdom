@@ -14,7 +14,7 @@
 <script>
 "use strict";
 
-test((t) => {
+test(t => {
   const input1 = document.getElementById("input1");
   const input2 = document.getElementById("input2");
   input1.focus();
@@ -29,13 +29,15 @@ test((t) => {
   assert_equals(activeElementDuringBlur, document.body, "activeElement should fall back to body");
 }, "focus update steps: document.activeElement falls back to body during the blur event");
 
-test((t) => {
+test(t => {
   const input1 = document.getElementById("input1");
   const input2 = document.getElementById("input2");
   input1.focus();
 
   let bodyFocusFired = false;
-  const onBodyFocus = t.step_func(() => { bodyFocusFired = true; });
+  const onBodyFocus = t.step_func(() => {
+    bodyFocusFired = true;
+  });
   document.body.addEventListener("focus", onBodyFocus);
 
   input2.focus();
@@ -44,13 +46,15 @@ test((t) => {
   assert_false(bodyFocusFired, "focus event should not fire on body when moving focus");
 }, "focus update steps: redundant focus events are not fired on common ancestors");
 
-test((t) => {
+test(t => {
   const input1 = document.getElementById("input1");
   const unfocused = document.getElementById("unfocused");
   input1.focus();
 
   let blurFired = false;
-  unfocused.addEventListener("blur", t.step_func(() => { blurFired = true; }));
+  unfocused.addEventListener("blur", t.step_func(() => {
+    blurFired = true;
+  }));
 
   // Call blur() on an element that doesn't currently have focus
   unfocused.blur();
@@ -58,7 +62,7 @@ test((t) => {
   assert_false(blurFired, "blur event should not fire on an element that is not focused");
 }, "unfocusing steps: aborts early if the element is not the currently focused area");
 
-test((t) => {
+test(t => {
   const host = document.getElementById("host");
   const shadow = host.attachShadow({ mode: "open" });
   const innerInput = document.createElement("input");
@@ -67,7 +71,9 @@ test((t) => {
   document.getElementById("input1").focus();
 
   let hostFocusFired = false;
-  host.addEventListener("focus", t.step_func(() => { hostFocusFired = true; }));
+  host.addEventListener("focus", t.step_func(() => {
+    hostFocusFired = true;
+  }));
 
   innerInput.focus();
 
