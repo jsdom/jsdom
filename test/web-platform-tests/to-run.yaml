@@ -1369,7 +1369,6 @@ parsing/parse-slotted.html: [fail, Unknown]
 parsing/parse-state.html: [fail, Unknown]
 parsing/parse-universal.html: [fail, Unknown]
 parsing/parse-where.html: [fail, Unknown]
-selectors-4/lang-singleton-subtag-matching.html: [fail, Unknown]
 selectors-case-sensitive-001.html: [fail, offsetHeight not implemented; has dont-upstream version]
 webkit-pseudo-element.html: [fail, Unknown]
 
