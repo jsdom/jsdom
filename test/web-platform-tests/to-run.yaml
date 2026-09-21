@@ -2537,6 +2537,7 @@ DIR: html/semantics/forms/the-datalist-element
 DIR: html/semantics/forms/the-fieldset-element
 
 HTMLFieldSetElement.html: [fail, Depends on HTMLFormElement's named properties; has dont-upstream version]
+disabled-003.html: [fail, Need to fix focus fixup rule]
 fieldset-intrinsic-size.html: [fail, Requires a layout engine]
 
 ---
