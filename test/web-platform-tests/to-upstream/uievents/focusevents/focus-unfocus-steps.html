@@ -70,13 +70,14 @@ test(t => {
 
   document.getElementById("input1").focus();
 
-  let hostFocusFired = false;
-  host.addEventListener("focus", t.step_func(() => {
-    hostFocusFired = true;
-  }));
+  const events = [];
+  for (const type of ["focus", "focusin", "blur", "focusout"]) {
+    host.addEventListener(type, t.step_func(event => events.push(event.type)));
+  }
 
   innerInput.focus();
+  document.getElementById("input1").focus();
 
-  assert_true(hostFocusFired, "focus event should fire on the shadow host when a node inside shadow gets focus");
-}, "focusing steps: focus chain correctly crosses Shadow DOM boundaries");
+  assert_array_equals(events, ["focus", "focusin", "blur", "focusout"]);
+}, "Entering and leaving a shadow tree delivers each host focus event once");
 </script>

@@ -2184,7 +2184,6 @@ nontraditional-about-srcdoc.html: [timeout, We don't support srcdoc <base> corre
 DIR: html/interaction/focus
 
 document-level-focus-apis/document-has-system-focus.html: [fail-slow, window.open() not implemented]
-document-level-focus-apis/document-level-apis.html: [fail, Need to implement cross-document focus synchronization]
 focus-selection.html: [fail, Unknown]
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
@@ -3229,8 +3228,6 @@ scripted/SVGPointList-error-handling.html:
 DIR: uievents
 
 idlharness.window.html: [fail, Depends on fetch]
-order-of-events/focus-events/focus-automated-blink-webkit.html:
-  "Focus-related events should fire in the correct order (different DocumentOwner)": [fail, Need to implement cross-document focus synchronization]
 textInput/api.html: [fail, Unknown]
 ui_event_pseudo_target.html: [fail, Unknown]
 
