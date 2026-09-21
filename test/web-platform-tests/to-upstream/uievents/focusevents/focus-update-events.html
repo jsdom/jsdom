@@ -1,0 +1,100 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Focus update events and active elements</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focus-update-steps">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#unfocusing-steps">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, markup) {
+  const container = document.createElement("div");
+  container.innerHTML = markup;
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  return container;
+}
+
+test(t => {
+  const container = fixture(t, "<input><input>");
+  const [first, second] = container.children;
+  first.focus();
+  first.blur();
+  const events = [];
+  function record(e) {
+    events.push([e.type, e.target, e.relatedTarget]);
+  }
+  for (const type of ["blur", "focusout", "focus", "focusin"]) {
+    document.addEventListener(type, record, true);
+    t.add_cleanup(() => document.removeEventListener(type, record, true));
+  }
+  second.focus();
+  assert_array_equals(events.map(e => e[0]), ["focus", "focusin"]);
+  assert_array_equals(events.map(e => e[2]), [null, null]);
+}, "Focusing after explicit blur does not blur body or expose body as relatedTarget");
+
+promise_test(async t => {
+  const container = fixture(t, "<input>");
+  const outside = container.firstElementChild;
+  const iframe = document.createElement("iframe");
+  iframe.src = "support/focus-update-frame.html";
+  const loaded = new Promise(resolve => {
+    iframe.addEventListener("load", resolve, { once: true });
+  });
+  container.append(iframe);
+  await loaded;
+  const inside = iframe.contentDocument.getElementById("inside");
+  outside.focus();
+  assert_equals(document.activeElement, outside, "The outer input is initially focused");
+  const events = [];
+  for (const element of [outside, inside]) {
+    for (const type of ["blur", "focus"]) {
+      element.addEventListener(type, event => events.push([event.type, event.target, event.relatedTarget]));
+    }
+  }
+  inside.focus();
+  assert_equals(document.activeElement, iframe, "The parent document tracks the iframe");
+  assert_equals(iframe.contentDocument.activeElement, inside, "The child document tracks the input");
+  outside.focus();
+  assert_equals(document.activeElement, outside, "Focus returns to the parent document");
+  assert_equals(iframe.contentDocument.activeElement, iframe.contentDocument.body, "The child loses focus");
+  assert_array_equals(events.map(event => event[0]), ["blur", "focus", "blur", "focus"]);
+  assert_array_equals(events.map(event => event[1]), [outside, inside, inside, outside]);
+  assert_array_equals(events.map(event => event[2]), [null, null, null, null]);
+}, "Moving focus into and out of an iframe updates both documents and uses null relatedTarget");
+
+promise_test(async t => {
+  const container = fixture(t, "<input>");
+  container.firstElementChild.focus();
+  const frames = [];
+  let parent = container;
+  for (let i = 0; i < 2; i++) {
+    const frame = parent.ownerDocument.createElement("iframe");
+    frame.src = new URL("support/focus-update-frame.html", location.href);
+    const loaded = new Promise(resolve => {
+      frame.addEventListener("load", resolve, { once: true });
+    });
+    parent.append(frame);
+    await loaded;
+    frames.push(frame);
+    parent = frame.contentDocument.body;
+  }
+
+  const [outer, inner] = frames;
+  const input = inner.contentDocument.getElementById("inside");
+  input.focus();
+  assert_equals(document.activeElement, outer, "The top document tracks the outer iframe");
+  assert_equals(outer.contentDocument.activeElement, inner, "The middle document tracks the inner iframe");
+  assert_equals(inner.contentDocument.activeElement, input, "The innermost document tracks the input");
+
+  input.blur();
+
+  // The unfocusing steps target the top-level viewport. Chromium 149 and WebKit 26.5 instead keep
+  // the ancestor iframes active; these assertions follow the HTML Standard.
+  assert_equals(document.activeElement, document.body, "Explicit blur focuses the top document's viewport");
+  assert_equals(outer.contentDocument.activeElement, outer.contentDocument.body, "The middle document loses focus");
+  assert_equals(inner.contentDocument.activeElement, inner.contentDocument.body, "The innermost input loses focus");
+}, "Blurring an input in nested iframes focuses the top-level viewport");
+</script>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>document.hasFocus() during focus and blur events</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-document-hasfocus">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<input id="one">
+<input id="two">
+
+<script>
+"use strict";
+
+test(t => {
+  const one = document.getElementById("one");
+
+  let hasFocusDuringFocus = false;
+  const focusHandler = t.step_func(e => {
+    if (e.target === one) {
+      hasFocusDuringFocus = document.hasFocus();
+    }
+  });
+
+  document.addEventListener("focus", focusHandler, { capture: true });
+  t.add_cleanup(() => {
+    document.removeEventListener("focus", focusHandler, { capture: true });
+    one.blur();
+  });
+
+  one.focus();
+
+  assert_true(hasFocusDuringFocus, "document.hasFocus() should be true during initial 'focus' event");
+}, "document.hasFocus() returns true during initial focus event");
+
+test(t => {
+  const one = document.getElementById("one");
+  const two = document.getElementById("two");
+
+  one.focus();
+
+  let hasFocusDuringBlur = false;
+  let hasFocusDuringNextFocus = false;
+  const blurHandler = t.step_func(e => {
+    if (e.target === one) {
+      hasFocusDuringBlur = document.hasFocus();
+    }
+  });
+  const focusHandler = t.step_func(e => {
+    if (e.target === two) {
+      hasFocusDuringNextFocus = document.hasFocus();
+    }
+  });
+  document.addEventListener("blur", blurHandler, { capture: true });
+  document.addEventListener("focus", focusHandler, { capture: true });
+
+  t.add_cleanup(() => {
+    document.removeEventListener("blur", blurHandler, { capture: true });
+    document.removeEventListener("focus", focusHandler, { capture: true });
+    two.blur();
+  });
+
+  two.focus();
+
+  assert_true(hasFocusDuringBlur, "document.hasFocus() should be true during 'blur' event when focus is shifting");
+  assert_true(hasFocusDuringNextFocus, "document.hasFocus() should be true during the subsequent 'focus' event");
+}, "document.hasFocus() returns true during internal focus shifts (blur and focus)");
+
+test(() => {
+  const iframe = document.createElement("iframe");
+  document.body.appendChild(iframe);
+  const iframeDoc = iframe.contentDocument;
+  const iframeInput = iframeDoc.createElement("input");
+  iframeDoc.body.appendChild(iframeInput);
+  iframeInput.focus();
+
+  assert_equals(document.activeElement, iframe, "Parent document's activeElement should be the iframe");
+  assert_true(document.hasFocus(), "Parent document should have focus when its iframe is focused");
+  assert_equals(iframeDoc.activeElement, iframeInput, "Iframe's activeElement should be the input");
+  assert_true(iframeDoc.hasFocus(), "Iframe document should have focus");
+
+  iframe.remove();
+}, "cross-document (iframe) focus shifts update activeElement and hasFocus correctly");
+</script>

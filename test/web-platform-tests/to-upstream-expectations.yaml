@@ -9,3 +9,5 @@ jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]
 svg/painting/parsed-svg-default-fill.html:
   "Default fill after inserting an XML element without the SVG namespace": [fail, https://github.com/jsdom/jsdom/issues/2688]
+uievents/focusevents/hasfocus-focus-blur.html:
+  "document.hasFocus() returns true during internal focus shifts (blur and focus)": [fail, Need to fix document.hasFocus()]

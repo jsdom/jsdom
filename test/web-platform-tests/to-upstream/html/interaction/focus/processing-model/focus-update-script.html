@@ -1,0 +1,77 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Script running during the focus update steps</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focus-update-steps">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t) {
+  const container = document.createElement("div");
+  container.innerHTML = "<input><input><input><p>Selected text</p>";
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  t.add_cleanup(() => getSelection().removeAllRanges());
+  return container;
+}
+
+test(t => {
+  const container = fixture(t);
+  const input = container.firstElementChild;
+  const text = container.lastElementChild.firstChild;
+  input.addEventListener("focus", () => getSelection().setBaseAndExtent(text, 0, text, 8), { once: true });
+
+  input.focus();
+
+  assert_equals(getSelection().anchorNode, text);
+  assert_equals(getSelection().anchorOffset, 0);
+  assert_equals(getSelection().focusNode, text);
+  assert_equals(getSelection().focusOffset, 8);
+}, "Focusing does not overwrite a selection set by the focus event listener");
+
+test(t => {
+  const container = fixture(t);
+  const input = container.firstElementChild;
+  const text = container.lastElementChild.firstChild;
+  input.focus();
+  input.addEventListener("blur", () => getSelection().setBaseAndExtent(text, 0, text, 8), { once: true });
+
+  input.blur();
+
+  assert_equals(getSelection().anchorNode, text);
+  assert_equals(getSelection().anchorOffset, 0);
+  assert_equals(getSelection().focusNode, text);
+  assert_equals(getSelection().focusOffset, 8);
+}, "Unfocusing does not clear a selection set by the blur event listener");
+
+test(t => {
+  const container = fixture(t);
+  const [first, second, third] = container.children;
+  const text = container.lastElementChild.firstChild;
+  first.focus();
+  first.addEventListener("blur", () => third.focus(), { once: true });
+  third.addEventListener("focus", () => getSelection().setBaseAndExtent(text, 0, text, 8), { once: true });
+
+  second.focus();
+
+  assert_equals(document.activeElement, third);
+  assert_equals(getSelection().anchorNode, text);
+  assert_equals(getSelection().anchorOffset, 0);
+  assert_equals(getSelection().focusNode, text);
+  assert_equals(getSelection().focusOffset, 8);
+}, "A focus change from a blur listener preserves the selection set by the new focus listener");
+
+test(t => {
+  const [first, second] = fixture(t).children;
+  first.focus();
+  first.addEventListener("blur", () => {
+    second.disabled = true;
+  }, { once: true });
+
+  second.focus();
+
+  assert_equals(document.activeElement, document.body);
+}, "A new-chain entry that becomes non-focusable during blur is not designated the focused area");
+</script>
