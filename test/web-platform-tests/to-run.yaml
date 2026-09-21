@@ -896,8 +896,6 @@ DIR: css/css-variables
 '!(custom-properties-inherit.html|url-token-serialization.html|variable-*|vars-border-shorthand-serialize.html)': [fail-slow, Custom property substitution not implemented]
 variable-!(cssText.html|definition*.html|reference@(|-cssom|-shorthands|-shorthands-cssom|-variable).html): [fail-slow, Custom property substitution not implemented]
 variable-cssText.html:
-  target4: [fail, Custom property substitution and invalidation are incomplete]
-  target5: [fail, Custom property substitution and invalidation are incomplete]
   target9: [fail, Custom property substitution and invalidation are incomplete]
 variable-definition-keywords.html:
   computed style revert: [fail, Custom property substitution and invalidation are incomplete]

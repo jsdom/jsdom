@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Longhand updates after important shorthands</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-csstext">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const [shorthand, shorthandValue, property, originalValue, value, sibling, siblingValue] of [
+  ["margin", "1px", "margin-top", "1px", "2px", "margin-right", "1px"],
+  ["padding", "1px", "padding-left", "1px", "2px", "padding-right", "1px"],
+  ["border", "1px solid red", "border-top-width", "1px", "2px", "border-bottom-width", "1px"],
+  ["border", "1px solid red", "border-top-color", "red", "blue", "border-bottom-color", "red"],
+  ["background", "none red", "background-color", "red", "blue", "background-image", "none"],
+  ["font", "italic 16px serif", "font-size", "16px", "20px", "font-style", "italic"],
+  ["flex", "1 1 auto", "flex-grow", "1", "2", "flex-shrink", "1"]
+]) {
+  for (const priority of ["", "important"]) {
+    test(() => {
+      const { style } = document.createElement("div");
+      style.setProperty(shorthand, shorthandValue, "important");
+      style.setProperty(property, value, priority);
+
+      assert_equals(style.getPropertyValue(property), value, "The longhand value is replaced");
+      assert_equals(style.getPropertyPriority(property), priority, "The requested priority is used");
+      assert_equals(style.getPropertyValue(sibling), siblingValue, "Other longhand values are preserved");
+      assert_equals(style.getPropertyPriority(sibling), "important", "Other longhand priorities are preserved");
+    }, `setProperty(${property}) uses ${JSON.stringify(priority)} priority after important ${shorthand}`);
+  }
+
+  test(() => {
+    const { style } = document.createElement("div");
+    style.setProperty(shorthand, shorthandValue, "important");
+    style[property] = value;
+
+    assert_equals(style.getPropertyValue(property), value, "The longhand value is replaced");
+    assert_equals(style.getPropertyPriority(property), "", "Property assignment clears importance");
+    assert_equals(style.getPropertyValue(sibling), siblingValue, "Other longhand values are preserved");
+    assert_equals(style.getPropertyPriority(sibling), "important", "Other longhand priorities are preserved");
+  }, `Assigning ${property} clears its priority after important ${shorthand}`);
+
+  test(() => {
+    const { style } = document.createElement("div");
+    style.cssText = `${shorthand}: ${shorthandValue} !important; ${property}: ${value};`;
+
+    assert_equals(style.getPropertyValue(property), originalValue, "The important declaration wins when parsing");
+    assert_equals(style.getPropertyPriority(property), "important");
+    assert_equals(style.getPropertyValue(sibling), siblingValue);
+    assert_equals(style.getPropertyPriority(sibling), "important");
+  }, `Parsing cssText preserves important ${shorthand} over normal ${property}`);
+}
+
+for (const [shorthand, initialValue, property, value, expectedShorthand] of [
+  ["margin", "1px", "margin-top", "2px", "2px 1px 1px"],
+  ["padding", "1px", "padding-left", "2px", "1px 1px 1px 2px"],
+  ["flex", "1 1 auto", "flex-grow", "2", "2 1 auto"]
+]) {
+  for (const priority of ["", "important"]) {
+    test(() => {
+      const element = document.createElement("div");
+      const { style } = element;
+      style.setProperty(shorthand, initialValue, "important");
+      style.setProperty(property, value, priority);
+
+      assert_equals(style.getPropertyPriority(shorthand), priority);
+      if (priority === "important") {
+        assert_equals(style.getPropertyValue(shorthand), expectedShorthand);
+        assert_equals(style.cssText, `${shorthand}: ${expectedShorthand} !important;`);
+      } else {
+        assert_equals(style.getPropertyValue(shorthand), "", "Mixed priorities cannot form a shorthand");
+      }
+      assert_equals(element.getAttribute("style"), style.cssText);
+
+      const copy = document.createElement("div");
+      copy.setAttribute("style", element.getAttribute("style"));
+      assert_equals(copy.style.getPropertyValue(property), value, "The serialized longhand value is preserved");
+      assert_equals(copy.style.getPropertyPriority(property), priority, "The serialized priority is preserved");
+    }, `${shorthand} serializes an update to ${property} with ${JSON.stringify(priority)} priority`);
+  }
+}
+</script>
