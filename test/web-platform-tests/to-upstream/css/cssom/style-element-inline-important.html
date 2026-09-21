@@ -7,6 +7,13 @@
 <!-- regression test for https://github.com/jsdom/jsdom/issues/3940 -->
 
 <p class="element-with-inline-style" style="word-spacing: 1px !important;">Inline Style Test</p>
+<p class="element-with-var-style" style="color: var(--x) !important;">Inline Var Style Test</p>
+
+<style>
+.stylesheet-rule {
+  color: var(--x) !important;
+}
+</style>
 
 <script>
 "use strict";
@@ -26,4 +33,34 @@ test(() => {
   div.style.setProperty("font-size", "20px", "important");
   assert_equals(div.outerHTML, '<div style="color: red !important; font-size: 20px !important;"></div>');
 }, "The last declaration's priority is immediately reflected in the style attribute");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.setProperty("color", "var(--x)", "important");
+  assert_equals(div.style.getPropertyValue("color"), "var(--x)", "value");
+  assert_equals(div.style.getPropertyPriority("color"), "important", "priority");
+  assert_equals(div.style.cssText, "color: var(--x) !important;", "cssText");
+}, "Setting a declaration containing var() preserves its important priority");
+
+test(() => {
+  const p = document.querySelector(".element-with-var-style");
+  assert_equals(p.style.getPropertyValue("color"), "var(--x)", "value");
+  assert_equals(p.style.getPropertyPriority("color"), "important", "priority");
+  assert_equals(p.style.cssText, "color: var(--x) !important;", "cssText");
+}, "Parsing an inline declaration containing var() preserves its important priority");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.cssText = "color: var(--x) !important;";
+  assert_equals(div.style.getPropertyValue("color"), "var(--x)", "value");
+  assert_equals(div.style.getPropertyPriority("color"), "important", "priority");
+  assert_equals(div.style.cssText, "color: var(--x) !important;", "cssText");
+}, "Setting cssText with a declaration containing var() preserves its important priority");
+
+test(() => {
+  const rule = document.styleSheets[0].cssRules[0];
+  assert_equals(rule.style.getPropertyValue("color"), "var(--x)", "value");
+  assert_equals(rule.style.getPropertyPriority("color"), "important", "priority");
+  assert_equals(rule.style.cssText, "color: var(--x) !important;", "cssText");
+}, "Parsing a stylesheet declaration containing var() preserves its important priority");
 </script>
