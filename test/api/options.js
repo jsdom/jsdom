@@ -253,6 +253,26 @@ describe("API: constructor options", () => {
   });
 
   describe("storageQuota", () => {
+    for (const storageType of ["localStorage", "sessionStorage"]) {
+      for (const depth of [1, 2]) {
+        it(`should enforce the custom quota for ${storageType} in frames at depth ${depth}`, () => {
+          const dom = new JSDOM(``, { url: "https://example.com/", storageQuota: 4 });
+          let frameWindow = dom.window;
+          for (let i = 0; i < depth; ++i) {
+            const iframe = frameWindow.document.createElement("iframe");
+            frameWindow.document.body.append(iframe);
+            frameWindow = iframe.contentWindow;
+          }
+
+          const storage = frameWindow[storageType];
+          storage.setItem("k", "123");
+          assert.equal(dom.window[storageType].getItem("k"), "123");
+          assert.throws(() => storage.setItem("k", "1234"), { name: "QuotaExceededError" });
+          assert.equal(storage.getItem("k"), "123");
+        });
+      }
+    }
+
     describe("not set", () => {
       it("should be 5000000 code units by default", () => {
         const { localStorage, sessionStorage } = (new JSDOM(``, { url: "https://example.com" })).window;

@@ -89,32 +89,45 @@ describe("API: runScripts constructor option", () => {
   });
 
   describe("<noscript> children", () => {
-    it("should be considered text when runScripts is set to \"dangerously\"", () => {
-      const { document } = new JSDOM(
-        `<body><noscript><div></div></noscript></body>`,
-        { runScripts: "dangerously" }
-      ).window;
+    const html = `<body><noscript><div></div></noscript></body>`;
+    const cases = [
+      { runScripts: undefined, childInterface: "HTMLDivElement", textContent: "" },
+      { runScripts: "outside-only", childInterface: "HTMLDivElement", textContent: "" },
+      { runScripts: "dangerously", childInterface: "Text", textContent: "<div></div>" }
+    ];
 
-      assert.equal(document.querySelector("noscript").children.length, 0);
-      assert.equal(document.querySelector("noscript").textContent, "<div></div>");
-    });
-    it("should be considered nodes when runScripts is set to \"outside-only\"", () => {
-      const dom = new JSDOM(
-        `<body><noscript><div></div></noscript></body>`,
-        { runScripts: "outside-only" }
-      );
-      const { document } = dom.window;
+    for (const { runScripts, childInterface, textContent } of cases) {
+      describe(`when set to ${formatOptionValue(runScripts)}`, () => {
+        function assertNoscriptContents(window) {
+          const noscript = window.document.querySelector("noscript");
+          assert.equal(noscript.childNodes.length, 1);
+          assert(noscript.firstChild instanceof window[childInterface]);
+          assert.equal(noscript.textContent, textContent);
+        }
 
-      assert.equal(document.querySelector("noscript").children.length, 1);
-      assert(document.querySelector("noscript").children[0] instanceof dom.window.HTMLDivElement);
-    });
-    it("should be considered nodes when runScripts is left undefined", () => {
-      const dom = new JSDOM(`<body><noscript><div></div></noscript></body>`).window;
-      const { document } = dom.window;
+        it("should parse according to runScripts without node locations", () => {
+          const dom = new JSDOM(html, { runScripts });
 
-      assert.equal(document.querySelector("noscript").children.length, 1);
-      assert(document.querySelector("noscript").children[0] instanceof dom.window.HTMLDivElement);
-    });
+          assertNoscriptContents(dom.window);
+        });
+
+        it("should parse according to runScripts with node locations", () => {
+          const dom = new JSDOM(html, { runScripts, includeNodeLocations: true });
+
+          assertNoscriptContents(dom.window);
+        });
+
+        it("should parse loaded iframe contents according to runScripts", async () => {
+          const dom = new JSDOM(`<iframe src="data:text/html,${encodeURIComponent(html)}"></iframe>`, {
+            runScripts,
+            resources: "usable"
+          });
+          await once(dom.window, "load");
+
+          assertNoscriptContents(dom.window.document.querySelector("iframe").contentWindow);
+        });
+      });
+    }
   });
 
   describe("JS spec globals", () => {
