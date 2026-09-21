@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Parser-discovered resources wait for preceding parsing-blocking scripts</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inhead">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global controlledResponse */
+
+promise_test(async t => {
+  const blocking = controlledResponse(t, 'window.order.push("blocking");', "text/javascript");
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const ready = new Promise(resolve => {
+    window.documentReady = resolve;
+  });
+  t.add_cleanup(() => {
+    delete window.documentReady;
+  });
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  frame.src = "resources/parser-resource-order.html?" + new URLSearchParams({ blocking: blocking.url });
+  document.body.append(frame);
+  await ready;
+  await blocking.release();
+  await loaded;
+  const { order } = frame.contentWindow;
+  assert_equals(order[0], "blocking", "The external script precedes child-frame scripts and image events");
+  assert_true(order.includes("child"), "The child frame executed its script");
+  assert_true(order.includes("image"), "The following inline script registered the image listener in time");
+  assert_less_than(order.indexOf("inline"), order.indexOf("image"));
+}, "Frames and images discovered after a parsing-blocking script cannot overtake its execution");
+</script>

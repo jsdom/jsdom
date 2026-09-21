@@ -1,0 +1,15 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Reopening during load</title>
+<script>
+"use strict";
+window.addEventListener(new URLSearchParams(location.search).get("event"), () => {
+  document.open();
+  document.write("<!doctype html><p>replacement</p>");
+  window.replacementLoaded = false;
+  window.addEventListener("load", () => {
+    window.replacementLoaded = true;
+  }, { once: true });
+  document.close();
+}, { once: true });
+</script>
