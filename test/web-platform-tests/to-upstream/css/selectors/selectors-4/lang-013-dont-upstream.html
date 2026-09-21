@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <meta charset="utf-8">
-<title>CSS Selectors 4 - :lang matching (matches API)</title>
+<title>CSS Selectors 4 - :lang matching</title>
 <link rel="author" title="Jonathan Kew" href="mailto:jkew@mozilla.com">
 <link rel="help" href="https://drafts.csswg.org/selectors-4/#the-lang-pseudo">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<style>
+div.test { color: rgb(0, 128, 0); }
+:lang(de, nl, 0, fr) { color: rgb(255, 0, 0); }
+</style>
 
-<div class="test"><span lang="fr">This should be green</span></div>
+<div class="test"><span id="target" lang="fr">This should be green</span></div>
 
 <script>
 test(() => {
-  const span = document.querySelector("span");
-  assert_equals(span.matches(':lang(de, nl, "0", fr)'), true, "Element with lang='fr' should match a list containing 'fr' alongside a string '0'");
-}, "String '0' inside comma-separated list does not invalidate the selector");
+  const target = document.getElementById('target');
+  assert_equals(getComputedStyle(target).color, 'rgb(0, 128, 0)');
+}, ':lang selector containing an invalid argument (0) should not match');
 </script>
 </html>
