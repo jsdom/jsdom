@@ -2916,9 +2916,6 @@ serializing-html-fragments/escaping.html: [fail, Scripting isn't properly inheri
 serializing-html-fragments/processing-instructions.html: [fail, Unknown]
 serializing-html-fragments/serializing-lt-gt.html: [fail, Unknown]
 serializing-html-fragments/serializing.html: [fail, Scripting isn't properly inherited for sub-documents]
-xmldecl/xmldecl-1.html: [fail, Unknown; possibly iframes are inheriting encoding from their parent?]
-xmldecl/xmldecl-2.html: [fail, several encodings misdetected?]
-xmldecl/xmldecl-3.html: [fail, Unknown]
 
 ---
 
