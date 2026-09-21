@@ -5,6 +5,7 @@
 <meta name="variant" content="?blocking">
 <meta name="variant" content="?async">
 <meta name="variant" content="?defer">
+<meta name="variant" content="?blocking-readiness">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <script src="/common/utils.js"></script>
@@ -13,7 +14,8 @@
 <script>
 "use strict";
 /* global addIframe, token */
-const mode = location.search.slice(1);
+const testReadiness = location.search === "?blocking-readiness";
+const mode = testReadiness ? "blocking" : location.search.slice(1);
 
 async function nextRequestState(t, key) {
   const xhr = new XMLHttpRequest();
@@ -48,10 +50,32 @@ promise_test(async t => {
   const child = frame.contentWindow;
   child.addEventListener("load", () => loadEvents.push("window"));
   assert_not_equals(child.document.readyState, "complete", "The child must still be loading");
+  if (testReadiness) {
+    assert_equals(child.document.readyState, "loading", "The parser is still active");
+  }
   child.stop();
+
+  if (testReadiness) {
+    // Aborting an active parser sets readiness to complete. After EOF, async/defer scripts do not
+    // establish whether the document still has an active parser, so they are not covered here.
+    assert_equals(child.document.readyState, "complete", "Aborting the parser completes the document's readiness");
+    return;
+  }
 
   // Check for load events only after cancellation closes the script's response.
   assert_equals(await nextRequestState(t, stateKey), "closed", "The script request must have been canceled");
+  // Empty-script errors use the DOM manipulation task source, like document and iframe load events.
+  // Two turns cover completion work that could itself queue an iframe load task.
+  for (let i = 0; i < 2; ++i) {
+    const script = document.createElement("script");
+    script.src = "";
+    const error = new EventWatcher(t, script, "error").wait_for("error");
+    document.head.append(script);
+    await error;
+    script.remove();
+  }
   assert_array_equals(loadEvents, [], "Neither the stopped child window nor its iframe must fire load");
-}, `window.stop() with a pending ${mode} script suppresses load events`);
+}, testReadiness ?
+  "window.stop() completes readiness when aborting an active parser" :
+  `window.stop() with a pending ${mode} script suppresses load events`);
 </script>

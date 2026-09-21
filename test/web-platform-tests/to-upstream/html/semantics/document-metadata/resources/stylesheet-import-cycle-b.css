@@ -1,0 +1,2 @@
+@import "stylesheet-import-cycle-a.css";
+body { color: green; }

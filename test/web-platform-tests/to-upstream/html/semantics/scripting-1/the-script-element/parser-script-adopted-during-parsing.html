@@ -1,0 +1,28 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Parser-inserted scripts cannot be prepared in another document</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#prepare-the-script-element">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+promise_test(async t => {
+  const destination = await addIframe();
+  t.add_cleanup(() => destination.remove());
+  window.destinationDocument = destination.contentDocument;
+  t.add_cleanup(() => {
+    delete window.destinationDocument;
+  });
+  const source = await addIframe("resources/parser-script-adopted-during-parsing.html");
+  t.add_cleanup(() => source.remove());
+  const script = destination.contentDocument.querySelector("script");
+  assert_not_equals(script, null, "The parser inserted the script into the adopted parent");
+  assert_equals(destination.contentWindow.executed, undefined);
+  source.contentDocument.body.append(script);
+  assert_equals(source.contentWindow.executed, undefined, "Moving back cannot retry an already-started script");
+}, "Adopting the current parser node prevents a subsequently parsed script from preparing in the wrong document");
+</script>

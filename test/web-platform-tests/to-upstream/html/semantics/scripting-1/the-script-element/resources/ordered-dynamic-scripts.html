@@ -1,0 +1,17 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Ordered dynamic script fixture</title>
+<script>
+"use strict";
+window.order = [];
+window.loadCount = 0;
+window.addEventListener("load", () => ++window.loadCount);
+document.addEventListener("DOMContentLoaded", () => parent.documentReady(window));
+const params = new URLSearchParams(location.search);
+for (const name of ["first", "second"]) {
+  const script = document.createElement("script");
+  script.async = false;
+  script.src = params.get(name);
+  document.head.append(script);
+}
+</script>
