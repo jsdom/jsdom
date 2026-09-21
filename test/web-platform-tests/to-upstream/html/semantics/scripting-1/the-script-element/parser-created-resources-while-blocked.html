@@ -1,0 +1,60 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="variant" content="?img">
+<meta name="variant" content="?link">
+<meta name="variant" content="?style">
+<meta name="variant" content="?iframe">
+<title>Updating parser-created resources while the parser is blocked</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-incdata">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global controlledResponse */
+
+const localName = location.search.slice(1);
+
+promise_test(async t => {
+  const blocking = controlledResponse(t, "window.blockingRan = true;", "text/javascript");
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const ready = new Promise(resolve => {
+    window.documentReady = resolve;
+  });
+  t.add_cleanup(() => {
+    delete window.documentReady;
+  });
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  frame.src = "resources/parser-created-resources-while-blocked.html?" +
+    new URLSearchParams({ blocking: blocking.url });
+  document.body.append(frame);
+  await ready;
+
+  const child = frame.contentWindow;
+  const element = child.document.getElementById(localName);
+  const resourceLoaded = new EventWatcher(t, element, ["load", "error"]).wait_for("load");
+  if (localName === "img") {
+    element.src = "data:image/png;base64," +
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=";
+  } else if (localName === "link") {
+    element.href = "data:text/css,body { color: green }";
+  } else if (localName === "style") {
+    element.remove();
+    element.type = "text/css";
+    element.textContent = "body { color: green }";
+    child.document.body.append(element);
+  } else {
+    element.remove();
+    element.src = "data:text/html,Child resource";
+    child.document.body.append(element);
+  }
+  await resourceLoaded;
+  assert_false(child.blockingRan, "The resource completes while the parser-blocking script is still pending");
+  await blocking.release();
+  await loaded;
+  assert_true(child.blockingRan, "The parser-blocking script eventually runs");
+}, `Updating a parser-created ${localName} does not wait for a pending parser-blocking script`);
+</script>

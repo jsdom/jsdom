@@ -1,0 +1,68 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stopping or destroying a document cancels descendant requests</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#abort-a-document-and-its-descendants">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#destroy-a-document-and-its-descendants">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="../resources/helpers.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe, requestResource, token */
+
+for (const shadow of [false, true]) {
+  for (const destroy of [false, true]) {
+    promise_test(async t => {
+      const frame = await addIframe();
+      t.add_cleanup(() => frame.remove());
+      const child = frame.contentWindow;
+      const host = child.document.createElement("div");
+      child.document.body.append(host);
+      const descendant = child.document.createElement("iframe");
+      (shadow ? host.attachShadow({ mode: "open" }) : host).append(descendant);
+      const xhr = new descendant.contentWindow.XMLHttpRequest();
+      const resources = "/fetch/api/resources/";
+      const stateKey = token();
+      const abortKey = token();
+      t.add_cleanup(() => requestResource(`${resources}stash-put.py?key=${abortKey}&value=close`));
+      xhr.addEventListener("load", t.unreached_func("The streaming request must not complete"));
+      xhr.addEventListener("error", t.unreached_func("Document cancellation must not dispatch XHR error events"));
+      const started = new EventWatcher(t, xhr, "progress").wait_for("progress");
+      xhr.open("GET", `${resources}infinite-slow-response.py?stateKey=${stateKey}&abortKey=${abortKey}`);
+      xhr.send();
+      await started;
+      if (destroy) {
+        frame.remove();
+      } else {
+        child.stop();
+      }
+      await t.step_wait(async () => {
+        return JSON.parse(await requestResource(`${resources}stash-take.py?key=${stateKey}`)) === "closed";
+      }, "The descendant connection closes");
+    }, `${destroy ? "Destroy" : "Stop"} cancels requests in ${shadow ? "shadow" : "light"} tree descendant frames`);
+  }
+}
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const resources = "/fetch/api/resources/";
+  const stateKey = token();
+  const abortKey = token();
+  t.add_cleanup(() => requestResource(`${resources}stash-put.py?key=${abortKey}&value=close`));
+  frame.src = `${resources}infinite-slow-response.py?stateKey=${stateKey}&abortKey=${abortKey}`;
+  await t.step_wait(async () => {
+    return JSON.parse(await requestResource(`${resources}stash-take.py?key=${stateKey}`)) === "open";
+  }, "The previous navigation starts its request");
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  frame.src = "about:blank";
+  await loaded;
+  assert_equals(frame.contentDocument.URL, "about:blank");
+  await t.step_wait(async () => {
+    return JSON.parse(await requestResource(`${resources}stash-take.py?key=${stateKey}`)) === "closed";
+  }, "The previous navigation's connection closes");
+}, "Changing iframe src cancels its previous navigation request");
+</script>

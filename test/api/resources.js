@@ -1,5 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
+const { setImmediate } = require("node:timers/promises");
 const { describe, it } = require("mocha-sugar-free");
 const { Agent } = require("undici");
 const { Canvas } = require("../../lib/jsdom/utils.js");
@@ -499,6 +500,52 @@ describe("API: resource loading configuration", () => {
     });
 
     describe("canceling requests", () => {
+      it("should not fire load when an inline script stops the window during construction", async () => {
+        const events = [];
+        const { window } = new JSDOM("<script>window.stop()</script>", {
+          runScripts: "dangerously",
+          beforeParse(w) {
+            w.addEventListener("load", () => events.push("load"));
+            w.document.addEventListener("DOMContentLoaded", () => events.push("DOMContentLoaded"));
+          }
+        });
+        try {
+          await setImmediate();
+          assert.equal(window.document.readyState, "complete");
+          assert.deepEqual(events, []);
+        } finally {
+          window.close();
+        }
+      });
+
+      it("should execute an already-fetched ordered script after stopping the window", async () => {
+        const server = await createServer(() => {});
+        const { window } = new JSDOM("", { resources: "usable", runScripts: "dangerously" });
+        try {
+          const pending = window.document.createElement("script");
+          pending.async = false;
+          pending.src = serverURL(server);
+          window.document.head.append(pending);
+          const ready = window.document.createElement("script");
+          ready.async = false;
+          ready.src = "data:text/javascript,window.readyScriptRan = true;";
+          window.document.head.append(ready);
+          // Data-URL fetches finish in promise reactions. The next turn lets the second script become ready
+          // while the first still blocks execution.
+          await setImmediate();
+          assert.equal(window.readyScriptRan, undefined, "The first script still blocks execution");
+          const loaded = new Promise(resolve => {
+            ready.addEventListener("load", resolve, { once: true });
+          });
+          window.stop();
+          await loaded;
+          assert.equal(window.readyScriptRan, true);
+        } finally {
+          window.close();
+          await server.destroy();
+        }
+      });
+
       it("should not run a redirected script after stopping the window", async () => {
         const agent = new Agent();
         let targetRequests = 0;

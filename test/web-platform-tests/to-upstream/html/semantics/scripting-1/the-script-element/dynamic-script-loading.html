@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Dynamic classic script loading and document readiness</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#prepare-the-script-element">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe, controlledResponse */
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  child.order = [];
+  const first = controlledResponse(t, 'window.order.push("first");', "text/javascript");
+  const scripts = [first.url, 'data:text/javascript,window.order.push("second");'].map(src => {
+    const script = child.document.createElement("script");
+    script.src = src;
+    script.defer = true;
+    return script;
+  });
+  const loaded = scripts.map(script => new EventWatcher(t, script, ["load", "error"]).wait_for("load"));
+  child.document.body.append(...scripts);
+  await loaded[1];
+  assert_array_equals(child.order, ["second"]);
+  await first.release();
+  await loaded[0];
+  assert_array_equals(child.order, ["second", "first"]);
+}, "Dynamic scripts execute as soon as ready even with defer set");
+
+promise_test(async t => {
+  const first = controlledResponse(t, 'window.order.push("first");', "text/javascript");
+  const second = controlledResponse(t, 'window.order.push("second");', "text/javascript");
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const ready = new Promise(resolve => {
+    window.documentReady = child => resolve(child);
+  });
+  t.add_cleanup(() => {
+    delete window.documentReady;
+  });
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  frame.src = "resources/ordered-dynamic-scripts.html?" + new URLSearchParams({ first: first.url, second: second.url });
+  document.body.append(frame);
+  const child = await ready;
+  assert_equals(child.document.readyState, "interactive");
+  assert_array_equals(child.order, [], "DOMContentLoaded does not wait for ordered dynamic scripts");
+  assert_equals(child.loadCount, 0, "The scripts still delay load");
+  await second.release();
+  await first.release();
+  await loaded;
+  assert_array_equals(child.order, ["first", "second"]);
+  assert_equals(child.loadCount, 1);
+
+  const later = child.document.createElement("script");
+  later.src = "data:text/javascript,";
+  const laterLoaded = new EventWatcher(t, later, ["load", "error"]).wait_for("load");
+  child.document.body.append(later);
+  await laterLoaded;
+  // These errors use the same task source as the document's load event. The first allows the script's completion
+  // steps to finish; the second runs after any document load task they queued.
+  for (let i = 0; i < 2; ++i) {
+    const sentinel = child.document.createElement("script");
+    sentinel.src = "";
+    const error = new EventWatcher(t, sentinel, ["load", "error"]).wait_for("error");
+    child.document.body.append(sentinel);
+    await error;
+  }
+  assert_equals(child.loadCount, 1, "A script added after load does not fire another window load event");
+}, "Ordered dynamic scripts delay load but not DOMContentLoaded, and later scripts do not load the document again");
+</script>
