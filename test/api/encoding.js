@@ -3,6 +3,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const { describe, it, before, after } = require("mocha-sugar-free");
+const { utf16fromString } = require("@exodus/bytes/utf16.js");
 const { createServer } = require("./helpers/servers.js");
 
 const { JSDOM } = require("../..");
@@ -91,7 +92,6 @@ const encodingFixtures = {
   }
 };
 
-// For XML, we always default to UTF-8 unless there is a BOM. No charset sniffing.
 const xmlEncodingFixtures = {
   "no-bom-utf8.xml": {
     name: "UTF-8",
@@ -107,11 +107,10 @@ const xmlEncodingFixtures = {
     bodyWhenOverridden: "¢"
   },
   "no-bom-with-encoding-decl.xml": {
-    // Has <?xml encoding="KOI8-R"?> but the declaration should be IGNORED
-    // Content is valid UTF-8, so it decodes correctly
-    name: "UTF-8",
+    // The UTF-8 bytes D0 84 decode as п└ in the declared KOI8-R encoding.
+    name: "KOI8-R",
     nameWhenOverridden: "ISO-8859-8",
-    body: "Є"
+    body: "п└"
   },
   "utf-8-bom.xml": {
     name: "UTF-8",
@@ -282,9 +281,17 @@ describe("API: encoding detection", () => {
     });
   });
 
-  // XML encoding tests: For XML, we always default to UTF-8 unless there is a BOM.
-  // There is no charset sniffing from XML declarations or other sources.
   describe("XML: constructor, given binary data", () => {
+    for (const [encoding, format] of [["UTF-16LE", "uint8-le"], ["UTF-16BE", "uint8-be"]]) {
+      it(`should detect ${encoding} without a BOM`, () => {
+        const input = utf16fromString(`<?xml version="1.0" encoding="${encoding}"?><r>Є</r>`, format);
+        const dom = new JSDOM(input, { contentType: "application/xhtml+xml" });
+
+        assert.equal(dom.window.document.characterSet, encoding);
+        assert.equal(dom.window.document.documentElement.textContent, "Є");
+      });
+    }
+
     describe("with contentType application/xhtml+xml (no charset)", () => {
       for (const binaryDataType of Object.keys(factories)) {
         const factory = factories[binaryDataType];
