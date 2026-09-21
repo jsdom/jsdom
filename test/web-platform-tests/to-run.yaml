@@ -2326,7 +2326,6 @@ playing-the-media-resource/!(playbackRate.html): [fail-slow, Media loading and p
 DIR: html/semantics/embedded-content/the-canvas-element
 
 2d-getcontext-options.html: [fail-with-canvas, Context options are not converted]
-canvas-descendants-focusability-002.html: [fail-with-canvas, Hidden canvas descendants can be focused]
 canvas-descendants-focusability-005.html: [timeout, Requires iframe srcdoc]
 canvas-descendants-focusability-006.html: [timeout, Requires iframe srcdoc]
 context.casesensitive.html: [fail-with-canvas, Unrecognized context names return the existing 2D context]
@@ -2538,7 +2537,6 @@ DIR: html/semantics/forms/the-datalist-element
 DIR: html/semantics/forms/the-fieldset-element
 
 HTMLFieldSetElement.html: [fail, Depends on HTMLFormElement's named properties; has dont-upstream version]
-disabled-003.html: [fail, Unknown]
 fieldset-intrinsic-size.html: [fail, Requires a layout engine]
 
 ---
