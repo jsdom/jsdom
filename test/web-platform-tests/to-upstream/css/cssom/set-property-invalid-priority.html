@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Invalid CSS property values preserve existing priority</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const [property, value, invalidValue] of [
+  ["color", "red", "invalid-value"],
+  ["width", "10px", "invalid-value"],
+  ["margin", "1px", "invalid-value"],
+  ["color", "red", "rgb(calc(1px) 0 0)"],
+  ["background-color", "red", "rgb(calc(1px) 0 0)"],
+  ["border-color", "red", "rgb(calc(1px) 0 0)"]
+]) {
+  for (const priority of ["", "important"]) {
+    test(() => {
+      const element = document.createElement("div");
+      const observer = new MutationObserver(() => {});
+      element.style.setProperty(property, value, priority);
+      const original = element.getAttribute("style");
+      const originalCSSText = element.style.cssText;
+      const originalLength = element.style.length;
+      const newPriority = priority === "important" ? "" : "important";
+      observer.observe(element, { attributes: true });
+      element.style.setProperty(property, invalidValue, newPriority);
+      assert_equals(element.style.getPropertyValue(property), value);
+      assert_equals(element.style.getPropertyPriority(property), priority);
+      assert_equals(element.style.cssText, originalCSSText);
+      assert_equals(element.style.length, originalLength);
+      assert_equals(element.getAttribute("style"), original);
+      assert_equals(observer.takeRecords().length, 0);
+      observer.disconnect();
+      element.style.setProperty(property, value, newPriority);
+      assert_equals(element.style.getPropertyPriority(property), newPriority);
+    }, `Setting ${property} to ${invalidValue} preserves the existing ${JSON.stringify(priority)} priority`);
+  }
+}
+
+for (const priority of ["", "important"]) {
+  test(() => {
+    const element = document.createElement("div");
+    element.style.setProperty("color", "rgb(calc(1px) 0 0)", priority);
+    assert_equals(element.style.getPropertyValue("color"), "");
+    assert_equals(element.style.getPropertyPriority("color"), "");
+    assert_equals(element.style.cssText, "");
+    assert_equals(element.style.length, 0);
+    assert_false(element.hasAttribute("style"));
+  }, `An invalid color with ${JSON.stringify(priority)} priority does not create a declaration`);
+}
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("opacity", "var(--opacity)");
+  assert_equals(style.opacity, "var(--opacity)");
+  style.setProperty("color", "inherit");
+  assert_equals(style.color, "inherit");
+}, "Variable expressions and global keywords remain accepted");
+
+for (const property of ["color", "opacity", "margin", "background"]) {
+  for (const value of ["var(--value)", "inherit"]) {
+    test(() => {
+      const { style } = document.createElement("div");
+      style.setProperty(property, value, "important");
+      assert_equals(style.getPropertyValue(property), value);
+      assert_equals(style.getPropertyPriority(property), "important");
+    }, `Setting ${property} to ${value} preserves the requested important priority`);
+  }
+}
+
+for (const [property, attribute, value] of [
+  ["color", "color", "red"],
+  ["width", "width", "10px"],
+  ["margin-top", "marginTop", "1px"],
+  ["border-top-color", "borderTopColor", "red"]
+]) {
+  test(() => {
+    const { style } = document.createElement("div");
+    style.setProperty(property, value, "important");
+    style[attribute] = value;
+    assert_equals(style.getPropertyValue(property), value);
+    assert_equals(style.getPropertyPriority(property), "");
+  }, `Assigning ${attribute} directly clears an existing important priority`);
+}
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "color: rgb(calc(1px) 0 0) !important";
+  assert_equals(style.getPropertyValue("color"), "");
+  assert_equals(style.getPropertyPriority("color"), "");
+  assert_equals(style.cssText, "");
+  assert_equals(style.length, 0);
+}, "An invalid declaration in cssText does not leave behind a priority");
+
+test(t => {
+  const element = document.createElement("style");
+  element.textContent = "div { color: red !important; }";
+  document.head.append(element);
+  t.add_cleanup(() => element.remove());
+  const { style } = element.sheet.cssRules[0];
+  const original = style.cssText;
+  style.setProperty("color", "rgb(calc(1px) 0 0)");
+  assert_equals(style.getPropertyValue("color"), "red");
+  assert_equals(style.getPropertyPriority("color"), "important");
+  assert_equals(style.cssText, original);
+}, "An invalid stylesheet declaration update preserves value and priority");
+</script>
