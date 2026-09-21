@@ -11,6 +11,43 @@ function read(window, url) {
 }
 
 describe("blob URLs", () => {
+  for (const localName of ["a", "area"]) {
+    it(`preserves ${localName}.origin for an FTP blob URL after revocation`, () => {
+      const { window } = new JSDOM("", { url: "ftp://example.org/" });
+      try {
+        const url = window.URL.createObjectURL(new window.Blob(["contents"]));
+        const element = window.document.createElement(localName);
+        element.href = url;
+        assert.equal(element.origin, "ftp://example.org");
+
+        window.URL.revokeObjectURL(url);
+        assert.equal(element.origin, "ftp://example.org");
+      } finally {
+        window.close();
+      }
+    });
+  }
+
+  it("preserves location.origin for an FTP blob URL after revocation", async () => {
+    const creator = new JSDOM("", { url: "ftp://example.org/" });
+    let loaded;
+    try {
+      const url = creator.window.URL.createObjectURL(new creator.window.Blob(["<p>contents</p>"], {
+        type: "text/html"
+      }));
+      loaded = await JSDOM.fromURL(url);
+      assert.equal(loaded.window.location.origin, "ftp://example.org");
+
+      creator.window.URL.revokeObjectURL(url);
+      assert.equal(loaded.window.location.origin, "ftp://example.org");
+    } finally {
+      creator.window.close();
+      if (loaded) {
+        loaded.window.close();
+      }
+    }
+  });
+
   it("shares URLs between same-origin JSDOM instances and cleans up the creating window", () => {
     const first = new JSDOM("", { url: "https://example.org/" });
     const second = new JSDOM("", { url: "https://example.org/" });
