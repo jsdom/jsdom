@@ -1,0 +1,10 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml">
+<head><title>XML parser blocking</title></head>
+<body>
+<script>parent.documentReady();</script>
+<!-- > is also a legal chunk boundary inside comments and attributes. -->
+<h:script title="a > b" src="{{GET[script]}}" {{GET[attributes]}}="" />
+<p id="after">after > &amp; 𝄞</p>
+<script><![CDATA[window.cdata = "> & 𝄞";]]></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>An inline script stopping its parser suppresses document load events</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#abort-a-parser">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="../resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+promise_test(async t => {
+  // Keep the test harness's load event independent of the stopped frame.
+  await new Promise(resolve => {
+    window.addEventListener("load", resolve, { once: true });
+  });
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const stopped = new Promise(resolve => {
+    window.parserStopped = resolve;
+  });
+  t.add_cleanup(() => {
+    delete window.parserStopped;
+  });
+  frame.src = "/common/echo.py?content=" + encodeURIComponent(`<!doctype html><script>
+    window.events = [];
+    window.addEventListener("load", () => events.push("load"));
+    document.addEventListener("DOMContentLoaded", () => events.push("DOMContentLoaded"));
+    window.stop();
+    parent.parserStopped();
+  \x3C/script><p id="after"></p>`);
+  await stopped;
+  const child = frame.contentWindow;
+  assert_equals(child.document.readyState, "complete", "Aborting the parser completes document readiness");
+
+  // Empty-script errors use the DOM manipulation task source, like document load events.
+  for (let i = 0; i < 2; ++i) {
+    const script = document.createElement("script");
+    script.src = "";
+    const error = new EventWatcher(t, script, "error").wait_for("error");
+    document.head.append(script);
+    await error;
+    script.remove();
+  }
+  assert_array_equals(child.events, [], "The stopped document must not fire DOMContentLoaded or load");
+  assert_equals(child.document.getElementById("after"), null, "The stopped parser must not consume more input");
+}, "An inline script calling window.stop() aborts parsing without firing document load events");
+</script>

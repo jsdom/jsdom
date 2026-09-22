@@ -500,24 +500,6 @@ describe("API: resource loading configuration", () => {
     });
 
     describe("canceling requests", () => {
-      it("should not fire load when an inline script stops the window during construction", async () => {
-        const events = [];
-        const { window } = new JSDOM("<script>window.stop()</script>", {
-          runScripts: "dangerously",
-          beforeParse(w) {
-            w.addEventListener("load", () => events.push("load"));
-            w.document.addEventListener("DOMContentLoaded", () => events.push("DOMContentLoaded"));
-          }
-        });
-        try {
-          await setImmediate();
-          assert.equal(window.document.readyState, "complete");
-          assert.deepEqual(events, []);
-        } finally {
-          window.close();
-        }
-      });
-
       it("should execute an already-fetched ordered script after stopping the window", async () => {
         const server = await createServer(() => {});
         const { window } = new JSDOM("", { resources: "usable", runScripts: "dangerously" });
