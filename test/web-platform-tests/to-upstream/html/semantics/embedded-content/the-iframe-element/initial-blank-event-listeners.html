@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Unrelated event listeners do not affect initial about:blank loading</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#process-the-iframe-attributes">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const addClickListener of [false, true]) {
+  test(t => {
+    const iframe = document.createElement("iframe");
+    t.add_cleanup(() => iframe.remove());
+    if (addClickListener) {
+      iframe.addEventListener("click", () => {});
+    }
+
+    const loadStates = [];
+    function onLoad(event) {
+      if (event.target === iframe) {
+        loadStates.push(iframe.contentDocument.readyState);
+      }
+    }
+    document.addEventListener("load", onLoad, true);
+    t.add_cleanup(() => document.removeEventListener("load", onLoad, true));
+
+    document.body.append(iframe);
+
+    assert_equals(iframe.contentDocument.readyState, "complete");
+    assert_array_equals(loadStates, ["complete"], "load fires synchronously with a complete document");
+  }, `Initial about:blank loading ${addClickListener ? "with" : "without"} a click listener`);
+}
+</script>

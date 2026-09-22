@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>XML fragment scripts remain inert when cloned</title>
+  <link rel="help" href="https://html.spec.whatwg.org/multipage/xhtml.html#parsing-xhtml-documents" />
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+</head>
+<body>
+<script><![CDATA[
+"use strict";
+
+test(t => {
+  const container = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  window.fragmentScriptRan = false;
+  t.add_cleanup(() => {
+    delete window.fragmentScriptRan;
+  });
+  container.innerHTML = "<script>window.fragmentScriptRan = true;</script>";
+  assert_false(window.fragmentScriptRan, "Fragment insertion does not execute the script");
+  container.append(container.firstChild.cloneNode(true));
+  assert_false(window.fragmentScriptRan, "A clone retains the already-started state");
+}, "Cloning an XML fragment's script does not make it executable");
+]]></script>
+</body>
+</html>

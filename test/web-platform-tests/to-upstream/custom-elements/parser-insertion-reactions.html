@@ -1,0 +1,73 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Custom element reactions during parser insertion</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#insert-an-element-at-the-adjusted-insertion-location">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html#document.write()">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createWindow(t) {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  document.body.append(frame);
+  frame.contentDocument.open();
+  return frame.contentWindow;
+}
+
+for (const inTable of [false, true]) {
+  test(t => {
+    const child = createWindow(t);
+    child.customElements.define("stop-parsing", class extends child.HTMLElement {
+      connectedCallback() {
+        child.stop();
+      }
+    });
+    child.document.write(`<body>${inTable ? "<table>" : ""}<stop-parsing></stop-parsing><p id='after'></p>`);
+    assert_not_equals(child.document.querySelector("stop-parsing"), null);
+    assert_equals(child.document.getElementById("after"), null);
+  }, `${inTable ? "Foster parenting" : "Parser insertion"}: connectedCallback can stop parsing before another element`);
+}
+
+test(t => {
+  const child = createWindow(t);
+  child.customElements.define("close-parser", class extends child.HTMLElement {
+    connectedCallback() {
+      child.document.close();
+    }
+  });
+  child.document.write("<body><close-parser></close-parser><p id='after'></p>");
+  assert_not_equals(child.document.getElementById("after"), null);
+}, "Closing the document from connectedCallback does not discard pending parser input");
+
+test(t => {
+  const child = createWindow(t);
+  const events = [];
+  child.record = event => events.push(event);
+  child.customElements.define("write-scripts", class extends child.HTMLElement {
+    connectedCallback() {
+      child.document.write("<script>record('first')\x3C/script><script>record('second')\x3C/script>");
+    }
+  });
+  child.document.write("<body><write-scripts></write-scripts>");
+  child.document.close();
+  assert_array_equals(events, ["first", "second"]);
+}, "All scripts written from a parser-inserted connectedCallback execute in order");
+
+test(t => {
+  const child = createWindow(t);
+  let writtenDuringCallback;
+  child.customElements.define("write-element", class extends child.HTMLElement {
+    connectedCallback() {
+      child.document.write("<span id='written'></span>");
+      writtenDuringCallback = child.document.getElementById("written");
+    }
+  });
+  child.document.write("<body><write-element></write-element>");
+  child.document.close();
+  assert_not_equals(writtenDuringCallback, null);
+  assert_equals(writtenDuringCallback, child.document.getElementById("written"));
+}, "Markup written from a parser-inserted connectedCallback is immediately visible");
+</script>

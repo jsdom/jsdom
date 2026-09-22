@@ -35,6 +35,7 @@
     "is-potential-custom-element-name": "^1.0.1",
     "lru-cache": "^11.5.2",
     "parse5": "^8.0.1",
+    "parse5-parser-stream": "^8.0.0",
     "saxes": "^6.0.0",
     "tough-cookie": "^6.0.2",
     "undici": "^8.10.2",

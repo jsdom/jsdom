@@ -1,0 +1,17 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Parser blocking fixture</title>
+<script>
+"use strict";
+window.events = [];
+document.addEventListener("DOMContentLoaded", () => window.events.push("DOMContentLoaded"));
+parent.documentReady();
+</script>
+<body>
+<p id="before"></p>
+<script id="blocking" src="{{GET[script]}}" {{GET[attributes]}}></script>
+<p id="after"></p>
+<script>
+"use strict";
+window.events.push("following");
+</script>

@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Scripts from inert fragment parsing remain inert when cloned or modified</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inhead">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#script-processing-model">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<template id="parsed-template"><script>
+"use strict";
+window.templateScriptRan = true;
+</script></template>
+<script>
+"use strict";
+
+for (const method of ["innerHTML", "outerHTML", "insertAdjacentHTML"]) {
+  test(t => {
+    const container = document.createElement("div");
+    document.body.append(container);
+    t.add_cleanup(() => container.remove());
+    window.fragmentScriptRan = false;
+    t.add_cleanup(() => {
+      delete window.fragmentScriptRan;
+    });
+    const markup = "<script>\x3C/script>";
+    if (method === "innerHTML") {
+      container.innerHTML = markup;
+    } else if (method === "outerHTML") {
+      const placeholder = document.createElement("span");
+      container.append(placeholder);
+      placeholder.outerHTML = markup;
+    } else {
+      container.insertAdjacentHTML("beforeend", markup);
+    }
+    const script = container.firstChild;
+    script.append("window.fragmentScriptRan = true;");
+    assert_false(window.fragmentScriptRan, "Adding script text does not execute the script");
+    container.append(script.cloneNode(true));
+    assert_false(window.fragmentScriptRan, "A clone retains the already-started state");
+    script.remove();
+    container.append(script);
+    assert_false(window.fragmentScriptRan, "Reinsertion does not execute the script");
+  }, `${method}: an initially empty script stays inert after modification and cloning`);
+}
+
+test(t => {
+  const template = document.getElementById("parsed-template");
+  t.add_cleanup(() => {
+    delete window.templateScriptRan;
+  });
+  const script = template.content.firstChild.cloneNode(true);
+  t.add_cleanup(() => script.remove());
+  document.body.append(script);
+  assert_true(window.templateScriptRan, "Document parsing does not mark template scripts already started");
+}, "Scripts cloned from a document-parsed template can execute");
+</script>

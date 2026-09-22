@@ -1,0 +1,328 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Parser blocking suspends tree construction</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-incdata">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#prepare-the-script-element">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/xhtml.html#parsing-xhtml-documents">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics.html#has-a-style-sheet-that-is-blocking-scripts">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global controlledResponse, requestResource */
+
+async function loadFixture(t, fixture, params) {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const ready = new Promise(resolve => {
+    window.documentReady = resolve;
+  });
+  t.add_cleanup(() => {
+    delete window.documentReady;
+  });
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  frame.src = `resources/${fixture}?` + new URLSearchParams(params);
+  document.body.append(frame);
+  await ready;
+  // Let the child reach its pending script before inspecting it.
+  await requestResource("/common/blank.html");
+  return { frame, child: frame.contentWindow, loaded };
+}
+
+promise_test(async t => {
+  const script = controlledResponse(
+    t,
+    "window.afterDuringScript = document.getElementById('after'); events.push('blocking');",
+    "text/javascript"
+  );
+  const { child, loaded } = await loadFixture(t, "parser-blocking.sub.html", { script: script.url, attributes: "" });
+
+  // This resource must finish even though the parser is waiting for the script.
+  const link = child.document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "data:text/css,body { color: green }";
+  const resourceLoaded = new EventWatcher(t, link, ["load", "error"]).wait_for("load");
+  child.document.head.append(link);
+  await resourceLoaded;
+  assert_equals(child.document.getElementById("after"), null, "The later node is not constructed while blocked");
+  assert_equals(child.document.readyState, "loading");
+  assert_array_equals(child.events, []);
+
+  await script.release();
+  await loaded;
+  assert_equals(child.afterDuringScript, null, "The later node is absent during evaluation");
+  assert_not_equals(child.document.getElementById("after"), null);
+  assert_array_equals(child.events, ["blocking", "following", "DOMContentLoaded"]);
+}, "A pending parsing-blocking script stops tree construction, but not independent resources");
+
+promise_test(async t => {
+  const script = controlledResponse(t, "window.scriptRan = true;", "text/javascript");
+  const { child, loaded } = await loadFixture(t, "parser-blocking.sub.html", { script: script.url, attributes: "" });
+  child.document.getElementById("blocking").addEventListener("load", () => {
+    child.document.open();
+    child.document.write("<p id='written'>written</p>");
+    child.writtenDuringLoad = child.document.getElementById("written");
+    child.document.close();
+  });
+  await script.release();
+  await loaded;
+  assert_not_equals(child.document.getElementById("before"), null, "open() does not replace the active parser");
+  assert_not_equals(child.document.getElementById("after"), null, "Parsing resumes after the load handler");
+  assert_equals(child.writtenDuringLoad, child.document.getElementById("written"), "write() parses synchronously");
+  assert_equals(child.document.getElementById("written").nextElementSibling.id, "after");
+}, "A parsing-blocking script's load handler retains its parser nesting level and insertion point");
+
+for (const fromLoadHandler of [false, true]) {
+  promise_test(async t => {
+    const outer = controlledResponse(t, fromLoadHandler ? "" : "writeNested();", "text/javascript");
+    const inner = controlledResponse(t, `
+      document.write("<p id='inner'>inner</p>");
+      window.innerWasSynchronous = document.getElementById("inner") !== null;
+      window.followingDuringInner = document.getElementById("first");
+    `, "text/javascript");
+    const { child, loaded } = await loadFixture(t, "parser-blocking.sub.html", {
+      script: outer.url, attributes: ""
+    });
+    child.writeNested = () => {
+      child.document.write("<script>window.nestedInlineRan = true;\x3C/script><p id='sync'>sync</p>");
+      child.inlineWasSynchronous = child.nestedInlineRan === true && child.document.getElementById("sync") !== null;
+      child.document.write(`<script src="${inner.url}">\x3C/script><p id='first'>first</p>`);
+      child.document.write("<p id='second'>second</p>");
+      child.followingDuringOuter = child.document.getElementById("first");
+    };
+    if (fromLoadHandler) {
+      child.document.getElementById("blocking").addEventListener("load", child.writeNested);
+    }
+    const outerLoaded = new EventWatcher(t, child.document.getElementById("blocking"), "load").wait_for("load");
+    await outer.release();
+    await outerLoaded;
+    assert_true(child.inlineWasSynchronous, "A nested inline script and its following element are parsed immediately");
+    assert_equals(child.followingDuringOuter, null, "A nested external script suspends the written input");
+    assert_equals(child.document.getElementById("after"), null, "The original input remains suspended");
+    await inner.release();
+    await loaded;
+    assert_true(child.innerWasSynchronous, "The nested external script can also write synchronously");
+    assert_equals(child.followingDuringInner, null, "The nested script runs before its written suffix is parsed");
+    assert_array_equals(
+      Array.from(child.document.querySelectorAll("[id]"), element => element.id),
+      ["before", "blocking", "sync", "inner", "first", "second", "after"]
+    );
+  }, `Nested writes preserve insertion points across a pending external script from a script's ${
+    fromLoadHandler ? "load handler" : "body"}`);
+}
+
+for (const attributes of ["async", "defer"]) {
+  promise_test(async t => {
+    const script = controlledResponse(t, "events.push('external');", "text/javascript");
+    const { child, loaded } = await loadFixture(t, "parser-blocking.sub.html", { script: script.url, attributes });
+    assert_not_equals(child.document.getElementById("after"), null, "Parsing reaches the following node");
+    assert_true(child.events.includes("following"), "The following inline script has run");
+    assert_false(child.events.includes("external"));
+    if (attributes === "defer") {
+      assert_equals(child.document.readyState, "interactive");
+      assert_false(child.events.includes("DOMContentLoaded"));
+    }
+    await script.release();
+    await loaded;
+    assert_true(child.events.includes("external"));
+  }, `A pending ${attributes} script does not suspend tree construction`);
+}
+
+promise_test(async t => {
+  const script = controlledResponse(t, "writeNested();", "text/javascript");
+  const sheet = controlledResponse(t, "body { color: green }", "text/css");
+  const { child, loaded } = await loadFixture(t, "parser-blocking.sub.html", {
+    script: script.url, attributes: ""
+  });
+  child.writeNested = () => {
+    child.document.write(`<link rel="stylesheet" href="${sheet.url}">`);
+    child.document.write("<script>window.nestedRan = true;\x3C/script>");
+    child.nestedWasSynchronous = child.nestedRan === true;
+  };
+  const scriptLoaded = new EventWatcher(t, child.document.getElementById("blocking"), "load").wait_for("load");
+  await script.release();
+  await scriptLoaded;
+  assert_true(child.nestedWasSynchronous, "Nested inline preparation does not wait for the written stylesheet");
+  assert_false(child.events.includes("following"), "The subsequent non-nested inline script waits for the stylesheet");
+  await sheet.release();
+  await loaded;
+  assert_true(child.events.includes("following"));
+}, "A nested inline script does not block on a stylesheet written by its outer script");
+
+promise_test(async t => {
+  const styleSheet = controlledResponse(t, "body { color: green }", "text/css");
+  const { child, loaded } = await loadFixture(t, "parser-blocking-stylesheet.sub.html", { stylesheet: styleSheet.url });
+  assert_not_equals(child.document.getElementById("blocking"), null, "The inline script has been parsed");
+  assert_equals(child.document.getElementById("after"), null, "Its following node has not been constructed");
+  assert_equals(child.inlineRan, undefined, "The inline script waits for the stylesheet");
+  assert_equals(child.document.readyState, "loading");
+  await styleSheet.release();
+  await loaded;
+  assert_true(child.inlineRan);
+  assert_equals(child.afterDuringScript, null);
+  assert_not_equals(child.document.getElementById("after"), null);
+}, "An inline script waiting for a stylesheet suspends tree construction");
+
+promise_test(async t => {
+  const script = controlledResponse(t, "window.oldScriptRan = true;", "text/javascript");
+  const { child } = await loadFixture(t, "parser-blocking.sub.html", { script: script.url, attributes: "" });
+  child.document.open();
+  child.document.write("<!doctype html><p id='replacement'>replacement</p>");
+  const loaded = new EventWatcher(t, child, "load").wait_for("load");
+  child.document.close();
+  await script.release();
+  await loaded;
+  await requestResource("/common/blank.html");
+  assert_equals(child.oldScriptRan, undefined);
+  assert_not_equals(child.document.getElementById("replacement"), null);
+  assert_equals(child.document.getElementById("after"), null, "The old input is discarded");
+}, "Replacing a document while its parser is suspended discards the old continuation");
+
+for (const attributes of ["", "defer"]) {
+  promise_test(async t => {
+    const script = controlledResponse(t, "window.oldScriptRan = true;", "text/javascript");
+    const response = controlledResponse(t, "xhr response", "text/plain");
+    const { child } = await loadFixture(t, "parser-blocking.sub.html", { script: script.url, attributes });
+    const xhr = new child.XMLHttpRequest();
+    const xhrLoaded = new EventWatcher(t, xhr, ["load", "error", "abort"]).wait_for("load");
+    xhr.open("GET", response.url);
+    xhr.send();
+
+    child.document.open();
+    child.document.write("<!doctype html><p>replacement</p>");
+    const loaded = new EventWatcher(t, child, "load").wait_for("load");
+    child.document.close();
+    await loaded;
+    await response.release();
+    await xhrLoaded;
+    assert_equals(xhr.status, 200);
+    assert_equals(xhr.responseText, "xhr response");
+    await script.release();
+    await requestResource("/common/blank.html");
+    assert_equals(child.oldScriptRan, undefined);
+  }, `Replacing a parser waiting for a ${attributes || "blocking"} script preserves unrelated XMLHttpRequests`);
+}
+
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  frame.src = "resources/unterminated-script.html";
+  document.body.append(frame);
+  await loaded;
+  const child = frame.contentWindow;
+  assert_equals(child.scriptRan, undefined, "EOF does not prepare an unterminated script");
+  const script = child.document.querySelector("script");
+  child.document.head.append(script.cloneNode(true));
+  assert_equals(child.scriptRan, undefined, "The unterminated script is marked as already started");
+}, "EOF inside a script neither executes it nor leaves its clones executable");
+
+promise_test(async t => {
+  const source = "window.afterDuringScript = document.getElementById('after');";
+  const script = controlledResponse(t, source, "text/javascript");
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const watcher = new EventWatcher(t, frame, "load");
+  const initialLoad = watcher.wait_for("load");
+  frame.src = "/common/blank.html";
+  document.body.append(frame);
+  await initialLoad;
+  // Opening a stream during iframe load-event dispatch would mute its next iframe load event.
+  await requestResource("/common/blank.html");
+  const child = frame.contentWindow;
+  child.document.open();
+  child.document.write(`<body><script src="${script.url}">\x3C/script><p id="first">first</p>`);
+  child.document.write("<p id='af");
+  child.document.write("ter'>after</p>");
+  const loaded = watcher.wait_for("load");
+  child.document.close();
+  assert_equals(child.document.getElementById("first"), null, "The first write stops at the pending script");
+  assert_equals(child.document.getElementById("after"), null, "Later writes wait for the same parser");
+  assert_equals(child.document.readyState, "loading", "Closing a blocked parser does not reach EOF yet");
+  await script.release();
+  await loaded;
+  assert_equals(child.afterDuringScript, null);
+  assert_equals(child.document.getElementById("first").textContent, "first");
+  assert_equals(child.document.getElementById("after").textContent, "after");
+}, "A script-created parser retains queued writes and EOF while blocked");
+
+for (const attributes of ["", "async", "defer"]) {
+  promise_test(async t => {
+    const source = "window.afterDuringScript = document.getElementById('after');";
+    const script = controlledResponse(t, source, "text/javascript");
+    const { child, loaded } = await loadFixture(t, "parser-blocking.sub.xhtml", {
+      script: script.url,
+      attributes: attributes || "data-unused"
+    });
+    if (attributes === "") {
+      assert_equals(child.document.getElementById("after"), null);
+      assert_equals(child.document.readyState, "loading");
+    } else {
+      assert_not_equals(child.document.getElementById("after"), null);
+    }
+    await script.release();
+    await loaded;
+    if (attributes === "") {
+      assert_equals(child.afterDuringScript, null);
+    } else {
+      assert_not_equals(child.afterDuringScript, null);
+    }
+    assert_equals(child.document.getElementById("after").textContent, "after > & 𝄞");
+    assert_equals(child.cdata, "> & 𝄞");
+  }, `XML parsing respects ${attributes || "blocking"} scripts, including prefixed self-closing elements`);
+}
+
+promise_test(async t => {
+  const sheet = controlledResponse(t, "body { color: green }", "text/css");
+  const { child: container, loaded } = await loadFixture(t, "parser-container-stylesheet.sub.html", {
+    stylesheet: sheet.url
+  });
+  const frame = container.document.querySelector("iframe");
+  const child = frame.contentWindow;
+  child.document.open();
+  child.document.write("<script>window.scriptRan = true;\x3C/script><p id='after'>after</p>");
+  const childLoaded = new EventWatcher(t, frame, "load").wait_for("load");
+  child.document.close();
+  assert_equals(child.scriptRan, undefined);
+  assert_equals(child.document.getElementById("after"), null);
+  await sheet.release();
+  await Promise.all([loaded, childLoaded]);
+  assert_true(child.scriptRan);
+  assert_not_equals(child.document.getElementById("after"), null);
+}, "A container document's parser-created stylesheet blocks its child's parser");
+
+promise_test(async t => {
+  const script = controlledResponse(t, "window.scriptRan = true;", "text/javascript");
+  const { child } = await loadFixture(t, "parser-blocking.sub.xhtml", {
+    script: script.url, attributes: "data-unused"
+  });
+  child.stop();
+  await script.release();
+  await requestResource("/common/blank.html");
+  assert_equals(child.scriptRan, undefined);
+  assert_equals(child.document.getElementById("after"), null);
+}, "Stopping a blocked XML parser discards the unconsumed input");
+
+for (const written of [false, true]) {
+  const input = written ? "written" : "original";
+  promise_test(async t => {
+    const { child } = await loadFixture(t, "parser-stop-in-constructor.html", written ? { written: "" } : {});
+    assert_equals(child.document.getElementById("after"), null);
+    assert_equals(child.document.readyState, "complete");
+  }, `Stopping the parser from a custom element constructor discards the following ${input} input`);
+}
+
+promise_test(async t => {
+  const script = controlledResponse(t, "window.scriptRan = true;", "text/javascript");
+  const { child, loaded } = await loadFixture(t, "parser-malformed.sub.xhtml", { script: script.url });
+  assert_not_equals(child.document.querySelector("script[src]"), null, "The malformed suffix has not been parsed");
+  await script.release();
+  await loaded;
+  assert_true(child.scriptRan);
+  assert_equals(child.laterScriptRan, undefined, "A fatal XML error stops further script execution");
+  assert_equals(child.document.readyState, "complete");
+}, "A fatal XML error after a blocking script ends parsing without executing the remaining scripts");
+</script>
