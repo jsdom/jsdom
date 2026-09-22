@@ -529,7 +529,6 @@ describe("API: resource loading configuration", () => {
           assert.equal(targetRequests, 0, "Stopping must cancel the request before it is sent");
           assert.equal(window.redirectedScriptRan, undefined);
         } finally {
-          window.close();
           await agent.destroy();
           await Promise.all([redirect.destroy(), target.destroy()]);
         }

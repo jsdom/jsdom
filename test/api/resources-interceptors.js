@@ -38,11 +38,7 @@ describe("API: resources interceptors option", () => {
         const dom = await JSDOM.fromURL(url, {
           resources: { dispatcher: agent, interceptors: [cache] }
         });
-        try {
-          assert.equal(dom.window.document.querySelector("p").textContent, "cached response");
-        } finally {
-          dom.window.close();
-        }
+        assert.equal(dom.window.document.querySelector("p").textContent, "cached response");
       }
     } finally {
       await agent.destroy();
@@ -70,11 +66,7 @@ describe("API: resources interceptors option", () => {
         const dom = await JSDOM.fromURL(serverURL(redirect), {
           resources: { dispatcher: agent, interceptors: [cache] }
         });
-        try {
-          assert.equal(dom.window.document.querySelector("p").textContent, "redirect target");
-        } finally {
-          dom.window.close();
-        }
+        assert.equal(dom.window.document.querySelector("p").textContent, "redirect target");
       }
       assert.equal(redirectRequests, 1, "The second redirect response must come from the cache");
       assert.equal(targetRequests, 2, "Both loads must reach the redirect target");
@@ -1248,12 +1240,8 @@ describe("API: resources interceptors option", () => {
         }
       });
 
-      try {
-        window.stop();
-        assert.equal(await canceled.promise, signal.reason);
-      } finally {
-        window.close();
-      }
+      window.stop();
+      assert.equal(await canceled.promise, signal.reason);
     });
 
     it("should report cancellation once when a fetch-backed interceptor rejects", async () => {
@@ -1284,7 +1272,6 @@ describe("API: resources interceptors option", () => {
         assert.equal(errors.length, 1);
         assert.equal(errors[0], signal.reason);
       } finally {
-        window.close();
         await server.destroy();
       }
     });
@@ -1306,23 +1293,19 @@ describe("API: resources interceptors option", () => {
         }
       });
 
-      try {
-        window.stop();
-        response.resolve(new Response(new ReadableStream({
-          pull(controller) {
-            controller.close();
-            bodyAction.resolve({ action: "read" });
-          },
-          cancel(reason) {
-            bodyAction.resolve({ action: "cancel", reason });
-          }
-        }, { highWaterMark: 0 })));
-        const { action, reason } = await bodyAction.promise;
-        assert.equal(action, "cancel");
-        assert.equal(reason, signal.reason);
-      } finally {
-        window.close();
-      }
+      window.stop();
+      response.resolve(new Response(new ReadableStream({
+        pull(controller) {
+          controller.close();
+          bodyAction.resolve({ action: "read" });
+        },
+        cancel(reason) {
+          bodyAction.resolve({ action: "cancel", reason });
+        }
+      }, { highWaterMark: 0 })));
+      const { action, reason } = await bodyAction.promise;
+      assert.equal(action, "cancel");
+      assert.equal(reason, signal.reason);
     });
 
     it("should not report a second error when canceling a late response rejects", async () => {
@@ -1344,22 +1327,18 @@ describe("API: resources interceptors option", () => {
         }
       });
 
-      try {
-        window.stop();
-        response.resolve(new Response(new ReadableStream({
-          cancel() {
-            canceled.resolve();
-            throw new Error("Response cleanup failed");
-          }
-        }, { highWaterMark: 0 })));
-        await canceled.promise;
-        // Let the cleanup rejection reach the interceptor's rejection handler.
-        await nextTurn();
-        assert.equal(errors.length, 1);
-        assert.equal(errors[0], signal.reason);
-      } finally {
-        window.close();
-      }
+      window.stop();
+      response.resolve(new Response(new ReadableStream({
+        cancel() {
+          canceled.resolve();
+          throw new Error("Response cleanup failed");
+        }
+      }, { highWaterMark: 0 })));
+      await canceled.promise;
+      // Let the cleanup rejection reach the interceptor's rejection handler.
+      await nextTurn();
+      assert.equal(errors.length, 1);
+      assert.equal(errors[0], signal.reason);
     });
 
     it("should cancel a pass-through request stopped while connecting", async () => {
@@ -1393,7 +1372,6 @@ describe("API: resources interceptors option", () => {
         assert.equal(errors.length, 1);
         assert.equal(errors[0].name, "AbortError");
       } finally {
-        window.close();
         await agent.destroy();
         await server.destroy();
       }
@@ -1418,14 +1396,10 @@ describe("API: resources interceptors option", () => {
         }
       });
 
-      try {
-        const script = window.document.createElement("script");
-        script.src = "/stopped.js";
-        window.document.body.append(script);
-        assert.equal(called, false);
-      } finally {
-        window.close();
-      }
+      const script = window.document.createElement("script");
+      script.src = "/stopped.js";
+      window.document.body.append(script);
+      assert.equal(called, false);
     });
 
     it("should abort the request signal synchronously when window.close() is called", async () => {

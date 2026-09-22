@@ -125,30 +125,26 @@ describe("Test cases only possible to test from the outside", () => {
 
   it("does not dispatch storage events to removed iframe windows", async () => {
     const dom = new JSDOM("", { url: "https://example.com/" });
-    try {
-      const removedFrame = dom.window.document.createElement("iframe");
-      const liveFrame = dom.window.document.createElement("iframe");
-      dom.window.document.body.append(removedFrame, liveFrame);
+    const removedFrame = dom.window.document.createElement("iframe");
+    const liveFrame = dom.window.document.createElement("iframe");
+    dom.window.document.body.append(removedFrame, liveFrame);
 
-      const removedWindow = removedFrame.contentWindow;
-      removedFrame.remove();
+    const removedWindow = removedFrame.contentWindow;
+    removedFrame.remove();
 
-      let removedWindowEvents = 0;
-      removedWindow.addEventListener("storage", () => {
-        ++removedWindowEvents;
-      });
+    let removedWindowEvents = 0;
+    removedWindow.addEventListener("storage", () => {
+      ++removedWindowEvents;
+    });
 
-      const liveWindowEvent = new Promise(resolve => {
-        liveFrame.contentWindow.addEventListener("storage", resolve, { once: true });
-      });
+    const liveWindowEvent = new Promise(resolve => {
+      liveFrame.contentWindow.addEventListener("storage", resolve, { once: true });
+    });
 
-      dom.window.localStorage.setItem("key", "value");
-      await liveWindowEvent;
+    dom.window.localStorage.setItem("key", "value");
+    await liveWindowEvent;
 
-      assert.equal(removedWindowEvents, 0);
-    } finally {
-      dom.window.close();
-    }
+    assert.equal(removedWindowEvents, 0);
   });
 
   it("window.close() should work from within a load event listener", async () => {
