@@ -1,5 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
+const { spawnSync } = require("node:child_process");
+const path = require("node:path");
 const { setTimeout: delay, setImmediate: nextTurn } = require("node:timers/promises");
 const { describe, it, beforeEach, afterEach } = require("mocha-sugar-free");
 const { Agent, interceptors, cacheStores } = require("undici");
@@ -1196,6 +1198,47 @@ describe("API: resources interceptors option", () => {
   });
 
   describe("canceling requests", () => {
+    it("should release closed windows while an interceptor remains pending", { timeout: 5000 }, () => {
+      const fixturePath = path.resolve(__dirname, "fixtures/pending-interceptor-with-gc.mjs");
+      const { status, stderr, stdout } = spawnSync(process.execPath, ["--expose-gc", fixturePath], {
+        encoding: "utf-8"
+      });
+
+      assert.equal(status, 0, stderr);
+      assert.equal(stdout.trim(), "collected");
+    });
+
+    for (const method of ["stop", "close"]) {
+      it(`should finish window.${method}() when a custom stack formatter throws`, () => {
+        const signals = [];
+        const { window } = new JSDOM(`
+          <script src="https://example.test/first.js"></script>
+          <script src="https://example.test/second.js"></script>
+        `, {
+          runScripts: "dangerously",
+          resources: {
+            interceptors: [
+              requestInterceptor(request => {
+                signals.push(request.signal);
+                return new Promise(() => {});
+              })
+            ]
+          }
+        });
+        const originalFormatter = Error.prepareStackTrace;
+        try {
+          Error.prepareStackTrace = () => {
+            throw new Error("Stack formatting failed");
+          };
+          window[method]();
+          assert.equal(signals.length, 2);
+          assert(signals.every(signal => signal.aborted));
+        } finally {
+          Error.prepareStackTrace = originalFormatter;
+        }
+      });
+    }
+
     it("should allow an abort listener to reenter window.close()", async () => {
       let aborts = 0;
       const { window } = new JSDOM("<p>Retained content</p>", {
