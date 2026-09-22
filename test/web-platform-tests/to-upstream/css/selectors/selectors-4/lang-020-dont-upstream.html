@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta charset="utf-8">
+<title>CSS Selectors 4 - :lang matching (matches API)</title>
+<link rel="author" title="Jonathan Kew" href="mailto:jkew@mozilla.com">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#the-lang-pseudo">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div class="test"><span lang="iw-ase-jpan-basiceng">This should be green</span></div>
+
+<script>
+test(() => {
+  const span = document.querySelector("span");
+  assert_equals(span.matches(':lang("iw")'), true, "Element with lang='iw-ase-jpan-basiceng' should match base tag :lang('iw')");
+}, "Base tag matching for complex language subtag combination");
+</script>
+</html>
