@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Focusing steps: focusable area logic (hidden, inert, display: none)</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focusable-area">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<input id="default-input">
+<input id="inert-input" inert>
+<input id="hidden-input" hidden>
+<input id="display-none-input" style="display: none;">
+<div id="inert-container" inert>
+  <input id="nested-inert-input">
+</div>
+<div id="shadow-host" inert></div>
+<input id="hidden-display-block-input" hidden style="display:block">
+<div style="visibility: hidden">
+  <input id="visibility-visible-input" style="visibility: visible">
+</div>
+<div id="attach-shadow-host"></div>
+<div id="attach-shadow-slot-host">
+  <input id="shadow-host-input">
+</div>
+
+<script>
+"use strict";
+
+function resetFocus(t, element) {
+  t.add_cleanup(() => {
+    if (element) {
+      element.blur();
+    }
+    document.getElementById("default-input").focus();
+    document.getElementById("default-input").blur();
+  });
+}
+
+test(t => {
+  const input = document.getElementById("inert-input");
+  resetFocus(t, input);
+  input.focus();
+  assert_not_equals(document.activeElement, input, "Element with inert attribute should not receive focus");
+}, "Calling focus() on an inert element does nothing");
+
+test(t => {
+  const input = document.getElementById("hidden-input");
+  resetFocus(t, input);
+  input.focus();
+  assert_not_equals(document.activeElement, input, "Element with hidden attribute should not receive focus");
+}, "Calling focus() on a hidden element does nothing");
+
+test(t => {
+  const input = document.getElementById("display-none-input");
+  resetFocus(t, input);
+  input.focus();
+  assert_not_equals(document.activeElement, input, "Element with display: none should not receive focus");
+}, "Calling focus() on an element with display: none does nothing");
+
+test(t => {
+  const input = document.getElementById("nested-inert-input");
+  resetFocus(t, input);
+  input.focus();
+  assert_not_equals(document.activeElement, input, "Element inside an inert container should not receive focus");
+}, "Calling focus() on an element with an inert ancestor does nothing");
+
+test(t => {
+  const host = document.getElementById("shadow-host");
+  const shadow = host.attachShadow({ mode: "open" });
+  const shadowInput = document.createElement("input");
+  shadow.appendChild(shadowInput);
+
+  t.add_cleanup(() => {
+    shadowInput.blur();
+    shadow.textContent = "";
+    document.getElementById("default-input").focus();
+    document.getElementById("default-input").blur();
+  });
+
+  shadowInput.focus();
+  assert_not_equals(document.activeElement, host, "Shadow host with inert should not become activeElement");
+  assert_not_equals(shadow.activeElement, shadowInput, "Element inside an inert shadow host should not receive focus");
+}, "Calling focus() on an element inside an inert shadow host does nothing");
+
+test(t => {
+  const input = document.getElementById("hidden-display-block-input");
+  resetFocus(t, input);
+  input.focus();
+  assert_equals(document.activeElement, input, "Element hidden with display block should receive focus");
+}, "Calling focus() on an element with hidden and display block recieves focus");
+
+test(t => {
+  const input = document.getElementById("visibility-visible-input");
+  resetFocus(t, input);
+  input.focus();
+  assert_equals(document.activeElement, input, "Element with visibility visible should receive focus");
+}, "Calling focus() on an element with visibility visible recieves focus");
+
+test(t => {
+  const host = document.getElementById("attach-shadow-host");
+  const shadow = host.attachShadow({ mode: "open" });
+  shadow.innerHTML = `
+    <div style="display: none">
+      <input>
+    </div>
+  `;
+  const input = shadow.querySelector("input");
+  t.add_cleanup(() => {
+    input.blur();
+    shadow.textContent = "";
+    document.getElementById("default-input").focus();
+    document.getElementById("default-input").blur();
+  });
+  input.focus();
+  assert_not_equals(shadow.activeElement, input, "Element inside display:none shadow tree should not receive focus");
+  assert_not_equals(document.activeElement, host, "Shadow host should not become activeElement");
+}, "Calling focus() on an element within shadow with parent display none does nothing");
+
+test(t => {
+  const shadow = document.getElementById("attach-shadow-slot-host").attachShadow({ mode: "open" });
+  shadow.innerHTML = `
+    <div style="display: none">
+      <slot></slot>
+    </div>
+  `;
+  const input = document.getElementById("shadow-host-input");
+  resetFocus(t, input);
+  input.focus();
+  assert_not_equals(document.activeElement, input, "Element slotted into display: none slot should not receive focus");
+}, "Calling focus() on an element slotted into display: none slot does nothing");
+</script>
