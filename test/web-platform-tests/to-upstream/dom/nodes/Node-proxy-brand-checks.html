@@ -1,0 +1,78 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Proxies around nodes do not pass Web IDL brand checks</title>
+<link rel="help" href="https://webidl.spec.whatwg.org/#implements">
+<link rel="help" href="https://webidl.spec.whatwg.org/#es-attributes">
+<link rel="help" href="https://webidl.spec.whatwg.org/#es-operations">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const element = document.createElement("span");
+  element.innerHTML = "before";
+  const proxy = new Proxy(element, {});
+
+  assert_throws_js(TypeError, () => {
+    proxy.innerHTML = "after";
+  });
+  assert_equals(element.innerHTML, "before");
+}, "Setting innerHTML through a transparent proxy throws without modifying the element");
+
+const { get: getInnerHTML, set: setInnerHTML } = Object.getOwnPropertyDescriptor(Element.prototype, "innerHTML");
+
+for (const [name, createProxy] of [
+  ["transparent proxy", element => new Proxy(element, {})],
+  [
+    "revoked proxy", element => {
+      const { proxy, revoke } = Proxy.revocable(element, {});
+      revoke();
+      return proxy;
+    }
+  ]
+]) {
+  test(() => {
+    const element = document.createElement("span");
+    assert_throws_js(TypeError, () => getInnerHTML.call(createProxy(element)));
+  }, `The innerHTML getter rejects a ${name} as its receiver`);
+
+  test(() => {
+    const element = document.createElement("span");
+    element.innerHTML = "before";
+    assert_throws_js(TypeError, () => setInnerHTML.call(createProxy(element), "after"));
+    assert_equals(element.innerHTML, "before");
+  }, `The innerHTML setter rejects a ${name} as its receiver`);
+
+  test(() => {
+    const element = document.createElement("span");
+    const child = document.createTextNode("child");
+    assert_throws_js(TypeError, () => Node.prototype.appendChild.call(createProxy(element), child));
+    assert_equals(child.parentNode, null);
+  }, `appendChild rejects a ${name} as its receiver`);
+
+  test(() => {
+    const parent = document.createElement("div");
+    const child = document.createElement("span");
+    assert_throws_js(TypeError, () => parent.appendChild(createProxy(child)));
+    assert_equals(child.parentNode, null);
+  }, `appendChild rejects a ${name} as its Node argument`);
+}
+
+test(() => {
+  const element = document.createElement("span");
+  function unexpectedTrap() {
+    assert_unreached("Brand checks must not invoke proxy traps");
+  }
+  const proxy = new Proxy(element, {
+    get: unexpectedTrap,
+    getOwnPropertyDescriptor: unexpectedTrap,
+    getPrototypeOf: unexpectedTrap
+  });
+
+  assert_throws_js(TypeError, () => getInnerHTML.call(proxy));
+  assert_throws_js(TypeError, () => setInnerHTML.call(proxy, "after"));
+  assert_throws_js(TypeError, () => Node.prototype.appendChild.call(proxy, document.createTextNode("child")));
+  assert_throws_js(TypeError, () => element.appendChild(proxy));
+}, "Rejecting a proxy as a receiver or Node argument does not invoke its traps");
+</script>

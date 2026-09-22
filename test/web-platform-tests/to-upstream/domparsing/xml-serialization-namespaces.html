@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>XML serialization preserves namespaces and prefix scope</title>
+<link rel="help" href="https://w3c.github.io/DOM-Parsing/#dfn-namespace-prefix-map">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const serializers = [
+  ["XMLSerializer", root => new XMLSerializer().serializeToString(root)],
+  ["outerHTML", root => root.outerHTML]
+];
+
+for (const [name, serialize] of serializers) {
+  for (const namespace of ["constructor", "toString", "__proto__"]) {
+    test(() => {
+      const doc = document.implementation.createDocument(namespace, "root");
+      const root = doc.documentElement;
+      root.appendChild(doc.createElementNS(namespace, "child"));
+
+      assert_equals(serialize(root), `<root xmlns="${namespace}"><child/></root>`);
+    }, `${name} preserves the namespace ${namespace}`);
+  }
+
+  test(() => {
+    const doc = new DOMParser().parseFromString(
+      '<root xmlns="urn:parent" xmlns:p="null"/>',
+      "application/xml"
+    );
+    const root = doc.documentElement;
+    root.appendChild(doc.createElementNS(null, "child"));
+
+    assert_equals(
+      serialize(root),
+      '<root xmlns="urn:parent" xmlns:p="null"><child xmlns=""/></root>'
+    );
+  }, `${name} distinguishes an element's null namespace from the namespace "null"`);
+
+  test(() => {
+    const doc = new DOMParser().parseFromString('<root xmlns:p="null"/>', "application/xml");
+    const root = doc.documentElement;
+    root.setAttribute("value", "one");
+    root.setAttributeNS("null", "p:value", "two");
+
+    assert_equals(serialize(root), '<root xmlns:p="null" value="one" p:value="two"/>');
+  }, `${name} distinguishes attributes in the null namespace from the namespace "null"`);
+
+  test(() => {
+    const doc = new DOMParser().parseFromString(
+      '<root xmlns:p="urn:example"><first xmlns:q="urn:example"/></root>',
+      "application/xml"
+    );
+    const root = doc.documentElement;
+    const second = doc.createElementNS("urn:example", "second");
+    second.setAttributeNS("urn:example", "value", "text");
+    root.appendChild(second);
+
+    assert_equals(
+      serialize(root),
+      '<root xmlns:p="urn:example"><first xmlns:q="urn:example"/><p:second p:value="text"/></root>'
+    );
+  }, `${name} does not reuse a sibling's namespace prefix for elements or attributes`);
+}
+</script>

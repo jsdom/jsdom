@@ -1,0 +1,99 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Option insertion and removal update select state</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/form-elements.html#update-an-option's-nearest-ancestor-select">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+
+<script>
+"use strict";
+
+for (const parentName of ["select", "optgroup", "option"]) {
+  for (const childName of ["span", "optgroup"]) {
+    for (const operation of ["insert", "remove"]) {
+      test(() => {
+        const select = document.createElement("select");
+        select.innerHTML = "<optgroup><option>First</option><option>Second</option></optgroup>";
+        const parent = parentName === "select" ? select : select.querySelector(parentName);
+        const child = document.createElement(childName);
+        if (operation === "remove") {
+          parent.append(child);
+        }
+        select.selectedIndex = -1;
+        if (operation === "insert") {
+          parent.append(child);
+        } else {
+          child.remove();
+        }
+        assert_equals(select.selectedIndex, -1);
+      }, `${operation} an empty <${childName}> within <${parentName}> does not reset selection`);
+    }
+  }
+}
+
+for (const grouped of [false, true]) {
+  test(() => {
+    const first = document.createElement("select");
+    const second = document.createElement("select");
+    first.innerHTML = "<option>Fallback</option>";
+    second.innerHTML = "<option>Other</option>";
+    const option = document.createElement("option");
+    const root = grouped ? document.createElement("optgroup") : option;
+    if (grouped) {
+      root.append(option);
+    }
+    first.append(root);
+    option.selected = true;
+
+    second.append(root);
+    assert_equals(first.selectedIndex, 0, "The old select chooses a replacement");
+    assert_equals(second.selectedIndex, 1, "The new select selects the inserted selected option");
+    root.remove();
+    assert_equals(second.selectedIndex, 0, "Removing the option resets its old select");
+  }, `Moving ${grouped ? "an optgroup" : "an option"} updates both the old and new select`);
+}
+
+test(() => {
+  const select = document.createElement("select");
+  const group = document.createElement("optgroup");
+  group.innerHTML = "<option>First</option><option>Second</option>";
+  select.append(group);
+  select.selectedIndex = -1;
+
+  const container = document.createElement("div");
+  container.append(select);
+  assert_equals(select.selectedIndex, -1);
+  select.remove();
+  assert_equals(select.selectedIndex, -1);
+  assert_true(Array.from(select.options).every(option => !option.selected));
+}, "Moving a whole select does not reset options whose select association is unchanged");
+
+for (const changeSelection of ["selected", "defaultSelected", "reset"]) {
+  test(t => {
+    const form = document.createElement("form");
+    const select = document.createElement("select");
+    form.append(select);
+    document.body.append(form);
+    t.add_cleanup(() => form.remove());
+    const group = document.createElement("optgroup");
+    const first = document.createElement("option");
+    const second = document.createElement("option");
+    group.append(first, second);
+    select.append(group);
+    assert_equals(select.selectedIndex, 0);
+
+    if (changeSelection === "selected") {
+      second.selected = true;
+    } else if (changeSelection === "defaultSelected") {
+      second.defaultSelected = true;
+    } else {
+      select.selectedIndex = 1;
+      form.reset();
+    }
+
+    const selectedSecond = changeSelection === "selected" || changeSelection === "defaultSelected";
+    assert_equals(select.selectedIndex, selectedSecond ? 1 : 0);
+  }, `Selection changes through ${changeSelection} are respected after option insertion`);
+}
+</script>

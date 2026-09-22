@@ -1,7 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
+const { once } = require("node:events");
 const { describe, it } = require("mocha-sugar-free");
-const delay = require("node:timers/promises").setTimeout;
 
 const { JSDOM, VirtualConsole } = require("../..");
 const jsGlobals = Object.keys(require("../../lib/generated/js-globals.json"));
@@ -89,32 +89,45 @@ describe("API: runScripts constructor option", () => {
   });
 
   describe("<noscript> children", () => {
-    it("should be considered text when runScripts is set to \"dangerously\"", () => {
-      const { document } = new JSDOM(
-        `<body><noscript><div></div></noscript></body>`,
-        { runScripts: "dangerously" }
-      ).window;
+    const html = `<body><noscript><div></div></noscript></body>`;
+    const cases = [
+      { runScripts: undefined, childInterface: "HTMLDivElement", textContent: "" },
+      { runScripts: "outside-only", childInterface: "HTMLDivElement", textContent: "" },
+      { runScripts: "dangerously", childInterface: "Text", textContent: "<div></div>" }
+    ];
 
-      assert.equal(document.querySelector("noscript").children.length, 0);
-      assert.equal(document.querySelector("noscript").textContent, "<div></div>");
-    });
-    it("should be considered nodes when runScripts is set to \"outside-only\"", () => {
-      const dom = new JSDOM(
-        `<body><noscript><div></div></noscript></body>`,
-        { runScripts: "outside-only" }
-      );
-      const { document } = dom.window;
+    for (const { runScripts, childInterface, textContent } of cases) {
+      describe(`when set to ${formatOptionValue(runScripts)}`, () => {
+        function assertNoscriptContents(window) {
+          const noscript = window.document.querySelector("noscript");
+          assert.equal(noscript.childNodes.length, 1);
+          assert(noscript.firstChild instanceof window[childInterface]);
+          assert.equal(noscript.textContent, textContent);
+        }
 
-      assert.equal(document.querySelector("noscript").children.length, 1);
-      assert(document.querySelector("noscript").children[0] instanceof dom.window.HTMLDivElement);
-    });
-    it("should be considered nodes when runScripts is left undefined", () => {
-      const dom = new JSDOM(`<body><noscript><div></div></noscript></body>`).window;
-      const { document } = dom.window;
+        it("should parse according to runScripts without node locations", () => {
+          const dom = new JSDOM(html, { runScripts });
 
-      assert.equal(document.querySelector("noscript").children.length, 1);
-      assert(document.querySelector("noscript").children[0] instanceof dom.window.HTMLDivElement);
-    });
+          assertNoscriptContents(dom.window);
+        });
+
+        it("should parse according to runScripts with node locations", () => {
+          const dom = new JSDOM(html, { runScripts, includeNodeLocations: true });
+
+          assertNoscriptContents(dom.window);
+        });
+
+        it("should parse loaded iframe contents according to runScripts", async () => {
+          const dom = new JSDOM(`<iframe src="data:text/html,${encodeURIComponent(html)}"></iframe>`, {
+            runScripts,
+            resources: "usable"
+          });
+          await once(dom.window, "load");
+
+          assertNoscriptContents(dom.window.document.querySelector("iframe").contentWindow);
+        });
+      });
+    }
   });
 
   describe("JS spec globals", () => {
@@ -160,7 +173,7 @@ describe("API: runScripts constructor option", () => {
 
             assert.equal(dom.window.document.body.onloadRan, undefined);
 
-            return delay().then(() => {
+            return once(dom.window, "load").then(() => {
               assert.equal(dom.window.document.body.onloadRan, undefined);
             });
           });
@@ -183,8 +196,9 @@ describe("API: runScripts constructor option", () => {
           it("should not evaluate the handler", () => {
             const dom = createJSDOMWithParsedHandlers();
 
+            const hashchange = once(dom.window, "hashchange");
             dom.window.location.href = "#foo";
-            return delay().then(() => {
+            return hashchange.then(() => {
               assert.equal(dom.window.document.body.onhashchangeRan, undefined);
             });
           });
@@ -208,8 +222,9 @@ describe("API: runScripts constructor option", () => {
             const dom = createJSDOM();
             dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
+            const hashchange = once(dom.window, "hashchange");
             dom.window.location.href = "#foo";
-            return delay().then(() => {
+            return hashchange.then(() => {
               assert.equal(dom.window.document.body.onhashchangeRan, undefined);
             });
           });
@@ -236,9 +251,7 @@ describe("API: runScripts constructor option", () => {
 
             dom.window.document.querySelector("div").click();
 
-            return delay().then(() => {
-              assert.equal(dom.window.document.body.onclickRan, undefined);
-            });
+            assert.equal(dom.window.document.body.onclickRan, undefined);
           });
 
           it("should not generate the property", () => {
@@ -303,7 +316,7 @@ describe("API: runScripts constructor option", () => {
         it("should evaluate the handler", () => {
           const dom = createJSDOMWithParsedHandlers();
 
-          return delay().then(() => {
+          return once(dom.window, "load").then(() => {
             assert.equal(dom.window.document.body.onloadRan, true);
           });
         });
@@ -327,8 +340,9 @@ describe("API: runScripts constructor option", () => {
         it("should not evaluate the handler", () => {
           const dom = createJSDOMWithParsedHandlers();
 
+          const hashchange = once(dom.window, "hashchange");
           dom.window.location.href = "#foo";
-          return delay().then(() => {
+          return hashchange.then(() => {
             assert.equal(dom.window.document.body.onhashchangeRan, true);
           });
         });
@@ -353,8 +367,9 @@ describe("API: runScripts constructor option", () => {
           const dom = createJSDOM();
           dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
+          const hashchange = once(dom.window, "hashchange");
           dom.window.location.href = "#foo";
-          return delay().then(() => {
+          return hashchange.then(() => {
             assert.equal(dom.window.document.body.onhashchangeRan, true);
           });
         });
@@ -448,8 +463,9 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
         ran = true;
       };
 
+      const hashchange = once(dom.window, "hashchange");
       dom.window.location.href = "#foo";
-      return delay().then(() => {
+      return hashchange.then(() => {
         assert.equal(ran, true);
       });
     });
@@ -473,8 +489,9 @@ function testEventHandlersFromTheOutside(runScriptsOptionValue) {
         ran = true;
       };
 
+      const hashchange = once(dom.window, "hashchange");
       dom.window.location.href = "#foo";
-      return delay().then(() => {
+      return hashchange.then(() => {
         assert.equal(ran, true);
       });
     });

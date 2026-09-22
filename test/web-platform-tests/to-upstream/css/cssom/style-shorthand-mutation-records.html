@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Shorthand updates write the style attribute once</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+for (const [property, value] of [
+  ["flex", "1 1 auto"],
+  ["font", "italic 16px serif"],
+  ["padding", "1px 2px 3px 4px"],
+  ["margin", "1px 2px 3px 4px"],
+  ["border", "1px solid red"],
+  ["border-width", "1px 2px 3px 4px"],
+  ["border-style", "solid dashed dotted double"],
+  ["border-color", "red green blue black"],
+  ...["top", "right", "bottom", "left"].map(side => [`border-${side}`, "1px solid red"])
+]) {
+  for (const useSetProperty of [false, true]) {
+    test(t => {
+      const element = document.createElement("div");
+      element.setAttribute("style", "color: red;");
+      const observer = new MutationObserver(() => {});
+      t.add_cleanup(() => observer.disconnect());
+      observer.observe(element, { attributes: true, attributeOldValue: true });
+
+      if (useSetProperty) {
+        element.style.setProperty(property, value);
+      } else {
+        element.style[property] = value;
+      }
+
+      const records = observer.takeRecords();
+      assert_equals(records.length, 1, "Only the completed declaration block is written");
+      assert_equals(records[0].attributeName, "style");
+      assert_equals(records[0].oldValue, "color: red;");
+      assert_equals(element.style.getPropertyValue(property), value);
+      assert_equals(element.getAttribute("style"), element.style.cssText);
+    }, `${property} via ${useSetProperty ? "setProperty" : "property assignment"} emits one mutation`);
+  }
+}
+
+for (const [shorthand, initialValue, property, value] of [
+  ["padding", "1px", "padding-top", "2px"],
+  ["margin", "1px", "margin-left", "2px"],
+  ["flex", "1 1 auto", "flex-grow", "2"],
+  ["flex-flow", "row wrap", "flex-direction", "column"]
+]) {
+  for (const useSetProperty of [false, true]) {
+    test(t => {
+      const element = document.createElement("div");
+      element.style.setProperty(shorthand, initialValue);
+      const oldValue = element.getAttribute("style");
+      const observer = new MutationObserver(() => {});
+      t.add_cleanup(() => observer.disconnect());
+      observer.observe(element, { attributes: true, attributeOldValue: true });
+
+      function setValue(nextValue) {
+        if (useSetProperty) {
+          element.style.setProperty(property, nextValue);
+        } else {
+          element.style[property] = nextValue;
+        }
+      }
+      setValue(value);
+      const records = observer.takeRecords();
+      assert_equals(records.length, 1);
+      assert_equals(records[0].oldValue, oldValue);
+      assert_equals(element.style.getPropertyValue(property), value);
+      assert_equals(element.getAttribute("style"), element.style.cssText);
+
+      setValue(value);
+      assert_equals(observer.takeRecords().length, 0, "Rebuilding an unchanged shorthand does not write the attribute");
+
+      setValue("");
+      assert_equals(observer.takeRecords().length, 1, "Removing a longhand writes the attribute once");
+      assert_equals(element.style.getPropertyValue(property), "");
+      assert_equals(element.getAttribute("style"), element.style.cssText);
+    }, `${property} updating ${shorthand} via ${useSetProperty ? "setProperty" : "property assignment"}`);
+  }
+}
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.padding = "1px";
+  const observer = new MutationObserver(() => {});
+  t.add_cleanup(() => observer.disconnect());
+  observer.observe(element, { attributes: true, attributeOldValue: true });
+
+  element.style.padding = "1px";
+  element.style.padding = "invalid";
+  assert_equals(observer.takeRecords().length, 0, "Unchanged and invalid assignments do not write the attribute");
+
+  element.style.padding = "";
+  const records = observer.takeRecords();
+  assert_equals(records.length, 1, "Clearing a shorthand writes the attribute once");
+  assert_equals(records[0].oldValue, "padding: 1px;");
+  assert_equals(element.style.padding, "");
+  assert_equals(element.style.paddingTop, "");
+  assert_equals(element.getAttribute("style"), "");
+}, "Shorthand no-ops and removals do not expose intermediate declarations");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.setProperty("padding", "1px");
+  const observer = new MutationObserver(() => {});
+  t.add_cleanup(() => observer.disconnect());
+  observer.observe(element, { attributes: true, attributeOldValue: true });
+
+  element.style.setProperty("padding", "1px", "important");
+  const records = observer.takeRecords();
+  assert_equals(records.length, 1);
+  assert_equals(records[0].oldValue, "padding: 1px;");
+  assert_equals(element.getAttribute("style"), "padding: 1px !important;");
+  assert_equals(element.style.getPropertyPriority("padding"), "important");
+
+}, "Changing only shorthand priority updates the attribute once");
+
+test(t => {
+  const element = document.createElement("div");
+  const observer = new MutationObserver(() => {});
+  t.add_cleanup(() => observer.disconnect());
+  observer.observe(element, { attributes: true, attributeOldValue: true });
+
+  element.style.cssText = "padding: 1px 2px; margin: 3px 4px;";
+  const records = observer.takeRecords();
+  assert_equals(records.length, 1, "cssText wraps all of its property assignments");
+  assert_equals(records[0].oldValue, null);
+  assert_equals(element.style.padding, "1px 2px");
+  assert_equals(element.style.margin, "3px 4px");
+}, "cssText assignments containing multiple shorthands update the attribute once");
+</script>

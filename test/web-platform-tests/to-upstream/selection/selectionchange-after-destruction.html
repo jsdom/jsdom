@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Queued selectionchange events do not fire after iframe removal</title>
+<link rel="help" href="https://w3c.github.io/selection-api/#selectionchange-event">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-task-runnable">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#destroy-a-document">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+promise_test(async t => {
+  const frame = await addIframe();
+  t.add_cleanup(() => frame.remove());
+  const sentinel = await addIframe();
+  t.add_cleanup(() => sentinel.remove());
+  const doc = frame.contentDocument;
+  doc.getSelection().collapse(doc.body, 0);
+  frame.remove();
+  // Register after removal so clearing document listeners cannot hide a delivered task.
+  const events = [];
+  doc.addEventListener("selectionchange", () => events.push("selectionchange"));
+  const changed = new EventWatcher(t, sentinel.contentDocument, "selectionchange").wait_for("selectionchange");
+  sentinel.contentDocument.getSelection().collapse(sentinel.contentDocument.body, 0);
+  await changed;
+  assert_array_equals(events, []);
+}, "Queued selectionchange events do not fire after the iframe is removed");
+</script>

@@ -1,6 +1,6 @@
 "use strict";
-const path = require("node:path");
 const fs = require("node:fs");
+const path = require("node:path");
 const { specify } = require("mocha-sugar-free");
 const jsYAML = require("js-yaml");
 const semver = require("semver");
@@ -111,7 +111,8 @@ exports.runTestWithExpectations = (
       // but others fail, and testharness status is OK.
       data = expectationData;
     }
-  } else if (prefix.startsWith("html/canvas/")) {
+  } else if (prefix.startsWith("html/canvas/") ||
+             prefix === "html/semantics/embedded-content/the-canvas-element/") {
     reason = "needs-canvas";
   }
 

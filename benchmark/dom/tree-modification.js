@@ -68,5 +68,27 @@ module.exports = () => {
     }
   });
 
+  for (const count of [1, 100]) {
+    for (const shadow of [false, true]) {
+      for (const connected of [false, true]) {
+        const parent = document.createElement("div");
+        const subtree = document.createElement("div");
+        const container = shadow ? subtree.attachShadow({ mode: "closed" }) : subtree;
+        container.innerHTML = "<label><span>Name</span><input></label>".repeat(count);
+        parent.appendChild(subtree);
+        const name = `${connected ? "connected" : "detached"} ${shadow ? "shadow" : "light"} subtree (${count} fields)`;
+        bench.add(`appendChild: ${name}`, () => {
+          parent.appendChild(subtree);
+        }, {
+          beforeAll() {
+            if (connected) {
+              document.body.appendChild(parent);
+            }
+          }
+        });
+      }
+    }
+  }
+
   return bench;
 };

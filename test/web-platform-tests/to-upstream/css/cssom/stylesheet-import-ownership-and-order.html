@@ -1,0 +1,50 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Imported style sheets preserve their owner's sheet and document order</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-linkstyle-sheet">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssimportrule-stylesheet">
+<link rel="help" href="https://drafts.csswg.org/cssom/#add-a-css-style-sheet">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<!-- Regression tests for https://github.com/jsdom/jsdom/issues/2124 -->
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+const importedURL = new URL("resources/nested-imported-rules.css", location).href;
+
+async function loadFrame(t, html) {
+  const frame = await addIframe(`resources/stylesheet-processing.html?${new URLSearchParams({ html })}`);
+  t.add_cleanup(() => frame.remove());
+  return frame.contentDocument;
+}
+
+promise_test(async t => {
+  const href = `data:text/css;base64,${btoa(`@import "${importedURL}";`)}`;
+  const doc = await loadFrame(t, `<link rel=stylesheet href="${href}">`);
+  const link = doc.querySelector("link");
+  const { sheet } = link;
+  assert_equals(sheet.href, href);
+  assert_equals(sheet.ownerNode, link);
+  assert_equals(sheet.cssRules.length, 1);
+  const rule = sheet.cssRules[0];
+  assert_equals(rule.type, CSSRule.IMPORT_RULE);
+  assert_equals(rule.parentStyleSheet, sheet);
+  assert_equals(rule.styleSheet.href, importedURL);
+  assert_equals(rule.styleSheet.ownerRule, rule);
+  assert_equals(rule.styleSheet.parentStyleSheet, sheet);
+  assert_equals(rule.styleSheet.cssRules[0].selectorText, "#nested-import");
+  assert_array_equals(doc.styleSheets, [sheet]);
+}, "A link's sheet remains the outer sheet after its import loads");
+
+promise_test(async t => {
+  const doc = await loadFrame(t, `<link rel=stylesheet href="${importedURL}"><style> </style>`);
+  const link = doc.querySelector("link");
+  const style = doc.querySelector("style");
+  assert_equals(link.sheet.cssRules[0].selectorText, "#nested-import");
+  assert_equals(style.sheet.cssRules.length, 0);
+  assert_array_equals(doc.styleSheets, [link.sheet, style.sheet]);
+}, "A linked sheet precedes a following inline sheet in document.styleSheets after loading");
+</script>

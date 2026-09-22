@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Submit button activation validates form controls</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression tests for https://github.com/jsdom/jsdom/issues/2898 and https://github.com/jsdom/jsdom/issues/2933 -->
+<body>
+<script>
+"use strict";
+
+for (const [description, markup, validValue, validityFlag] of [
+  ["required text", '<input name="test" type="text" required>', "text", "valueMissing"],
+  [
+    "required email",
+    '<label>Email</label><input type="email" minlength="1" name="email" required><br>',
+    "test@example.com",
+    "valueMissing"
+  ],
+  [
+    "required radio group",
+    '<input name="test" type="radio" value="1" required><input name="test" type="radio" value="2" required>',
+    undefined,
+    "valueMissing"
+  ],
+  ["invalid URL", '<input type="url" value="invalid">', "https://example.com/", "typeMismatch"],
+  ["invalid email", '<input type="email" value="invalid">', "test@example.com", "typeMismatch"],
+  ["pattern mismatch", '<input pattern="[0-9]+" value="invalid">', "123", "patternMismatch"]
+]) {
+  for (const activation of ["click", "dispatchEvent"]) {
+    for (const cancelInvalid of [false, true]) {
+      test(t => {
+        const form = document.createElement("form");
+        form.innerHTML = `${markup}<button type="submit">Submit</button>`;
+        document.body.appendChild(form);
+        t.add_cleanup(() => form.remove());
+
+        const inputs = [...form.querySelectorAll("input")];
+        const invalidTargets = [];
+        const events = [];
+        for (const input of inputs) {
+          assert_true(input.validity[validityFlag]);
+          input.addEventListener("invalid", event => {
+            events.push("invalid");
+            invalidTargets.push(event.target);
+            if (cancelInvalid) {
+              event.preventDefault();
+            }
+          });
+        }
+
+        let submissions = 0;
+        form.addEventListener("submit", event => {
+          event.preventDefault();
+          submissions++;
+        });
+
+        const button = form.querySelector("button");
+        button.addEventListener("click", () => events.push("click"));
+
+        function activate() {
+          if (activation === "click") {
+            button.click();
+          } else {
+            button.dispatchEvent(new MouseEvent("click"));
+          }
+        }
+
+        activate();
+        assert_array_equals(events, ["click", ...inputs.map(() => "invalid")]);
+        assert_array_equals(invalidTargets, inputs);
+        assert_equals(submissions, 0, "An invalid form does not dispatch submit");
+
+        if (inputs[0].type === "radio") {
+          inputs[0].checked = true;
+        } else {
+          inputs[0].value = validValue;
+        }
+
+        invalidTargets.length = 0;
+        activate();
+        assert_array_equals(invalidTargets, []);
+        assert_equals(submissions, 1, "The same activation submits once the form is valid");
+      }, `${activation} validates ${description} with invalid events ${cancelInvalid ? "canceled" : "uncanceled"}`);
+    }
+  }
+}
+</script>

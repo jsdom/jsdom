@@ -1,6 +1,6 @@
 "use strict";
-const fs = require("fs");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
 const { describe, it } = require("mocha-sugar-free");
 const toFileUrl = require("../util.js").toFileUrl(__dirname);
 

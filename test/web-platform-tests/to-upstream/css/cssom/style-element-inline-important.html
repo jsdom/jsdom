@@ -16,5 +16,14 @@ test(() => {
   assert_equals(p.style.cssText, "word-spacing: 1px !important;", "cssText");
   assert_equals(p.style.getPropertyValue("word-spacing"), "1px", "value");
   assert_equals(p.style.getPropertyPriority("word-spacing"), "important", "priority");
-});
+}, "Parsing an inline declaration preserves its important priority");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.setProperty("color", "red", "important");
+  assert_equals(div.outerHTML, '<div style="color: red !important;"></div>');
+
+  div.style.setProperty("font-size", "20px", "important");
+  assert_equals(div.outerHTML, '<div style="color: red !important; font-size: 20px !important;"></div>');
+}, "The last declaration's priority is immediately reflected in the style attribute");
 </script>

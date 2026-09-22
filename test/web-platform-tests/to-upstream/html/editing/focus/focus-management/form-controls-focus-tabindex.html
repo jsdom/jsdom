@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>tabindex does not override form control focus restrictions</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focusable-area">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#concept-fe-disabled">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#hidden-state-(type=hidden)">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+const cases = [
+  ["<button id='target' disabled>Button</button>", "disabled button", false],
+  ["<input id='target' disabled>", "disabled input", false],
+  ["<select id='target' disabled><option>Option</option></select>", "disabled select", false],
+  ["<textarea id='target' disabled></textarea>", "disabled textarea", false],
+  ["<input id='target' type='hidden'>", "hidden input", false],
+  [
+    "<fieldset disabled><button id='target'>Button</button></fieldset>",
+    "button in a disabled fieldset", false
+  ],
+  [
+    "<fieldset disabled><legend><button id='target'>Button</button></legend></fieldset>",
+    "button in the first legend of a disabled fieldset", true
+  ],
+  [
+    "<fieldset disabled><legend>First</legend><legend><button id='target'>Button</button></legend></fieldset>",
+    "button in the second legend of a disabled fieldset", false
+  ],
+  [
+    "<fieldset disabled><div id='target'>Focusable div</div></fieldset>",
+    "div in a disabled fieldset", true
+  ]
+];
+
+for (const [markup, description, focusable] of cases) {
+  for (const tabIndex of [-1, 0]) {
+    promise_test(async t => {
+      const container = document.createElement("div");
+      container.innerHTML = "<input id='previous'>" + markup;
+      document.body.append(container);
+      t.add_cleanup(() => container.remove());
+
+      const previous = container.querySelector("#previous");
+      const target = container.querySelector("#target");
+      target.tabIndex = tabIndex;
+
+      // Wait for the test window to gain focus before observing focus changes.
+      await new Promise(resolve => {
+        previous.addEventListener("focus", resolve, { once: true });
+        previous.focus();
+      });
+
+      const events = [];
+      for (const type of ["blur", "focusout", "focus", "focusin"]) {
+        container.addEventListener(type, event => events.push(event.type), true);
+      }
+
+      target.focus();
+      assert_equals(document.activeElement, focusable ? target : previous, "activeElement after focus()");
+      assert_array_equals(
+        events,
+        focusable ? ["blur", "focusout", "focus", "focusin"] : [],
+        "focus events after focus()"
+      );
+    }, `${description} with tabindex=${tabIndex} ${focusable ? "can" : "cannot"} be focused`);
+  }
+}
+</script>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed style on elements without inline declarations</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<h1>Test of backgroundImage</h1>
+<div style="color: red;"><div id="nested"></div></div>
+<script>
+"use strict";
+
+test(() => {
+  const h1 = document.getElementsByTagName("h1")[0];
+  assert_equals(getComputedStyle(h1).backgroundImage, "none");
+}, "An unstyled heading has background-image none (GH-2327)");
+
+test(() => {
+  const nested = document.getElementById("nested");
+  assert_equals(getComputedStyle(nested, "").color, "rgb(255, 0, 0)");
+}, "An unstyled child inherits its parent's inline color (GH-1696)");
+</script>

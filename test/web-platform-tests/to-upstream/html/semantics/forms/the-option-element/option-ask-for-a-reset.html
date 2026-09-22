@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <title>option element ask-for-a-reset</title>
-<link rel="help" href="https://html.spec.whatwg.org/multipage/#dom-option-index">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/form-elements.html#selectedness-setting-algorithm">
 <link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
 <link rel="author" title="Joris van der Wel" href="mailto:joris@jorisvanderwel.com">
 <script src="/resources/testharness.js"></script>
@@ -9,155 +9,108 @@
 <script>
 "use strict";
 
-setup({ single_test: true });
+function createSelect() {
+  const select = document.createElement("select");
+  select.multiple = false;
+  select.size = 1;
+  for (let i = 0; i < 3; ++i) {
+    select.appendChild(document.createElement("option"));
+  }
+  return select;
+}
 
-const select = document.createElement("select");
-select.multiple = false;
-select.size = 1;
-const optionA = document.createElement("option");
-const optionB = document.createElement("option");
-const optionC = document.createElement("option");
-const optgroupA = document.createElement("optgroup");
-const optionAA = document.createElement("option");
-const optionAB = document.createElement("option");
-const optionAC = document.createElement("option");
-select.appendChild(optionA);
-select.appendChild(optionB);
-select.appendChild(optionC);
-optgroupA.appendChild(optionAA);
-optgroupA.appendChild(optionAB);
-optgroupA.appendChild(optionAC);
-// (optgroupA not yet appended)
+function createSelectedOptgroup() {
+  const optgroup = document.createElement("optgroup");
+  for (let i = 0; i < 3; ++i) {
+    const option = document.createElement("option");
+    optgroup.appendChild(option);
+    option.selected = true;
+  }
+  return optgroup;
+}
 
-// (these assertion messages assume multiline=false and size=1)
-assert_equals(optionA.selected, true, "If 0 options are selected in an ask-for-a-reset, select the first option");
-assert_equals(optionB.selected, false, "If 0 options are selected in an ask-for-a-reset, select the first option");
-assert_equals(optionC.selected, false, "If 0 options are selected in an ask-for-a-reset, select the first option");
+function selectedness(options) {
+  return Array.from(options, option => option.selected);
+}
 
-optionB.defaultSelected = true;
-optionA.defaultSelected = true;
-assert_equals(optionA.selected, true, "Setting defaultSelected should reset others");
-assert_equals(optionB.selected, false, "Setting defaultSelected should reset others");
-assert_equals(optionC.selected, false, "Setting defaultSelected should reset others");
+test(() => {
+  const select = createSelect();
+  assert_array_equals(selectedness(select.options), [true, false, false]);
+}, "Inserting options selects the first option when none are selected");
 
-optionB.defaultSelected = true;
-assert_equals(optionA.selected, false, "Setting defaultSelected should reset others without setting dirtyness");
-assert_equals(optionB.selected, true, "Setting defaultSelected should reset others without setting dirtyness");
-assert_equals(optionC.selected, false, "Setting defaultSelected should reset others without setting dirtyness");
+test(() => {
+  const select = createSelect();
+  const [optionA, optionB] = select.options;
+  optionB.defaultSelected = true;
+  optionA.defaultSelected = true;
+  assert_array_equals(selectedness(select.options), [true, false, false]);
+}, "Setting defaultSelected deselects the other options");
 
-optionA.disabled = true;
-optionA.defaultSelected = false;
-optionB.defaultSelected = false;
-assert_equals(
-  optionA.selected,
-  false,
-  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
-);
-assert_equals(
-  optionB.selected,
-  true,
-  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
-);
-assert_equals(
-  optionC.selected,
-  false,
-  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
-);
-optionA.disabled = false;
+test(() => {
+  const select = createSelect();
+  const [optionA, optionB] = select.options;
+  optionB.defaultSelected = true;
+  optionA.defaultSelected = true;
+  optionB.defaultSelected = true;
+  assert_array_equals(selectedness(select.options), [true, false, false]);
+}, "Setting an already-present selected attribute does not change selectedness");
 
-optionAA.selected = true;
-optionAB.selected = true;
-optionAC.selected = true;
-assert_equals(optionAA.selected, true, "options in a distached optgroup should not affect each other");
-assert_equals(optionAB.selected, true, "options in a distached optgroup should not affect each other");
-assert_equals(optionAC.selected, true, "options in a distached optgroup should not affect each other");
+test(() => {
+  const select = createSelect();
+  const [optionA, optionB] = select.options;
+  optionB.defaultSelected = true;
+  optionA.defaultSelected = true;
+  optionA.disabled = true;
+  optionA.defaultSelected = false;
+  optionB.defaultSelected = false;
+  assert_array_equals(selectedness(select.options), [false, true, false]);
+}, "Removing selected attributes selects the first non-disabled option");
 
-select.appendChild(optgroupA);
-assert_equals(
-  optionA.selected,
-  false,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
-assert_equals(
-  optionB.selected,
-  false,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
-assert_equals(
-  optionC.selected,
-  false,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
-assert_equals(
-  optionAA.selected,
-  false,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
-assert_equals(
-  optionAB.selected,
-  false,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
-assert_equals(
-  optionAC.selected,
-  true,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
+test(() => {
+  const optgroup = createSelectedOptgroup();
+  assert_array_equals(selectedness(optgroup.children), [true, true, true]);
+}, "Options in a detached optgroup do not deselect each other");
 
-select.removeChild(optgroupA);
-assert_equals(optionA.selected, true, "If 0 options are selected in an ask-for-a-reset, select the first option");
-assert_equals(optionB.selected, false, "If 0 options are selected in an ask-for-a-reset, select the first option");
-assert_equals(optionC.selected, false, "If 0 options are selected in an ask-for-a-reset, select the first option");
+test(() => {
+  const select = createSelect();
+  const optgroup = createSelectedOptgroup();
+  select.appendChild(optgroup);
+  assert_array_equals(selectedness(select.options), [false, false, false, false, false, true]);
+}, "Inserting an optgroup with selected options selects only the last option");
 
-optionA.disabled = true;
-assert_equals(optionA.selected, true, "setting disabled on an selected option should not change the selection");
-assert_equals(optionB.selected, false, "setting disabled on an selected option should not change the selection");
-assert_equals(optionC.selected, false, "setting disabled on an selected option should not change the selection");
+test(() => {
+  const select = createSelect();
+  const optgroup = createSelectedOptgroup();
+  select.appendChild(optgroup);
+  select.removeChild(optgroup);
+  assert_array_equals(selectedness(select.options), [true, false, false]);
+}, "Removing the selected optgroup selects the first remaining option");
 
+test(() => {
+  const select = createSelect();
+  select.options[0].disabled = true;
+  assert_array_equals(selectedness(select.options), [true, false, false]);
+}, "Disabling the selected option does not change selectedness");
 
-select.multiple = true;
-optionA.disabled = true;
-optionA.selected = true;
-optionB.selected = true;
-optionC.selected = true;
-select.multiple = false;
-assert_equals(
-  optionA.selected,
-  false,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
-assert_equals(
-  optionB.selected,
-  false,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
-assert_equals(
-  optionC.selected,
-  true,
-  "If 2 or more options are selected in an ask-for-a-reset, select the last option"
-);
+test(() => {
+  const select = createSelect();
+  select.multiple = true;
+  select.options[0].disabled = true;
+  for (const option of select.options) {
+    option.selected = true;
+  }
+  select.multiple = false;
+  assert_array_equals(selectedness(select.options), [false, false, true]);
+}, "Removing multiple selects only the last selected option");
 
-select.size = 3;
-optionA.disabled = true;
-optionA.selected = false;
-optionB.selected = false;
-optionC.selected = false;
-select.size = 1;
-assert_equals(
-  optionA.selected,
-  false,
-  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
-);
-assert_equals(
-  optionB.selected,
-  true,
-  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
-);
-assert_equals(
-  optionC.selected,
-  false,
-  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option"
-);
-
-done();
+test(() => {
+  const select = createSelect();
+  select.size = 3;
+  select.options[0].disabled = true;
+  for (const option of select.options) {
+    option.selected = false;
+  }
+  select.size = 1;
+  assert_array_equals(selectedness(select.options), [false, true, false]);
+}, "Reducing size to one selects the first non-disabled option when none are selected");
 </script>

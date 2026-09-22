@@ -1,0 +1,89 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Radio checkedness updates at group transitions</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#radio-button-state-(type=radio)">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/infrastructure.html#becomes-connected">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function radio() {
+  const input = document.createElement("input");
+  input.type = "radio";
+  input.name = "group";
+  input.checked = true;
+  return input;
+}
+
+for (const shadow of [false, true]) {
+  test(t => {
+    const host = document.createElement("div");
+    const container = shadow ? host.attachShadow({ mode: "open" }) : host;
+    document.body.append(host);
+    t.add_cleanup(() => host.remove());
+    const first = radio();
+    const second = radio();
+    container.append(first);
+    const subtree = document.createElement("div");
+    subtree.append(second);
+    container.append(subtree);
+    assert_false(first.checked);
+    assert_true(second.checked);
+  }, `Connecting a checked radio subtree updates its ${shadow ? "shadow" : "light"}-tree group without a form`);
+}
+
+test(t => {
+  const host = document.createElement("div");
+  const shadowRoot = host.attachShadow({ mode: "open" });
+  const first = radio();
+  const second = radio();
+  shadowRoot.append(first, second);
+  assert_true(first.checked);
+  assert_true(second.checked);
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  assert_not_equals(first.checked, second.checked, "Connecting the host resolves multiple checked radios");
+}, "Connecting a host updates radio groups inside its shadow tree");
+
+for (const operation of ["set", "change", "remove"]) {
+  test(t => {
+    const container = document.createElement("div");
+    container.innerHTML = `
+      <form id="first-owner"><input type="radio" name="group" checked></form>
+      <form id="second-owner"><input type="radio" name="group" checked></form>
+    `;
+    document.body.append(container);
+    t.add_cleanup(() => container.remove());
+    const [first, second] = container.querySelectorAll("input");
+    if (operation === "change") {
+      second.setAttribute("form", "second-owner");
+    } else if (operation === "remove") {
+      second.setAttribute("form", "second-owner");
+      first.parentNode.append(second);
+    }
+    assert_true(first.checked, "The initially separate group keeps its checked radio");
+    assert_true(second.checked);
+    if (operation === "remove") {
+      second.removeAttribute("form");
+    } else {
+      second.setAttribute("form", "first-owner");
+    }
+    assert_equals(first.form, second.form);
+    assert_false(first.checked);
+    assert_true(second.checked);
+  }, `A checked radio updates its group on form attribute ${operation}`);
+}
+
+test(() => {
+  const container = document.createElement("div");
+  const first = radio();
+  const second = radio();
+  container.append(first, second);
+  second.setAttribute("type", "RADIO");
+  assert_true(first.checked, "Changing spelling without changing type state does not signal a type change");
+  assert_true(second.checked);
+}, "A type attribute change within the radio state does not update checkedness");
+
+</script>

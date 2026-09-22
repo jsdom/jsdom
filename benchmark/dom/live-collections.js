@@ -35,5 +35,20 @@ module.exports = () => {
   addUpdateTask("children: read after updating list", "children", false);
   addUpdateTask("children: read after every mutation", "children", true);
 
+  for (const [name, query] of [
+    ["tag name", parent => parent.getElementsByTagName("span")],
+    ["all elements", parent => parent.getElementsByTagName("*")],
+    ["class name", parent => parent.getElementsByClassName("match")]
+  ]) {
+    const parent = document.createElement("div");
+    parent.innerHTML = '<span class="match"><b>text</b></span><!-- comment -->'.repeat(ITEM_COUNT);
+    const collection = query(parent);
+    let version = 0;
+    bench.add(`${name}: refresh descendants after mutation`, () => {
+      parent.setAttribute("data-version", String(++version));
+      return collection.length;
+    });
+  }
+
   return bench;
 };

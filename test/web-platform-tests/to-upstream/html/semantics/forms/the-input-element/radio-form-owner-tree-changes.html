@@ -1,0 +1,108 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Radio checkedness when moving controls between ancestor forms</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#radio-button-state-(type=radio)">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#association-of-controls-and-forms">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+function checkedRadio() {
+  const radio = document.createElement("input");
+  radio.type = "radio";
+  radio.name = "group";
+  radio.checked = true;
+  return radio;
+}
+
+for (const connected of [false, true]) {
+  for (const wrapped of [false, true]) {
+    test(t => {
+      const container = document.createElement("div");
+      const firstForm = document.createElement("form");
+      const secondForm = document.createElement("form");
+      container.append(firstForm, secondForm);
+      if (connected) {
+        document.body.append(container);
+        t.add_cleanup(() => container.remove());
+      }
+
+      const firstRadio = checkedRadio();
+      const movedRadio = checkedRadio();
+      const movedSubtree = wrapped ? document.createElement("div") : movedRadio;
+      if (wrapped) {
+        movedSubtree.append(movedRadio);
+      }
+      firstForm.append(firstRadio);
+      secondForm.append(movedSubtree);
+      assert_equals(firstRadio.form, firstForm);
+      assert_equals(movedRadio.form, secondForm);
+      assert_true(firstRadio.checked);
+      assert_true(movedRadio.checked);
+
+      firstForm.append(movedSubtree);
+      assert_equals(movedRadio.form, firstForm);
+      assert_false(firstRadio.checked, "The incoming checked radio unchecks its new group peer");
+      assert_true(movedRadio.checked);
+
+      movedSubtree.remove();
+      assert_equals(movedRadio.form, null);
+      firstRadio.checked = true;
+      assert_true(movedRadio.checked, "The removed radio is no longer in the first form's group");
+
+      const secondRadio = checkedRadio();
+      secondForm.append(secondRadio);
+      secondForm.append(movedSubtree);
+      assert_equals(movedRadio.form, secondForm);
+      assert_false(secondRadio.checked, "Reinsertion updates the destination group");
+      assert_true(firstRadio.checked, "Reinsertion leaves the other form's group alone");
+      assert_true(movedRadio.checked);
+    }, `Moving a checked radio ${wrapped ? "inside a subtree" : "directly"} between ` +
+       `${connected ? "connected" : "disconnected"} forms`);
+  }
+}
+
+test(() => {
+  const outerForm = document.createElement("form");
+  const innerForm = document.createElement("form");
+  const outerRadio = checkedRadio();
+  const innerRadio = checkedRadio();
+  outerForm.append(outerRadio);
+  innerForm.append(innerRadio);
+  outerForm.append(innerForm);
+
+  assert_equals(innerRadio.form, innerForm);
+  assert_true(outerRadio.checked, "Nested forms have separate radio groups");
+  assert_true(innerRadio.checked);
+
+  innerForm.remove();
+  assert_equals(innerRadio.form, innerForm, "Removing the form preserves its descendant's owner");
+  assert_true(outerRadio.checked);
+  assert_true(innerRadio.checked);
+}, "Inserting and removing a nested form preserves its radio group");
+
+test(() => {
+  const form = document.createElement("form");
+  const host = document.createElement("div");
+  const shadowRoot = host.attachShadow({ mode: "open" });
+  const firstRadio = checkedRadio();
+  const secondRadio = checkedRadio();
+  shadowRoot.append(firstRadio);
+  shadowRoot.append(secondRadio);
+
+  form.append(host);
+  assert_equals(firstRadio.form, null);
+  assert_equals(secondRadio.form, null);
+  assert_true(firstRadio.checked);
+  assert_true(secondRadio.checked);
+
+  host.remove();
+  assert_equals(firstRadio.form, null);
+  assert_equals(secondRadio.form, null);
+  assert_true(firstRadio.checked);
+  assert_true(secondRadio.checked);
+}, "Moving a disconnected shadow host into and out of a form does not change shadow-tree radio owners");
+</script>

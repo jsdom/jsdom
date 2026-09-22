@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Adoption updates tag names without requiring insertion</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-node-adopt">
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-element-tagname">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+for (const containerType of ["element", "fragment", "shadow", "template"]) {
+  test(() => {
+    const htmlDocument = document.implementation.createHTMLDocument("");
+    const xmlDocument = document.implementation.createDocument(null, "root");
+    let root = htmlDocument.createElement("div");
+    let container = root;
+    if (containerType === "fragment") {
+      root = container = htmlDocument.createDocumentFragment();
+    } else if (containerType === "shadow") {
+      container = root.attachShadow({ mode: "closed" });
+    } else if (containerType === "template") {
+      root = htmlDocument.createElement("template");
+      container = root.content;
+    }
+
+    const element = htmlDocument.createElementNS("http://www.w3.org/1999/xhtml", "p:MiXeD");
+    container.append(element);
+    assert_equals(element.tagName, "P:MIXED");
+    assert_equals(element.nodeName, "P:MIXED");
+
+    xmlDocument.adoptNode(root);
+    assert_equals(element.tagName, "p:MiXeD");
+    assert_equals(element.nodeName, "p:MiXeD");
+
+    htmlDocument.adoptNode(root);
+    assert_equals(element.tagName, "P:MIXED");
+    assert_equals(element.nodeName, "P:MIXED");
+  }, `Adoption updates cached tag names in a detached ${containerType} subtree`);
+}
+</script>

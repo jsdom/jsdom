@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Focus and Blur Events: update steps and focus chain</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focus-update-steps">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#unfocusing-steps">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<input id="input1">
+<input id="input2">
+<input id="unfocused">
+<div id="host"></div>
+
+<script>
+"use strict";
+
+test(t => {
+  const input1 = document.getElementById("input1");
+  const input2 = document.getElementById("input2");
+  input1.focus();
+
+  let activeElementDuringBlur = null;
+  input1.addEventListener("blur", t.step_func(() => {
+    activeElementDuringBlur = document.activeElement;
+  }), { once: true });
+
+  input2.focus();
+
+  assert_equals(activeElementDuringBlur, document.body, "activeElement should fall back to body");
+}, "focus update steps: document.activeElement falls back to body during the blur event");
+
+test(t => {
+  const input1 = document.getElementById("input1");
+  const input2 = document.getElementById("input2");
+  input1.focus();
+
+  let bodyFocusFired = false;
+  const onBodyFocus = t.step_func(() => {
+    bodyFocusFired = true;
+  });
+  document.body.addEventListener("focus", onBodyFocus);
+
+  input2.focus();
+
+  document.body.removeEventListener("focus", onBodyFocus);
+  assert_false(bodyFocusFired, "focus event should not fire on body when moving focus");
+}, "focus update steps: redundant focus events are not fired on common ancestors");
+
+test(t => {
+  const input1 = document.getElementById("input1");
+  const unfocused = document.getElementById("unfocused");
+  input1.focus();
+
+  let blurFired = false;
+  unfocused.addEventListener("blur", t.step_func(() => {
+    blurFired = true;
+  }));
+
+  // Call blur() on an element that doesn't currently have focus
+  unfocused.blur();
+
+  assert_false(blurFired, "blur event should not fire on an element that is not focused");
+}, "unfocusing steps: aborts early if the element is not the currently focused area");
+
+test(t => {
+  const host = document.getElementById("host");
+  const shadow = host.attachShadow({ mode: "open" });
+  const innerInput = document.createElement("input");
+  shadow.appendChild(innerInput);
+
+  document.getElementById("input1").focus();
+
+  const events = [];
+  for (const type of ["focus", "focusin", "blur", "focusout"]) {
+    host.addEventListener(type, t.step_func(event => events.push(event.type)));
+  }
+
+  innerInput.focus();
+  document.getElementById("input1").focus();
+
+  assert_array_equals(events, ["focus", "focusin", "blur", "focusout"]);
+}, "Entering and leaving a shadow tree delivers each host focus event once");
+</script>

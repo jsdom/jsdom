@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Unsupported legacy pseudo-selectors do not disrupt style computation</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#invalid">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2511 -->
+<body>
+<script>
+"use strict";
+
+for (const selector of ["_:-ms-lang(x)::-ms-backdrop u", "p _:-ms-lang(x)::-ms-backdrop u"]) {
+  test(t => {
+    const style = document.createElement("style");
+    style.setAttribute("type", "text/css");
+    style.innerHTML = `${selector} {} body { color: green; }`;
+    document.head.append(style);
+    t.add_cleanup(() => style.remove());
+
+    assert_equals(getComputedStyle(document.body).color, "rgb(0, 128, 0)");
+  }, `Style computation ignores ${selector}`);
+}
+</script>

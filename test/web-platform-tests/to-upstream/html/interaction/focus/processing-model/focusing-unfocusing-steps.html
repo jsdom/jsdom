@@ -1,0 +1,123 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Resolving focus targets and running the focusing and unfocusing steps</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#get-the-focusable-area">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focusing-steps">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#unfocusing-steps">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, markup) {
+  const container = document.createElement("div");
+  container.innerHTML = markup;
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  return container;
+}
+
+test(t => {
+  const input = fixture(t, "<input>").firstElementChild;
+  input.focus();
+  const events = [];
+  function record(event) {
+    events.push(event);
+  }
+  for (const type of ["blur", "focusout", "focus", "focusin"]) {
+    window.addEventListener(type, record, true);
+    t.add_cleanup(() => window.removeEventListener(type, record, true));
+  }
+
+  document.documentElement.focus();
+
+  assert_equals(document.activeElement, document.body, "The document's viewport is focused");
+  assert_array_equals(events.map(event => event.type), ["blur", "focusout"]);
+  assert_array_equals(events.map(event => event.target), [input, input]);
+  assert_array_equals(events.map(event => event.relatedTarget), [null, null]);
+
+  document.documentElement.focus();
+  assert_equals(events.length, 2, "Focusing the already focused viewport is a no-op");
+}, "A non-focusable document element resolves to its document's viewport");
+
+test(t => {
+  const root = document.documentElement;
+  root.tabIndex = -1;
+  t.add_cleanup(() => root.removeAttribute("tabindex"));
+  fixture(t, "<input>").firstElementChild.focus();
+
+  root.focus();
+
+  assert_equals(document.activeElement, root, "A focusable document element is not replaced by its viewport");
+}, "A focusable document element is used directly as the focus target");
+
+test(t => {
+  const container = fixture(t, "<input><div></div>");
+  const [input, div] = container.children;
+  input.focus();
+  let blurCount = 0;
+  input.addEventListener("blur", () => ++blurCount);
+
+  div.focus();
+
+  assert_equals(document.activeElement, input);
+  assert_equals(blurCount, 0);
+}, "A target without a focusable area or fallback leaves focus unchanged");
+
+promise_test(async t => {
+  const iframe = document.createElement("iframe");
+  const loaded = new Promise(resolve => {
+    iframe.addEventListener("load", resolve, { once: true });
+  });
+  fixture(t, "").append(iframe);
+  await loaded;
+  const childDocument = iframe.contentDocument;
+  const input = childDocument.createElement("input");
+  childDocument.body.append(input);
+  input.focus();
+  assert_equals(document.activeElement, iframe);
+  assert_equals(childDocument.activeElement, input);
+
+  childDocument.documentElement.focus();
+
+  assert_equals(document.activeElement, iframe, "The parent still focuses the iframe");
+  assert_equals(childDocument.activeElement, childDocument.body, "The child viewport is focused");
+}, "A document element in an iframe resolves to the child viewport");
+
+for (const [markup, makeUnfocusable, description] of [
+  ["<div tabindex=0></div>", element => element.removeAttribute("tabindex"), "removing tabindex"],
+  ["<input>", element => element.setAttribute("disabled", ""), "disabling a control"]
+]) {
+  test(t => {
+    const element = fixture(t, markup).firstElementChild;
+    element.focus();
+    makeUnfocusable(element);
+    assert_equals(document.activeElement, element, "Focus fixup has not run synchronously");
+    let blurCount = 0;
+    element.addEventListener("blur", () => ++blurCount);
+
+    element.blur();
+
+    assert_equals(blurCount, 0, "The unfocusing steps return before firing blur");
+    assert_equals(document.activeElement, element, "The unfocusing steps leave focus unchanged");
+  }, `The unfocusing steps return if ${description} made the target non-focusable`);
+}
+
+test(() => {
+  const otherDocument = document.implementation.createHTMLDocument();
+  otherDocument.documentElement.focus();
+  assert_equals(otherDocument.activeElement, otherDocument.body);
+}, "A document without a browsing context has no viewport to focus");
+
+test(t => {
+  const container = fixture(t, "<input><iframe></iframe>");
+  const [input, iframe] = container.children;
+  iframe.remove();
+  input.focus();
+
+  iframe.focus();
+
+  assert_equals(document.activeElement, input);
+}, "A removed iframe has no content navigable to focus");
+</script>

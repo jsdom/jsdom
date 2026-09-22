@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Changing a connected script's src runs its post-connection steps</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#script-processing-model">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+promise_test(async t => {
+  window.srcPreparationCount = 0;
+  t.add_cleanup(() => {
+    delete window.srcPreparationCount;
+  });
+  const script = document.createElement("script");
+  t.add_cleanup(() => script.remove());
+  script.async = false;
+  script.type = "text/plain";
+  document.head.append(script);
+  script.src = "data:text/javascript,window.srcPreparationCount++";
+
+  // An ordered external script lets any erroneous execution finish without relying on a timer.
+  const sentinel = document.createElement("script");
+  t.add_cleanup(() => sentinel.remove());
+  sentinel.async = false;
+  sentinel.src = "data:text/javascript,";
+  const loaded = new Promise((resolve, reject) => {
+    sentinel.onload = resolve;
+    sentinel.onerror = reject;
+  });
+  document.head.append(sentinel);
+  await loaded;
+  assert_equals(window.srcPreparationCount, 0);
+}, "Adding src to a connected non-JavaScript script does not execute it");
+</script>

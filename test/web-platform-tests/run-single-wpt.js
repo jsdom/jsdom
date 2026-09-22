@@ -56,10 +56,11 @@ function createWPTInterceptor() {
         .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
 
       return new Response(await readFile(filePath));
-    } else if (url.pathname.startsWith("/dom/nodes/")) {
+    } else if (url.pathname.startsWith("/dom/")) {
       // Some tests require extra resources.
       // Add them from the one in ./tests.
       const extraResources = [
+        "/dom/common.js",
         "/dom/nodes/ParentNode-querySelector-All-content.html",
         "/dom/nodes/ParentNode-querySelector-All.js",
         "/dom/nodes/selectors.js"
@@ -128,6 +129,9 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
         const errors = [];
 
         window.shimTest = () => {
+          // Results are reported through callbacks, so do not build a report in each test document.
+          window.setup({ output: false });
+
           const oldSetup = window.setup;
           window.setup = options => {
             if (options.allow_uncaught_exception) {

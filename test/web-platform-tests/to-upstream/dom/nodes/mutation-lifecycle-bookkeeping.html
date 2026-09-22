@@ -1,0 +1,89 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Lifecycle callbacks observe updated document bookkeeping</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-node-insert">
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-node-remove">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const calls = [];
+  customElements.define("bookkeeping-target", class extends HTMLElement {
+    connectedCallback() {
+      calls.push([document.getElementById("lifecycleId"), window.lifecycleName, document.lifecycleName]);
+    }
+    disconnectedCallback() {
+      calls.push([document.getElementById("lifecycleId"), window.lifecycleName, document.lifecycleName]);
+    }
+  });
+  const container = document.createElement("div");
+  t.add_cleanup(() => container.remove());
+  container.innerHTML =
+    '<bookkeeping-target></bookkeeping-target><div><img id="lifecycleId" name="lifecycleName"></div>';
+  const image = container.querySelector("img");
+  // Populate the document's named-property cache before both mutations.
+  assert_equals(document.lifecycleName, undefined);
+  document.body.append(container);
+  assert_array_equals(calls[0], [image, image, image]);
+  container.remove();
+  assert_array_equals(calls[1], [null, undefined, undefined]);
+  assert_equals(calls.length, 2);
+}, "Connection and disconnection callbacks see sibling descendants in IDs and named properties");
+
+test(t => {
+  const host = document.createElement("div");
+  t.add_cleanup(() => host.remove());
+  const shadow = host.attachShadow({ mode: "closed" });
+  shadow.innerHTML = '<img id="shadowLifecycleId" name="shadowLifecycleName">';
+  const image = shadow.firstChild;
+  for (let i = 0; i < 2; ++i) {
+    document.body.append(host);
+    assert_equals(shadow.getElementById("shadowLifecycleId"), image);
+    assert_equals(document.getElementById("shadowLifecycleId"), null);
+    assert_equals(window.shadowLifecycleName, undefined);
+    assert_equals(document.shadowLifecycleName, undefined);
+    host.remove();
+  }
+}, "Shadow descendants never enter document-only ID and named-property bookkeeping");
+
+test(t => {
+  const container = document.createElement("div");
+  t.add_cleanup(() => container.remove());
+  container.innerHTML = "<div><style>body { color: red }</style></div>";
+  const style = container.querySelector("style");
+  document.body.append(container);
+  const { sheet } = style;
+  assert_not_equals(sheet, null);
+  assert_true(style.isConnected);
+  assert_true(Array.from(document.styleSheets).includes(sheet));
+
+  container.remove();
+  assert_false(style.isConnected);
+  assert_equals(style.sheet, null);
+  assert_false(Array.from(document.styleSheets).includes(sheet));
+}, "Removing an ancestor clears cached connectivity before a style element's removing steps");
+
+promise_test(async t => {
+  const container = document.createElement("div");
+  t.add_cleanup(() => container.remove());
+  const iframe = document.createElement("iframe");
+  const image = document.createElement("img");
+  image.id = "iframeLifecycleId";
+  image.name = "iframeLifecycleName";
+  container.append(iframe, image);
+
+  const loaded = new Promise(resolve => {
+    iframe.addEventListener("load", t.step_func(() => {
+      assert_equals(iframe.contentWindow.parent.document.getElementById(image.id), image);
+      assert_equals(iframe.contentWindow.parent.iframeLifecycleName, image);
+      assert_equals(iframe.contentWindow.parent.document.iframeLifecycleName, image);
+      resolve();
+    }), { once: true });
+  });
+  document.body.append(container);
+  await loaded;
+}, "An iframe loaded with sibling elements observes their IDs and named properties");
+</script>

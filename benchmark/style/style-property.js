@@ -42,5 +42,22 @@ module.exports = () => {
     }
   });
 
+  bench.add("createElement + visually hidden input styles", () => {
+    for (let i = 0; i < 20; i++) {
+      const input = document.createElement("input");
+      Object.assign(input.style, {
+        clipPath: "inset(50%)",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+        border: "0",
+        padding: "0",
+        width: "1px",
+        height: "1px",
+        margin: "-1px",
+        position: "absolute"
+      });
+    }
+  });
+
   return bench;
 };

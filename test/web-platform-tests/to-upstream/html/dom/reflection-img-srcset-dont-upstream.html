@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTML image srcset reflection</title>
+<!-- Subset of `/html/dom/reflection-embedded.html`, which is skipped with a fail-slow expectation. -->
+<link rel="help" href="https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-srcset">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<img id="parsed-image">
+<script>
+"use strict";
+
+test(() => {
+  const image = document.querySelector("#parsed-image");
+  assert_equals(image.srcset, "");
+  assert_equals(typeof image.srcset, "string");
+}, "An image parsed without a srcset attribute has an empty-string srcset");
+
+test(() => {
+  const image = document.createElement("img");
+  assert_equals(image.getAttribute("srcset"), null);
+  assert_equals(image.srcset, "");
+
+  image.setAttribute("srcset", "small.png 1x, large.png 2x");
+  assert_equals(image.srcset, "small.png 1x, large.png 2x");
+
+  image.removeAttribute("srcset");
+  assert_equals(image.srcset, "");
+}, "srcset reflects the content attribute and defaults to the empty string");
+
+for (const value of ["", "image.png 1x", "not a valid source set", null, undefined, 42]) {
+  test(() => {
+    const image = document.createElement("img");
+    image.srcset = value;
+    assert_equals(image.srcset, String(value));
+    assert_equals(image.getAttribute("srcset"), String(value));
+  }, `Setting srcset to ${JSON.stringify(value)} reflects its string value`);
+}
+</script>

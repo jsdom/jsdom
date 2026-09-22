@@ -1,12 +1,15 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { describe, it } = require("mocha-sugar-free");
-const delay = require("node:timers/promises").setTimeout;
+const { setTimeout: delay, setImmediate: nextTurn } = require("node:timers/promises");
+const { describe, it, beforeEach, afterEach } = require("mocha-sugar-free");
+const { Agent, interceptors, cacheStores } = require("undici");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 
 const { JSDOM, VirtualConsole, requestInterceptor } = require("../..");
 
 const {
+  createServer,
+  serverURL,
   pngBytes,
   resourceServer,
   imageServer,
@@ -22,6 +25,57 @@ const {
 } = require("./helpers/resources.js");
 
 describe("API: resources interceptors option", () => {
+  it("should finish loading a cached response", async () => {
+    const agent = new Agent();
+    const cache = interceptors.cache({ store: new cacheStores.MemoryCacheStore() });
+    const url = await resourceServer({
+      "Content-Type": "text/html",
+      "Cache-Control": "public, max-age=3600"
+    }, "<p>cached response</p>");
+
+    try {
+      for (let i = 0; i < 2; i++) {
+        const dom = await JSDOM.fromURL(url, {
+          resources: { dispatcher: agent, interceptors: [cache] }
+        });
+        assert.equal(dom.window.document.querySelector("p").textContent, "cached response");
+      }
+    } finally {
+      await agent.destroy();
+    }
+  });
+
+  it("should follow a cached redirect without canceling the target request", async () => {
+    const agent = new Agent();
+    const cache = interceptors.cache({ store: new cacheStores.MemoryCacheStore() });
+    let redirectRequests = 0;
+    let targetRequests = 0;
+    const target = await createServer((req, res) => {
+      targetRequests++;
+      res.writeHead(200, { "Content-Type": "text/html", "Cache-Control": "no-store" });
+      res.end("<p>redirect target</p>");
+    });
+    const redirect = await createServer((req, res) => {
+      redirectRequests++;
+      res.writeHead(302, { "Location": serverURL(target), "Cache-Control": "public, max-age=3600" });
+      res.end();
+    });
+
+    try {
+      for (let i = 0; i < 2; i++) {
+        const dom = await JSDOM.fromURL(serverURL(redirect), {
+          resources: { dispatcher: agent, interceptors: [cache] }
+        });
+        assert.equal(dom.window.document.querySelector("p").textContent, "redirect target");
+      }
+      assert.equal(redirectRequests, 1, "The second redirect response must come from the cache");
+      assert.equal(targetRequests, 2, "Both loads must reach the redirect target");
+    } finally {
+      await agent.destroy();
+      await Promise.all([redirect.destroy(), target.destroy()]);
+    }
+  });
+
   describe("passing through requests", () => {
     it("should be called for JSDOM.fromURL()'s initial request", async () => {
       const url = await htmlServer("Hello");
@@ -1134,6 +1188,220 @@ describe("API: resources interceptors option", () => {
   });
 
   describe("canceling requests", () => {
+    it("should allow an abort listener to reenter window.close()", async () => {
+      let aborts = 0;
+      const { window } = new JSDOM("<p>Retained content</p>", {
+        url: "https://example.test/",
+        runScripts: "dangerously",
+        resources: {
+          interceptors: [
+            requestInterceptor(request => {
+              request.signal.addEventListener("abort", () => {
+                ++aborts;
+                window.close();
+              });
+              return new Promise(() => {});
+            })
+          ]
+        }
+      });
+      const script = window.document.createElement("script");
+      script.src = "/pending.js";
+      window.document.head.append(script);
+      const { document } = window;
+      const markup = document.documentElement.outerHTML;
+      assert.doesNotThrow(() => window.close());
+      await nextTurn();
+      assert.equal(aborts, 1);
+      assert.equal(window.document, document);
+      assert.equal(document.documentElement.outerHTML, markup);
+    });
+
+    it("should report cancellation when stopped while an interceptor remains pending", async () => {
+      const canceled = Promise.withResolvers();
+      let signal;
+      const { window } = new JSDOM('<script src="/pending.js"></script>', {
+        url: "http://example.com/",
+        runScripts: "dangerously",
+        resources: {
+          interceptors: [
+            dispatch => (options, handler) => dispatch(options, {
+              ...handler,
+              onResponseError(controller, error) {
+                handler.onResponseError(controller, error);
+                canceled.resolve(error);
+              }
+            }),
+            requestInterceptor(request => {
+              signal = request.signal;
+              return new Promise(() => {});
+            })
+          ]
+        }
+      });
+
+      window.stop();
+      assert.equal(await canceled.promise, signal.reason);
+    });
+
+    it("should report cancellation once when a fetch-backed interceptor rejects", async () => {
+      const started = Promise.withResolvers();
+      const server = await createServer(() => started.resolve());
+      const errors = [];
+      let fetched, signal;
+      const { window } = new JSDOM(`<script src="${serverURL(server)}/pending.js"></script>`, {
+        runScripts: "dangerously",
+        resources: {
+          interceptors: [
+            recordResponseErrors(errors),
+            requestInterceptor(request => {
+              signal = request.signal;
+              fetched = fetch(request);
+              return fetched;
+            })
+          ]
+        }
+      });
+
+      try {
+        await started.promise;
+        window.stop();
+        await assert.rejects(fetched, { name: "AbortError" });
+        // Let the interceptor's rejection handler run before checking for duplicate notifications.
+        await nextTurn();
+        assert.equal(errors.length, 1);
+        assert.equal(errors[0], signal.reason);
+      } finally {
+        await server.destroy();
+      }
+    });
+
+    it("should cancel a response returned after stopping without reading its body", async () => {
+      const response = Promise.withResolvers();
+      const bodyAction = Promise.withResolvers();
+      let signal;
+      const { window } = new JSDOM('<script src="/pending.js"></script>', {
+        url: "http://example.com/",
+        runScripts: "dangerously",
+        resources: {
+          interceptors: [
+            requestInterceptor(request => {
+              signal = request.signal;
+              return response.promise;
+            })
+          ]
+        }
+      });
+
+      window.stop();
+      response.resolve(new Response(new ReadableStream({
+        pull(controller) {
+          controller.close();
+          bodyAction.resolve({ action: "read" });
+        },
+        cancel(reason) {
+          bodyAction.resolve({ action: "cancel", reason });
+        }
+      }, { highWaterMark: 0 })));
+      const { action, reason } = await bodyAction.promise;
+      assert.equal(action, "cancel");
+      assert.equal(reason, signal.reason);
+    });
+
+    it("should not report a second error when canceling a late response rejects", async () => {
+      const response = Promise.withResolvers();
+      const canceled = Promise.withResolvers();
+      const errors = [];
+      let signal;
+      const { window } = new JSDOM('<script src="/pending.js"></script>', {
+        url: "http://example.com/",
+        runScripts: "dangerously",
+        resources: {
+          interceptors: [
+            recordResponseErrors(errors),
+            requestInterceptor(request => {
+              signal = request.signal;
+              return response.promise;
+            })
+          ]
+        }
+      });
+
+      window.stop();
+      response.resolve(new Response(new ReadableStream({
+        cancel() {
+          canceled.resolve();
+          throw new Error("Response cleanup failed");
+        }
+      }, { highWaterMark: 0 })));
+      await canceled.promise;
+      // Let the cleanup rejection reach the interceptor's rejection handler.
+      await nextTurn();
+      assert.equal(errors.length, 1);
+      assert.equal(errors[0], signal.reason);
+    });
+
+    it("should cancel a pass-through request stopped while connecting", async () => {
+      const agent = new Agent();
+      const stopped = Promise.withResolvers();
+      const errors = [];
+      let requested = false;
+      const server = await createServer((req, res) => {
+        requested = true;
+        res.writeHead(200, { "Content-Type": "text/javascript" });
+        res.end("window.interceptedScriptRan = true;");
+      });
+      const { window } = new JSDOM(`<script src="${serverURL(server)}"></script>`, {
+        runScripts: "dangerously",
+        resources: {
+          dispatcher: agent,
+          interceptors: [recordResponseErrors(errors), requestInterceptor(() => undefined)]
+        }
+      });
+
+      server.once("connection", () => {
+        // Stop before the client sends the request on its newly established connection.
+        window.stop();
+        stopped.resolve();
+      });
+      try {
+        await stopped.promise;
+        await agent.close();
+        assert.equal(requested, false);
+        assert.equal(window.interceptedScriptRan, undefined);
+        assert.equal(errors.length, 1);
+        assert.equal(errors[0].name, "AbortError");
+      } finally {
+        await agent.destroy();
+        await server.destroy();
+      }
+    });
+
+    it("should skip the callback when an earlier interceptor stops the request", () => {
+      let called = false;
+      const { window } = new JSDOM("", {
+        url: "http://example.com/",
+        runScripts: "dangerously",
+        resources: {
+          interceptors: [
+            dispatch => (options, handler) => {
+              window.stop();
+              return dispatch(options, handler);
+            },
+            requestInterceptor(() => {
+              called = true;
+              return new Response("");
+            })
+          ]
+        }
+      });
+
+      const script = window.document.createElement("script");
+      script.src = "/stopped.js";
+      window.document.body.append(script);
+      assert.equal(called, false);
+    });
+
     it("should abort the request signal synchronously when window.close() is called", async () => {
       let interceptorCalledResolve, interceptorCalledReject, capturedWindow;
       const interceptorCalledPromise = new Promise((resolve, reject) => {
@@ -1187,6 +1455,59 @@ describe("API: resources interceptors option", () => {
   });
 
   describe("error handling", () => {
+    for (const failure of ["the callback rejects", "the dispatcher is destroyed"]) {
+      it(`should not report another error when canceled after ${failure}`, async () => {
+        const agent = new Agent();
+        const callbackError = new Error("Interceptor failed");
+        const errors = [];
+        let requestController;
+        if (failure === "the dispatcher is destroyed") {
+          await agent.destroy();
+        }
+
+        try {
+          await assert.rejects(JSDOM.fromURL("http://example.com/", {
+            resources: {
+              dispatcher: agent,
+              interceptors: [
+                dispatch => (options, handler) => dispatch(options, {
+                  ...handler,
+                  onRequestStart(controller, context) {
+                    requestController = controller;
+                    handler.onRequestStart(controller, context);
+                  },
+                  onResponseError(controller, error) {
+                    errors.push(error);
+                    handler.onResponseError(controller, error);
+                  }
+                }),
+                requestInterceptor(() => {
+                  if (failure === "the callback rejects") {
+                    return Promise.reject(callbackError);
+                  }
+                  return undefined;
+                })
+              ]
+            }
+          }), error => {
+            assert.equal(error, errors[0]);
+            if (failure === "the callback rejects") {
+              assert.equal(error, callbackError);
+            } else {
+              assert.equal(error.code, "UND_ERR_DESTROYED");
+            }
+            return true;
+          });
+
+          requestController.abort(new Error("Canceled after failure"));
+          await nextTurn();
+          assert.equal(errors.length, 1);
+        } finally {
+          await agent.destroy();
+        }
+      });
+    }
+
     describe("invalid return values", () => {
       it("should cause a jsdomError if interceptor returns null for a script", async () => {
         const virtualConsole = new VirtualConsole();
@@ -1321,6 +1642,95 @@ describe("API: resources interceptors option", () => {
     });
 
     describe("streaming errors", () => {
+      describe("pending body cleanup", () => {
+        let cleanup;
+        beforeEach(() => {
+          cleanup = Promise.withResolvers();
+        });
+        afterEach(async () => {
+          cleanup.resolve();
+          await nextTurn();
+        });
+
+        for (const sizeSource of ["Content-Length", "streamed body"]) {
+          it(`should report an oversized ${sizeSource} response before body cleanup finishes`, async () => {
+            const bytes = new TextEncoder().encode("<p>Oversized response</p>");
+            let cancelReason;
+            const body = new ReadableStream({
+              start(controller) {
+                controller.enqueue(bytes);
+              },
+              cancel(reason) {
+                cancelReason = reason;
+                return cleanup.promise;
+              }
+            });
+            const headers = sizeSource === "Content-Length" ? { "Content-Length": String(bytes.length) } : {};
+
+            await assert.rejects(JSDOM.fromURL("http://example.com/", {
+              resources: {
+                interceptors: [
+                  interceptors.dump({ maxSize: 1 }),
+                  requestInterceptor(() => new Response(body, { headers }))
+                ]
+              }
+            }), error => {
+              assert.equal(error.code, "UND_ERR_ABORTED");
+              assert.equal(error.message, `Response size (${bytes.length}) larger than maxSize (1)`);
+              assert.equal(cancelReason, error);
+              return true;
+            });
+          });
+        }
+      });
+
+      for (const hook of ["onResponseStart", "onResponseData"]) {
+        it(`should cancel the synthetic response body when ${hook} throws`, async () => {
+          const expectedError = new Error("Response handler failed");
+          const notifications = [];
+          let bodyController, cancelReason;
+          const body = new ReadableStream({
+            start(controller) {
+              bodyController = controller;
+              controller.enqueue(new TextEncoder().encode("<p>Incomplete response"));
+            },
+            cancel(reason) {
+              cancelReason = reason;
+            }
+          });
+
+          try {
+            await assert.rejects(JSDOM.fromURL("http://example.com/", {
+              resources: {
+                interceptors: [
+                  dispatch => (options, handler) => dispatch(options, {
+                    ...handler,
+                    [hook]() {
+                      throw expectedError;
+                    },
+                    onResponseError(controller, error) {
+                      notifications.push("error");
+                      handler.onResponseError(controller, error);
+                    },
+                    onResponseEnd(controller, trailers) {
+                      notifications.push("end");
+                      handler.onResponseEnd(controller, trailers);
+                    }
+                  }),
+                  requestInterceptor(() => new Response(body))
+                ]
+              }
+            }), expectedError);
+
+            assert.equal(cancelReason, expectedError, "The body must be canceled with the handler's error");
+            await nextTurn();
+            assert.deepEqual(notifications, ["error"]);
+          } finally {
+            bodyController.error(new Error("Test cleanup"));
+          }
+        });
+      }
+
       it("should reject fromURL() when ReadableStream errors mid-stream", async () => {
         const streamError = new Error("Stream failed mid-way");
 
@@ -1432,3 +1842,13 @@ describe("API: resources interceptors option", () => {
     });
   });
 });
+
+function recordResponseErrors(errors) {
+  return dispatch => (options, handler) => dispatch(options, {
+    ...handler,
+    onResponseError(controller, error) {
+      errors.push(error);
+      handler.onResponseError(controller, error);
+    }
+  });
+}

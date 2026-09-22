@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed color, fill, and stroke inheritance in HTML and SVG</title>
+<link rel="author" title="Nick Iaconis" href="mailto:nick.iaconis@gmail.com">
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#inheriting">
+<link rel="help" href="https://svgwg.org/svg2-draft/painting.html#FillProperty">
+<link rel="help" href="https://svgwg.org/svg2-draft/painting.html#StrokeProperty">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Tests from https://github.com/jsdom/jsdom/pull/3060 -->
+
+<body>
+<script>
+"use strict";
+
+function createDocument(t, css, html) {
+  const iframe = document.createElement("iframe");
+  t.add_cleanup(() => iframe.remove());
+  document.body.appendChild(iframe);
+  const doc = iframe.contentDocument;
+  doc.open();
+  doc.write(`<html><head><style>${css}</style></head><body>${html}</body></html>`);
+  doc.close();
+  return doc;
+}
+
+test(t => {
+  const doc = createDocument(t, "div { color: green; }", "<div><span>hello</span></div>");
+  assert_equals(doc.defaultView.getComputedStyle(doc.querySelector("span")).color, "rgb(0, 128, 0)");
+}, "A span inherits color from its div parent");
+
+test(t => {
+  const doc = createDocument(t, "div { color: green; }", '<div><a href="foobar"><span>hello</span></a></div>');
+  const linkColor = doc.defaultView.getComputedStyle(doc.querySelector("a")).color;
+  assert_not_equals(linkColor, "rgb(0, 128, 0)", "The link's user agent color overrides inherited green");
+  assert_equals(doc.defaultView.getComputedStyle(doc.querySelector("span")).color, linkColor);
+}, "A span inside a link inherits the link color instead of its div ancestor's color");
+
+for (const [property, initialValue] of [["fill", "rgb(0, 0, 0)"], ["stroke", "none"]]) {
+  test(t => {
+    const doc = createDocument(t, "", "<div><svg></svg></div>");
+    assert_equals(doc.defaultView.getComputedStyle(doc.querySelector("svg"))[property], initialValue);
+  }, `An SVG element inside a div has the initial ${property} value`);
+
+  test(t => {
+    const doc = createDocument(t, `div { ${property}: green; }`, "<div><svg></svg></div>");
+    assert_equals(doc.defaultView.getComputedStyle(doc.querySelector("svg"))[property], "rgb(0, 128, 0)");
+  }, `An SVG element inherits ${property} from its HTML div parent`);
+}
+</script>

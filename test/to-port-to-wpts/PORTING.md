@@ -15,10 +15,14 @@ browser:
 ```sh
 npm run test:tuwpt:browser                        # all to-upstream tests
 npm run test:tuwpt:browser -- --fgrep domparsing  # substring filter
+npm run test:tuwpt:browser -- --browser=chromium --browser-arg=--headless --fgrep domparsing --reporter min
 ```
 
 This starts the WPT Python server, opens your default browser, runs the tests,
-and prints a summary. Any failures indicate bugs in the test itself (since
+and prints a summary. Explicit Chrome/Chromium launches use a temporary profile
+with popups enabled; use repeatable `--browser-arg` options for browser flags.
+See [browser verification options](../../Contributing.md#to-upstream-web-platform-feature-tests).
+Any failures indicate bugs in the test itself (since
 browsers are the reference implementation). Fix or file as dont-upstream before
 committing.
 
@@ -252,6 +256,41 @@ windowless document handlers.
 Moved to `test/api/from-outside.js` — tests file: URL resolution, which
 cannot be a WPT (WPTs run over http).
 
+### htmlcanvaselement.js (169 lines, 8 tests)
+
+Enabled `html/semantics/embedded-content/the-canvas-element` upstream. Its
+PNG serialization tests pass with the optional canvas package. Recorded
+failures for unsupported context options, tainting, image-data interfaces,
+and JPEG quality handling; skipped tests requiring srcdoc or video loading
+and `toBlob.null.html`, whose zero-sized JPEG encoding aborts node-canvas.
+
+The general interface test (`html/semantics/interfaces.html`) is not enabled,
+and `html/dom/reflection-embedded.html` is skipped as fail-slow. The generated
+`2d.canvas.host.size.attributes.default.html` currently sets explicit 100 by
+50 attributes, so it does not check the 300 by 150 defaults. Similarly,
+`toDataURL.nocontext.html` uses a helper that creates a context before running
+its assertions; it does not cover serialization before context creation.
+
+The two local files below are under
+`html/semantics/embedded-content/the-canvas-element/` in `to-upstream/`.
+Every local test links to its original jsdom regression or fixing commit.
+
+| Original coverage | Replacement |
+| --- | --- |
+| `HTMLElement` and `HTMLCanvasElement` inheritance ([#649](https://github.com/jsdom/jsdom/issues/649)) | `canvas-element-dont-upstream.html`, interface test; subset of the disabled general interface test. |
+| Canvas lookup by ID ([#737](https://github.com/jsdom/jsdom/issues/737)) | The companion's parsed-attribute test, plus the enabled upstream `toDataURL.default.html` and `toBlob.png.html`. |
+| Dimension defaults, IDL conversion, and reflection | `canvas-element-dont-upstream.html`, dimension test; subset of the skipped reflection suite. |
+| Parsed width and height ([#1025](https://github.com/jsdom/jsdom/pull/1025)) | `canvas-element-dont-upstream.html`, parsed-attribute test. |
+| Drawing and exporting a non-default-sized canvas ([#1025](https://github.com/jsdom/jsdom/pull/1025), [#1281](https://github.com/jsdom/jsdom/issues/1281)) | `canvas-serialization.html`, two tests checking decoded PNG dimensions and stroke pixels beyond the default bitmap bounds, with parsed attributes and attributes changed after creating a context. |
+| PNG data URL format ([#1025](https://github.com/jsdom/jsdom/pull/1025)) | Enabled upstream `toDataURL.default.html` and `toDataURL.png.html`; `canvas-serialization.html` also preserves the original no-context case and verifies the PNG dimensions. |
+| Loading an image, drawing it, and exporting PNG data and blobs ([#1365](https://github.com/jsdom/jsdom/issues/1365)) | Enabled upstream `toDataURL.png.primarycolours.html`, `toDataURL.png.complexcolours.html`, `security.dataURI.html`, and `toBlob.png.html`; local `canvas-serialization.html` additionally decodes a blob made from `/common/square.png` and checks its dimensions and pixels. |
+| Attribute changes reflected in width and height ([#1281](https://github.com/jsdom/jsdom/issues/1281)) | `canvas-element-dont-upstream.html`, attribute-change test; the serialization tests also check the actual bitmap. |
+
+The replacements check PNG contents without requiring a particular compressor's
+bytes or blob length. Removed `files/expected-canvas.png` and the now-unused
+`pngjs` dependency. `files/image.png` and `files/image.txt` remain in use by
+`htmlimageelement.js`.
+
 ## Remaining: ready to port
 
 - **on-error.js** (191 lines, 7+ tests) —
@@ -292,10 +331,6 @@ cannot be a WPT (WPTs run over http).
 - **jsonp.js** (36 lines, 1 test) —
   JSONP via jQuery from disk. Integration test, not really a web platform
   feature. Probably delete or move to test/api/.
-
-- **htmlcanvaselement.js** (169 lines) —
-  Basic element tests are WPT-convertible; rendering tests depend on the
-  optional `canvas` npm package.
 
 - **htmlimageelement.js** (124 lines) —
   Basic Image constructor is WPT-convertible; loading tests depend on

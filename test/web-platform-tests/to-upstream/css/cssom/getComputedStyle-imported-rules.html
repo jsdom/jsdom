@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed styles include nested imports and media rules in imported style sheets</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#at-import">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  @import "resources/imported-rules.css";
+</style>
+<div id="nested-import"></div>
+<div id="matching-media"></div>
+<div id="non-matching-media"></div>
+<script>
+"use strict";
+
+const loaded = new Promise(resolve => {
+  window.addEventListener("load", resolve);
+});
+
+promise_test(async () => {
+  await loaded;
+  assert_equals(getComputedStyle(document.getElementById("nested-import")).color, "rgb(0, 128, 0)");
+}, "Rules from nested imports contribute to computed styles");
+
+promise_test(async () => {
+  await loaded;
+  assert_equals(getComputedStyle(document.getElementById("matching-media")).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(document.getElementById("non-matching-media")).color, "rgb(0, 128, 0)");
+}, "Media rules in imported style sheets are evaluated before applying their declarations");
+</script>

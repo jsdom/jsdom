@@ -1,0 +1,83 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Radio groups use form owners, tree roots, and nonempty names</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#radio-button-state-(type=radio)">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, markup) {
+  const container = document.createElement("div");
+  container.innerHTML = markup;
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  return [...container.querySelectorAll("input")];
+}
+
+test(t => {
+  const [inside, outside] = fixture(t, `
+    <form id="owner"><input type="radio" name="group"></form>
+    <input type="radio" name="group" form="owner">
+  `);
+  inside.checked = true;
+  outside.checked = true;
+  assert_equals(inside.form, outside.form);
+  assert_false(inside.checked, "An external group member unchecks an internal member");
+  inside.checked = true;
+  assert_false(outside.checked, "An internal group member unchecks an external member");
+}, "Radios with the same owner form one group across the form's subtree boundary");
+
+test(t => {
+  const [first, second] = fixture(t, `
+    <form id="first-owner"></form><form id="second-owner"></form>
+    <input type="radio" name="group" form="first-owner">
+    <input type="radio" name="group" form="second-owner">
+  `);
+  first.checked = true;
+  second.checked = true;
+  assert_not_equals(first.form, second.form);
+  assert_true(first.checked);
+  assert_true(second.checked);
+}, "External radios with different form owners belong to different groups");
+
+test(t => {
+  const [first, second] = fixture(t, `
+    <form><input type="radio" name="group" form="missing-owner"></form>
+    <form><input type="radio" name="group" form="missing-owner"></form>
+  `);
+  first.checked = true;
+  second.checked = true;
+  assert_equals(first.form, null);
+  assert_equals(second.form, null);
+  assert_false(first.checked);
+}, "Ownerless radios form one group even with different ancestor forms");
+
+test(t => {
+  const [required, checked] = fixture(t, `
+    <form id="owner"><input type="radio" name="group" required></form>
+    <input type="radio" name="group" form="owner">
+  `);
+  assert_true(checked.validity.valueMissing, "Requiredness applies across the group");
+  checked.checked = true;
+  assert_false(required.validity.valueMissing, "An external checked member satisfies the group");
+}, "Radio constraint validation uses the same owner-based membership as checkedness");
+
+test(() => {
+  const container = document.createElement("div");
+  const foreignForm = document.createElementNS("urn:example", "form");
+  const first = document.createElement("input");
+  const second = document.createElement("input");
+  for (const radio of [first, second]) {
+    radio.type = "radio";
+    radio.name = "group";
+  }
+  foreignForm.append(first);
+  container.append(foreignForm, second);
+  first.checked = true;
+  second.checked = true;
+  assert_equals(first.form, null);
+  assert_false(first.checked);
+}, "A non-HTML form element does not divide radio groups");
+</script>

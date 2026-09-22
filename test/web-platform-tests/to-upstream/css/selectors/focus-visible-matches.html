@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Matching :focus-visible on a text input</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3426 -->
+<input id="input">
+<script>
+"use strict";
+
+promise_test(async t => {
+  const input = document.getElementById("input");
+  t.add_cleanup(() => input.blur());
+  assert_false(document.activeElement.matches(":focus-visible"), "The initial active element does not match");
+  assert_false(input.matches(":focus-visible"));
+
+  await new Promise(resolve => {
+    input.addEventListener("focus", resolve, { once: true });
+    input.focus();
+  });
+  assert_true(document.activeElement.matches(":focus-visible"));
+  assert_equals(document.querySelector(":focus-visible"), input);
+
+  input.blur();
+  assert_false(input.matches(":focus-visible"));
+  assert_false(document.activeElement.matches(":focus-visible"), "The active element after blur does not match");
+}, "A text input matches :focus-visible while focused and stops matching after blur");
+</script>

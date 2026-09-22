@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta charset="utf-8">
+<title>CSS Selectors 4 - :lang matching</title>
+<link rel="author" title="Jonathan Kew" href="mailto:jkew@mozilla.com">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#the-lang-pseudo">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+div.test { color: rgb(0, 128, 0); }
+:lang(0) { color: rgb(255, 0, 0); }
+</style>
+
+<div class="test"><span id="target" lang="0">This should be green</span></div>
+
+<script>
+test(() => {
+  const target = document.getElementById('target');
+  assert_equals(getComputedStyle(target).color, 'rgb(0, 128, 0)');
+}, ':lang(0) should be an invalid selector and not match');
+</script>
+</html>
