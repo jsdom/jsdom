@@ -1,0 +1,16 @@
+<!doctype html>
+<script>
+"use strict";
+customElements.define("stop-parser", class extends HTMLElement {
+  constructor() {
+    super();
+    window.stop();
+    parent.documentReady();
+  }
+});
+if (new URL(location).searchParams.has("written")) {
+  document.write("<stop-parser></stop-parser><p id='after'>after</p>");
+}
+</script>
+<stop-parser></stop-parser>
+<p id="after">after</p>
