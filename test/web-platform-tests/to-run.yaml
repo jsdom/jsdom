@@ -1204,6 +1204,8 @@ dir-selector-auto.html: [fail, innerText not implemented; has dont-upstream vers
 focus-display-none-001.html: [fail, Focus fixup rule not properly implemented; https://github.com/jsdom/jsdom/issues/3029]
 focus-visible-009.html: [fail, autofocus not implemented]
 focus-visible-010.html: [fail, Unknown]
+focus-visible-014.html:
+  ":focus-visible matches after script focus move": [fail, Need to fix focus fixup rule]
 focus-visible-017-2.html: [fail-slow, https://github.com/jsdom/jsdom/issues/3426]
 focus-visible-017.html: [fail, https://github.com/jsdom/jsdom/issues/3426]
 focus-visible-020.html: [fail, https://github.com/jsdom/jsdom/issues/3426]
