@@ -34,6 +34,18 @@ module.exports = () => {
     dom.window.close();
   });
 
+  bench.add("parse and execute 100 inline XML scripts", () => {
+    const dom = new JSDOM(`<html xmlns="http://www.w3.org/1999/xhtml">` +
+      `<script>${source}</script>`.repeat(100) + `</html>`, {
+      contentType: "application/xhtml+xml",
+      runScripts: "dangerously",
+      beforeParse(scriptWindow) {
+        scriptWindow.scriptCount = 0;
+      }
+    });
+    dom.window.close();
+  });
+
   for (const attribute of ["", " async", " defer"]) {
     bench.add(`load 20 external scripts${attribute || " (blocking)"}`, async () => {
       const dom = new JSDOM(`<script${attribute} src="data:text/javascript,${source}"></script>`.repeat(20), {

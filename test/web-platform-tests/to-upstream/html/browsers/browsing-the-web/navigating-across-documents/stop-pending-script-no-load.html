@@ -64,6 +64,9 @@ promise_test(async t => {
 
   // Check for load events only after cancellation closes the script's response.
   assert_equals(await nextRequestState(t, stateKey), "closed", "The script request must have been canceled");
+  if (mode === "blocking") {
+    assert_equals(child.document.getElementById("after"), null, "The stopped parser must not consume more input");
+  }
   // Empty-script errors use the DOM manipulation task source, like document and iframe load events.
   // Two turns cover completion work that could itself queue an iframe load task.
   for (let i = 0; i < 2; ++i) {

@@ -89,6 +89,8 @@ Again we emphasize to only use this when feeding jsdom code you know is safe. If
 
 If you want to execute _external_ scripts, included via `<script src="">`, you'll also need to ensure that they load them. To do this, add the option `resources: "usable"` [as described below](#loading-subresources). (You'll likely also want to set the `url` option, for the reasons discussed there.)
 
+When an HTML or XML document encounters a blocking script that needs to wait for a resource, parsing pauses. The `JSDOM` constructor can therefore return with a partially built document; later elements are not available until parsing resumes. This also applies to documents returned by `JSDOM.fromURL()` and `JSDOM.fromFile()`. Wait for `DOMContentLoaded` to inspect the finished tree, or `load` to also wait for load-delaying resources, checking `document.readyState` first in case the event has already fired.
+
 Event handler attributes, like `<div onclick="">`, are also governed by this setting; they will not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.) Note that this guarantee covers the web content being processed by jsdom. It does not cover scenarios where the host Node.js environment itself has been compromised (e.g. through prototype pollution). See the [security policy](https://github.com/jsdom/.github/blob/master/SECURITY.md) for more details.
 
 If you are simply trying to execute script "from the outside", instead of letting `<script>` elements and event handlers attributes run "from the inside", you can use the `runScripts: "outside-only"` option, which enables fresh copies of all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
@@ -272,6 +274,8 @@ The details for each type of jsdom error, listed by their `type` property, are:
   - `url` property: the URL of the resource that was attempted to be fetched
 - `"unhandled-exception"`: a [script execution](#executing-scripts) error that was not handled by a `Window` `"error"` event listener
   - `cause` property: contains the original exception object
+- `"xml-parsing"`: an XML syntax error encountered after document parsing resumed asynchronously
+  - `cause` property: the `SyntaxError` exception that would have been thrown during synchronous construction
 
 ### Cookie jars
 

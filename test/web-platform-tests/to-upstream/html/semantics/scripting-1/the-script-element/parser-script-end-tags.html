@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Script end tags remain execution checkpoints across document writes</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-incdata">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const endTag of [
+  "\x3C/script>", "\x3C/ScRiPt >", "\x3C/script/>",
+  '\x3C/script ignored="a>b">', "\x3C/script ignored='a>b'>",
+  '\x3C/script ignored=a"b>', "\x3C/script '>"
+]) {
+  test(t => {
+    const frame = document.createElement("iframe");
+    t.add_cleanup(() => frame.remove());
+    document.body.append(frame);
+    const child = frame.contentWindow;
+    // Exercise both unsplit tags and every split inside the tag, including within quoted attribute values.
+    for (let split = 0; split < endTag.length; ++split) {
+      const events = [];
+      child.record = value => events.push(value);
+      child.document.open();
+      child.document.write("<script>record(document.getElementById('after') === null);" + endTag.slice(0, split));
+      assert_array_equals(events, [], `The incomplete end tag at split ${split} must not execute the script`);
+      child.document.write(endTag.slice(split) + "<p id='after'></p><script>record('second');\x3C/script>");
+      child.document.close();
+      assert_array_equals(events, [true, "second"], `Split at ${split}`);
+    }
+  }, `Scripts execute at their end tag: ${endTag}`);
+}
+
+test(t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  document.body.append(frame);
+  const child = frame.contentWindow;
+  const events = [];
+  child.record = value => events.push(value);
+  child.document.open();
+  child.document.write('\x3C!-- \x3C/script> --><p title="\x3C/script>"></p>' +
+    "<script>\x3C!--<script>\n// \x3C/script>\nrecord(document.getElementById('after') === null);\x3C/script>" +
+    "<p id='after'></p><script>record('second');\x3C/script>");
+  child.document.close();
+  assert_array_equals(events, [true, "second"]);
+}, "Apparent script end tags in comments, attributes, and double-escaped script data do not lose checkpoints");
+</script>

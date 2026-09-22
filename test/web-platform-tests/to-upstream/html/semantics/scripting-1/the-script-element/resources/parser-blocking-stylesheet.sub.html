@@ -1,0 +1,14 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stylesheet blocking fixture</title>
+<script>
+"use strict";
+parent.documentReady();
+</script>
+<link rel="stylesheet" href="{{GET[stylesheet]}}">
+<script id="blocking">
+"use strict";
+window.inlineRan = true;
+window.afterDuringScript = document.getElementById("after");
+</script>
+<p id="after"></p>
