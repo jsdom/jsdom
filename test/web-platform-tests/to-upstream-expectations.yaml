@@ -9,5 +9,9 @@ jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]
 svg/painting/parsed-svg-default-fill.html:
   "Default fill after inserting an XML element without the SVG namespace": [fail, https://github.com/jsdom/jsdom/issues/2688]
+uievents/focusevents/focusable-area.html:
+  "Calling focus() on an inert element does nothing": [fail, inert not implemented]
+  "Calling focus() on an element with an inert ancestor does nothing": [fail, inert not implemented]
+  "Calling focus() on an element inside an inert shadow host does nothing": [fail, inert not implemented]
 uievents/focusevents/hasfocus-focus-blur.html:
   "document.hasFocus() returns true during internal focus shifts (blur and focus)": [fail, Need to fix document.hasFocus()]
