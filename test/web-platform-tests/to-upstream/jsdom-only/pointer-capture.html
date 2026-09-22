@@ -112,7 +112,8 @@ test(() => {
 test(() => {
   const b = document.getElementById("b");
   const events = [];
-  b.addEventListener("lostpointercapture", e => events.push(`lostpointercapture:${e.pointerId}`));
+  b.addEventListener("lostpointercapture", e => events.push(`b:lostpointercapture:${e.pointerId}`));
+  document.addEventListener("lostpointercapture", e => events.push(`document:lostpointercapture:${e.pointerId}`));
 
   dispatchPointer(b, "pointerdown", 1);
   b.setPointerCapture(1);
@@ -120,9 +121,20 @@ test(() => {
 
   b.remove();
 
-  assert_array_equals(events, ["lostpointercapture:1"]);
+  assert_array_equals(events, [], "lostpointercapture does not fire synchronously on removal");
   assert_equals(b.hasPointerCapture(1), false);
 
+  // The capture target override retargets to the document on removal, and lostpointercapture for it is deferred
+  // until the next pointer event is processed.
+  dispatchPointer(document, "pointermove", 1);
+
+  assert_array_equals(
+    events,
+    ["document:lostpointercapture:1"],
+    "lostpointercapture fires at the document, not at the removed element, on the next pointer event"
+  );
+
+  dispatchPointer(document, "pointerup", 1);
   document.body.appendChild(b);
-}, "removing a capturing element from the document releases its capture and fires lostpointercapture");
+}, "removing a capturing element retargets its capture to the document and defers lostpointercapture");
 </script>
