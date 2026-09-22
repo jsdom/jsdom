@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Dynamic classic scripts keep their preparation-time document</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#execute-the-script-element">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const destination of ["iframe", "inert document"]) {
+  for (const moveBack of [false, true]) {
+    for (const fetchError of [false, true]) {
+      promise_test(async t => {
+        const iframe = document.createElement("iframe");
+        document.body.append(iframe);
+        t.add_cleanup(() => iframe.remove());
+        const otherDocument = destination === "iframe" ?
+          iframe.contentDocument :
+document.implementation.createHTMLDocument();
+
+        window.preparedScriptRan = false;
+        iframe.contentWindow.preparedScriptRan = false;
+        t.add_cleanup(() => {
+          delete window.preparedScriptRan;
+        });
+
+        const script = document.createElement("script");
+        t.add_cleanup(() => script.remove());
+        script.async = false;
+        script.src = fetchError ?
+"resources/script-that-does-not-exist.js" :
+          "data:text/javascript,window.preparedScriptRan = true;";
+        const events = [];
+        script.addEventListener("load", () => events.push("load"));
+        script.addEventListener("error", () => events.push("error"));
+        document.body.append(script);
+        otherDocument.body.append(script);
+        if (moveBack) {
+          document.body.append(script);
+        }
+
+        // This script follows the first script in the preparation document's ordered list. Its load event means
+        // the first script's execution steps have finished, including any decision not to execute it.
+        const sentinel = document.createElement("script");
+        t.add_cleanup(() => sentinel.remove());
+        sentinel.async = false;
+        sentinel.src = "data:text/javascript,";
+        await new Promise((resolve, reject) => {
+          sentinel.onload = resolve;
+          sentinel.onerror = reject;
+          document.body.append(sentinel);
+        });
+
+        assert_equals(window.preparedScriptRan, moveBack && !fetchError, "Execution in the preparation document");
+        assert_false(iframe.contentWindow.preparedScriptRan, "No execution in the destination document");
+        assert_array_equals(events, moveBack ? [fetchError ? "error" : "load"] : [], "Script events");
+      }, `Move a dynamic script to ${destination}, move back: ${moveBack}, fetch error: ${fetchError}`);
+    }
+  }
+}
+</script>
