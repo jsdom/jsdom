@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed custom property inheritance</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#inheriting">
+<link rel="help" href="https://drafts.csswg.org/css-variables-1/#guaranteed-invalid">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+for (const keyword of ["", "inherit", "unset"]) {
+  test(t => {
+    const ancestor = document.createElement("div");
+    ancestor.style.setProperty("--x", "ancestor");
+    const parent = ancestor.appendChild(document.createElement("div"));
+    parent.style.setProperty("--x", "initial");
+    const child = parent.appendChild(document.createElement("div"));
+    child.style.setProperty("--x", keyword);
+    document.body.append(ancestor);
+    t.add_cleanup(() => ancestor.remove());
+
+    assert_equals(getComputedStyle(parent).getPropertyValue("--x"), "");
+    assert_equals(getComputedStyle(child).getPropertyValue("--x"), "");
+  }, `An initial custom property stops inheritance when the child value is ${keyword || "absent"}`);
+
+  test(t => {
+    const ancestor = document.createElement("div");
+    ancestor.style.setProperty("--set", "ancestor");
+    let child = ancestor;
+    for (let i = 0; i < 30; ++i) {
+      child = child.appendChild(document.createElement("div"));
+      child.style.setProperty("--set", keyword);
+      child.style.setProperty("--missing", keyword);
+    }
+    document.body.append(ancestor);
+    t.add_cleanup(() => ancestor.remove());
+
+    // Exercise both newly prepared and cached computed style declarations.
+    for (let i = 0; i < 2; ++i) {
+      const style = getComputedStyle(child);
+      assert_equals(style.getPropertyValue("--set"), "ancestor");
+      assert_equals(style.getPropertyValue("--missing"), "");
+    }
+  }, `Deep custom property inheritance when descendant values are ${keyword || "absent"}`);
+}
+</script>
