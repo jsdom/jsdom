@@ -123,6 +123,14 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(stdout.trim(), "collected");
   });
 
+  it("does not retain closed windows after parsing stylesheets", { timeout: 5000 }, () => {
+    const fixturePath = path.resolve(__dirname, "./fixtures/style-sheet-parsing-with-gc.js");
+    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
+
+    assert.equal(status, 0, stderr);
+    assert.equal(stdout.trim(), "collected");
+  });
+
   it("does not dispatch storage events to removed iframe windows", async () => {
     const dom = new JSDOM("", { url: "https://example.com/" });
     const removedFrame = dom.window.document.createElement("iframe");
