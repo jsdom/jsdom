@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>getComputedStyle() resolves custom properties through deeply nested elements</title>
+<link rel="help" href="https://drafts.csswg.org/css-variables/#defining-variables">
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#inheriting">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+.root {
+  --set: root-value;
+}
+
+.override {
+  --set: override-value;
+}
+
+.inherit {
+  --set: inherit;
+  --missing-inherit: inherit;
+}
+
+.unset {
+  --set: unset;
+  --missing-unset: unset;
+}
+</style>
+
+<body>
+<script>
+"use strict";
+
+// Resolving an inherited custom property reads the computed value of every ancestor. This depth is cheap when each
+// ancestor is resolved once, but takes far too long if the ancestors above each one are resolved again.
+const DEPTH = 40;
+
+function createChain(t, getClassName) {
+  const elements = [document.createElement("div")];
+  elements[0].className = "root";
+  for (let i = 1; i < DEPTH; ++i) {
+    const element = document.createElement("div");
+    element.className = getClassName(i);
+    elements[i - 1].append(element);
+    elements.push(element);
+  }
+  document.body.append(elements[0]);
+  t.add_cleanup(() => elements[0].remove());
+  return elements;
+}
+
+test(t => {
+  const elements = createChain(t, () => "");
+  const style = getComputedStyle(elements[DEPTH - 1]);
+
+  assert_equals(style.getPropertyValue("--set"), "root-value");
+  assert_equals(style.getPropertyValue("--missing"), "");
+}, "Custom properties are inherited through deeply nested elements");
+
+test(t => {
+  const elements = createChain(t, () => "inherit");
+  const style = getComputedStyle(elements[DEPTH - 1]);
+
+  assert_equals(style.getPropertyValue("--set"), "root-value");
+  assert_equals(style.getPropertyValue("--missing-inherit"), "");
+}, "Custom properties set to inherit on every deeply nested element");
+
+test(t => {
+  const elements = createChain(t, () => "unset");
+  const style = getComputedStyle(elements[DEPTH - 1]);
+
+  assert_equals(style.getPropertyValue("--set"), "root-value");
+  assert_equals(style.getPropertyValue("--missing-unset"), "");
+}, "Custom properties set to unset on every deeply nested element");
+
+test(t => {
+  const middle = DEPTH / 2;
+  const elements = createChain(t, i => {
+    return i === middle ? "override" : "inherit";
+  });
+
+  assert_equals(getComputedStyle(elements[middle - 1]).getPropertyValue("--set"), "root-value");
+  assert_equals(getComputedStyle(elements[middle]).getPropertyValue("--set"), "override-value");
+  assert_equals(getComputedStyle(elements[DEPTH - 1]).getPropertyValue("--set"), "override-value");
+}, "Custom properties overridden partway down a deeply nested chain");
+</script>
