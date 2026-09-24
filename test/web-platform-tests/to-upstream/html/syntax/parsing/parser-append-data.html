@@ -1,0 +1,50 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Appending parser-inserted character data</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#insert-a-character">
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-cd-replace">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+function createTestDocument(t) {
+  const iframe = document.createElement("iframe");
+  document.body.append(iframe);
+  t.add_cleanup(() => iframe.remove());
+
+  iframe.contentDocument.open();
+  return iframe.contentDocument;
+}
+
+test(t => {
+  const document = createTestDocument(t);
+  document.write("<textarea>textarea value\nwith linebreaks set to LF</textarea>");
+  document.close();
+
+  assert_equals(document.querySelector("textarea").value, "textarea value\nwith linebreaks set to LF");
+}, "Appending parser-inserted data runs children changed steps");
+
+test(t => {
+  const document = createTestDocument(t);
+  document.write("A<script>" +
+    "const text = document.body.firstChild;" +
+    "window.parserRange = document.createRange();" +
+    "window.parserRange.selectNodeContents(text);" +
+    "document.currentScript.remove();" +
+    "\u003C/script>B");
+  document.close();
+
+  const text = document.body.firstChild;
+  const { parserRange } = document.defaultView;
+  assert_equals(document.body.childNodes.length, 1, "number of body children");
+  assert_equals(text.data, "AB", "text data");
+  assert_equals(parserRange.startContainer, text, "range start container");
+  assert_equals(parserRange.startOffset, 0, "range start offset");
+  assert_equals(parserRange.endContainer, text, "range end container");
+  assert_equals(parserRange.endOffset, 1, "range end offset");
+  assert_equals(parserRange.toString(), "A", "range contents");
+}, "Appending parser-inserted data preserves live ranges");
+</script>
