@@ -48,9 +48,13 @@ async function main() {
   await Promise.all([generateDescriptors(), generateWebIDL()]);
 
   function generateDefinitions() {
+    const runtimeDefinitions = Array.from(definitions, ([property, definition]) => {
+      const { inherited, initial, longhands, logicalPropertyGroup } = definition;
+      return [property, { inherited, initial, longhands, logicalPropertyGroup }];
+    });
     const output = `"use strict";
 
-module.exports = new Map(${JSON.stringify([...definitions], undefined, 2)});
+module.exports = new Map(${JSON.stringify(runtimeDefinitions, undefined, 2)});
 `;
     return fs.writeFile(path.resolve(outputDir, "css-property-definitions.js"), output);
   }
