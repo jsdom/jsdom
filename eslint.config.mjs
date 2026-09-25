@@ -7,6 +7,10 @@ import n from "eslint-plugin-n";
 
 const restrictedRequires = [
   {
+    name: "whatwg-url",
+    message: "Use lib/jsdom/living/helpers/url.js for blob-aware URL parsing and origin serialization."
+  },
+  {
     name: "@exodus/bytes/utf8.js",
     message: "Use lib/jsdom/living/helpers/encoding.js instead."
   },
@@ -115,6 +119,13 @@ export default [
     files: ["lib/jsdom/living/css/helpers/patched-csstree.js"],
     rules: {
       "n/no-restricted-require": ["error", restrictedRequires.filter(r => !r.name.includes("css"))]
+    }
+  },
+  {
+    // The URL helper wraps `whatwg-url`; the blob store must parse without recursively resolving its own entries.
+    files: ["lib/jsdom/living/helpers/url.js", "lib/jsdom/living/file-api/blob-url-store.js"],
+    rules: {
+      "n/no-restricted-require": ["error", restrictedRequires.filter(r => r.name !== "whatwg-url")]
     }
   },
   {

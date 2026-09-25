@@ -1,0 +1,132 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Blob URL XHR responses and retained references</title>
+<link rel="help" href="https://xhr.spec.whatwg.org/#the-open()-method">
+<link rel="help" href="https://fetch.spec.whatwg.org/#concept-scheme-fetch">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(t => {
+  const url = URL.createObjectURL(new Blob(["abcdef"], { type: "text/plain" }));
+  t.add_cleanup(() => URL.revokeObjectURL(url));
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url, false);
+  xhr.setRequestHeader("Range", "bytes=1-3");
+  URL.revokeObjectURL(url);
+  xhr.send();
+  assert_equals(xhr.status, 206);
+  assert_equals(xhr.statusText, "Partial Content");
+  assert_equals(xhr.responseText, "bcd");
+  assert_equals(xhr.getResponseHeader("Content-Type"), "text/plain");
+  assert_equals(xhr.getResponseHeader("Content-Length"), "3");
+  assert_equals(xhr.getResponseHeader("Content-Range"), "bytes 1-3/6");
+
+  xhr.open("GET", url, false);
+  assert_throws_dom("NetworkError", () => xhr.send());
+}, "Synchronous XHR retains the blob at open and supports byte ranges");
+
+test(t => {
+  const blob = new Blob(["first"]);
+  const first = URL.createObjectURL(blob);
+  const second = URL.createObjectURL(blob);
+  t.add_cleanup(() => URL.revokeObjectURL(first));
+  t.add_cleanup(() => URL.revokeObjectURL(second));
+  URL.revokeObjectURL(first);
+  URL.revokeObjectURL(first);
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", second, false);
+  xhr.send();
+  assert_equals(xhr.responseText, "first");
+}, "Revoking one URL does not revoke other URLs for the same blob");
+
+for (const asynchronous of [false, true]) {
+  promise_test(async t => {
+    const url = URL.createObjectURL(new Blob(["response"]));
+    t.add_cleanup(() => URL.revokeObjectURL(url));
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url + "#fragment", asynchronous);
+    const loaded = new Promise((resolve, reject) => {
+      xhr.onload = resolve;
+      xhr.onerror = reject;
+    });
+    xhr.send();
+    await loaded;
+    assert_equals(xhr.responseURL, url);
+    assert_equals(xhr.responseText, "response");
+  }, `Blob responseURL excludes the fragment (asynchronous: ${asynchronous})`);
+}
+
+promise_test(async t => {
+  const contents = "contents";
+  const blob = new Blob([contents]);
+  const url = URL.createObjectURL(blob);
+  t.add_cleanup(() => URL.revokeObjectURL(url));
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url);
+  xhr.responseType = "arraybuffer";
+  const loaded = new Promise((resolve, reject) => {
+    xhr.onload = resolve;
+    xhr.onerror = reject;
+  });
+  xhr.onloadstart = () => URL.revokeObjectURL(url);
+  xhr.send();
+  await loaded;
+  assert_true(xhr.response instanceof ArrayBuffer);
+  assert_equals(new TextDecoder().decode(xhr.response), contents);
+  new Uint8Array(xhr.response).fill(0);
+  assert_equals(await blob.text(), contents);
+}, "Blob XHR retains its data when revoked during loadstart and returns an independent ArrayBuffer");
+
+for (const responseType of ["arraybuffer", "blob"]) {
+  promise_test(async t => {
+    const blob = new Blob(["0123456789"], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    t.add_cleanup(() => URL.revokeObjectURL(url));
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = responseType;
+    xhr.setRequestHeader("Range", "bytes=2-5");
+    const loaded = new Promise((resolve, reject) => {
+      xhr.onload = resolve;
+      xhr.onerror = reject;
+    });
+    xhr.send();
+    await loaded;
+    assert_equals(xhr.status, 206);
+    if (responseType === "blob") {
+      assert_true(xhr.response instanceof Blob);
+      assert_equals(xhr.response.type, "text/plain");
+    }
+    const buffer = responseType === "blob" ? await xhr.response.arrayBuffer() : xhr.response;
+    assert_equals(new TextDecoder().decode(buffer), "2345");
+    new Uint8Array(buffer).fill(0);
+    assert_equals(await blob.text(), "0123456789");
+
+    const next = new XMLHttpRequest();
+    next.open("GET", url, false);
+    next.setRequestHeader("Range", "bytes=3-4");
+    next.send();
+    assert_equals(next.responseText, "34");
+  }, `Mutating a ${responseType} range response does not change the source blob or later requests`);
+}
+
+for (const [range, contents] of [["1-3", "bcd"], ["-3", "def"]]) {
+  promise_test(async t => {
+    const url = URL.createObjectURL(new Blob(["abcdef"]));
+    t.add_cleanup(() => URL.revokeObjectURL(url));
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.setRequestHeader("Range", `bytes=${" \t".repeat(8000)}${range}`);
+    const loaded = new Promise((resolve, reject) => {
+      xhr.onload = resolve;
+      xhr.onerror = reject;
+    });
+    xhr.send();
+    await loaded;
+    assert_equals(xhr.status, 206);
+    assert_equals(xhr.responseText, contents);
+  }, `Blob range parsing accepts a long run of HTTP whitespace before ${range}`);
+}
+</script>

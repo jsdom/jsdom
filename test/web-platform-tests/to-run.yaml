@@ -17,13 +17,21 @@ filelist-section/filelist.html:
   "Check if item is a instanceof Function": [fail, function is not instanceof Function]
 historical.https.html:
   "Service worker test setup": [fail, Needs Service Worker implementation]
-idlharness.any.html: [fail, URL.createObjectURL not implemented]
-idlharness.html: [fail, URL.createObjectURL not implemented]
+idlharness.any.html: [fail, fetch not implemented]
+idlharness.html: [fail, fetch not implemented]
 reading-data-section/FileReader-multiple-reads.any.html: [timeout, Unknown; spews tons of zeros on the screen when failing]
 reading-data-section/filereader_abort.any.html:
   Aborting a reused reader after a previous read completed: [fail, Aborting a completed FileReader incorrectly fires loadend]
 reading-data-section/filereader_events.any.html: [fail, jsdom lacks microtask checkpoints during event dispatch]
-url/**: [timeout, blob URLs not implemented]
+url/cross-global-revoke.sub.html: [timeout, Depends on fetch and Worker]
+url/sandboxed-iframe.html: [timeout, Depends on sandboxing and srcdoc]
+url/unicode-origin.sub.html: [timeout, postMessage event does not contain source]
+url/url-charset.window.html: [fail, window.open not implemented]
+url/url-in-tags-revoke.window.html: [timeout, Depends on navigation and window.open]
+url/url-in-tags.window.html: [timeout, Scrolling not implemented]
+url/url-lifetime.html: [timeout, Depends on fetch and Worker]
+url/url-reload.window.html: [timeout, Depends on navigation]
+url/url-with-fetch.any.html: [fail, fetch not implemented]
 
 ---
 
@@ -1887,7 +1895,7 @@ history_go_zero_which_document.window.html: [fail-slow, Unknown]
 history_properties_only_fully_active.html: [fail, Unknown]
 history_pushstate_too_many_calls.optional.html: [fail, Unknown]
 history_pushstate_too_many_calls_ordering.optional.html: [fail, Unknown]
-history_pushstate_url_rewriting.html: [fail, needs URL.createObjectURL]
+history_pushstate_url_rewriting.html: [fail, Depends on fetch and srcdoc]
 history_replacestate_too_many_calls.optional.html: [fail, Unknown]
 history_replacestate_too_many_calls_ordering.optional.html: [fail, Unknown]
 iframe_history_go_0.html: [timeout, Unknown]
@@ -2053,7 +2061,7 @@ nested-browsing-contexts/name-attribute.window.html: [timeout, Unknown]
 nested-browsing-contexts/window-parent-null.html: [fail, Unknown]
 nested-browsing-contexts/window-top-null.html: [fail, Unknown]
 noreferrer-null-opener.html: [timeout, Unknown]
-noreferrer-window-name.html: [timeout, Depends on URL.createObjectURL]
+noreferrer-window-name.html: [timeout, Depends on navigation and window.open]
 opener-string.window.html: [fail, Unknown]
 targeting-cross-origin-nested-browsing-contexts.html: [timeout, Unknown]
 targeting-with-embedded-null-in-target.html: [timeout, Unknown]
@@ -2109,7 +2117,6 @@ documents/dom-tree-accessors/nameditem-names.html:
 documents/resource-metadata-management/document-cookie.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified-01.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified.html: [fail, Unknown]
-documents/resource-metadata-management/load-event-after-readystatechange-starts-load.html: [fail, URL.createObjectURL not implemented]
 elements/global-attributes/cdata-dir_auto.html: [fail-slow, Unknown]
 elements/global-attributes/dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
 elements/global-attributes/dataset.html:
@@ -2136,7 +2143,10 @@ historical.html:
 idlharness.https.html*: [fail, Unknown]
 reflection!(-overridden-methods).html: [fail-slow, Unknown]
 render-blocking/*: [fail-slow, Not implemented]
-self-origin.sub.html: [fail, needs URL.createObjectURL]
+self-origin.sub.html:
+  "Should have the right origin for cross-origin subframe after setting document.domain": [fail, document.domain not implemented]
+  "Should have the right origin for IDN subframe after setting document.domain": [fail, document.domain not implemented]
+  "Should have the right origin for sandboxed iframe": [fail, Sandboxing not implemented]
 usvstring-reflection.https.html: [fail-slow, We don't support navigation via location]
 
 ---
@@ -2372,8 +2382,6 @@ cross-site/**: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy l
 document-getters-return-null-for-cross-origin.html: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
 iframe-allow*: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
 iframe-append-to-child-document.html: [fail, Iframe navigation is incomplete]
-iframe-load-event.html:
-  load event of blob URL: [fail, URL.createObjectURL not implemented]
 iframe-loading-lazy*: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
 iframe-network-error.sub.html: [timeout, Iframe navigation is incomplete]
 iframe-src-encoding.html: [fail, Iframe URLs always use UTF-8 encoding]
@@ -2388,7 +2396,6 @@ iframe_javascript_url_xhr.html: [fail, Iframe navigation is incomplete]
 iframe_navigate_ancestor-1.sub.html: [timeout, Iframe navigation is incomplete]
 iframe_navigate_javascript_url.htm:
   location.href = 'javascript:"foo"' should fire a load event: [fail, Iframe navigation is incomplete]
-iframe_remove_src.html: [fail, URL.createObjectURL not implemented]
 iframe_sandbox*: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
 same-origin-contextual-fragment.html: [fail, Iframe navigation is incomplete]
 sandbox*: [fail-slow, 'Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented']
@@ -2405,7 +2412,7 @@ already-loaded-image-sync-width.html: [fail-slow, Requires a layout engine]
 available-images-onload.html: [needs-canvas]
 below-viewport-image-loading-lazy-load-event.html: [timeout, Unknown]
 current-pixel-density/**: [fail-with-canvas, Unimplemented]
-currentSrc-blob-cache.html: [fail, (needs-canvas) URL.createObjectURL not implemented]
+currentSrc-blob-cache.html: [needs-canvas]
 data-url.html: [needs-canvas]
 decode/**: [timeout, Unimplemented]
 delay-load-event-detached.html: [needs-canvas]
@@ -2863,7 +2870,6 @@ the-table-element/caption-methods.html: [timeout, needs HTMLIframeElement#srcdoc
 
 DIR: html/semantics/text-level-semantics
 
-the-a-element/a-download-click.html: [fail, needs URL.createObjectURL]
 the-a-element/a-type.historical.html: [fail-slow, Unknown]
 
 ---
@@ -3387,7 +3393,6 @@ access-control-preflight-sync-method-denied.htm: [fail, Unknown]
 access-control-preflight-sync-not-supported.htm: [fail, Unknown]
 access-control-sandboxed-iframe-denied-without-wildcard.htm: [fail, we don't implement sandboxed iframes]
 access-control-sandboxed-iframe-denied.htm: [fail, we don't implement sandboxed iframes]
-blob-range.any.html: [fail, Unknown]
 close-worker-with-xhr-in-progress.html: [fail, Needs Worker implementation]
 cors-expose-star.sub.any.html: [fail, Unknown]
 data-uri.htm: [fail, Unknown]
@@ -3416,7 +3421,8 @@ progressevent-constructor.html:
   "Decimal number test.": [fail, Unknown]
   "Mixed integer and decimal number test.": [fail, Unknown]
   "Negative number.": [fail, Unknown]
-request-content-length.any.html: [fail, needs URL.createObjectURL]
+request-content-length.any.html:
+  "Uploads need to set the Content-Length header": [fail, Upload Content-Length is not always set]
 response-method.htm: [flaky, Usually fails with a parse error in Node.js v12 but occasionally passes as it did in previous versions]
 responseType-document-in-worker.html: [fail, Needs Worker implementation]
 responseXML-unavailable-in-worker.html: [fail, Needs Worker implementation]
@@ -3444,7 +3450,6 @@ send-usp.any.html:
   'XMLHttpRequest.send(URLSearchParams): POST uses the URLSearchParams MIME type when no Content-Type was set': [fail, URLSearchParams is sent with the text/plain MIME type]
 setrequestheader-content-type.htm:
   "URLSearchParams request has correct default Content-Type of \"application/x-www-form-urlencoded;charset=UTF-8\"": [fail, "We send text/plain instead of application/x-www-form-urlencoded"]
-status-error.htm: [fail, needs URL.createObjectURL]
 status.h2.window.html: [fail, Unknown]
 sync-no-progress.any.html: [fail, Unknown]
 sync-no-timeout.any.html: [pass-slow]
