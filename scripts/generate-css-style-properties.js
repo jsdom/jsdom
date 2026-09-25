@@ -121,8 +121,20 @@ module.exports = new Map([
   ${resolvedValueResolvers.join(",\n  ")}
 ]);
 `;
+    const uniqueMetadata = new Map();
+    const metadataEntries = metadata.map(([property, opts]) => {
+      const source = JSON.stringify(opts);
+      if (!uniqueMetadata.has(source)) {
+        uniqueMetadata.set(source, `metadata${uniqueMetadata.size}`);
+      }
+      return `["${property}", ${uniqueMetadata.get(source)}]`;
+    });
     const metadataOutput = `"use strict";
-module.exports = new Map(${JSON.stringify(metadata, undefined, 2)});
+${Array.from(uniqueMetadata, ([source, identifier]) => `const ${identifier} = ${source};`).join("\n")}
+
+module.exports = new Map([
+  ${metadataEntries.join(",\n  ")}
+]);
 `;
     return Promise.all([
       fs.writeFile(
