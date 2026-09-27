@@ -67,6 +67,25 @@ module.exports = () => {
     }
   });
 
+  bench.add("document.body: Read after every irrelevant insertion", () => {
+    let body;
+    for (let i = 0; i < NODES; ++i) {
+      parent.appendChild(document.createElement("span"));
+      body = document.body;
+    }
+    if (body === null) {
+      throw new Error("Document body unexpectedly missing");
+    }
+  }, {
+    beforeEach() {
+      createSubtree();
+      document.body.appendChild(parent);
+    },
+    afterEach() {
+      parent.remove();
+    }
+  });
+
   bench.add("removeAttribute(): Remove named ids from connected elements", () => {
     for (let i = 0; i < NODES; ++i) {
       nodes[i].removeAttribute("id");
