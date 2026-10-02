@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Canvas serialization preserves MIME types, quality, and the call-time bitmap</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/canvas.html#serialising-bitmaps-to-a-file">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function makeCanvas() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 32;
+  canvas.height = 32;
+  const ctx = canvas.getContext("2d");
+  for (let y = 0; y < 32; ++y) {
+    for (let x = 0; x < 32; ++x) {
+      ctx.fillStyle = `rgb(${(x * 73 + y * 37) % 256}, ${(x * 17 + y * 97) % 256}, ${(x * 59 + y * 31) % 256})`;
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+  return canvas;
+}
+
+function toBlob(canvas, type, quality) {
+  return new Promise(resolve => {
+    canvas.toBlob(resolve, type, quality);
+  });
+}
+
+test(() => {
+  assert_equals(document.createElement("canvas").getContext("bogus"), null);
+  const canvas = makeCanvas();
+  assert_equals(canvas.getContext("webgl"), null);
+  assert_equals(canvas.getContext("bogus"), null);
+  assert_equals(canvas.getContext("2D"), null);
+  assert_equals(canvas.getContext("2d").canvas, canvas);
+}, "Unsupported context identifiers return null even after creating a 2D context");
+
+promise_test(async () => {
+  const canvas = makeCanvas();
+  for (const type of [undefined, "", "image/unsupported", "image/jpg", "image/png;charset=utf-8"]) {
+    assert_true(canvas.toDataURL(type).startsWith("data:image/png;base64,"));
+    assert_equals((await toBlob(canvas, type)).type, "image/png");
+  }
+  for (const type of ["image/png", "image/jpeg", "image/webp"]) {
+    const supported = canvas.toDataURL(type).startsWith(`data:${type};base64,`);
+    const expectedType = supported ? type : "image/png";
+    assert_true(canvas.toDataURL(type.toUpperCase()).startsWith(`data:${expectedType};base64,`));
+    assert_equals((await toBlob(canvas, type.toUpperCase())).type, expectedType);
+  }
+}, "MIME types are case insensitive and unsupported formats fall back to PNG");
+
+promise_test(async () => {
+  const canvas = makeCanvas();
+  for (const type of ["image/jpeg", "image/webp"]) {
+    if (!canvas.toDataURL(type).startsWith(`data:${type};base64,`)) {
+      continue;
+    }
+    const low = await toBlob(canvas, type, 0.1);
+    const high = await toBlob(canvas, type, 0.9);
+    assert_less_than(low.size, high.size);
+    assert_less_than(canvas.toDataURL(type, 0.1).length, canvas.toDataURL(type, 0.9).length);
+    const defaultSize = (await toBlob(canvas, type)).size;
+    const defaultURL = canvas.toDataURL(type);
+    for (const quality of [-1, 2, NaN, Infinity, "0.1", null, true, {}]) {
+      assert_equals((await toBlob(canvas, type, quality)).size, defaultSize);
+      assert_equals(canvas.toDataURL(type, quality), defaultURL);
+    }
+  }
+}, "JPEG and WebP quality use numbers in [0, 1] and otherwise the default");
+
+promise_test(async () => {
+  for (const dimension of ["width", "height"]) {
+    const canvas = makeCanvas();
+    canvas[dimension] = 0;
+    assert_equals(canvas.toDataURL(), "data:,");
+    let synchronous = true;
+    const result = new Promise(resolve => {
+      canvas.toBlob(blob => {
+        assert_false(synchronous);
+        resolve(blob);
+      });
+    });
+    synchronous = false;
+    assert_equals(await result, null);
+  }
+}, "Zero-sized canvases serialize to data:, and asynchronously produce a null blob");
+
+promise_test(async () => {
+  const canvas = makeCanvas();
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "red";
+  ctx.fillRect(0, 0, 32, 32);
+  const result = toBlob(canvas);
+  ctx.fillStyle = "blue";
+  ctx.fillRect(0, 0, 32, 32);
+  const image = new Image();
+  const reader = new FileReader();
+  const read = new Promise((resolve, reject) => {
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+  });
+  reader.readAsDataURL(await result);
+  const loaded = new Promise((resolve, reject) => {
+    image.onload = resolve;
+    image.onerror = reject;
+  });
+  image.src = await read;
+  await loaded;
+  ctx.drawImage(image, 0, 0);
+  assert_array_equals(ctx.getImageData(0, 0, 1, 1).data, [255, 0, 0, 255]);
+}, "toBlob captures pixels when called before later canvas mutations");
+</script>

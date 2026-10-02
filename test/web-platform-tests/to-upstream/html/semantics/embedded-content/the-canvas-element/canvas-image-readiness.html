@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Canvas image sources are ready when their load event fires</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/canvas.html#check-the-usability-of-the-image-argument">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function loadImage(src) {
+  const image = new Image();
+  const loaded = new Promise((resolve, reject) => {
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+  });
+  image.src = src;
+  return loaded;
+}
+
+test(() => {
+  const ctx = document.createElement("canvas").getContext("2d");
+  const image = new Image();
+  assert_equals(ctx.createPattern(image, "repeat"), null);
+  assert_equals(ctx.drawImage(image, 0, 0), undefined);
+}, "Incomplete image sources return null from createPattern and do not draw");
+
+promise_test(async () => {
+  const canvas = document.createElement("canvas");
+  canvas.width = 4;
+  canvas.height = 4;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "lime";
+  ctx.fillRect(0, 0, 4, 4);
+  const src = canvas.toDataURL();
+  const image = await loadImage(src);
+  assert_true(image.complete);
+  assert_equals(image.currentSrc, src);
+  assert_equals(image.naturalWidth, 4);
+  assert_equals(image.naturalHeight, 4);
+  ctx.clearRect(0, 0, 4, 4);
+  ctx.drawImage(image, 0, 0);
+  assert_array_equals(ctx.getImageData(0, 0, 1, 1).data, [0, 255, 0, 255]);
+  assert_not_equals(ctx.createPattern(image, "repeat"), null);
+}, "Loaded images can be drawn and used in patterns inside their load handler");
+
+for (const data of ["aW52YWxpZA==", ""]) {
+  promise_test(async () => {
+    const ctx = document.createElement("canvas").getContext("2d");
+    const image = new Image();
+    const failed = new Promise(resolve => {
+      image.onerror = resolve;
+      image.onload = () => assert_unreached("Invalid image data must not load");
+    });
+    image.src = "data:image/png;base64," + data;
+    await failed;
+    assert_true(image.complete);
+    assert_equals(image.naturalWidth, 0);
+    assert_equals(image.naturalHeight, 0);
+    assert_throws_dom("InvalidStateError", () => ctx.drawImage(image, 0, 0));
+    assert_throws_dom("InvalidStateError", () => ctx.createPattern(image, "repeat"));
+  }, `Broken ${data === "" ? "empty" : "invalid"} images fire error and cannot be drawn or used in patterns`);
+}
+</script>

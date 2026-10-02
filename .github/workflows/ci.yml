@@ -30,9 +30,7 @@ jobs:
         run: npm run check
 
   test-with-canvas:
-    name: Tests with node-canvas
-    env:
-      TEST_SUITE: node-canvas
+    name: Tests with @napi-rs/canvas
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -43,14 +41,14 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Install canvas system dependencies
-        run: sudo apt-get update && sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Configure hosts for web platform tests
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
         run: npm ci --engine-strict
-      - name: Install canvas
-        run: npm install --engine-strict canvas@3
+      - name: Install @napi-rs/canvas
+        run: npm install --engine-strict @napi-rs/canvas@^1.0.10
+      - name: Verify canvas is available
+        run: node -e "require('@napi-rs/canvas')"
       - name: Run tests
         run: npm test
 

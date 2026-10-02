@@ -150,10 +150,10 @@
     "wireit": "^0.15.0"
   },
   "peerDependencies": {
-    "canvas": "^3.2.3"
+    "@napi-rs/canvas": "^1.0.10"
   },
   "peerDependenciesMeta": {
-    "canvas": {
+    "@napi-rs/canvas": {
       "optional": true
     }
   },
