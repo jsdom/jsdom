@@ -144,7 +144,7 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 - Frames and iframes, via `<frame>` and `<iframe>`
 - Stylesheets, via `<link rel="stylesheet">`
 - Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
-- Images, via `<img>`, but only if the `canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
+- Images, via `<img>`, but only if the `@napi-rs/canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
 
 When attempting to load resources, recall that the default value for the `url` option is `"about:blank"`, which means that any resources included via relative URLs will fail to load. (The result of trying to parse the URL `/something` against the URL `about:blank` is an error.) So, you'll likely want to set a non-default value for the `url` option in those cases, or use one of the [convenience APIs](#convenience-apis) that do so automatically.
 
@@ -471,7 +471,17 @@ console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
 
 ### Canvas support
 
-jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include `canvas` as a dependency in your project, as a peer of `jsdom`. If jsdom can find version 3.x of the `canvas` package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
+jsdom uses the [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) package to extend `<canvas>` elements with the canvas API and decode `<img>` resources. Install version 1.0.10 or later in the 1.x series as a peer of jsdom:
+
+```sh
+npm install @napi-rs/canvas@^1.0.10
+```
+
+This package is optional. Without it, `<canvas>` elements behave like `<div>`s and images are not decoded. Prebuilt native binaries are available for supported operating systems and architectures; see the package's [platform support](https://github.com/Brooooooklyn/canvas#support-matrix). Installing the `canvas` package alone no longer enables canvas or image support in jsdom.
+
+To migrate from `canvas`, replace that dependency with `@napi-rs/canvas`. Code using jsdom's DOM canvas and image APIs can continue to use those APIs. Code that imports native `Image`, `createCanvas`, or font registration APIs from `canvas` must also migrate those imports and calls: native objects from the two packages are not interchangeable. For example, use `GlobalFonts.registerFromPath(path, family)` instead of `registerFont(path, { family })`; see the package's [API documentation](https://github.com/Brooooooklyn/canvas#usage).
+
+The rendering engine changes from Cairo to Skia. Fonts, antialiasing, and encoded image bytes can differ, so review image snapshots and compare decoded pixels where appropriate. PNG, JPEG, and WebP serialization are supported; unsupported MIME types fall back to PNG.
 
 ### Encoding sniffing
 
