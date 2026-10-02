@@ -471,17 +471,15 @@ console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
 
 ### Canvas support
 
-jsdom uses the [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) package to extend `<canvas>` elements with the canvas API and decode `<img>` resources. Install version 1.0.10 or later in the 1.x series as a peer of jsdom:
+jsdom uses [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) 1.0.10 or later in the 1.x series as its optional canvas and image decoding backend. Install it alongside jsdom:
 
 ```sh
 npm install @napi-rs/canvas@^1.0.10
 ```
 
-This package is optional. Without it, `<canvas>` elements behave like `<div>`s and images are not decoded. Prebuilt native binaries are available for supported operating systems and architectures; see the package's [platform support](https://github.com/Brooooooklyn/canvas#support-matrix). Installing the `canvas` package alone no longer enables canvas or image support in jsdom.
+Without it, `<canvas>` elements behave like `<div>`s and images are not decoded. Installing `canvas` alone no longer enables this support. See the [supported platforms for prebuilt binaries](https://github.com/Brooooooklyn/canvas#support-matrix).
 
-To migrate from `canvas`, replace that dependency with `@napi-rs/canvas`. Code using jsdom's DOM canvas and image APIs can continue to use those APIs. Code that imports native `Image`, `createCanvas`, or font registration APIs from `canvas` must also migrate those imports and calls: native objects from the two packages are not interchangeable. For example, use `GlobalFonts.registerFromPath(path, family)` instead of `registerFont(path, { family })`; see the package's [API documentation](https://github.com/Brooooooklyn/canvas#usage).
-
-The rendering engine changes from Cairo to Skia. Fonts, antialiasing, and encoded image bytes can differ, so review image snapshots and compare decoded pixels where appropriate. PNG, JPEG, and WebP serialization are supported; unsupported MIME types fall back to PNG.
+To migrate, replace the `canvas` dependency. DOM canvas and image APIs remain available. Native `Image` and canvas objects from the packages are not interchangeable; migrate native imports and use `GlobalFonts.registerFromPath(path, family)` instead of `registerFont(path, { family })` ([API documentation](https://github.com/Brooooooklyn/canvas#usage)). Skia replaces Cairo, so fonts, antialiasing, and encoded bytes can differ. PNG, JPEG, and WebP serialization are supported; other MIME types fall back to PNG.
 
 ### Encoding sniffing
 
