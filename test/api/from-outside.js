@@ -187,6 +187,31 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(fontFaceRule.type, window.CSSRule.FONT_FACE_RULE, "Rule should be a CSSFontFaceRule");
   });
 
+  it("preserves @font-face descriptors such as src and font-display (GH-4378)", () => {
+    const html = `
+      <html><head>
+        <style id="test-style">
+          @font-face {
+            font-family: "Example";
+            src: url("example.woff2") format("woff2");
+            font-display: swap;
+          }
+        </style>
+      </head><body></body></html>
+    `;
+    const { window } = new JSDOM(html);
+    const { sheet } = window.document.getElementById("test-style");
+    const [fontFaceRule] = sheet.cssRules;
+
+    assert.match(fontFaceRule.cssText, /src: url\("example\.woff2"\) format\("woff2"\)/);
+    assert.match(fontFaceRule.cssText, /font-display: swap/);
+    assert.equal(
+      fontFaceRule.style.getPropertyValue("src"),
+      'url("example.woff2") format("woff2")'
+    );
+    assert.equal(fontFaceRule.style.getPropertyValue("font-display"), "swap");
+  });
+
   it("should switch node context on querySelector() (GH-3928)", () => {
     const html = `
       <div>
