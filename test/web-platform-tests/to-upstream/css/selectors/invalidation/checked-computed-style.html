@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Checkedness changes update computed styles</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#dom-input-checked">
+<link rel="help" href="https://drafts.csswg.org/selectors/#checked">
+<link rel="help" href="https://drafts.csswg.org/selectors/#relational">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  .container, input, .sibling { color: red; }
+  input:checked, input:checked + .sibling, .container:has(input:checked) { color: green; }
+</style>
+<body>
+<script>
+"use strict";
+
+function createFixture(t, type) {
+  const form = document.createElement("form");
+  form.className = "container";
+  form.innerHTML = `<input type="${type}" name="group"><span class="sibling"></span>` +
+    `<input type="${type}" name="group"><span class="sibling"></span>`;
+  document.body.append(form);
+  t.add_cleanup(() => form.remove());
+  return form;
+}
+
+function assertColors(form, first, second) {
+  assert_equals(getComputedStyle(form).color, first || second ? "rgb(0, 128, 0)" : "rgb(255, 0, 0)", "Ancestor :has()");
+  for (const [index, checked] of [first, second].entries()) {
+    const input = form.elements[index];
+    const expected = checked ? "rgb(0, 128, 0)" : "rgb(255, 0, 0)";
+    assert_equals(getComputedStyle(input).color, expected, `Input ${index}: :checked`);
+    assert_equals(getComputedStyle(input.nextElementSibling).color, expected, `Input ${index}: sibling selector`);
+  }
+}
+
+for (const type of ["checkbox", "radio"]) {
+  test(t => {
+    const form = createFixture(t, type);
+    const input = form.elements[0];
+    assertColors(form, false, false);
+    input.checked = true;
+    assertColors(form, true, false);
+    input.checked = true;
+    assertColors(form, true, false);
+    input.checked = false;
+    assertColors(form, false, false);
+  }, `Setting and clearing ${type} checkedness updates its own, sibling, and ancestor styles`);
+
+  test(t => {
+    const form = createFixture(t, type);
+    const input = form.elements[0];
+    input.defaultChecked = true;
+    assertColors(form, true, false);
+    input.checked = false;
+    assertColors(form, false, false);
+    form.reset();
+    assertColors(form, true, false);
+  }, `Resetting a ${type} restores checked styles`);
+}
+
+test(t => {
+  const form = createFixture(t, "radio");
+  form.elements[0].checked = true;
+  assertColors(form, true, false);
+  form.elements[1].checked = true;
+  assertColors(form, false, true);
+  form.elements[1].checked = false;
+  assertColors(form, false, false);
+}, "Checking a radio also updates the automatically unchecked radio's styles");
+
+test(t => {
+  const form = createFixture(t, "checkbox");
+  const input = form.elements[0];
+  input.checked = true;
+  assertColors(form, true, false);
+  form.reset();
+  assertColors(form, false, false);
+}, "Resetting a checkbox clears checked styles when the default is unchecked");
+
+test(t => {
+  const form = createFixture(t, "checkbox");
+  const input = form.elements[0];
+  assertColors(form, false, false);
+  input.addEventListener("click", event => {
+    assertColors(form, true, false);
+    event.preventDefault();
+  }, { once: true });
+  input.click();
+  assertColors(form, false, false);
+}, "Canceled checkbox activation restores styles after exposing the temporary checked state");
+
+test(t => {
+  const form = createFixture(t, "radio");
+  form.elements[0].checked = true;
+  assertColors(form, true, false);
+  form.elements[1].addEventListener("click", event => {
+    assertColors(form, false, true);
+    event.preventDefault();
+  }, { once: true });
+  form.elements[1].click();
+  assertColors(form, true, false);
+}, "Canceled radio activation restores styles for the previously checked radio");
+</script>

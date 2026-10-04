@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Form state changes invalidate styles without tree mutations</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics-other.html#pseudo-classes">
+<link rel="help" href="https://drafts.csswg.org/selectors/#relational">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createFixture(t, markup, pseudo) {
+  const style = document.createElement("style");
+  style.textContent = `
+    .container, .control, .sibling { color: red; }
+    .control${pseudo}, .control${pseudo} + .sibling,
+    .container:has(.control${pseudo}) { color: green; }
+    .control option { color: red; }
+    .control option:checked { color: green; }
+  `;
+  const form = document.createElement("form");
+  form.className = "container";
+  form.innerHTML = markup + '<span class="sibling"></span><span class="inherited"></span>';
+  const control = form.firstElementChild;
+  control.className = "control";
+  document.body.append(style, form);
+  t.add_cleanup(() => {
+    form.remove();
+    style.remove();
+  });
+  return { form, control };
+}
+
+function assertStyles(form, control, matches) {
+  const expected = matches ? "rgb(0, 128, 0)" : "rgb(255, 0, 0)";
+  for (const element of [control, control.nextElementSibling, form, form.lastElementChild]) {
+    assert_equals(getComputedStyle(element).color, expected, element.className);
+  }
+}
+
+function assertOptionStyles(select) {
+  for (const option of select.options) {
+    assert_equals(getComputedStyle(option).color, option.selected ? "rgb(0, 128, 0)" : "rgb(255, 0, 0)");
+  }
+}
+
+test(t => {
+  const { form, control } = createFixture(t, '<input type="checkbox">', ":indeterminate");
+  assertStyles(form, control, false);
+  control.indeterminate = true;
+  assertStyles(form, control, true);
+  control.indeterminate = false;
+  assertStyles(form, control, false);
+}, "Setting and clearing indeterminacy updates related and inherited styles");
+
+test(t => {
+  const { form, control } = createFixture(t, '<input type="checkbox">', ":indeterminate");
+  control.indeterminate = true;
+  assertStyles(form, control, true);
+
+  let clicked = false;
+  control.addEventListener("click", t.step_func(event => {
+    event.preventDefault();
+    clicked = true;
+    assert_false(control.indeterminate, "Activation clears indeterminacy before dispatching click");
+    assertStyles(form, control, false);
+  }), { once: true });
+  control.click();
+
+  assert_true(clicked, "The click listener ran");
+  assert_true(control.indeterminate, "Canceling activation restores indeterminacy");
+  assertStyles(form, control, true);
+}, "Canceled checkbox activation restores indeterminate styles after exposing the temporary determinate state");
+
+for (const [name, markup, setValue] of [
+  [
+    "input value", "<input required>", input => {
+      input.value = "x";
+    }
+  ],
+  [
+    "input valueAsNumber", '<input type="number" required>', input => {
+      input.valueAsNumber = 1;
+    }
+  ],
+  [
+    "input valueAsDate", '<input type="date" required>', input => {
+      input.valueAsDate = new Date(0);
+    }
+  ],
+  ["input stepUp", '<input type="number" required>', input => input.stepUp()],
+  ["input setRangeText", "<input required>", input => input.setRangeText("x")],
+  [
+    "textarea value", "<textarea required></textarea>", textarea => {
+      textarea.value = "x";
+    }
+  ],
+  ["textarea setRangeText", "<textarea required></textarea>", textarea => textarea.setRangeText("x")]
+]) {
+  test(t => {
+    const { form, control } = createFixture(t, markup, ":valid");
+    assertStyles(form, control, false);
+    setValue(control);
+    assertStyles(form, control, true);
+    form.reset();
+    assertStyles(form, control, false);
+  }, `${name} and form reset update validity-dependent styles`);
+}
+
+for (const [name, markup, clearValue] of [
+  [
+    "valueAsNumber = NaN", '<input type="number" required value="1">', input => {
+      input.valueAsNumber = NaN;
+    }
+  ],
+  [
+    "valueAsDate = null", '<input type="date" required value="1970-01-01">', input => {
+      input.valueAsDate = null;
+    }
+  ],
+  [
+    "valueAsDate = an invalid Date", '<input type="date" required value="1970-01-01">', input => {
+      input.valueAsDate = new Date(NaN);
+    }
+  ]
+]) {
+  test(t => {
+    const { form, control } = createFixture(t, markup, ":valid");
+    assertStyles(form, control, true);
+    clearValue(control);
+    assert_equals(control.value, "", "The input's value was cleared");
+    assertStyles(form, control, false);
+  }, `Clearing an input through ${name} updates validity-dependent styles`);
+}
+
+for (const markup of ["<input>", "<textarea></textarea>", "<select><option>A</option></select>", "<button></button>"]) {
+  test(t => {
+    const { form, control } = createFixture(t, markup, ":invalid");
+    assertStyles(form, control, false);
+    control.setCustomValidity("invalid");
+    assertStyles(form, control, true);
+    control.setCustomValidity("");
+    assertStyles(form, control, false);
+  }, `Custom validity updates styles for ${markup}`);
+}
+
+for (const [name, selectSecond] of [
+  [
+    "selectedIndex", select => {
+      select.selectedIndex = 1;
+    }
+  ],
+  [
+    "value", select => {
+      select.value = "b";
+    }
+  ],
+  [
+    "option selectedness", select => {
+      select.options[1].selected = true;
+    }
+  ]
+]) {
+  test(t => {
+    const { form, control: select } = createFixture(
+      t,
+      '<select required><option value="">A</option><option value="b">B</option></select>',
+      ":valid"
+    );
+    const { selectedOptions, options } = select;
+    assert_array_equals(Array.from(selectedOptions), [options[0]]);
+    assertStyles(form, select, false);
+    assertOptionStyles(select);
+    selectSecond(select);
+    assertStyles(form, select, true);
+    assertOptionStyles(select);
+    assert_array_equals(Array.from(selectedOptions), [options[1]]);
+    form.reset();
+    assertStyles(form, select, false);
+    assertOptionStyles(select);
+    assert_array_equals(Array.from(selectedOptions), [options[0]]);
+    assert_equals(select.options, options);
+    assert_equals(select.selectedOptions, selectedOptions);
+  }, `Selection through ${name} and reset refresh styles and an existing selectedOptions collection`);
+}
+
+test(t => {
+  const { form, control: select } = createFixture(
+    t,
+    "<select multiple required><option>A</option><option>B</option></select>",
+    ":valid"
+  );
+  const { selectedOptions } = select;
+  assertStyles(form, select, false);
+  select.options[1].selected = true;
+  assertStyles(form, select, true);
+  assert_array_equals(Array.from(selectedOptions), [select.options[1]]);
+  select.selectedIndex = -1;
+  assertStyles(form, select, false);
+  assert_equals(selectedOptions.length, 0);
+}, "Clearing a multiple select refreshes :has() styles and selectedOptions");
+
+test(() => {
+  const select = document.createElement("select");
+  select.multiple = true;
+  const container = document.createElement("div");
+  container.innerHTML = "<div><option>A</option></div>";
+  select.append(container);
+  const option = container.firstChild.firstChild;
+  const { selectedOptions } = select;
+  assert_equals(selectedOptions.length, 0);
+  option.selected = true;
+  assert_array_equals(Array.from(selectedOptions), [option]);
+  option.selected = false;
+  assert_equals(selectedOptions.length, 0);
+}, "selectedOptions stays live when a descendant below generic containers changes selectedness");
+</script>
