@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Focusing inputs with non-HTML ancestors</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focusable-area">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  [data-hidden-ancestor] { display: none; }
+</style>
+<input id="sentinel">
+<script>
+"use strict";
+
+for (const namespace of ["http://www.w3.org/1998/Math/MathML", null]) {
+  const description = namespace === null ? "a null-namespace element" : "MathML";
+  for (const hidden of [false, true]) {
+    test(t => {
+      const ancestor = document.createElementNS(namespace, namespace === null ? "container" : "math");
+      const parent = namespace === null ? ancestor : document.createElementNS(namespace, "mtext");
+      if (parent !== ancestor) {
+        ancestor.append(parent);
+      }
+      if (hidden) {
+        ancestor.setAttribute("data-hidden-ancestor", "");
+      }
+      const input = document.createElement("input");
+      parent.append(input);
+      document.body.append(ancestor);
+      t.add_cleanup(() => ancestor.remove());
+
+      const sentinel = document.getElementById("sentinel");
+      sentinel.focus();
+      assert_equals(document.activeElement, sentinel, "The sentinel is initially focused");
+      let focusEvents = 0;
+      input.addEventListener("focus", () => ++focusEvents);
+      input.focus();
+      assert_equals(document.activeElement, hidden ? sentinel : input);
+      assert_equals(focusEvents, hidden ? 0 : 1);
+    }, `An input inside ${description} ${hidden ? "with stylesheet display: none is not" : "is"} focusable`);
+  }
+}
+</script>
