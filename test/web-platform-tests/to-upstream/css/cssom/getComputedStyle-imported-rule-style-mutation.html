@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed styles reflect declaration mutations in imported style sheets</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssimportrule-stylesheet">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style id="sheet-owner">
+  @import "resources/style-mutation-import.css";
+</style>
+<div id="imported-mutation"></div>
+<div id="imported-media-mutation"></div>
+<div id="nested-imported-mutation"></div>
+<script>
+"use strict";
+
+promise_test(async () => {
+  await new Promise(resolve => {
+    window.addEventListener("load", resolve);
+  });
+  const importedSheet = document.getElementById("sheet-owner").sheet.cssRules[0].styleSheet;
+  const nestedSheet = importedSheet.cssRules[0].styleSheet;
+
+  for (const [id, rule] of [
+    ["imported-mutation", importedSheet.cssRules[2]],
+    ["imported-media-mutation", importedSheet.cssRules[1].cssRules[0]],
+    ["nested-imported-mutation", nestedSheet.cssRules[0]]
+  ]) {
+    const target = document.getElementById(id);
+    assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)", `${id}: prime the computed style`);
+    rule.style.color = "green";
+    assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)", `${id}: use the new declaration`);
+
+    const parent = rule.parentRule || rule.parentStyleSheet;
+    const index = parent.cssRules.length;
+    parent.insertRule(`#${id} { color: blue; }`, index);
+    assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)", `${id}: use an inserted rule`);
+    parent.deleteRule(index);
+    assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)", `${id}: stop using a deleted rule`);
+
+    rule.selectorText = "#does-not-exist";
+    assert_equals(
+      getComputedStyle(target).color,
+      getComputedStyle(document.body).color,
+      `${id}: stop matching after a selector change`
+    );
+    rule.selectorText = `#${id}`;
+    assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)", `${id}: match the restored selector`);
+  }
+
+  importedSheet.media.mediaText = "print";
+  const target = document.getElementById("imported-mutation");
+  assert_equals(
+    getComputedStyle(target).color,
+    getComputedStyle(document.body).color,
+    "Changing an import's media stops its rules from applying"
+  );
+  importedSheet.media.mediaText = "all";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)", "Restoring an import's media restores its styles");
+}, "Declaration mutations in imports, media rules in imports, and nested imports update computed styles");
+</script>

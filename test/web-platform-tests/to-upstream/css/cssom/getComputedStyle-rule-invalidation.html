@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Rule changes invalidate computed styles</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-insertrule">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylerule-selectortext">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createFixture(t, css) {
+  const style = document.createElement("style");
+  style.textContent = css;
+  const target = document.createElement("div");
+  target.className = "target";
+  document.body.append(style, target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  return { sheet: style.sheet, target };
+}
+
+for (const nested of [false, true]) {
+  test(t => {
+    const { sheet } = createFixture(t, nested ? "@media all {}" : "");
+    const parent = nested ? sheet.cssRules[0] : sheet;
+    parent.insertRule("@media all { .target { color: red; } }", 0);
+    const group = parent.cssRules[0];
+    const rule = group.cssRules[0];
+    assert_equals(rule.parentStyleSheet, sheet);
+    assert_equals(rule.parentRule, group);
+  }, `Inserting a grouping rule ${nested ? "inside a grouping rule" : "into a sheet"} attaches its descendants`);
+}
+
+test(t => {
+  const { sheet, target } = createFixture(t, "");
+  sheet.insertRule("@media all { .target { color: red; } }", 0);
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+  sheet.cssRules[0].cssRules[0].style.color = "green";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "Declaration edits inside an inserted grouping rule invalidate computed styles");
+
+test(t => {
+  const { sheet, target } = createFixture(t, ".target { color: blue; } .other { color: green; }");
+  const rule = sheet.cssRules[1];
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+  rule.selectorText = ".target";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  rule.selectorText = ".other";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+}, "Changing selectorText updates selector subject filtering and computed styles");
+
+for (const [name, mutate] of [
+  [
+    "mediaText", media => {
+      media.mediaText = "all";
+    }
+  ],
+  ["appendMedium", media => media.appendMedium("all")],
+  ["deleteMedium", media => media.deleteMedium("print")]
+]) {
+  test(t => {
+    const { sheet, target } = createFixture(t, ".target { color: red; } @media print { .target { color: green; } }");
+    const { media } = sheet.cssRules[1];
+    assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+    mutate(media);
+    assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+    media.mediaText = "print";
+    assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+  }, `Changing a media rule through ${name} invalidates computed styles`);
+}
+</script>

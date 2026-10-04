@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed styles reflect CSS rule declaration mutations</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-csstext">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const nested of [false, true]) {
+  for (const [name, mutate, expected] of [
+    [
+      "property assignment", style => {
+        style.color = "green";
+      }, "rgb(0, 128, 0)"
+    ],
+    ["setProperty", style => style.setProperty("color", "green"), "rgb(0, 128, 0)"],
+    [
+      "cssText", style => {
+        style.cssText = "color: green;";
+      }, "rgb(0, 128, 0)"
+    ],
+    ["removeProperty", style => style.removeProperty("color"), "rgb(0, 0, 255)"],
+    [
+      "clearing cssText", style => {
+        style.cssText = "";
+      }, "rgb(0, 0, 255)"
+    ],
+    [
+      "clearing a property", style => {
+        style.color = "";
+      }, "rgb(0, 0, 255)"
+    ]
+  ]) {
+    test(t => {
+      const sheetOwner = document.createElement("style");
+      sheetOwner.textContent = `.target { color: blue; } ${nested ? "@media all {" : ""}` +
+        `.target { color: red; } ${nested ? "}" : ""}`;
+      const target = document.createElement("div");
+      target.className = "target";
+      document.body.append(sheetOwner, target);
+      t.add_cleanup(() => {
+        sheetOwner.remove();
+        target.remove();
+      });
+
+      const rule = nested ? sheetOwner.sheet.cssRules[1].cssRules[0] : sheetOwner.sheet.cssRules[1];
+      assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)", "Prime the computed style");
+      mutate(rule.style);
+      assert_equals(getComputedStyle(target).color, expected);
+    }, `${name} updates computed styles for ${nested ? "a rule inside @media" : "a style rule"}`);
+  }
+}
+
+test(t => {
+  const sheetOwner = document.createElement("style");
+  sheetOwner.textContent = ".target { margin: 5px; } .target { margin: 10px; }";
+  const target = document.createElement("div");
+  target.className = "target";
+  document.body.append(sheetOwner, target);
+  t.add_cleanup(() => {
+    sheetOwner.remove();
+    target.remove();
+  });
+
+  const { style } = sheetOwner.sheet.cssRules[1];
+  assert_equals(getComputedStyle(target).marginTop, "10px");
+  style.margin = "1px 2px";
+  assert_equals(getComputedStyle(target).marginTop, "1px");
+  assert_equals(getComputedStyle(target).marginRight, "2px");
+  style.setProperty("margin", "1px 2px");
+  style.margin = "invalid";
+  assert_equals(getComputedStyle(target).marginTop, "1px", "No-op mutations preserve the computed value");
+  style.margin = "";
+  assert_equals(getComputedStyle(target).marginTop, "5px");
+  assert_equals(getComputedStyle(target).marginRight, "5px");
+}, "Shorthand mutations update all affected computed longhands");
+
+test(t => {
+  const sheetOwner = document.createElement("style");
+  sheetOwner.textContent = ".target { color: blue !important; } .target { color: red; }";
+  const target = document.createElement("div");
+  target.className = "target";
+  document.body.append(sheetOwner, target);
+  t.add_cleanup(() => {
+    sheetOwner.remove();
+    target.remove();
+  });
+
+  const { style } = sheetOwner.sheet.cssRules[1];
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+  style.setProperty("color", "red", "important");
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "Changing only a declaration's priority updates computed styles");
+
+test(t => {
+  const sheetOwner = document.createElement("style");
+  sheetOwner.textContent = ".target { color: red; }";
+  const target = document.createElement("div");
+  target.className = "target";
+  const child = document.createElement("span");
+  target.append(child);
+  document.body.append(sheetOwner, target);
+  t.add_cleanup(() => {
+    sheetOwner.remove();
+    target.remove();
+  });
+
+  assert_equals(getComputedStyle(child).color, "rgb(255, 0, 0)");
+  sheetOwner.sheet.cssRules[0].style.color = "green";
+  assert_equals(getComputedStyle(child).color, "rgb(0, 128, 0)");
+}, "Mutating a rule also updates inherited styles on descendants");
+</script>

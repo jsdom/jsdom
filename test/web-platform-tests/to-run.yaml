@@ -1035,7 +1035,6 @@ serialize-values.html:
   "content: attr( |foo ,  \"\" )": [fail, Not yet supported]
   "font-family: 'Lucida Grande'": [fail, Unknown]
   "outline-color: invert": [fail, Test is incorrect, invert is not in spec anymore]
-set-selector-text-attachment.html: [fail, Unknown]
 shorthand-values.html:
   "The serialization of overflow-x: scroll; overflow-y: hidden; should be canonical.": [fail, Not yet supported]
   "The serialization of overflow-x: scroll; overflow-y: scroll; should be canonical.": [fail, Not yet supported]
@@ -1266,7 +1265,6 @@ invalidation/empty-pseudo-in-has-display-none.html:
 invalidation/has-complexity.html: [timeout, Timeout on ChildNode.remove() recursive call; has dont-upstream version]
 invalidation/has-css-nesting-shared.html: [fail, Unknown]
 invalidation/has-pseudo-element-subject-child-mutation.html: [fail, Unknown]
-invalidation/has-with-pseudo-class.html: [fail, Unknown]
 invalidation/heading-pseudo-class-in-has-with-headingoffset.html: [fail, Unknown]
 invalidation/heading-pseudo-class-in-has-with-slot-reassignment.html: [fail, Unknown]
 invalidation/heading-pseudo-class-in-has.html: [fail, Unknown]
@@ -1283,7 +1281,6 @@ invalidation/part-dir.html: [fail, Unknown]
 invalidation/part-lang.html: [fail, Unknown]
 invalidation/quirks-mode-stylesheet-dynamic-add-001.html: [fail, Unknown]
 invalidation/state-in-has.html: [fail, Unknown]
-invalidation/subject-has-invalidation-with-display-none-anchor-element.html: [fail, Unknown]
 invalidation/target-pseudo-in-has.html: [fail, Unknown]
 is-where-error-recovery.html: [fail, Unknown]
 is-where-shadow.html: [fail, Unknown]
@@ -2598,9 +2595,6 @@ customizable-select/**/!(option-color-inheritance.html|placeholder-label-option-
 inserted-or-removed.html:
   "If an OPTION says it is selected, it should be selected after it is inserted.": [fail, Not implemented]
 select-selectedOptions-nesting.window.html: [fail, Unknown]
-select-selectedOptions.html:
-  .selectedOptions should not go stale when a form reset runs the selectedness setting algorithm on a script-created select: [fail, selectedOptions is stale after selectedness changes on script-created selects]
-  .selectedOptions should not go stale when the selectedness setting algorithm runs on a script-created select: [fail, selectedOptions is stale after selectedness changes on script-created selects]
 select-validity.html: [fail, Unknown]
 select-value.html:
   "option is child of div": [fail, Unknown]
