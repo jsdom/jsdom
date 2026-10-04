@@ -1,9 +1,12 @@
 css/cssom/getComputedStyle-html-svg-inheritance.html:
   "An SVG element inside a div has the initial stroke value": [fail, Initial stroke value none is incorrectly serialized as transparent black]
-html/browsers/browsing-the-web/navigating-across-documents/stop-pending-script-no-load.html?*: [fail, window.stop() incorrectly fires load on the stopped window and iframe]
 html/semantics/embedded-content/the-canvas-element/canvas-serialization.html: [needs-canvas]
+html/semantics/embedded-content/the-iframe-element/initial-blank-after-blocking-script.html: [fail, https://github.com/jsdom/jsdom/issues/2413]
 html/semantics/forms/the-option-element/option-ask-for-a-reset.html:
   "Setting an already-present selected attribute does not change selectedness": [fail, A no-op defaultSelected assignment incorrectly changes selectedness]
+html/semantics/scripting-1/the-script-element/execution-timing/async-script-depending-on-previous-sync-dont-upstream.html: [flaky, https://github.com/jsdom/jsdom/issues/2413]
+html/semantics/scripting-1/the-script-element/parser-created-resources-while-blocked.html?img: [needs-canvas, Image loading requires canvas]
+html/semantics/scripting-1/the-script-element/parser-resource-order.html: [fail-with-canvas, https://github.com/jsdom/jsdom/issues/2413]
 jsdom-only/failure-example-1.html: [fail, https://github.com/jsdom/jsdom/issues/3835]
 jsdom-only/failure-example-2.html:
   "failing test": [fail, https://github.com/jsdom/jsdom/issues/3835]

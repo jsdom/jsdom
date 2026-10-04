@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="variant" content="?dynamic">
+<meta name="variant" content="?parser-created">
+<title>A dynamic stylesheet does not block subsequent parser-inserted scripts</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics.html#contributes-a-script-blocking-style-sheet">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global controlledResponse */
+
+const parserCreated = location.search === "?parser-created";
+promise_test(async t => {
+  const sheet = controlledResponse(t, "body { color: green }", "text/css");
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const scriptRan = new Promise(resolve => {
+    window.documentReady = resolve;
+  });
+  t.add_cleanup(() => {
+    delete window.documentReady;
+  });
+  frame.src = "resources/dynamic-stylesheet-does-not-block-script.html?" +
+    new URLSearchParams({ sheet: sheet.url, parserCreated });
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  document.body.append(frame);
+  await scriptRan;
+  assert_equals(frame.contentDocument.querySelector("#sheet").sheet, null, "The stylesheet is still pending");
+  await sheet.release();
+  await loaded;
+  assert_equals(frame.contentWindow.getComputedStyle(frame.contentDocument.body).color, "rgb(0, 128, 0)");
+}, parserCreated ?
+  "A parser-created link that becomes a stylesheet later does not block scripts" :
+  "A following parser-inserted script executes while a dynamically inserted stylesheet is pending");
+</script>

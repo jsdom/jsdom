@@ -1,0 +1,18 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Parser resource order fixture</title>
+<script>
+"use strict";
+window.order = [];
+parent.documentReady();
+const blockingURL = new URLSearchParams(location.search).get("blocking").replaceAll("&", "&amp;");
+// eslint-disable-next-line no-useless-escape -- Keep the HTML parser from ending this script.
+document.write('<script src="' + blockingURL + '"><\/script>');
+</script>
+<iframe src="parser-resource-child.html"></iframe>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=">
+<script>
+"use strict";
+window.order.push("inline");
+document.querySelector("img").onload = () => window.order.push("image");
+</script>

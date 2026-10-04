@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stylesheet import event fixture</title>
+<body>
+<script>
+"use strict";
+window.events = [];
+window.rulesAtLoad = null;
+window.colorAtLoad = null;
+const parameters = new URLSearchParams(location.search);
+const mode = parameters.get("mode");
+const element = document.createElement(parameters.get("tag"));
+let url;
+if (mode === "error") {
+  url = "stylesheet-import-error-parent.css";
+} else if (mode === "cycle") {
+  url = "stylesheet-import-cycle-a.css";
+} else {
+  url = element.localName === "link" ? "stylesheet-import-first.css" : "stylesheet-import-second.css";
+}
+if (element.localName === "link") {
+  element.rel = "stylesheet";
+  element.href = url;
+} else {
+  element.textContent = `@import "${url}";`;
+}
+element.onload = element.onerror = event => {
+  window.events.push(event.type);
+  if (mode === null) {
+    window.rulesAtLoad = element.sheet.cssRules[0].styleSheet.cssRules[0].styleSheet.cssRules.length;
+  }
+  window.colorAtLoad = getComputedStyle(document.body).color;
+};
+document.head.append(element);
+window.initialColor = getComputedStyle(document.body).color;
+</script>

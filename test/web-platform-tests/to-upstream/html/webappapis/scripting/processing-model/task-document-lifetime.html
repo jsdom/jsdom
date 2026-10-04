@@ -14,6 +14,13 @@
 /* global addIframe */
 
 const operations = {
+  style(win, callback, t) {
+    const style = win.document.createElement("style");
+    style.addEventListener("load", callback);
+    style.textContent = "body { color: green }";
+    win.document.head.append(style);
+    t.add_cleanup(() => style.remove());
+  },
   toggle(win, callback) {
     const details = win.document.createElement("details");
     details.addEventListener("toggle", callback);
@@ -25,7 +32,7 @@ const operations = {
     input.addEventListener("select", callback);
     win.document.body.append(input);
     t.add_cleanup(() => input.remove());
-    input.select();
+    input.setSelectionRange(0, input.value.length);
   },
   textareaSelect(win, callback, t) {
     const textarea = win.document.createElement("textarea");
@@ -33,7 +40,7 @@ const operations = {
     textarea.addEventListener("select", callback);
     win.document.body.append(textarea);
     t.add_cleanup(() => textarea.remove());
-    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
   },
   postMessage(win, callback, t) {
     win.addEventListener("message", callback, { once: true });

@@ -5,11 +5,13 @@
 <link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#list-of-scripts-that-will-execute-in-order-as-soon-as-possible">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
 <script src="../resources/helpers.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
 <body>
 <script>
 "use strict";
-/* global addIframe */
+/* global addIframe, controlledResponse */
 promise_test(async t => {
   // Keep the test harness's load event independent of the stopped frame.
   await new Promise(resolve => {
@@ -18,9 +20,10 @@ promise_test(async t => {
   const frame = await addIframe();
   t.add_cleanup(() => frame.remove());
   const child = frame.contentWindow;
+  const response = controlledResponse(t, "window.pendingScriptExecuted = true;", "text/javascript");
   const pending = child.document.createElement("script");
   pending.async = false;
-  pending.src = new URL("resources/stop-pending-script.js", location);
+  pending.src = response.url;
   child.document.body.append(pending);
   child.stop();
 

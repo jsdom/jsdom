@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stylesheet responses and document readiness</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/links.html#link-type-stylesheet">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global controlledResponse */
+
+promise_test(async t => {
+  const first = controlledResponse(t, "body { color: blue }", "text/css");
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const ready = new Promise(resolve => {
+    window.documentReady = child => resolve(child);
+  });
+  t.add_cleanup(() => {
+    delete window.documentReady;
+  });
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  frame.src = "resources/stylesheet-response-order.html?" + new URLSearchParams({ first: first.url });
+  document.body.append(frame);
+  const child = await ready;
+  assert_equals(child.document.readyState, "interactive");
+  assert_false(child.loaded, "Stylesheets delay load, but not DOMContentLoaded");
+  await child.secondLoaded;
+  assert_array_equals(child.events, ["second"], "The second stylesheet does not wait for the first");
+  await first.release();
+  await loaded;
+  assert_array_equals(child.events, ["second", "first"]);
+  const links = child.document.querySelectorAll("link");
+  assert_array_equals(child.document.styleSheets, [links[0].sheet, links[1].sheet]);
+  assert_equals(child.getComputedStyle(child.document.body).color, "rgb(0, 128, 0)");
+}, "Stylesheets load independently and preserve cascade order without delaying DOMContentLoaded");
+</script>

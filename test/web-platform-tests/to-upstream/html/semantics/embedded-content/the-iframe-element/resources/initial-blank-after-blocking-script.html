@@ -1,0 +1,17 @@
+<!doctype html>
+<title>Initial about:blank parser order fixture</title>
+<script>
+"use strict";
+window.events = [];
+document.addEventListener("load", event => {
+  if (event.target.localName === "iframe") {
+    window.events.push("iframe");
+  }
+}, true);
+</script>
+<script src="data:text/javascript,window.events.push('setup')"></script>
+<iframe></iframe>
+<script>
+"use strict";
+window.events.push("following");
+</script>

@@ -1,0 +1,20 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stylesheet response order fixture</title>
+<script>
+"use strict";
+window.events = [];
+window.loaded = false;
+window.addEventListener("load", () => {
+  window.loaded = true;
+});
+document.addEventListener("DOMContentLoaded", () => parent.documentReady(window));
+window.secondLoaded = new Promise(resolve => {
+  window.resolveSecond = resolve;
+});
+const firstURL = new URLSearchParams(location.search).get("first").replaceAll("&", "&amp;");
+document.write('<link rel="stylesheet" href="' + firstURL +
+  '" onload="events.push(\'first\')">');
+</script>
+<link rel="stylesheet" href="data:text/css,body { color: green }" onload="events.push('second'); resolveSecond()">
+<body>

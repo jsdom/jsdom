@@ -1,0 +1,22 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Dynamic stylesheet fixture</title>
+<link id="sheet">
+<script>
+"use strict";
+const params = new URLSearchParams(location.search);
+const link = params.get("parserCreated") === "true" ? document.querySelector("#sheet") : document.createElement("link");
+if (!link.isConnected) {
+  document.querySelector("#sheet").remove();
+  link.id = "sheet";
+}
+link.rel = "stylesheet";
+link.href = params.get("sheet");
+if (!link.isConnected) {
+  document.head.append(link);
+}
+</script>
+<script>
+"use strict";
+parent.documentReady();
+</script>

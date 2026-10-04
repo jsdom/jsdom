@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Script URL error tasks and document lifetime</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/scripting.html#prepare-the-script-element">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-lifecycle.html#abort-a-document">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+for (const src of ["", "http://["]) {
+  promise_test(async t => {
+    const frame = await addIframe();
+    t.add_cleanup(() => frame.remove());
+    const child = frame.contentWindow;
+    const script = child.document.createElement("script");
+    script.src = src;
+    const error = new EventWatcher(t, script, ["load", "error"]).wait_for("error");
+    child.document.head.append(script);
+    child.stop();
+    await error;
+  }, `window.stop() does not discard the error task for script src=${JSON.stringify(src)}`);
+
+  promise_test(async t => {
+    const frame = await addIframe();
+    t.add_cleanup(() => frame.remove());
+    const script = frame.contentDocument.createElement("script");
+    script.src = src;
+    const events = [];
+    script.addEventListener("load", () => events.push("load"));
+    script.addEventListener("error", () => events.push("error"));
+    frame.contentDocument.head.append(script);
+    frame.remove();
+
+    // A later task of the same kind in the surviving document is our completion checkpoint.
+    const sentinel = document.createElement("script");
+    t.add_cleanup(() => sentinel.remove());
+    sentinel.src = "";
+    const error = new EventWatcher(t, sentinel, ["load", "error"]).wait_for("error");
+    document.head.append(sentinel);
+    await error;
+    assert_array_equals(events, []);
+  }, `Destroying a document discards the error task for script src=${JSON.stringify(src)}`);
+}
+</script>

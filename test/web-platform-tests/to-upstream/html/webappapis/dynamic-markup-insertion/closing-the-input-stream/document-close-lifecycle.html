@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="variant" content="?return-value">
+<meta name="variant" content="?implicit-open">
+<meta name="variant" content="?reentrant-load">
+<meta name="variant" content="?reentrant-domcontentloaded">
+<meta name="variant" content="?reentrant-frame-load">
+<title>Document input-stream completion</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html#dom-document-close">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+const mode = location.search.slice(1);
+
+if (mode === "reentrant-load" || mode === "reentrant-domcontentloaded") {
+  const event = mode === "reentrant-load" ? "load" : "DOMContentLoaded";
+  promise_test(async t => {
+    const frame = await addIframe(`resources/reopen-during-load.html?event=${event}`);
+    t.add_cleanup(() => frame.remove());
+    assert_equals(frame.contentDocument.body.textContent, "replacement");
+    if (event === "DOMContentLoaded") {
+      assert_true(frame.contentWindow.replacementLoaded, "The replacement document loads before its iframe");
+    }
+  }, `Reopening a document from its ${event} listener does not prevent its iframe from loading`);
+} else if (mode === "reentrant-frame-load") {
+  promise_test(async t => {
+    const frame = document.createElement("iframe");
+    t.add_cleanup(() => frame.remove());
+    let frameLoadEvents = 0;
+    frame.addEventListener("load", () => ++frameLoadEvents);
+    const replacementComplete = new Promise(resolve => {
+      frame.addEventListener("load", () => {
+        const doc = frame.contentDocument;
+        doc.open();
+        doc.write("<!doctype html><p>replacement</p>");
+        doc.addEventListener("readystatechange", () => {
+          if (doc.readyState === "complete") {
+            resolve();
+          }
+        });
+        doc.close();
+      }, { once: true });
+    });
+    frame.src = "/common/blank.html";
+    document.body.append(frame);
+    await replacementComplete;
+    // Both the frame load and empty-script error use the DOM manipulation task source.
+    for (let i = 0; i < 2; ++i) {
+      const script = document.createElement("script");
+      script.src = "";
+      const error = new EventWatcher(t, script, "error").wait_for("error");
+      document.head.append(script);
+      await error;
+      script.remove();
+    }
+    assert_equals(frameLoadEvents, 1, "Reopening during iframe load mutes subsequent iframe load events");
+  }, "Reopening a document from its iframe's load listener does not fire another iframe load");
+} else {
+  promise_test(async t => {
+    const frame = await addIframe();
+    t.add_cleanup(() => frame.remove());
+    // Leave the original load dispatch before opening another input stream.
+    await new Promise(resolve => {
+      t.step_timeout(resolve, 0);
+    });
+    const child = frame.contentWindow;
+    const doc = child.document;
+    if (mode === "return-value") {
+      doc.open();
+      doc.write("<!doctype html><p>replacement</p>");
+      assert_equals(doc.close(), undefined);
+      return;
+    }
+
+    doc.write("<!doctype html><p>replacement</p>");
+    assert_equals(doc.readyState, "loading", "The write implicitly opens a new input stream");
+    const events = [];
+    doc.addEventListener("DOMContentLoaded", () => events.push("DOMContentLoaded"));
+    child.addEventListener("load", () => events.push("load"));
+    const loaded = new EventWatcher(t, child, "load").wait_for("load");
+    doc.close();
+    await loaded;
+    assert_array_equals(events, ["DOMContentLoaded", "load"]);
+    assert_equals(doc.readyState, "complete");
+    assert_equals(doc.body.textContent, "replacement");
+  }, mode === "return-value" ?
+    "document.close() returns undefined" :
+    "document.close() completes the input stream implicitly opened by document.write()");
+}
+</script>

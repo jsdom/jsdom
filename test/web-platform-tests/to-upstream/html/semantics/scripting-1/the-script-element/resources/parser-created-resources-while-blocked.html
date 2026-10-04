@@ -1,0 +1,16 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Parser-created resources fixture</title>
+<body>
+<img id="img">
+<link id="link" rel="stylesheet">
+<style id="style" type="text/plain"></style>
+<iframe id="iframe"></iframe>
+<script>
+"use strict";
+window.blockingRan = false;
+const blockingURL = new URLSearchParams(location.search).get("blocking").replaceAll("&", "&amp;");
+// eslint-disable-next-line no-useless-escape -- Keep the HTML parser from ending this script.
+document.write('<script src="' + blockingURL + '"><\/script>');
+parent.documentReady();
+</script>
