@@ -121,6 +121,7 @@ module.exports = new Map([
   ${resolvedValueResolvers.join(",\n  ")}
 ]);
 `;
+    // Share identical metadata to reduce generated code and allocations.
     const uniqueMetadata = new Map();
     const metadataEntries = metadata.map(([property, opts]) => {
       const source = JSON.stringify(opts);
@@ -130,6 +131,9 @@ module.exports = new Map([
       return `["${property}", ${uniqueMetadata.get(source)}]`;
     });
     const metadataOutput = `"use strict";
+
+// Metadata objects, including nested values, are shared across properties.
+// Treat them as immutable.
 ${Array.from(uniqueMetadata, ([source, identifier]) => `const ${identifier} = ${source};`).join("\n")}
 
 module.exports = new Map([
