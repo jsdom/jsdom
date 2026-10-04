@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Document named properties after inserting and removing subtrees</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dom.html#dom-document-nameditem">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="container"></div>
+
+<script>
+"use strict";
+const container = document.querySelector("#container");
+
+for (const [localName, attribute] of [
+  ["embed", "name"],
+  ["form", "name"],
+  ["iframe", "name"],
+  ["img", "name"],
+  ["object", "name"],
+  ["object", "id"]
+]) {
+  const propertyName = `nested_${localName}_${attribute}`;
+
+  test(t => {
+    const wrapper = document.createElement("div");
+    const inner = document.createElement("section");
+    const element = document.createElement(localName);
+    element.setAttribute(attribute, propertyName);
+    inner.append(element);
+    wrapper.append(inner);
+    t.add_cleanup(() => wrapper.remove());
+
+    assert_false(propertyName in document, "before insertion");
+
+    container.append(document.createElement("div"));
+    assert_false(propertyName in document, "after an unrelated insertion");
+
+    container.append(wrapper);
+    assert_true(propertyName in document, "after inserting the ancestor");
+
+    container.append(document.createElement("div"));
+    assert_true(propertyName in document, "after a later unrelated insertion");
+
+    container.lastChild.remove();
+    assert_true(propertyName in document, "after an unrelated removal");
+
+    wrapper.remove();
+    assert_false(propertyName in document, "after removing the ancestor");
+  }, `A ${localName} with a ${attribute} nested in an inserted or removed subtree updates the named properties`);
+}
+
+test(t => {
+  const first = document.createElement("form");
+  const second = document.createElement("form");
+  first.name = "subtreeCollection";
+  second.name = "subtreeCollection";
+  container.append(first);
+  t.add_cleanup(() => {
+    first.remove();
+    second.remove();
+  });
+
+  assert_equals(document.subtreeCollection, first, "a single match");
+
+  const wrapper = document.createElement("div");
+  wrapper.append(second);
+  container.append(wrapper);
+  t.add_cleanup(() => wrapper.remove());
+
+  const collection = document.subtreeCollection;
+  assert_array_equals([...collection], [first, second], "after inserting the second match");
+
+  container.append(document.createElement("div"));
+  assert_array_equals([...collection], [first, second], "after an unrelated insertion");
+
+  wrapper.remove();
+  assert_array_equals([...collection], [first], "after removing the subtree holding the second match");
+}, "A retained named-property collection tracks subtree insertion and removal");
+</script>
