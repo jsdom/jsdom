@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Object URL methods and their calling realm</title>
+<link rel="help" href="https://w3c.github.io/FileAPI/#creating-revoking">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  assert_throws_js(TypeError, () => URL.createObjectURL());
+  for (const value of [undefined, null, 1, "blob", {}, new Uint8Array(1), Object.create(Blob.prototype)]) {
+    assert_throws_js(TypeError, () => URL.createObjectURL(value));
+  }
+}, "createObjectURL requires a Blob");
+
+test(() => {
+  assert_throws_js(TypeError, () => URL.revokeObjectURL());
+  assert_throws_js(TypeError, () => URL.revokeObjectURL(Symbol("url")));
+  for (const value of [undefined, null, 1, "", "invalid", "https://example.org/", "blob:null/missing"]) {
+    assert_equals(URL.revokeObjectURL(value), undefined);
+  }
+}, "revokeObjectURL converts its argument and ignores unknown URLs");
+
+test(t => {
+  const url = URL.createObjectURL(new Blob(["test"]));
+  t.add_cleanup(() => URL.revokeObjectURL(url));
+  const parsed = URL.parse(url);
+  assert_true(parsed instanceof URL);
+  assert_equals(parsed.href, url);
+  assert_true(parsed.searchParams instanceof URLSearchParams);
+  parsed.searchParams.set("key", "value");
+  assert_equals(parsed.search, "?key=value");
+  assert_true(URL.canParse(url));
+}, "Object URL methods preserve URL.parse and URLSearchParams behavior");
+
+test(t => {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const create = frame.contentWindow.URL.createObjectURL;
+  const blob = new Blob(["test"]);
+  const url = create.call({}, blob);
+  t.add_cleanup(() => URL.revokeObjectURL(url));
+  assert_true(url.startsWith(`blob:${location.origin}/`));
+  assert_throws_js(frame.contentWindow.TypeError, () => create({}));
+}, "Object URL methods use their own realm and the inherited about:blank origin");
+</script>

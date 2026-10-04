@@ -1,3 +1,4 @@
+FileAPI/url/blob-url-image.html: [needs-canvas, Image loading requires canvas]
 css/cssom/getComputedStyle-html-svg-inheritance.html:
   "An SVG element inside a div has the initial stroke value": [fail, Initial stroke value none is incorrectly serialized as transparent black]
 html/browsers/browsing-the-web/navigating-across-documents/stop-pending-script-no-load.html?*: [fail, window.stop() incorrectly fires load on the stopped window and iframe]

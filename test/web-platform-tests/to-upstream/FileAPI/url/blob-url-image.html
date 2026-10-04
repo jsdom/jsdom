@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Loading and revoking a blob image URL</title>
+<link rel="help" href="https://w3c.github.io/FileAPI/#requestResponseModel">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+promise_test(async t => {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 1;
+  canvas.getContext("2d").fillRect(0, 0, 1, 1);
+  const blob = await new Promise(resolve => {
+    canvas.toBlob(resolve);
+  });
+  const url = URL.createObjectURL(blob);
+  t.add_cleanup(() => URL.revokeObjectURL(url));
+  const image = new Image();
+  const loaded = new Promise((resolve, reject) => {
+    image.onload = resolve;
+    image.onerror = reject;
+  });
+  image.src = url;
+  await loaded;
+  assert_greater_than(image.naturalWidth, 0);
+  URL.revokeObjectURL(url);
+  assert_true(image.complete);
+  assert_greater_than(image.naturalWidth, 0);
+
+  const second = new Image();
+  await new Promise((resolve, reject) => {
+    second.onerror = resolve;
+    second.onload = reject;
+    second.src = url;
+  });
+}, "Revocation preserves a loaded image but prevents another image from loading the URL");
+</script>

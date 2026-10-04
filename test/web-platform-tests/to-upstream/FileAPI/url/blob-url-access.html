@@ -1,0 +1,68 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Blob URL access across origins</title>
+<link rel="help" href="https://w3c.github.io/FileAPI/#partitioningOfBlobUrls">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+let nextToken = 0;
+
+function makeFrame(t, src) {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  return new Promise(resolve => {
+    frame.onload = () => resolve(frame);
+    frame.src = src;
+    document.body.append(frame);
+  });
+}
+
+function request(frame, data) {
+  const token = ++nextToken;
+  return new Promise(resolve => {
+    function onMessage(event) {
+      if (event.data.token === token) {
+        window.removeEventListener("message", onMessage);
+        resolve(event.data);
+      }
+    }
+    window.addEventListener("message", onMessage);
+    frame.contentWindow.postMessage({ ...data, token }, "*");
+  });
+}
+
+function read(url) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url, false);
+  xhr.send();
+  return xhr.responseText;
+}
+
+promise_test(async t => {
+  const helper = new URL("resources/blob-url-frame.html", location.href);
+  helper.hostname = `www.${helper.hostname}`;
+  const frame = await makeFrame(t, helper.href);
+  const url = URL.createObjectURL(new Blob(["parent contents"]));
+  t.add_cleanup(() => URL.revokeObjectURL(url));
+  const result = await request(frame, { url, revoke: true });
+  assert_equals(result.error, "NetworkError");
+  assert_equals(read(url), "parent contents");
+}, "A different origin cannot read or revoke a blob URL");
+
+promise_test(async t => {
+  const helper = read("resources/blob-url-frame.html");
+  const source = `data:text/html,${encodeURIComponent(helper)}`;
+  const first = await makeFrame(t, source);
+  const second = await makeFrame(t, source);
+  const created = await request(first, { create: true });
+  assert_true(created.url.startsWith("blob:null/"));
+  assert_equals(created.text, "frame contents");
+  const denied = await request(second, { url: created.url, revoke: true });
+  assert_equals(denied.error, "NetworkError");
+  const retained = await request(first, { url: created.url, revoke: true });
+  assert_equals(retained.text, "frame contents");
+}, "Distinct opaque origins cannot read or revoke each other's blob URLs");
+</script>

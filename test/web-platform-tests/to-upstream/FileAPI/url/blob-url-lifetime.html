@@ -1,0 +1,69 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Blob URL ownership and iframe lifetime</title>
+<link rel="help" href="https://w3c.github.io/FileAPI/#lifeTime">
+<link rel="help" href="https://url.spec.whatwg.org/#concept-url-blob-entry">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function read(url) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url, false);
+  xhr.send();
+  return xhr.responseText;
+}
+
+test(t => {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const url = URL.createObjectURL(new frame.contentWindow.Blob(["parent-owned"]));
+  t.add_cleanup(() => URL.revokeObjectURL(url));
+  frame.remove();
+  assert_equals(read(url), "parent-owned");
+}, "The creating URL method's environment owns the URL, not the Blob's realm");
+
+for (const createBeforeRemoval of [false, true]) {
+  test(t => {
+    const frame = document.createElement("iframe");
+    document.body.append(frame);
+    t.add_cleanup(() => frame.remove());
+    const { createObjectURL, revokeObjectURL } = frame.contentWindow.URL;
+    const blob = new Blob(["contents"]);
+    const parentURL = URL.createObjectURL(blob);
+    t.add_cleanup(() => URL.revokeObjectURL(parentURL));
+    if (createBeforeRemoval) {
+      createObjectURL(blob);
+    }
+    frame.remove();
+    assert_equals(createObjectURL(blob), "");
+    assert_equals(revokeObjectURL(parentURL), undefined);
+    assert_equals(read(parentURL), "contents");
+  }, `Object URL methods in a removed iframe are inactive (used before removal: ${createBeforeRemoval})`);
+}
+
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  await new Promise(resolve => {
+    frame.onload = resolve;
+    document.body.append(frame);
+  });
+
+  const url = frame.contentWindow.URL.createObjectURL(new Blob(["<p>replacement document</p>"], {
+    type: "text/html"
+  }));
+  await new Promise((resolve, reject) => {
+    frame.onload = resolve;
+    frame.onerror = () => reject(new Error("The blob document failed to load"));
+    frame.src = url;
+  });
+  assert_equals(frame.contentDocument.querySelector("p").textContent, "replacement document");
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url, false);
+  assert_throws_dom("NetworkError", () => xhr.send());
+}, "Navigating an iframe to its own blob URL retains the blob across creator unload");
+</script>
