@@ -268,12 +268,6 @@ parsing/margin-computed.html:
   "Property margin value '30%'": [fail, Need to fix getComputedStyle]
 parsing/margin-trim-computed.html: [fail, Not implemented]
 parsing/margin-trim.html: [fail, Not implemented]
-parsing/max-height-invalid.html:
-  "e.style['max-height'] = \"-10px\" should not set the property value": [fail, https://github.com/jsdom/jsdom/issues/4302]
-  "e.style['max-height'] = \"-20%\" should not set the property value": [fail, https://github.com/jsdom/jsdom/issues/4302]
-parsing/max-width-invalid.html:
-  "e.style['max-width'] = \"-10px\" should not set the property value": [fail, https://github.com/jsdom/jsdom/issues/4302]
-  "e.style['max-width'] = \"-20%\" should not set the property value": [fail, https://github.com/jsdom/jsdom/issues/4302]
 parsing/padding-computed.html:
   "Property padding value '20%'": [fail, Need to fix getComputedStyle]
   "Property padding value '10px 20% 30% 40px'": [fail, Need to fix getComputedStyle]
@@ -772,27 +766,15 @@ parsing/height-valid.html:
 parsing/max-height-computed.html:
   Property max-height value 'calc(10px - 0.5em)': [fail, max-height computed values are incomplete]
   Property max-height value 'fit-content(calc(10px + 0.5em))': [fail, max-height computed values are incomplete]
-parsing/max-height-invalid.html:
-  e.style['max-height'] = "-10%" should not set the property value: [fail, max-height parsing is incomplete]
-  e.style['max-height'] = "-0.5em" should not set the property value: [fail, max-height parsing is incomplete]
 parsing/max-width-computed.html:
   Property max-width value 'calc(10px - 0.5em)': [fail, max-width computed values are incomplete]
   Property max-width value 'fit-content(calc(10px + 0.5em))': [fail, max-width computed values are incomplete]
-parsing/max-width-invalid.html:
-  e.style['max-width'] = "-10%" should not set the property value: [fail, max-width parsing is incomplete]
-  e.style['max-width'] = "-0.5em" should not set the property value: [fail, max-width parsing is incomplete]
 parsing/min-height-computed.html:
   Property min-height value 'calc(10px - 0.5em)': [fail, min-height computed values are incomplete]
   Property min-height value 'fit-content(calc(10px + 0.5em))': [fail, min-height computed values are incomplete]
-parsing/min-height-invalid.html:
-  e.style['min-height'] = "-10%" should not set the property value: [fail, min-height parsing is incomplete]
-  e.style['min-height'] = "-0.5em" should not set the property value: [fail, min-height parsing is incomplete]
 parsing/min-width-computed.html:
   Property min-width value 'calc(10px - 0.5em)': [fail, min-width computed values are incomplete]
   Property min-width value 'fit-content(calc(10px + 0.5em))': [fail, min-width computed values are incomplete]
-parsing/min-width-invalid.html:
-  e.style['min-width'] = "-10%" should not set the property value: [fail, min-width parsing is incomplete]
-  e.style['min-width'] = "-0.5em" should not set the property value: [fail, min-width parsing is incomplete]
 parsing/size-shorthand.html: [fail, size parsing is incomplete]
 parsing/size-valid.html:
   e.style['size'] = "100px 100px" should set the property value: [fail, size serialization is incomplete]
