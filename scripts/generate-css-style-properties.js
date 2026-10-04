@@ -48,6 +48,8 @@ async function main() {
   await Promise.all([generateDescriptors(), generateWebIDL()]);
 
   function generateDefinitions() {
+    // Emit only fields consumed at runtime; update this list when runtime consumers
+    // need additional fields. Build-time generation uses the full definitions.
     const runtimeDefinitions = Array.from(definitions, ([property, definition]) => {
       const { inherited, initial, longhands, logicalPropertyGroup } = definition;
       return [property, { inherited, initial, longhands, logicalPropertyGroup }];
