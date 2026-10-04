@@ -1,0 +1,148 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed styles reflect focus changes before focus events</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focus-update-steps">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  .fixture, .fixture input, .fixture iframe, .fixture span {
+    color: rgb(0 0 0);
+    background-color: rgb(0 0 0);
+  }
+  .fixture:focus-within, .fixture input:focus, .fixture input:focus + iframe,
+  .fixture:has(input:focus) span {
+    color: rgb(1 2 3);
+  }
+  .fixture input:focus-visible {
+    background-color: rgb(4 5 6);
+  }
+</style>
+<body>
+<script>
+"use strict";
+
+function fixture(t, markup) {
+  const container = document.createElement("div");
+  container.className = "fixture";
+  container.innerHTML = markup;
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  return container;
+}
+
+test(t => {
+  const container = fixture(t, "<input><span></span>");
+  const [input, sibling] = container.children;
+  function colors() {
+    return [
+      getComputedStyle(input).color, getComputedStyle(input).backgroundColor,
+      getComputedStyle(container).color, getComputedStyle(sibling).color
+    ];
+  }
+  const unfocused = ["rgb(0, 0, 0)", "rgb(0, 0, 0)", "rgb(0, 0, 0)", "rgb(0, 0, 0)"];
+  const focused = ["rgb(1, 2, 3)", "rgb(4, 5, 6)", "rgb(1, 2, 3)", "rgb(1, 2, 3)"];
+  assert_array_equals(colors(), unfocused, "Initial styles");
+
+  const events = [];
+  for (const type of ["focus", "focusin", "blur", "focusout"]) {
+    input.addEventListener(type, () => events.push({ type, colors: colors() }));
+  }
+  input.focus();
+  input.blur();
+
+  assert_array_equals(events.map(event => event.type), ["focus", "focusin", "blur", "focusout"]);
+  for (const event of events) {
+    const expected = event.type === "focus" || event.type === "focusin" ? focused : unfocused;
+    assert_array_equals(event.colors, expected, `Styles during ${event.type}`);
+  }
+  assert_array_equals(colors(), unfocused, "Styles after blur");
+}, "Focus events observe updated :focus, :focus-visible, :focus-within, and :has() styles");
+
+test(t => {
+  const container = fixture(t, "<input><input>");
+  const [first, second] = container.children;
+  assert_equals(getComputedStyle(first).color, "rgb(0, 0, 0)", "Initial first input style");
+  assert_equals(getComputedStyle(second).color, "rgb(0, 0, 0)", "Initial second input style");
+
+  first.focus();
+  assert_equals(getComputedStyle(first).color, "rgb(1, 2, 3)", "The first input is focused");
+  assert_equals(getComputedStyle(second).color, "rgb(0, 0, 0)", "The second input is not focused");
+  second.focus();
+  assert_equals(getComputedStyle(first).color, "rgb(0, 0, 0)", "The first input lost focus");
+  assert_equals(getComputedStyle(second).color, "rgb(1, 2, 3)", "The second input gained focus");
+}, "Moving focus updates computed styles on both the old and new focus targets");
+
+test(t => {
+  const container = fixture(t, "<input><input><input>");
+  const [first, second, redirected] = container.children;
+  function colors() {
+    return [first, second, redirected].map(input => getComputedStyle(input).color);
+  }
+  const unfocused = ["rgb(0, 0, 0)", "rgb(0, 0, 0)", "rgb(0, 0, 0)"];
+  const redirectedFocus = ["rgb(0, 0, 0)", "rgb(0, 0, 0)", "rgb(1, 2, 3)"];
+  assert_array_equals(colors(), unfocused, "Initial styles");
+  first.focus();
+  assert_array_equals(
+    colors(),
+    ["rgb(1, 2, 3)", "rgb(0, 0, 0)", "rgb(0, 0, 0)"],
+    "Styles before moving focus"
+  );
+
+  const events = [];
+  first.addEventListener("blur", () => {
+    events.push({ type: "blur", colors: colors() });
+    redirected.focus();
+  });
+  redirected.addEventListener("focus", () => events.push({ type: "focus", colors: colors() }));
+  second.focus();
+
+  assert_equals(document.activeElement, redirected, "The blur listener's focus change takes precedence");
+  assert_array_equals(events.map(event => event.type), ["blur", "focus"]);
+  assert_array_equals(events[0].colors, unfocused, "Styles before redirecting focus from the blur listener");
+  assert_array_equals(events[1].colors, redirectedFocus, "Styles during the redirected focus event");
+  assert_array_equals(colors(), redirectedFocus, "Styles after the interrupted focus change");
+}, "Redirecting focus from a blur listener updates styles before the nested focus event");
+
+promise_test(async t => {
+  const container = fixture(t, "<input>");
+  const outside = container.firstElementChild;
+  const frame = document.createElement("iframe");
+  frame.src = "support/focus-update-frame.html";
+  const loaded = new Promise(resolve => {
+    frame.addEventListener("load", resolve, { once: true });
+  });
+  container.append(frame);
+  await loaded;
+
+  const childDocument = frame.contentDocument;
+  const inside = childDocument.getElementById("inside");
+  const style = childDocument.createElement("style");
+  style.textContent = "input { color: rgb(0 0 0); } input:focus { color: rgb(1 2 3); }";
+  childDocument.head.append(style);
+  function insideColor() {
+    return frame.contentWindow.getComputedStyle(inside).color;
+  }
+
+  assert_equals(getComputedStyle(frame).color, "rgb(0, 0, 0)", "Initial iframe style");
+  assert_equals(insideColor(), "rgb(0, 0, 0)", "Initial child input style");
+  const events = [];
+  for (const type of ["focus", "blur"]) {
+    frame.contentWindow.addEventListener(type, () => {
+      events.push({ type: `window ${type}`, color: insideColor() });
+    });
+    inside.addEventListener(type, () => events.push({ type: `input ${type}`, color: insideColor() }));
+  }
+  inside.focus();
+  assert_equals(insideColor(), "rgb(1, 2, 3)", "The child input gained focus");
+  outside.focus();
+  assert_equals(getComputedStyle(frame).color, "rgb(1, 2, 3)", "The iframe follows a focused input");
+  assert_equals(insideColor(), "rgb(0, 0, 0)", "The child input lost focus");
+  assert_array_equals(events.map(event => event.type), ["window focus", "input focus", "input blur", "window blur"]);
+  assert_array_equals(
+    events.map(event => event.color),
+    ["rgb(0, 0, 0)", "rgb(1, 2, 3)", "rgb(0, 0, 0)", "rgb(0, 0, 0)"],
+    "Child input styles during window and input focus events"
+  );
+}, "Moving focus into and out of an iframe updates styles before window and input focus events");
+</script>

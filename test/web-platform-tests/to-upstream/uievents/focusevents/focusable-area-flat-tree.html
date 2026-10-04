@@ -1,0 +1,118 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Focusability follows the flat tree through shadow roots and slots</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focusable-area">
+<link rel="help" href="https://drafts.csswg.org/css-shadow/#flat-tree">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<input id="sentinel">
+<script>
+"use strict";
+
+const sentinel = document.getElementById("sentinel");
+
+function shadowFixture(t, lightMarkup, shadowMarkup, mode = "open") {
+  const host = document.createElement("div");
+  host.innerHTML = lightMarkup;
+  const root = host.attachShadow({ mode });
+  root.innerHTML = shadowMarkup;
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  return { host, root };
+}
+
+function assertFocusability(input, focusable) {
+  sentinel.focus();
+  assert_equals(document.activeElement, sentinel, "The sentinel is initially focused");
+  input.focus();
+  if (focusable) {
+    assert_equals(input.getRootNode().activeElement, input, "The input receives focus");
+  } else {
+    assert_equals(document.activeElement, sentinel, "The sentinel keeps focus");
+  }
+}
+
+for (const [shadowMarkup, description] of [
+  ["", "without any slots"],
+  ["<slot name=other></slot>", "without a matching slot"]
+]) {
+  for (const [lightMarkup, position] of [
+    ["<input>", "a light child"],
+    ["<div><input></div>", "a descendant of a light child"]
+  ]) {
+    test(t => {
+      const { host } = shadowFixture(t, lightMarkup, shadowMarkup);
+      assertFocusability(host.querySelector("input"), false);
+    }, `An input that is ${position} of a shadow host ${description} is not focusable`);
+  }
+}
+
+for (const mode of ["open", "closed"]) {
+  for (const hiddenAncestor of ["none", "host", "wrapper", "slot"]) {
+    const description = hiddenAncestor === "none" ?
+      "is focusable" :
+      `is not focusable when the ${hiddenAncestor} is hidden`;
+    test(t => {
+      const { host, root } = shadowFixture(t, "<input slot=target>", "<div><slot name=target></slot></div>", mode);
+      const input = host.firstElementChild;
+      const slot = root.querySelector("slot");
+      const ancestors = { host, wrapper: root.firstElementChild, slot };
+      if (hiddenAncestor !== "none") {
+        ancestors[hiddenAncestor].style.display = "none";
+      }
+      assert_array_equals(slot.assignedNodes(), [input], "The input is assigned to the slot");
+      assert_equals(
+        input.assignedSlot,
+        mode === "open" ? slot : null,
+        "The public getter respects the shadow root mode"
+      );
+
+      assertFocusability(input, hiddenAncestor === "none");
+    }, `A slotted input in ${mode} mode ${description}`);
+  }
+}
+
+for (const assignedType of ["element", "text"]) {
+  const description = assignedType === "text" ? "Assigned text" : "An assigned element";
+  test(t => {
+    const { host, root } = shadowFixture(t, "", "<slot><div><input></div></slot>");
+    const slot = root.firstElementChild;
+    const input = root.querySelector("input");
+    assert_array_equals(slot.assignedNodes(), [], "The slot initially uses its fallback content");
+    assertFocusability(input, true);
+
+    // Move focus before changing assignment so this does not depend on focus fixup.
+    sentinel.focus();
+    const assigned = assignedType === "text" ? document.createTextNode("text") : document.createElement("span");
+    host.append(assigned);
+    assert_array_equals(slot.assignedNodes(), [assigned], "The assigned node replaces the fallback content");
+    assertFocusability(input, false);
+
+    assigned.remove();
+    assert_array_equals(slot.assignedNodes(), [], "Removing the assignment restores the fallback content");
+    assertFocusability(input, true);
+  }, `${description} suppresses focus in slot fallback content until it is removed`);
+}
+
+for (const hidden of [false, true]) {
+  const description = hidden ?
+    "is not focusable with a hidden inner wrapper" :
+    "is focusable with a visible inner wrapper";
+  test(t => {
+    const { host, root } = shadowFixture(t, "<input slot=outer>", "<div><slot name=outer slot=inner></slot></div>");
+    const input = host.firstElementChild;
+    const outerSlot = root.querySelector("slot");
+    const innerHost = root.firstElementChild;
+    const innerRoot = innerHost.attachShadow({ mode: "open" });
+    innerRoot.innerHTML = "<div><slot name=inner></slot></div>";
+    const innerSlot = innerRoot.querySelector("slot");
+    if (hidden) {
+      innerRoot.firstElementChild.style.display = "none";
+    }
+    assert_equals(input.assignedSlot, outerSlot, "The input is assigned to the outer slot");
+    assert_equals(outerSlot.assignedSlot, innerSlot, "The outer slot is itself assigned to the inner slot");
+
+    assertFocusability(input, !hidden);
+  }, `An input assigned through two slots ${description}`);
+}
+</script>
