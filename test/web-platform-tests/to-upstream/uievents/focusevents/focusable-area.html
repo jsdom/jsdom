@@ -4,6 +4,10 @@
 <link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focusable-area">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<style>
+  .display-none-important { display: none !important; }
+  #display-block-container { display: block; }
+</style>
 
 <input id="default-input">
 <input id="inert-input" inert>
@@ -14,6 +18,9 @@
 </div>
 <div id="shadow-host" inert></div>
 <input id="hidden-display-block-input" hidden style="display:block">
+<div id="display-block-container" class="display-none-important" style="display: block">
+  <input id="important-display-none-input">
+</div>
 <div style="visibility: hidden">
   <input id="visibility-visible-input" style="visibility: visible">
 </div>
@@ -87,6 +94,13 @@ test(t => {
   input.focus();
   assert_equals(document.activeElement, input, "Element hidden with display block should receive focus");
 }, "Calling focus() on an element with hidden and display block recieves focus");
+
+test(t => {
+  const input = document.getElementById("important-display-none-input");
+  resetFocus(t, input);
+  input.focus();
+  assert_not_equals(document.activeElement, input, "Element inside display: none !important should not receive focus");
+}, "Calling focus() on an element whose parent has an important display: none does nothing");
 
 test(t => {
   const input = document.getElementById("visibility-visible-input");
