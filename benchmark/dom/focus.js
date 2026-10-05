@@ -1,7 +1,6 @@
 "use strict";
 const documentBench = require("../document-bench");
 
-// Focusing checks `display` on every flat tree ancestor, so its cost depends on the tree depth and the style rules.
 module.exports = () => {
   const { document, bench } = documentBench();
 
