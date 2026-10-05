@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>getComputedStyle() applies rules whose subject is an attribute selector</title>
+<link rel="help" href="https://drafts.csswg.org/selectors/#attribute-case">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  [data-foo] { color: rgb(0, 128, 0); }
+  [DATA-BAR] { color: rgb(0, 128, 0); }
+  [viewBox] { color: rgb(0, 128, 0); }
+</style>
+
+<div id="with-attribute" data-foo></div>
+<div id="without-attribute"></div>
+<div id="lowercase-attribute" data-bar></div>
+<svg id="svg" viewBox="0 0 1 1"></svg>
+
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("with-attribute")).color, "rgb(0, 128, 0)");
+  assert_not_equals(getComputedStyle(document.getElementById("without-attribute")).color, "rgb(0, 128, 0)");
+}, "A rule whose subject is an attribute selector applies to elements with the attribute");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("lowercase-attribute")).color, "rgb(0, 128, 0)");
+}, "Attribute names in selectors match HTML elements case-insensitively");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("svg")).color, "rgb(0, 128, 0)");
+}, "A rule whose subject is a mixed-case attribute selector applies to SVG elements");
+</script>
