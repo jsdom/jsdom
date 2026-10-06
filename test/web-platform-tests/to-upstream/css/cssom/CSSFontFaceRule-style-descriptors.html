@@ -1,0 +1,38 @@
+<!doctype html>
+<title>CSSFontFaceRule.style preserves @font-face descriptors</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts/#om-fontface">
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style id="test-style">
+  @font-face {
+    font-family: "Example";
+    src: url("example.woff2") format("woff2");
+    font-display: swap;
+  }
+</style>
+<script>
+"use strict";
+
+const fontFaceRule = document.getElementById("test-style").sheet.cssRules[0];
+
+test(() => {
+  assert_equals(fontFaceRule.type, CSSRule.FONT_FACE_RULE);
+}, "@font-face parses as a CSSFontFaceRule");
+
+test(() => {
+  assert_equals(
+    fontFaceRule.style.getPropertyValue("src"),
+    'url("example.woff2") format("woff2")'
+  );
+}, "CSSFontFaceRule.style exposes the src descriptor");
+
+test(() => {
+  assert_equals(fontFaceRule.style.getPropertyValue("font-display"), "swap");
+}, "CSSFontFaceRule.style exposes the font-display descriptor");
+
+test(() => {
+  assert_true(/src:\s*url\("example\.woff2"\)\s*format\("woff2"\)/.test(fontFaceRule.cssText));
+  assert_true(/font-display:\s*swap/.test(fontFaceRule.cssText));
+}, "CSSFontFaceRule.cssText retains src and font-display");
+</script>
