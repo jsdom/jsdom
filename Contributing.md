@@ -110,7 +110,7 @@ The runner does not disable the browser sandbox. If your environment requires it
 
 If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test. Such tests are written using [Mocha](https://mochajs.org/).
 
-To write such a test, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
+To write such a test, simply add a file in `test/api/`, following the surrounding conventions. `npm run test:api` picks up every file in that directory.
 
 **To run all API tests:** `npm run test:api`
 
