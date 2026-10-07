@@ -144,7 +144,7 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 - Frames and iframes, via `<frame>` and `<iframe>`
 - Stylesheets, via `<link rel="stylesheet">`
 - Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
-- Images, via `<img>`, but only if the `canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
+- Images, via `<img>`, but only if the `@napi-rs/canvas` npm package is also installed (see "[Canvas Support](#canvas-support)" below)
 
 When attempting to load resources, recall that the default value for the `url` option is `"about:blank"`, which means that any resources included via relative URLs will fail to load. (The result of trying to parse the URL `/something` against the URL `about:blank` is an error.) So, you'll likely want to set a non-default value for the `url` option in those cases, or use one of the [convenience APIs](#convenience-apis) that do so automatically.
 
@@ -471,7 +471,15 @@ console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
 
 ### Canvas support
 
-jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include `canvas` as a dependency in your project, as a peer of `jsdom`. If jsdom can find version 3.x of the `canvas` package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
+jsdom uses [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) 1.0.10 or later in the 1.x series as its optional canvas and image decoding backend. Install it alongside jsdom:
+
+```sh
+npm install @napi-rs/canvas@^1.0.10
+```
+
+Without it, `<canvas>` elements behave like `<div>`s and images are not decoded. Installing `canvas` alone no longer enables this support. See the [supported platforms for prebuilt binaries](https://github.com/Brooooooklyn/canvas#support-matrix).
+
+To migrate, replace the `canvas` dependency. DOM canvas and image APIs remain available. Native `Image` and canvas objects from the packages are not interchangeable; migrate native imports and use `GlobalFonts.registerFromPath(path, family)` instead of `registerFont(path, { family })` ([API documentation](https://github.com/Brooooooklyn/canvas#usage)). Skia replaces Cairo, so fonts, antialiasing, and encoded bytes can differ. PNG, JPEG, and WebP serialization are supported; other MIME types fall back to PNG.
 
 ### Encoding sniffing
 
