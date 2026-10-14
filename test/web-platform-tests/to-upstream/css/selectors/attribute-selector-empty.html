@@ -1,0 +1,59 @@
+<!doctype html>
+<title>Attribute selectors matching against empty value</title>
+<link rel="help" href="https://drafts.csswg.org/selectors/#attribute-selectors">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/asamuzaK/domSelector/issues/370 -->
+
+<div id="t1" data-a=""></div>
+<div id="t2" data-a="-x"></div>
+<div id="t3" data-a="foo-x"></div>
+
+<script>
+"use strict";
+const t1 = document.getElementById("t1");
+const t2 = document.getElementById("t2");
+const t3 = document.getElementById("t3");
+
+test(() => {
+  assert_equals(t1.matches("[data-a]"), true);
+  assert_equals(t2.matches("[data-a]"), true);
+  assert_equals(t3.matches("[data-a]"), true);
+}, "[attr]");
+
+test(() => {
+  assert_equals(t1.matches('[data-a=""]'), true);
+  assert_equals(t2.matches('[data-a=""]'), false);
+  assert_equals(t3.matches('[data-a=""]'), false);
+}, '[attr=""]');
+
+test(() => {
+  assert_equals(t1.matches('[data-a~=""]'), false);
+  assert_equals(t2.matches('[data-a~=""]'), false);
+  assert_equals(t3.matches('[data-a~=""]'), false);
+}, '[attr~=""]');
+
+test(() => {
+  assert_equals(t1.matches('[data-a|=""]'), true);
+  assert_equals(t2.matches('[data-a|=""]'), true);
+  assert_equals(t3.matches('[data-a|=""]'), false);
+}, '[attr|=""]');
+
+test(() => {
+  assert_equals(t1.matches('[data-a^=""]'), false);
+  assert_equals(t2.matches('[data-a^=""]'), false);
+  assert_equals(t3.matches('[data-a^=""]'), false);
+}, '[attr^=""]');
+
+test(() => {
+  assert_equals(t1.matches('[data-a$=""]'), false);
+  assert_equals(t2.matches('[data-a$=""]'), false);
+  assert_equals(t3.matches('[data-a$=""]'), false);
+}, '[attr$=""]');
+
+test(() => {
+  assert_equals(t1.matches('[data-a*=""]'), false);
+  assert_equals(t2.matches('[data-a*=""]'), false);
+  assert_equals(t3.matches('[data-a*=""]'), false);
+}, '[attr*=""]');
+</script>

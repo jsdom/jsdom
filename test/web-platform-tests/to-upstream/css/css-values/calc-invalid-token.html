@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>A math function containing an invalid token is dropped without disrupting parsing</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#calc-syntax">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-declaration">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- An uncompiled LESS variable such as @submenu_space is an at-keyword token, which is not valid inside calc() -->
+<script>
+"use strict";
+
+const invalidCalc = "calc(0px - @submenu_space)";
+
+test(t => {
+  const style = document.createElement("style");
+  t.add_cleanup(() => style.remove());
+  style.textContent = `.a { left: ${invalidCalc}; top: 1px; } .b { color: red; }`;
+  document.head.append(style);
+
+  const { cssRules } = style.sheet;
+  assert_equals(cssRules.length, 2, "both rules are kept");
+  assert_equals(cssRules[0].style.left, "", "invalid declaration is dropped");
+  assert_equals(cssRules[0].style.top, "1px", "valid sibling declaration is kept");
+  assert_equals(cssRules[0].style.length, 1);
+  assert_equals(cssRules[1].style.color, "red", "following rule is kept");
+}, "Invalid calc() in a style sheet is dropped");
+
+test(() => {
+  const div = document.createElement("div");
+  div.setAttribute("style", `left: ${invalidCalc}; top: 1px`);
+  assert_equals(div.style.left, "", "invalid declaration is dropped");
+  assert_equals(div.style.top, "1px", "valid sibling declaration is kept");
+  assert_equals(div.style.length, 1);
+}, "Invalid calc() in a style attribute is dropped");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.cssText = `left: ${invalidCalc}; top: 1px`;
+  assert_equals(div.style.left, "", "invalid declaration is dropped");
+  assert_equals(div.style.top, "1px", "valid sibling declaration is kept");
+  assert_equals(div.style.length, 1);
+}, "Invalid calc() set through cssText is dropped");
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.left = "1px";
+  div.style.setProperty("left", invalidCalc);
+  assert_equals(div.style.left, "1px", "previous value is kept");
+}, "Invalid calc() set through setProperty() is ignored");
+
+for (const [shorthand, value, longhand, validValue] of [
+  ["background", invalidCalc, "background-color", "red"],
+  ["font", `${invalidCalc} serif`, "font-size", "12px serif"]
+]) {
+  test(t => {
+    const style = document.createElement("style");
+    t.add_cleanup(() => style.remove());
+    style.textContent = `.a { ${shorthand}: ${value}; top: 1px; }`;
+    document.head.append(style);
+
+    const ruleStyle = style.sheet.cssRules[0].style;
+    assert_equals(ruleStyle.getPropertyValue(shorthand), "", "invalid declaration is dropped");
+    assert_equals(ruleStyle.getPropertyValue(longhand), "", "no longhand is set");
+    assert_equals(ruleStyle.top, "1px", "valid sibling declaration is kept");
+  }, `Invalid calc() in the ${shorthand} shorthand in a style sheet is dropped`);
+
+  test(() => {
+    const div = document.createElement("div");
+    div.style.setProperty(shorthand, value);
+    assert_equals(div.style.getPropertyValue(shorthand), "", "invalid value is ignored");
+    assert_equals(div.style.length, 0);
+  }, `Invalid calc() in the ${shorthand} shorthand set through setProperty() is ignored`);
+
+  test(() => {
+    const div = document.createElement("div");
+    div.style.setProperty(shorthand, validValue, "important");
+    assert_equals(div.style.getPropertyValue(shorthand), validValue);
+    const originalText = div.style.cssText;
+
+    div.style.setProperty(shorthand, value);
+    assert_equals(div.style.cssText, originalText, "previous declarations are kept");
+    assert_equals(div.style.getPropertyPriority(shorthand), "important", "shorthand priority is kept");
+    assert_equals(div.style.getPropertyPriority(longhand), "important", "longhand priority is kept");
+  }, `Invalid calc() preserves existing ${shorthand} declarations and priorities`);
+}
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.left = "1px";
+  div.style.setProperty("left", "min(1px, @x)");
+  assert_equals(div.style.left, "1px", "previous value is kept");
+}, "Invalid min() set through setProperty() is ignored");
+</script>
