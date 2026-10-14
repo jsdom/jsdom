@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>XMLHttpRequest cookies after redirecting back to the original origin</title>
+<link rel="help" href="https://fetch.spec.whatwg.org/#http-network-or-cache-fetch">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/get-host-info.sub.js"></script>
+<script src="/common/utils.js"></script>
+<script>
+"use strict";
+/* global get_host_info, token */
+
+for (const crossOrigin of [false, true]) {
+  for (const withCredentials of [false, true]) {
+    promise_test(async t => {
+      const sentName = `sent_${token()}`;
+      const receivedName = `received_${token()}`;
+      document.cookie = `${sentName}=value; Path=/`;
+      t.add_cleanup(() => {
+        document.cookie = `${sentName}=; Max-Age=0; Path=/`;
+        document.cookie = `${receivedName}=; Max-Age=0; Path=/`;
+      });
+      const target = new URL("resources/credentials-redirect.py", location.href);
+      target.searchParams.set("cookie", `${receivedName}=value; Path=/`);
+      const redirect = new URL("resources/credentials-redirect.py", location.href);
+      if (crossOrigin) {
+        redirect.host = new URL(get_host_info().HTTP_REMOTE_ORIGIN).host;
+      }
+      redirect.searchParams.set("location", target.href);
+
+      const xhr = new XMLHttpRequest();
+      t.add_cleanup(() => xhr.abort());
+      const loaded = new Promise((resolve, reject) => {
+        xhr.onload = resolve;
+        xhr.onerror = reject;
+      });
+      xhr.open("GET", redirect);
+      xhr.withCredentials = withCredentials;
+      xhr.send();
+      await loaded;
+
+      assert_equals(xhr.status, 200);
+      const expected = !crossOrigin || withCredentials;
+      assert_equals(
+        JSON.parse(xhr.responseText).cookie.includes(`${sentName}=value`),
+        expected,
+        "Sending cookies after the redirect"
+      );
+      assert_equals(
+        document.cookie.includes(`${receivedName}=value`),
+        expected,
+        "Accepting cookies after the redirect"
+      );
+    }, `${crossOrigin ? "Cross-origin" : "Same-origin"} redirect back to the document origin, ` +
+       `withCredentials=${withCredentials}`);
+  }
+}
+</script>

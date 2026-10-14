@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>XMLHttpRequest authentication credentials across redirects</title>
+<link rel="help" href="https://fetch.spec.whatwg.org/#http-redirect-fetch">
+<link rel="help" href="https://fetch.spec.whatwg.org/#http-network-or-cache-fetch">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/get-host-info.sub.js"></script>
+<script src="/common/utils.js"></script>
+<script>
+"use strict";
+/* global get_host_info, token */
+
+for (const { crossOrigin, challengeAt } of [
+  { crossOrigin: false, challengeAt: "source" },
+  { crossOrigin: true, challengeAt: "source" },
+  { crossOrigin: true, challengeAt: "target" }
+]) {
+  for (const withCredentials of crossOrigin ? [false, true] : [false]) {
+    promise_test(async t => {
+      const user = token();
+      const target = new URL("resources/credentials-redirect.py", location.href);
+      if (crossOrigin) {
+        target.host = new URL(get_host_info().HTTP_REMOTE_ORIGIN).host;
+      }
+      const source = new URL("resources/credentials-redirect.py", location.href);
+      if (challengeAt === "source") {
+        source.searchParams.set("challenge", user);
+      } else {
+        target.searchParams.set("challenge", user);
+      }
+      source.searchParams.set("location", target.href);
+
+      const xhr = new XMLHttpRequest();
+      t.add_cleanup(() => xhr.abort());
+      const loaded = new Promise((resolve, reject) => {
+        xhr.onload = resolve;
+        xhr.onerror = reject;
+      });
+      xhr.open("GET", source, true, user, "password");
+      xhr.withCredentials = withCredentials;
+      xhr.send();
+      await loaded;
+
+      const expectedStatus = crossOrigin && challengeAt === "target" ? 401 : 200;
+      assert_equals(xhr.status, expectedStatus);
+      assert_equals(
+        JSON.parse(xhr.responseText).authorization,
+        crossOrigin ? "" : `Basic ${btoa(`${user}:password`)}`
+      );
+    }, `${crossOrigin ? "Cross-origin" : "Same-origin"} redirect, challenge at ${challengeAt}, ` +
+       `withCredentials=${withCredentials}`);
+  }
+}
+</script>
