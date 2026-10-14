@@ -48,9 +48,9 @@ test(() => {
   assert_equals(div.style.left, "1px", "previous value is kept");
 }, "Invalid calc() set through setProperty() is ignored");
 
-for (const [shorthand, value, longhand] of [
-  ["background", invalidCalc, "background-color"],
-  ["font", `${invalidCalc} serif`, "font-size"]
+for (const [shorthand, value, longhand, validValue] of [
+  ["background", invalidCalc, "background-color", "red"],
+  ["font", `${invalidCalc} serif`, "font-size", "12px serif"]
 ]) {
   test(t => {
     const style = document.createElement("style");
@@ -70,5 +70,24 @@ for (const [shorthand, value, longhand] of [
     assert_equals(div.style.getPropertyValue(shorthand), "", "invalid value is ignored");
     assert_equals(div.style.length, 0);
   }, `Invalid calc() in the ${shorthand} shorthand set through setProperty() is ignored`);
+
+  test(() => {
+    const div = document.createElement("div");
+    div.style.setProperty(shorthand, validValue, "important");
+    assert_equals(div.style.getPropertyValue(shorthand), validValue);
+    const originalText = div.style.cssText;
+
+    div.style.setProperty(shorthand, value);
+    assert_equals(div.style.cssText, originalText, "previous declarations are kept");
+    assert_equals(div.style.getPropertyPriority(shorthand), "important", "shorthand priority is kept");
+    assert_equals(div.style.getPropertyPriority(longhand), "important", "longhand priority is kept");
+  }, `Invalid calc() preserves existing ${shorthand} declarations and priorities`);
 }
+
+test(() => {
+  const div = document.createElement("div");
+  div.style.left = "1px";
+  div.style.setProperty("left", "min(1px, @x)");
+  assert_equals(div.style.left, "1px", "previous value is kept");
+}, "Invalid min() set through setProperty() is ignored");
 </script>
