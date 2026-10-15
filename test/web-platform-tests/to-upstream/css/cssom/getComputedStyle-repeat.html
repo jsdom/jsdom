@@ -151,6 +151,48 @@ test(t => {
 }, "Repeated computed styles inherit computed border widths rather than resolved border widths");
 
 test(t => {
+  const style = document.createElement("style");
+  style.textContent = `
+    .inheritance-source { flex: 1 2 30px; border: 5px none red; }
+    .inheritance-source.overrides { flex-grow: 3; border-top-style: solid; }
+  `;
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  const parent = createElement(t, "");
+  parent.className = "inheritance-source overrides";
+  const child = document.createElement("div");
+  child.style.cssText = "flex: inherit; border: inherit";
+  parent.append(child);
+
+  // Read inherited values before requesting a complete declaration for the parent.
+  const childStyle = getComputedStyle(child);
+  assert_equals(childStyle.flexGrow, "3");
+  assert_equals(childStyle.flexShrink, "2");
+  assert_equals(childStyle.flexBasis, "30px");
+  assert_equals(childStyle.borderTopWidth, "5px");
+  assert_equals(childStyle.borderRightWidth, "0px");
+  assert_equals(childStyle.borderTopColor, "rgb(255, 0, 0)");
+
+  const parentStyle = getComputedStyle(parent);
+  assert_equals(parentStyle.flex, "3 2 30px");
+  assert_equals(parentStyle.borderTopWidth, "5px");
+  assert_equals(parentStyle.borderRightWidth, "0px");
+  assert_equals(getComputedStyle(child).flex, "3 2 30px");
+}, "Inheritance combines shorthands and longhands before the parent's complete style is read");
+
+test(t => {
+  const parent = createElement(t, "background-position: 1em 2em; font-size: 30px");
+  const child = document.createElement("div");
+  child.style.backgroundPositionX = "inherit";
+  parent.append(child);
+
+  assert_equals(getComputedStyle(child).backgroundPositionX, "30px");
+  assert_equals(getComputedStyle(parent).backgroundPositionX, "30px");
+  assert_equals(getComputedStyle(parent).backgroundPositionY, "60px");
+  assert_equals(getComputedStyle(child).backgroundPositionX, "30px");
+}, "Inherited background positions do not depend on when the parent's complete style is read");
+
+test(t => {
   const element = createElement(t, "visibility: hidden");
   const first = getComputedStyle(element);
   const repeated = getComputedStyle(element);
