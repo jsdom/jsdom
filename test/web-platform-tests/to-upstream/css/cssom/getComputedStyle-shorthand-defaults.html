@@ -1,0 +1,54 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed shorthand defaults and inheritance</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#defaulting">
+<link rel="help" href="https://drafts.csswg.org/css-fonts/#font-variant-prop">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t) {
+  const parent = document.createElement("div");
+  const child = document.createElement("div");
+  parent.append(child);
+  document.body.append(parent);
+  t.add_cleanup(() => parent.remove());
+  return { parent, child };
+}
+
+test(t => {
+  const { child } = fixture(t);
+  const computed = getComputedStyle(child);
+  assert_equals(computed.fontVariant, "normal");
+  assert_equals(computed.boxShadow, "none");
+  assert_equals(computed.gridRow, "auto");
+}, "Shorthands with an initial value use that value when unspecified");
+
+test(t => {
+  const { parent, child } = fixture(t);
+  parent.style.fontVariant = "small-caps";
+  assert_equals(getComputedStyle(child).fontVariant, "small-caps");
+  child.style.fontVariant = "unset";
+  assert_equals(getComputedStyle(child).fontVariant, "small-caps");
+  child.style.fontVariant = "initial";
+  assert_equals(getComputedStyle(child).fontVariant, "normal");
+  child.style.fontVariant = "inherit";
+  assert_equals(getComputedStyle(child).fontVariant, "small-caps");
+}, "Font variant follows inheritance and CSS-wide keywords");
+
+test(t => {
+  const { parent, child } = fixture(t);
+  parent.style.fontVariant = "small-caps";
+  assert_equals(getComputedStyle(child).fontVariant, "small-caps");
+  parent.style.fontVariant = "normal";
+  assert_equals(getComputedStyle(child).fontVariant, "normal");
+}, "Changes to an inherited shorthand invalidate its computed value");
+
+test(t => {
+  const { child } = fixture(t);
+  child.style.borderImage = "initial";
+  assert_equals(getComputedStyle(child).borderImage, "none");
+}, "The initial border-image value serializes as none");
+</script>
