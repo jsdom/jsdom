@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Font-relative background-position lengths compute against the element's own font size</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds-3/#background-position">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#font-relative-lengths">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  .from-sheet { background-position: 1em 2em; font-size: 30px; }
+</style>
+<body>
+<script>
+"use strict";
+
+function createElement(t, cssText) {
+  const element = document.createElement("div");
+  element.style.cssText = cssText;
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = createElement(t, "background-position: 1em 2em; font-size: 30px");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPositionX, "30px", "x");
+  assert_equals(computed.backgroundPositionY, "60px", "y");
+}, "background-position declared before font-size in the style attribute");
+
+test(t => {
+  const element = createElement(t, "background-position-x: 1em; font-size: 30px; background-position-y: 2em");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPositionX, "30px", "x");
+  assert_equals(computed.backgroundPositionY, "60px", "y");
+}, "background-position longhands declared around font-size in the style attribute");
+
+test(t => {
+  const element = createElement(t, "");
+  element.className = "from-sheet";
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPositionX, "30px", "x");
+  assert_equals(computed.backgroundPositionY, "60px", "y");
+}, "background-position declared before font-size in a style sheet rule");
+
+test(t => {
+  const element = createElement(t, "background-position: 1em 2em; font-size: 30px");
+  const first = getComputedStyle(element);
+  assert_equals(first.backgroundPositionX, "30px", "first x");
+  assert_equals(first.backgroundPositionY, "60px", "first y");
+  const repeated = getComputedStyle(element);
+  assert_equals(repeated.backgroundPositionX, "30px", "repeated x");
+  assert_equals(repeated.backgroundPositionY, "60px", "repeated y");
+}, "Repeated computed style reads agree on font-relative background-position lengths");
+
+test(t => {
+  const parent = createElement(t, "background-position: 1em 2em; font-size: 30px");
+  const child = document.createElement("div");
+  child.style.backgroundPositionX = "inherit";
+  parent.append(child);
+  assert_equals(getComputedStyle(child).backgroundPositionX, "30px", "child x");
+  assert_equals(getComputedStyle(parent).backgroundPositionX, "30px", "parent x");
+  assert_equals(getComputedStyle(parent).backgroundPositionY, "60px", "parent y");
+}, "Inherited background-position lengths are computed against the parent's font size");
+</script>
