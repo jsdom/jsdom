@@ -76,6 +76,52 @@ describe("API: resources interceptors option", () => {
     }
   });
 
+  it("should preserve the first abort reason after a cached redirect", async () => {
+    const agent = new Agent();
+    const dispatcher = agent.compose(interceptors.cache());
+    const target = await createServer((req, res) => {
+      res.end("redirect target");
+    });
+    let redirectRequests = 0;
+    const redirect = await createServer((req, res) => {
+      redirectRequests++;
+      res.writeHead(302, { "Location": serverURL(target), "Cache-Control": "public, max-age=3600" });
+      res.end();
+    });
+    const redirectOrigin = serverURL(redirect);
+    const firstReason = new Error("first abort");
+
+    try {
+      // Cache only the redirect, leaving the target's first connection available for cancellation.
+      await (await dispatcher.request({ origin: redirectOrigin, path: "/", method: "GET" })).body.dump();
+
+      await assert.rejects(JSDOM.fromURL(redirectOrigin, {
+        resources: {
+          dispatcher,
+          interceptors: [
+            dispatch => (options, handler) => dispatch(options, {
+              ...handler,
+              onRequestStart(controller, context) {
+                handler.onRequestStart(controller, context);
+                if (options.origin === redirectOrigin) {
+                  // Abort the completed cached response before the target supplies its controller.
+                  target.once("connection", () => {
+                    controller.abort(firstReason);
+                    controller.abort(new Error("second abort"));
+                  });
+                }
+              }
+            })
+          ]
+        }
+      }), err => err === firstReason);
+      assert.equal(redirectRequests, 1, "The redirect response must come from the cache");
+    } finally {
+      await agent.destroy();
+      await Promise.all([redirect.destroy(), target.destroy()]);
+    }
+  });
+
   describe("passing through requests", () => {
     it("should be called for JSDOM.fromURL()'s initial request", async () => {
       const url = await htmlServer("Hello");
