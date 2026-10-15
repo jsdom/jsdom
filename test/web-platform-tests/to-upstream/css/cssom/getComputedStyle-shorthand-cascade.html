@@ -1,0 +1,286 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed shorthands reflect independently cascaded longhands</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue">
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#shorthand">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, cssText, rules = "") {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  document.head.append(style);
+  const element = document.createElement("div");
+  element.id = "target";
+  element.className = "target";
+  element.style.cssText = cssText;
+  document.body.append(element);
+  t.add_cleanup(() => {
+    element.remove();
+    style.remove();
+  });
+  return element;
+}
+
+test(t => {
+  const element = fixture(t, "", `
+    #target { border-left-width: 8px; }
+    .target { border: 2px solid red; }
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.borderLeftWidth, "8px");
+  assert_equals(computed.borderRightWidth, "2px");
+  assert_equals(computed.borderWidth, "2px 2px 2px 8px");
+  assert_equals(computed.borderLeft, "8px solid rgb(255, 0, 0)");
+  assert_equals(computed.border, "");
+}, "A later shorthand does not overwrite a more specific longhand");
+
+test(t => {
+  const element = fixture(t, "font-size: 20px; flex: 1 2 3em");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.flexBasis, "60px");
+  assert_equals(computed.flex, "1 2 60px");
+  assert_equals(computed.getPropertyValue("flex"), "1 2 60px");
+}, "Computed flex uses its computed longhands");
+
+test(t => {
+  const element = fixture(t, "font: italic 20px / 30px serif");
+  element.style.fontSize = "40px";
+  const computed = getComputedStyle(element);
+  assert_equals(computed.font, "italic 40px / 30px serif");
+  assert_equals(computed.getPropertyValue("font"), "italic 40px / 30px serif");
+}, "The font attribute and getPropertyValue agree after a longhand override");
+
+test(t => {
+  const element = fixture(t, "font: italic 100 12px serif");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.font, "italic 100 12px serif");
+  assert_equals(computed.getPropertyValue("font"), "italic 100 12px serif");
+  assert_equals(computed.fontWeight, "100");
+  assert_equals(computed.lineHeight, "normal");
+  assert_equals(element.style.lineHeight, "normal");
+}, "A numeric font weight does not set an omitted line-height");
+
+test(t => {
+  const element = fixture(t, "font: italic 400 12px serif");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.font, "italic 12px serif");
+  assert_equals(computed.fontWeight, "400");
+  assert_equals(computed.lineHeight, "normal");
+  assert_equals(element.style.lineHeight, "normal");
+}, "A normal numeric font weight does not introduce a line-height into the shorthand");
+
+test(t => {
+  const element = fixture(t, "font: italic 100 12px / 24px serif");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.font, "italic 100 12px / 24px serif");
+  assert_equals(computed.fontWeight, "100");
+  assert_equals(computed.lineHeight, "24px");
+  assert_equals(element.style.lineHeight, "24px");
+}, "A numeric font weight preserves an explicit line-height");
+
+test(t => {
+  const element = fixture(t, "font-size: 20px; background-position: 1em 2em");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPositionX, "20px");
+  assert_equals(computed.backgroundPositionY, "40px");
+  assert_equals(computed.backgroundPosition, "20px 40px");
+  assert_equals(computed.getPropertyValue("background-position"), "20px 40px");
+}, "Computed background-position uses its computed longhands");
+
+test(t => {
+  const element = fixture(t, "background-position: right 10% bottom 20%");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPositionX, "90%");
+  assert_equals(computed.backgroundPositionY, "80%");
+  assert_equals(computed.backgroundPosition, "90% 80%");
+}, "Computed background edge offsets preserve percentage units");
+
+test(t => {
+  const element = fixture(t, "flex: 1 2 calc(100% - 10%)");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.flexBasis, "90%");
+  assert_equals(computed.flex, "1 2 90%");
+}, "A flex basis calculation that reduces to a percentage preserves its unit");
+
+test(t => {
+  const parent = fixture(t, "font-size: 20px");
+  const child = document.createElement("div");
+  child.style.cssText = "font-size: calc(50% + 25%); flex: 1 2 calc(1em + 2px)";
+  parent.append(child);
+  const computed = getComputedStyle(child);
+  assert_equals(computed.fontSize, "15px");
+  assert_equals(computed.flexBasis, "17px");
+  assert_equals(computed.flex, "1 2 17px");
+}, "Font-size percentages and relative flex basis lengths still resolve to pixels");
+
+test(t => {
+  const element = fixture(t, "font-size: 20px; background: red 1em 2em / cover no-repeat");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("background"), computed.background);
+  assert_true(computed.background.includes("20px 40px"));
+  assert_true(computed.background.includes("rgb(255, 0, 0)"));
+}, "The background attribute and getPropertyValue agree and use computed longhands");
+
+test(t => {
+  const parent = fixture(t, "font-size: 20px; flex: 1 2 3em; background-position: 1em 2em");
+  const child = document.createElement("div");
+  child.style.cssText = "flex-basis: inherit; background-position-x: inherit";
+  parent.append(child);
+
+  const childStyle = getComputedStyle(child);
+  assert_equals(childStyle.flexBasis, "60px");
+  assert_equals(childStyle.backgroundPositionX, "20px");
+
+  const parentStyle = getComputedStyle(parent);
+  assert_equals(parentStyle.flex, "1 2 60px");
+  assert_equals(parentStyle.backgroundPosition, "20px 40px");
+  assert_equals(getComputedStyle(parent).flex, "1 2 60px");
+  parent.style.flexGrow = "4";
+  assert_equals(getComputedStyle(parent).flex, "4 2 60px");
+}, "Reading inherited longhands before shorthands preserves the other longhand values");
+
+test(t => {
+  const element = fixture(t, "border-right-width: 9px", `
+    .target { border-top-width: 7px !important; }
+    #target { border: 2px solid blue; }
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.borderTopWidth, "7px");
+  assert_equals(computed.borderRightWidth, "9px");
+  assert_equals(computed.borderBottomWidth, "2px");
+  assert_equals(computed.borderWidth, "7px 9px 2px 2px");
+  assert_equals(computed.borderStyle, "solid");
+  assert_equals(computed.borderColor, "rgb(0, 0, 255)");
+}, "Importance, specificity, and inline style are compared independently for each border longhand");
+
+test(t => {
+  const element = fixture(t, "font-size: 20px; margin: 1em 2em; padding: 1px 2px 3px 4px");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.margin, "20px 40px");
+  assert_equals(computed.padding, "1px 2px 3px 4px");
+  assert_false([...computed].includes("margin"));
+  assert_false([...computed].includes("padding"));
+  assert_true([...computed].includes("margin-top"));
+  assert_true([...computed].includes("padding-left"));
+}, "Computed declarations enumerate longhands and reconstruct box shorthands on read");
+
+test(t => {
+  const element = fixture(t, "background: none 10px 20px / cover no-repeat, red none 30px 40px / contain repeat-x");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPosition, "10px 20px, 30px 40px");
+  assert_equals(
+    computed.background,
+    "none no-repeat scroll 10px 20px / cover padding-box border-box, " +
+    "rgb(255, 0, 0) none repeat-x scroll 30px 40px / contain padding-box border-box"
+  );
+  assert_equals(computed.getPropertyValue("background"), computed.background);
+}, "Background serialization preserves layers, positions, sizes, and the final color");
+
+test(t => {
+  const element = fixture(t, "background-image: none, none; background-repeat: no-repeat");
+  assert_equals(
+    getComputedStyle(element).background,
+    "none no-repeat scroll 0% 0% / auto padding-box border-box, " +
+    "rgba(0, 0, 0, 0) none no-repeat scroll 0% 0% / auto padding-box border-box"
+  );
+}, "Computed backgrounds repeat shorter longhand lists to match the image layers");
+
+test(t => {
+  const element = fixture(t, "flex: 1 2 30px; border: 5px solid red");
+  element.style.flex = "initial";
+  element.style.border = "initial";
+  const computed = getComputedStyle(element);
+  assert_equals(computed.flex, "0 1 auto");
+  assert_equals(computed.borderWidth, "0px");
+  assert_equals(computed.borderStyle, "none");
+}, "CSS-wide keywords on shorthands apply separately to their longhands");
+
+test(t => {
+  const element = fixture(t, "", ".target { flex: 1 2 30px; }");
+  const rule = document.styleSheets[document.styleSheets.length - 1].cssRules[0];
+  assert_equals(getComputedStyle(element).flex, "1 2 30px");
+  rule.style.flexBasis = "40px";
+  assert_equals(getComputedStyle(element).flex, "1 2 40px");
+  rule.style.removeProperty("flex-basis");
+  assert_equals(getComputedStyle(element).flex, "1 2 auto");
+}, "Stylesheet longhand updates and removal invalidate computed shorthands");
+test(t => {
+  const element = fixture(t, "", `
+    .target { margin: 9px; }
+    .target { margin: var(--missing); }
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(parseFloat(computed.marginTop), 0);
+  assert_equals(parseFloat(computed.marginLeft), 0);
+}, "An unresolved shorthand overrides earlier longhand declarations");
+
+test(t => {
+  const element = fixture(t, "border-left-width: 8px; border-left-style: solid", `
+    .target { border: 9px solid red; }
+    .target { border: var(--missing); }
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.borderTopWidth, "0px");
+  assert_equals(computed.borderTopStyle, "none");
+  assert_equals(computed.borderLeftWidth, "8px");
+  assert_equals(computed.borderLeftStyle, "solid");
+}, "Longhands from an unresolved shorthand participate independently in the cascade");
+
+test(t => {
+  const element = fixture(t, "", `
+    .target { padding: 9px; }
+    .target { padding: var(--missing) !important; }
+    #target { padding: 3px; }
+  `);
+  const child = document.createElement("div");
+  child.style.paddingLeft = "inherit";
+  element.append(child);
+  assert_equals(parseFloat(getComputedStyle(child).paddingLeft), 0);
+  assert_equals(parseFloat(getComputedStyle(element).paddingLeft), 0);
+}, "An important unresolved shorthand also participates in on-demand inheritance");
+
+test(t => {
+  const element = fixture(t, "background-image: none, none, none; " +
+    "background-position-x: 10px, 20px, 30px; background-position-y: 1px, 2px");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPositionX, "10px, 20px, 30px");
+  assert_equals(computed.backgroundPositionY, "1px, 2px, 1px");
+  assert_equals(computed.backgroundPosition, "10px 1px, 20px 2px, 30px 1px");
+}, "Computed background positions repeat axis lists to match the image layers");
+
+test(t => {
+  const element = fixture(t, "background-position-x: 10px, 20px; background-position-y: 1px, 2px");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPositionX, "10px");
+  assert_equals(computed.backgroundPositionY, "1px");
+  assert_equals(computed.backgroundPosition, "10px 1px");
+}, "Computed background positions omit entries beyond the image layers");
+
+test(t => {
+  const parent = fixture(t, "background-image: none, none; " +
+    "background-position-x: 10px, 20px; background-position-y: 1px, 2px");
+  const child = document.createElement("div");
+  child.style.cssText = "background-image: none, none, none; background-position: inherit";
+  parent.append(child);
+  assert_equals(getComputedStyle(child).backgroundPosition, "10px 1px, 20px 2px, 10px 1px");
+  assert_equals(getComputedStyle(parent).backgroundPosition, "10px 1px, 20px 2px");
+}, "Inherited background positions repeat to match the child's image layers");
+
+test(t => {
+  const element = fixture(t, "font-size: 20px; background-image: none, none; " +
+    "background-position: right 1em bottom 2em, center top");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundPositionX, "calc(100% - 20px), 50%");
+  assert_equals(computed.backgroundPositionY, "calc(100% - 40px), 0%");
+  assert_equals(computed.backgroundPosition, "calc(100% - 20px) calc(100% - 40px), 50% 0%");
+}, "Computed background positions resolve keywords and relative offsets separately in each layer");
+
+test(t => {
+  const element = fixture(t, "font-size: 20px; font-family: serif");
+  assert_equals(getComputedStyle(element).font, "20px serif");
+}, "A computed font shorthand supplies defaults for unspecified components");
+</script>

@@ -134,11 +134,8 @@ parsing/keyframes-name-valid.html: [fail, CSS parsing and serialization are inco
 DIR: css/css-backgrounds
 
 animations/!(border-bottom-width-composition|border-left-width-composition|border-right-width-composition|border-top-width-composition).html: [fail, Not implemented]
-background-331.html:
-  "background_initial_position": [fail, background-position not resolved to computed value]
 background-332.html:
   "Computed value for background-image after setting background shorthand": [fail, Need getComputedStyle fix]
-  "background_specified_position": [fail, Unknown]
   "background_specified_size": [fail, Need getComputedStyle fix]
 background-image-cors-no-reload.html: [fail, Not implemented]
 background-size-001.html:
@@ -493,7 +490,6 @@ DIR: css/css-flexbox/parsing
 
 flex-basis-computed.html:
   Property flex-basis value 'calc(10px - 0.5em)': [fail, flex-basis computed values are incomplete]
-  Property flex-basis value 'calc(10%)': [fail, flex-basis computed values are incomplete]
   Property flex-basis value 'calc(10% + 0px)': [fail, flex-basis computed values are incomplete]
 flex-computed.html: [fail, flex computed values are incomplete]
 flex-flow-shorthand.html: [fail, flex-flow parsing is incomplete]
@@ -823,7 +819,6 @@ DIR: css/css-values
 '!(calc-*.html|clamp-*.html|minmax-length-*.html|font-relative-length.html|absolute-length-units-001.html|percentage-without-context.html|rgba-011.html)': [fail-slow, Other CSS value processing is incomplete]
 '*/**': [fail-slow, Other CSS value processing is incomplete]
 calc-angle-values.html: [fail, CSS value parsing and computation are incomplete]
-calc-background-position-002.html: [fail, CSS value parsing and computation are incomplete]
 calc-catch-divide-by-0.html: [fail, CSS value parsing and computation are incomplete]
 calc-complex-unresolved-serialize.html: [fail, CSS value parsing and computation are incomplete]
 calc-dimension-serialization-order.html:
@@ -837,7 +832,6 @@ calc-invalid-parsing.html: [fail, CSS parsing and serialization are incomplete]
 calc-letter-spacing.html:
   'testing letter-spacing: calc(1 + 1px)': [fail, CSS value parsing and computation are incomplete]
   'testing letter-spacing: calc(1 + 100%)': [fail, CSS value parsing and computation are incomplete]
-  'testing letter-spacing: calc(100%)': [fail, CSS value parsing and computation are incomplete]
 calc-linear-radial-conic-gradient-001.html: [fail, CSS value parsing and computation are incomplete]
 calc-nesting-002.html: [fail, CSS value parsing and computation are incomplete]
 calc-nesting.html:
@@ -1023,9 +1017,6 @@ shorthand-values.html:
   "The serialization of outline-width: 2px; outline-style: dotted; outline-color: blue; should be canonical.": [fail, Not yet supported]
   "The serialization of list-style-type: circle; list-style-position: inside; list-style-image: none; should be canonical.": [fail, Not yet supported]
   "The serialization of -webkit-line-clamp: none; should be canonical.": [fail, Not yet supported]
-style-background-shorthand-overwrite.html:
-  "overwrite, computed": [fail, Need to fix getComputedStyle()]
-  "without overwrite, computed": [fail, Need to fix getComputedStyle()]
 style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
 stylesheet-cross-origin-redirect-quirks.sub.html: [fail, Unknown]
 stylesheet-same-origin.sub.html: [fail, Unknown]

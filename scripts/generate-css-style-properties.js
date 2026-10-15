@@ -3,6 +3,7 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
 const { definitionSyntax } = require("css-tree");
+const { lexer } = require("../lib/jsdom/living/css/helpers/patched-csstree.js");
 
 const outputDir = path.resolve(__dirname, "../lib/generated");
 const cssDir = path.resolve(__dirname, "../lib/jsdom/living/css");
@@ -45,13 +46,19 @@ async function main() {
   const typeList = new Set([...caseSensitiveTypes, ...dimensionTypes, ...functionTypes]);
 
   await generateDefinitions();
-  await Promise.all([generateDescriptors(), generateWebIDL()]);
+  await Promise.all([generateDescriptors(), generateWebIDL(), generateShorthandRelationships()]);
 
   function generateDefinitions() {
     // Emit only fields consumed at runtime; update this list when runtime consumers
     // need additional fields. Build-time generation uses the full definitions.
     const runtimeDefinitions = Array.from(definitions, ([property, definition]) => {
-      const { inherited, initial, longhands, logicalPropertyGroup } = definition;
+      const { inherited, longhands, logicalPropertyGroup } = definition;
+      let { initial } = definition;
+      // Shorthand definitions can contain prose such as "see individual properties" instead of
+      // an initial CSS value. Only retain defaults that can be used as property values.
+      if (longhands && initial !== undefined && !lexer.matchProperty(property, initial).matched) {
+        initial = undefined;
+      }
       return [property, { inherited, initial, longhands, logicalPropertyGroup }];
     });
     const output = `"use strict";
@@ -59,6 +66,41 @@ async function main() {
 module.exports = new Map(${JSON.stringify(runtimeDefinitions, undefined, 2)});
 `;
     return fs.writeFile(path.resolve(outputDir, "css-property-definitions.js"), output);
+  }
+
+  function generateShorthandRelationships() {
+    // Use the shorthands we actually expand, rather than every shorthand in the specifications.
+    // The property implementations can be loaded now that their definitions have been generated.
+    const { shorthandProperties } = require(path.resolve(cssDir, "helpers/shorthand-properties.js"));
+    const longhandsByShorthand = new Map();
+    const shorthandsByLonghand = new Map();
+    for (const shorthand of shorthandProperties.keys()) {
+      const longhands = [...new Set(longhandNames(shorthand))];
+      longhandsByShorthand.set(shorthand, longhands);
+      for (const longhand of longhands) {
+        if (!shorthandsByLonghand.has(longhand)) {
+          shorthandsByLonghand.set(longhand, []);
+        }
+        shorthandsByLonghand.get(longhand).push(shorthand);
+      }
+    }
+    const output = `"use strict";
+
+exports.longhandsByShorthand = new Map(${JSON.stringify([...longhandsByShorthand], undefined, 2)});
+exports.shorthandsByLonghand = new Map(${JSON.stringify([...shorthandsByLonghand], undefined, 2)});
+`;
+    return fs.writeFile(path.resolve(outputDir, "css-shorthand-relationships.js"), output);
+
+    function* longhandNames(property) {
+      const shorthand = shorthandProperties.get(property);
+      if (shorthand) {
+        for (const name of shorthand.shorthandFor.keys()) {
+          yield* longhandNames(name);
+        }
+      } else {
+        yield property;
+      }
+    }
   }
 
   function generateDescriptors() {
