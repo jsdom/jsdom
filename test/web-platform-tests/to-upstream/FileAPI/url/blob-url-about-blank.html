@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Blob URLs in about:blank documents with queries and fragments</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#matches-about:blank">
+<link rel="help" href="https://w3c.github.io/FileAPI/#originOfBlobURL">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const src of ["about:blank#fragment", "about:blank?query", "about:blank?query#fragment"]) {
+  test(t => {
+    const frame = document.createElement("iframe");
+    t.add_cleanup(() => frame.remove());
+    frame.src = src;
+    document.body.append(frame);
+    assert_equals(frame.contentDocument.URL, src);
+    const url = frame.contentWindow.URL.createObjectURL(new Blob(["contents"]));
+    assert_true(url.startsWith(`blob:${window.origin}/`));
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.send();
+    assert_equals(xhr.responseText, "contents");
+  }, `${src} inherits the creator origin for blob URL creation and access`);
+}
+</script>
