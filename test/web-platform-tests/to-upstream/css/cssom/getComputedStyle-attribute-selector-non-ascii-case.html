@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed styles preserve non-ASCII attribute name case in HTML</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics-other.html#case-sensitivity-of-selectors">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  div { color: rgb(255 0 0); }
+  .uppercase-selector [Ä] { color: rgb(0 128 0); }
+  .lowercase-selector [ä] { color: rgb(0 128 0); }
+</style>
+
+<div class="uppercase-selector">
+  <div id="uppercase-uppercase" Ä=""></div>
+  <div id="uppercase-lowercase" ä=""></div>
+</div>
+<div class="lowercase-selector">
+  <div id="lowercase-uppercase" Ä=""></div>
+  <div id="lowercase-lowercase" ä=""></div>
+</div>
+
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("uppercase-uppercase")).color, "rgb(0, 128, 0)");
+}, "[Ä] matches an Ä attribute in HTML");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("uppercase-lowercase")).color, "rgb(255, 0, 0)");
+}, "[Ä] does not match an ä attribute in HTML");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("lowercase-uppercase")).color, "rgb(255, 0, 0)");
+}, "[ä] does not match an Ä attribute in HTML");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("lowercase-lowercase")).color, "rgb(0, 128, 0)");
+}, "[ä] matches an ä attribute in HTML");
+</script>
