@@ -37,6 +37,50 @@ for (const [cssText, properties] of [
 }
 
 test(t => {
+  const element = createElement(t, "color: color-mix(in srgb, red, blue)");
+  const first = getComputedStyle(element);
+  assert_equals(first.backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(first.borderTopColor, "color(srgb 0.5 0 0.5)");
+
+  const repeated = getComputedStyle(element);
+  assert_equals(repeated.color, "color(srgb 0.5 0 0.5)");
+  assert_equals(first.color, "color(srgb 0.5 0 0.5)");
+}, "Repeated computed styles resolve color-mix() and currentcolor regardless of property read order");
+
+test(t => {
+  const element = createElement(t, "color-scheme: light; color: light-dark(red, blue)");
+  const first = getComputedStyle(element);
+  assert_equals(first.backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(first.borderTopColor, "rgb(255, 0, 0)");
+
+  const repeated = getComputedStyle(element);
+  assert_equals(repeated.color, "rgb(255, 0, 0)");
+  assert_equals(first.color, "rgb(255, 0, 0)");
+}, "Repeated computed styles resolve light-dark() and currentcolor in the light color scheme");
+
+test(t => {
+  const element = createElement(t, "color-scheme: dark; color: light-dark(red, blue)");
+  const first = getComputedStyle(element);
+  assert_equals(first.backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(first.borderTopColor, "rgb(0, 0, 255)");
+
+  const repeated = getComputedStyle(element);
+  assert_equals(repeated.color, "rgb(0, 0, 255)");
+  assert_equals(first.color, "rgb(0, 0, 255)");
+}, "Repeated computed styles resolve light-dark() and currentcolor in the dark color scheme");
+
+test(t => {
+  const element = createElement(t, "color: rgb(from red r g b)");
+  const first = getComputedStyle(element);
+  assert_equals(first.backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(first.borderTopColor, "color(srgb 1 0 0)");
+
+  const repeated = getComputedStyle(element);
+  assert_equals(repeated.color, "color(srgb 1 0 0)");
+  assert_equals(first.color, "color(srgb 1 0 0)");
+}, "Repeated computed styles resolve relative colors and currentcolor regardless of property read order");
+
+test(t => {
   const imageURL = new URL("FooBar.png", document.baseURI).href;
   const element = createElement(t, `display: none; background: red url("${imageURL}") no-repeat center / cover`);
 
