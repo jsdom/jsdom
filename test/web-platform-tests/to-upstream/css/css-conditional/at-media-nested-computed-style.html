@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Nested @media rules apply when every enclosing condition matches</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-3/#processing">
+<link rel="help" href="https://drafts.csswg.org/css-conditional-3/#at-media">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  @media screen {
+    @media screen {
+      #screen-screen { color: rgb(0, 128, 0); }
+      @media screen { #screen-screen-screen { color: rgb(0, 128, 0); } }
+    }
+    @media print { #screen-print { color: rgb(255, 0, 0); } }
+  }
+  @media print {
+    @media screen { #print-screen { color: rgb(255, 0, 0); } }
+  }
+</style>
+<div id="screen-screen"></div>
+<div id="screen-screen-screen"></div>
+<div id="screen-print"></div>
+<div id="print-screen"></div>
+<script>
+"use strict";
+
+const defaultColor = getComputedStyle(document.body).color;
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("screen-screen")).color, "rgb(0, 128, 0)");
+}, "A rule nested in two matching @media rules applies");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("screen-screen-screen")).color, "rgb(0, 128, 0)");
+}, "A rule nested in three matching @media rules applies");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("screen-print")).color, defaultColor);
+}, "A rule nested in a non-matching @media rule inside a matching one does not apply");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("print-screen")).color, defaultColor);
+}, "A rule nested in a matching @media rule inside a non-matching one does not apply");
+</script>
