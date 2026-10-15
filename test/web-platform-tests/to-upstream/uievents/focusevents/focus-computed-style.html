@@ -1,0 +1,108 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Focusability and computed styles share current cascaded values</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#focusable-area">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, css, markup) {
+  const style = document.createElement("style");
+  style.textContent = css;
+  document.head.append(style);
+  const container = document.createElement("div");
+  container.innerHTML = markup;
+  document.body.append(container);
+  t.add_cleanup(() => {
+    container.remove();
+    style.remove();
+  });
+  return { container, sheet: style.sheet };
+}
+
+test(t => {
+  const { container } = fixture(t, `
+    .hidden-parent { display: none !important; color: rgb(1 2 3); font-size: 20px; }
+    #hidden-parent { display: block; }
+    #hidden-parent input { font-size: 150%; color: inherit; padding: 2em; border: 5px none red; }
+  `, '<div id="hidden-parent" class="hidden-parent" style="display: block"><input></div>');
+  const input = container.querySelector("input");
+  input.focus();
+  // The second call reads the cached on-demand styles of the ancestors instead of cascading again.
+  input.focus();
+  assert_not_equals(document.activeElement, input, "The important ancestor declaration prevents focus");
+
+  const computed = getComputedStyle(input);
+  assert_equals(computed.fontSize, "30px");
+  assert_equals(computed.color, "rgb(1, 2, 3)");
+  assert_equals(computed.padding, "60px");
+  assert_equals(computed.borderTopWidth, "0px");
+  assert_true([...computed].includes("padding-top"), "Properties other than display are enumerated");
+  assert_throws_dom("NoModificationAllowedError", () => computed.setProperty("display", "none"));
+
+  container.firstChild.style.setProperty("display", "block", "important");
+  input.focus();
+  assert_equals(document.activeElement, input, "An inline important declaration restores focusability");
+}, "Computed styles remain complete after focus checks, and inline mutations invalidate display checks");
+
+test(t => {
+  const { container, sheet } = fixture(t, ".hidden-input { display: none; }", '<input class="hidden-input">');
+  const input = container.firstChild;
+  assert_equals(getComputedStyle(input).display, "none");
+  input.focus();
+  assert_not_equals(document.activeElement, input);
+
+  sheet.cssRules[0].style.display = "block";
+  input.focus();
+  assert_equals(document.activeElement, input);
+  input.blur();
+
+  sheet.cssRules[0].style.display = "none";
+  input.focus();
+  // The second call reads the cached on-demand styles of the ancestors instead of cascading again.
+  input.focus();
+  assert_not_equals(document.activeElement, input);
+  input.className = "visible-input";
+  input.focus();
+  assert_equals(document.activeElement, input);
+}, "Focus checks reflect stylesheet and attribute mutations after both full and partial style reads");
+
+test(t => {
+  const { container } = fixture(t, ".trigger:focus + input { display: none; }", '<input class="trigger"><input>');
+  const [first, second] = container.children;
+  second.focus();
+  first.focus();
+  second.focus();
+  assert_equals(document.activeElement, first, "The focused sibling prevents focus");
+  first.blur();
+  second.focus();
+  assert_equals(document.activeElement, second, "Blurring the sibling restores focusability");
+}, "Focus changes invalidate display values used by later focus checks");
+
+test(t => {
+  const { container, sheet } = fixture(t, "input.inherited-display { display: inherit; }", `
+    <div style="display: none"><input class="inherited-display"></div>
+    <div style="display: block"></div>
+  `);
+  const [hidden, visible] = container.children;
+  const input = hidden.firstChild;
+  input.focus();
+  assert_not_equals(document.activeElement, input);
+  visible.append(input);
+  input.focus();
+  assert_equals(document.activeElement, input, "Reparenting changes the inherited display value");
+  input.blur();
+
+  sheet.insertRule("input.inherited-display { display: none !important; }", 1);
+  input.focus();
+  // The second call reads the cached on-demand styles of the ancestors instead of cascading again.
+  input.focus();
+  assert_not_equals(document.activeElement, input);
+  sheet.deleteRule(1);
+  input.focus();
+  assert_equals(document.activeElement, input);
+}, "Inherited display checks reflect reparenting and stylesheet rule insertion and removal");
+</script>
