@@ -118,7 +118,8 @@ module.exports = new Map(${JSON.stringify(runtimeDefinitions, undefined, 2)});
   function generateShorthandRelationships() {
     // Use the shorthands we actually expand, rather than every shorthand in the specifications.
     // The property implementations can be loaded now that their definitions have been generated.
-    const { shorthandProperties } = require(path.resolve(cssDir, "helpers/shorthand-properties.js"));
+    const { resetOnlyLonghands, shorthandProperties } =
+      require(path.resolve(cssDir, "helpers/shorthand-properties.js"));
     const longhandsByShorthand = new Map();
     const shorthandsByLonghand = new Map();
     for (const shorthand of shorthandProperties.keys()) {
@@ -149,6 +150,7 @@ exports.shorthandsByLonghand = new Map(${JSON.stringify([...shorthandsByLonghand
         for (const name of shorthand.shorthandFor.keys()) {
           yield* longhandNames(name);
         }
+        yield* resetOnlyLonghands.get(property)?.keys() ?? [];
       } else {
         yield property;
       }
