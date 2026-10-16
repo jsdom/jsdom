@@ -1,0 +1,67 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Style rule declaration blocks keep the parsed declarations' specified order</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#parse-a-css-declaration-block">
+<link rel="help" href="https://drafts.csswg.org/cssom/#concept-declarations-specified-order">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+#important-first { color: red !important; color: blue; }
+#important-longhand { margin-top: 1px !important; margin: 0; }
+#invalid-redeclaration { width: 10px; width: ; }
+#equal-importance { color: red !important; width: 1px; color: blue !important; }
+</style>
+<div id="important-first"></div>
+<div id="important-longhand"></div>
+<div id="invalid-redeclaration"></div>
+<div id="equal-importance"></div>
+<script>
+"use strict";
+
+const [sheet] = document.styleSheets;
+const [importantFirst, importantLonghand, invalidRedeclaration, equalImportance] = sheet.cssRules;
+
+test(() => {
+  const { style } = importantFirst;
+  assert_equals(style.color, "red");
+  assert_equals(style.getPropertyPriority("color"), "important");
+  assert_equals(style.cssText, "color: red !important;");
+  assert_equals(getComputedStyle(document.getElementById("important-first")).color, "rgb(255, 0, 0)");
+}, "A later normal declaration does not replace an earlier important declaration");
+
+test(() => {
+  const { style } = importantLonghand;
+  assert_equals(style.marginTop, "1px");
+  assert_equals(style.getPropertyPriority("margin-top"), "important");
+  assert_equals(style.marginLeft, "0px");
+  assert_equals(style.margin, "");
+  assert_equals(
+    style.cssText,
+    "margin-top: 1px !important; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;"
+  );
+  assert_equals(getComputedStyle(document.getElementById("important-longhand")).marginTop, "1px");
+}, "A later shorthand does not replace an earlier important longhand");
+
+test(() => {
+  const { style } = invalidRedeclaration;
+  assert_equals(style.width, "10px");
+  assert_equals(style.cssText, "width: 10px;");
+}, "An invalid redeclaration does not remove the earlier declaration");
+
+test(() => {
+  const { style } = equalImportance;
+  assert_equals(style.color, "blue");
+  assert_equals(style.getPropertyPriority("color"), "important");
+  assert_array_equals(style, ["width", "color"]);
+}, "The last equally important declaration wins and takes its own position");
+
+test(() => {
+  const index = sheet.insertRule("#inserted { color: red !important; color: blue; }", sheet.cssRules.length);
+  const { style } = sheet.cssRules[index];
+  assert_equals(style.color, "red");
+  assert_equals(style.getPropertyPriority("color"), "important");
+  style.color = "blue";
+  assert_equals(style.color, "blue");
+  assert_equals(style.getPropertyPriority("color"), "");
+}, "insertRule() parses declarations the same way, and CSSOM assignments then replace them");
+</script>
