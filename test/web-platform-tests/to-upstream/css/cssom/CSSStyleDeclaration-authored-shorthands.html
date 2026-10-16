@@ -239,6 +239,8 @@ test(() => {
   const { style } = document.createElement("div");
   style.font = "16px serif";
   style.fontWeight = "400";
+  // Whether to preserve `400` or omit it as equivalent to the initial `normal` is unresolved:
+  // https://github.com/w3c/csswg-drafts/issues/5642
   assert_equals(style.font, "400 16px serif");
   const { style: reparsed } = document.createElement("div");
   reparsed.cssText = style.cssText;

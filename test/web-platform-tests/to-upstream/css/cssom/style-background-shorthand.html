@@ -4,7 +4,10 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <link rel="help" href="https://drafts.csswg.org/css-backgrounds/#background">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/5642">
 <!-- Regression test for https://github.com/jsdom/cssstyle/issues/209 -->
+<!-- Exact shorthand spellings that omit initial components need review before upstreaming:
+     https://github.com/w3c/csswg-drafts/issues/5642 -->
 
 <div id="test"></div>
 
@@ -58,6 +61,8 @@ test(t => {
   });
 
   div.style.background = "transparent";
+  // Whether to retain the explicit `transparent` or serialize the initial values as `none` is unresolved:
+  // https://github.com/w3c/csswg-drafts/issues/5642
   assert_equals(div.style.background, "none", "background");
   assert_equals(div.style.backgroundImage, "none", "image");
   assert_equals(div.style.backgroundPosition, "0% 0%", "position");
