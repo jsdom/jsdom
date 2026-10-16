@@ -24,10 +24,10 @@ test(() => {
   const { style } = document.createElement("div");
   style.margin = "1px 2px";
   assert_equals(style.length, 4);
-  assert_array_equals(Array.from(style), ["margin-top", "margin-right", "margin-bottom", "margin-left"]);
+  assert_array_equals(style, ["margin-top", "margin-right", "margin-bottom", "margin-left"]);
   style.marginLeft = "3px";
   assert_equals(style.margin, "1px 2px 1px 3px");
-  assert_array_equals(Array.from(style), ["margin-top", "margin-right", "margin-bottom", "margin-left"]);
+  assert_array_equals(style, ["margin-top", "margin-right", "margin-bottom", "margin-left"]);
 }, "Shorthand expansion enumerates only longhands and preserves their positions");
 
 test(() => {
@@ -60,14 +60,14 @@ test(() => {
 test(() => {
   const { style } = document.createElement("div");
   style.cssText = "color: red; width: 1px; color: red";
-  assert_array_equals(Array.from(style), ["width", "color"]);
+  assert_array_equals(style, ["width", "color"]);
   assert_equals(style.cssText, "width: 1px; color: red;");
 }, "Parsing a repeated declaration preserves its last source position even at the same value");
 
 test(() => {
   const { style } = document.createElement("div");
   style.cssText = "color: red !important; width: 1px; color: blue";
-  assert_array_equals(Array.from(style), ["color", "width"]);
+  assert_array_equals(style, ["color", "width"]);
   assert_equals(style.color, "red");
   assert_equals(style.getPropertyPriority("color"), "important");
 }, "A losing parsed declaration preserves the earlier important declaration's position");
@@ -75,7 +75,7 @@ test(() => {
 test(() => {
   const { style } = document.createElement("div");
   style.cssText = "color: red !important; width: 1px; color: blue !important";
-  assert_array_equals(Array.from(style), ["width", "color"]);
+  assert_array_equals(style, ["width", "color"]);
   assert_equals(style.color, "blue");
   assert_equals(style.getPropertyPriority("color"), "important");
 }, "The last equally important parsed declaration occupies its own source position");
@@ -85,7 +85,7 @@ test(() => {
   style.color = "red";
   style.width = "1px";
   style.color = "blue";
-  assert_array_equals(Array.from(style), ["color", "width"]);
+  assert_array_equals(style, ["color", "width"]);
   assert_equals(style.cssText, "color: blue; width: 1px;");
 }, "A CSSOM assignment updates an unrelated existing declaration in place");
 
@@ -144,7 +144,7 @@ test(() => {
   const parsed = document.createElement("div").style;
   parsed.cssText = "margin: 1px 2px; margin-left: 3px";
   assert_equals(parsed.cssText, direct.cssText);
-  assert_array_equals(Array.from(parsed), Array.from(direct));
+  assert_array_equals(parsed, direct);
   assert_equals(parsed.margin, direct.margin);
 }, "Direct assignments and declaration parsing share shorthand expansion");
 
@@ -173,7 +173,7 @@ test(() => {
   );
   style.marginTop = "1px";
   assert_array_equals(
-    Array.from(style),
+    style,
     ["margin-inline-start", "margin-right", "margin-bottom", "margin-left", "margin-top"]
   );
   assert_equals(style.cssText, "margin-inline-start: 7px; margin: 1px 2px 3px 4px;");
@@ -218,7 +218,7 @@ test(() => {
   const observer = new MutationObserver(() => {});
   observer.observe(element, { attributes: true });
   element.style.width = "1px";
-  assert_array_equals(Array.from(element.style), ["width", "height"]);
+  assert_array_equals(element.style, ["width", "height"]);
   assert_equals(observer.takeRecords().length, 0);
   observer.disconnect();
 }, "A same-value physical property assignment does not reorder another physical property");
@@ -230,7 +230,7 @@ test(() => {
   const observer = new MutationObserver(() => {});
   observer.observe(element, { attributes: true });
   element.style.inlineSize = "1px";
-  assert_array_equals(Array.from(element.style), ["inline-size", "block-size"]);
+  assert_array_equals(element.style, ["inline-size", "block-size"]);
   assert_equals(observer.takeRecords().length, 0);
   observer.disconnect();
 }, "A same-value logical property assignment does not reorder another logical property");
