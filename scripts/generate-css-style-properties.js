@@ -93,28 +93,50 @@ async function main() {
     const runtimeDefinitions = Array.from(definitions, ([property, definition]) => {
       // Aliases such as `font-stretch` carry their defaults on the target definition.
       definition = definitions.get(definition.legacyAliasOf) ?? definition;
-      const { inherited, longhands, logicalPropertyGroup } = definition;
+      const { inherited, longhands } = definition;
       let { initial } = definition;
       // Shorthand definitions can contain prose such as "see individual properties" instead of
       // an initial CSS value. Only retain defaults that can be used as property values.
       if (longhands && initial !== undefined && !lexer.matchProperty(property, initial).matched) {
         initial = undefined;
       }
-      let logical;
-      if (logicalPropertyGroup) {
-        const physicalProperties = physicalPropertiesByLogicalGroup.get(logicalPropertyGroup);
-        if (!physicalProperties) {
-          throw new Error(`Unknown logical property group: ${logicalPropertyGroup}`);
+      const physicalGroups = new Set();
+      const logicalGroups = new Set();
+      collectLogicalPropertyGroups(definition, physicalGroups, logicalGroups);
+      return [
+        property,
+        {
+          inherited,
+          initial,
+          longhands,
+          physicalGroups: physicalGroups.size ? [...physicalGroups] : undefined,
+          logicalGroups: logicalGroups.size ? [...logicalGroups] : undefined
         }
-        logical = !physicalProperties.includes(definition.name);
-      }
-      return [property, { inherited, initial, longhands, logicalPropertyGroup, logical }];
+      ];
     });
     const output = `"use strict";
 
 module.exports = new Map(${JSON.stringify(runtimeDefinitions, undefined, 2)});
 `;
     return fs.writeFile(path.resolve(outputDir, "css-property-definitions.js"), output);
+  }
+
+  function collectLogicalPropertyGroups(definition, physicalGroups, logicalGroups) {
+    definition = definitions.get(definition.legacyAliasOf) ?? definition;
+    const { logicalPropertyGroup } = definition;
+    if (logicalPropertyGroup) {
+      const physicalProperties = physicalPropertiesByLogicalGroup.get(logicalPropertyGroup);
+      if (!physicalProperties) {
+        throw new Error(`Unknown logical property group: ${logicalPropertyGroup}`);
+      }
+      const groups = physicalProperties.includes(definition.name) ? physicalGroups : logicalGroups;
+      groups.add(logicalPropertyGroup);
+    }
+    // Shorthands kept as single declarations still affect the ordering of their longhands' groups.
+    // Nested shorthands such as `border-inline` can cover several groups.
+    for (const longhand of [...definition.longhands ?? [], ...definition.resetLonghands ?? []]) {
+      collectLogicalPropertyGroups(definitions.get(longhand), physicalGroups, logicalGroups);
+    }
   }
 
   function generateShorthandRelationships() {
