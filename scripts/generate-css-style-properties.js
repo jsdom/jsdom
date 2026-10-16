@@ -12,6 +12,45 @@ const propertiesDir = path.resolve(cssDir, "properties");
 // WebIDL keywords that must be escaped with a leading underscore.
 const webIDLKeywords = new Set(["float"]);
 
+// Webref identifies logical property groups but does not identify each member's mapping logic.
+// These are the physical members of each group; its remaining members are flow-relative.
+const physicalPropertiesByLogicalGroup = new Map([
+  ["background-position", ["background-position-x", "background-position-y"]],
+  ["background-repeat", ["background-repeat-x", "background-repeat-y"]],
+  ["size", ["width", "height"]],
+  ["border-clip", ["border-top-clip", "border-right-clip", "border-bottom-clip", "border-left-clip"]],
+  ["border-color", ["border-top-color", "border-right-color", "border-bottom-color", "border-left-color"]],
+  ["border-style", ["border-top-style", "border-right-style", "border-bottom-style", "border-left-style"]],
+  ["border-width", ["border-top-width", "border-right-width", "border-bottom-width", "border-left-width"]],
+  [
+    "border-radius",
+    ["border-top-left-radius", "border-top-right-radius", "border-bottom-left-radius", "border-bottom-right-radius"]
+  ],
+  ["inset", ["top", "right", "bottom", "left"]],
+  ["contain-intrinsic-size", ["contain-intrinsic-width", "contain-intrinsic-height"]],
+  [
+    "corner-shape",
+    ["corner-top-left-shape", "corner-top-right-shape", "corner-bottom-left-shape", "corner-bottom-right-shape"]
+  ],
+  ["margin", ["margin-top", "margin-right", "margin-bottom", "margin-left"]],
+  ["max-size", ["max-width", "max-height"]],
+  ["min-size", ["min-width", "min-height"]],
+  ["overflow", ["overflow-x", "overflow-y"]],
+  [
+    "overflow-clip-margin",
+    [
+      "overflow-clip-margin-top",
+      "overflow-clip-margin-right",
+      "overflow-clip-margin-bottom",
+      "overflow-clip-margin-left"
+    ]
+  ],
+  ["overscroll-behavior", ["overscroll-behavior-x", "overscroll-behavior-y"]],
+  ["padding", ["padding-top", "padding-right", "padding-bottom", "padding-left"]],
+  ["scroll-margin", ["scroll-margin-top", "scroll-margin-right", "scroll-margin-bottom", "scroll-margin-left"]],
+  ["scroll-padding", ["scroll-padding-top", "scroll-padding-right", "scroll-padding-bottom", "scroll-padding-left"]]
+]);
+
 async function main() {
   const css = await import("@webref/css");
   const propertyFiles = await fs.readdir(propertiesDir);
@@ -59,7 +98,15 @@ async function main() {
       if (longhands && initial !== undefined && !lexer.matchProperty(property, initial).matched) {
         initial = undefined;
       }
-      return [property, { inherited, initial, longhands, logicalPropertyGroup }];
+      let logical;
+      if (logicalPropertyGroup) {
+        const physicalProperties = physicalPropertiesByLogicalGroup.get(logicalPropertyGroup);
+        if (!physicalProperties) {
+          throw new Error(`Unknown logical property group: ${logicalPropertyGroup}`);
+        }
+        logical = !physicalProperties.includes(property);
+      }
+      return [property, { inherited, initial, longhands, logicalPropertyGroup, logical }];
     });
     const output = `"use strict";
 
@@ -83,6 +130,11 @@ module.exports = new Map(${JSON.stringify(runtimeDefinitions, undefined, 2)});
         }
         shorthandsByLonghand.get(longhand).push(shorthand);
       }
+    }
+    // CSSOM prefers shorthands covering more longhands, then sorts equal-sized shorthands by name.
+    // All implemented shorthands are unprefixed and none are legacy shorthands.
+    for (const shorthands of shorthandsByLonghand.values()) {
+      shorthands.sort().sort((a, b) => longhandsByShorthand.get(b).length - longhandsByShorthand.get(a).length);
     }
     const output = `"use strict";
 

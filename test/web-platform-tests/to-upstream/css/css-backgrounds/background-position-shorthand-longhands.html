@@ -1,0 +1,63 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Background position shorthand expansion and serialization preserve both axes</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#background-position">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="target"></div>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+
+test(() => {
+  target.style.backgroundPosition = "right 9%";
+  assert_equals(target.style.backgroundPositionX, "right");
+  assert_equals(target.style.backgroundPositionY, "9%");
+  assert_equals(target.style.backgroundPosition, "right 9%");
+  assert_equals(getComputedStyle(target).backgroundPosition, "100% 9%");
+}, "Two-value keyword and percentage syntax assigns one value to each axis");
+
+test(() => {
+  target.style.backgroundPosition = "left 10px";
+  assert_equals(target.style.backgroundPositionX, "left");
+  assert_equals(target.style.backgroundPositionY, "10px");
+  assert_equals(target.style.backgroundPosition, "left 10px");
+  assert_equals(getComputedStyle(target).backgroundPosition, "0% 10px");
+}, "Two-value keyword and length syntax assigns the length to the vertical axis");
+
+test(() => {
+  target.style.backgroundPosition = "right 9% center";
+  assert_equals(target.style.backgroundPositionX, "right 9%");
+  assert_equals(target.style.backgroundPositionY, "center");
+  assert_equals(target.style.backgroundPosition, "right 9% center");
+  assert_equals(getComputedStyle(target).backgroundPosition, "91% 50%");
+}, "Three-value syntax keeps an offset attached to the preceding horizontal edge");
+
+test(() => {
+  target.style.backgroundPositionX = "right 9%";
+  target.style.backgroundPositionY = "20%";
+  assert_equals(target.style.backgroundPosition, "right 9% top 20%");
+  const { style } = document.createElement("div");
+  style.cssText = target.style.cssText;
+  assert_equals(style.backgroundPositionX, "right 9%");
+  assert_equals(style.backgroundPositionY, "top 20%");
+}, "An edge offset and a numeric vertical position serialize with both edges");
+
+test(() => {
+  target.style.backgroundPositionX = "10px";
+  target.style.backgroundPositionY = "bottom 3px";
+  assert_equals(target.style.backgroundPosition, "left 10px bottom 3px");
+  const { style } = document.createElement("div");
+  style.cssText = target.style.cssText;
+  assert_equals(style.backgroundPositionX, "left 10px");
+  assert_equals(style.backgroundPositionY, "bottom 3px");
+}, "A numeric horizontal position and an edge offset serialize with both edges");
+
+test(() => {
+  target.style.backgroundPosition = "right 9% bottom 3px";
+  assert_equals(target.style.backgroundPositionX, "right 9%");
+  assert_equals(target.style.backgroundPositionY, "bottom 3px");
+  assert_equals(target.style.backgroundPosition, "right 9% bottom 3px");
+}, "Two explicit edge offsets preserve their four-value representation");
+</script>
