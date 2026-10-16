@@ -91,6 +91,8 @@ async function main() {
     // Emit only fields consumed at runtime; update this list when runtime consumers
     // need additional fields. Build-time generation uses the full definitions.
     const runtimeDefinitions = Array.from(definitions, ([property, definition]) => {
+      // Aliases such as `font-stretch` carry their defaults on the target definition.
+      definition = definitions.get(definition.legacyAliasOf) ?? definition;
       const { inherited, longhands, logicalPropertyGroup } = definition;
       let { initial } = definition;
       // Shorthand definitions can contain prose such as "see individual properties" instead of
@@ -104,7 +106,7 @@ async function main() {
         if (!physicalProperties) {
           throw new Error(`Unknown logical property group: ${logicalPropertyGroup}`);
         }
-        logical = !physicalProperties.includes(property);
+        logical = !physicalProperties.includes(definition.name);
       }
       return [property, { inherited, initial, longhands, logicalPropertyGroup, logical }];
     });
