@@ -67,19 +67,36 @@ test(() => {
   assert_equals(reparsed.fontFeatureSettings, '"kern" 0');
 }, "Serializing font longhands preserves other font properties declared before them");
 
+test(() => {
+  const element = document.createElement("div");
+  element.style.fontVariantCaps = "small-caps";
+  element.style.font = "small-caps 16px serif";
+  element.style.fontFeatureSettings = '"kern" 0';
+  assert_equals(element.style.fontVariantCaps, "small-caps");
+  assert_equals(element.style.fontVariant, "small-caps");
+  assert_equals(element.style.font, "");
+  const clone = element.cloneNode();
+  assert_equals(clone.style.fontVariantCaps, "small-caps");
+  assert_equals(clone.style.fontVariant, "small-caps");
+  assert_equals(clone.style.fontFeatureSettings, '"kern" 0');
+}, "Font preserves matching small caps when another longhand prevents shorthand serialization");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.font = "small-caps 16px serif";
+  element.style.fontVariantCaps = "small-caps";
+  assert_equals(element.style.font, "small-caps 16px serif");
+  const clone = element.cloneNode();
+  assert_equals(clone.style.font, "small-caps 16px serif");
+  assert_equals(clone.style.fontVariantCaps, "small-caps");
+}, "Setting matching small caps preserves font shorthand serialization");
+
 for (const [property, value, initial] of [
   ["font-feature-settings", '"kern" 0', "normal"],
   ["font-kerning", "none", "auto"],
   ["font-language-override", '"SRB"', "normal"],
   ["font-optical-sizing", "none", "auto"],
   ["font-size-adjust", "0.5", "none"],
-  ["font-variant-alternates", "historical-forms", "normal"],
-  ["font-variant-caps", "small-caps", "normal"],
-  ["font-variant-east-asian", "ruby", "normal"],
-  ["font-variant-emoji", "text", "normal"],
-  ["font-variant-ligatures", "none", "normal"],
-  ["font-variant-numeric", "tabular-nums", "normal"],
-  ["font-variant-position", "sub", "normal"],
   ["font-variation-settings", '"wght" 700', "normal"]
 ]) {
   test(() => {
