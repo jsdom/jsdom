@@ -2,6 +2,7 @@
 <meta charset="utf-8">
 <title>Canvas image sources are ready when their load event fires</title>
 <link rel="help" href="https://html.spec.whatwg.org/multipage/canvas.html#check-the-usability-of-the-image-argument">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/images.html#relevant-mutations">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <script>
@@ -23,6 +24,86 @@ test(() => {
   assert_equals(ctx.createPattern(image, "repeat"), null);
   assert_equals(ctx.drawImage(image, 0, 0), undefined);
 }, "Incomplete image sources return null from createPattern and do not draw");
+
+for (const coordinateCount of [0, 1, 3, 5, 6, 7]) {
+  test(() => {
+    const ctx = document.createElement("canvas").getContext("2d");
+    assert_throws_js(TypeError, () => ctx.drawImage(new Image(), ...Array(coordinateCount).fill(0)));
+  }, `drawImage rejects an argument count of ${coordinateCount + 1} even for an incomplete image`);
+}
+
+test(() => {
+  const ctx = document.createElement("canvas").getContext("2d");
+  assert_throws_js(TypeError, () => ctx.createPattern(new Image()));
+  assert_throws_js(TypeError, () => ctx.createPattern(new Image(), Symbol("repetition")));
+  assert_throws_js(TypeError, () => ctx.drawImage(new Image(), Symbol("x"), 0));
+  assert_throws_js(TypeError, () => ctx.drawImage(new Image(), NaN, Symbol("y")));
+}, "Image source readiness does not bypass required arguments or argument conversion");
+
+test(() => {
+  const ctx = document.createElement("canvas").getContext("2d");
+  assert_throws_js(TypeError, () => ctx.drawImage());
+  assert_throws_js(TypeError, () => ctx.createPattern());
+}, "Image source methods reject calls without arguments");
+
+test(() => {
+  const ctx = document.createElement("canvas").getContext("2d");
+  const converted = [];
+  function coordinate(name) {
+    return {
+      valueOf() {
+        converted.push(name);
+        return 0;
+      }
+    };
+  }
+  const image = new Image();
+  assert_equals(ctx.drawImage(image, coordinate("x"), coordinate("y")), undefined);
+  assert_array_equals(converted, ["x", "y"]);
+  converted.length = 0;
+  assert_equals(ctx.createPattern(image, {
+    toString() {
+      converted.push("repetition");
+      return "repeat";
+    }
+  }), null);
+  assert_array_equals(converted, ["repetition"]);
+}, "Image source arguments are converted once in order even for an incomplete image");
+
+test(() => {
+  const ctx = document.createElement("canvas").getContext("2d");
+  const image = new Image();
+  const extra = Symbol("extra argument");
+  assert_equals(ctx.drawImage(image, 0, 0, 1, 1, 0, 0, 1, 1, extra), undefined);
+  assert_equals(ctx.createPattern(image, "repeat", extra), null);
+}, "Image source methods ignore arguments beyond their signatures");
+
+promise_test(async () => {
+  const canvas = document.createElement("canvas");
+  canvas.width = 4;
+  canvas.height = 4;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "lime";
+  ctx.fillRect(0, 0, 4, 4);
+  const image = await loadImage(canvas.toDataURL());
+  const src = image.currentSrc;
+
+  for (const dimension of ["width", "height"]) {
+    image[dimension] = 20;
+    assert_equals(image.naturalWidth, 4);
+    assert_equals(image.naturalHeight, 4);
+    assert_equals(image.currentSrc, src);
+    assert_true(image.complete);
+    ctx.clearRect(0, 0, 4, 4);
+    ctx.drawImage(image, 0, 0);
+    assert_array_equals(ctx.getImageData(0, 0, 1, 1).data, [0, 255, 0, 255]);
+
+    image.removeAttribute(dimension);
+    assert_equals(image.naturalWidth, 4);
+    assert_equals(image.naturalHeight, 4);
+    assert_true(image.complete);
+  }
+}, "Changing image dimensions preserves the loaded image and its drawable pixels");
 
 promise_test(async () => {
   const canvas = document.createElement("canvas");

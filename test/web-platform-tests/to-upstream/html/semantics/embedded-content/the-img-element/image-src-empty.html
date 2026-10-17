@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Empty image sources fire error and discard obsolete events</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/images.html#updating-the-image-data">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const state of ["new", "loading", "loaded"]) {
+  promise_test(async t => {
+    const image = new Image();
+    if (state === "loaded") {
+      await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = reject;
+        image.src = "/common/square.png";
+      });
+    } else if (state === "loading") {
+      image.src = "/common/square.png";
+    }
+
+    let synchronous = true;
+    const failed = new Promise(resolve => {
+      image.onerror = t.step_func(() => {
+        assert_false(synchronous);
+        resolve();
+      });
+      image.onload = t.unreached_func("An empty source must not fire load");
+    });
+    image.src = "";
+    synchronous = false;
+    await failed;
+    assert_true(image.complete);
+    assert_equals(image.currentSrc, "");
+    assert_equals(image.naturalWidth, 0);
+    assert_equals(image.naturalHeight, 0);
+  }, `Setting an empty src on a ${state} image fires error asynchronously`);
+}
+
+promise_test(async () => {
+  const image = new Image();
+  const loaded = new Promise((resolve, reject) => {
+    image.onload = resolve;
+    image.onerror = reject;
+  });
+  image.src = "";
+  image.src = "/common/square.png";
+  await loaded;
+  assert_equals(image.naturalWidth, 100);
+}, "Replacing an empty source before its error event discards the obsolete error");
+</script>
