@@ -1,0 +1,68 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Case sensitivity of namespace selectors on HTML elements</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics-other.html#case-sensitivity-of-selectors">
+<link rel="help" href="https://drafts.csswg.org/selectors/#attrnmsp">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  @namespace x url("urn:selector-test");
+  div { color: blue; }
+  #lowercase[x|DATA-X], #wildcard-lowercase[*|DATA-X] { color: red; }
+  #uppercase[x|DATA-X], #wildcard-uppercase[*|DATA-X] { color: red; }
+  #value-default[x|type=text], #wildcard-value-default[*|type=text] { color: red; }
+  #value-exact[x|type=TEXT], #value-insensitive[x|type=text i] { color: red; }
+</style>
+<body>
+<script>
+"use strict";
+
+function fixture(t, id, attribute, value = "") {
+  const element = document.createElement("div");
+  element.id = id;
+  element.setAttributeNS("urn:selector-test", attribute, value);
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = fixture(t, "lowercase", "x:data-x");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An explicit namespace selector lowercases its attribute name on HTML elements");
+
+test(t => {
+  const element = fixture(t, "wildcard-lowercase", "x:data-x");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A wildcard namespace selector lowercases its attribute name on HTML elements");
+
+test(t => {
+  const element = fixture(t, "uppercase", "x:DATA-X");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An explicit namespace selector preserves the DOM attribute's original name");
+
+test(t => {
+  const element = fixture(t, "wildcard-uppercase", "x:DATA-X");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "A wildcard namespace selector preserves the DOM attribute's original name");
+
+test(t => {
+  const element = fixture(t, "value-default", "x:type", "TEXT");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An explicit namespace selector does not apply HTML attribute value case folding");
+
+test(t => {
+  const element = fixture(t, "wildcard-value-default", "x:type", "TEXT");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "A wildcard namespace selector does not apply HTML case folding to a namespaced attribute value");
+
+test(t => {
+  const element = fixture(t, "value-exact", "x:type", "TEXT");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A namespaced attribute value matches its exact case");
+
+test(t => {
+  const element = fixture(t, "value-insensitive", "x:type", "TEXT");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "The i flag applies to namespaced attribute values");
+</script>
