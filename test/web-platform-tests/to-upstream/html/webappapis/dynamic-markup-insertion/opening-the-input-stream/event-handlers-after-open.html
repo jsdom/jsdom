@@ -1,0 +1,53 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Registering event handlers after opening a document</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html#document-open-steps">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#erase-all-event-listeners-and-handlers">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/parsing.html#the-end">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/html/browsers/browsing-the-web/resources/helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global addIframe */
+
+for (const method of ["open", "write"]) {
+  promise_test(async t => {
+    const frame = await addIframe();
+    t.add_cleanup(() => frame.remove());
+    // Leave the iframe's initial load dispatch before opening another input stream.
+    await new Promise(resolve => {
+      t.step_timeout(resolve, 0);
+    });
+    const win = frame.contentWindow;
+    const doc = win.document;
+    const element = doc.body.appendChild(doc.createElement("div"));
+    const targets = [win, doc, element];
+    for (const target of targets) {
+      target.onclick = t.unreached_func("The old event handler must be erased");
+      target.addEventListener("click", t.unreached_func("The old event listener must be erased"));
+    }
+
+    if (method === "open") {
+      doc.open();
+    } else {
+      doc.write("<!doctype html><p>replacement</p>");
+    }
+
+    for (const target of targets) {
+      assert_equals(target.onclick, null, `${target}: the old handler is cleared`);
+      const calls = [];
+      target.addEventListener("click", () => calls.push("listener"));
+      target.onclick = () => calls.push("handler");
+      target.dispatchEvent(new Event("click"));
+      assert_array_equals(calls, ["listener", "handler"], `${target}: fresh handlers and listeners run in order`);
+    }
+    doc.addEventListener("load", t.unreached_func("The load event must not be dispatched at the document"));
+    const loaded = new EventWatcher(t, win, "load").wait_for("load");
+    doc.close();
+    const event = await loaded;
+    assert_equals(event.target, doc, "The window load event has the document as its legacy target");
+  }, `Event handlers can be registered again after document.${method}() opens the input stream`);
+}
+</script>

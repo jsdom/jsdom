@@ -50,7 +50,7 @@ describe("frame", () => {
         resources: "usable",
         runScripts: "dangerously"
       });
-    window.document.onload = function(){
+    window.onload = function(){
       assert.equal(window.LOADED_FRAME, 1);
       assert.equal(window.PARENT_IS_TOP, true);
       t.done();
@@ -77,7 +77,7 @@ describe("frame", () => {
       resources: "usable",
       url : toFileUrl(__filename)
     });
-    window.document.addEventListener('load', function () {
+    window.addEventListener('load', function () {
       var iframeElem = window.document.getElementById('simpleIFrameID');
       assert.notEqual(iframeElem, null);
       var iframeDoc = iframeElem.contentDocument;
@@ -128,7 +128,7 @@ describe("frame", () => {
       resources: "usable",
       url : toFileUrl(__filename)
     });
-    window.document.addEventListener('load', function () {
+    window.addEventListener('load', function () {
       var iframeElem = window.document.getElementById('simpleIFrameID');
       assert.notEqual(iframeElem, null);
       var iframeDoc = iframeElem.contentDocument;
@@ -148,7 +148,7 @@ describe("frame", () => {
       resources: "usable",
       url : toFileUrl(__filename)
     });
-    window.document.addEventListener('load', function () {
+    window.addEventListener('load', function () {
       var iframeWindow = window.frames[0];
       assert.notEqual(iframeWindow, null);
       assert.notEqual(iframeWindow, window);
@@ -196,7 +196,7 @@ describe("frame", () => {
       url : toFileUrl(__filename)
     })).window.document;
 
-    doc.addEventListener('load', function () {
+    doc.defaultView.addEventListener('load', function () {
       var window = doc.defaultView;
       var iframeWindow = window.frames['simpleIFrame'];
       assert.notEqual(iframeWindow, null);
@@ -218,7 +218,7 @@ describe("frame", () => {
       resources: "usable",
       url : toFileUrl(__filename)
     })).window.document;
-    doc.addEventListener('load', function () {
+    doc.defaultView.addEventListener('load', function () {
       var window = doc.defaultView;
       assert.equal(window.frames, window);
       t.done();
@@ -234,7 +234,7 @@ describe("frame", () => {
       url : toFileUrl(__filename)
     });
     const doc = window.document;
-    doc.addEventListener('load', function () {
+    window.addEventListener('load', function () {
       var topIFrameElem = doc.getElementById('simpleIFrameID');
       var topIFrameDoc = topIFrameElem.contentDocument;
       var topIFrameWindow = topIFrameElem.contentWindow;
@@ -268,7 +268,7 @@ describe("frame", () => {
       url : toFileUrl(__filename)
     });
     var doc = window.document;
-    doc.addEventListener('load', function () {
+    window.addEventListener('load', function () {
       var iframe1 = doc.getElementById('frame1ID');
       var iframe2 = doc.getElementById('frame2ID');
       var iframe3 = doc.getElementById('frame3ID');
@@ -294,7 +294,7 @@ describe("frame", () => {
       url : toFileUrl(__filename)
     });
     var doc = window.document;
-    doc.addEventListener('load', function () {
+    window.addEventListener('load', function () {
       var iframe1 = doc.getElementById('frame1ID');
       var iframe2 = doc.getElementById('frame2ID');
       var iframe3 = doc.getElementById('frame3ID');
@@ -356,7 +356,7 @@ describe("frame", () => {
       url : toFileUrl(htmlPath)
     });
     var doc = window.document;
-    doc.addEventListener('load', function () {
+    window.addEventListener('load', function () {
       var frame1 = doc.getElementById('frame1ID');
       var frame2 = doc.getElementById('frame2ID');
       assert.notEqual(frame1, null);
