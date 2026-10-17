@@ -1,0 +1,204 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Cascade precedence for origins, importance, specificity, and source order</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#cascade-sort">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/rendering.html#hidden-elements">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, rules, inlineStyle = "", tag = "div") {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  document.head.append(style);
+  const element = document.createElement(tag);
+  element.id = "target";
+  element.className = "target other";
+  element.style.cssText = inlineStyle;
+  document.body.append(element);
+  t.add_cleanup(() => {
+    element.remove();
+    style.remove();
+  });
+  return { element, sheet: style.sheet };
+}
+
+test(t => {
+  const { element } = fixture(t, `
+    #target { color: red !important; }
+    .target { color: blue !important; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An earlier important ID declaration beats a later important class declaration");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: blue !important; }
+    #target { color: red !important; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A later important ID declaration beats an earlier important class declaration");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: red !important; }
+    .other { color: blue !important; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Source order breaks a specificity tie between important declarations");
+
+test(t => {
+  const { element } = fixture(t, `
+    #target { color: red; }
+    .target { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An earlier normal ID declaration beats a later normal class declaration");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: red; }
+    .other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Source order breaks a specificity tie between normal declarations");
+
+test(t => {
+  const { element } = fixture(t, `
+    #target { color: red; }
+    .target { color: blue !important; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "A later important declaration beats a more specific normal declaration");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: blue !important; }
+    #target { color: red; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An earlier important declaration beats a more specific normal declaration");
+
+test(t => {
+  const { element } = fixture(t, "#target { color: red; }", "color: blue");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Normal inline declarations beat normal stylesheet declarations");
+
+test(t => {
+  const { element } = fixture(t, ".target { color: red !important; }", "color: blue");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Important stylesheet declarations beat normal inline declarations");
+
+test(t => {
+  const { element } = fixture(t, "#target { color: red; }", "color: blue !important");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Important inline declarations beat normal stylesheet declarations");
+
+test(t => {
+  const { element } = fixture(t, "#target { color: red !important; }", "color: blue !important");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Important inline declarations beat important stylesheet declarations");
+
+test(t => {
+  const { element } = fixture(t, "* { display: block; }");
+  element.hidden = true;
+  assert_equals(getComputedStyle(element).display, "block");
+}, "Normal author declarations beat more specific normal user-agent declarations");
+
+test(t => {
+  const { element } = fixture(t, "#target { display: block !important; }", "", "input");
+  element.type = "hidden";
+  assert_equals(getComputedStyle(element).display, "none");
+}, "Important user-agent declarations beat important author stylesheet declarations");
+
+test(t => {
+  const { element } = fixture(t, "", "display: block !important", "input");
+  element.type = "hidden";
+  assert_equals(getComputedStyle(element).display, "none");
+}, "Important user-agent declarations beat important inline declarations");
+
+test(t => {
+  const { element } = fixture(t, `
+    #target { padding-top: 1px !important; padding-right: 2px; }
+    .target { padding: 3px !important; }
+  `);
+  const style = getComputedStyle(element);
+  assert_equals(style.paddingTop, "1px");
+  assert_equals(style.paddingRight, "3px");
+  assert_equals(style.paddingBottom, "3px");
+  assert_equals(style.paddingLeft, "3px");
+}, "Each longhand compares importance and specificity independently");
+
+test(t => {
+  const { element, sheet } = fixture(t, `
+    #target { color: red !important; }
+    .target { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+  sheet.cssRules[1].style.setProperty("color", "blue", "important");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+  sheet.cssRules[0].style.color = "red";
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+  sheet.cssRules[1].style.color = "blue";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Changing importance invalidates cached cascade winners");
+
+test(t => {
+  const { element } = fixture(t, `
+    #target { display: block !important; }
+    .target { display: none !important; }
+  `, "", "button");
+  element.focus();
+  assert_equals(document.activeElement, element);
+  assert_equals(getComputedStyle(element).display, "block");
+}, "Focusability and computed style use the same precedence for important declarations");
+
+test(t => {
+  const { element } = fixture(t, "#target { margin-left: 5px !important; }");
+  element.style.setProperty("margin", "1px", "important");
+  assert_equals(getComputedStyle(element).marginLeft, "1px");
+  element.style.removeProperty("margin-left");
+  const style = getComputedStyle(element);
+  assert_equals(style.marginLeft, "5px");
+  assert_equals(style.marginTop, "1px");
+}, "Removing an important inline longhand exposes the stylesheet declaration");
+
+test(t => {
+  const { element } = fixture(t, `
+    #target { border-style: var(--missing) !important; }
+    .target { border-left-style: solid !important; }
+  `);
+  const child = document.createElement("div");
+  child.style.borderLeftStyle = "inherit";
+  element.append(child);
+  assert_equals(getComputedStyle(child).borderLeftStyle, "none");
+  assert_equals(getComputedStyle(element).borderLeftStyle, "none");
+}, "A pending shorthand wins the cascade before its invalid value is defaulted or inherited");
+
+test(t => {
+  const { element } = fixture(t, `
+    @media all {
+      #target { color: red !important; }
+    }
+    .target { color: blue !important; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Important declarations inside media rules retain their specificity");
+
+test(t => {
+  const { element } = fixture(t, "@media all { * { display: block; } }");
+  element.hidden = true;
+  assert_equals(getComputedStyle(element).display, "block");
+}, "Declarations inside media rules retain their author origin");
+
+test(t => {
+  const { element } = fixture(t, ".target { color: red !important; }");
+  const style = document.createElement("style");
+  style.textContent = ".other { color: blue !important; }";
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Stylesheet order breaks a specificity tie between important declarations");
+</script>
