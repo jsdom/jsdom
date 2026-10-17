@@ -38,11 +38,11 @@ test(() => {
 
 promise_test(async () => {
   const canvas = makeCanvas();
-  for (const type of [undefined, "", "image/unsupported", "image/jpg", "image/png;charset=utf-8"]) {
+  for (const type of [undefined, "", "image/unsupported", "image/png;charset=utf-8"]) {
     assert_true(canvas.toDataURL(type).startsWith("data:image/png;base64,"));
     assert_equals((await toBlob(canvas, type)).type, "image/png");
   }
-  for (const type of ["image/png", "image/jpeg", "image/webp"]) {
+  for (const type of ["image/png", "image/jpeg", "image/jpg", "image/webp"]) {
     const supported = canvas.toDataURL(type).startsWith(`data:${type};base64,`);
     const expectedType = supported ? type : "image/png";
     assert_true(canvas.toDataURL(type.toUpperCase()).startsWith(`data:${expectedType};base64,`));

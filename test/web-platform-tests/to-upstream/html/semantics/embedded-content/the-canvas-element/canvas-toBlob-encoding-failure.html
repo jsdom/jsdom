@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Canvas encoding failures produce a null blob asynchronously</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/canvas.html#dom-canvas-toblob">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const dimension of ["width", "height"]) {
+  promise_test(async t => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1;
+    canvas.height = 1;
+    // JPEG dimensions occupy two bytes, so this bitmap cannot be encoded as JPEG.
+    canvas[dimension] = 65536;
+    let synchronous = true;
+    const result = new Promise(resolve => {
+      canvas.toBlob(t.step_func(blob => {
+        assert_false(synchronous);
+        resolve(blob);
+      }), "image/jpeg");
+    });
+    synchronous = false;
+    assert_equals(await result, null);
+  }, `toBlob returns null asynchronously when the ${dimension} exceeds JPEG's limit`);
+}
+</script>

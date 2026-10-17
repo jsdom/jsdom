@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<img>
+<script>
+"use strict";
+
+window.events = [];
+const image = document.querySelector("img");
+image.addEventListener("load", () => window.events.push("image load"));
+image.addEventListener("error", () => window.events.push("image error"));
+image.src = new URLSearchParams(location.search).get("src");
+window.addEventListener("load", () => window.events.push("window load"));
+document.addEventListener("DOMContentLoaded", () => parent.imageDocumentReady(window));
+</script>
