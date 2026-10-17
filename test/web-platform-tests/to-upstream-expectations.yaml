@@ -31,7 +31,15 @@ css/selectors/structural-pseudo-classes-mutations.html:
   "Stylesheet matching uses the new sibling order after reordering": [fail, Structural selector results are not invalidated synchronously after tree mutations]
 custom-elements/parser-insertion-reactions.html:
   "Markup written from a parser-inserted connectedCallback is immediately visible": [fail, parse5 cannot synchronously tokenize input from tree-builder callbacks]
+html/semantics/embedded-content/the-canvas-element/canvas-context-canvas.html: [needs-canvas]
+html/semantics/embedded-content/the-canvas-element/canvas-image-exception-realm.html: [needs-canvas]
+html/semantics/embedded-content/the-canvas-element/canvas-image-readiness.html: [needs-canvas]
+html/semantics/embedded-content/the-canvas-element/canvas-serialization-formats.html: [needs-canvas]
 html/semantics/embedded-content/the-canvas-element/canvas-serialization.html: [needs-canvas]
+html/semantics/embedded-content/the-canvas-element/canvas-toBlob-encoding-failure.html: [needs-canvas]
+html/semantics/embedded-content/the-img-element/image-src-empty.html: [needs-canvas]
+html/semantics/embedded-content/the-img-element/image-src-replacement.html: [needs-canvas]
+html/semantics/embedded-content/the-img-element/svg-zero-dimensions.html: [needs-canvas]
 html/semantics/forms/the-option-element/option-ask-for-a-reset.html:
   "Setting an already-present selected attribute does not change selectedness": [fail, A no-op defaultSelected assignment incorrectly changes selectedness]
 html/semantics/scripting-1/the-script-element/parser-created-resources-while-blocked.html?img: [needs-canvas, Image loading requires canvas]
