@@ -141,23 +141,23 @@ describe("on-error", () => {
     }
   );
 
-  specify("onerror catches exceptions thrown in sync script execution", t => {
+  specify("onerror catches exceptions thrown in sync script execution", () => {
     const doc = docForTests(``, { runScripts: "dangerously" });
+    doc.open();
 
+    let errorEvent;
     doc.defaultView.addEventListener("error", event => {
-      assert.equal(event.message, "oh no!", "message equality");
-      assert.equal(event.filename, "http://example.com/");
-      assert.ok(event.lineno > 0, "lineno set");
-      assert.ok(event.colno > 0, "colno set");
-      assert.ok(event.error);
-      t.done();
+      errorEvent = event;
     });
 
-    doc.onload = () => {
-      doc.write(`<script>throw new Error("oh no!");</script>`);
-    };
-  }, {
-    async: true
+    doc.write(`<script>throw new Error("oh no!");</script>`);
+
+    assert.ok(errorEvent, "The error event fires before document.write() returns");
+    assert.equal(errorEvent.message, "oh no!", "message equality");
+    assert.equal(errorEvent.filename, "http://example.com/");
+    assert.ok(errorEvent.lineno > 0, "lineno set");
+    assert.ok(errorEvent.colno > 0, "colno set");
+    assert.ok(errorEvent.error);
   });
 
   specify(
