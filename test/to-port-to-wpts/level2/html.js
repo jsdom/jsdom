@@ -6488,7 +6488,7 @@ describe("level2/html", () => {
       docRef = this.doc;
     }
     doc = load("frame2", { resources: "usable" });
-    doc.onload = function() {
+    doc.defaultView.onload = function() {
       testNode = doc.getElementById("Frame1");
       cd = testNode.contentDocument;
       vtitle = cd.title;
@@ -7133,7 +7133,7 @@ describe("level2/html", () => {
       docRef = this.doc;
     }
     doc = load("iframe2", { resources: "usable" });
-    doc.onload = function() {
+    doc.defaultView.onload = function() {
       testNode = doc.getElementById("Iframe2");
       cd = testNode.contentDocument;
       vtitle = cd.title;

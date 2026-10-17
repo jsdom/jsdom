@@ -2818,9 +2818,6 @@ DIR: html/webappapis/dynamic-markup-insertion/document-writeln
 
 DIR: html/webappapis/dynamic-markup-insertion/opening-the-input-stream
 
-006.html: [fail-with-canvas, document.open does not erase event listeners]
-015.html: [timeout, document.open retains the load handler so reopening loops and delays parent load]
-016.html: [timeout, document.open retains the load handler so reopening loops and delays parent load]
 abort-refresh-immediate.window.html: [fail, Depends on fetch and refresh navigation]
 abort-refresh-multisecond-header.window.html: [fail, Depends on fetch]
 abort-refresh-multisecond-meta.window.html: [fail, Depends on fetch]
@@ -2834,14 +2831,11 @@ bailout-side-effects-synchronous-script.window.html: [fail, document.open does n
 crbug-583445-regression.window.html: [timeout, Depends on the fetch-based dispatcher and navigation]
 document-open-cancels-javascript-url-navigation.html: [fail, document.open does not cancel pending JavaScript URL navigation]
 document.open-02.html: [fail, The three-argument document.open overload is not implemented]
-document.open-03.html: [timeout, document.open retains the load handler so reopening loops and delays parent load]
-event-listeners.window.html: [fail, document.open does not erase event listeners]
 history.window.html: [timeout, Depends on navigation]
 ignore-opens-during-unload.window.html: [timeout, Navigation does not fire unload events]
 location-set-and-document-open.html: [timeout, Depends on navigation]
 origin-check-in-document-open-same-origin-domain.sub.html: [fail, document.open does not check the entry document's origin]
 quirks.window.html: [fail, document.open does not reset the document's mode]
-readiness.window.html: [fail, document.open fires readystatechange]
 reload.window.html: [fail, Depends on navigation]
 tasks.window.html: [timeout, Depends on MessageChannel and unhandledrejection]
 url-entry-document-sync-call.window.html: [fail, document.open does not copy the entry document's URL]
