@@ -1,0 +1,63 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS declaration property name case</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertypriority">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "background-color: red !important; margin: 1px 2px !important";
+  assert_equals(style.getPropertyValue("BACKGROUND-COLOR"), "red");
+  assert_equals(style.getPropertyPriority("BaCkGrOuNd-CoLoR"), "important");
+  assert_equals(style.backgroundColor, "red");
+  assert_equals(style.getPropertyValue("backgroundColor"), "");
+  assert_equals(style.getPropertyPriority("backgroundColor"), "");
+  assert_equals(style.getPropertyValue("MaRgIn"), "1px 2px");
+  assert_equals(style.getPropertyPriority("MARGIN"), "important");
+  assert_equals(style.getPropertyValue("bacKground-color"), "");
+  assert_equals(style.getPropertyPriority("bacKground-color"), "");
+}, "Authored longhand and shorthand names are ASCII case-insensitive");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("--Accent", "Upper", "important");
+  style.setProperty("--accent", "Lower");
+  assert_equals(style.getPropertyValue("--Accent"), "Upper");
+  assert_equals(style.getPropertyPriority("--Accent"), "important");
+  assert_equals(style.getPropertyValue("--accent"), "Lower");
+  assert_equals(style.getPropertyPriority("--accent"), "");
+  assert_equals(style.getPropertyValue("--ACCENT"), "");
+  assert_equals(style.getPropertyPriority("--ACCENT"), "");
+}, "Authored custom property names remain case-sensitive");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.cssText = "border: 5px none red; margin: 1px 2px";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  const style = getComputedStyle(element);
+  assert_equals(style.getPropertyValue("BORDER-TOP-WIDTH"), "0px");
+  assert_equals(style.getPropertyValue("BoRdEr-WiDtH"), "0px");
+  assert_equals(style.getPropertyValue("MaRgIn"), "1px 2px");
+  assert_equals(style.borderTopWidth, "0px");
+  assert_equals(style.borderWidth, "0px");
+  assert_equals(style.margin, "1px 2px");
+}, "Computed longhand and shorthand names are ASCII case-insensitive and return resolved values");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.setProperty("--Accent", "Upper");
+  element.style.setProperty("--accent", "Lower");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  const style = getComputedStyle(element);
+  assert_equals(style.getPropertyValue("--Accent"), "Upper");
+  assert_equals(style.getPropertyValue("--accent"), "Lower");
+  assert_equals(style.getPropertyValue("--ACCENT"), "");
+}, "Computed custom property names remain case-sensitive");
+</script>

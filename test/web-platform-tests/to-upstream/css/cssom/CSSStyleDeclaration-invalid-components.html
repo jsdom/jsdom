@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Invalid components invalidate the entire CSS declaration</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#parse-a-css-declaration-block">
+<link rel="help" href="https://drafts.csswg.org/css-values/#common-keywords">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const cases = [
+  ["border", "2px solid red", "inherit solid"],
+  ["border-top", "2px solid red", "inherit solid"],
+  ["border-right", "2px solid red", "solid inherit"],
+  ["border-bottom", "2px solid red", "initial red"],
+  ["border-left", "2px solid red", "1px unset"],
+  ["background-size", "20px", "10px, garbage"],
+  ["background-size", "20px", "initial, auto"],
+  ["background-repeat", "no-repeat", "repeat, garbage"],
+  ["background-repeat", "no-repeat", "repeat, inherit"],
+  ["background-position", "20px 30px", "initial, left"],
+  ["background-position-x", "20px", "left, initial"],
+  ["background-position-y", "30px", "initial, top"],
+  ["background-attachment", "fixed", "scroll, garbage"],
+  ["background-attachment", "fixed", "scroll, inherit"],
+  ["background-clip", "content-box", "border-box, garbage"],
+  ["background-origin", "content-box", "initial, padding-box"],
+  ["background-image", "url(image.png)", "none, initial"],
+  ["font-family", "serif", "Arial, initial"],
+  ["font-family", "serif", "inherit, Arial"],
+  ["font-variant", "normal", "small-caps garbage"],
+  ["font-variant", "normal", "small-caps inherit"]
+];
+
+for (const [property, valid, invalid] of cases) {
+  test(() => {
+    const { style } = document.createElement("div");
+    style.setProperty(property, valid);
+    const expected = style.cssText;
+    style.setProperty(property, invalid);
+    assert_equals(style.cssText, expected);
+  }, `Setting ${property}: ${invalid} preserves the previous declaration`);
+
+  test(() => {
+    const { style } = document.createElement("div");
+    style.cssText = `${property}: ${valid}`;
+    const expected = style.cssText;
+    style.cssText = `${property}: ${valid}; ${property}: ${invalid}`;
+    assert_equals(style.cssText, expected);
+  }, `Parsing ${property}: ${invalid} preserves the previous declaration`);
+}
+</script>

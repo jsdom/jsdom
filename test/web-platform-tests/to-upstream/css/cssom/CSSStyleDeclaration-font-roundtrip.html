@@ -1,0 +1,116 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Font serialization preserves longhands</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-declaration-block">
+<link rel="help" href="https://drafts.csswg.org/css-fonts-4/#font-prop">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const [fontStyle, fontVariant] of [["normal", "small-caps"], ["oblique 20deg", "normal"]]) {
+  test(() => {
+    const element = document.createElement("div");
+    element.style.fontStyle = fontStyle;
+    element.style.fontVariant = fontVariant;
+    element.style.fontWeight = "normal";
+    element.style.fontSize = "16px";
+    element.style.lineHeight = "normal";
+    element.style.fontFamily = "serif";
+    const clone = element.cloneNode();
+    assert_equals(clone.style.fontStyle, fontStyle);
+    assert_equals(clone.style.fontVariant, fontVariant);
+    assert_equals(clone.style.fontSize, "16px");
+    assert_equals(element.style.font, "", "Missing font subproperties prevent shorthand serialization");
+  }, `Cloning separately assigned font longhands preserves ${fontStyle} ${fontVariant}`);
+}
+
+for (const [font, fontStyle, fontVariant, fontStretch, lineHeight] of [
+  ["small-caps 16px serif", "normal", "small-caps", "normal", "normal"],
+  ["small-caps 16px / 2 serif", "normal", "small-caps", "normal", "2"],
+  ["oblique 20deg 16px serif", "oblique 20deg", "normal", "normal", "normal"],
+  ["oblique -20deg 16px / 2 serif", "oblique -20deg", "normal", "normal", "2"],
+  ["condensed 16px serif", "normal", "normal", "condensed", "normal"]
+]) {
+  test(() => {
+    const element = document.createElement("div");
+    element.style.font = "16px serif";
+    element.style.font = font;
+    assert_equals(element.style.fontStyle, fontStyle);
+    assert_equals(element.style.fontVariant, fontVariant);
+    assert_equals(element.style.fontStretch, fontStretch);
+    assert_equals(element.style.lineHeight, lineHeight);
+    assert_equals(element.style.fontSize, "16px");
+    const clone = element.cloneNode();
+    assert_equals(clone.style.fontStyle, fontStyle);
+    assert_equals(clone.style.fontVariant, fontVariant);
+    assert_equals(clone.style.fontStretch, fontStretch);
+    assert_equals(clone.style.lineHeight, lineHeight);
+    assert_equals(clone.style.fontSize, "16px");
+  }, `Parsing and cloning font: ${font} preserves its components`);
+}
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.fontStretch = "condensed";
+  style.fontFeatureSettings = '"kern" 0';
+  style.fontStyle = "normal";
+  style.fontVariant = "normal";
+  style.fontWeight = "normal";
+  style.fontSize = "16px";
+  style.lineHeight = "normal";
+  style.fontFamily = "serif";
+  assert_equals(style.font, "");
+  const { style: reparsed } = document.createElement("div");
+  reparsed.cssText = style.cssText;
+  assert_equals(reparsed.fontStretch, "condensed");
+  assert_equals(reparsed.fontFeatureSettings, '"kern" 0');
+}, "Serializing font longhands preserves other font properties declared before them");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.fontVariantCaps = "small-caps";
+  element.style.font = "small-caps 16px serif";
+  element.style.fontFeatureSettings = '"kern" 0';
+  assert_equals(element.style.fontVariantCaps, "small-caps");
+  assert_equals(element.style.fontVariant, "small-caps");
+  assert_equals(element.style.font, "");
+  const clone = element.cloneNode();
+  assert_equals(clone.style.fontVariantCaps, "small-caps");
+  assert_equals(clone.style.fontVariant, "small-caps");
+  assert_equals(clone.style.fontFeatureSettings, '"kern" 0');
+}, "Font preserves matching small caps when another longhand prevents shorthand serialization");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.font = "small-caps 16px serif";
+  element.style.fontVariantCaps = "small-caps";
+  assert_equals(element.style.font, "small-caps 16px serif");
+  const clone = element.cloneNode();
+  assert_equals(clone.style.font, "small-caps 16px serif");
+  assert_equals(clone.style.fontVariantCaps, "small-caps");
+}, "Setting matching small caps preserves font shorthand serialization");
+
+for (const [property, value, initial] of [
+  ["font-feature-settings", '"kern" 0', "normal"],
+  ["font-kerning", "none", "auto"],
+  ["font-language-override", '"SRB"', "normal"],
+  ["font-optical-sizing", "none", "auto"],
+  ["font-size-adjust", "0.5", "none"],
+  ["font-variation-settings", '"wght" 700', "normal"]
+]) {
+  test(() => {
+    const { style } = document.createElement("div");
+    style.setProperty(property, value);
+    style.font = "16px serif";
+    assert_equals(style.getPropertyValue(property), initial);
+    assert_not_equals(style.font, "");
+    style.setProperty(property, value);
+    assert_equals(style.font, "", "A non-initial reset-only property prevents serialization");
+    style.setProperty(property, initial);
+    assert_not_equals(style.font, "", "Restoring the initial value invalidates the shorthand cache");
+    style.removeProperty("font");
+    assert_equals(style.getPropertyValue(property), "");
+  }, `Font resets, tracks and removes ${property}`);
+}
+</script>

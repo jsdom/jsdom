@@ -12,6 +12,45 @@ const propertiesDir = path.resolve(cssDir, "properties");
 // WebIDL keywords that must be escaped with a leading underscore.
 const webIDLKeywords = new Set(["float"]);
 
+// Webref identifies logical property groups but does not identify each member's mapping logic.
+// These are the physical members of each group; its remaining members are flow-relative.
+const physicalPropertiesByLogicalGroup = new Map([
+  ["background-position", ["background-position-x", "background-position-y"]],
+  ["background-repeat", ["background-repeat-x", "background-repeat-y"]],
+  ["size", ["width", "height"]],
+  ["border-clip", ["border-top-clip", "border-right-clip", "border-bottom-clip", "border-left-clip"]],
+  ["border-color", ["border-top-color", "border-right-color", "border-bottom-color", "border-left-color"]],
+  ["border-style", ["border-top-style", "border-right-style", "border-bottom-style", "border-left-style"]],
+  ["border-width", ["border-top-width", "border-right-width", "border-bottom-width", "border-left-width"]],
+  [
+    "border-radius",
+    ["border-top-left-radius", "border-top-right-radius", "border-bottom-left-radius", "border-bottom-right-radius"]
+  ],
+  ["inset", ["top", "right", "bottom", "left"]],
+  ["contain-intrinsic-size", ["contain-intrinsic-width", "contain-intrinsic-height"]],
+  [
+    "corner-shape",
+    ["corner-top-left-shape", "corner-top-right-shape", "corner-bottom-left-shape", "corner-bottom-right-shape"]
+  ],
+  ["margin", ["margin-top", "margin-right", "margin-bottom", "margin-left"]],
+  ["max-size", ["max-width", "max-height"]],
+  ["min-size", ["min-width", "min-height"]],
+  ["overflow", ["overflow-x", "overflow-y"]],
+  [
+    "overflow-clip-margin",
+    [
+      "overflow-clip-margin-top",
+      "overflow-clip-margin-right",
+      "overflow-clip-margin-bottom",
+      "overflow-clip-margin-left"
+    ]
+  ],
+  ["overscroll-behavior", ["overscroll-behavior-x", "overscroll-behavior-y"]],
+  ["padding", ["padding-top", "padding-right", "padding-bottom", "padding-left"]],
+  ["scroll-margin", ["scroll-margin-top", "scroll-margin-right", "scroll-margin-bottom", "scroll-margin-left"]],
+  ["scroll-padding", ["scroll-padding-top", "scroll-padding-right", "scroll-padding-bottom", "scroll-padding-left"]]
+]);
+
 async function main() {
   const css = await import("@webref/css");
   const propertyFiles = await fs.readdir(propertiesDir);
@@ -52,14 +91,28 @@ async function main() {
     // Emit only fields consumed at runtime; update this list when runtime consumers
     // need additional fields. Build-time generation uses the full definitions.
     const runtimeDefinitions = Array.from(definitions, ([property, definition]) => {
-      const { inherited, longhands, logicalPropertyGroup } = definition;
+      // Aliases such as `font-stretch` carry their defaults on the target definition.
+      definition = definitions.get(definition.legacyAliasOf) ?? definition;
+      const { inherited, longhands } = definition;
       let { initial } = definition;
       // Shorthand definitions can contain prose such as "see individual properties" instead of
       // an initial CSS value. Only retain defaults that can be used as property values.
       if (longhands && initial !== undefined && !lexer.matchProperty(property, initial).matched) {
         initial = undefined;
       }
-      return [property, { inherited, initial, longhands, logicalPropertyGroup }];
+      const physicalGroups = new Set();
+      const logicalGroups = new Set();
+      collectLogicalPropertyGroups(definition, physicalGroups, logicalGroups);
+      return [
+        property,
+        {
+          inherited,
+          initial,
+          longhands,
+          physicalGroups: physicalGroups.size ? [...physicalGroups] : undefined,
+          logicalGroups: logicalGroups.size ? [...logicalGroups] : undefined
+        }
+      ];
     });
     const output = `"use strict";
 
@@ -68,10 +121,29 @@ module.exports = new Map(${JSON.stringify(runtimeDefinitions, undefined, 2)});
     return fs.writeFile(path.resolve(outputDir, "css-property-definitions.js"), output);
   }
 
+  function collectLogicalPropertyGroups(definition, physicalGroups, logicalGroups) {
+    definition = definitions.get(definition.legacyAliasOf) ?? definition;
+    const { logicalPropertyGroup } = definition;
+    if (logicalPropertyGroup) {
+      const physicalProperties = physicalPropertiesByLogicalGroup.get(logicalPropertyGroup);
+      if (!physicalProperties) {
+        throw new Error(`Unknown logical property group: ${logicalPropertyGroup}`);
+      }
+      const groups = physicalProperties.includes(definition.name) ? physicalGroups : logicalGroups;
+      groups.add(logicalPropertyGroup);
+    }
+    // Shorthands kept as single declarations still affect the ordering of their longhands' groups.
+    // Nested shorthands such as `border-inline` can cover several groups.
+    for (const longhand of [...definition.longhands ?? [], ...definition.resetLonghands ?? []]) {
+      collectLogicalPropertyGroups(definitions.get(longhand), physicalGroups, logicalGroups);
+    }
+  }
+
   function generateShorthandRelationships() {
     // Use the shorthands we actually expand, rather than every shorthand in the specifications.
     // The property implementations can be loaded now that their definitions have been generated.
-    const { shorthandProperties } = require(path.resolve(cssDir, "helpers/shorthand-properties.js"));
+    const { resetOnlyLonghands, shorthandProperties } =
+      require(path.resolve(cssDir, "helpers/shorthand-properties.js"));
     const longhandsByShorthand = new Map();
     const shorthandsByLonghand = new Map();
     for (const shorthand of shorthandProperties.keys()) {
@@ -83,6 +155,11 @@ module.exports = new Map(${JSON.stringify(runtimeDefinitions, undefined, 2)});
         }
         shorthandsByLonghand.get(longhand).push(shorthand);
       }
+    }
+    // CSSOM prefers shorthands covering more longhands, then sorts equal-sized shorthands by name.
+    // All implemented shorthands are unprefixed and none are legacy shorthands.
+    for (const shorthands of shorthandsByLonghand.values()) {
+      shorthands.sort().sort((a, b) => longhandsByShorthand.get(b).length - longhandsByShorthand.get(a).length);
     }
     const output = `"use strict";
 
@@ -97,6 +174,7 @@ exports.shorthandsByLonghand = new Map(${JSON.stringify([...shorthandsByLonghand
         for (const name of shorthand.shorthandFor.keys()) {
           yield* longhandNames(name);
         }
+        yield* resetOnlyLonghands.get(property)?.keys() ?? [];
       } else {
         yield property;
       }

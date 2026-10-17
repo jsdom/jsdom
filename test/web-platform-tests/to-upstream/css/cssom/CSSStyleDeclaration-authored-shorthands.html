@@ -1,0 +1,270 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Authored shorthand declarations use their longhands</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#css-declaration-blocks">
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-declaration-block">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "1px 2px";
+  style.removeProperty("margin");
+  assert_equals(style.marginTop, "");
+  assert_equals(style.marginRight, "");
+  assert_equals(style.marginBottom, "");
+  assert_equals(style.marginLeft, "");
+  assert_equals(style.length, 0);
+  assert_equals(style.cssText, "");
+}, "Removing a shorthand removes all of its longhands");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "1px 2px";
+  assert_equals(style.length, 4);
+  assert_array_equals(style, ["margin-top", "margin-right", "margin-bottom", "margin-left"]);
+  style.marginLeft = "3px";
+  assert_equals(style.margin, "1px 2px 1px 3px");
+  assert_array_equals(style, ["margin-top", "margin-right", "margin-bottom", "margin-left"]);
+}, "Shorthand expansion enumerates only longhands and preserves their positions");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("margin-top", "3px", "important");
+  style.margin = "1px 2px";
+  assert_equals(style.marginTop, "1px");
+  assert_equals(style.getPropertyPriority("margin-top"), "");
+  assert_equals(style.cssText, "margin: 1px 2px;");
+}, "Setting a shorthand replaces important longhands through the CSSOM API");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "margin-top: 3px !important; margin: 1px 2px";
+  assert_equals(style.marginTop, "3px");
+  assert_equals(style.marginRight, "2px");
+  assert_equals(style.margin, "");
+  assert_equals(style.getPropertyPriority("margin"), "");
+  assert_equals(style.getPropertyPriority("margin-top"), "important");
+}, "Parsing declarations preserves important longhands when expanding a later shorthand");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "margin: 1px !important; margin-top: 2px !important; margin-top: 3px !important";
+  assert_equals(style.margin, "3px 1px 1px");
+  assert_equals(style.getPropertyPriority("margin"), "important");
+  assert_equals(style.cssText, "margin: 3px 1px 1px !important;");
+}, "The last equally important declaration wins independently for each longhand");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "color: red; width: 1px; color: red";
+  assert_array_equals(style, ["width", "color"]);
+  assert_equals(style.cssText, "width: 1px; color: red;");
+}, "Parsing a repeated declaration preserves its last source position even at the same value");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "color: red !important; width: 1px; color: blue";
+  assert_array_equals(style, ["color", "width"]);
+  assert_equals(style.color, "red");
+  assert_equals(style.getPropertyPriority("color"), "important");
+}, "A losing parsed declaration preserves the earlier important declaration's position");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "color: red !important; width: 1px; color: blue !important";
+  assert_array_equals(style, ["width", "color"]);
+  assert_equals(style.color, "blue");
+  assert_equals(style.getPropertyPriority("color"), "important");
+}, "The last equally important parsed declaration occupies its own source position");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "red";
+  style.width = "1px";
+  style.color = "blue";
+  assert_array_equals(style, ["color", "width"]);
+  assert_equals(style.cssText, "color: blue; width: 1px;");
+}, "A CSSOM assignment updates an unrelated existing declaration in place");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "1px";
+  style.removeProperty("margin-left");
+  assert_equals(style.margin, "");
+  assert_equals(style.marginTop, "1px");
+  assert_equals(style.marginRight, "1px");
+  assert_equals(style.marginBottom, "1px");
+  assert_equals(style.length, 3);
+}, "Removing one longhand invalidates shorthand serialization without removing siblings");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "var(--space)";
+  assert_equals(style.length, 4);
+  assert_equals(style.margin, "var(--space)");
+  assert_equals(style.marginTop, "");
+  style.marginLeft = "2px";
+  assert_equals(style.margin, "");
+  assert_equals(style.marginTop, "");
+  assert_equals(style.marginLeft, "2px");
+  assert_equals(style.cssText, "margin-top: ; margin-right: ; margin-bottom: ; margin-left: 2px;");
+}, "Pending shorthand substitution survives a single longhand override");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "var(--space)";
+  style.removeProperty("margin");
+  assert_equals(style.length, 0);
+  assert_equals(style.cssText, "");
+}, "Removing a pending shorthand clears its longhands");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.borderImage = "url(image.png) 1";
+  style.border = "2px solid red";
+  assert_equals(style.border, "2px solid red");
+  style.borderLeftWidth = "3px";
+  assert_equals(style.borderTopWidth, "2px");
+  assert_equals(style.borderLeftWidth, "3px");
+  assert_equals(style.borderRightStyle, "solid");
+  style.removeProperty("border");
+  assert_equals(style.borderTopWidth, "");
+  assert_equals(style.borderLeftWidth, "");
+  assert_equals(style.borderImage, "");
+  assert_equals(style.cssText, "");
+}, "Border resets and removes its reset-only border-image property");
+
+test(() => {
+  const direct = document.createElement("div").style;
+  direct.margin = "1px 2px";
+  direct.marginLeft = "3px";
+  const parsed = document.createElement("div").style;
+  parsed.cssText = "margin: 1px 2px; margin-left: 3px";
+  assert_equals(parsed.cssText, direct.cssText);
+  assert_array_equals(parsed, direct);
+  assert_equals(parsed.margin, direct.margin);
+}, "Direct assignments and declaration parsing share shorthand expansion");
+
+test(() => {
+  const element = document.createElement("div");
+  const observer = new MutationObserver(() => {});
+  observer.observe(element, { attributes: true, attributeOldValue: true });
+  element.style.margin = "1px 2px";
+  const added = observer.takeRecords();
+  assert_equals(added.length, 1);
+  assert_equals(added[0].oldValue, null);
+  element.style.removeProperty("margin");
+  const removed = observer.takeRecords();
+  assert_equals(removed.length, 1);
+  assert_equals(removed[0].oldValue, "margin: 1px 2px;");
+  assert_equals(element.getAttribute("style"), "");
+  observer.disconnect();
+}, "Shorthand assignment and removal each update the style attribute once");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "margin-top: 1px; margin-inline-start: 7px; margin-right: 2px; margin-bottom: 3px; margin-left: 4px";
+  assert_equals(
+    style.cssText,
+    "margin-top: 1px; margin-inline-start: 7px; margin-right: 2px; margin-bottom: 3px; margin-left: 4px;"
+  );
+  style.marginTop = "1px";
+  assert_array_equals(
+    style,
+    ["margin-inline-start", "margin-right", "margin-bottom", "margin-left", "margin-top"]
+  );
+  assert_equals(style.cssText, "margin-inline-start: 7px; margin: 1px 2px 3px 4px;");
+}, "Serializing and setting physical longhands preserve precedence around logical properties");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.border = "2px solid red";
+  style.borderImage = "inherit";
+  assert_equals(style.border, "");
+  const { style: reparsed } = document.createElement("div");
+  reparsed.cssText = style.cssText;
+  assert_equals(reparsed.borderImage, "inherit");
+  assert_equals(reparsed.borderTopWidth, "2px");
+}, "A reset-only property with a different global keyword prevents border serialization");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.border = "var(--border)";
+  assert_equals(style.border, "var(--border)");
+  assert_equals(style.borderTop, "");
+  assert_equals(style.borderWidth, "");
+  style.borderTop = "var(--top)";
+  assert_equals(style.border, "");
+  assert_equals(style.borderTop, "var(--top)");
+  assert_equals(style.borderRight, "");
+  assert_equals(style.borderTopWidth, "");
+}, "Pending substitution can only serialize as its original shorthand");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "margin: 1px; margin-top: invalid; margin: invalid";
+  assert_equals(style.margin, "1px");
+  style.removeProperty("MARGIN");
+  assert_equals(style.length, 0);
+}, "Invalid declarations preserve prior longhands and shorthand removal is ASCII case-insensitive");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.width = "1px";
+  element.style.height = "2px";
+  const observer = new MutationObserver(() => {});
+  observer.observe(element, { attributes: true });
+  element.style.width = "1px";
+  assert_array_equals(element.style, ["width", "height"]);
+  assert_equals(observer.takeRecords().length, 0);
+  observer.disconnect();
+}, "A same-value physical property assignment does not reorder another physical property");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.inlineSize = "1px";
+  element.style.blockSize = "2px";
+  const observer = new MutationObserver(() => {});
+  observer.observe(element, { attributes: true });
+  element.style.inlineSize = "1px";
+  assert_array_equals(element.style, ["inline-size", "block-size"]);
+  assert_equals(observer.takeRecords().length, 0);
+  observer.disconnect();
+}, "A same-value logical property assignment does not reorder another logical property");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.font = "16px serif";
+  style.fontWeight = "400";
+  // Whether to preserve `400` or omit it as equivalent to the initial `normal` is unresolved:
+  // https://github.com/w3c/csswg-drafts/issues/5642
+  assert_equals(style.font, "400 16px serif");
+  const { style: reparsed } = document.createElement("div");
+  reparsed.cssText = style.cssText;
+  assert_equals(reparsed.fontWeight, "400");
+}, "Authored font shorthand serialization preserves an explicit numeric normal weight");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "margin: 1px; margin-left:; margin: /**/; color: red !important; color: /**/";
+  assert_equals(style.margin, "1px");
+  assert_equals(style.color, "red");
+  assert_equals(style.getPropertyPriority("color"), "important");
+}, "Empty parsed declarations are invalid and do not remove earlier values");
+
+test(() => {
+  const element = document.createElement("div");
+  document.documentElement.append(element);
+  const style = getComputedStyle(element);
+  assert_throws_dom("NoModificationAllowedError", () => {
+    style.margin = "1px";
+  });
+  assert_throws_dom("NoModificationAllowedError", () => {
+    style.marginTop = "1px";
+  });
+  element.remove();
+}, "Both shorthand and longhand assignments respect computed declarations' read-only flag");
+</script>

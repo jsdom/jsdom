@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS-wide keywords in shorthand declarations</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#defaulting-keywords">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-token">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const shorthands = [
+  ["border", ["border-top-width", "border-image"]],
+  ["border-top", ["border-top-width", "border-top-style", "border-top-color"]],
+  ["border-right", ["border-right-width", "border-right-style", "border-right-color"]],
+  ["border-bottom", ["border-bottom-width", "border-bottom-style", "border-bottom-color"]],
+  ["border-left", ["border-left-width", "border-left-style", "border-left-color"]],
+  ["background", ["background-color", "background-position-x"]],
+  ["font", ["font-size", "font-feature-settings"]],
+  ["margin", ["margin-top", "margin-right", "margin-bottom", "margin-left"]]
+];
+
+for (const [property, longhands] of shorthands) {
+  for (const [keyword, value] of [
+    ["initial", "/* before */initial"],
+    ["inherit", "inherit/**/"],
+    ["unset", "/**/UnSeT/**/"],
+    ["revert", "\\72 evert"],
+    ["revert-layer", "/**/r\\65vert-layer/**/"],
+    ["inherit", "inherit/* var(--unused) */"]
+  ]) {
+    test(() => {
+      const { style } = document.createElement("div");
+      style.setProperty(property, value, "important");
+      assert_equals(style.getPropertyValue(property), keyword);
+      for (const longhand of longhands) {
+        assert_equals(style.getPropertyValue(longhand), keyword, longhand);
+        assert_equals(style.getPropertyPriority(longhand), "important", longhand);
+      }
+    }, `Setting ${property}: ${value} expands the keyword to its longhands`);
+
+    test(() => {
+      const { style } = document.createElement("div");
+      style.cssText = `${property}: ${value} !important`;
+      assert_equals(style.getPropertyValue(property), keyword);
+      for (const longhand of longhands) {
+        assert_equals(style.getPropertyValue(longhand), keyword, longhand);
+        assert_equals(style.getPropertyPriority(longhand), "important", longhand);
+      }
+    }, `Parsing ${property}: ${value} expands the keyword to its longhands`);
+  }
+
+  for (const value of ["in/**/herit", "inherit/**/solid"]) {
+    test(() => {
+      const { style } = document.createElement("div");
+      style.setProperty(property, "initial");
+      const expected = style.cssText;
+      style.setProperty(property, value);
+      assert_equals(style.cssText, expected);
+    }, `Setting ${property}: ${value} does not treat separate tokens as a keyword`);
+
+    test(() => {
+      const { style } = document.createElement("div");
+      style.cssText = `${property}: initial`;
+      const expected = style.cssText;
+      style.cssText = `${property}: initial; ${property}: ${value}`;
+      assert_equals(style.cssText, expected);
+    }, `Parsing ${property}: ${value} does not treat separate tokens as a keyword`);
+  }
+}
+</script>

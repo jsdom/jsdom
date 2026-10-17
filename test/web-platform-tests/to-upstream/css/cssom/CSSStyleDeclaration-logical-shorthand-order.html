@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Logical shorthands preserve declaration order</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-declaration-block">
+<link rel="help" href="https://drafts.csswg.org/cssom/#set-a-css-declaration">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const property of ["margin", "padding"]) {
+  test(() => {
+    const { style } = document.createElement("div");
+    const text = `${property}-top: 1px; ${property}-inline: 7px; ` +
+      `${property}-right: 2px; ${property}-bottom: 3px; ${property}-left: 4px;`;
+    style.cssText = text;
+    assert_equals(style.cssText, text);
+  }, `Serializing ${property} longhands does not move them across ${property}-inline`);
+}
+
+for (const shorthand of ["border-inline-start", "border-inline"]) {
+  for (const [component, value] of [["width", "1px"], ["style", "dotted"], ["color", "red"]]) {
+    test(() => {
+      const { style } = document.createElement("div");
+      const text = `border-top-${component}: ${value}; ${shorthand}: 7px solid blue; ` +
+        `border-right-${component}: ${value}; border-bottom-${component}: ${value}; ` +
+        `border-left-${component}: ${value};`;
+      style.cssText = text;
+      assert_equals(style.cssText, text);
+    }, `Serializing border-${component} longhands does not move them across ${shorthand}`);
+  }
+}
+
+for (const value of ["1px", "2px"]) {
+  test(() => {
+    const { style } = document.createElement("div");
+    style.cssText = "margin-left: 1px; margin-inline: 7px;";
+    assert_equals(style.cssText, "margin-left: 1px; margin-inline: 7px;");
+    style.marginLeft = value;
+    assert_equals(style.cssText, `margin-inline: 7px; margin-left: ${value};`);
+  }, `Setting margin-left to ${value} moves it after margin-inline`);
+
+  test(() => {
+    const { style } = document.createElement("div");
+    style.cssText = "margin-inline: 1px; margin-left: 7px;";
+    assert_equals(style.cssText, "margin-inline: 1px; margin-left: 7px;");
+    style.marginInline = value;
+    assert_equals(style.cssText, `margin-left: 7px; margin-inline: ${value};`);
+  }, `Setting margin-inline to ${value} moves it after margin-left`);
+}
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "border-radius: 1px; border-start-start-radius: 7px;";
+  assert_equals(style.cssText, "border-radius: 1px; border-start-start-radius: 7px;");
+  style.borderRadius = "1px";
+  assert_equals(style.cssText, "border-start-start-radius: 7px; border-radius: 1px;");
+}, "Setting border-radius to the same value moves it after a logical corner radius");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "margin-top: 1px; padding-inline: 7px; margin-right: 2px; margin-bottom: 3px; margin-left: 4px;";
+  assert_equals(style.cssText, "margin: 1px 2px 3px 4px; padding-inline: 7px;");
+}, "A logical shorthand in an unrelated group does not prevent physical shorthand serialization");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.cssText = "margin-inline: 1px; margin-block: 2px;";
+  const observer = new MutationObserver(() => {});
+  observer.observe(element, { attributes: true });
+  element.style.marginInline = "1px";
+  assert_equals(element.style.cssText, "margin-inline: 1px; margin-block: 2px;");
+  assert_equals(observer.takeRecords().length, 0);
+  observer.disconnect();
+}, "Setting a logical shorthand to the same value does not reorder another logical shorthand");
+</script>

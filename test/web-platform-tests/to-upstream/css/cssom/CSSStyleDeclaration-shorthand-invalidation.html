@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Authored shorthand reads reflect changes to their longhands</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "1px";
+  assert_equals(style.margin, "1px");
+  style.setProperty("margin-top", "1px", "important");
+  assert_equals(style.margin, "");
+  style.setProperty("margin-top", "1px");
+  assert_equals(style.margin, "1px");
+}, "Shorthand reads reflect priority-only changes to a longhand");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.border = "2px solid red";
+  assert_equals(style.border, "2px solid red");
+  assert_equals(style.borderLeft, "2px solid red");
+  assert_equals(style.borderWidth, "2px");
+  style.borderLeftWidth = "3px";
+  assert_equals(style.border, "");
+  assert_equals(style.borderLeft, "3px solid red");
+  assert_equals(style.borderWidth, "2px 2px 2px 3px");
+  style.borderLeftWidth = "2px";
+  assert_equals(style.border, "2px solid red");
+}, "Longhand changes update every overlapping border shorthand after earlier reads");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.background = "red 10px 20px";
+  assert_equals(style.background, "10px 20px red");
+  assert_equals(style.backgroundPosition, "10px 20px");
+  style.backgroundPositionX = "30px";
+  assert_equals(style.backgroundPosition, "30px 20px");
+  assert_equals(style.background, "30px 20px red");
+}, "A nested background-position longhand updates both shorthand reads");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "var(--space)";
+  assert_equals(style.margin, "var(--space)");
+  style.marginLeft = "2px";
+  assert_equals(style.margin, "");
+  style.margin = "var(--other-space)";
+  assert_equals(style.margin, "var(--other-space)");
+  style.removeProperty("margin");
+  assert_equals(style.margin, "");
+  assert_equals(style.length, 0);
+}, "Pending shorthand reads update after overrides, replacement and removal");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.padding = "1px 2px";
+  assert_equals(style.padding, "1px 2px");
+  style.removeProperty("padding-left");
+  assert_equals(style.padding, "");
+  style.paddingLeft = "2px";
+  assert_equals(style.padding, "1px 2px");
+  style.cssText = "padding: 3px;";
+  assert_equals(style.padding, "3px");
+  style.cssText = "color: red;";
+  assert_equals(style.padding, "");
+}, "Shorthand reads update after removal and declaration-block replacement");
+</script>
