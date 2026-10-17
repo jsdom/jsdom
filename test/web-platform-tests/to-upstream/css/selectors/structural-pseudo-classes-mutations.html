@@ -1,0 +1,105 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Structural selectors reflect synchronous tree mutations</title>
+<link rel="help" href="https://drafts.csswg.org/selectors/#structural-pseudos">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createParent() {
+  const parent = document.createElement("div");
+  parent.innerHTML = "<i></i>text<b></b><!-- comment --><i></i>";
+  return parent;
+}
+
+test(() => {
+  const parent = createParent();
+  const [first, second, third] = parent.children;
+  assert_true(second.matches(":nth-child(2)"));
+  assert_true(third.matches(":nth-of-type(2)"));
+  parent.append(first);
+  assert_false(second.matches(":nth-child(2)"));
+  assert_true(third.matches(":nth-child(2):first-of-type"));
+  assert_true(first.matches(":nth-last-child(1):nth-last-of-type(1)"));
+  const replacement = document.createElement("i");
+  third.replaceWith(replacement);
+  assert_true(replacement.matches(":nth-child(2):nth-of-type(1)"));
+  assert_true(third.matches(":only-child:only-of-type"));
+}, "Structural selectors reflect reordering and replacement without changing the child count");
+
+test(t => {
+  const parent = createParent();
+  document.body.append(parent);
+  t.add_cleanup(() => parent.remove());
+  const [first, second, third] = parent.children;
+  assert_true(third.matches(":nth-child(3)"));
+  parent.remove();
+  first.remove();
+  assert_true(third.matches(":nth-child(2):only-of-type"));
+  parent.prepend(first);
+  assert_true(third.matches(":nth-child(3):nth-of-type(2)"));
+  assert_equals(second.closest(":nth-last-child(2)"), second);
+}, "Structural matching remains current after disconnecting a subtree");
+
+test(() => {
+  const host = document.createElement("div");
+  const shadow = host.attachShadow({ mode: "open" });
+  const first = document.createElement("i");
+  const second = document.createElement("i");
+  const third = document.createElement("i");
+  shadow.append(first, second);
+  assert_true(second.matches(":nth-child(2)"));
+  shadow.prepend(third);
+  assert_true(second.matches(":nth-child(3)"));
+  const fragment = document.createDocumentFragment();
+  fragment.append(first, second);
+  assert_true(first.matches(":nth-last-child(2)"));
+  fragment.append(third);
+  assert_true(first.matches(":nth-last-child(3)"));
+}, "Structural selectors reflect mutations in shadow roots and document fragments");
+
+test(t => {
+  const parent = document.createElement("div");
+  document.body.append(parent);
+  t.add_cleanup(() => parent.remove());
+  const first = document.createElement("i");
+  const second = document.createElement("i");
+  parent.append(first, second);
+  assert_true(second.matches(":nth-child(2)"));
+  let connectedMatch, disconnectedMatch;
+  customElements.define("structural-selector-observer", class extends HTMLElement {
+    connectedCallback() {
+      connectedMatch = second.matches(":nth-child(3)");
+    }
+    disconnectedCallback() {
+      disconnectedMatch = second.matches(":nth-child(2)");
+    }
+  });
+  const observer = document.createElement("structural-selector-observer");
+  parent.prepend(observer);
+  assert_true(connectedMatch);
+  observer.remove();
+  assert_true(disconnectedMatch);
+}, "Structural selectors reflect mutations inside custom-element callbacks");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = ".structural-selector-parent > :nth-child(2) { color: red; }";
+  const parent = createParent();
+  parent.className = "structural-selector-parent";
+  parent.style.color = "blue";
+  document.head.append(style);
+  document.body.append(parent);
+  t.add_cleanup(() => {
+    style.remove();
+    parent.remove();
+  });
+  const [first, second, third] = parent.children;
+  assert_equals(getComputedStyle(second).color, "rgb(255, 0, 0)");
+  parent.append(first);
+  assert_equals(getComputedStyle(second).color, "rgb(0, 0, 255)");
+  assert_equals(getComputedStyle(third).color, "rgb(255, 0, 0)");
+}, "Stylesheet matching uses the new sibling order after reordering");
+</script>

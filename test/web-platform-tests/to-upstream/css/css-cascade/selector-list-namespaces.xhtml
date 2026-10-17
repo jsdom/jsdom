@@ -1,0 +1,132 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="urn:selector-test" xmlns:b="urn:other">
+<head>
+<meta charset="utf-8" />
+<title>Namespace selectors retain stylesheet matching and selector-list validation</title>
+<link rel="help" href="https://drafts.csswg.org/selectors/#namespaces" />
+<link rel="help" href="https://drafts.csswg.org/selectors/#attrnmsp" />
+<link rel="help" href="https://drafts.csswg.org/selectors/#specificity-rules" />
+<link rel="help" href="https://drafts.csswg.org/css-namespaces/#declaration" />
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style><![CDATA[
+  @namespace a url("urn:selector-test");
+  @namespace b url("urn:selector-test");
+  #forgiving, #pseudo, #invalid { color: blue; }
+  [a|foo]:is(#forgiving, :unknown-pseudo-class) { color: red; }
+  [a|foo]#pseudo, #pseudo::before { color: red; }
+  [a|foo]#invalid, ::x-unknown { color: red; }
+  [a|foo].target, #unmatched { color: red; }
+  .target.other { color: blue; }
+  #alias, #media, #sheet-one, #sheet-two, #dynamic, #escaped-prefix, #late-prefix, #escaped-pipe { color: blue; }
+  :where(#default-hit, #default-miss) { color: blue; }
+  [b|foo]#alias { color: red; }
+  @media screen {
+    [b|foo]#media { color: red; }
+  }
+]]></style>
+<style><![CDATA[
+  @namespace url("urn:selector-test");
+  item { color: red; }
+]]></style>
+<style><![CDATA[
+  @namespace s url("urn:selector-test");
+  [s|foo]#sheet-one { color: red; }
+]]></style>
+<style><![CDATA[
+  @namespace s url("urn:other");
+  [s|foo]#sheet-two { color: red; }
+]]></style>
+<style id="dynamic-sheet"><![CDATA[
+  @namespace s url("urn:selector-test");
+  [s|foo]#dynamic { color: red; }
+]]></style>
+<style><![CDATA[
+  @namespace s\76 g url("urn:selector-test");
+  [svg|foo]#escaped-prefix { color: red; }
+]]></style>
+<style><![CDATA[
+  @namespace s url("urn:selector-test");
+  [s|foo]#late-prefix { color: red; }
+  @namespace s url("urn:other");
+]]></style>
+<style><![CDATA[
+  @namespace a\|b url("urn:selector-test");
+  a\|b|item#escaped-pipe { color: red; }
+]]></style>
+</head>
+<body>
+<p id="forgiving" a:foo="bar">Namespace selector with a forgiving selector list</p>
+<p id="pseudo" a:foo="bar">Namespace selector with a valid pseudo-element branch</p>
+<p id="invalid" a:foo="bar">Namespace selector with an invalid pseudo-element branch</p>
+<p id="specificity" a:foo="bar" class="target other">Namespace selector specificity</p>
+<p id="alias" a:foo="bar">The CSS prefix differs from the attribute prefix</p>
+<p id="media" a:foo="bar">A media rule uses the enclosing stylesheet's namespaces</p>
+<a:item id="default-hit">The default namespace matches</a:item>
+<b:item id="default-miss">The default namespace does not match</b:item>
+<p id="sheet-one" a:foo="bar">The first stylesheet's prefix binding</p>
+<p id="sheet-two" b:foo="bar">The second stylesheet's prefix binding</p>
+<p id="dynamic" a:foo="bar">A stylesheet's namespace binding changes</p>
+<p id="escaped-prefix" a:foo="bar">An escaped namespace prefix</p>
+<p id="late-prefix" a:foo="bar">A late namespace declaration is ignored</p>
+<a:item id="escaped-pipe">An escaped pipe in the namespace prefix</a:item>
+<script><![CDATA[
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("forgiving")).color, "rgb(255, 0, 0)");
+}, "Namespace selectors can include a forgiving list containing an unknown pseudo-class");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("pseudo")).color, "rgb(255, 0, 0)");
+}, "A valid pseudo-element branch does not prevent a namespace selector from matching");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("invalid")).color, "rgb(0, 0, 255)");
+}, "An invalid pseudo-element invalidates a list that also contains a namespace selector");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("specificity")).color, "rgb(0, 0, 255)");
+}, "Only matching namespace selector branches contribute specificity");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("alias")).color, "rgb(255, 0, 0)");
+}, "CSS namespace prefixes match namespace URIs independently of markup prefixes");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("media")).color, "rgb(255, 0, 0)");
+}, "Media rules use their enclosing stylesheet's namespace declarations");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("default-hit")).color, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(document.getElementById("default-miss")).color, "rgb(0, 0, 255)");
+}, "A default namespace restricts unprefixed type selectors");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("sheet-one")).color, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(document.getElementById("sheet-two")).color, "rgb(255, 0, 0)");
+}, "The same prefix can denote different namespaces in different stylesheets");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("escaped-prefix")).color, "rgb(255, 0, 0)");
+}, "Namespace declarations decode escaped prefixes");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("late-prefix")).color, "rgb(255, 0, 0)");
+}, "Namespace declarations after style rules do not replace earlier bindings");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("escaped-pipe")).color, "rgb(255, 0, 0)");
+}, "An escaped pipe in a namespace prefix does not change the selector's local name");
+
+test(t => {
+  const style = document.getElementById("dynamic-sheet");
+  const original = style.textContent;
+  t.add_cleanup(() => { style.textContent = original; });
+  const element = document.getElementById("dynamic");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+  style.textContent = '@namespace s url("urn:other"); [s|foo]#dynamic { color: red; }';
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Replacing a stylesheet invalidates its selector namespace bindings");
+]]></script>
+</body>
+</html>

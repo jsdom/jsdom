@@ -1,0 +1,197 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stylesheet selector matching, validation, and specificity</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#cascade-sort">
+<link rel="help" href="https://drafts.csswg.org/selectors/#specificity-rules">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, rules) {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  document.head.append(style);
+  const element = document.createElement("div");
+  element.id = "target";
+  element.className = "target other";
+  document.body.append(element);
+  t.add_cleanup(() => {
+    element.remove();
+    style.remove();
+  });
+  return { element, sheet: style.sheet };
+}
+
+test(t => {
+  const { element } = fixture(t, `
+    :where(.target) { background-color: blue; }
+    :scope { background-color: red; }
+  `);
+  assert_equals(getComputedStyle(document.documentElement).backgroundColor, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(element).backgroundColor, "rgb(0, 0, 255)");
+}, ":scope in a stylesheet matches the document root");
+
+test(t => {
+  const { element } = fixture(t, `
+    #unmatched, .target { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An unmatched branch does not contribute to selector-list specificity");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target.other { color: blue !important; }
+    .target, #unmatched { color: red !important; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Important declarations use the specificity of matching selector-list branches");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target, #target { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "The most specific matching selector wins even if an earlier branch also matches");
+
+test(t => {
+  const { element } = fixture(t, `
+    #target, .target { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "The specificity of matching selector-list branches does not depend on their order");
+
+test(t => {
+  const { element } = fixture(t, `
+    :is(#unmatched, .target) { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, ":is() uses its most specific argument even when that argument does not match");
+
+test(t => {
+  const { element } = fixture(t, `
+    :is(.target, #unmatched:lang(en,)) { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Invalid :lang() arguments in a forgiving list do not contribute specificity");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: blue; }
+    .target, :dir(sideways) { color: red; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An unknown direction is valid syntax and does not invalidate a selector list");
+
+test(t => {
+  const { element } = fixture(t, `
+    :is(#unmatched:x-unknown, .target) { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Invalid arguments of :is() do not contribute specificity");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: blue; }
+    .target, .absent:x-unknown { color: red; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An invalid selector-list member invalidates the list even when its class does not match");
+
+test(t => {
+  const { element } = fixture(t, `
+    :not(#unmatched, .absent) { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, ":not() uses its most specific argument");
+
+test(t => {
+  const { element } = fixture(t, `
+    :has(#unmatched, .child) { color: red; }
+    .target.other { color: blue; }
+  `);
+  const child = document.createElement("span");
+  child.className = "child";
+  element.append(child);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, ":has() uses its most specific argument even when that argument does not match");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: blue; }
+    :where(#target, .target.other) { color: red; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, ":where() contributes no specificity");
+
+test(t => {
+  const { element } = fixture(t, `
+    #unmatched, [data-value="a,b"] { color: red; }
+    .target.other { color: blue; }
+  `);
+  element.dataset.value = "a,b";
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "Commas inside attribute values do not split selector-list branches");
+
+test(t => {
+  const { element } = fixture(t, `
+    #unmatched::before, .target { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An unmatched pseudo-element branch does not contribute specificity");
+
+test(t => {
+  const { element } = fixture(t, ".target::before, .target { color: red; }");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A pseudo-element branch does not prevent a matching element branch from applying");
+
+test(t => {
+  const { element, sheet } = fixture(t, `
+    #target, .target { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+  sheet.cssRules[0].selectorText = "#unmatched, .target";
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+  sheet.cssRules[0].selectorText = ".target, #target";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Changing selectorText invalidates cached selector branches and specificities");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: blue; }
+    ::x-unknown, .target { color: red; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An invalid pseudo-element invalidates the whole selector list");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: blue; }
+    .target, :unknown-pseudo-class { color: red; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An invalid pseudo-class invalidates the whole selector list");
+
+test(t => {
+  const { element } = fixture(t, `
+    #target, .target { color: red; }
+    .target.other { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+  const other = document.createElement("div");
+  other.className = "target other";
+  element.append(other);
+  assert_equals(getComputedStyle(other).color, "rgb(0, 0, 255)");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Each element uses the specificity of its own matching selector branches");
+</script>
