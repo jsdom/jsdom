@@ -1,0 +1,37 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Load events for empty style elements in shadow trees</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics.html#update-a-style-block">
+<link rel="help" href="https://github.com/jsdom/jsdom/issues/3308">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+promise_test(async t => {
+  customElements.define("style-in-constructor", class extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" }).append(document.createElement("style"));
+    }
+  });
+  const host = document.createElement("style-in-constructor");
+  t.add_cleanup(() => host.remove());
+  const style = host.shadowRoot.firstChild;
+  const loaded = new EventWatcher(t, style, ["load", "error"]).wait_for("load");
+  document.body.append(host);
+  await loaded;
+}, "Connecting a custom element fires load on an empty style added to its shadow root in the constructor");
+
+promise_test(async t => {
+  const host = document.createElement("div");
+  t.add_cleanup(() => host.remove());
+  document.body.append(host);
+  const shadow = host.attachShadow({ mode: "open" });
+  const style = document.createElement("style");
+  const loaded = new EventWatcher(t, style, ["load", "error"]).wait_for("load");
+  shadow.append(style);
+  await loaded;
+}, "An empty style added to an already-connected shadow root fires load");
+</script>
