@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml">
+<head>
+  <title>innerHTML of a template element serializes its template contents in XHTML</title>
+  <link rel="help" href="https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html#fragment-serializing-algorithm-steps" />
+  <link rel="help" href="https://w3c.github.io/DOM-Parsing/#dfn-xml-serializing-an-element-node" />
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+</head>
+<body>
+<template id="unprefixed"><p>text</p></template>
+<h:template id="prefixed"><div>text</div></h:template>
+<script><![CDATA[
+"use strict";
+
+test(() => {
+  const template = document.getElementById("unprefixed");
+  assert_equals(template.innerHTML, '<p xmlns="http://www.w3.org/1999/xhtml">text</p>');
+}, "innerHTML of a template element");
+
+test(() => {
+  const template = document.getElementById("prefixed");
+  assert_equals(template.innerHTML, '<div xmlns="http://www.w3.org/1999/xhtml">text</div>');
+}, "innerHTML of a template element written with a prefix");
+
+test(() => {
+  const template = document.createElementNS("http://www.w3.org/1999/xhtml", "template");
+  template.innerHTML = "<span>set</span>";
+  assert_equals(template.childNodes.length, 0, "the template element has no children");
+  assert_equals(template.innerHTML, '<span xmlns="http://www.w3.org/1999/xhtml">set</span>');
+}, "innerHTML of a template element returns what was set");
+]]></script>
+</body>
+</html>
