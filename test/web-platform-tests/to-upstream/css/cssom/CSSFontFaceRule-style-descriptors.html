@@ -9,6 +9,8 @@
     font-family: "Example";
     src: url("example.woff2") format("woff2");
     font-display: swap;
+    font-weight: 700;
+    not-a-descriptor: anything;
   }
 </style>
 <script>
@@ -32,7 +34,34 @@ test(() => {
 }, "CSSFontFaceRule.style exposes the font-display descriptor");
 
 test(() => {
+  assert_equals(fontFaceRule.style.getPropertyValue("font-weight"), "700");
+}, "CSSFontFaceRule.style exposes the font-weight descriptor");
+
+test(() => {
+  assert_equals(fontFaceRule.style.getPropertyValue("not-a-descriptor"), "");
+}, "unknown descriptor names are rejected during stylesheet parse");
+
+test(() => {
   assert_true(/src:\s*url\("example\.woff2"\)\s*format\("woff2"\)/.test(fontFaceRule.cssText));
   assert_true(/font-display:\s*swap/.test(fontFaceRule.cssText));
 }, "CSSFontFaceRule.cssText retains src and font-display");
+
+test(() => {
+  fontFaceRule.style.setProperty("font-display", "invalid");
+  assert_equals(fontFaceRule.style.getPropertyValue("font-display"), "swap");
+}, "invalid font-display values do not overwrite an existing valid value");
+
+test(() => {
+  fontFaceRule.style.setProperty("not-a-descriptor", "anything");
+  assert_equals(fontFaceRule.style.getPropertyValue("not-a-descriptor"), "");
+}, "setProperty rejects unknown descriptor names");
+
+test(() => {
+  const before = fontFaceRule.style.cssText;
+  fontFaceRule.style.cssText = fontFaceRule.style.cssText;
+  assert_true(/src:\s*url\("example\.woff2"\)\s*format\("woff2"\)/.test(fontFaceRule.style.cssText));
+  assert_true(/font-display:\s*swap/.test(fontFaceRule.style.cssText));
+  assert_true(fontFaceRule.style.cssText.includes("font-weight"));
+  assert_equals(before.includes("not-a-descriptor"), false);
+}, "cssText round trips keep valid descriptors and drop unknowns");
 </script>
