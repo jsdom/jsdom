@@ -17,7 +17,6 @@ css/css-cascade/stylesheet-selector-matching.html:
   "Invalid arguments of :is() do not contribute specificity": [fail, Invalid forgiving-list branches contribute specificity]
   "An invalid selector-list member invalidates the list even when its class does not match": [fail, Selector matching can ignore invalid selector-list members]
   "Commas inside attribute values do not split selector-list branches": [fail, Selector-list specificity includes nonmatching branches]
-  "A pseudo-element branch does not prevent a matching element branch from applying": [fail, A pseudo-element selector prevents other branches from matching an element]
   "Changing selectorText invalidates cached selector branches and specificities": [fail, Selector-list specificity includes nonmatching branches]
   "An invalid pseudo-class invalidates the whole selector list": [fail, Selector matching can ignore invalid selector-list members]
   "Each element uses the specificity of its own matching selector branches": [fail, Selector-list specificity includes nonmatching branches]
