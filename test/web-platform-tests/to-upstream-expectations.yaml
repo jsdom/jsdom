@@ -1,5 +1,4 @@
 css/css-cascade/selector-list-namespaces.xhtml:
-  "A valid pseudo-element branch does not prevent a namespace selector from matching": [fail, A pseudo-element selector prevents other branches from matching an element]
   "Only matching namespace selector branches contribute specificity": [fail, Selector-list specificity includes nonmatching branches]
   "CSS namespace prefixes match namespace URIs independently of markup prefixes": [fail, Stylesheet namespace declarations are not used when matching selectors]
   "Media rules use their enclosing stylesheet's namespace declarations": [fail, Stylesheet namespace declarations are not used when matching selectors]
