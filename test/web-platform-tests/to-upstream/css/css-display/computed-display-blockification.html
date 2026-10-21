@@ -12,6 +12,7 @@
   .grid { display: grid; }
   .inline-item { display: inline-flex; }
   .inline-block-item { display: inline-block; }
+  .inline-list-item { display: inline list-item; }
   .hidden-item { display: none; }
 </style>
 <body>
@@ -21,6 +22,7 @@
 <div><span id="normal-span"></span></div>
 <div class="flex"><span id="specified-inline-flex" class="inline-item"></span></div>
 <div class="flex"><span id="specified-inline-block" class="inline-block-item"></span></div>
+<div class="flex"><span id="specified-inline-list-item" class="inline-list-item"></span></div>
 <div class="flex"><span id="specified-none" class="hidden-item"></span></div>
 <script>
 "use strict";
@@ -48,6 +50,10 @@ test(() => {
 test(() => {
   assert_equals(getComputedStyle(document.getElementById("specified-inline-block")).display, "block");
 }, "Specified inline-block is blockified to block");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("specified-inline-list-item")).display, "list-item");
+}, "Specified inline list-item is blockified to list-item");
 
 test(() => {
   assert_equals(getComputedStyle(document.getElementById("specified-none")).display, "none");
