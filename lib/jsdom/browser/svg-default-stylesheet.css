@@ -1,0 +1,10 @@
+/* `computed-style.js` enforces this namespace for the subject element.
+
+@namespace "http://www.w3.org/2000/svg";
+*/
+
+/* https://w3c.github.io/svgwg/svg2-draft/styling.html#UAStyleSheet
+  - Other SVG user-agent rules are not yet implemented.
+*/
+
+:link, :visited { cursor: pointer; }
