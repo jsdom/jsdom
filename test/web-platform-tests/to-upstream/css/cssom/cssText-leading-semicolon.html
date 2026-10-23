@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Empty declarations in cssText</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-csstext">
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#consume-a-blocks-contents">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = ";display:none;";
+  assert_equals(style.display, "none");
+  assert_equals(style.cssText, "display: none;");
+}, "A leading semicolon does not discard the following declaration");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "red";
+  style.cssText += ";display:none;";
+  assert_equals(style.color, "red");
+  assert_equals(style.display, "none");
+  assert_equals(style.cssText, "color: red; display: none;");
+}, "Appending a declaration after an extra semicolon preserves both declarations");
+</script>

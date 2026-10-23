@@ -1,0 +1,21 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The modal selector accepts nonmodal dialogs</title>
+<link rel="help" href="https://drafts.csswg.org/selectors/#modal-state">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<dialog id="closed"></dialog>
+<dialog id="open" open></dialog>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(document.querySelector(":modal"), null);
+  assert_equals(document.querySelectorAll(":modal").length, 0);
+}, "The modal selector is valid when the document contains no modal elements");
+
+test(() => {
+  assert_false(document.getElementById("closed").matches(":modal"));
+  assert_false(document.getElementById("open").matches(":modal"));
+}, "Neither a closed dialog nor a dialog with only the open attribute is modal");
+</script>
