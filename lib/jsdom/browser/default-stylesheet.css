@@ -1,5 +1,5 @@
-/* Omitting the below because of https://github.com/jsdom/cssstyle/issues/193.
-   And we don't implement namespace constraints anyway.
+/* `computed-style.js` enforces this namespace for the subject element.
+   Namespace constraints on other parts of selectors are not yet supported.
 
 @namespace "http://www.w3.org/1999/xhtml";
 */
