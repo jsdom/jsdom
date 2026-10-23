@@ -1,5 +1,6 @@
 <!doctype html>
 <meta charset="utf-8">
+<link rel="help" href="https://drafts.csswg.org/css-values/#coordinating-list-properties">
 <title>Computed shorthands reflect independently cascaded longhands</title>
 <link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue">
 <link rel="help" href="https://drafts.csswg.org/css-cascade/#shorthand">
@@ -172,22 +173,18 @@ test(t => {
   const element = fixture(t, "background: none 10px 20px / cover no-repeat, red none 30px 40px / contain repeat-x");
   const computed = getComputedStyle(element);
   assert_equals(computed.backgroundPosition, "10px 20px, 30px 40px");
-  assert_equals(
-    computed.background,
-    "none no-repeat scroll 10px 20px / cover padding-box border-box, " +
-    "rgb(255, 0, 0) none repeat-x scroll 30px 40px / contain padding-box border-box"
-  );
+  assert_equals(computed.backgroundSize, "cover, contain");
+  assert_equals(computed.backgroundImage, "none, none");
+  assert_equals(computed.backgroundColor, "rgb(255, 0, 0)");
   assert_equals(computed.getPropertyValue("background"), computed.background);
 }, "Background serialization preserves layers, positions, sizes, and the final color");
 
 test(t => {
   const element = fixture(t, "background-image: none, none; background-repeat: no-repeat");
-  assert_equals(
-    getComputedStyle(element).background,
-    "none no-repeat scroll 0% 0% / auto padding-box border-box, " +
-    "rgba(0, 0, 0, 0) none no-repeat scroll 0% 0% / auto padding-box border-box"
-  );
-}, "Computed backgrounds repeat shorter longhand lists to match the image layers");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.backgroundImage, "none, none");
+  assert_equals(computed.backgroundRepeat, "no-repeat");
+}, "Computed background lists retain independent lengths");
 
 test(t => {
   const element = fixture(t, "flex: 1 2 30px; border: 5px solid red");
@@ -248,17 +245,17 @@ test(t => {
     "background-position-x: 10px, 20px, 30px; background-position-y: 1px, 2px");
   const computed = getComputedStyle(element);
   assert_equals(computed.backgroundPositionX, "10px, 20px, 30px");
-  assert_equals(computed.backgroundPositionY, "1px, 2px, 1px");
-  assert_equals(computed.backgroundPosition, "10px 1px, 20px 2px, 30px 1px");
-}, "Computed background positions repeat axis lists to match the image layers");
+  assert_equals(computed.backgroundPositionY, "1px, 2px");
+  assert_equals(computed.backgroundPosition, "");
+}, "Computed background positions preserve mismatched axis list lengths");
 
 test(t => {
   const element = fixture(t, "background-position-x: 10px, 20px; background-position-y: 1px, 2px");
   const computed = getComputedStyle(element);
-  assert_equals(computed.backgroundPositionX, "10px");
-  assert_equals(computed.backgroundPositionY, "1px");
-  assert_equals(computed.backgroundPosition, "10px 1px");
-}, "Computed background positions omit entries beyond the image layers");
+  assert_equals(computed.backgroundPositionX, "10px, 20px");
+  assert_equals(computed.backgroundPositionY, "1px, 2px");
+  assert_equals(computed.backgroundPosition, "10px 1px, 20px 2px");
+}, "Computed background positions preserve entries beyond the image layers");
 
 test(t => {
   const parent = fixture(t, "background-image: none, none; " +
@@ -266,9 +263,9 @@ test(t => {
   const child = document.createElement("div");
   child.style.cssText = "background-image: none, none, none; background-position: inherit";
   parent.append(child);
-  assert_equals(getComputedStyle(child).backgroundPosition, "10px 1px, 20px 2px, 10px 1px");
+  assert_equals(getComputedStyle(child).backgroundPosition, "10px 1px, 20px 2px");
   assert_equals(getComputedStyle(parent).backgroundPosition, "10px 1px, 20px 2px");
-}, "Inherited background positions repeat to match the child's image layers");
+}, "Inherited background positions retain their lists independently of the child's image layers");
 
 test(t => {
   const element = fixture(t, "font-size: 20px; background-image: none, none; " +

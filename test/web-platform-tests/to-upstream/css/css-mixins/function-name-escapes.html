@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Custom function names preserve escaped identifier characters</title>
+<link rel="help" href="https://drafts.csswg.org/css-mixins/#function-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@function --a\\ b() { result: 1px; }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssText, "@function --a\\ b() { result: 1px; }");
+}, "An escaped space remains part of a custom function name");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@function --a\\|b() { result: 1px; }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssText, "@function --a\\|b() { result: 1px; }");
+}, "Escaped punctuation remains part of a custom function name");
+</script>

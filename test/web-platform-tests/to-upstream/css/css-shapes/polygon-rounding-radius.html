@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Polygon rounding radii must be nonnegative</title>
+<link rel="help" href="https://drafts.csswg.org/css-shapes-1/#funcdef-polygon">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
+<script>
+/* global test_invalid_value */
+"use strict";
+
+for (const property of ["clip-path", "offset-path", "shape-outside"]) {
+  test(() => {
+    assert_true(CSS.supports(property, "polygon(round 0px, -1px 0px, 100px 0px, 0px 100px)"));
+    assert_true(CSS.supports(property, "polygon(round 1px, -1px 0px, 100px 0px, 0px 100px)"));
+    assert_true(CSS.supports(property, "polygon(round calc(-1px), 0px 0px, 100px 0px, 0px 100px)"));
+  }, `${property} accepts zero and positive polygon radii, negative coordinates, and calculated radii`);
+
+  test(() => {
+    assert_false(CSS.supports(property, "polygon(round -1px, 0px 0px, 100px 0px, 0px 100px)"));
+    assert_false(CSS.supports(property, "polygon(round -1em, 0px 0px, 100px 0px, 0px 100px)"));
+  }, `${property} rejects negative literal polygon radii in CSS.supports()`);
+
+  test_invalid_value(property, "polygon(round -1px, 0px 0px, 100px 0px, 0px 100px)");
+}
+</script>

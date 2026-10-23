@@ -1,0 +1,18 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Font feature settings omit their default value without extra spaces</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts-4/#feature-tag-value">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.fontFeatureSettings = '"smcp", "swsh" 2';
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).fontFeatureSettings, '"smcp", "swsh" 2');
+}, "Computed feature settings preserve the canonical comma spacing");
+</script>

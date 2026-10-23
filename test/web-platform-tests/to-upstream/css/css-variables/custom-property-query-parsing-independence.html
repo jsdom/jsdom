@@ -1,0 +1,71 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Parsing style queries does not change custom property values</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#style-queries">
+<link rel="help" href="https://drafts.csswg.org/css-variables-1/#defining-variables">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@container style(--query-first-block: {a}) {}");
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--query-first-block", "{a}");
+  assert_equals(getComputedStyle(target).getPropertyValue("--query-first-block"), "{a}");
+}, "A previously parsed style query preserves a custom property's braces");
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--value-first-block", "{a}");
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@container style(--value-first-block: {a}) {}");
+  assert_equals(getComputedStyle(target).getPropertyValue("--value-first-block"), "{a}");
+}, "A subsequently parsed style query preserves a custom property's braces");
+
+test(t => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@container style(--query-first-comma: {a,b}) {}");
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--query-first-comma", "{a,b}");
+  assert_equals(getComputedStyle(target).getPropertyValue("--query-first-comma"), "{a,b}");
+}, "A previously parsed style query preserves a custom property's braced comma list");
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--value-first-comma", "{a,b}");
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@container style(--value-first-comma: {a,b}) {}");
+  assert_equals(getComputedStyle(target).getPropertyValue("--value-first-comma"), "{a,b}");
+}, "A subsequently parsed style query preserves a custom property's braced comma list");
+
+test(t => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@container style(--query-first-empty: {}) {}");
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--query-first-empty", "{}");
+  assert_equals(getComputedStyle(target).getPropertyValue("--query-first-empty"), "{}");
+}, "A previously parsed style query preserves a custom property's empty block");
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--value-first-empty", "{}");
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@container style(--value-first-empty: {}) {}");
+  assert_equals(getComputedStyle(target).getPropertyValue("--value-first-empty"), "{}");
+}, "A subsequently parsed style query preserves a custom property's empty block");
+</script>

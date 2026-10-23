@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Font face descriptor mutation and serialization</title>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/4378 -->
+<link rel="help" href="https://drafts.csswg.org/css-fonts/#om-fontface">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-csstext">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function descriptors() {
+  const sheet = new CSSStyleSheet();
+  sheet.insertRule(`@font-face {
+    src: url("example.woff2") format("woff2");
+    font-display: swap;
+    font-weight: 100 900;
+    not-a-descriptor: anything;
+  }`);
+  return sheet.cssRules[0].style;
+}
+
+test(() => {
+  const style = descriptors();
+  style.setProperty("font-display", "invalid");
+  style.setProperty("font-weight", "bolder");
+  style.setProperty("not-a-descriptor", "anything");
+  assert_equals(style.getPropertyValue("font-display"), "swap");
+  assert_equals(style.getPropertyValue("font-weight"), "100 900");
+  assert_equals(style.getPropertyValue("not-a-descriptor"), "");
+}, "Invalid descriptor mutations preserve valid font face values");
+
+test(() => {
+  const style = descriptors();
+  const expected = 'src: url("example.woff2") format("woff2"); font-display: swap; font-weight: 100 900;';
+  const { cssText } = style;
+  assert_equals(cssText, expected);
+  style.cssText = cssText;
+  assert_equals(style.cssText, expected);
+  assert_equals(style.getPropertyValue("src"), 'url("example.woff2") format("woff2")');
+  assert_equals(style.getPropertyValue("font-display"), "swap");
+  assert_equals(style.getPropertyValue("font-weight"), "100 900");
+  assert_equals(style.length, 3);
+}, "Font face descriptors round trip through cssText using descriptor grammars");
+</script>

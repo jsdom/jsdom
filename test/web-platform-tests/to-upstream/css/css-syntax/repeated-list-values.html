@@ -1,0 +1,30 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS lists can combine whitespace and comma separated repetitions</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#component-multipliers">
+<link rel="help" href="https://svgwg.org/svg2-draft/painting.html#StrokeDasharrayProperty">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  assert_true(CSS.supports("stroke-dasharray", "1 2 3"));
+}, "A repeated dash array accepts whitespace-separated values");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.strokeDasharray = "1px, 2px, 3px";
+  assert_equals(style.strokeDasharray, "1px, 2px, 3px");
+}, "A repeated dash array accepts comma-separated values");
+
+test(() => {
+  assert_true(CSS.supports("stroke-dasharray", "1px 2%, 3 4px"));
+}, "A repeated dash array accepts both separators in one value");
+
+test(() => {
+  assert_false(CSS.supports("stroke-dasharray", "1px,,2px"));
+  assert_false(CSS.supports("stroke-dasharray", "1px 2px,"));
+  assert_false(CSS.supports("stroke-dasharray", ",1px 2px"));
+}, "A repeated dash array rejects empty comma-separated groups");
+</script>

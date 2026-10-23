@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Exact shorthand serialization with omitted initial components</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-value">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/5642">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/7802">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+// CSSOM's shortest-form rule leaves some shorthand omission and ordering choices
+// unresolved. Keep these exact spellings separate from longhand/cascade checks.
+// Background sizes retain both components, as resolved in CSSWG issue 7802.
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.background = "none";
+  assert_equals(style.background, "none");
+  style.background = "transparent";
+  assert_equals(style.background, "none");
+}, "Initial background values serialize with one none component");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.background = "border-box";
+  assert_equals(style.background, "border-box");
+  style.background = 'url("foo.jpg") center/20px no-repeat';
+  assert_equals(style.background, 'url("foo.jpg") center center / 20px auto no-repeat');
+}, "Background shorthand omits redundant box and size defaults");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.background = "fixed left / 50% repeat url(example.png) green";
+  assert_equals(style.background, 'url("example.png") left center / 50% auto fixed green');
+}, "Authored background shorthand omits initial repeat and box values");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.background = "fixed left / 50% repeat url(example.png) red";
+  style.backgroundColor = "green";
+  assert_equals(style.background, 'url("example.png") left center / 50% auto fixed green');
+}, "A background longhand update preserves the canonical shorthand spelling");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.background = "none 10px 20px / cover no-repeat, red none 30px 40px / contain repeat-x";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(
+    getComputedStyle(element).background,
+    "10px 20px / cover no-repeat, 30px 40px / contain repeat-x rgb(255, 0, 0)"
+  );
+}, "Computed layered background omits initial components");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.cssText = "background-image: none, none; background-repeat: no-repeat";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).background, "");
+}, "Computed background with mismatched longhand lists has no shorthand serialization");
+</script>

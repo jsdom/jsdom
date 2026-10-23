@@ -1,0 +1,213 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Property registrations follow global layer order</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#layering">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-6/#scope-scope">
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#container-rule">
+<link rel="help" href="https://drafts.csswg.org/css-transitions-2/#defining-before-change-style">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createTest(t, rules) {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  const target = document.createElement("div");
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  return { target, sheet: style.sheet };
+}
+
+function value(target) {
+  return getComputedStyle(target).getPropertyValue("--test-value");
+}
+
+test(t => {
+  const { target } = createTest(t, `
+    @scope (.missing) {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "Property registrations inside a nonmatching scope remain global");
+
+test(t => {
+  const { target } = createTest(t, `
+    @container (width > 0px) {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "Property registrations inside a container query do not depend on its evaluation");
+
+test(t => {
+  const { target } = createTest(t, `
+    @starting-style {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "Property registrations inside starting styles remain global");
+
+test(t => {
+  const { target } = createTest(t, `
+    @layer second, first;
+    @layer first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+    @layer second {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "A registration in a later layer wins over a rule appearing later in the stylesheet");
+
+test(t => {
+  const { target } = createTest(t, `
+    @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    @layer first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "An unlayered registration wins over registrations in explicit layers");
+
+test(t => {
+  const { target } = createTest(t, `
+    @layer first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+    }
+    @layer first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "The last registration within the same layer wins");
+
+test(t => {
+  const { target } = createTest(t, `
+    @layer {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+    }
+    @layer {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "Anonymous layers keep distinct positions when resolving registrations");
+
+test(t => {
+  const { target } = createTest(t, `
+    @layer outer {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+      @layer inner {
+        @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+      }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "Registrations directly in a layer outrank registrations in its sublayers");
+
+test(t => {
+  const { target } = createTest(t, `
+    @layer outer.second, outer.first;
+    @layer outer.first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+    @layer outer.second {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "Nested layer order determines registration precedence");
+
+test(t => {
+  const { target, sheet } = createTest(t, `
+    @layer first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+    @layer second {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+    }
+  `);
+  assert_equals(value(target), "rgb(255, 0, 0)");
+  sheet.insertRule("@layer second;", 0);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "Inserting an earlier layer statement changes the winning registration");
+
+test(t => {
+  const { target, sheet } = createTest(t, `
+    @layer second;
+    @layer first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+    @layer second {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+  sheet.deleteRule(0);
+  assert_equals(value(target), "rgb(255, 0, 0)");
+}, "Deleting an earlier layer statement changes the winning registration");
+
+test(t => {
+  const { target } = createTest(t, `
+    @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    @scope (.missing) {
+      @media not all {
+        @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+      }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "False media conditions still exclude registrations inside a scope");
+
+test(t => {
+  const { target } = createTest(t, `
+    @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    @container (width > 0px) {
+      @supports (display: unsupported-value) {
+        @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+      }
+    }
+  `);
+  assert_equals(value(target), "rgb(0, 128, 0)");
+}, "False supports conditions still exclude registrations inside a container query");
+test(t => {
+  const { target, sheet } = createTest(t, `
+    @media not all { @layer second, first; }
+    @layer first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+    @layer second {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: red; }
+    }
+  `);
+  const computed = getComputedStyle(target);
+  assert_equals(computed.getPropertyValue("--test-value"), "rgb(255, 0, 0)");
+  sheet.cssRules[0].media.mediaText = "all";
+  assert_equals(computed.getPropertyValue("--test-value"), "rgb(0, 128, 0)");
+  sheet.cssRules[0].media.mediaText = "not all";
+  assert_equals(computed.getPropertyValue("--test-value"), "rgb(255, 0, 0)");
+}, "Changing a media condition updates layer order and the winning registration");
+
+test(t => {
+  const { target, sheet } = createTest(t, `
+    @layer first {
+      @property --test-value { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+  `);
+  const computed = getComputedStyle(target);
+  assert_equals(computed.getPropertyValue("--test-value"), "rgb(0, 128, 0)");
+  sheet.disabled = true;
+  assert_equals(computed.getPropertyValue("--test-value"), "");
+  sheet.disabled = false;
+  assert_equals(computed.getPropertyValue("--test-value"), "rgb(0, 128, 0)");
+}, "Disabling and enabling a stylesheet updates its property registrations");
+</script>

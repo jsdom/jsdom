@@ -1,0 +1,58 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Nesting specificity follows each occurrence of the nesting selector</title>
+<link rel="help" href="https://drafts.csswg.org/css-nesting/#nest-selector">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+function fixture(t, css, html) {
+  const container = document.createElement("div");
+  container.innerHTML = `<style>${css}</style>${html}`;
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  return container.querySelector(".target");
+}
+
+test(t => {
+  const target = fixture(t, "#where { :where(&) { color: green; } }", '<div id="where" class="target"></div>');
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "A nesting selector inside :where() suppresses implicit descendant nesting");
+
+test(t => {
+  const target = fixture(
+    t,
+    "#where { :where(&) { color: red; } } .target { color: green; }",
+    '<div id="where" class="target"></div>'
+  );
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, ":where() removes the specificity of its nesting selector");
+
+test(t => {
+  const target = fixture(
+    t,
+    "#repeat { && { color: green; } } #repeat.target { color: red; }",
+    '<div id="repeat" class="target"></div>'
+  );
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "Each repeated nesting selector contributes the parent specificity");
+
+test(t => {
+  const target = fixture(
+    t,
+    "#absent, .parent { :is(&) .target { color: green; } } .parent .target { color: red; }",
+    '<div class="parent"><span class="target"></span></div>'
+  );
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "A nesting selector uses the largest parent-list specificity, including unmatched selectors");
+
+test(t => {
+  const target = fixture(
+    t,
+    "#outer { .middle { :where(&) .target { color: red; } } } .middle .target { color: green; }",
+    '<div id="outer"><div class="middle"><span class="target"></span></div></div>'
+  );
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, ":where() removes specificity inherited through multiple nesting levels");
+</script>

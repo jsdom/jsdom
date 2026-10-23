@@ -1,0 +1,136 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Layer order is independent of element matching</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#layer-order">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-6/#scope-scope">
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#container-rule">
+<link rel="help" href="https://drafts.csswg.org/css-transitions-2/#defining-before-change-style">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function color(t, rules) {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  const target = document.createElement("div");
+  target.className = "target";
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  return getComputedStyle(target).color;
+}
+
+test(t => {
+  assert_equals(color(t, `
+    @scope (.missing) { @layer first {} }
+    @layer second { .target { color: green; } }
+    @layer first { .target { color: red; } }
+  `), "rgb(0, 128, 0)");
+}, "A nonmatching scope still establishes layer order");
+
+test(t => {
+  assert_equals(color(t, `
+    @container (width > 0px) { @layer first {} }
+    @layer second { .target { color: green; } }
+    @layer first { .target { color: red; } }
+  `), "rgb(0, 128, 0)");
+}, "A container query without an eligible container still establishes layer order");
+
+test(t => {
+  assert_equals(color(t, `
+    @starting-style { @layer first {} }
+    @layer second { .target { color: green; } }
+    @layer first { .target { color: red; } }
+  `), "rgb(0, 128, 0)");
+}, "Starting styles establish layer order for ordinary styles");
+
+test(t => {
+  assert_equals(color(t, `
+    .missing { @layer first {} }
+    @layer second { .target { color: green; } }
+    @layer first { .target { color: red; } }
+  `), "rgb(0, 128, 0)");
+}, "A layer nested in a nonmatching style rule still establishes layer order");
+
+test(t => {
+  assert_equals(color(t, `
+    @scope (.missing) {
+      @media not all { @layer first {} }
+    }
+    @layer second { .target { color: red; } }
+    @layer first { .target { color: green; } }
+  `), "rgb(0, 128, 0)");
+}, "False media conditions still exclude layers inside a scope");
+
+test(t => {
+  assert_equals(color(t, `
+    @container (width > 0px) {
+      @supports (display: unsupported-value) { @layer first {} }
+    }
+    @layer second { .target { color: red; } }
+    @layer first { .target { color: green; } }
+  `), "rgb(0, 128, 0)");
+}, "False supports conditions still exclude layers inside a container query");
+
+test(t => {
+  assert_equals(color(t, `
+    @scope (.missing) { @layer outer.first {} }
+    @layer outer.second { .target { color: green; } }
+    @layer outer.first { .target { color: red; } }
+  `), "rgb(0, 128, 0)");
+}, "Nonmatching scopes establish the order of nested layers");
+
+test(t => {
+  assert_equals(color(t, `
+    @container (width > 0px) { @layer first {} }
+    @layer second { .target { color: red !important; } }
+    @layer first { .target { color: green !important; } }
+  `), "rgb(0, 128, 0)");
+}, "Important declarations reverse the globally established layer order");
+
+test(t => {
+  assert_equals(color(t, `
+    @scope (.missing) {
+      @layer { .target { color: red !important; } }
+    }
+    @layer { .target { color: green !important; } }
+  `), "rgb(0, 128, 0)");
+}, "Establishing anonymous layers does not apply declarations from a nonmatching scope");
+
+test(t => {
+  assert_equals(color(t, `
+    @container (width > 0px) {
+      @layer first { .target { color: red !important; } }
+    }
+    @layer first { .target { color: green; } }
+  `), "rgb(0, 128, 0)");
+}, "Establishing a container query's layer does not apply its conditional declarations");
+
+promise_test(async t => {
+  const style = document.createElement("style");
+  style.textContent = `
+    @import url("support/nonexistent-layer-order-sheet.css") layer(first);
+    @layer second { .import-target { color: green; } }
+    @layer first { .import-target { color: red; } }
+  `;
+  const target = document.createElement("div");
+  target.className = "import-target";
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  const settled = new Promise(resolve => {
+    style.addEventListener("load", resolve, { once: true });
+    style.addEventListener("error", resolve, { once: true });
+  });
+  document.head.append(style);
+  await settled;
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "A failed import still establishes its named layer");
+</script>

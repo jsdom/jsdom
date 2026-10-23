@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Comments and preserved source use CSS token boundaries</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-comments">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#input-preprocessing">
+<link rel="help" href="https://drafts.csswg.org/css-variables-1/#serializing-custom-props">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const element = document.createElement("div");
+  element.className = "target";
+  assert_true(element.matches("div/**/.target"));
+  assert_true(element.matches("div/**//**/.target"));
+  assert_false(element.matches("div/**/ .target"));
+  assert_false(element.matches("div /**/.target"));
+}, "Comments between selectors do not create descendant combinators");
+
+test(() => {
+  const comments = "/**/".repeat(20000);
+  assert_true(CSS.supports("color", `${comments}red`));
+  const element = document.createElement("div");
+  element.className = "target";
+  assert_true(element.matches(`div${comments}.target`));
+}, "Long sequences of adjacent comments do not exhaust the parser stack");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "--x: 😀; color:var(--😀);";
+  assert_equals(style.getPropertyValue("--x"), "😀");
+  assert_equals(style.color, "var(--😀)");
+}, "Preserved custom and pending values retain supplementary code points");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "\r\n--x: red; color:var(--x);";
+  assert_equals(style.getPropertyValue("--x"), "red");
+  assert_equals(style.color, "var(--x)");
+}, "CRLF preprocessing does not shift preserved declaration source spans");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "--x: a\r\n\nb;";
+  assert_equals(style.getPropertyValue("--x"), "a\r\n\nb");
+}, "Preserved custom values keep both a CRLF and a following newline");
+</script>

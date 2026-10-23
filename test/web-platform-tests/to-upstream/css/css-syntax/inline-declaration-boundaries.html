@@ -1,0 +1,44 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Inline declaration boundaries and preserved source offsets</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#parse-a-list-of-declarations">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.cssText = "color: red;\r\n--source: f(😀\r\n[\\61 b]); " +
+    "margin-left: var(--missing, 6px);";
+  assert_equals(element.style.color, "red");
+  assert_equals(element.style.getPropertyValue("--source"), "f(😀\r\n[\\61 b])");
+  assert_equals(element.style.marginLeft, "var(--missing, 6px)");
+  assert_equals(getComputedStyle(element).marginLeft, "6px");
+}, "A declaration after a CRLF preserves Unicode, escapes and substitution source positions");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "unknown: f(a; [b; c]); width: 3px; color: red !invalid; " +
+    "height: 4px; --source: f(a; [b; c]) !important; padding-left: 5px;";
+  assert_equals(style.width, "3px");
+  assert_equals(style.color, "");
+  assert_equals(style.height, "4px");
+  assert_equals(style.getPropertyValue("--source"), "f(a; [b; c])");
+  assert_equals(style.getPropertyPriority("--source"), "important");
+  assert_equals(style.paddingLeft, "5px");
+}, "Nested semicolons and invalid declarations do not consume the next declaration");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "width: 3px; --source: f(😀\r\n[\\61 b";
+  assert_equals(style.width, "3px");
+  assert_equals(style.getPropertyValue("--source"), "f(😀\r\n[\\61 b])");
+  style.cssText = "width: 3px; --source: 'unterminated";
+  assert_equals(style.width, "3px");
+  assert_equals(style.getPropertyValue("--source"), "'unterminated'");
+}, "EOF recovery remains local to the final declaration");
+</script>

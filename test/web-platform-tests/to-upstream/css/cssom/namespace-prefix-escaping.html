@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Namespace prefixes expose decoded identifiers and serialize with escaping</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-cssnamespacerule-interface">
+<link rel="help" href="https://drafts.csswg.org/css-namespaces/#declaration">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function createSheet(t, text) {
+  const style = document.createElement("style");
+  style.textContent = text;
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  return style.sheet;
+}
+
+test(t => {
+  const sheet = createSheet(t, '@namespace a\\|b url("urn:test");');
+  const rule = sheet.cssRules[0];
+  assert_equals(rule.prefix, "a|b");
+  assert_equals(rule.cssText, '@namespace a\\|b url("urn:test");');
+  sheet.insertRule("a\\|b|item { color: red; }", 1);
+  assert_equals(sheet.cssRules[1].selectorText, "a\\|b|item");
+}, "An escaped punctuation character is decoded by the prefix getter and remains usable in selectors");
+
+test(t => {
+  const sheet = createSheet(t, '@namespace \\31 x url("urn:test");');
+  assert_equals(sheet.cssRules[0].prefix, "1x");
+  assert_equals(sheet.cssRules[0].cssText, '@namespace \\31 x url("urn:test");');
+  sheet.insertRule("\\31 x|item { color: red; }", 1);
+  assert_equals(sheet.cssRules[1].selectorText, "\\31 x|item");
+}, "An escaped leading digit is decoded and serialized as an identifier");
+
+test(t => {
+  const sheet = createSheet(t, "");
+  sheet.insertRule('@namespace a\\ b url("urn:test");');
+  assert_equals(sheet.cssRules[0].prefix, "a b");
+  assert_equals(sheet.cssRules[0].cssText, '@namespace a\\ b url("urn:test");');
+}, "A namespace inserted through CSSOM exposes its decoded prefix");
+</script>

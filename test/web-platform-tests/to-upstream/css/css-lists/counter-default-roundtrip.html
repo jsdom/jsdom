@@ -1,0 +1,101 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Counter defaults preserve reversed reset semantics when serialized</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-value">
+<link rel="help" href="https://drafts.csswg.org/css-lists-3/#propdef-counter-reset">
+<link rel="help" href="https://drafts.csswg.org/css-lists-3/#propdef-counter-increment">
+<link rel="help" href="https://drafts.csswg.org/css-lists-3/#propdef-counter-set">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/5642">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.counterReset = "reversed(chapter)";
+  assert_equals(element.style.counterReset, "reversed(chapter)");
+  assert_equals(getComputedStyle(element).counterReset, "reversed(chapter)");
+  const serialized = element.style.cssText;
+  element.style.cssText = serialized;
+  assert_equals(element.style.counterReset, "reversed(chapter)");
+}, "An omitted reversed reset remains omitted through specified and computed serialization");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.counterReset = "reversed(chapter) 0";
+  assert_equals(element.style.counterReset, "reversed(chapter) 0");
+  const computed = getComputedStyle(element).counterReset;
+  assert_equals(computed, "reversed(chapter) 0");
+  element.style.counterReset = computed;
+  assert_equals(element.style.counterReset, "reversed(chapter) 0");
+}, "An explicit zero reversed reset remains distinct from an omitted reset");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.counterReset = "reversedChapter";
+  assert_equals(element.style.counterReset, "reversedChapter 0");
+  assert_equals(getComputedStyle(element).counterReset, "reversedChapter 0");
+}, "An ordinary counter name beginning with reversed still has the ordinary zero default");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.counterReset = "chapter reversed(section) reversed(figure) 0 appendix 0";
+  const expected = "chapter 0 reversed(section) reversed(figure) 0 appendix 0";
+  assert_equals(element.style.counterReset, expected);
+  assert_equals(getComputedStyle(element).counterReset, expected);
+  element.style.counterReset = expected;
+  assert_equals(element.style.counterReset, expected);
+}, "Each mixed counter reset preserves its own ordinary, omitted reversed, or explicit zero value");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.setProperty("--counter", "chapter");
+  element.style.counterIncrement = "var(--counter)";
+  assert_equals(element.style.counterIncrement, "var(--counter)");
+  assert_equals(getComputedStyle(element).counterIncrement, "chapter 1");
+  assert_equals(element.style.counterIncrement, "var(--counter)");
+}, "A substituted counter increment gains its default without changing the pending specified value");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.setProperty("--counter", "chapter reversed(section)");
+  element.style.counterReset = "var(--counter)";
+  assert_equals(element.style.counterReset, "var(--counter)");
+  assert_equals(getComputedStyle(element).counterReset, "chapter 0 reversed(section)");
+  assert_equals(element.style.counterReset, "var(--counter)");
+}, "Substituted resets fill ordinary defaults while preserving omitted reversed resets");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.setProperty("--counter", "chapter");
+  element.style.counterSet = "var(--counter)";
+  assert_equals(element.style.counterSet, "var(--counter)");
+  assert_equals(getComputedStyle(element).counterSet, "chapter 0");
+  assert_equals(element.style.counterSet, "var(--counter)");
+}, "A substituted counter set gains its zero default without changing the pending specified value");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.counterIncrement = "item 0";
+  assert_equals(element.style.counterIncrement, "item 0");
+  const serialized = element.style.counterIncrement;
+  element.style.counterIncrement = serialized;
+  assert_equals(element.style.counterIncrement, "item 0");
+}, "A zero counter increment is preserved when serialized and reparsed");
+</script>

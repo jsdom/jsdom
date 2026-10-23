@@ -1,0 +1,22 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Universal registration descriptors share initial-value validation</title>
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api-1/#initial-value-descriptor">
+<link rel="help" href="https://github.com/w3c/css-houdini-drafts/issues/1120">
+<link rel="help" href="https://github.com/w3c/css-houdini-drafts/issues/1130">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+// @property represents the equivalent registration, but its descriptor prose
+// does not repeat the API's computational independence check.
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync('@property --initial-rule { syntax: "*"; initial-value: outer(var(--other)); }');
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].initialValue, null);
+  sheet.replaceSync('@property --initial-rule { syntax: "*"; initial-value: 3em; }');
+  assert_equals(sheet.cssRules[0].initialValue, "3em");
+}, "An invalid universal initial-value descriptor is ignored while raw relative dimensions remain valid");
+</script>

@@ -1,0 +1,144 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Filter functions preserve specified arguments and compute omitted defaults</title>
+<link rel="help" href="https://drafts.csswg.org/filter-effects-1/#computed-values">
+<link rel="help" href="https://drafts.csswg.org/filter-effects-1/#serialization">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
+<body>
+<script>
+"use strict";
+/* global test_invalid_value */
+
+function checkFilter(t, property, input, specified, computed) {
+  const element = document.createElement("div");
+  element.style.color = "blue";
+  element.style.setProperty(property, input);
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(element.style.getPropertyValue(property), specified);
+  assert_equals(getComputedStyle(element).getPropertyValue(property), computed);
+}
+
+test(t => {
+  checkFilter(t, "filter", "blur(0px)", "blur(0px)", "blur(0px)");
+}, "An explicit zero blur remains in specified and computed filter values");
+
+test(t => {
+  checkFilter(t, "filter", "brightness(1)", "brightness(1)", "brightness(1)");
+}, "An explicit default brightness remains in filter values");
+
+test(t => {
+  checkFilter(t, "filter", "contrast(1)", "contrast(1)", "contrast(1)");
+}, "An explicit default contrast remains in filter values");
+
+test(t => {
+  checkFilter(t, "filter", "grayscale(1)", "grayscale(1)", "grayscale(1)");
+}, "An explicit default grayscale remains in filter values");
+
+test(t => {
+  checkFilter(t, "filter", "hue-rotate(0deg)", "hue-rotate(0deg)", "hue-rotate(0deg)");
+}, "An explicit zero hue rotation remains in filter values");
+
+test(t => {
+  checkFilter(t, "filter", "invert(1)", "invert(1)", "invert(1)");
+}, "An explicit default inversion remains in filter values");
+
+test(t => {
+  checkFilter(t, "filter", "opacity(1)", "opacity(1)", "opacity(1)");
+}, "An explicit default opacity remains in filter values");
+
+test(t => {
+  checkFilter(t, "filter", "saturate(1)", "saturate(1)", "saturate(1)");
+}, "An explicit default saturation remains in filter values");
+
+test(t => {
+  checkFilter(t, "filter", "sepia(1)", "sepia(1)", "sepia(1)");
+}, "An explicit default sepia remains in filter values");
+
+test(t => {
+  checkFilter(
+    t,
+    "filter",
+    "drop-shadow(red 1px 2px 0px)",
+    "drop-shadow(red 1px 2px 0px)",
+    "drop-shadow(rgb(255, 0, 0) 1px 2px 0px)"
+  );
+}, "An explicit zero drop-shadow blur is preserved");
+
+test(t => {
+  checkFilter(
+    t,
+    "filter",
+    "drop-shadow(currentcolor 1px 2px)",
+    "drop-shadow(currentcolor 1px 2px)",
+    "drop-shadow(rgb(0, 0, 255) 1px 2px 0px)"
+  );
+}, "An explicit currentcolor remains specified but resolves in computed filter style");
+
+test(t => {
+  checkFilter(
+    t,
+    "backdrop-filter",
+    "drop-shadow(1px 2px)",
+    "drop-shadow(1px 2px)",
+    "drop-shadow(rgb(0, 0, 255) 1px 2px 0px)"
+  );
+}, "Backdrop filter fills omitted shadow color and blur");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.filter = "blur() brightness() contrast() grayscale() " +
+    "hue-rotate() invert() opacity() saturate() sepia()";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(
+    getComputedStyle(element).filter,
+    "blur(0px) brightness(1) contrast(1) grayscale(1) hue-rotate(0deg) invert(1) opacity(1) saturate(1) sepia(1)"
+  );
+}, "Computed filter values include omitted function defaults");
+
+test(t => {
+  const parent = document.createElement("div");
+  parent.style.cssText = "color: red; filter: drop-shadow(currentcolor 1px 2px)";
+  const child = document.createElement("div");
+  child.style.cssText = "color: blue; filter: inherit";
+  parent.append(child);
+  document.body.append(parent);
+  t.add_cleanup(() => parent.remove());
+  assert_equals(getComputedStyle(parent).filter, "drop-shadow(rgb(255, 0, 0) 1px 2px 0px)");
+  assert_equals(getComputedStyle(child).filter, "drop-shadow(rgb(0, 0, 255) 1px 2px 0px)");
+}, "Inherited drop-shadow currentcolor resolves against the child's color");
+
+test_invalid_value("filter", "contrast(-1%)");
+test_invalid_value("filter", "drop-shadow(1px 2px -1px)");
+test_invalid_value("filter", "invert(-1%)");
+test_invalid_value("filter", "saturate(-1%)");
+
+test(t => {
+  checkFilter(t, "filter", "grayscale(300%)", "grayscale(100%)", "grayscale(1)");
+}, "Specified grayscale percentages above one hundred are clamped");
+
+test(t => {
+  checkFilter(t, "filter", "invert(3)", "invert(1)", "invert(1)");
+}, "Specified inversion numbers above one are clamped");
+
+test(t => {
+  checkFilter(t, "filter", "opacity(300%)", "opacity(100%)", "opacity(1)");
+}, "Specified filter opacity percentages above one hundred are clamped");
+
+test(t => {
+  checkFilter(t, "filter", "sepia(3)", "sepia(1)", "sepia(1)");
+}, "Specified sepia numbers above one are clamped");
+
+test(t => {
+  checkFilter(
+    t,
+    "filter",
+    "drop-shadow(1px 2px calc(-1px))",
+    "drop-shadow(1px 2px calc(-1px))",
+    "drop-shadow(rgb(0, 0, 255) 1px 2px 0px)"
+  );
+}, "A computed negative shadow blur is clamped without clamping its offsets");
+</script>

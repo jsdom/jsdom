@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Comment-only substitutions before typed values</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#attr-substitution">
+<link rel="help" href="https://drafts.csswg.org/css-variables-2/#replace-a-var">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function target(t, color, attribute) {
+  const element = document.createElement("div");
+  element.style.color = color;
+  if (attribute !== undefined) {
+    element.setAttribute("data-source", attribute);
+  }
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = target(t, "attr(data-source type(*))red", "/**/");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A comment-only universal attribute can be followed by a literal color");
+
+test(t => {
+  const element = target(t, "attr(data-source type(*))red", " /**/ ");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Whitespace around an attribute comment does not create a value token");
+
+test(t => {
+  const element = target(t, "attr(data-source type(<color>),blue)", "");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "An empty attribute still fails a nonempty color grammar and selects its fallback");
+
+test(t => {
+  const element = target(t, "attr(data-source type(<color>),blue)", "/**/");
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "A comment-only attribute still fails a nonempty color grammar");
+
+test(t => {
+  const element = target(t, "var(--missing,/**/)red");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A comment-only var() fallback can be followed by a literal color");
+
+test(t => {
+  const element = target(t, "var(--missing, /**/ )red");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Whitespace around a var() fallback comment does not create a value token");
+
+test(t => {
+  const element = target(t, "if(else:)red");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An empty if() result can be followed by a literal color");
+
+test(t => {
+  const element = target(t, "if(else:/**/)red");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A comment-only if() result can be followed by a literal color");
+</script>

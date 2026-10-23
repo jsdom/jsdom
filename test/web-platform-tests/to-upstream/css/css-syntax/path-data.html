@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS path data validation and serialization</title>
+<link rel="help" href="https://drafts.csswg.org/css-shapes-1/#funcdef-basic-shape-path">
+<link rel="help" href="https://svgwg.org/svg2-draft/paths.html#PathDataBNF">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = 'path("")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path(" ")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("not-a-path")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("L 1 2")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("M0 0 ſ1 2 3 4")';
+  assert_equals(style.clipPath, "");
+}, "A CSS path must contain valid data beginning with a move command");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = 'path("M0")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("M0 0 L1 2 3")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("M0 0 A1 2 3")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("M0 0 Q1 2 3")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("M0 0z1 2")';
+  assert_equals(style.clipPath, "");
+}, "An incomplete command invalidates the whole CSS path");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = 'path("M0 0 A1 2 3 2 1 4 5")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("M0 0 A1 2 3 +0 1 4 5")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("M0 0 A1 2 3 0.0 1 4 5")';
+  assert_equals(style.clipPath, "");
+  style.clipPath = 'path("M0 0 A1 2 3-0 1 4 5")';
+  assert_equals(style.clipPath, "");
+}, "Arc flags are single digits with the required preceding separator");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = 'path("M0,0 1,1 2,2z")';
+  assert_equals(style.clipPath, 'path("M 0 0 L 1 1 L 2 2 Z")');
+  style.clipPath = 'path("m0 0 1 1")';
+  assert_equals(style.clipPath, 'path("m 0 0 l 1 1")');
+  style.clipPath = 'path("M0 0 C1 2 3 4 5 6 7 8 9 10 11 12")';
+  assert_equals(style.clipPath, 'path("M 0 0 C 1 2 3 4 5 6 C 7 8 9 10 11 12")');
+}, "Repeated argument groups serialize as explicit path commands");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = 'path("M1e2-.2 A1 2 3 014 5")';
+  assert_equals(style.clipPath, 'path("M 100 -0.2 A 1 2 3 0 1 4 5")');
+  style.clipPath = 'path("M0.6.5 H10V20h-1v-2 S1 2 3 4 Q5 6 7 8 T9 10zz")';
+  assert_equals(style.clipPath, 'path("M 0.6 0.5 H 10 V 20 h -1 v -2 S 1 2 3 4 Q 5 6 7 8 T 9 10 Z Z")');
+}, "Compact numbers and adjacent arc flags preserve token boundaries");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.offsetPath = 'path("M0 0L1 1")';
+  assert_equals(style.offsetPath, 'path("M 0 0 L 1 1")');
+  style.shapeOutside = 'path(evenodd, "M0 0L1 1Z")';
+  assert_equals(style.shapeOutside, 'path(evenodd, "M 0 0 L 1 1 Z")');
+  style.offsetPath = 'path("M0 0 R1 2")';
+  assert_equals(style.offsetPath, 'path("M 0 0 L 1 1")');
+}, "Path validation is shared across CSS properties and invalid assignments preserve earlier values");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = 'path("M0 0 L0.0000001 0")';
+  const pathData = JSON.parse(style.clipPath.slice(5, -1));
+  assert_equals(Number(pathData.split(" ")[4]), 0.0000001);
+}, "Path serialization preserves a small nonzero coordinate despite differences in exponent formatting");
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--shape", 'path("M0,0 1,1z")');
+  target.style.clipPath = "var(--shape)";
+  assert_equals(getComputedStyle(target).clipPath, 'path("M 0 0 L 1 1 Z")');
+  target.style.setProperty("--shape", 'path("M0 0A1 2 3")');
+  assert_equals(getComputedStyle(target).clipPath, "none");
+}, "Paths substituted from custom properties are validated and serialized at computed value time");
+</script>

@@ -1,0 +1,94 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Layer statements and blocks keep distinct parsing boundaries</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#layer-block">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#layer-empty">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-at-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@layer first, second {}");
+  assert_equals(sheet.cssRules.length, 0);
+}, "A comma-separated layer list cannot introduce an empty block");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@layer first, second { div { color: red; } }");
+  assert_equals(sheet.cssRules.length, 0);
+}, "A comma-separated layer list cannot introduce a nonempty block");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@layer first, second {} .following { color: green; }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].selectorText, ".following");
+  assert_equals(sheet.cssRules[0].style.color, "green");
+}, "An invalid layer block does not consume the following style rule");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@media all { @layer first, second {} .following { color: green; } }");
+  assert_equals(sheet.cssRules.length, 1);
+  const children = sheet.cssRules[0].cssRules;
+  assert_equals(children.length, 1);
+  assert_equals(children[0].selectorText, ".following");
+}, "An invalid layer block is discarded inside a grouping rule");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = `
+    @layer first, second {}
+    @layer second { #layer-boundary-target { color: green; } }
+    @layer first { #layer-boundary-target { color: red; } }
+  `;
+  const target = document.createElement("div");
+  target.id = "layer-boundary-target";
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "An invalid comma-list layer block does not establish layer order");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@layer first, second;");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssText, "@layer first, second;");
+}, "A layer statement accepts a semicolon terminator");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@layer first, second");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssText, "@layer first, second;");
+}, "A layer statement accepts the end of the stylesheet");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@media all { @layer first, second }");
+  assert_equals(sheet.cssRules[0].cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssRules[0].cssText, "@layer first, second;");
+}, "A nested layer statement accepts its containing block's closing brace");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@layer named {} @layer {}");
+  assert_equals(sheet.cssRules.length, 2);
+  assert_equals(sheet.cssRules[0].name, "named");
+  assert_equals(sheet.cssRules[1].name, "");
+}, "Named and anonymous layer blocks remain valid");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  assert_throws_dom("SyntaxError", () => sheet.insertRule("@layer first, second {}"));
+  assert_equals(sheet.cssRules.length, 0);
+}, "Inserting a comma-list layer block throws without adding a rule");
+</script>

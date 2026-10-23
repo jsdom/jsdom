@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Function token names preserve decoded identifier values</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#consume-ident-like-token">
+<link rel="help" href="https://drafts.csswg.org/css-conditional/#typedef-general-enclosed">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style id="sheet"></style>
+<script>
+"use strict";
+
+test(() => {
+  const { sheet } = document.getElementById("sheet");
+  const index = sheet.insertRule("@supports f\\ oo() {}", sheet.cssRules.length);
+  assert_equals(sheet.cssRules[index].conditionText, "f\\ oo()");
+}, "An escaped space in an unknown function name is escaped once");
+
+test(() => {
+  const { sheet } = document.getElementById("sheet");
+  const index = sheet.insertRule("@supports f\\|oo() {}", sheet.cssRules.length);
+  assert_equals(sheet.cssRules[index].conditionText, "f\\|oo()");
+}, "Escaped punctuation in an unknown function name is escaped once");
+
+test(() => {
+  const { sheet } = document.getElementById("sheet");
+  const index = sheet.insertRule("@supports f\\(oo() {}", sheet.cssRules.length);
+  assert_equals(sheet.cssRules[index].conditionText, "f\\(oo()");
+}, "An escaped opening parenthesis belongs to the function name");
+
+test(() => {
+  assert_equals(document.querySelector(":\\69 s(html)"), document.documentElement);
+  assert_true(document.documentElement.matches(":\\77 here(html)"));
+}, "Escaped functional pseudo-class names match their decoded names");
+</script>

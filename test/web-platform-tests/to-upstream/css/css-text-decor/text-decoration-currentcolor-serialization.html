@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed text-decoration serialization preserves an omitted currentcolor</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-value">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/12486">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="target"></div>
+<div id="copy"></div>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+const copy = document.getElementById("copy");
+
+test(() => {
+  target.style.cssText = "color: blue; text-decoration: none";
+  const computed = getComputedStyle(target);
+  assert_equals(computed.textDecorationColor, "rgb(0, 0, 255)");
+  assert_equals(computed.textDecoration, "none");
+}, "An all-initial text-decoration keeps the first grammar component");
+
+test(() => {
+  target.style.cssText = "color: blue; text-decoration: underline currentcolor";
+  const computed = getComputedStyle(target);
+  assert_equals(computed.textDecoration, "underline");
+  assert_equals(computed.textDecorationColor, "rgb(0, 0, 255)");
+  target.style.color = "green";
+  assert_equals(computed.textDecorationColor, "rgb(0, 128, 0)");
+  assert_equals(computed.textDecoration, "underline");
+}, "Omitting currentcolor from the shorthand leaves the longhand resolved and live");
+
+test(() => {
+  target.style.cssText = "color: blue; text-decoration: underline blue";
+  const computed = getComputedStyle(target);
+  assert_equals(computed.textDecoration, "underline rgb(0, 0, 255)");
+  target.style.color = "green";
+  assert_equals(computed.textDecoration, "underline rgb(0, 0, 255)");
+}, "An explicit color equal to currentcolor is retained");
+
+test(() => {
+  target.style.cssText = "color: blue; --decoration-color: currentcolor; " +
+    "text-decoration: underline var(--decoration-color)";
+  copy.style.cssText = "color: green";
+  copy.style.textDecoration = getComputedStyle(target).textDecoration;
+  assert_equals(getComputedStyle(copy).textDecorationColor, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(copy).textDecoration, "underline");
+}, "Round-tripping a substituted currentcolor preserves its dependence on the destination color");
+</script>

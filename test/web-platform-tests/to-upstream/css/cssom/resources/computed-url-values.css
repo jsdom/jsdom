@@ -1,0 +1,20 @@
+@import url("computed-url-import.css");
+@property --external-initial-url {
+  syntax: "<url>";
+  inherits: false;
+  initial-value: url(initial.png);
+}
+@property --external-typed-url {
+  syntax: "<url>";
+  inherits: true;
+  initial-value: url(default.png);
+}
+#external {
+  background-image: url(external.png);
+  --external-typed-url: url(typed.png);
+  --external-raw-url: url(raw.png);
+}
+#inherited { list-style-image: url(inherited.png); }
+@layer external {
+  #rollback { background-image: url(rollback.png); }
+}

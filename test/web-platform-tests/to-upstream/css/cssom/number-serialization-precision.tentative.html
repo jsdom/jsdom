@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS numbers serialize with six significant digits</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-component-value">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/7416">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/8538">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/6471">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
+<script>
+/* global test_valid_value */
+"use strict";
+
+test_valid_value("flex-grow", "123.456789", "123.457");
+test_valid_value("flex-grow", "0.000123456789", "0.000123457");
+test_valid_value("flex-grow", "0.000000123456789", "1.23457e-7");
+test_valid_value("flex-grow", "123456789", "123457000");
+test_valid_value("flex-grow", "-0", "0");
+test_valid_value("margin-left", "-123.456789px", "-123.457px");
+test_valid_value("margin-left", "12.3456789%", "12.3457%");
+test_valid_value("order", "123456789", "123456789");
+test_valid_value("color", "lch(10 20 1.28rad)", "lch(10 20 73.3386)");
+test_valid_value("color", "oklch(0.1 0.2 1.28rad)", "oklch(0.1 0.2 73.3386)");
+test_valid_value("color", "lch(50 20 359.9999)", "lch(50 20 0)");
+test_valid_value("color", "lch(50 20 0.0000001)", "lch(50 20 1e-7)");
+</script>

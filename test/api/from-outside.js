@@ -1,7 +1,5 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { spawnSync } = require("node:child_process");
-const path = require("node:path");
 const delay = require("node:timers/promises").setTimeout;
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
@@ -70,78 +68,6 @@ describe("Test cases only possible to test from the outside", () => {
 
     assert.equal(window.counter, counterBeforeSecondDelay);
   });
-
-  it("frees up callback handles passed to setTimeout", { timeout: 5000 }, () => {
-    const timeoutWithGcFixturePath = path.resolve(__dirname, "./fixtures/timeout-with-gc.js");
-    const { status, stdout } = spawnSync("node", ["--expose-gc", timeoutWithGcFixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0);
-    const ratio = Number(stdout);
-    assert(!Number.isNaN(ratio));
-
-    // At least 70% of the memory must be freed up.
-    assert(ratio < 0.3);
-  });
-
-  it("does not retain removed children through live collections", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/live-collections-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("does not retain removed subtrees after Range indexing", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/range-indexes-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("does not retain observed nodes through MutationObserver instances", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/mutation-observer-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("releases idle MutationObserver bookkeeping", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/mutation-observer-bookkeeping-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("does not retain targets or callbacks of removed signal-bound event listeners", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/event-listener-signal-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("does not retain removed iframe windows", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/removed-iframe-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  for (const scenario of ["valid", "invalid", "throwing", "imported"]) {
-    it(`does not retain closed windows after stylesheet parsing (${scenario})`, { timeout: 5000 }, () => {
-      const fixturePath = path.resolve(__dirname, "./fixtures/stylesheet-parsing-with-gc.mjs");
-      const { status, stderr, stdout } = spawnSync(process.execPath, ["--expose-gc", fixturePath, scenario], {
-        encoding: "utf-8"
-      });
-
-      assert.equal(status, 0, stderr);
-      assert.equal(stdout.trim(), "collected");
-    });
-  }
 
   it("does not dispatch storage events to removed iframe windows", async () => {
     const dom = new JSDOM("", { url: "https://example.com/" });

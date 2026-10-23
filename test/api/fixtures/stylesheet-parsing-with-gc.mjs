@@ -42,7 +42,7 @@ async function createAndClose() {
 }
 
 const windows = [];
-// Repeated values hit the property cache, avoiding another parse that would clear the retained callback.
+// Reuse the same stylesheet across windows to cover repeated parsing.
 for (let i = 0; i < 10; ++i) {
   windows.push(await createAndClose());
 }

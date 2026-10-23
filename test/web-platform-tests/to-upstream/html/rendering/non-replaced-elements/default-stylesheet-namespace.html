@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>HTML default styles are limited to HTML elements</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/rendering.html#non-replaced-elements">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  #fixture { font-weight: 400; }
+</style>
+<div id="fixture"></div>
+<script>
+"use strict";
+
+function appendElement(t, namespace, localName) {
+  const element = document.createElementNS(namespace, localName);
+  document.getElementById("fixture").append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = appendElement(t, "http://www.w3.org/1999/xhtml", "div");
+  assert_equals(getComputedStyle(element).display, "block");
+}, "HTML div elements have block display");
+
+test(t => {
+  const element = appendElement(t, "urn:foreign", "div");
+  assert_equals(getComputedStyle(element).display, "inline");
+}, "Foreign div elements do not acquire HTML block display");
+
+test(t => {
+  const element = appendElement(t, null, "div");
+  assert_equals(getComputedStyle(element).display, "inline");
+}, "Null-namespace div elements do not acquire HTML block display");
+
+test(t => {
+  const element = appendElement(t, "http://www.w3.org/2000/svg", "div");
+  assert_equals(getComputedStyle(element).display, "inline");
+}, "SVG div elements do not acquire HTML block display");
+
+test(t => {
+  const element = appendElement(t, "http://www.w3.org/1999/xhtml", "b");
+  assert_equals(getComputedStyle(element).fontWeight, "700");
+}, "HTML b elements have bolder text");
+
+test(t => {
+  const element = appendElement(t, "urn:foreign", "b");
+  assert_equals(getComputedStyle(element).fontWeight, "400");
+}, "Foreign b elements do not acquire HTML bolder text");
+
+test(t => {
+  const element = appendElement(t, null, "b");
+  assert_equals(getComputedStyle(element).fontWeight, "400");
+}, "Null-namespace b elements do not acquire HTML bolder text");
+
+test(t => {
+  const element = appendElement(t, "http://www.w3.org/1999/xhtml", "input");
+  element.setAttribute("type", "hidden");
+  assert_equals(getComputedStyle(element).display, "none");
+}, "HTML hidden inputs are not displayed");
+
+test(t => {
+  const element = appendElement(t, "urn:foreign", "input");
+  element.setAttribute("type", "hidden");
+  assert_equals(getComputedStyle(element).display, "inline");
+}, "Foreign inputs do not acquire HTML hidden-input styles");
+
+test(t => {
+  const element = appendElement(t, null, "input");
+  element.setAttribute("type", "hidden");
+  assert_equals(getComputedStyle(element).display, "inline");
+}, "Null-namespace inputs do not acquire HTML hidden-input styles");
+
+test(t => {
+  const element = appendElement(t, "http://www.w3.org/1999/xhtml", "span");
+  element.setAttribute("hidden", "");
+  assert_equals(getComputedStyle(element).display, "none");
+}, "The hidden attribute hides HTML elements");
+
+test(t => {
+  const element = appendElement(t, "urn:foreign", "span");
+  element.setAttribute("hidden", "");
+  assert_equals(getComputedStyle(element).display, "inline");
+}, "The hidden attribute does not hide foreign elements");
+
+test(t => {
+  const element = appendElement(t, null, "span");
+  element.setAttribute("hidden", "");
+  assert_equals(getComputedStyle(element).display, "inline");
+}, "The hidden attribute does not hide null-namespace elements");
+
+test(t => {
+  const element = appendElement(t, "http://www.w3.org/2000/svg", "span");
+  element.setAttribute("hidden", "");
+  assert_equals(getComputedStyle(element).display, "inline");
+}, "The hidden attribute does not hide SVG elements");
+</script>

@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Logical viewport units use the target element's writing mode</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#viewport-relative-lengths">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const rootMode of ["horizontal-tb", "vertical-rl"]) {
+  for (const prefix of ["", "s", "l", "d"]) {
+    for (const axis of ["i", "b"]) {
+      test(t => {
+        const root = document.documentElement;
+        const oldStyle = root.style.cssText;
+        root.style.writingMode = rootMode;
+        const target = document.createElement("div");
+        const targetMode = rootMode === "horizontal-tb" ? "vertical-rl" : "horizontal-tb";
+        target.style.writingMode = targetMode;
+        document.body.append(target);
+        t.add_cleanup(() => {
+          root.style.cssText = oldStyle;
+          target.remove();
+        });
+        const physicalAxis = (axis === "i") === (targetMode === "horizontal-tb") ? "w" : "h";
+        target.style.marginLeft = `1${prefix}v${physicalAxis}`;
+        const expected = getComputedStyle(target).marginLeft;
+        target.style.marginLeft = `1${prefix}v${axis}`;
+        assert_equals(getComputedStyle(target).marginLeft, expected);
+      }, `${prefix}v${axis} uses the target's writing mode when its root is ${rootMode}`);
+    }
+  }
+}
+</script>

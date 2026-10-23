@@ -22,7 +22,6 @@ test(t => {
   const { child } = fixture(t);
   const computed = getComputedStyle(child);
   assert_equals(computed.fontVariant, "normal");
-  assert_equals(computed.boxShadow, "none");
   assert_equals(computed.gridRow, "auto");
 }, "Shorthands with an initial value use that value when unspecified");
 

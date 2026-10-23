@@ -1,0 +1,59 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSSOM mutation follows adopted elements to their new document</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const iframe = document.createElement("iframe");
+  document.body.append(iframe);
+  t.add_cleanup(() => iframe.remove());
+  const style = document.createElement("style");
+  style.textContent = "div { color: red; }";
+  document.head.append(style);
+  iframe.contentDocument.head.append(style);
+  const target = iframe.contentDocument.createElement("div");
+  iframe.contentDocument.body.append(target);
+  const computed = iframe.contentWindow.getComputedStyle(target);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+
+  style.sheet.cssRules[0].style.color = "blue";
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+  assert_equals(iframe.contentWindow.getComputedStyle(target).color, "rgb(0, 0, 255)");
+
+  style.sheet.insertRule("div { color: green; }", 1);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  style.sheet.deleteRule(1);
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+}, "CSSOM changes to an adopted style element update its new document");
+
+test(t => {
+  const iframe = document.createElement("iframe");
+  document.body.append(iframe);
+  t.add_cleanup(() => iframe.remove());
+  const target = document.createElement("div");
+  const declaration = target.style;
+  iframe.contentDocument.body.append(target);
+  iframe.contentDocument.body.style.color = "black";
+  const computed = iframe.contentWindow.getComputedStyle(target);
+  const observer = new MutationObserver(() => {});
+  observer.observe(target, { attributes: true, attributeOldValue: true });
+  t.add_cleanup(() => observer.disconnect());
+
+  declaration.color = "red";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_equals(observer.takeRecords().length, 1);
+  const sameText = declaration.cssText;
+  declaration.cssText = sameText;
+  const records = observer.takeRecords();
+  assert_equals(records.length, 1);
+  assert_equals(records[0].oldValue, target.getAttribute("style"));
+  declaration.removeProperty("color");
+  assert_equals(computed.color, "rgb(0, 0, 0)");
+  assert_equals(observer.takeRecords().length, 1);
+}, "A retained inline style remains live and reports attribute mutations after adoption");
+</script>

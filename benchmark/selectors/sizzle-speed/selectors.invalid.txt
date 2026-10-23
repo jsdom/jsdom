@@ -1,0 +1,10 @@
+h1[id]:contains(Selectors)
+div[class!=made_up]
+p:contains(selectors)
+p   p, 
+p   .5cm 
+p   [*=test] 
+p   p:subject
+p  .13 
+div  p::first-child 
+p ..test .foo..quux .bar. 

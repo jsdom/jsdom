@@ -1,0 +1,116 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS internal operations do not call replaced public functions</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#remove-a-css-rule">
+<link rel="help" href="https://drafts.csswg.org/css-animations/#interface-csskeyframesrule">
+<link rel="help" href="https://drafts.csswg.org/css-counter-styles-3/#csscounterstylerule">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-read-write">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, cssText) {
+  const style = document.createElement("style");
+  style.textContent = cssText;
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  return style.sheet;
+}
+
+test(t => {
+  Object.defineProperty(document, "designMode", {
+    configurable: true,
+    get() {
+      throw new Error("Public designMode getter called");
+    }
+  });
+  t.add_cleanup(() => {
+    delete document.designMode;
+  });
+  fixture(t, "#read-write-target:read-only { color: green; }");
+  const target = document.createElement("div");
+  target.id = "read-write-target";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+
+  assert_false(target.matches(":read-write"));
+  assert_true(target.matches(":read-only"));
+  assert_equals(document.querySelector("#read-write-target:read-only"), target);
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+
+  target.setAttribute("contenteditable", "true");
+  assert_true(target.matches(":read-write"));
+  assert_false(target.matches(":read-only"));
+}, "Read-write matching does not call the public designMode getter");
+
+test(t => {
+  const sheet = fixture(t, "div { color: red; }");
+  const OriginalDOMException = window.DOMException;
+  t.add_cleanup(() => {
+    window.DOMException = OriginalDOMException;
+  });
+  window.DOMException = function () {
+    throw new Error("Public constructor called");
+  };
+  assert_throws_dom("IndexSizeError", OriginalDOMException, () => sheet.deleteRule(2));
+  assert_throws_dom("SyntaxError", OriginalDOMException, () => sheet.insertRule("invalid"));
+}, "CSSOM throws native DOMExceptions when the public constructor is replaced");
+
+test(t => {
+  const sheet = fixture(t, "@keyframes spin { from { opacity: 0; } }");
+  const expectedCSSText = sheet.cssRules[0].cssText;
+  const originalEscape = CSS.escape;
+  t.add_cleanup(() => {
+    CSS.escape = originalEscape;
+  });
+  CSS.escape = () => {
+    throw new Error("Public escape called");
+  };
+  assert_equals(sheet.cssRules[0].cssText, expectedCSSText);
+}, "Keyframe rule serialization does not call the public CSS.escape function");
+
+test(t => {
+  const sheet = fixture(t, '@counter-style original { system: cyclic; symbols: "x"; }');
+  const rule = sheet.cssRules[0];
+  const expectedCSSText = rule.cssText.replace("original", "renamed");
+  assert_equals(rule.name, "original");
+  const originalEscape = CSS.escape;
+  t.add_cleanup(() => {
+    CSS.escape = originalEscape;
+  });
+  CSS.escape = () => {
+    throw new Error("Public escape called");
+  };
+  rule.name = "renamed";
+  assert_equals(rule.name, "renamed");
+  assert_equals(rule.cssText, expectedCSSText);
+}, "Counter style rule names remain readable and do not call the public CSS.escape function");
+
+test(t => {
+  fixture(t, `body { --internal-transform-support: no; }
+    @media (-webkit-transform-3d) { body { --internal-transform-support: yes; } }`);
+  const originalSupports = CSS.supports;
+  t.add_cleanup(() => {
+    CSS.supports = originalSupports;
+  });
+  CSS.supports = () => {
+    throw new Error("Public supports called");
+  };
+  assert_equals(getComputedStyle(document.body).getPropertyValue("--internal-transform-support"), "yes");
+}, "Media query matching does not call the public CSS.supports function");
+
+test(t => {
+  Object.defineProperty(document, "fullscreenEnabled", { configurable: true, value: true });
+  Object.defineProperty(document, "pictureInPictureEnabled", { configurable: true, value: true });
+  t.add_cleanup(() => {
+    delete document.fullscreenEnabled;
+    delete document.pictureInPictureEnabled;
+  });
+  fixture(t, `body { --internal-display-mode: browser; }
+    @media (display-mode: fullscreen) { body { --internal-display-mode: fullscreen; } }
+    @media (display-mode: picture-in-picture) { body { --internal-display-mode: picture-in-picture; } }`);
+  assert_equals(getComputedStyle(document.body).getPropertyValue("--internal-display-mode"), "browser");
+}, "Display mode does not change when public capability properties are replaced");
+</script>

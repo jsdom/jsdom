@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Empty substitutions preserve media condition whitespace</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#if-notation">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#component-whitespace">
+<link rel="help" href="https://drafts.csswg.org/css-variables-2/#substitute-a-var">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+function checkCondition(t, condition) {
+  const target = document.createElement("div");
+  target.style.color = `if(media(${condition}): red; else: blue)`;
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  assert_not_equals(target.style.color, "");
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}
+
+test(t => {
+  checkCondition(t, "not (max-width: -1px)");
+}, "A negated false media condition selects the first branch");
+
+test(t => {
+  checkCondition(t, "not var(--missing,) var(--missing,) var(--missing,) (max-width: -1px)");
+}, "Empty fallbacks preserve whitespace after media negation");
+
+test(t => {
+  checkCondition(t, "(not var(--missing,) var(--missing,) var(--missing,) (max-width: -1px))");
+}, "Empty fallbacks preserve whitespace after nested media negation");
+
+test(t => {
+  checkCondition(t, "(max-width: -1px) or var(--missing,) var(--missing,) var(--missing,) (min-width: 0px)");
+}, "Empty fallbacks preserve whitespace after media disjunction");
+
+test(t => {
+  checkCondition(t, "((max-width: -1px) or var(--missing,) var(--missing,) var(--missing,) (min-width: 0px))");
+}, "Empty fallbacks preserve whitespace after nested media disjunction");
+
+test(t => {
+  checkCondition(t, "(min-width: 0px) and var(--missing,) var(--missing,) var(--missing,) (min-height: 0px)");
+}, "Empty fallbacks preserve whitespace after media conjunction");
+
+test(t => {
+  checkCondition(t, "((min-width: 0px) and var(--missing,) var(--missing,) var(--missing,) (min-height: 0px))");
+}, "Empty fallbacks preserve whitespace after nested media conjunction");
+</script>

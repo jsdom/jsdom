@@ -1,0 +1,30 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Keyframe declarations use the CSSStyleProperties interface</title>
+<link rel="help" href="https://drafts.csswg.org/css-animations-1/#interface-csskeyframerule">
+<link rel="help" href="https://drafts.csswg.org/cssom/#the-cssstyleproperties-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@keyframes example { from { color: red; } }");
+  const rule = sheet.cssRules[0].cssRules[0];
+  const prototype = Object.getPrototypeOf(document.createElement("div").style);
+  assert_equals(Object.getPrototypeOf(rule.style), prototype);
+  assert_equals(rule.style, rule.style);
+  assert_equals(rule.style.parentRule, rule);
+}, "A keyframe declaration block has the CSSStyleProperties prototype and keeps its owner");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@keyframes example { from {} }");
+  const { style } = sheet.cssRules[0].cssRules[0];
+  assert_true("animationName" in style);
+  assert_equals(style.animationName, "");
+  style.animationTimingFunction = "linear";
+  assert_equals(style.animationTimingFunction, "linear");
+}, "Keyframe declarations expose the complete CSSStyleProperties attribute set");
+</script>

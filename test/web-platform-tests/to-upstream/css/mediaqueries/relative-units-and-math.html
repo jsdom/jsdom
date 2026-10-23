@@ -1,0 +1,44 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Media queries resolve relative units inside calculations</title>
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-4/#units">
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#container-lengths">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#calc-computed-value">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<style id="sheet"></style>
+<p id="probe"></p>
+<script>
+"use strict";
+
+function testMediaQuery(condition, expected) {
+  test(() => {
+    document.getElementById("sheet").textContent = `
+      #probe { color: red; }
+      @media ${condition} { #probe { color: green; } }
+    `;
+    assert_equals(
+      getComputedStyle(document.getElementById("probe")).color,
+                  expected ? "rgb(0, 128, 0)" : "rgb(255, 0, 0)"
+    );
+  }, `Media query ${condition} matches ${expected}`);
+}
+
+testMediaQuery("(width: 100cqw)", true);
+testMediaQuery("(height: 100cqh)", true);
+testMediaQuery("(width: 100cqi)", true);
+testMediaQuery("(height: 100cqb)", true);
+testMediaQuery("(width: 50cqmax)", innerWidth === Math.max(innerWidth, innerHeight) / 2);
+testMediaQuery("(height: 50cqmin)", innerHeight === Math.min(innerWidth, innerHeight) / 2);
+testMediaQuery("(width: calc(0ex + 100vw))", true);
+testMediaQuery("(width: calc(0rex + 100vw))", true);
+testMediaQuery("(width: calc(50vw * 2))", true);
+testMediaQuery("(width: min(100vw, 200vw))", true);
+testMediaQuery("(width: max(50vw, 100vw))", true);
+testMediaQuery("(width: clamp(50vw, 100vw, 200vw))", true);
+testMediaQuery("(-webkit-transform-3d: 1)", true);
+testMediaQuery("not screen and (width: 0px)", true);
+testMediaQuery("not print and (width: 0px)", true);
+testMediaQuery("screen and (width: 0px)", false);
+</script>

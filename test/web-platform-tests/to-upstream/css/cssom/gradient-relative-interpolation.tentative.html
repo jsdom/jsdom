@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Explicit interpolation survives relative color serialization</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#interpolation-space">
+<link rel="help" href="https://drafts.csswg.org/css-color-5/#relative-colors">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+// Color 4's legacy-format exception predates relative colors. Preserve the
+// explicit method while that exception's interaction with relative colors is clarified.
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.backgroundImage = "linear-gradient(in srgb, rgb(from red r g b), blue)";
+  assert_equals(element.style.backgroundImage, "linear-gradient(in srgb, rgb(from red r g b), blue)");
+  assert_equals(
+    getComputedStyle(element).backgroundImage,
+    "linear-gradient(in srgb, color(srgb 1 0 0), rgb(0, 0, 255))"
+  );
+}, "Explicit sRGB interpolation remains explicit when a relative RGB stop becomes color(srgb)");
+</script>

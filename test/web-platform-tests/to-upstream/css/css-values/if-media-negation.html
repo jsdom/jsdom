@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Inline media conditions preserve negation</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#if-notation">
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#typedef-media-not">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function checkColor(t, condition, expected) {
+  const target = document.createElement("div");
+  target.style.color = `if(${condition}: red; else: green)`;
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  assert_not_equals(target.style.color, "");
+  assert_equals(getComputedStyle(target).color, expected);
+}
+
+test(t => {
+  checkColor(t, "media(not (width < 0px))", "rgb(255, 0, 0)");
+}, "A negated false media range selects the first inline branch");
+
+test(t => {
+  checkColor(t, "media(not (width >= 0px))", "rgb(0, 128, 0)");
+}, "A negated true media range selects the inline fallback");
+
+test(t => {
+  checkColor(t, `media(not (resolution: ${devicePixelRatio + 1}dppx))`, "rgb(255, 0, 0)");
+}, "A negated false resolution feature selects the first inline branch");
+
+test(t => {
+  checkColor(
+    t,
+    `media(not (min-resolution: max(${devicePixelRatio + 1}dppx, ${devicePixelRatio + 2}dppx)))`,
+    "rgb(255, 0, 0)"
+  );
+}, "A negated media condition can contain a calculation");
+
+test(t => {
+  checkColor(t, "media((not (width < 0px)))", "rgb(255, 0, 0)");
+}, "Grouping a negated media condition preserves its result");
+
+test(t => {
+  checkColor(t, "media(width >= 0px)", "rgb(255, 0, 0)");
+}, "An unparenthesized media feature remains accepted");
+
+test(t => {
+  checkColor(t, "media(not (unknown-feature))", "rgb(0, 128, 0)");
+}, "Negating an unknown media feature does not make it true");
+
+test(t => {
+  checkColor(t, "not media(width < 0px)", "rgb(255, 0, 0)");
+}, "Negation outside a media test preserves the inline Boolean grammar");
+</script>

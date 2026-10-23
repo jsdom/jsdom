@@ -1,0 +1,86 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Font feature value maps iterate live entries</title>
+<link rel="help" href="https://webidl.spec.whatwg.org/#es-maplike">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function createMap() {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@font-feature-values Example {}");
+  const map = sheet.cssRules[0].styleset;
+  map.set("a", 1);
+  map.set("b", 2);
+  map.set("c", 3);
+  return map;
+}
+
+test(() => {
+  const map = createMap();
+  const iterator = map.entries();
+  assert_equals(iterator.next().value[0], "a");
+  map.delete("a");
+  map.set("b", [4]);
+  const next = iterator.next();
+  assert_equals(next.value[0], "b");
+  assert_array_equals(next.value[1], [4]);
+  assert_equals(iterator.next().value[0], "c");
+  assert_true(iterator.next().done);
+}, "Deleting a visited entry does not skip the next entry, and updates remain visible");
+
+test(() => {
+  const map = createMap();
+  const iterator = map.keys();
+  assert_equals(iterator.next().value, "a");
+  map.clear();
+  map.set("new", 4);
+  assert_equals(iterator.next().value, "new");
+  assert_true(iterator.next().done);
+  map.set("after-completion", 5);
+  assert_true(iterator.next().done);
+}, "Clearing preserves live iteration, while completed iterators stay completed");
+
+test(() => {
+  const map = createMap();
+  const receiver = {};
+  const visited = [];
+  map.forEach(function (value, key, owner) {
+    assert_equals(this, receiver);
+    assert_equals(owner, map);
+    assert_true(value instanceof Array);
+    visited.push(key);
+    value[0] = 99;
+    if (key === "a") {
+      assert_array_equals(map.get(key), [1]);
+      map.set("d", 4);
+    }
+    map.delete(key);
+  }, receiver);
+  assert_array_equals(visited, ["a", "b", "c", "d"]);
+  assert_equals(map.size, 0);
+}, "forEach visits live map entries once despite deletion and append operations");
+
+test(() => {
+  const iterator = createMap().entries();
+  assert_equals(iterator[Symbol.iterator](), iterator);
+  const result = iterator.next();
+  assert_true(result instanceof Object);
+  assert_true(result.value instanceof Array);
+  assert_true(result.value[1] instanceof Array);
+  assert_throws_js(TypeError, () => iterator.next.call({}));
+}, "Map iterator results use the current realm and next checks its receiver");
+
+test(() => {
+  const map = createMap();
+  map.set("undefined", 7);
+  assert_array_equals(map.get(), [7]);
+  assert_true(map.has());
+  assert_true(map.delete());
+  assert_equals(map.get(), undefined);
+  assert_equals(map.get.length, 1);
+  assert_equals(map.has.length, 1);
+  assert_equals(map.delete.length, 1);
+}, "Map lookup methods convert omitted keys to strings while retaining their method lengths");
+</script>

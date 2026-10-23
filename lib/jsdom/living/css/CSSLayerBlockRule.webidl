@@ -1,5 +1,6 @@
-// https://drafts.csswg.org/css-cascade-5/#the-csslayerblockrule-interface
+
+// https://drafts.csswg.org/css-cascade-5/#csslayerblockrule
 [Exposed=Window]
 interface CSSLayerBlockRule : CSSGroupingRule {
-  readonly attribute CSSOMString name;
+    readonly attribute CSSOMString name;
 };

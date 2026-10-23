@@ -100,134 +100,78 @@ preflight-failure.htm: [timeout, Node throws an error on code 304, done() is cal
 redirect-preflight-2.htm: [fail, Preflight should also be done before redirected requests but request module redirects cannot be paused while doing preflight]
 remote-origin.htm: [timeout, postMessage event does not contain source]
 request-headers.htm: [timeout, Unknown]
-response-headers.htm: [timeout, I don't find a spec about combining same value response headers; also https://github.com/jsdom/jsdom/issues/1833]
+response-headers.htm: [timeout, Response header processing needs investigation; https://github.com/jsdom/jsdom/issues/1833]
 simple-requests.htm: [timeout, Maybe https://github.com/jsdom/jsdom/issues/1833 but it fails locally too]
+
+---
+
+DIR: css/compositing/parsing
+
+---
+
+DIR: css/css-align/parsing
+
+align-content-computed.html: [fail, Align computed values are incomplete]
+align-content-invalid.html: [fail, Align parsing and serialization are incomplete]
+align-content-valid.html: [fail, Align parsing and serialization are incomplete]
+align-items-computed.html: [fail, Align computed values are incomplete]
+align-items-invalid.html: [fail, Align parsing and serialization are incomplete]
+align-items-valid.html: [fail, Align parsing and serialization are incomplete]
+align-self-computed.html: [fail, Align computed values are incomplete]
+align-self-invalid.html: [fail, Align parsing and serialization are incomplete]
+align-self-valid.html: [fail, Align parsing and serialization are incomplete]
+justify-content-computed.html: [fail, Align computed values are incomplete]
+justify-content-valid.html: [fail, Align parsing and serialization are incomplete]
+justify-items-computed.html: [fail, Align computed values are incomplete]
+justify-items-invalid.html: [fail, Align parsing and serialization are incomplete]
+justify-items-valid.html: [fail, Align parsing and serialization are incomplete]
+justify-self-computed.html: [fail, Align computed values are incomplete]
+justify-self-invalid.html: [fail, Align parsing and serialization are incomplete]
+justify-self-valid.html: [fail, Align parsing and serialization are incomplete]
+place-content-computed.html: [fail, Align computed values are incomplete]
+place-content-valid.html: [fail, Align parsing and serialization are incomplete]
+place-items-computed.html: [fail, Align computed values are incomplete]
+place-items-valid.html: [fail, Align parsing and serialization are incomplete]
+place-self-computed.html: [fail, Align computed values are incomplete]
+place-self-valid.html: [fail, Align parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-anchor-position
+
+'!(at-position-try-cssom.html|position-area-parsing.html|position-area-computed.html|parsing)': [fail-slow, Anchor positioning requires layout]
+'!(parsing)/**': [fail-slow, Anchor positioning requires layout]
+at-position-try-cssom.html: [fail, Anchor position parsing and serialization are incomplete]
+parsing/position-visibility-computed.html: [fail, Anchor position computed values are incomplete]
+parsing/position-visibility-parsing.html: [fail, Anchor position parsing and serialization are incomplete]
 
 ---
 
 DIR: css/css-animations
 
-# Keep animation-name and keyframes parsing, including the migrated regression.
+# Keep declaration and keyframes parsing; animation execution is excluded.
 '!(animation-name-case-sensitive.html|keyframes-rule-caching.html|parsing)': [fail-slow, Animation execution not implemented]
 '!(parsing)/**': [fail-slow, Animation execution not implemented]
-parsing/!(animation-name-*|keyframe*): [fail-slow, Animation execution not implemented]
-parsing/animation-name-computed.html:
-  Property animation-name value 'NONE': [fail, animation-name computed values are incomplete]
-  Property animation-name value '"something"': [fail, animation-name computed values are incomplete]
-  Property animation-name value '"---\22---"': [fail, animation-name computed values are incomplete]
-  Property animation-name value '"multi word string"': [fail, animation-name computed values are incomplete]
-parsing/animation-name-invalid.html:
-  e.style['animation-name'] = "\"\"" should not set the property value: [fail, animation-name parsing is incomplete]
-parsing/animation-name-valid.html:
-  e.style['animation-name'] = "NONE" should set the property value: [fail, animation-name serialization is incomplete]
-  e.style['animation-name'] = "\"something\"" should set the property value: [fail, animation-name serialization is incomplete]
-  e.style['animation-name'] = "\"---\\22---\"" should set the property value: [fail, animation-name serialization is incomplete]
-  e.style['animation-name'] = "\"multi word string\"" should set the property value: [fail, animation-name serialization is incomplete]
-parsing/keyframe-selectors.html:
-  '''-10%'' should not be a valid keyframe selector': [fail, CSS parsing and serialization are incomplete]
-  '''120%'' should not be a valid keyframe selector': [fail, CSS parsing and serialization are incomplete]
-parsing/keyframes-allowed-properties.html: [fail, CSS parsing and serialization are incomplete]
-parsing/keyframes-name-valid.html: [fail, CSS parsing and serialization are incomplete]
+parsing/animation-name-computed.html: [fail, Animations computed values are incomplete]
+parsing/animation-name-valid.html: [fail, Animations parsing and serialization are incomplete]
+parsing/animation-range-shorthand.html: [fail, Animations parsing and serialization are incomplete]
+parsing/animation-shorthand.html: [fail, Animations parsing and serialization are incomplete]
+parsing/keyframes-name-valid.html: [fail, Animations parsing and serialization are incomplete]
 
 ---
 
 DIR: css/css-backgrounds
 
 animations/!(border-bottom-width-composition|border-left-width-composition|border-right-width-composition|border-top-width-composition).html: [fail, Not implemented]
-background-332.html:
-  "Computed value for background-image after setting background shorthand": [fail, Need getComputedStyle fix]
-  "background_specified_size": [fail, Need getComputedStyle fix]
 background-image-cors-no-reload.html: [fail, Not implemented]
-background-size-001.html:
-  "background-size_length_zero": [fail, Unknown]
-  "background-size_length_negative_zero": [fail, Unknown]
-  "background-size_length_positive_zero": [fail, Unknown]
-  "background-size_length_normal": [fail, Unknown]
-  "background-size_percentage_min": [fail, Unknown]
-  "background-size_percentage_normal": [fail, Unknown]
-  "background-size_percentage_max": [fail, Unknown]
-  "background-size_length_auto": [fail, Unknown]
-  "background-size_percentage_auto": [fail, Unknown]
-border-image-slice-shorthand-reset.html: [fail, Not implemented]
-border-radius-css-text.html: [fail, Not implemented]
-border-radius-shorthand.html:
-  "longhand from shorthand": [fail, border-radius and its longhands are not implemented]
-inheritance.sub.html:
-  "Property border-bottom-left-radius has initial value 0px": [fail, Initial border-radius serializes as 0 instead of 0px]
-  "Property border-bottom-right-radius has initial value 0px": [fail, Initial border-radius serializes as 0 instead of 0px]
-  "Property border-top-left-radius has initial value 0px": [fail, Initial border-radius serializes as 0 instead of 0px]
-  "Property border-top-right-radius has initial value 0px": [fail, Initial border-radius serializes as 0 instead of 0px]
-parsing/background-clip-computed.html: [fail, Need to fix getComputedStyle]
-parsing/background-clip-valid.html:
-  "e.style['background-clip'] = \"border-area text\" should set the property value": [fail, Not implemented]
-  "e.style['background-clip'] = \"text border-area\" should set the property value": [fail, Not implemented]
-  "e.style['background-clip'] = \"border-area text, content-box\" should set the property value": [fail, Not implemented]
-parsing/background-computed.html: [fail, Need to fix getComputedStyle]
+inheritance.sub.html: [fail, Box-shadow initial color differs between shorthand and longhands; https://github.com/w3c/csswg-drafts/issues/14621]
 parsing/background-image-computed.sub.html: [fail, Need to fix getComputedStyle]
-parsing/background-image-valid.html:
-  "e.style['background-image'] = \"cross-fade(50% url(http://www.example.com), 50% url(http://www.example.com))\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"cross-fade(red 33%, white 33%, blue)\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"cross-fade(blue, linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(0, 212, 255) 100%))\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"cross-fade( 1% red, green)\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"cross-fade(1% red , green)\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"cross-fade(1% red, green )\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"cross-fade(red 1%, cross-fade(red 2%, green))\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"light-dark(image(blue), url(\\\"b.png\\\"))\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"light-dark(linear-gradient(red), url(\\\"b.png\\\"))\" should set the property value": [fail, Not implemented]
-  "e.style['background-image'] = \"light-dark(url(\\\"a.png\\\"), url(\\\"b.png\\\"))\" should set the property value": [fail, Not implemented]
-parsing/background-position-computed.html: [fail, Need to fix getComputedStyle]
-parsing/background-position-x-computed.html: [fail, Not implemented]
-parsing/background-position-x-valid.html:
-  "e.style['background-position-x'] = \"calc(10px - 0.5em)\" should set the property value": [fail, Unknown]
-  "e.style['background-position-x'] = \"calc(10px - 0.5em), left -20%, right 10px\" should set the property value": [fail, Unknown]
-parsing/background-position-y-computed.html: [fail, Need to fix getComputedStyle]
-parsing/background-position-y-valid.html:
-  "e.style['background-position-y'] = \"calc(10px - 0.5em)\" should set the property value": [fail, Unknown]
-  "e.style['background-position-y'] = \"calc(10px - 0.5em), top -20%, bottom 10px\" should set the property value": [fail, Unknown]
-parsing/background-shorthand-serialization.html:
-  "background-size with non-initial background-position": [fail, Need to fix background-size]
-  "border-area border-box": [fail, border-area not implemented]
-  "border-area padding-box": [fail, border-area not implemented]
-  "border-area text sets background-clip": [fail, border-area not implemented]
-  "text border-area serializes as border-area text": [fail, border-area not implemented]
-  "border-area text sets background-origin to border-box": [fail, border-area not implemented]
-parsing/background-size-computed.html: [fail, Need to fix getComputedStyle]
-parsing/background-size-valid.html:
-  "e.style['background-size'] = \"1px\" should set the property value": [fail, Unknown]
-  "e.style['background-size'] = \"1px auto\" should set the property value": [fail, Unknown]
-parsing/background-valid.html:
-  "e.style['background'] = \"border-area\" should set background-origin": [fail, border-area not implemented]
-  "e.style['background'] = \"border-area text\" should set background-clip": [fail, border-area not implemented]
-  "e.style['background'] = \"border-area text\" should set background-origin": [fail, border-area not implemented]
-  "e.style['background'] = \"none\" should set background-color": [fail, Need getComputedStyle fix]
-parsing/border-image-outset-computed.html: [fail, Need to fix getComputedStyle]
-parsing/border-image-repeat-valid.html:
-  "e.style['border-image-repeat'] = \"space space\" should set the property value": [fail, Not implemented]
-parsing/border-image-shorthand.sub.html: [fail, Not implemented]
-parsing/border-image-slice-computed.html: [fail, Need to fix getComputedStyle]
-parsing/border-image-slice-valid.html:
-  "e.style['border-image-slice'] = \"fill 1 2% 3 4%\" should set the property value": [fail, Not implemented]
+parsing/background-position-x-computed.html: [fail, Logical background-position computed values are disputed; https://github.com/w3c/csswg-drafts/issues/12564]
+parsing/background-position-y-computed.html: [fail, Logical background-position computed values are disputed; https://github.com/w3c/csswg-drafts/issues/12564]
+parsing/background-valid.html: [fail, Background blend reset and declared color expectations differ; https://github.com/w3c/csswg-drafts/issues/14536 and https://github.com/w3c/csswg-drafts/issues/10305]
 parsing/border-image-source-computed.sub.html: [fail, Not implemented]
-parsing/border-image-valid.html:
-  "e.style['border-image'] = \"url(\\\"http://www.example.com/\\\") fill 1 2% 3 4%\" should set the property value": [fail, Unknown]
-  "e.style['border-image'] = \"fill 1 2% 3 4% / auto\" should set the property value": [fail, Unknown]
-parsing/border-image-width-computed.html: [fail, Need to fix getComputedStyle]
-parsing/border-radius-computed.html: [fail, Not implemented]
-parsing/border-radius-valid.html:
-  "e.style['border-radius'] = \"1px 1px 1px 2% / 1px 2% 1px 2%\" should set the property value": [fail, Not implemented]
-  "e.style['border-radius'] = \"1px 1px 1px 1px / 1px 1px 2% 1px\" should set the property value": [fail, Not implemented]
-  "e.style['border-radius'] = \"1px 2% 2% 2% / 1px 2% 3px 2%\" should set the property value": [fail, Not implemented]
-parsing/border-shorthand.html:
-  "e.style['border'] = \"5px dotted blue\" should set border-image-outset": [fail, Not implemented]
-  "e.style['border'] = \"5px dotted blue\" should set border-image-repeat": [fail, Not implemented]
-  "e.style['border'] = \"5px dotted blue\" should set border-image-slice": [fail, Not implemented]
-  "e.style['border'] = \"5px dotted blue\" should set border-image-source": [fail, Not implemented]
-  "e.style['border'] = \"5px dotted blue\" should set border-image-width": [fail, Not implemented]
-  "e.style['border'] = \"5px dotted blue\" should not set unrelated longhands": [fail, Unknown]
-parsing/border-width-computed.html: [fail, Need to fix getComputedStyle]
 parsing/box-shadow-computed.html: [fail, Not implemented]
 parsing/box-shadow-valid.html: [fail, Not implemented]
-parsing/webkit-border-radius-valid.html: [fail, Not implemented]
 
 ---
 
@@ -239,24 +183,16 @@ border-shape/border-shape-ignore-radius-computed.html: [fail, Not implemented]
 border-shape/border-shape-overflow-clip-margin-hit-test-ref-boxes.html: [fail, Not implemented]
 border-shape/border-shape-overflow-clip-margin-hit-test.html: [fail, Not implemented]
 border-width-hairline.html:
-  "Computed hairline width is within bounds": [fail, Unknown]
-corner-shape/**/!(corner-shape-invalid.html|corners-invalid.html): [fail, Not implemented]
+  Computed hairline width is within bounds: [fail, Unknown]
+corner-shape/**/!(corner-shape-invalid.html|corner-shape-valid.html|corners-invalid.html): [fail, Not implemented]
 
 ---
 
 DIR: css/css-box
 
 animation/**: [fail, Not implemented]
-inheritance.html:
-  "Property margin-bottom has initial value 0px": [fail, Unknown]
-  "Property margin-left has initial value 0px": [fail, Unknown]
-  "Property margin-right has initial value 0px": [fail, Unknown]
-  "Property margin-top has initial value 0px": [fail, Unknown]
-  "Property padding-bottom has initial value 0px": [fail, Unknown]
-  "Property padding-left has initial value 0px": [fail, Unknown]
-  "Property padding-right has initial value 0px": [fail, Unknown]
-  "Property padding-top has initial value 0px": [fail, Unknown]
-margin-trim/**: [fail, Not implemented]
+# The excluded case only checks an untrimmed margin through logical property mapping.
+margin-trim/**/!(grid-inline-end-columns-added-to-end.html): [fail, Not implemented]
 parsing/margin-computed.html:
   "Property margin value '30%'": [fail, Need to fix getComputedStyle]
 parsing/margin-trim-computed.html: [fail, Not implemented]
@@ -267,121 +203,60 @@ parsing/padding-computed.html:
   "Property padding-right value '20%'": [fail, Need to fix getComputedStyle]
   "Property padding-top value 'calc(10% - 40px)'": [fail, Need to fix getComputedStyle]
   "Property padding-right value 'calc(10% + 40px)'": [fail, Need to fix getComputedStyle]
-  "Property padding-bottom value 'calc(10px - 0.5em)'": [fail, Need to fix getComputedStyle]
-parsing/width-invalid.html:
-  "e.style['width'] = \"calc(1 / 2px)\" should not set the property value": [fail, Unknown]
-  "e.style['width'] = \"calc(1 / max(2px, 2em))\" should not set the property value": [fail, Unknown]
+
+---
+
+DIR: css/css-break/parsing
 
 ---
 
 DIR: css/css-cascade
 
 all-prop-initial-xml.html: [fail-slow, Unknown]
-all-prop-revert-layer.html: [fail-slow, Unknown]
-at-scope-relative-syntax.html: [fail, Unknown]
+all-prop-revert-layer.html: [fail, Fixture values leave animation-delay-end and box-shadow-position at their initial values; https://github.com/web-platform-tests/wpt/pull/63874]
 idlharness.html: [fail, Unknown]
 import-conditions.html: [fail-slow, Unknown]
-layer-basic.html: [fail, Unknown]
-layer-cssom-order-reverse-at-property.html: [fail, Unknown]
 layer-cssom-order-reverse.html: [fail, Unknown]
 layer-font-face-override.html: [fail, Unknown]
-layer-import.html: [fail-slow, Unknown]
-layer-important.html: [fail, Unknown]
 layer-keyframes-override.html: [fail, Unknown]
 layer-media-query.html: [fail-slow, Unknown]
-layer-property-override.html: [fail, Unknown]
 layer-replaceSync-clears-stale.html: [fail, Unknown]
-layer-statement-before-import.html: [fail-slow, Unknown]
 layer-stylesheet-multi-adoption.html: [fail, Unknown]
-layer-vs-inline-style.html: [fail, Unknown]
-layers-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3785]
-presentational-hints-cascade.html: [fail, Unknown]
 presentational-hints-rollback.html: [fail, Unknown]
 revert-layer-008.html: [fail, Unknown]
-revert-rule-basic.html: [fail, Unknown]
-revert-rule-custom-property.html: [fail, Unknown]
-revert-rule-important.html: [fail, Unknown]
-revert-rule-layer.html: [fail, Unknown]
-revert-rule-revert-layer.html: [fail, Unknown]
-revert-rule-shadow.html: [fail, Unknown]
 revert-val-003.html: [fail, Unknown]
-revert-val-004.html: [fail, Unknown]
-revert-val-005.html: [fail, Unknown]
 revert-val-006.html: [fail, Unknown]
 revert-val-007.html: [fail, Unknown]
 revert-val-008.html: [fail, Unknown]
 revert-val-009.html: [fail, Unknown]
 revert-val-010.html: [fail, Unknown]
-revert-val-011.html: [fail, Unknown]
 scope-container.html: [fail, Unknown]
-scope-declarations.html: [fail, Unknown]
-scope-deep.html: [fail, Unknown]
-scope-evaluation.html: [fail, Unknown]
 scope-implicit-external.html: [fail, Unknown]
-scope-implicit-remove-sheet.html:
-  Implicit @scope rule initially matches: [fail, '@scope not implemented']
-scope-implicit.html: [fail, Unknown]
-scope-import-implicit.html: [fail, Unknown]
-scope-import-inner-scope.html: [fail, Unknown]
-scope-import-multiple.html: [fail, Unknown]
-scope-import-parent-pseudo.html: [fail, Unknown]
-scope-import-scope-end.html: [fail, Unknown]
-scope-import-scope-pseudo.html: [fail, Unknown]
-scope-import-scope-start.html: [fail, Unknown]
-scope-invalidation.html: [fail, Unknown]
-scope-layer.html: [fail, Unknown]
-scope-media.html: [fail, Unknown]
 scope-name-defining-rules.html: [fail, Unknown]
 scope-nesting.html: [fail, Unknown]
-scope-overlapping-has.html: [fail, Unknown]
-scope-proximity.html: [fail, Unknown]
 scope-shadow.html: [fail, Unknown]
-scope-specificity.html: [fail, Unknown]
 scope-starting-style.html: [fail, Unknown]
-scope-style-sharing-001.html: [fail, Unknown]
-scope-style-sharing-002.html: [fail, Unknown]
-scope-supports.html: [fail, Unknown]
-scope-visited-cssom.html: [fail, Unknown]
 
 ---
 
 DIR: css/css-color
 
 animation/**: [fail, Unknown]
-color-mix-missing-components.html: [fail, Unknown]
-contrast-color-currentcolor-inherited.html: [fail, Not implemented]
 light-dark-basic.html: [fail, Depends on matchMedia]
 light-dark-image.html: [fail, Not implemented]
 none-components-treated-as-zero.html: [needs-canvas, Tests canvas element]
-parsing/alpha-color-computed.html: [fail, Not implemented]
-parsing/alpha-color-parsing-valid.html: [fail, Not implemented]
-parsing/color-computed-color-function.html: [fail, Unknown]
-parsing/color-computed-color-mix-function.html: [fail, Unknown]
-parsing/color-computed-contrast-color-function.html: [fail, Not implemented]
-parsing/color-computed-hsl.html: [fail, Unknown]
-parsing/color-computed-hwb.html: [fail, Unknown]
-parsing/color-computed-lab.html: [fail, Unknown]
-parsing/color-computed-none.html: [fail, Missing color components are not preserved during color computation]
-parsing/color-computed-powerless.html: [fail, Powerless color components are not handled correctly]
-parsing/color-computed-relative-color.html: [fail, Unknown]
-parsing/color-computed-rgb.html: [fail, Unknown]
-parsing/color-mix-out-of-gamut.html: [fail, Unknown]
-parsing/color-valid-color-function.html: [fail, Unknown]
+parsing/alpha-color-parsing-valid.html: [fail, Declared origin serialization and alpha canonicalization differ from WPT; https://github.com/w3c/csswg-drafts/issues/12543]
+parsing/color-computed-powerless.html: [fail, Final lightness clamping; https://github.com/w3c/csswg-drafts/issues/14463; near-full-turn fixtures replaced by https://github.com/web-platform-tests/wpt/pull/63877]
+parsing/color-computed-relative-color.html: [fail, Stale missing-component expectations; https://github.com/w3c/csswg-drafts/issues/10254 and https://github.com/web-platform-tests/wpt/pull/62991]
+parsing/color-computed-rgb.html: [fail, Exact numeric precision assertions corrected in https://github.com/web-platform-tests/wpt/pull/62991]
 parsing/color-valid-color-layers-function.html: [fail, Unknown]
-parsing/color-valid-color-mix-function.html: [fail, Unknown]
-parsing/color-valid-contrast-color-function.html: [fail, Unknown]
-parsing/color-valid-hsl.html: [fail, Unknown]
-parsing/color-valid-hwb.html: [fail, Unknown]
-parsing/color-valid-lab.html: [fail, Unknown]
-parsing/color-valid-relative-color-opaque-alpha.html: [fail, Relative colors with currentcolor and an explicit alpha are rejected]
-parsing/color-valid-relative-color.html: [fail, Unknown]
-parsing/color-valid-rgb.html: [fail, Unknown]
-parsing/contrast-color-function-calc-container.html: [fail, Unknown]
-parsing/opacity-computed.html: [fail, Unknown]
-parsing/opacity-valid.html: [fail, Unknown]
-parsing/relative-color-out-of-gamut.html: [fail, Unknown]
-relative-color-with-system-color.html: [fail, Unknown]
-relative-currentcolor-visited-getcomputedstyle.html: [fail, Need to fix getComputedStyle]
+parsing/color-valid-color-mix-function.html: [fail, Nested origin colors retain authored components; https://github.com/w3c/csswg-drafts/issues/12543]
+parsing/color-valid-contrast-color-function.html: [fail, Nested origin colors retain authored components; https://github.com/w3c/csswg-drafts/issues/10328]
+parsing/color-valid-hsl.html: [fail, Stale missing-component expectations; https://github.com/w3c/csswg-drafts/issues/10254 and https://github.com/web-platform-tests/wpt/pull/62991]
+parsing/color-valid-hwb.html: [fail, Stale missing-component expectations; https://github.com/w3c/csswg-drafts/issues/10254 and https://github.com/web-platform-tests/wpt/pull/62991]
+parsing/color-valid-relative-color.html: [fail, Nested origin colors retain authored components; https://github.com/w3c/csswg-drafts/issues/12543]
+parsing/color-valid-rgb.html: [fail, Stale missing-component expectations; https://github.com/w3c/csswg-drafts/issues/10254 and https://github.com/web-platform-tests/wpt/pull/62991]
+relative-color-with-system-color.html: [fail, computedStyleMap is not implemented]
 system-color-compute.html:
   "Inherited system color keyword is observable on color": [fail, computedStyleMap not implemented]
   "Inherited system color keyword is observable on background-color": [fail, computedStyleMap not implemented]
@@ -396,67 +271,40 @@ system-color-compute.html:
   "Inherited system color keyword is observable on caret-color": [fail, computedStyleMap not implemented]
   "Inherited system color keyword is observable on fill": [fail, computedStyleMap not implemented]
   "Inherited system color keyword is observable on stroke": [fail, computedStyleMap not implemented]
-  "System color doesn't compute to itself on box-shadow": [fail, box-shadow not implemented]
-  "System color doesn't compute to itself on text-shadow": [fail, text-shadow not implemented]
-system-color-consistency.html: [fail, Unknown]
+
+---
+
+DIR: css/css-color-adjust/parsing
 
 ---
 
 DIR: css/css-conditional
 
 at-media-matches-002.html: [timeout, CSS conditional rules are incomplete]
-at-supports-at-rule-serialization.html:
-  '@supports at-rule 1': [fail, CSS parsing and serialization are incomplete]
-  '@supports at-rule 2': [fail, CSS parsing and serialization are incomplete]
-  '@supports at-rule 11': [fail, CSS parsing and serialization are incomplete]
 at-supports-named-feature-001.html:
   can detect whether anchor position follows transforms: [fail, CSS conditional rules are incomplete]
 container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
-container-queries/**/!(container-name-parsing.html|container-type-parsing.html): [fail-slow, Container queries not implemented]
-container-queries/container-name-parsing.html:
-  e.style['container-name'] = "none none" should not set the property value: [fail, container-name parsing is incomplete]
-  e.style['container-name'] = "not" should not set the property value: [fail, container-name parsing is incomplete]
-  e.style['container-name'] = "and" should not set the property value: [fail, container-name parsing is incomplete]
-  e.style['container-name'] = "or" should not set the property value: [fail, container-name parsing is incomplete]
-  e.style['container-name'] = "Not" should not set the property value: [fail, container-name parsing is incomplete]
-  e.style['container-name'] = "aNd" should not set the property value: [fail, container-name parsing is incomplete]
-  e.style['container-name'] = "oR" should not set the property value: [fail, container-name parsing is incomplete]
+container-queries/**/!(container-name-parsing.html|container-rule-cssom.html|container-type-parsing.html): [fail-slow, Container queries not implemented]
 idlharness.html: [fail, fetch not implemented]
-js/CSS-supports-CSSStyleDeclaration.html:
-  '-webkit-background-clip: _camel_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-background-clip: _webkit_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-background-clip: _dashed_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-background-origin: _camel_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-background-origin: _webkit_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-background-origin: _dashed_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-background-size: _camel_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-background-size: _webkit_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-background-size: _dashed_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex: _camel_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex: _webkit_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex: _dashed_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-basis: _camel_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-basis: _webkit_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-basis: _dashed_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-grow: _camel_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-grow: _webkit_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-grow: _dashed_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-shrink: _camel_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-shrink: _webkit_cased_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-  '-webkit-flex-shrink: _dashed_attribute v. CSS.supports': [fail, CSS conditional rules are incomplete]
-js/CSS-supports-L4.html:
-  selector() function accepts a selector: [fail, CSS conditional rules are incomplete]
-  selector() function accepts known pseudo-elements: [fail, CSS conditional rules are incomplete]
-  selector() with simple combinators: [fail, CSS conditional rules are incomplete]
-js/CSS-supports-L5.html:
-  font-format() function accepts a known format: [fail, CSS conditional rules are incomplete]
-  font-tech() function accepts a known technology: [fail, CSS conditional rules are incomplete]
-js/CSS-supports-details-content-pseudo-parsing.html: [fail, CSS parsing and serialization are incomplete]
-js/CSS-supports-selector-picker.html: [fail, CSS conditional rules are incomplete]
-js/conditional-CSSGroupingRule.html:
-  insertRule of invalid @media into @media: [fail, CSS conditional rules are incomplete]
-  insertRule of invalid @media into @supports: [fail, CSS conditional rules are incomplete]
-js/supports-at-rule.html: [fail, CSS conditional rules are incomplete]
+js/CSS-supports-details-content-pseudo-parsing.html: [fail, WPT applies matching restrictions during element-backed pseudo-element parsing; https://github.com/web-platform-tests/wpt/pull/63932]
+
+---
+
+DIR: css/css-contain/content-visibility/parsing
+
+---
+
+DIR: css/css-contain/parsing
+
+contain-computed.html: [fail, Contain computed values are incomplete]
+
+---
+
+DIR: css/css-content/parsing
+
+---
+
+DIR: css/css-counter-styles/counter-style-at-rule
 
 ---
 
@@ -464,20 +312,11 @@ DIR: css/css-display
 
 animations/display-interpolation-none.html: [fail, Not implemented]
 animations/display-interpolation.html: [fail, Not implemented]
-display-contents-blockify-dynamic.html: [fail, Unknown]
-display-contents-computed-style.html: [fail, Unknown]
-display-contents-focusable-001.html: [fail, Unknown]
 display-first-letter-001.html: [fail, Unknown]
 display-first-line-001.html: [fail, Unknown]
-display-initial.html:
-  "Revert value of display": [fail, Revert keyword is not supported]
-  "Revert-layer value of display": [fail, Revert-layer keyword is not supported]
 display-list-item-height-after-dom-change.html: [fail, Unknown]
-display-math-on-non-mathml-elements.html: [fail, Unknown]
-display-math-on-pseudo-elements-001.html: [fail, Unknown]
 empty-text-baseline-001.html: [fail, Unknown]
 empty-text-baseline-002.html: [fail, Unknown]
-parsing/display-computed.html: [fail, Unknown]
 textarea-display.html: [fail, Unknown]
 
 ---
@@ -485,123 +324,50 @@ textarea-display.html: [fail, Unknown]
 DIR: css/css-flexbox/parsing
 
 flex-basis-computed.html:
-  Property flex-basis value 'calc(10px - 0.5em)': [fail, flex-basis computed values are incomplete]
   Property flex-basis value 'calc(10% + 0px)': [fail, flex-basis computed values are incomplete]
-flex-computed.html: [fail, flex computed values are incomplete]
-flex-flow-shorthand.html: [fail, flex-flow parsing is incomplete]
-flex-flow-valid.html: [fail, flex-flow serialization is incomplete]
-flex-shorthand.html:
-  e.style['flex'] = "7% 8" should set flex-basis: [fail, The flex-basis component is not accepted before flex-grow]
-  e.style['flex'] = "7% 8" should set flex-grow: [fail, The flex-basis component is not accepted before flex-grow]
-  e.style['flex'] = "7% 8" should set flex-shrink: [fail, The flex-basis component is not accepted before flex-grow]
-  e.style['flex'] = "7% 8" should not set unrelated longhands: [fail, The flex-basis component is not accepted before flex-grow]
-  e.style['flex'] = "auto 1 2" should set flex-basis: [fail, The flex-basis component is not accepted before flex-grow]
-  e.style['flex'] = "auto 1 2" should set flex-grow: [fail, The flex-basis component is not accepted before flex-grow]
-  e.style['flex'] = "auto 1 2" should set flex-shrink: [fail, The flex-basis component is not accepted before flex-grow]
-  e.style['flex'] = "auto 1 2" should not set unrelated longhands: [fail, The flex-basis component is not accepted before flex-grow]
-flex-valid.html:
-  e.style['flex'] = "6px 4 5" should set the property value: [fail, flex parsing is incomplete]
-  e.style['flex'] = "6px 4" should set the property value: [fail, flex parsing is incomplete]
-  e.style['flex'] = "7% 8" should set the property value: [fail, flex parsing is incomplete]
-  e.style['flex'] = "calc(10 + (sign(20cqw - 10px) * 5)) calc(10 + (sign(20cqw - 10px) * 5)) 1px" should set the property value: [fail, flex parsing is incomplete]
-  e.style['flex'] = "1 1 calc(10px + (sign(20cqw - 10px) * 5px))" should set the property value: [fail, flex serialization is incomplete]
-webkit-aliases.html: [fail, CSS parsing and serialization are incomplete]
 
 ---
 
 DIR: css/css-fonts
 
 # Keep font property handling and the previously enabled parsing directory.
-'!(font-@(family|shorthand|size|style|weight|variant|palette)-*.html|getComputedStyle-fontFamily.html|inheritance.html|crash-font-face-invalid-descriptor.html|parsing|variations)': [fail-slow, Font loading and rendering not implemented]
+'!(font-@(family|shorthand|size|style|weight|variant|palette)-*.html|getComputedStyle-fontFamily.html|font-feature-values-map-live.html|inheritance.html|crash-font-face-invalid-descriptor.html|parsing|variations)': [fail-slow, Font loading and rendering not implemented]
 '!(parsing|variations)/**': [fail-slow, Font loading and rendering not implemented]
 font-family-src-quoted.html: [fail, Font value computation is incomplete]
-font-shorthand-serialization-font-stretch.html: [fail, CSS parsing and serialization are incomplete]
-font-shorthand-serialization-prevention.html: [fail, CSS parsing and serialization are incomplete]
+font-feature-values-map-live.html: [fail, CSSFontFeatureValuesMap not implemented]
 font-size-@(adjust-interpolation-math-functions|zero-ligatures).html: [fail-slow, Font loading and rendering not implemented]
-font-size-computed-keyword.html:
-  "font size large cascaded by revert": [fail, Revert keyword is not supported]
-  "font size large cascaded by revertLayer": [fail, Revert-layer keyword is not supported]
 font-size-computed.html:
-  "box3": [fail, Need percentage value resolver for width]
-  "div7": [fail, lh units ignore the explicit inherited line-height]
-  "div8": [fail, lh units ignore the explicit inherited line-height]
-font-size-relative-across-calc-ff-bug-001.html: [fail, Font value computation is incomplete]
-font-style-angle.html: [fail, Font value computation is incomplete]
-font-style-sign-function.html: [fail, Font value computation is incomplete]
-font-weight-sign-function.html: [fail, Font value computation is incomplete]
-inheritance.html:
-  Property font-stretch has initial value 100%: [fail, Font value computation is incomplete]
-parsing/font-computed.html: [fail, Unknown]
-parsing/font-face-metric-overrides.html: [fail, Unknown]
-parsing/font-face-size-adjust.html: [fail, Unknown]
-parsing/font-face-src-format.html: [fail, Unknown]
-parsing/font-face-src-list.html: [fail, Unknown]
-parsing/font-face-src-local.html: [fail, Unknown]
-parsing/font-face-src-tech.html: [fail, Unknown]
-parsing/font-face-width.html:
-  'font-width: auto is valid': [fail, The font-width descriptor is not implemented]
-  'font-width: normal is valid': [fail, The font-width descriptor is not implemented]
-  'font-width: condensed is valid': [fail, The font-width descriptor is not implemented]
-  'font-width: 125% is valid': [fail, The font-width descriptor is not implemented]
-  'font-width: 75% 125% is valid': [fail, The font-width descriptor is not implemented]
-  'font-stretch: auto is valid': [fail, The font-width descriptor is not implemented]
-  'font-stretch: 75% 125% is valid': [fail, The font-width descriptor is not implemented]
-  font-width and font-stretch address the same descriptor: [fail, The font-width descriptor is not implemented]
-parsing/font-family-computed.html: [fail, Unknown]
-parsing/font-family-invalid.html:
-  e.style['font-family'] = "FirstName, LastName, revert-rule" should not set the property value: [fail, CSS-wide keywords are accepted within font-family lists]
-parsing/font-family-valid.html: [fail, Unknown]
+  box3: [fail, Need percentage value resolver for width]
 parsing/font-feature-settings-computed.html: [fail, Unknown]
-parsing/font-feature-settings-invalid.html: [fail, Unknown]
-parsing/font-feature-settings-valid.html: [fail, Unknown]
 parsing/font-language-override-computed.html: [fail, Unknown]
 parsing/font-language-override-invalid.html: [fail, Unknown]
 parsing/font-language-override-valid.html: [fail, Unknown]
 parsing/font-palette-values-invalid.html: [fail, Unknown]
 parsing/font-palette-values-valid.html: [fail, Unknown]
 parsing/font-size-adjust-computed.html: [fail, Unknown]
-parsing/font-size-adjust-valid.html: [fail, Unknown]
 parsing/font-size-computed.html: [fail, Unknown]
-parsing/font-stretch-alias.html: [fail, Unknown]
-parsing/font-style-computed.html: [fail, Unknown]
-parsing/font-style-valid.html: [fail, Unknown]
 parsing/font-synthesis-computed.html: [fail, Unknown]
 parsing/font-synthesis-valid.html: [fail, Unknown]
-parsing/font-valid.html: [fail, Unknown]
-parsing/font-variant-east-asian-valid.html: [fail, Unknown]
-parsing/font-variant-serialization.html: [fail, Unknown]
-parsing/font-variant-valid.html: [fail, Unknown]
 parsing/font-variation-settings-computed.html: [fail, Unknown]
-parsing/font-variation-settings-invalid.html: [fail, Unknown]
-parsing/font-variation-settings-valid.html: [fail, Unknown]
-parsing/font-weight-computed.html:
-  "Property font-weight value 'calc(100)'": [fail, calc() is not fully resolved in computed values]
-  "Property font-weight value 'calc(0)'": [fail, calc() is not fully resolved in computed values]
-  "Property font-weight value 'calc(-100)'": [fail, calc() is not fully resolved in computed values]
-  "Property font-weight value 'calc(100 + 100)'": [fail, calc() is not fully resolved in computed values]
-  "Property font-weight value 'calc(100 + (sign(20cqw - 10px) * 5))'": [fail, calc() is not fully resolved in computed values]
-parsing/font-width-computed.html: [fail, Unknown]
 parsing/palette-mix-computed.html: [fail, palette-mix parsing and serialization are incomplete]
 parsing/palette-mix-valid.html: [fail, palette-mix parsing and serialization are incomplete]
 variations/!(font-style-parsing.html|font-weight-parsing.html|font-weight-lighter-bolder.html): [fail-slow, Font loading and rendering not implemented]
-variations/font-style-parsing.html:
-  'Font-style (supports): ''oblique'' followed by positive out of range angle is in invalid': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (supports): ''oblique'' followed by negative out of range angle is in invalid': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (computed): ''oblique'' followed by zero degrees is valid': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (computed): ''oblique'' followed by positive angle in radians is valid': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (computed): ''oblique'' followed by positive angle in gradians is valid': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (computed): ''oblique'' followed by positive angle in turns is valid': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (computed): ''oblique'' followed by calc is valid': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (computed): ''oblique'' followed by calc is valid even if it must be clamped (no computation)': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (computed): ''oblique'' followed by calc is valid even if it must be clamped (with computation)': [fail, CSS parsing and serialization are incomplete]
-  'Font-style (computed): ''oblique'' followed by calc is valid even if it mixes units (with computation)': [fail, CSS parsing and serialization are incomplete]
-variations/font-weight-parsing.html:
-  '@supports: Valid calc expression with units': [fail, CSS parsing and serialization are incomplete]
-  'Computed style: Simple calc value': [fail, CSS parsing and serialization are incomplete]
-  'Computed style: Negative simple calc value (to be clamped)': [fail, CSS parsing and serialization are incomplete]
-  'Computed style: Out-of-range simple calc value (to be clamped)': [fail, CSS parsing and serialization are incomplete]
-  'Computed style: Valid calc expression': [fail, CSS parsing and serialization are incomplete]
-  'Computed style: Valid calc expression with out-of-range value (to be clamped)': [fail, CSS parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-forced-color-adjust/parsing
+
+---
+
+DIR: css/css-forms/parsing
+
+picker-select-pseudo-element.html: [fail, Forms parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-gaps/parsing
+
+gap-decorations-rule-shorthand.html: [fail, Gaps parsing and serialization are incomplete]
 
 ---
 
@@ -609,68 +375,124 @@ DIR: css/css-grid
 
 '!(grid-template-columns-mixed-calc.html|parsing)': [fail-slow, Grid layout and general grid property processing not implemented]
 '!(parsing)/**': [fail-slow, Grid layout and general grid property processing not implemented]
-grid-template-columns-mixed-calc.html:
-  'grid-template-columns serializes "6.25rem calc((100% - 6.25rem) / 1)"': [fail, calc arithmetic is not simplified]
-  'grid-template-columns serializes "6.25rem 60% calc((40% - 6.25rem) / 2) calc((40% - 6.25rem) / 2)"': [fail, calc arithmetic is not simplified]
-parsing/!(grid-template-@(columns|rows)-@(valid|invalid).html): [fail-slow, Grid layout and general grid property processing not implemented]
-parsing/grid-template-columns-invalid.html:
-  e.style['grid-template-columns'] = "[auto] 1px" should not set the property value: [fail, grid-template-columns parsing is incomplete]
-parsing/grid-template-columns-valid.html:
-  e.style['grid-template-columns'] = "repeat(1, [] 10px [])" should set the property value: [fail, grid-template-columns serialization is incomplete]
-  e.style['grid-template-columns'] = "[] 150px [] 1fr []" should set the property value: [fail, grid-template-columns serialization is incomplete]
-parsing/grid-template-rows-invalid.html:
-  e.style['grid-template-rows'] = "[auto] 1px" should not set the property value: [fail, grid-template-rows parsing is incomplete]
-parsing/grid-template-rows-valid.html:
-  e.style['grid-template-rows'] = "repeat(1, [] 10px [])" should set the property value: [fail, grid-template-rows serialization is incomplete]
-  e.style['grid-template-rows'] = "[] 150px [] 1fr []" should set the property value: [fail, grid-template-rows serialization is incomplete]
+parsing/grid-columns-rows-get-set-multiple.html: [fail-slow, Requires the Font Loading API before running assertions]
+parsing/grid-content-sized-columns-resolution.html: [fail-slow, Requires the Font Loading API before running assertions]
+parsing/grid-template-columns-computed-implicit-track.html: [fail, Grid computed values are incomplete]
+parsing/grid-template-columns-computed-withcontent.html: [fail, Grid computed values are incomplete]
+parsing/grid-template-columns-computed.html: [fail, Grid computed values are incomplete]
+parsing/grid-template-repeat-auto-computed-withcontent-001.html: [fail, Grid computed values are incomplete]
+parsing/grid-template-repeat-auto-computed-withcontent-002.html: [fail, Grid computed values are incomplete]
+parsing/grid-template-rows-computed-implicit-track.html: [fail, Grid computed values are incomplete]
+parsing/grid-template-rows-computed-withcontent.html: [fail, Grid computed values are incomplete]
+parsing/grid-template-rows-computed.html: [fail, Grid computed values are incomplete]
 
 ---
 
 DIR: css/css-images
 
-# Keep gradient parsing and serialization.
+# Keep image and gradient declaration parsing and serialization.
 '!(gradient-specified-values.html|gradient|parsing)': [fail-slow, Image rendering not implemented]
 '!(gradient|parsing)/**': [fail-slow, Image rendering not implemented]
-gradient/color-stops-parsing.html: [fail, CSS parsing and serialization are incomplete]
-parsing/!(conic-gradient-*|gradient-*|image-function-*): [fail-slow, Image rendering not implemented]
-parsing/conic-gradient-calc-angle-percentage-valid.html: [fail, background-image parsing is incomplete]
-parsing/gradient-interpolation-method-computed.html: [fail, background-image computed values are incomplete]
-parsing/gradient-interpolation-method-valid.html: [fail, background-image serialization is incomplete]
-parsing/gradient-position-computed.html: [fail, background-image computed values are incomplete]
-parsing/gradient-position-valid.html: [fail, background-image serialization is incomplete]
-parsing/image-function-computed.html: [fail, background-image computed values are incomplete]
-parsing/image-function-valid.html: [fail, CSS parsing and serialization are incomplete]
+gradient/color-stops-parsing.html: [fail, Radial-gradient fixtures allow a leading percentage to parse as a radius instead of a color stop; https://github.com/web-platform-tests/wpt/pull/63930]
+parsing/image-function-invalid.html: [fail, Images 5 allows URL sources in image(); https://github.com/web-platform-tests/wpt/pull/63919]
+parsing/image-orientation-invalid.html: [fail, Images parsing and serialization are incomplete]
+parsing/image-resolution-valid.html: [fail, WPT accepts a negative resolution and expects noncanonical keyword order; https://github.com/web-platform-tests/wpt/pull/63885 and https://github.com/web-platform-tests/wpt/pull/63928]
+
+---
+
+DIR: css/css-inline/parsing
+
+line-height-computed.html: [fail, Inline computed values are incomplete]
+
+---
+
+DIR: css/css-inline/text-box-trim/parsing
+
+text-box-computed.html: [fail, Inline computed values are incomplete]
+text-box-edge-computed.html: [fail, Inline computed values are incomplete]
+text-box-edge-valid.html: [fail, Inline parsing and serialization are incomplete]
+text-box-shorthand.html: [fail, Inline parsing and serialization are incomplete]
+text-box-valid.html: [fail, Inline parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-lists/parsing
+
+list-style-image-computed.sub.html: [fail, Lists computed values are incomplete]
+list-style-type-invalid.html: [fail, Lists parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-logical/parsing
+
+block-size-computed.html: [fail, Resolved sizes and positions require layout]
+inline-size-computed.html: [fail, Resolved sizes and positions require layout]
+margin-block-inline-computed.html: [fail, Resolved sizes and positions require layout]
+min-block-size-computed.html: [fail, Resolved sizes and positions require layout]
+min-inline-size-computed.html: [fail, Resolved sizes and positions require layout]
+padding-block-inline-computed.html: [fail, Resolved sizes and positions require layout]
 
 ---
 
 DIR: css/css-masking
 
-# Keep clip property parsing and computed values.
+# Keep clipping and masking declaration parsing and computed values.
 '!(clip.html|parsing)': [fail-slow, Masking and clipping not implemented]
 '!(parsing)/**': [fail-slow, Masking and clipping not implemented]
-parsing/!(clip-@(computed|invalid|valid).html): [fail-slow, Masking and clipping not implemented]
-parsing/clip-computed.html:
-  Property clip value 'rect(10px, 20px, calc(-1em + 10px), 1em)': [fail, clip computed values are incomplete]
+parsing/clip-path-computed.html: [fail, Masking computed values are incomplete]
+parsing/clip-path-invalid.html: [fail, Tests reject single-radius ellipses; https://github.com/web-platform-tests/wpt/pull/63924]
+parsing/clip-path-shape-parsing.html: [fail, Equal absolute arc radii are shortened; https://github.com/w3c/csswg-drafts/issues/5642]
+parsing/mask-computed.html: [fail, Masking computed values are incomplete]
+parsing/mask-image-computed.html: [fail, Masking computed values are incomplete]
+parsing/mask-invalid.html: [fail, Masking parsing and serialization are incomplete]
+parsing/mask-valid.sub.html: [fail, Masking parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-mixins/functions
+
+'!(at-function-cssom.html)': [fail-slow, Custom function evaluation is not implemented]
+
+---
+
+DIR: css/css-multicol/parsing
+
+column-pseudo-computed.html: [fail, Generated pseudo-element matching and computed values are incomplete]
+column-pseudo-invalid.html: [fail, Generated pseudo-element matching and computed values are incomplete]
+column-pseudo-valid.html: [fail, Generated pseudo-element matching and computed values are incomplete]
+column-span-invalid.html: [fail, Current column-span grammar allows auto; https://github.com/web-platform-tests/wpt/pull/63918]
+column-width-invalid.html: [fail, Sizing extends the column-width grammar; proposed removal tracked in https://github.com/w3c/csswg-drafts/issues/14574]
 
 ---
 
 DIR: css/css-nesting
 
-block-skipping.html: [fail, Unknown]
-cssom.html: [fail, Unknown]
-implicit-nesting-ident.html: [fail, Unknown]
-invalidation-001.html: [fail, Unknown]
-invalidation-002.html: [fail, Unknown]
-invalidation-003.html: [fail, Unknown]
-invalidation-004.html: [fail, Unknown]
-mixed-declarations-rules.html: [fail, Unknown]
-nested-declarations-matching.html: [fail, Unknown]
-nested-error-recovery.html: [fail, Unknown]
-nested-media-in-layer.html: [fail, https://github.com/jsdom/jsdom/issues/3997]
-nested-rule-cssom-invalidation.html: [fail, Unknown]
-nesting-layer.html: [fail, Unknown]
-nesting-revert-rule.html: [fail, Unknown]
 set-selector-text.html: [fail, Unknown]
+
+---
+
+DIR: css/css-overflow/parsing
+
+getComputedStyle-scroll-button.html: [fail, Generated pseudo-element matching and computed values are incomplete]
+line-clamp-valid.html: [fail, Modern line-clamp auto forms are not yet supported]
+max-lines-valid.html: [fail, WPT canonical order differs from the max-lines grammar; https://github.com/web-platform-tests/wpt/pull/63925]
+overflow-clip-margin-computed.html: [fail, Overflow computed values are incomplete]
+overflow-clip-margin.html: [fail, Overflow parsing and serialization are incomplete]
+overflow-computed.html: [fail, Overflow computed values are incomplete]
+scroll-markers-computed.html: [fail, Overflow computed values are incomplete]
+webkit-box-computed.html: [fail, Overflow computed values are incomplete]
+
+---
+
+DIR: css/css-overscroll-behavior/parsing
+
+---
+
+DIR: css/css-page
+
+cssom/margin-001.html: [fail, Page-margin property restrictions differ from WPT; https://github.com/w3c/csswg-drafts/issues/5969]
+cssom/margin-002.html: [fail, Page-margin property restrictions differ from WPT; https://github.com/w3c/csswg-drafts/issues/5969]
+page-rule-declarations-004.html: [fail, Dashed page names are valid; https://github.com/web-platform-tests/wpt/pull/63887]
 
 ---
 
@@ -679,13 +501,57 @@ DIR: css/css-position
 # Keep inset property parsing and computed values.
 '!(box-insets-top-right-bottom-left.html|parsing)': [fail-slow, Positioning requires layout]
 '!(parsing)/**': [fail-slow, Positioning requires layout]
-parsing/!(inset-*|@(top|right|bottom|left)-*): [fail-slow, Positioning requires layout]
-parsing/inset-invalid.html: [fail, CSS parsing and serialization are incomplete]
-parsing/inset-valid.html:
-  e.style['inset-block'] = "auto auto" should set the property value: [fail, inset-block serialization is incomplete]
-  e.style['inset-block'] = "100px 100px" should set the property value: [fail, inset-block serialization is incomplete]
-  e.style['inset-inline'] = "auto auto" should set the property value: [fail, inset-inline serialization is incomplete]
-  e.style['inset-inline'] = "100px 100px" should set the property value: [fail, inset-inline serialization is incomplete]
+
+---
+
+DIR: css/css-properties-values-api
+
+'*typedom.html': [fail-slow, CSS Typed OM is not implemented]
+'@(animate-invalid|at-property-animation|font-size-animation).html': [fail-slow, Animation execution is not implemented]
+animation/**: [fail-slow, Animation execution is not implemented]
+at-property-cssom.html: [fail, Registration defaults and syntax changed; https://github.com/web-platform-tests/wpt/pull/64013]
+at-property-viewport-units*.html: [fail-slow, Viewport layout and iframe srcdoc are not implemented]
+at-property.html: [fail, Registration defaults and syntax changed; https://github.com/web-platform-tests/wpt/pull/64013]
+determine-registration.html: [fail, Properties values api parsing and serialization are incomplete]
+idlharness.html: [fail-slow, fetch is not implemented]
+register-property.html: [fail, Registration defaults and syntax changed; https://github.com/web-platform-tests/wpt/pull/64013]
+registered-property-revert.html: [fail, Properties values api parsing and serialization are incomplete]
+var-reference-registered-properties.html: [fail, Invalid registered values substitute their initial value; https://github.com/web-platform-tests/wpt/pull/63916]
+
+---
+
+DIR: css/css-pseudo/parsing
+
+highlight-pseudos.html: [fail, WPT rejects user-action pseudo-classes after pseudo-elements; https://github.com/web-platform-tests/wpt/pull/63933]
+marker-supported-properties-in-animation.html: [fail-slow, Animation execution is not implemented]
+marker-supported-properties.html: [fail, Initial list-style components are omitted; https://github.com/w3c/csswg-drafts/issues/5642]
+tree-abiding-pseudo-elements.html: [fail, WPT applies matching restrictions during element-backed pseudo-element parsing; https://github.com/web-platform-tests/wpt/pull/63932]
+
+---
+
+DIR: css/css-rhythm/parsing
+
+'block-step-@(valid|computed).html': [fail, The block-step shorthand is not supported]
+
+---
+
+DIR: css/css-ruby/parsing
+
+ruby-overhang-valid.html: [fail, Ruby parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-scroll-anchoring/parsing
+
+---
+
+DIR: css/css-scroll-snap/parsing
+
+scroll-snap-stop-before.html: [fail, Scroll snap parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-scroll-snap/scroll-initial-target/parsing
 
 ---
 
@@ -702,10 +568,6 @@ font-face-008.html: [fail, Not implemented]
 font-face-009.html: [fail, Not implemented]
 has-slotted-manual-assignment.html: [fail, Unknown]
 has-slotted-query-selector.html: [fail, Unknown]
-host-context-parsing.html: [fail, Unknown]
-host-descendant-invalidation.html: [fail, Unknown]
-host-functional-descendant-invalidation.html: [fail, Unknown]
-host-parsing.html: [fail, Unknown]
 idlharness.html: [fail, Depends on fetch]
 keyframes-001.html: [fail, Unknown]
 keyframes-002.html: [fail, Unknown]
@@ -713,67 +575,48 @@ keyframes-003.html: [fail, Unknown]
 keyframes-004.html: [fail, Unknown]
 keyframes-005.html: [fail, Unknown]
 keyframes-006.html: [fail, Unknown]
-part/**/!(chaining-invalid-selector.html|complex-non-matching.html|different-host.html|host-stylesheet.html|simple-important-important.html|simple-important-inline.html|simple-important.html): [fail, Unknown]
+part/host-part-003.html: [fail, Part generated content or rendering is incomplete]
+part/pseudo-classes-after-part.html: [fail, WPT applies matching restrictions during element-backed pseudo-element parsing; https://github.com/web-platform-tests/wpt/pull/63932]
+part/pseudo-elements-after-part.html: [fail, Font loading is not implemented]
 shadow-cascade-order-001.html: [fail, Unknown]
-shadow-host-removal-invalidation.html: [fail, Unknown]
 shadow-host-style-sharing.html: [fail, Unknown]
-shadow-reassign-dynamic-003.html: [fail, Unknown]
-shadow-shared-style-cache-001.html: [fail, Unknown]
-slot-non-html-display-value.html: [fail, Our getComputedStyle implementation doesn't care about @namespace-rules (see https://github.com/jsdom/cssstyle/issues/193 and default-stylesheet.css)]
-slotted-invalidation.html: [fail, Unknown]
-slotted-link.html: [fail, Unknown]
-slotted-nested.html: [fail, Unknown]
-slotted-parsing.html: [fail, Unknown]
+slotted-parsing.html: [fail, WPT rejects user-action pseudo-classes after slotted; https://github.com/web-platform-tests/wpt/pull/63933]
 slotted-slot.html: [fail, Unknown]
 slotted-user-agent-part-invalidation.html: [fail, Unknown]
 stylesheet-title-002.html: [fail, Unknown]
 
 ---
 
+DIR: css/css-shapes/parsing
+
+shape-image-threshold-computed.html: [fail, Computed shape-image-threshold is not clamped]
+shape-outside-computed.html: [fail, Rectangle computation is incomplete; relative path command serialization also differs; https://github.com/w3c/csswg-drafts/issues/14622]
+shape-outside-valid-position.html: [fail, Shapes parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-size-adjust/parsing
+
+text-size-adjust-computed.html: [fail, Used values require rendering information]
+
+---
+
 DIR: css/css-sizing
 
-# Keep size and aspect-ratio property parsing and computed values.
-'!(aspect-ratio.html|aspect-ratio|parsing)': [fail-slow, Sizing requires layout]
-'!(aspect-ratio|parsing)/**': [fail-slow, Sizing requires layout]
-aspect-ratio.html:
-  "auto number": [fail, aspect-ratio is not fully implemented]
+# Keep size and aspect-ratio declarations, including intrinsic-size and responsive-iframe parsing.
+'!(aspect-ratio.html|aspect-ratio|contain-intrinsic-size|responsive-iframe|parsing)': [fail-slow, Sizing requires layout]
+'!(aspect-ratio|contain-intrinsic-size|responsive-iframe|parsing)/**': [fail-slow, Sizing requires layout]
+'@(contain-intrinsic-size|responsive-iframe)/!(parsing)': [fail-slow, Sizing requires layout]
+'@(contain-intrinsic-size|responsive-iframe)/!(parsing)/**': [fail-slow, Sizing and animation require layout]
 aspect-ratio/!(parsing): [fail-slow, Sizing requires layout]
-aspect-ratio/parsing/aspect-ratio-computed.html:
-  Property aspect-ratio value '16/9': [fail, aspect-ratio computed values are incomplete]
-  Property aspect-ratio value 'auto 1': [fail, aspect-ratio computed values are incomplete]
-  Property aspect-ratio value '0 auto': [fail, aspect-ratio computed values are incomplete]
-aspect-ratio/parsing/aspect-ratio-valid.html: [fail, aspect-ratio serialization is incomplete]
-parsing/height-valid.html:
-  e.style['height'] = "fit-content(10%)" should set the property value: [fail, height parsing is incomplete]
-  e.style['height'] = "fit-content(0.5em)" should set the property value: [fail, height parsing is incomplete]
-  e.style['height'] = "fit-content(calc(10% - 0.5em))" should set the property value: [fail, height parsing is incomplete]
-parsing/max-height-computed.html:
-  Property max-height value 'calc(10px - 0.5em)': [fail, max-height computed values are incomplete]
-  Property max-height value 'fit-content(calc(10px + 0.5em))': [fail, max-height computed values are incomplete]
-parsing/max-width-computed.html:
-  Property max-width value 'calc(10px - 0.5em)': [fail, max-width computed values are incomplete]
-  Property max-width value 'fit-content(calc(10px + 0.5em))': [fail, max-width computed values are incomplete]
-parsing/min-height-computed.html:
-  Property min-height value 'calc(10px - 0.5em)': [fail, min-height computed values are incomplete]
-  Property min-height value 'fit-content(calc(10px + 0.5em))': [fail, min-height computed values are incomplete]
-parsing/min-width-computed.html:
-  Property min-width value 'calc(10px - 0.5em)': [fail, min-width computed values are incomplete]
-  Property min-width value 'fit-content(calc(10px + 0.5em))': [fail, min-width computed values are incomplete]
 parsing/size-shorthand.html: [fail, size parsing is incomplete]
 parsing/size-valid.html:
   e.style['size'] = "100px 100px" should set the property value: [fail, size serialization is incomplete]
-parsing/width-valid.html:
-  e.style['width'] = "fit-content(10%)" should set the property value: [fail, width parsing is incomplete]
-  e.style['width'] = "fit-content(0.5em)" should set the property value: [fail, width parsing is incomplete]
-  e.style['width'] = "fit-content(calc(10% - 0.5em))" should set the property value: [fail, width parsing is incomplete]
 
 ---
 
 DIR: css/css-syntax
 
-anb-parsing.html: [fail, Unknown]
-anb-serialization.html: [fail, Unknown]
-at-rule-in-declaration-list.html: [fail, Unknown]
 charset/page-windows-1251-charset-attribute-bogus.html: [fail, Unknown]
 charset/page-windows-1251-charset-attribute-empty.html: [fail, Empty stylesheet charset does not fall back to the document encoding]
 charset/page-windows-1251-css-at-charset-1250-charset-attribute-windows-1253.html: [fail, Unknown]
@@ -782,99 +625,209 @@ charset/page-windows-1251-css-at-charset-utf16be.html: [fail, Unknown]
 charset/page-windows-1251-css-http-bogus-at-charset-windows-1250.html: [fail, Unknown]
 charset/page-windows-1251-css-http-windows-1250-at-charset-windows-1253.html: [fail, Unknown]
 charset/xml-stylesheet-page-windows-1251-charset-attribute-windows-1250.xhtml: [fail, Unknown]
-custom-property-rule-ambiguity.html: [fail, Unknown]
-escaped-eof.html: [fail, Unknown]
-input-preprocessing.html: [fail, Unknown]
-invalid-nested-rules.html: [fail, Unknown]
 non-ascii-codepoints.html: [fail, Unknown]
-serialize-consecutive-tokens.html: [fail, Unknown]
+serialize-consecutive-tokens.html: [fail, WPT replaces an authored comment with an empty token separator; https://github.com/web-platform-tests/wpt/pull/63931]
 urange-parsing.html: [fail, Unknown]
-var-with-blocks.html: [fail, Unknown]
+
+---
+
+DIR: css/css-tables/parsing
+
+---
+
+DIR: css/css-text-decor/parsing
+
+text-decoration-inset-computed.html: [fail-slow, Font loading is not implemented]
+text-emphasis-computed.html: [fail, Text decor computed values are incomplete]
+text-emphasis-style-computed-vertical-lr.html: [fail, Text decor computed values are incomplete]
+text-emphasis-style-computed.html: [fail, Text decor computed values are incomplete]
+
+---
+
+DIR: css/css-text-decor/text-shadow/parsing
+
+text-shadow-computed.html: [fail, Text decor computed values are incomplete]
+text-shadow-invalid.html: [fail, Text decor parsing and serialization are incomplete]
+
+---
+
+DIR: css/css-text/parsing
+
+hanging-punctuation-valid.html: [fail, Keyword order and equivalent keyword serialization differ; https://github.com/w3c/csswg-drafts/issues/5642]
+hyphenate-limit-chars-computed.html: [fail, Text computed values are incomplete]
+hyphenate-limit-chars-valid.html: [fail, Text parsing and serialization are incomplete]
+letter-spacing-computed.html: [fail, Text computed values are incomplete]
+text-align-computed.html: [fail, Text computed values are incomplete]
+text-fit-computed.html: [fail, Text computed values are incomplete]
+text-spacing-computed.html: [fail, Text computed values are incomplete]
+text-spacing-valid.html: [fail, Text parsing and serialization are incomplete]
+word-space-transform-valid.html: [fail, Keywords serialize in grammar order instead of authored order; https://github.com/w3c/csswg-drafts/issues/5642]
+word-spacing-computed.html: [fail, Text computed values are incomplete]
+
+---
+
+DIR: css/css-transforms/parsing
+
+perspective-origin-computed.html: [fail, Resolved sizes and positions require layout]
+rotate-parsing-computed.html: [fail, Transforms computed values are incomplete]
+rotate-parsing-valid.html: [fail, Transforms parsing and serialization are incomplete]
+transform-computed.html: [fail, Transforms computed values are incomplete]
+transform-origin-computed.html: [fail, Resolved sizes and positions require layout]
+transform-origin-valid.html: [fail, Transforms parsing and serialization are incomplete]
+transform-valid.html: [fail, Transform functions serialize with their canonical camel casing; https://github.com/web-platform-tests/wpt/pull/63883]
 
 ---
 
 DIR: css/css-transitions
 
-"**/!(transitionevent-interface.html)": [fail-slow, Not implemented]
+'!(parsing)/**': [fail-slow, Transition execution is not implemented]
+'!(parsing|transitionevent-interface.html)': [fail-slow, Transition execution is not implemented]
+parsing/transition-invalid.html: [fail, Transitions parsing and serialization are incomplete]
+parsing/transition-property-invalid.html: [fail, Transitions parsing and serialization are incomplete]
+parsing/transition-timing-function-computed.html: [fail, Transitions computed values are incomplete]
 transitionevent-interface.html:
-  "TransitionEventInit animation property sets value": [fail, Not implemented]
+  TransitionEventInit animation property sets value: [fail, Not implemented]
+
+---
+
+DIR: css/css-ui
+
+'!(appearance-cssom-001.html*|parsing)': [fail-slow, User interface rendering and interactions are not implemented]
+'!(parsing)/**': [fail-slow, User interface rendering and interactions are not implemented]
+parsing/canonical-order-outline-sub-properties-001.html: [fail, Obsolete invert and default-omission assumptions; https://github.com/web-platform-tests/wpt/pull/63926]
+parsing/caret-color-computed.html: [fail, Current caret-color grammar excludes auto followed by another component; https://github.com/web-platform-tests/wpt/pull/63923]
+parsing/caret-color-valid.html: [fail, Current caret-color grammar excludes auto followed by another component; https://github.com/web-platform-tests/wpt/pull/63923]
+parsing/cursor-computed.html: [fail, Ui computed values are incomplete]
+parsing/cursor-valid.html: [fail, Ui parsing and serialization are incomplete]
+parsing/interactivity-computed.html: [fail, Ui computed values are incomplete]
+parsing/outline-color-computed.html: [fail, Earlier subtests leave inline outline-color red on the shared target; https://github.com/web-platform-tests/wpt/pull/63875]
+parsing/outline-offset-computed.html: [fail, Ui computed values are incomplete]
+parsing/outline-offset-valid.html: [fail, Ui parsing and serialization are incomplete]
+parsing/outline-valid.html: [fail, Outline canonical order changed; https://github.com/web-platform-tests/wpt/pull/63890]
 
 ---
 
 DIR: css/css-values
 
-# Keep calc(), min()/max()/clamp(), and basic unit handling.
-'!(calc-*.html|clamp-*.html|minmax-length-*.html|font-relative-length.html|absolute-length-units-001.html|percentage-without-context.html|rgba-011.html)': [fail-slow, Other CSS value processing is incomplete]
-'*/**': [fail-slow, Other CSS value processing is incomplete]
-calc-angle-values.html: [fail, CSS value parsing and computation are incomplete]
-calc-catch-divide-by-0.html: [fail, CSS value parsing and computation are incomplete]
-calc-complex-unresolved-serialize.html: [fail, CSS value parsing and computation are incomplete]
-calc-dimension-serialization-order.html:
-  all dimensions reverse-sorted serialize back in canonical order: [fail, CSS parsing and serialization are incomplete]
-  dvb sorts after cqw: [fail, CSS parsing and serialization are incomplete]
-calc-in-font-feature-settings.html: [fail, CSS value parsing and computation are incomplete]
-calc-in-media-queries-with-mixed-units.html: [timeout, CSS value parsing and computation are incomplete]
-calc-infinity-nan-**: [fail, CSS value parsing and computation are incomplete]
-calc-integer.html: [fail, CSS value parsing and computation are incomplete]
-calc-invalid-parsing.html: [fail, CSS parsing and serialization are incomplete]
-calc-letter-spacing.html:
-  'testing letter-spacing: calc(1 + 1px)': [fail, CSS value parsing and computation are incomplete]
-  'testing letter-spacing: calc(1 + 100%)': [fail, CSS value parsing and computation are incomplete]
-calc-linear-radial-conic-gradient-001.html: [fail, CSS value parsing and computation are incomplete]
-calc-nesting-002.html: [fail, CSS value parsing and computation are incomplete]
-calc-nesting.html:
-  e.style['border'] = "calc(calc(10px)) solid pink" should set the property value: [fail, CSS value parsing and computation are incomplete]
-  Nested calcs should work with layout: [fail, CSS value parsing and computation are incomplete]
-calc-numbers.html: [fail, CSS value parsing and computation are incomplete]
-calc-serialization-002.html: [fail, CSS parsing and serialization are incomplete]
-calc-serialization.html: [fail, CSS parsing and serialization are incomplete]
-calc-time-values.html: [fail, CSS value parsing and computation are incomplete]
-calc-unit-analysis.html: [fail, CSS value parsing and computation are incomplete]
-calc-z-index-fractions-001.html: [fail, CSS value parsing and computation are incomplete]
-clamp-color-computed.html:
-  Property color value 'rgb(from red clamp(3, r, none) g b)': [fail, CSS value parsing and computation are incomplete]
-  Property color value 'rgb(from red clamp(r, 30, none) g b)': [fail, CSS value parsing and computation are incomplete]
-  Property color value 'rgb(from red clamp(none, r, 300) g b)': [fail, CSS value parsing and computation are incomplete]
-  Property color value 'rgb(from red clamp(none, r, r + 30) g b)': [fail, CSS value parsing and computation are incomplete]
-clamp-integer-computed.html: [fail, CSS value parsing and computation are incomplete]
-clamp-integer-invalid.html: [fail, CSS value parsing and computation are incomplete]
-clamp-length-computed.html:
-  Property letter-spacing value 'clamp(1000px, 1em / 1rem * 1px, none)': [fail, CSS value parsing and computation are incomplete]
-  Property letter-spacing value 'clamp(1600px / 1em * 1px, 1em / 1rem * 1px, none)': [fail, CSS value parsing and computation are incomplete]
-clamp-length-invalid.html: [fail, CSS value parsing and computation are incomplete]
-clamp-length-serialize.html:
-  e.style['margin-top'] = "calc(clamp(1px, 1em, 1vh))" should set the property value: [fail, CSS value parsing and computation are incomplete]
-  e.style['margin-top'] = "calc(clamp(-18px, 3vw, -3vw))" should set the property value: [fail, CSS value parsing and computation are incomplete]
-  e.style['margin-top'] = "calc(calc(0px + clamp(1px, 1em, 1vh)))" should set the property value: [fail, CSS value parsing and computation are incomplete]
-  e.style['margin-top'] = "calc(calc(0px - clamp(1px, 1em, 1vh)))" should set the property value: [fail, CSS value parsing and computation are incomplete]
-minmax-length-invalid.html: [fail, CSS value parsing and computation are incomplete]
-minmax-length-percent-**: [fail, CSS value parsing and computation are incomplete]
-minmax-length-serialize.html:
-  '''calc(2 * (.2 * min(1em, 1px)) + 1px)'' as a specified value should serialize as ''calc(1px + (0.4 * min(1em, 1px)))''.': [fail, CSS value parsing and computation are incomplete]
+# Keep math, substitution, and unit computation; layout and animation execution are excluded.
+'*@(animation|transition|keyframe|interpolation)*.html': [fail-slow, Animation execution is not implemented]
+'@(cap|rcap|rch|rex|ric|rlh)-invalidation.html': [fail-slow, Font loading is not implemented]
+animations/**: [fail-slow, Animation execution is not implemented]
+attr-all-types.html: [fail, WPT rejects malformed attr() first arguments instead of using their fallbacks; https://github.com/web-platform-tests/wpt/pull/63975]
+attr-container-style-query.html: [fail, Values parsing and serialization are incomplete]
+attr-cycle.html: [fail, Values parsing and serialization are incomplete; raw-string cycle disagreement at https://github.com/w3c/csswg-drafts/issues/14643]
+attr-pseudo-elem-invalidation-2.html: [fail, Eight pseudo invalidation cases pass; missing showModal prevents the backdrop case]
+attr-pseudo-element-originating.html: [fail, Values parsing and serialization are incomplete]
+attr-security-if.html: [fail, Default image-set resolution serialization differs; https://github.com/w3c/csswg-drafts/issues/14633]
+attr-security.html: [fail, Default image-set resolution serialization differs; https://github.com/w3c/csswg-drafts/issues/14633; src() controls expect nested url(); https://github.com/web-platform-tests/wpt/pull/63929]
+calc-angle-values.html: [fail, Values parsing and serialization are incomplete]
+calc-complex-unresolved-serialize.html: [fail, Function roots serialize without an outer calc(); https://github.com/web-platform-tests/wpt/pull/63889]
+calc-dimension-serialization-order.html: [fail, Values parsing and serialization are incomplete]
+calc-in-media-queries-with-mixed-units.html: [fail, Values parsing and serialization are incomplete]
+calc-infinity-nan-computed.html: [fail, Values computed values are incomplete]
+calc-infinity-nan-serialize-length.html: [fail, Values parsing and serialization are incomplete]
+calc-nesting-002.html: [fail, Values parsing and serialization are incomplete]
+calc-nesting.html: [fail, Values parsing and serialization are incomplete]
+calc-size/!(calc-size-parsing.html|interpolate-size-computed.html|interpolate-size-parsing.html): [fail-slow, Intrinsic sizing requires layout]
+calc-size/animation/**: [fail-slow, Animation execution is not implemented]
+ch-*-font-load.html: [fail-slow, Font loading is not implemented]
+dynamic-viewport-units-rule-cache.html: [fail-slow, Iframe srcdoc and viewport layout are not implemented]
+exp-log-serialize.html: [fail, Values parsing and serialization are incomplete]
+getComputedStyle-calc-mixed-units-001.html: [fail, Values parsing and serialization are incomplete]
+getComputedStyle-calc-mixed-units-002.html: [fail, Values parsing and serialization are incomplete]
+getComputedStyle-calc-mixed-units-003.html: [fail, Values parsing and serialization are incomplete]
+hypot-pow-sqrt-computed.html: [fail, Values computed values are incomplete]
+hypot-pow-sqrt-serialize.html: [fail, Values parsing and serialization are incomplete]
+if-conditionals.html: [fail, Successful empty values serialize as a space; https://github.com/web-platform-tests/wpt/pull/63988; trailing whitespace differs; https://github.com/w3c/csswg-drafts/issues/14370#issuecomment-6331807193]
+if-media-invalidation.html: [fail-slow, Requires iframe srcdoc and viewport layout]
+if-supports-quirks.html: [fail, Values parsing and serialization are incomplete]
+inherit-function-basic.html: [fail, Values parsing and serialization are incomplete]
+inherit-function-invalidation.html: [fail, Values parsing and serialization are incomplete]
+lh-rlh-on-root-001.html: [fail, Values parsing and serialization are incomplete]
+lh-rlh-percentage-line-height-with-zoom.html: [fail, Values parsing and serialization are incomplete]
+lh-unit-003.html: [fail-slow, Font loading and layout are not implemented]
+line-break-ch-unit.html: [fail-slow, Text layout is not implemented]
+minmax-length-percent-computed.html: [fail, Values computed values are incomplete]
+minmax-length-percent-serialize.html: [fail, Values parsing and serialization are incomplete]
+minmax-number-serialize.html: [fail, Values parsing and serialization are incomplete]
+minmax-percentage-computed.html: [fail, Values computed values are incomplete]
+minmax-percentage-serialize.html: [fail, Values parsing and serialization are incomplete]
+progress-computed.html: [fail, Values computed values are incomplete]
+progress-serialize.html: [fail, Values parsing and serialization are incomplete]
+random-item-computed.html: [fail, Values computed values are incomplete]
+random-item-nested.html: [fail, Values parsing and serialization are incomplete]
+random-item-unresolvable-argument.html: [fail, Values parsing and serialization are incomplete]
+round-mod-rem-computed.html: [fail, Values computed values are incomplete]
+round-mod-rem-serialize.html: [fail, Values parsing and serialization are incomplete]
+signed-zero.html: [fail, Values parsing and serialization are incomplete]
+signs-abs-computed.html: [fail, Values computed values are incomplete]
+tree-counting/*keyframe*.html: [fail-slow, Animation execution is not implemented]
+tree-counting/sibling-function-container-query-invalidation.html: [fail, Values parsing and serialization are incomplete]
+tree-counting/sibling-function-container-query.html: [fail, Values parsing and serialization are incomplete]
+tree-counting/sibling-function-invalidation.html: [fail, Values parsing and serialization are incomplete]
+tree-counting/tree-scoped-sibling-function.html: [fail-slow, Declarative shadow roots are not implemented]
+tree-counting/trig-functions-with-runtime-angle-arguments.html: [fail, Values parsing and serialization are incomplete]
+typed_arithmetic.html: [fail, Values parsing and serialization are incomplete]
+urls/**/url-font-*.html: [fail-slow, Font loading is not implemented]
+urls/referrer-policy/no-referrer/url-import-referrer-policy.html: [fail, Values parsing and serialization are incomplete]
+urls/url-request-modifiers-computed.sub.html: [fail, Values computed values are incomplete]
+urls/url-request-modifiers-font-face-parsing.html: [fail, URL modifier validation changed; https://github.com/w3c/csswg-drafts/issues/1603 and https://github.com/web-platform-tests/wpt/pull/59632]
+urls/url-request-modifiers-import-parsing.sub.html: [fail, URL modifier validation changed; https://github.com/w3c/csswg-drafts/issues/1603 and https://github.com/web-platform-tests/wpt/pull/59632]
+urls/url-request-modifiers-invalid.sub.html: [fail, URL modifier validation changed; https://github.com/w3c/csswg-drafts/issues/1603 and https://github.com/web-platform-tests/wpt/pull/59632]
+urls/url-request-modifiers-serialize.sub.html: [fail, Values parsing and serialization are incomplete]
+using-font-relative-units-in-font-properties.html: [fail, Values parsing and serialization are incomplete]
+viewport-units-!(media-queries|modify|parsing).html: [fail-slow, Viewport geometry and font loading are not implemented]
 
 ---
 
 DIR: css/css-variables
 
-# Keep custom property inheritance, declaration storage, and serialization.
-'!(custom-properties-inherit.html|url-token-serialization.html|variable-*|vars-border-shorthand-serialize.html)': [fail-slow, Custom property substitution not implemented]
-variable-!(cssText.html|definition*.html|reference@(|-cssom|-shorthands|-shorthands-cssom|-variable).html): [fail-slow, Custom property substitution not implemented]
-variable-definition-keywords.html:
-  computed style revert: [fail, Custom property substitution and invalidation are incomplete]
-variable-definition.html: [fail, Custom property substitution and invalidation are incomplete]
-variable-reference.html:
-  'width: var();': [fail, Custom property substitution and invalidation are incomplete]
+# Keep custom property storage, substitution, inheritance, and serialization.
+'*animation*.html': [fail-slow, Animation execution is not implemented]
+'*transition*.html': [fail-slow, Transition execution is not implemented]
+variable-css-wide-keywords.html: [fail, Variables parsing and serialization are incomplete]
+variable-cycles.html: [fail, Variables parsing and serialization are incomplete]
+variable-definition.html: [fail, Tests reject valid decoded custom property name strings; https://github.com/web-platform-tests/wpt/pull/63917]
+variable-first-letter.html: [fail, Tests require static for an optionally supported property; https://github.com/web-platform-tests/wpt/pull/63878]
+variable-first-line.html: [fail, Tests require static for an optionally supported property; https://github.com/web-platform-tests/wpt/pull/63878]
+variable-presentation-attribute.html: [fail, Variables parsing and serialization are incomplete]
+variable-reference-name-substitution-attr-taint.html: [fail, Variables parsing and serialization are incomplete]
+variable-reference-name-substitution.html: [fail, Variables parsing and serialization are incomplete]
+variable-reference-perspective-origin.html: [fail, Variables parsing and serialization are incomplete]
+variable-reference.html: [fail, Source-preserving serialization closes functions recovered at EOF; https://github.com/w3c/csswg-drafts/issues/7329#issuecomment-6331788457]
+variable-substitution-variable-declaration.html: [fail, Later substitutions still participate in cycle detection; https://github.com/web-platform-tests/wpt/pull/63987]
+
+---
+
+DIR: css/css-view-transitions/navigation
+
+'!(at-rule-cssom.html|with-types)': [fail-slow, View transition navigation is not implemented]
+'!(with-types)/**': [fail-slow, View transition navigation is not implemented]
+with-types/!(at-rule-with-types-parsing.html): [fail-slow, View transition navigation is not implemented]
+
+---
+
+DIR: css/css-view-transitions/parsing
+
+pseudo-elements-invalid.html: [fail, WPT rejects user-action pseudo-classes after pseudo-elements; https://github.com/web-platform-tests/wpt/pull/63933]
+
+---
+
+DIR: css/css-viewport/zoom/parsing
+
+---
+
+DIR: css/css-will-change/parsing
+
+---
+
+DIR: css/css-writing-modes/parsing
 
 ---
 
 DIR: css/cssom
 
-CSS-supports.html:
-  "CSS.supports and implementation: keyword": [fail, Revert keyword is not supported]
-CSSFontFeatureValuesRule.html: [fail, Unknown]
-CSSStyleRule-set-selectorText-namespace.html: [fail, csstree does not validate or normalize selectors]
-CSSStyleRule-set-selectorText.html: [fail, csstree does not validate or normalize selectors]
-CSSStyleSheet-constructable-baseURL.html: [fail, Unknown]
+CSSFontFeatureValuesRule.html: [fail, CSSFontFeatureValuesMap not implemented]
 CSSStyleSheet-constructable-cssRules.html: [fail, Unknown]
 CSSStyleSheet-constructable-duplicate.html: [fail, Unknown]
 CSSStyleSheet-constructable-invalidation.html: [fail, Unknown]
@@ -888,8 +841,6 @@ HTMLLinkElement-disabled-004.html: [fail, Unknown]
 HTMLLinkElement-disabled-005.html: [timeout, Unknown]
 HTMLLinkElement-disabled-006.html: [fail, Unknown]
 HTMLLinkElement-load-event.html: [fail, Unknown]
-StyleSheetList-constructable-shadow-with-style-recalc.html: [fail, Unknown]
-StyleSheetList-constructable-shadow.html: [fail, Unknown]
 adoptedstylesheets-cascade-order.html: [fail, adoptedStyleSheets not implemented]
 adoptedstylesheets-modify-array-and-sheet.html: [fail, Unknown]
 adoptedstylesheets-observablearray.html: [fail, Unknown]
@@ -903,29 +854,14 @@ computed-style-002.html: [fail, Unknown]
 computed-style-003.html: [fail, Unknown]
 computed-style-004.html: [fail, Unknown]
 computed-style-005.html: [fail, Unknown]
-css-style-attr-decl-block.html: [fail, Unknown]
-cssom-fontfacerule-constructors.html: [fail, Unknown]
-cssom-fontfacerule.html: [fail, No CSSFontFaceDescriptors implementation]
-cssom-getPropertyValue-common-checks.html: [fail, Unknown]
-cssstyledeclaration-all-shorthand.html: [fail, Unknown]
-cssstyledeclaration-csstext-all-shorthand.html: [fail, Unknown]
+cssom-getPropertyValue-common-checks.html: [fail, Initial longhands cannot be represented by the legacy line-clamp shorthand; https://github.com/web-platform-tests/wpt/pull/63974]
 cssstyledeclaration-csstext.html: [fail, Unknown]
-cssstyledeclaration-nested.html: [fail, Unknown]
-cssstyledeclaration-registered-custom-properties.html: [fail, Unknown]
-cssstyledeclaration-removeProperty-all.html: [fail, Unknown]
 flex-serialization.html: [fail, Unknown]
-font-family-serialization-001.html: [fail, https://github.com/w3c/csswg-drafts/issues/5846]
-font-variant-shorthand-serialization.html: [fail, Unknown]
+font-family-serialization-001.html: [fail, WPT incorrectly treats -webkit-generic(fangsong) as a valid family name; https://github.com/web-platform-tests/wpt/pull/63884]
 getComputedStyle-animations-replaced-into-ib-split.html: [fail, Unknown]
 getComputedStyle-calc.html:
-  "getComputedStyle() returns computed value for calc(100% - 40px)": [fail, Need to fix calc() with percentages]
-  "getComputedStyle() returns computed value for calc(var(--gap) - 4px)": [fail, Need to fix calc() with var()]
-  "getComputedStyle() returns computed value for calc(608px - env(safe-area-inset-top))": [fail, Need to fix calc() with CSS functions]
-getComputedStyle-detached-subtree.html: [fail, Unknown]
-getComputedStyle-display-none-001.html: [fail, Unknown]
-getComputedStyle-display-none-002.html: [fail, Unknown]
-getComputedStyle-display-none-003.html: [fail, Unknown]
-getComputedStyle-display-none-shadow-invalidation.html: [fail, Shadow tree styles are not applied correctly]
+  getComputedStyle() returns computed value for calc(100% - 40px): [fail, Need to fix calc() with percentages]
+  getComputedStyle() returns computed value for calc(608px - env(safe-area-inset-top)): [fail, Need to fix calc() with CSS functions]
 getComputedStyle-dynamic-subdoc.html: [fail, Unknown]
 getComputedStyle-insets-absolute.html: [timeout, Unknown]
 getComputedStyle-insets-fixed.html: [timeout, Unknown]
@@ -939,64 +875,24 @@ getComputedStyle-insets-sticky.html: [timeout, Unknown]
 getComputedStyle-layout-dependent-removed-ib-sibling.html: [fail, Unknown]
 getComputedStyle-layout-dependent-replaced-into-ib-split.html: [fail, Unknown]
 getComputedStyle-line-height.html: [fail, Unknown]
-getComputedStyle-live.html: [fail, https://github.com/jsdom/jsdom/issues/3562]
-getComputedStyle-logical-enumeration.html: [fail, Unknown]
-getComputedStyle-pseudo-checkmark.html: [fail, Unknown]
-getComputedStyle-pseudo-picker-icon.html: [fail, Unknown]
-getComputedStyle-pseudo-picker.html: [fail, Unknown]
-getComputedStyle-pseudo-shadow.html: [fail, Shadow DOM pseudo-elements throw instead of returning empty declarations]
-getComputedStyle-pseudo-with-argument.html: [fail, Unknown]
-getComputedStyle-pseudo.html: [fail, Unknown]
-getComputedStyle-resolved-colors.html: [fail, Unknown]
-getComputedStyle-resolved-min-max-clamping.html: [fail, Unknown]
+getComputedStyle-pseudo.html: [fail, Resolving pseudo-element percentage widths requires layout]
 getComputedStyle-resolved-min-size-auto.html: [fail, Unknown]
-getComputedStyle-shadow-host.html: [fail, https://github.com/jsdom/jsdom/issues/3661]
-getComputedStyle-shadow-inherit.html:
-  "toggle shadowRoot.host visibility": [fail, https://github.com/jsdom/jsdom/issues/3941]
 getComputedStyle-sticky-pos-percent.html: [fail, Unknown]
 idlharness.html: [fail, Depends on fetch]
-invalid-pseudo-elements.html: [fail, Unknown]
 link-element-stylesheet-title.html: [fail, Unknown]
-medialist-appendmedium-parse-single-and-dedup.html: [fail, Unknown]
-medialist-deletemedium-parse-and-remove-all.html: [fail, Unknown]
 mediaquery-sort-dedup.html: [fail, Unknown]
-overflow-serialization.html: [fail, Unknown]
-page-descriptors.html: [fail, Unknown]
 preferred-stylesheet-order.html: [fail, Unknown]
-rule-restrictions.html: [fail, Unknown]
-selectorSerialize.html: [fail, Unknown]
-selectorText-modification-restyle-002.html: [fail, Unknown]
-serialize-custom-props.html: [fail, Unknown]
-serialize-media-rule.html: [fail, Unknown]
-serialize-namespaced-type-selectors.html: [fail, Unknown]
 serialize-values.html:
-  "content: counter(par-num)": [fail, Not yet supported]
-  "content: counter(par-num, decimal)": [fail, Not yet supported]
-  "content: counter(par-num, upper-roman)": [fail, Not yet supported]
-  "content: attr(foo-bar)": [fail, Not yet supported]
-  "content: attr(foo_bar)": [fail, Not yet supported]
-  "content: attr(|bar)": [fail, Not yet supported]
-  "content: attr( |bar )": [fail, Not yet supported]
-  "content: attr(foo-bar, \"fallback\")": [fail, Not yet supported]
-  "content: attr(foo_bar, \"fallback\")": [fail, Not yet supported]
-  "content: attr(|bar, \"fallback\")": [fail, Not yet supported]
-  "content: attr(foo, \"\")": [fail, Not yet supported]
-  "content: attr( |foo ,  \"\" )": [fail, Not yet supported]
-  "font-family: 'Lucida Grande'": [fail, Unknown]
-  "outline-color: invert": [fail, Test is incorrect, invert is not in spec anymore]
+  'outline-color: invert': [fail, The invert keyword is obsolete; https://github.com/web-platform-tests/wpt/pull/63926]
 shorthand-values.html:
-  "The serialization of overflow-x: scroll; overflow-y: hidden; should be canonical.": [fail, Not yet supported]
-  "The serialization of overflow-x: scroll; overflow-y: scroll; should be canonical.": [fail, Not yet supported]
-  "The serialization of outline-width: 2px; outline-style: dotted; outline-color: blue; should be canonical.": [fail, Not yet supported]
-  "The serialization of list-style-type: circle; list-style-position: inside; list-style-image: none; should be canonical.": [fail, Not yet supported]
-  "The serialization of -webkit-line-clamp: none; should be canonical.": [fail, Not yet supported]
-style-set-custom-property-priority.html: [fail, Need to fix getComputedStyle; related https://github.com/jsdom/cssstyle/issues/225]
+  'The serialization of outline-width: 2px; outline-style: dotted; outline-color: blue; should be canonical.': [fail, Outline canonical order changed; https://github.com/web-platform-tests/wpt/pull/63890]
+  'The serialization of -webkit-line-clamp: none; should be canonical.': [fail, Legacy and modern line-clamp reset block-ellipsis differently; https://github.com/web-platform-tests/wpt/pull/63974]
+style-set-property.html: [fail, Empty custom-value serialization and setter trimming; https://github.com/web-platform-tests/wpt/pull/63986 and https://github.com/w3c/csswg-drafts/issues/14365]
 stylesheet-cross-origin-redirect-quirks.sub.html: [fail, Unknown]
 stylesheet-same-origin.sub.html: [fail, Unknown]
 stylesheet-title.html: [fail, Unknown]
 ttwf-cssom-doc-ext-load-count.html: [fail, External link stylesheets not synchronously available during parsing]
 ttwf-cssom-doc-ext-load-tree-order.html: [fail, External link stylesheets not synchronously available during parsing]
-variable-names.html: [fail, Unknown]
 
 ---
 
@@ -1118,6 +1014,12 @@ window-scroll-promises.html: [fail, Unknown]
 
 ---
 
+DIR: css/filter-effects/parsing
+
+'*.svg': [fail-slow, SVG scripts are not implemented]
+
+---
+
 DIR: css/geometry
 
 DOMMatrix*: [fail, not implemented]
@@ -1135,30 +1037,30 @@ structured-serialization.html: [fail, need MessageChannel]
 DIR: css/mediaqueries
 
 '!(nested-media-queries.html)': [fail-slow, Media query evaluation and matchMedia not implemented]
-nested-media-queries.html: [fail, conditionText serialization doesn't include spaces]
+
+---
+
+DIR: css/motion/parsing
+
+offset-path-computed.html: [fail, Rectangle shapes do not compute to their required inset form]
+offset-path-parsing-invalid.html: [fail, Fill-rule acceptance versus rejection needs clarification; https://github.com/w3c/csswg-drafts/issues/3468#issuecomment-6331796732]
+offset-path-shape-computed.html: [fail, Motion computed values are incomplete]
+offset-path-shape-parsing.html: [fail, Equal absolute arc radii are shortened; https://github.com/w3c/csswg-drafts/issues/5642]
+offset-rotate-computed.html: [fail, Motion computed values are incomplete]
 
 ---
 
 DIR: css/selectors
 
-attribute-selectors/attribute-case/cssom.html: [fail, Unknown]
-attribute-selectors/attribute-case/semantics.html: [fail, Unknown]
-attribute-selectors/attribute-case/syntax.html: [fail, Unknown]
-attribute-selectors/attribute-case/value-case-sensitivity-svg.html: [fail, Unknown]
 dir-selector-auto.html: [fail, innerText not implemented; has dont-upstream version]
 focus-display-none-001.html: [fail, Focus fixup rule not properly implemented; https://github.com/jsdom/jsdom/issues/3029]
 focus-visible-009.html: [fail, autofocus not implemented]
-focus-visible-010.html: [fail, Unknown]
 focus-visible-017-2.html: [fail-slow, https://github.com/jsdom/jsdom/issues/3426]
-focus-visible-017.html: [fail, https://github.com/jsdom/jsdom/issues/3426]
 focus-visible-020.html: [fail, https://github.com/jsdom/jsdom/issues/3426]
-focus-visible-023.html: [fail, https://github.com/jsdom/jsdom/issues/3426]
 focus-visible-script-focus-001.html: [fail-slow, https://github.com/jsdom/jsdom/issues/3426]
 focus-within-009.html: [fail-slow, Unknown]
 focus-within-display-none-001.html: [fail, Focus fixup rule not properly implemented; https://github.com/jsdom/jsdom/issues/3029]
 focus-within-toplayer-001.html: [fail, Unknown]
-heading-prefixed.html: [fail, Unknown]
-heading.html: [fail, Unknown]
 i18n/css3-selectors-lang-001.html: [fail, offsetWidth not implemented; has dont-upstream version]
 i18n/css3-selectors-lang-002.html: [fail, offsetWidth not implemented; has dont-upstream version]
 i18n/css3-selectors-lang-004.html: [fail, offsetWidth not implemented; has dont-upstream version]
@@ -1204,78 +1106,33 @@ i18n/css3-selectors-lang-056.html: [fail, offsetWidth not implemented; has dont-
 invalidation/defined-in-has.html: [fail, Unknown]
 invalidation/defined.html: [fail, Unknown]
 invalidation/empty-pseudo-in-has-display-none.html:
-  "Visible after inserting text into #child": [fail, Unknown]
-  "Visible after inserting text into empty #child": [fail, Unknown]
-  "Visible again after inserting text into empty #child": [fail, Unknown]
-  "Visible after inserting non-empty element into #child": [fail, Unknown]
+  'Visible after inserting text into #child': [fail, Unknown]
+  'Visible after inserting text into empty #child': [fail, Unknown]
+  'Visible again after inserting text into empty #child': [fail, Unknown]
+  'Visible after inserting non-empty element into #child': [fail, Unknown]
 invalidation/has-complexity.html: [timeout, Timeout on ChildNode.remove() recursive call; has dont-upstream version]
-invalidation/has-css-nesting-shared.html: [fail, Unknown]
-invalidation/has-pseudo-element-subject-child-mutation.html: [fail, Unknown]
-invalidation/heading-pseudo-class-in-has-with-headingoffset.html: [fail, Unknown]
 invalidation/heading-pseudo-class-in-has-with-slot-reassignment.html: [fail, Unknown]
-invalidation/heading-pseudo-class-in-has.html: [fail, Unknown]
 invalidation/host-has-shadow-tree-element-at-nonsubject-position.html: [fail, Unknown]
 invalidation/host-has-shadow-tree-element-at-subject-position.html: [fail, Unknown]
-invalidation/input-pseudo-classes-in-has.html: [fail, Unknown]
-invalidation/is-pseudo-containing-sibling-relationship-in-has.html: [fail, Unknown]
 invalidation/is-where-pseudo-containing-hard-pseudo.html: [fail-slow, Unknown]
-invalidation/media-loading-pseudo-classes-in-has.sub.html: [fail, Unknown]
+invalidation/media-loading-pseudo-classes-in-has.sub.html: [timeout, Media loading and playback are not implemented]
 invalidation/media-pseudo-classes-in-has.html: [fail-slow, Unknown]
 invalidation/nth-child-whole-subtree.html: [fail-slow, offsetTop not implemented]
 invalidation/option-disabled-when-ancestor-changes.html: [fail, Unknown]
-invalidation/part-dir.html: [fail, Unknown]
-invalidation/part-lang.html: [fail, Unknown]
-invalidation/quirks-mode-stylesheet-dynamic-add-001.html: [fail, Unknown]
 invalidation/state-in-has.html: [fail, Unknown]
-invalidation/target-pseudo-in-has.html: [fail, Unknown]
-is-where-error-recovery.html: [fail, Unknown]
-is-where-shadow.html: [fail, Unknown]
-media/media-loading-state-timing.sub.html: [fail, Unknown]
+media/media-loading-state-timing.sub.html: [timeout, Media loading and playback are not implemented]
 media/media-loading-state.sub.html: [timeout, Unknown]
-media/media-playback-state-timing.html: [fail, Unknown]
+media/media-playback-state-timing.html: [timeout, Media loading and playback are not implemented]
 media/media-playback-state.html: [timeout, Unknown]
-media/media-playing-paused-style-invalidation.html: [fail, Unknown]
+media/media-playing-paused-style-invalidation.html: [timeout, Media loading and playback are not implemented]
 media/sound-state.html: [timeout, Unknown]
 nth-child-large-anplusb-clamp.html: [fail, Unknown]
-old-tests/css3-modsel-118.xml: [fail, Unknown]
-old-tests/css3-modsel-121.xml: [fail, Unknown]
-old-tests/css3-modsel-159.xml: [fail, Unknown]
-old-tests/css3-modsel-177a.xml: [fail, Unknown]
-old-tests/css3-modsel-39a.xml: [fail, Unknown]
-old-tests/css3-modsel-39b.xml: [fail, Unknown]
-old-tests/css3-modsel-39c.xml: [fail, Unknown]
-old-tests/css3-modsel-66.xml: [fail, Unknown]
-old-tests/css3-modsel-91.xml: [fail, Unknown]
-old-tests/css3-modsel-94.xml: [fail, Unknown]
-old-tests/css3-modsel-d1b.xml: [fail, Unknown]
-"old-tests/css3-modsel-{132..133}.xml": [fail, Unknown]
-"old-tests/css3-modsel-{21..22}.xml": [fail, Unknown]
-"old-tests/css3-modsel-{38..39}.xml": [fail, Unknown]
-"old-tests/css3-modsel-{41..42}.xml": [fail, Unknown]
-"old-tests/css3-modsel-{41..42}a.xml": [fail, Unknown]
-parsing/invalid-pseudos.html: [fail, Unknown]
-parsing/parse-anplusb.html: [fail, Unknown]
+old-tests/css3-modsel-22.xml: [fail, Invalid language tags do not match; https://github.com/web-platform-tests/wpt/pull/63981]
 parsing/parse-attribute.html: [fail, Unknown]
-parsing/parse-child.html: [fail, Unknown]
-parsing/parse-class.html: [fail, Unknown]
-parsing/parse-descendant.html: [fail, Unknown]
-parsing/parse-focus-visible.html: [fail, Unknown]
-parsing/parse-has-disallow-nesting-has-inside-has.html: [fail, Unknown]
-parsing/parse-has-forgiving-selector.html: [fail, Unknown]
-parsing/parse-has.html: [fail, Unknown]
-parsing/parse-heading.html: [fail, Unknown]
-parsing/parse-id.html: [fail, Unknown]
-parsing/parse-is-where.html: [fail, Unknown]
-parsing/parse-is.html: [fail, Unknown]
-parsing/parse-not.html: [fail, Unknown]
-parsing/parse-part.html: [fail, Unknown]
-parsing/parse-sibling.html: [fail, Unknown]
-parsing/parse-slotted.html: [fail, Unknown]
-parsing/parse-state.html: [fail, Unknown]
-parsing/parse-universal.html: [fail, Unknown]
-parsing/parse-where.html: [fail, Unknown]
+parsing/parse-part.html: [fail, WPT applies matching restrictions during element-backed pseudo-element parsing; https://github.com/web-platform-tests/wpt/pull/63932]
+parsing/parse-slotted.html: [fail, WPT rejects user-action pseudo-classes after slotted; https://github.com/web-platform-tests/wpt/pull/63933]
+selectors-4/lang-singleton-subtag-matching.html: [fail, Invalid language tags and ranges do not match; https://github.com/web-platform-tests/wpt/pull/63981]
 selectors-case-sensitive-001.html: [fail, offsetHeight not implemented; has dont-upstream version]
-webkit-pseudo-element.html: [fail, Unknown]
 
 ---
 
@@ -1350,7 +1207,6 @@ pseudo-class-defined.html: [fail, Unknown]
 reactions/Animation.html: [fail, Animation not implemented]
 reactions/AriaMixin-element-attributes.html: [fail, Element reflection not implemented]
 reactions/AriaMixin-string-attributes.html: [fail, Unknown]
-reactions/CSSStyleDeclaration.html: [fail, CSSStyleDeclaration is not implemented using webidl2js, https://github.com/jsdom/cssstyle/issues/113]
 reactions/Document.html:
   "execCommand on Document must enqueue a disconnected reaction when deleting a custom element from a contenteditable element": [fail, document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539]
 reactions/ElementContentEditable.html: [fail, contentEditable is not implemented]
@@ -1486,7 +1342,6 @@ insertion-removing-steps/change-event.window.html: [fail, scrollIntoView not imp
 insertion-removing-steps/insertion-removing-steps-script.window.html: [fail, Unknown]
 moveBefore/**: [fail-slow, Not implemented]
 processing-instruction-attributes.html: [fail, Not implemented]
-querySelector-mixed-case.html: [fail, Unknown]
 remove-and-adopt-thcrash.html: [fail, window.open not implemented]
 
 ---
@@ -2011,7 +1866,6 @@ elements/global-attributes/dataset.html:
 elements/global-attributes/dir-assorted.window.html: [fail, Unknown]
 elements/global-attributes/dir-auto-dynamic-changes.window.html: [fail, Unknown]
 elements/global-attributes/dir-slots-directionality.html: [fail, Unknown]
-elements/global-attributes/lang-attribute.window.html: [fail, Unknown]
 elements/global-attributes/the-lang-attribute-001.html: [fail, Unknown]
 elements/global-attributes/the-lang-attribute-002.html: [fail, Unknown]
 elements/global-attributes/the-lang-attribute-003.html: [fail, Unknown]
@@ -2158,21 +2012,15 @@ link-style-error-01.html:
 link-style-error-limited-quirks.html: [fail, We don't fire error events]
 link-style-error-quirks.html: [fail, We don't fire error events]
 stylesheet-bad-mime-type.html: [fail, Unknown]
-stylesheet-media-change-no-fetch.html: [fail, Unknown]
 
 ---
 
 DIR: html/semantics/document-metadata/the-style-element
 
 no-browsing-context-import.html: [timeout, Imports do not load without a browsing context]
-no-browsing-context.html:
-  "no impact on getComputedStyle": [fail, Computed styles should be empty without a browsing context]
 non-parser-created-doc.html: [fail, Unknown]
 style-error-01.html: [timeout, CSS MIME type checking is not implemented]
-style_disabled.html: [fail, Not implemented]
 style_events.html: [timeout, Failed CSS imports fire load instead of error; https://github.com/whatwg/html/issues/968]
-style_media.html: [fail, Not implemented]
-style_media_change.html: [fail, Not implemented]
 style_type_change.html: [fail, Spec mismatches tests https://github.com/whatwg/html/issues/3391]
 style_type_svg.svg: [fail, Unknown]
 
@@ -2643,58 +2491,11 @@ template-for/!(template-for-innerHTML-outside.html|template-for-invalid.html|tem
 
 DIR: html/semantics/selectors
 
-case-sensitivity/values.window.html:
-  "accept's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "accept-charset's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "align's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "alink's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "axis's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "bgcolor's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "charset's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "checked's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "clear's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "codetype's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "color's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "compact's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "declare's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "defer's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "dir's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "direction's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "disabled's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "enctype's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "face's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "frame's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "hreflang's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "http-equiv's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "lang's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "language's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "link's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "media's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "method's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "multiple's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "nohref's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "noresize's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "noshade's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "nowrap's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "readonly's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "rel's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "rev's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "rules's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "scope's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "scrolling's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "selected's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "shape's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "target's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "text's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "type's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "valign's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "valuetype's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-  "vlink's value is properly ASCII-case-insensitive for <:unknown> in HTML": [fail, Unknown]
-pseudo-classes/autofill.html: [fail, Unknown]
 pseudo-classes/disabled.html:
   "':disabled' should match elements that are appended to a disabled fieldset dynamically": [fail, Unknown]
 pseudo-classes/focus-autofocus.html: [timeout, Unknown]
 pseudo-classes/focus.html: [timeout, Unknown]
+pseudo-classes/required-optional-hidden.html: [fail, Hidden inputs match neither pseudo-class; https://github.com/whatwg/html/issues/11273]
 
 ---
 
@@ -3008,7 +2809,7 @@ shadow-dom/selection-at-nodes-not-part-of-flattened-tree.html: [fail, Unknown]
 textcontrols/onselectionchange-content-attribute.html: [fail-slow, Unknown]
 textcontrols/selectionchange-bubble.html: [timeout, Unknown]
 textcontrols/selectionchange-on-shadow-dom.html: [fail, Unknown]
-textcontrols/selectionchange.html: [fail, Firefox-only semantics not yet backed by a spec]
+textcontrols/selectionchange.html: [fail, selectionchange events are not dispatched on text controls]
 toString-user-select-none.html: [fail, Unknown]
 
 ---
@@ -3018,7 +2819,6 @@ DIR: shadow-dom
 DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
 HighlightRegistry-highlightsFromPoint.html: [fail, Not implemented]
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
-ShadowRoot-interface.html: [fail, shadowRoot.styleSheet is not yet implemented]
 declarative/declarative-after-attachshadow.html: [fail, Not implemented]
 declarative/declarative-shadow-dom-*.html: [fail-slow, Not implemented]
 declarative/gethtml-ordering.html: [fail, Not implemented]
@@ -3044,7 +2844,6 @@ scroll-to-the-fragment-in-shadow-tree.html: [fail, Requires a layout engine]
 shadow-root-clonable.html: [fail, Unknown]
 slotchange-customelements.html: [fail, Missing parser microtask checkpoints before slotchange assertions]
 slotchange.html: [fail, Unknown]
-untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-attributes/test-011.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html: [fail, https://github.com/w3c/selection-api/issues/114]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html: [fail, DocumentOrShadowRoot.elementFromPoint() is not implemented. Needs layout engine]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-007.html: [fail, DocumentOrShadowRoot.elementFromPoint() is not implemented. Needs layout engine]
@@ -3053,7 +2852,6 @@ untriaged/html-elements-in-shadow-trees/html-forms/test-003.html: [timeout, HTML
 untriaged/html-elements-in-shadow-trees/inert-html-elements/test-001.html: [fail, Unknown]
 untriaged/shadow-trees/upper-boundary-encapsulation/dom-tree-accessors-001.html: [fail, Document.all is not implemented]
 untriaged/styles/test-001.html: [fail, offsetTop not implemented]
-untriaged/styles/test-003.html: [fail, ShadowRoot.stylesheets is not implemented]
 untriaged/styles/test-005.html: [fail, offsetTop not implemented]
 untriaged/styles/test-008.html: [fail, offsetTop and offsetHeight not implemented]
 untriaged/user-interaction/editing/inheritance-of-content-editable-001.html: [fail, contentEditable is not implemented]

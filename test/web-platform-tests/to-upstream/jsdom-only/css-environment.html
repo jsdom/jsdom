@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS behavior in jsdom's fixed rendering environment</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+promise_test(async t => {
+  const style = document.createElement("style");
+  style.textContent = '@import "data:text/css,%23import-target%7Bcolor%3Ared%7D" print;';
+  const loaded = new Promise((resolve, reject) => {
+    style.onload = resolve;
+    style.onerror = reject;
+  });
+  const target = document.createElement("div");
+  target.id = "import-target";
+  document.body.style.color = "black";
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+    document.body.style.removeProperty("color");
+  });
+  document.head.append(style);
+  await loaded;
+
+  // Eagerly fetching imports lets later media-list changes apply them without another fetch.
+  const rule = style.sheet.cssRules[0];
+  const computed = getComputedStyle(target);
+  assert_equals(computed.color, "rgb(0, 0, 0)");
+  rule.media.mediaText = "screen";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  rule.media.mediaText = "print";
+  assert_equals(computed.color, "rgb(0, 0, 0)");
+  rule.media.appendMedium("screen");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+}, "Media-dependent imports are loaded before later CSSOM changes make them applicable");
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.marginLeft = "round(line-width, 0.3px)";
+  assert_equals(target.style.marginLeft, "round(line-width, 0.3px)");
+  assert_equals(getComputedStyle(target).marginLeft, "1px");
+}, "Device-pixel rounding uses jsdom's fixed device pixel ratio");
+</script>

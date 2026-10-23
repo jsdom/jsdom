@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Default form control styles</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/rendering.html#form-controls">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/rendering.html#the-select-element-2">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<input id="image" type="image" alt="Image">
+<input id="text">
+<input id="submit" type="submit">
+<button id="button">Button</button>
+<select id="select"><option>Option</option></select>
+<select id="listbox" multiple><optgroup label="Group"><option>Option</option></optgroup></select>
+<script>
+"use strict";
+
+test(() => {
+  const style = getComputedStyle(document.getElementById("image"));
+  assert_equals(style.overflowX, "clip");
+  assert_equals(style.overflowY, "clip");
+  assert_equals(style.overflowClipMargin, "content-box");
+}, "Image inputs clip overflow at the content box");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("text")).alignContent, "unsafe center");
+  assert_equals(getComputedStyle(document.getElementById("submit")).alignContent, "center");
+  assert_equals(getComputedStyle(document.getElementById("button")).alignContent, "center");
+}, "Inputs and buttons have their specified default content alignment");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("select")).display, "inline-block");
+  assert_equals(getComputedStyle(document.getElementById("listbox")).display, "inline-block");
+}, "Native select elements use inline-block display for both drop-down and list boxes");
+
+test(() => {
+  const optgroup = document.querySelector("optgroup");
+  assert_equals(getComputedStyle(optgroup).display, "block");
+  assert_equals(getComputedStyle(optgroup.firstChild).display, "block");
+}, "Options and optgroups have block display");
+</script>

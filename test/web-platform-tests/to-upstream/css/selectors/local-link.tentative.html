@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Local link selectors compare document URLs and path segments</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-5/#local-link-pseudo">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const [description, href, matches] of [
+  ["same URL", location.href, true],
+  ["different fragment", `${location.href.split("#")[0]}#other`, true],
+  ["descendant path", `${location.origin}${location.pathname}/child`, false],
+  ["different query", `${location.origin}${location.pathname}?other`, false],
+  ["different credentials", `${location.protocol}//user:password@${location.host}${location.pathname}`, false]
+]) {
+  test(() => {
+    const link = document.createElement("a");
+    link.href = href;
+    assert_equals(link.matches(":local-link"), matches);
+  }, `Non-functional local-link: ${description}`);
+}
+
+for (const [namespace, name] of [
+  ["http://www.w3.org/1999/xhtml", "a"],
+  ["http://www.w3.org/1999/xhtml", "area"],
+  ["http://www.w3.org/2000/svg", "a"]
+]) {
+  test(() => {
+    const link = document.createElementNS(namespace, name);
+    link.setAttribute("href", `${location.pathname}#other`);
+    assert_true(link.matches(":local-link"));
+    link.setAttribute("href", `${location.pathname}/child`);
+    assert_false(link.matches(":local-link"));
+    assert_true(link.matches(":local-link(1)"));
+  }, `Local link matching resolves relative URLs for ${namespace} ${name}`);
+}
+
+test(() => {
+  const link = document.createElementNS("http://www.w3.org/2000/svg", "a");
+  link.setAttributeNS("http://www.w3.org/1999/xlink", "href", location.href);
+  assert_true(link.matches(":local-link"));
+  link.setAttribute("href", `${location.pathname}/child`);
+  assert_false(link.matches(":local-link"));
+}, "SVG href takes precedence over xlink:href for local links");
+
+test(() => {
+  const link = document.createElement("a");
+  link.href = `${location.protocol}//user:password@${location.host}${location.pathname}?other#fragment`;
+  assert_true(link.matches(":local-link(0)"));
+  assert_true(link.matches(":local-link(1)"));
+  assert_false(link.matches(`:local-link(${location.pathname.split("/").length})`));
+  link.href = "https://elsewhere.example/";
+  assert_false(link.matches(":local-link(0)"));
+}, "Functional local-link ignores credentials, queries and fragments but requires origin and path segments");
+
+test(() => {
+  const detached = document.implementation.createHTMLDocument();
+  assert_equals(detached.URL, "about:blank");
+  assert_equals(detached.location, null);
+  const link = detached.createElement("a");
+  link.href = "about:blank#fragment";
+  detached.body.append(link);
+  assert_equals(detached.querySelector(":local-link"), link);
+  assert_true(link.matches(":local-link"));
+  assert_false(link.matches(":local-link(0)"));
+  link.href = "about:blank?query";
+  assert_false(link.matches(":local-link"));
+}, "Local links use the document URL even when the document has no browsing context");
+</script>

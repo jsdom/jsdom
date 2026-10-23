@@ -1,0 +1,33 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Nested selector serialization distinguishes ampersand tokens from names and strings</title>
+<link rel="help" href="https://drafts.csswg.org/css-nesting-1/#cssom">
+<link rel="help" href="https://drafts.csswg.org/css-nesting-1/#contains-the-nesting-selector">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+function nestedSelectorText(selector) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`.parent { ${selector} { color: green; } }`);
+  return sheet.cssRules[0].cssRules[0].selectorText;
+}
+test(() => {
+  assert_equals(nestedSelectorText('[data-x="&"]'), '& [data-x="&"]');
+}, "An ampersand in an attribute string does not suppress the implied nesting selector");
+test(() => {
+  assert_equals(nestedSelectorText(".\\&"), "& .\\&");
+}, "An escaped ampersand class name does not suppress the implied nesting selector");
+test(() => {
+  assert_equals(nestedSelectorText(':is([data-x="&"])'), '& :is([data-x="&"])');
+}, "An ampersand string inside a logical pseudo-class is not a nesting selector");
+test(() => {
+  assert_equals(nestedSelectorText(':has([data-x="&"])'), '& :has([data-x="&"])');
+}, "An ampersand string inside a relative selector is not a nesting selector");
+test(() => {
+  assert_equals(nestedSelectorText(":is(&, .child)"), ":is(&, .child)");
+}, "A nesting selector inside a logical pseudo-class suppresses the implied prefix");
+test(() => {
+  assert_equals(nestedSelectorText(":is(:unknown(&), .child)"), ":is(:unknown(&), .child)");
+}, "A nesting delimiter in a preserved invalid branch suppresses the implied prefix");
+</script>

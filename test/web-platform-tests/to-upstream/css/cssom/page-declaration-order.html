@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Page declarations surrounding margin rules form one declaration block</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#csspagerule">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/11272">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page { color: red; @top-left { content: 'title'; } margin-left: 3px; color: blue; }");
+  const rule = sheet.cssRules[0];
+  assert_equals(rule.style.color, "blue");
+  assert_equals(rule.style.marginLeft, "3px");
+  assert_equals(rule.style.length, 2);
+  assert_equals(rule.cssRules.length, 1);
+  assert_true(rule.cssRules[0] instanceof CSSMarginRule);
+}, "Declarations after a margin rule are hoisted into the page style block");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page { color: red !important; @top-left { content: 'title'; } color: blue; }");
+  assert_equals(sheet.cssRules[0].style.color, "red");
+  assert_equals(sheet.cssRules[0].style.getPropertyPriority("color"), "important");
+}, "Hoisted declarations retain priority across margin rules");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page { }");
+  assert_throws_dom("SyntaxError", () => sheet.cssRules[0].insertRule("color: red"));
+  assert_equals(sheet.cssRules[0].cssRules.length, 0);
+}, "Bare declarations cannot be inserted as page rules");
+</script>

@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Top-level colons in if() results</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#funcdef-if">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function target(t, value) {
+  const element = document.createElement("div");
+  element.style.setProperty("--result", value);
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = target(t, "if(else: a:b)");
+  assert_not_equals(element.style.getPropertyValue("--result"), "");
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "a:b");
+}, "An if() result can contain an unbraced top-level colon");
+
+test(t => {
+  const element = target(t, "if(else: {a:b})");
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "a:b");
+}, "Braces around an if() result are removed without removing its colon");
+
+test(t => {
+  const element = target(t, "if(supports(width: invalid): red; else: a:b)");
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "a:b");
+}, "A result colon is accepted after an earlier condition evaluates false");
+
+test(t => {
+  const element = target(t, "if(else: f(a:b))");
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "f(a:b)");
+}, "A nested result colon stays inside its ordinary function");
+
+test(t => {
+  const element = target(t, "if(else: var(--missing,a:b))");
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "a:b");
+}, "A substituted fallback can supply a colon to an if() result");
+
+test(() => {
+  assert_false(CSS.supports("--result", "if(/**/: a:b)"));
+}, "Allowing result colons does not make an empty if() condition valid");
+</script>

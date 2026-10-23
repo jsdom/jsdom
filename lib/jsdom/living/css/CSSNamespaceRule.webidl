@@ -1,6 +1,7 @@
-// https://drafts.csswg.org/cssom/#the-cssnamespacerule-interface
+
+// https://drafts.csswg.org/cssom-1/#cssnamespacerule
 [Exposed=Window]
 interface CSSNamespaceRule : CSSRule {
-  readonly attribute USVString namespaceURI;
-  readonly attribute DOMString prefix;
+    readonly attribute CSSOMString namespaceURI;
+    readonly attribute CSSOMString prefix;
 };

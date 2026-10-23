@@ -1,0 +1,51 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Marker default styles participate in the cascade</title>
+<link rel="help" href="https://drafts.csswg.org/css-lists-3/#marker-properties">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+#target {
+  display: list-item;
+  color: rgb(1 2 3);
+  unicode-bidi: bidi-override;
+  font-variant-numeric: slashed-zero;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+#target.override::marker {
+  unicode-bidi: plaintext;
+  font-variant-numeric: oldstyle-nums;
+  white-space: pre-wrap;
+  text-transform: lowercase;
+}
+</style>
+<div id="target">Marker text</div>
+<script>
+"use strict";
+const target = document.getElementById("target");
+
+test(() => {
+  const marker = getComputedStyle(target, "::marker");
+  assert_equals(marker.unicodeBidi, "isolate");
+  assert_equals(marker.fontVariantNumeric, "tabular-nums");
+  assert_equals(marker.whiteSpace, "pre");
+  assert_equals(marker.textTransform, "none");
+}, "Marker defaults override inheritance from the originating element");
+
+test(t => {
+  target.className = "override";
+  t.add_cleanup(() => {
+    target.className = "";
+  });
+  const marker = getComputedStyle(target, "::marker");
+  assert_equals(marker.unicodeBidi, "plaintext");
+  assert_equals(marker.fontVariantNumeric, "oldstyle-nums");
+  assert_equals(marker.whiteSpace, "pre-wrap");
+  assert_equals(marker.textTransform, "lowercase");
+}, "Author declarations override the default marker declarations");
+
+test(() => {
+  assert_equals(getComputedStyle(target, "::marker").color, "rgb(1, 2, 3)");
+}, "Other inherited properties retain their originating element values");
+</script>

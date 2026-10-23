@@ -1,0 +1,75 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Range media feature prefixes occur at the start of feature names</title>
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#mq-min-max">
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#evaluating">
+<link rel="help" href="https://compat.spec.whatwg.org/#css-media-queries-webkit-device-pixel-ratio">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function checkMediaColor(t, query, color) {
+  const style = document.createElement("style");
+  style.textContent = `#target { color: green; } @media ${query} { #target { color: red; } }`;
+  const target = document.createElement("div");
+  target.id = "target";
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  assert_equals(style.sheet.cssRules.length, 2);
+  assert_equals(getComputedStyle(target).color, color);
+}
+
+test(t => {
+  checkMediaColor(t, "(device-min-width: 100px)", "rgb(0, 128, 0)");
+}, "min- inside device-min-width does not create a range feature");
+
+test(t => {
+  checkMediaColor(t, "(device-max-width: 100px)", "rgb(0, 128, 0)");
+}, "max- inside device-max-width does not create a range feature");
+
+test(t => {
+  checkMediaColor(t, "(color-min-index: 1)", "rgb(0, 128, 0)");
+}, "min- inside color-min-index does not create a range feature");
+
+test(t => {
+  checkMediaColor(t, "(color-max-index: 1)", "rgb(0, 128, 0)");
+}, "max- inside color-max-index does not create a range feature");
+
+test(t => {
+  checkMediaColor(t, "(DEVICE-MIN-WIDTH: 100px)", "rgb(0, 128, 0)");
+}, "Case folding does not turn an interior min- into a prefix");
+
+test(t => {
+  checkMediaColor(t, "(device-\\6d in-width: 100px)", "rgb(0, 128, 0)");
+}, "Escaping an interior min- does not create a range feature");
+
+test(t => {
+  checkMediaColor(t, "not (device-min-width: 100px)", "rgb(0, 128, 0)");
+}, "An unknown feature with an interior min- remains unknown under negation");
+
+test(t => {
+  checkMediaColor(t, "(device-min-width: 100px) or (min-width: 0px)", "rgb(255, 0, 0)");
+}, "A true condition can match alongside an unknown feature with an interior min-");
+
+test(t => {
+  checkMediaColor(t, "(min-device-width: 0px)", "rgb(255, 0, 0)");
+}, "A leading min- applies to the device-width range feature");
+
+test(t => {
+  checkMediaColor(t, "(min-color-index: 0)", "rgb(255, 0, 0)");
+}, "A leading min- applies to the color-index range feature");
+
+test(t => {
+  checkMediaColor(t, "(-webkit-device-min-pixel-ratio: 0)", "rgb(0, 128, 0)");
+}, "An interior min- does not create a WebKit media feature alias");
+
+test(t => {
+  checkMediaColor(t, "(min--webkit-device-pixel-ratio: 0dppx)", "rgb(0, 128, 0)");
+}, "The standard min- prefix does not apply to the WebKit device-pixel-ratio alias");
+</script>

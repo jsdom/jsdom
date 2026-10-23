@@ -1,0 +1,47 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Pseudo-element restrictions do not cross selector list branches</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#grouping">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#pseudo-element-states">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.insertRule("::marker, ::before::marker, ::after::marker { color: red; }");
+  assert_equals(sheet.cssRules[0].selectorText, "::marker, ::before::marker, ::after::marker");
+}, "Each selector list branch has its own originating pseudo-element");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.insertRule("::before, :root, ::after { color: red; }");
+  assert_equals(sheet.cssRules[0].selectorText, "::before, :root, ::after");
+}, "A pseudo-class in a later branch does not qualify an earlier pseudo-element");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.insertRule("::before, ::after { color: red; }");
+  assert_equals(sheet.cssRules[0].selectorText, "::before, ::after");
+}, "Separate pseudo-elements do not become a pseudo-element chain");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.insertRule("::before, div > span { color: red; }");
+  assert_equals(sheet.cssRules[0].selectorText, "::before, div > span");
+}, "An explicit combinator in a later branch is independent of an earlier pseudo-element");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.insertRule("::before, div span { color: red; }");
+  assert_equals(sheet.cssRules[0].selectorText, "::before, div span");
+}, "A descendant combinator in a later branch is independent of an earlier pseudo-element");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  assert_throws_dom("SyntaxError", () => {
+    sheet.insertRule("::marker, ::before::after { color: red; }");
+  });
+}, "An invalid pseudo-element chain still invalidates the complete selector list");
+</script>

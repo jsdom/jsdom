@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Visibility inheritance crosses the shadow host boundary</title>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3941 -->
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#inheriting">
+<link rel="help" href="https://drafts.csswg.org/css-shadow/#flat-tree">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="host" style="visibility: hidden"></div>
+<script>
+"use strict";
+
+test(() => {
+  const host = document.getElementById("host");
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = '<div><span style="visibility: inherit"></span></div>';
+  const container = root.querySelector("div");
+  const child = root.querySelector("span");
+  assert_equals(getComputedStyle(container).visibility, "hidden");
+  assert_equals(getComputedStyle(child).visibility, "hidden");
+  container.style.visibility = "visible";
+  assert_equals(getComputedStyle(child).visibility, "visible");
+}, "Implicit and explicit inheritance use the shadow host until a nearer ancestor overrides it");
+</script>

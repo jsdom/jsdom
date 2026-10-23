@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Logical background position origins follow writing modes</title>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds-4/#background-position-longhands">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#typedef-position">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createTarget(t, cssText) {
+  const target = document.createElement("div");
+  target.style.cssText = cssText;
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  return target;
+}
+
+test(t => {
+  const target = createTarget(t, "direction: rtl; background-position-inline: 20%;");
+  assert_equals(getComputedStyle(target).backgroundPositionX, "80%");
+}, "An omitted inline origin defaults to the inline start edge");
+
+test(t => {
+  const target = createTarget(t, "writing-mode: vertical-rl; background-position-block: 10px;");
+  assert_equals(getComputedStyle(target).backgroundPositionX, "calc(100% - 10px)");
+}, "An omitted block origin defaults to the block start edge");
+
+test(t => {
+  const target = createTarget(t, "direction: rtl; background-position-x: x-start 10px;");
+  assert_equals(getComputedStyle(target).backgroundPositionX, "calc(100% - 10px)");
+}, "X start is the flow-relative start of the horizontal axis");
+
+test(t => {
+  const target = createTarget(t, "writing-mode: vertical-rl; direction: rtl; background-position-y: y-start 10%;");
+  assert_equals(getComputedStyle(target).backgroundPositionY, "90%");
+}, "Y start is the flow-relative start of the vertical axis");
+
+test(t => {
+  const target = createTarget(t, "direction: rtl; background-position-inline: center, end 20%;");
+  assert_equals(getComputedStyle(target).backgroundPositionX, "50%, 20%");
+}, "Each logical background position list item resolves its own origin");
+
+test(t => {
+  const parent = createTarget(t, "direction: rtl; background-position-inline: 20%;");
+  const child = document.createElement("div");
+  child.style.cssText = "direction: ltr; background-position-x: inherit;";
+  parent.append(child);
+  assert_equals(getComputedStyle(child).backgroundPositionX, "80%");
+}, "An inherited computed offset is not reversed again in the child");
+</script>

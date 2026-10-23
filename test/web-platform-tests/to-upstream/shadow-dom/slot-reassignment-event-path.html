@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Event paths reflect removed slot assignments</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#assign-slotables">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const child = host.appendChild(document.createElement("span"));
+  const shadow = host.attachShadow({ mode: "open" });
+  shadow.innerHTML = "<slot></slot>";
+  const slot = shadow.firstChild;
+  let events = 0;
+  slot.addEventListener("test", () => ++events);
+  child.dispatchEvent(new Event("test", { bubbles: true }));
+  assert_equals(events, 1);
+  child.slot = "missing";
+  assert_equals(child.assignedSlot, null);
+  child.dispatchEvent(new Event("test", { bubbles: true }));
+  assert_equals(events, 1);
+}, "Changing a child's slot name removes its previous slot from the event path");
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const child = host.appendChild(document.createElement("span"));
+  const shadow = host.attachShadow({ mode: "open" });
+  shadow.innerHTML = "<slot></slot>";
+  const slot = shadow.firstChild;
+  let events = 0;
+  slot.addEventListener("test", () => ++events);
+  slot.name = "different";
+  assert_equals(child.assignedSlot, null);
+  child.dispatchEvent(new Event("test", { bubbles: true }));
+  assert_equals(events, 0);
+}, "Changing a slot's name removes it from an unassigned child's event path");
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const child = host.appendChild(document.createElement("span"));
+  const shadow = host.attachShadow({ mode: "open" });
+  shadow.innerHTML = "<slot></slot>";
+  const slot = shadow.firstChild;
+  let events = 0;
+  slot.addEventListener("test", () => ++events);
+  slot.remove();
+  assert_equals(child.assignedSlot, null);
+  child.dispatchEvent(new Event("test", { bubbles: true }));
+  assert_equals(events, 0);
+}, "Removing a slot removes it from its previously assigned child's event path");
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const child = host.appendChild(document.createElement("span"));
+  const shadow = host.attachShadow({ mode: "open" });
+  shadow.innerHTML = '<slot name="first"></slot><slot></slot>';
+  const first = shadow.firstChild;
+  const second = shadow.lastChild;
+  let firstEvents = 0;
+  let secondEvents = 0;
+  first.addEventListener("test", () => ++firstEvents);
+  second.addEventListener("test", () => ++secondEvents);
+  first.removeAttribute("name");
+  assert_equals(child.assignedSlot, first);
+  child.dispatchEvent(new Event("test", { bubbles: true }));
+  assert_equals(firstEvents, 1);
+  assert_equals(secondEvents, 0);
+}, "Reassigning all slots preserves an assignment to an earlier slot");
+</script>

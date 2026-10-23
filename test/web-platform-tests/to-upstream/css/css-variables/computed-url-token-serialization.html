@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Custom-property URL tokens retain their token kind</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#serialization">
+<link rel="help" href="https://drafts.csswg.org/css-variables/#serializing-custom-props">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.cssText = "--url: url(image.png); --alias: var(--url)";
+  assert_equals(getComputedStyle(element).getPropertyValue("--url"), "url(image.png)");
+  assert_equals(getComputedStyle(element).getPropertyValue("--alias"), "url(image.png)");
+}, "Unregistered URL tokens remain unquoted through substitution");
+
+test(t => {
+  CSS.registerProperty({
+    name: "--universal-url-token", syntax: "*", inherits: false, initialValue: "url(initial.png)"
+  });
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).getPropertyValue("--universal-url-token"), "url(initial.png)");
+  element.style.setProperty("--universal-url-token", "url(image.png)");
+  assert_equals(getComputedStyle(element).getPropertyValue("--universal-url-token"), "url(image.png)");
+}, "Universal registration preserves raw URL tokens in both initial and declared values");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.setProperty("--url", "url(a\\ b)");
+  element.style.backgroundImage = "var(--url)";
+  assert_equals(getComputedStyle(element).getPropertyValue("--url"), "url(a\\ b)");
+  assert_equals(getComputedStyle(element).backgroundImage, `url("${new URL("a b", document.URL)}")`);
+}, "Unquoted URL escaping survives substitution into a typed URL property");
+</script>

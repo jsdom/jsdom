@@ -1,0 +1,178 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Random evaluation uses the containing substitution's property and occurrence scope</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#random-simplify">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#if-notation">
+<link rel="help" href="https://drafts.csswg.org/css-conditional-3/#support-definition">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/13662">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function target(t) {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+// These are positive equality checks between required shared cache names.
+// They do not require unrelated random samples to have unequal numeric values.
+test(t => {
+  const element = target(t);
+  element.style.color = "if(style(random(0, 1) = random(element-scoped ua-early-color-1, 0, 1)): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An inline condition uses its containing color property's early scope");
+
+test(t => {
+  const element = target(t);
+  element.style.margin = "if(style(random(0, 1) = random(element-scoped ua-early-margin-1, 0, 1)): 1px 2px; else: 3px)";
+  const computed = getComputedStyle(element);
+  assert_equals(computed.marginLeft, "2px");
+  assert_equals(computed.marginTop, "1px");
+  assert_equals(getComputedStyle(element).marginRight, "2px");
+}, "Reading the left margin first preserves the shorthand's early scope");
+
+test(t => {
+  const element = target(t);
+  element.style.margin = "if(style(random(0, 1) = random(element-scoped ua-early-margin-1, 0, 1)): 1px 2px; else: 3px)";
+  const computed = getComputedStyle(element);
+  assert_equals(computed.marginTop, "1px");
+  assert_equals(computed.marginLeft, "2px");
+  assert_equals(getComputedStyle(element).marginBottom, "1px");
+}, "Reading the top margin first preserves the shorthand's early scope");
+
+test(t => {
+  const element = target(t);
+  element.style.setProperty(
+    "--out",
+    "if(style(random(0, 1) = random(element-scoped ua-early---out-1, 0, 1)): first; else: wrong) " +
+    "if(style(random(0, 1) = random(element-scoped ua-early---out-3, 0, 1)): second; else: wrong)"
+  );
+  assert_equals(getComputedStyle(element).getPropertyValue("--out"), "first second");
+}, "Separate substitutions share one early occurrence sequence in a custom property");
+
+test(t => {
+  const element = target(t);
+  element.style.setProperty("--random", "random(0, 1)");
+  element.style.setProperty(
+    "--out",
+    "if(style(var(--random) = random(element-scoped ua-early---out-1, 0, 1)) and " +
+    "style(var(--random) = random(element-scoped ua-early---out-3, 0, 1)): yes; else: no)"
+  );
+  assert_equals(getComputedStyle(element).getPropertyValue("--out"), "yes");
+}, "Repeated substitutions of the same token sequence have separate occurrence positions");
+
+test(t => {
+  const element = target(t);
+  element.style.setProperty(
+    "--out",
+    "if(style(if(style(random(0, 1) = random(element-scoped ua-early---out-1, 0, 1)): random(0, 1); else: -1) = " +
+    "random(element-scoped ua-early---out-3, 0, 1)): yes; else: no)"
+  );
+  assert_equals(getComputedStyle(element).getPropertyValue("--out"), "yes");
+}, "A nested condition and its selected substitution share the outer property's early scope");
+
+test(t => {
+  const element = target(t);
+  element.style.setProperty(
+    "--out",
+    "if(supports(width: random(0px, 0px)) and " +
+    "style(random(0, 1) = random(element-scoped ua-early---out-1, 0, 1)): yes; else: no)"
+  );
+  assert_equals(getComputedStyle(element).getPropertyValue("--out"), "yes");
+}, "An unparenthesized supports syntax probe does not consume an early evaluation index");
+
+test(t => {
+  const element = target(t);
+  element.style.setProperty(
+    "--out",
+    "if(supports((width: random(0px, 0px))) and " +
+    "style(random(0, 1) = random(element-scoped ua-early---out-1, 0, 1)): yes; else: no)"
+  );
+  assert_equals(getComputedStyle(element).getPropertyValue("--out"), "yes");
+}, "A parenthesized supports syntax probe does not consume an early evaluation index");
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(media((random(fixed .5, 0px, 0px) < width < red junk) or (width >= 0px)) and " +
+    "style(random(0, 1) = random(element-scoped ua-early-color-1, 0, 1)): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A discarded unknown media feature does not consume a later early evaluation index");
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(style(random(fixed .5, 0, 0) = 0) and " +
+    "style(random(0, 1) = random(element-scoped ua-early-color-2, 0, 1)): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A fixed random function contributes to the early occurrence sequence");
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(style(random(--named, 0, 0) = 0) and " +
+    "style(random(0, 1) = random(element-scoped ua-early-color-2, 0, 1)): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A named random function contributes to the early occurrence sequence");
+
+test(t => {
+  const literal = target(t);
+  const random = target(t);
+  literal.style.fontSize = "10000px";
+  random.style.fontSize = "10000px";
+  literal.style.color = "if(media(width >= 1em): red; else: blue)";
+  random.style.color = "if(media(width >= random(1em, 1em)): red; else: blue)";
+  assert_equals(getComputedStyle(random).color, getComputedStyle(literal).color);
+}, "Binding a media random base preserves media-relative length evaluation");
+test(t => {
+  const element = target(t);
+  const sheet = document.createElement("style");
+  sheet.textContent = '@property --late { syntax: "<number>"; inherits: false; initial-value: -1; } ' +
+    '@property --expected { syntax: "<number>"; inherits: false; initial-value: -1; }';
+  document.head.append(sheet);
+  t.add_cleanup(() => sheet.remove());
+  element.style.setProperty("--late", "if(style(random(0, 0) = 0): random(0, 1); else: -1)");
+  element.style.setProperty("--expected", "random(element-scoped ua---late-1, 0, 1)");
+  const computed = getComputedStyle(element);
+  assert_not_equals(computed.getPropertyValue("--late"), "-1");
+  assert_equals(computed.getPropertyValue("--late"), computed.getPropertyValue("--expected"));
+}, "A selected registered-property value uses its ordinary property scope after early substitution");
+
+test(t => {
+  const element = target(t);
+  const sheet = document.createElement("style");
+  sheet.textContent = '@property --dependency { syntax: "<number>"; inherits: false; initial-value: -1; }';
+  document.head.append(sheet);
+  t.add_cleanup(() => sheet.remove());
+  element.style.setProperty("--dependency", "random(7, 7)");
+  element.style.setProperty(
+    "--out",
+    "if(style(var(--dependency) = 7) and " +
+    "style(random(0, 1) = random(element-scoped ua-early---out-1, 0, 1)): yes; else: no)"
+  );
+  assert_equals(getComputedStyle(element).getPropertyValue("--out"), "yes");
+}, "Computing a registered dependency uses its own ordinary scope without advancing the host's early sequence");
+
+test(t => {
+  const element = target(t);
+  CSS.registerProperty({ name: "--successful-rgb-probe", syntax: "<color>", inherits: false, initialValue: "black" });
+  element.style.setProperty(
+    "--out",
+    "if(style(--successful-rgb-probe: rgb(random(fixed .5, 0, 0) 0 0)): first; else: wrong) " +
+    "if(style(random(0, 1) = random(element-scoped ua-early---out-2, 0, 1)): yes; else: no)"
+  );
+  assert_equals(getComputedStyle(element).getPropertyValue("--out"), "first yes");
+}, "A fixed random RGB channel contributes to a later substitution's early occurrence sequence");
+
+test(t => {
+  const element = target(t);
+  CSS.registerProperty({ name: "--discarded-rgb-probe", syntax: "<color>", inherits: false, initialValue: "black" });
+  element.style.setProperty(
+    "--out",
+    "if(style(--discarded-rgb-probe: rgb(random(fixed .5, 0, 0) 0 0 junk)): wrong; else: first) " +
+    "if(style(random(0, 1) = random(element-scoped ua-early---out-1, 0, 1)): yes; else: no)"
+  );
+  assert_equals(getComputedStyle(element).getPropertyValue("--out"), "first yes");
+}, "A discarded RGB body does not consume a later substitution's early occurrence index");
+</script>

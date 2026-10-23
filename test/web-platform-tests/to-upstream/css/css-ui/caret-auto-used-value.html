@@ -1,0 +1,50 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Automatic caret colors resolve after inheritance</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#resolved-values">
+<link rel="help" href="https://drafts.csswg.org/css-ui-4/#caret-color">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="parent"><div id="child"></div></div>
+<script>
+"use strict";
+
+const container = document.getElementById("parent");
+const child = document.getElementById("child");
+
+test(() => {
+  container.style.cssText = "color: blue; caret-color: auto";
+  child.style.cssText = "color: red";
+  assert_equals(getComputedStyle(child).caretColor, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(container).caretColor, "rgb(0, 0, 255)");
+  assert_equals(child.style.caretColor, "");
+}, "Inherited auto uses the child's text color when the child is read first");
+
+test(() => {
+  container.style.cssText = "color: red; caret-color: auto";
+  child.style.cssText = "color: blue";
+  assert_equals(getComputedStyle(container).caretColor, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(child).caretColor, "rgb(0, 0, 255)");
+}, "Reading the parent's used caret color does not change the inherited auto");
+
+test(() => {
+  container.style.cssText = "color: blue; caret-color: auto";
+  child.style.cssText = "";
+  const computed = getComputedStyle(child);
+  assert_equals(computed.caretColor, "rgb(0, 0, 255)");
+  container.style.color = "red";
+  assert_equals(computed.caretColor, "rgb(255, 0, 0)");
+  child.style.color = "green";
+  assert_equals(computed.caretColor, "rgb(0, 128, 0)");
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "A live computed style updates an automatic caret after inherited and own color changes");
+
+test(() => {
+  container.style.cssText = "color: red; caret-color: auto";
+  child.style.cssText = "color: blue; caret-color: green";
+  assert_equals(getComputedStyle(child).caretColor, "rgb(0, 128, 0)");
+  child.style.caretColor = "auto";
+  assert_equals(child.style.caretColor, "auto");
+  assert_equals(getComputedStyle(child).caretColor, "rgb(0, 0, 255)");
+}, "Changing an explicit caret color to auto preserves the authored keyword");
+</script>

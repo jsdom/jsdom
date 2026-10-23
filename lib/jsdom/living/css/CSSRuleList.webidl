@@ -1,6 +1,7 @@
-// https://drafts.csswg.org/cssom/#the-cssrulelist-interface
+
+// https://drafts.csswg.org/cssom-1/#cssrulelist
 [Exposed=Window]
 interface CSSRuleList {
-  [WebIDL2JSValueAsUnsupported=_null] getter CSSRule? item(unsigned long index);
-  readonly attribute unsigned long length;
+    readonly attribute unsigned long length;
+    getter CSSRule? item(unsigned long index);
 };

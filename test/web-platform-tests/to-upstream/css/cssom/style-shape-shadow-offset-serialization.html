@@ -1,0 +1,106 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Shape, shadow and offset serialization preserves optional components</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-value">
+<link rel="help" href="https://drafts.csswg.org/css-shapes-2/#shape-function">
+<link rel="help" href="https://drafts.csswg.org/css-borders-4/#box-shadow">
+<link rel="help" href="https://drafts.csswg.org/motion-1/#offset-shorthand">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.textShadow = "10px 20px";
+  assert_equals(style.textShadow, "10px 20px");
+  style.textShadow = "red 10px 20px";
+  assert_equals(style.textShadow, "red 10px 20px");
+}, "An omitted shadow color does not produce leading whitespace");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.filter = "drop-shadow(10px 20px)";
+  assert_equals(style.filter, "drop-shadow(10px 20px)");
+}, "Drop shadows omit an unspecified color without leaving whitespace");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.boxShadow = "red 0px 0px 0px 5px";
+  assert_equals(style.boxShadow, "red 0px 0px 0px 5px");
+  const { cssText } = style;
+  style.cssText = cssText;
+  assert_equals(style.boxShadow, "red 0px 0px 0px 5px");
+  style.boxShadow = "inset red 0px 0px 0px 5px";
+  assert_equals(style.boxShadow, "red 0px 0px 0px 5px inset");
+}, "A nonzero spread retains the preceding zero blur radius");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = "shape(evenodd from 0px 0px, line to 10px 10px)";
+  assert_equals(style.clipPath, "shape(evenodd from 0px 0px, line to 10px 10px)");
+  style.clipPath = "shape(nonzero from 0px 0px, line to 10px 10px)";
+  assert_equals(style.clipPath, "shape(from 0px 0px, line to 10px 10px)");
+}, "Shape serialization preserves a nondefault fill rule");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.offsetPath = "shape(from 10px 10px, curve by 50px 20px with 10rem 1px / 20vh 1ch)";
+  assert_equals(style.offsetPath, "shape(from 10px 10px, curve by 50px 20px with 10rem 1px / 20vh 1ch)");
+  style.offsetPath = "shape(from 10px 10px, curve by 50px 20px with 10rem 1px from start / 20vh 1ch from end)";
+  assert_equals(
+    style.offsetPath,
+    "shape(from 10px 10px, curve by 50px 20px with 10rem 1px / 20vh 1ch from end)"
+  );
+}, "Relative control points serialize omitted origins without trailing whitespace");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.offsetPath = "polygon(round 1px, 1% 2%)";
+  assert_equals(style.offsetPath, "polygon(round 1px, 1% 2%)");
+  style.clipPath = "polygon(evenodd round 2px, 1% 2%, 3% 4%)";
+  assert_equals(style.clipPath, "polygon(evenodd round 2px, 1% 2%, 3% 4%)");
+  style.offsetPath = "polygon(round 0px, 1% 2%, 3% 4%)";
+  assert_equals(style.offsetPath, "polygon(1% 2%, 3% 4%)");
+}, "Polygon serialization retains its corner rounding");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.offsetPath = "border-box";
+  assert_equals(style.offsetPath, "border-box");
+  style.offsetPath = "content-box";
+  assert_equals(style.offsetPath, "content-box");
+  style.offsetPath = "view-box";
+  assert_equals(style.offsetPath, "view-box");
+}, "A coordinate box without an offset shape is preserved");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = "border-box";
+  assert_equals(style.clipPath, "border-box");
+  style.clipPath = "content-box";
+  assert_equals(style.clipPath, "content-box");
+  style.clipPath = "view-box";
+  assert_equals(style.clipPath, "view-box");
+}, "A geometry box without a clipping shape is preserved");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.offset = 'center bottom path("M 1 2 V 3 Z") 10px reverse 45deg / 10px 20px';
+  assert_equals(style.offsetPosition, "center bottom");
+  assert_equals(style.offsetPath, 'path("M 1 2 V 3 Z")');
+  assert_equals(style.offsetDistance, "10px");
+  assert_equals(style.offsetRotate, "reverse 45deg");
+  assert_equals(style.offsetAnchor, "10px 20px");
+  assert_equals(style.offset, 'center bottom path("M 1 2 V 3 Z") 10px reverse 45deg / 10px 20px');
+  style.offset = 'path("M 0 0 H 1") auto 0rad';
+  assert_equals(style.offset, 'path("M 0 0 H 1")');
+}, "An offset position does not discard the path, distance or rotation");
+test(() => {
+  const { style } = document.createElement("div");
+  style.offsetPath = "polygon(evenodd, 0px 0px, 1px 1px, 2px 2px)";
+  assert_equals(style.offsetPath, "polygon(evenodd, 0px 0px, 1px 1px, 2px 2px)");
+  style.offsetPath = "polygon(evenodd round 1px, 0px 0px, 1px 1px, 2px 2px)";
+  assert_equals(style.offsetPath, "polygon(evenodd round 1px, 0px 0px, 1px 1px, 2px 2px)");
+}, "Offset polygon serialization preserves the specified fill rule");
+</script>

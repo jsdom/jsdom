@@ -1,0 +1,57 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed styles in a destroyed iframe document</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/document-sequences.html#concept-document-bc">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const childWindow = frame.contentWindow;
+  const childDocument = frame.contentDocument;
+  const target = childDocument.createElement("div");
+  target.style.color = "red";
+  childDocument.body.append(target);
+  const retained = childWindow.getComputedStyle(target);
+  assert_equals(retained.color, "rgb(255, 0, 0)");
+  assert_greater_than(retained.length, 0);
+
+  frame.remove();
+
+  assert_equals(retained.color, "", "Retained computed declaration");
+  assert_equals(retained.length, 0);
+  const fresh = childWindow.getComputedStyle(target);
+  assert_equals(fresh.color, "", "Fresh computed declaration");
+  assert_equals(fresh.length, 0);
+}, "Removing an iframe empties retained and fresh computed styles in its former document");
+
+test(t => {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const childWindow = frame.contentWindow;
+  const childDocument = frame.contentDocument;
+  const target = childDocument.createElement("div");
+  target.style.color = "red";
+  childDocument.body.append(target);
+  const retained = childWindow.getComputedStyle(target);
+  assert_equals(retained.color, "rgb(255, 0, 0)");
+  assert_greater_than(retained.length, 0);
+
+  childDocument.body.append(frame);
+
+  assert_equals(frame.ownerDocument, childDocument);
+  assert_true(target.isConnected);
+  assert_equals(retained.color, "", "Retained computed declaration");
+  assert_equals(retained.length, 0);
+  const fresh = childWindow.getComputedStyle(target);
+  assert_equals(fresh.color, "", "Fresh computed declaration");
+  assert_equals(fresh.length, 0);
+}, "Adopting an iframe into its former document does not restore computed styles there");
+</script>

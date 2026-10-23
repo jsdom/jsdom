@@ -1,0 +1,140 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Logical properties participate in the physical property cascade</title>
+<link rel="help" href="https://drafts.csswg.org/css-logical-1/#box">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/3029#issuecomment-3530345083">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="container"></div>
+<script>
+"use strict";
+
+function element(t, cssText, parent = document.querySelector("#container")) {
+  const result = document.createElement("div");
+  result.style.cssText = cssText;
+  parent.append(result);
+  t.add_cleanup(() => result.remove());
+  return result;
+}
+
+test(t => {
+  const target = element(t, "margin-inline-start: 1px; margin-left: 2px; margin-inline-end: 3px");
+  const style = getComputedStyle(target);
+  assert_equals(style.marginLeft, "2px");
+  assert_equals(style.marginInlineStart, "2px");
+  assert_equals(style.marginRight, "3px");
+  target.style.direction = "rtl";
+  assert_equals(style.marginLeft, "3px");
+  assert_equals(style.marginInlineEnd, "3px");
+  assert_equals(style.marginRight, "1px");
+}, "Logical and physical declarations share source order and remap when direction changes");
+
+test(t => {
+  const target = element(t, "padding-left: 8px !important; padding-inline-start: 3px");
+  assert_equals(getComputedStyle(target).paddingInlineStart, "8px");
+  target.style.setProperty("padding-inline-start", "4px", "important");
+  assert_equals(getComputedStyle(target).paddingLeft, "4px");
+  target.style.setProperty("padding-left", "5px", "important");
+  assert_equals(getComputedStyle(target).paddingInlineStart, "5px");
+}, "Importance and CSSOM declaration ordering apply across mapping logics");
+
+test(t => {
+  const target = element(t, "writing-mode: vertical-rl; direction: rtl; margin-block-start: 1px; " +
+    "margin-block-end: 2px; margin-inline-start: 3px; margin-inline-end: 4px");
+  const style = getComputedStyle(target);
+  assert_equals(style.marginTop, "4px");
+  assert_equals(style.marginRight, "1px");
+  assert_equals(style.marginBottom, "3px");
+  assert_equals(style.marginLeft, "2px");
+  target.style.writingMode = "vertical-lr";
+  assert_equals(style.marginRight, "2px");
+  assert_equals(style.marginLeft, "1px");
+}, "Vertical writing modes map block sides independently of direction");
+
+test(t => {
+  const target = element(t, "writing-mode: sideways-lr; margin-inline-start: 3px; margin-inline-end: 4px");
+  const style = getComputedStyle(target);
+  assert_equals(style.marginBottom, "3px");
+  assert_equals(style.marginTop, "4px");
+  target.style.direction = "rtl";
+  assert_equals(style.marginBottom, "4px");
+  assert_equals(style.marginTop, "3px");
+}, "Sideways-lr reverses the vertical inline direction");
+
+test(t => {
+  const target = element(t, "writing-mode: vertical-rl; direction: rtl; " +
+    "text-orientation: upright; padding-inline-start: 7px");
+  const style = getComputedStyle(target);
+  assert_equals(style.direction, "rtl");
+  assert_equals(style.paddingTop, "7px");
+  assert_equals(style.paddingBottom, "0px");
+  target.style.writingMode = "horizontal-tb";
+  assert_equals(style.paddingRight, "7px");
+}, "Upright vertical text forces the used inline direction without changing computed direction");
+
+test(t => {
+  const target = element(t, "writing-mode: vertical-rl; direction: rtl; border-start-start-radius: 3px 4px; " +
+    "inline-size: 11px; block-size: 12px; overflow-inline: hidden");
+  const style = getComputedStyle(target);
+  assert_equals(style.borderBottomRightRadius, "3px 4px");
+  assert_equals(style.height, "11px");
+  assert_equals(style.width, "12px");
+  assert_equals(style.overflowY, "hidden");
+}, "Logical corners, dimensions and axes map to their physical properties");
+
+test(t => {
+  const parent = element(t, "margin-left: 5px; margin-right: 9px");
+  const child = element(t, "direction: rtl; margin-inline-start: inherit", parent);
+  assert_equals(getComputedStyle(child).marginRight, "9px");
+  child.style.cssText = "direction: rtl; margin-right: inherit";
+  assert_equals(getComputedStyle(child).marginInlineStart, "9px");
+}, "Inheritance uses the mapped physical property on the parent");
+
+test(t => {
+  const target = element(t, "--margins: 5px 9px; margin-left: 1px; margin-inline: var(--margins); margin-right: 12px");
+  const style = getComputedStyle(target);
+  assert_equals(style.marginLeft, "5px");
+  assert_equals(style.marginInlineStart, "5px");
+  assert_equals(style.marginRight, "12px");
+  assert_equals(style.marginInlineEnd, "12px");
+  target.style.setProperty("--margins", "invalid");
+  assert_equals(style.marginLeft, "0px");
+  assert_equals(style.marginRight, "12px");
+}, "Pending logical shorthands participate in the cascade before substitution");
+
+test(t => {
+  const parent = element(t, "margin-left: 5px; margin-right: 9px");
+  const child = element(t, "all: inherit; direction: rtl", parent);
+  const style = getComputedStyle(child);
+  assert_equals(style.marginLeft, "5px");
+  assert_equals(style.marginRight, "9px");
+  assert_equals(style.marginInlineStart, "9px");
+}, "The all shorthand sets physical longhands after logical longhands");
+
+test(t => {
+  const sheet = document.createElement("style");
+  sheet.textContent = ".logical-layer { margin-left: 5px; } @layer base, last; " +
+    "@layer base { .logical-layer { margin-inline-start: 7px; } } " +
+    "@layer last { .logical-layer { margin-left: 9px; margin-inline-start: revert-layer; } }";
+  document.head.append(sheet);
+  t.add_cleanup(() => sheet.remove());
+  const target = element(t, "");
+  target.className = "logical-layer";
+  assert_equals(getComputedStyle(target).marginLeft, "5px");
+  sheet.textContent = "@layer base, last; @layer base { .logical-layer { margin-left: 7px; } } " +
+    "@layer last { .logical-layer { margin-left: 9px; margin-inline-start: revert-layer; } }";
+  assert_equals(getComputedStyle(target).marginInlineStart, "7px");
+}, "Layer rollback removes both declarations in a logical and physical pair");
+test(t => {
+  const sheet = document.createElement("style");
+  sheet.textContent = ".logical-rule { margin-left: 5px; } " +
+    ".logical-rule { margin-left: 9px; margin-inline-start: revert-rule; }";
+  document.head.append(sheet);
+  t.add_cleanup(() => sheet.remove());
+  const target = element(t, "");
+  target.className = "logical-rule";
+  assert_equals(getComputedStyle(target).marginLeft, "5px");
+  target.style.cssText = "margin-left: 11px; margin-inline-start: revert-rule";
+  assert_equals(getComputedStyle(target).marginInlineStart, "5px");
+}, "Rule rollback removes both declarations in a logical and physical pair");
+</script>

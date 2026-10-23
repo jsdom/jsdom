@@ -1,0 +1,110 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Chained media range comparisons preserve compound operators</title>
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#mq-syntax">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function checkQuery(t, query, expectedMatch, expectedSerialization) {
+  const style = document.createElement("style");
+  const target = document.createElement("div");
+  target.className = "probe";
+  style.textContent = `.probe { color: blue; } @media ${query} { .probe { color: red; } }`;
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  assert_equals(style.sheet.cssRules.length, 2);
+  if (expectedSerialization !== undefined) {
+    assert_equals(style.sheet.cssRules[1].conditionText, expectedSerialization);
+  }
+  assert_equals(getComputedStyle(target).color, expectedMatch ? "rgb(255, 0, 0)" : "rgb(0, 0, 255)");
+}
+
+test(t => {
+  const query = `(0px <= width <= ${innerWidth + 1}px)`;
+  checkQuery(t, query, true, query);
+}, "Ascending inclusive comparisons serialize and match");
+
+test(t => {
+  const query = `(${innerWidth + 1}px >= width >= 0px)`;
+  checkQuery(t, query, true, query);
+}, "Descending inclusive comparisons serialize and match");
+
+test(t => {
+  const query = `(0px < width <= ${innerWidth + 1}px)`;
+  checkQuery(t, query, true, query);
+}, "An ascending range can end with an inclusive comparison");
+
+test(t => {
+  const query = `(0px <= width < ${innerWidth + 1}px)`;
+  checkQuery(t, query, true, query);
+}, "An ascending range can begin with an inclusive comparison");
+
+test(t => {
+  const query = `(${innerWidth + 1}px > width >= 0px)`;
+  checkQuery(t, query, true, query);
+}, "A descending range can end with an inclusive comparison");
+
+test(t => {
+  const query = `(${innerWidth + 1}px >= width > 0px)`;
+  checkQuery(t, query, true, query);
+}, "A descending range can begin with an inclusive comparison");
+
+test(t => {
+  checkQuery(
+    t,
+    `(0px </**/= width </**/= ${innerWidth + 1}px)`,
+    true,
+    `(0px <= width <= ${innerWidth + 1}px)`
+  );
+}, "Comments without whitespace can separate the tokens of inclusive less-than comparisons");
+
+test(t => {
+  checkQuery(
+    t,
+    `(${innerWidth + 1}px >/**/= width >/**/= 0px)`,
+    true,
+    `(${innerWidth + 1}px >= width >= 0px)`
+  );
+}, "Comments without whitespace can separate the tokens of inclusive greater-than comparisons");
+
+test(t => {
+  checkQuery(t, `not (0px < = width <= ${innerWidth + 1}px)`, false);
+}, "Whitespace in the first ascending compound operator remains invalid under negation");
+
+test(t => {
+  checkQuery(t, `not (0px <= width < = ${innerWidth + 1}px)`, false);
+}, "Whitespace in the second ascending compound operator remains invalid under negation");
+
+test(t => {
+  checkQuery(t, `not (${innerWidth + 1}px > = width >= 0px)`, false);
+}, "Whitespace in the first descending compound operator remains invalid under negation");
+
+test(t => {
+  checkQuery(t, `not (${innerWidth + 1}px >= width > = 0px)`, false);
+}, "Whitespace in the second descending compound operator remains invalid under negation");
+
+test(t => {
+  checkQuery(t, `not (0px </**/ = width <= ${innerWidth + 1}px)`, false);
+}, "A comment does not hide whitespace after the less-than token");
+
+test(t => {
+  checkQuery(t, `not (${innerWidth + 1}px > /**/= width >= 0px)`, false);
+}, "A comment does not hide whitespace before the equality token");
+
+test(t => {
+  const query = `(width <= ${innerWidth + 1}px)`;
+  checkQuery(t, query, true, query);
+}, "A single inclusive comparison remains valid");
+
+test(t => {
+  const query = `(0px < width < ${innerWidth + 1}px)`;
+  checkQuery(t, query, true, query);
+}, "Chained strict comparisons remain valid");
+</script>
