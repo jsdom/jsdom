@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed styles on script, unknown HTML, and MathML elements</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div style="color: red">
+  <script type="math/mml" id="math-source"><math><mrow><mi>x</mi></mrow></math></script>
+  <unknown-tag id="unknown"></unknown-tag>
+  <math><mrow><mi id="math-token">x</mi></mrow></math>
+</div>
+<script>
+"use strict";
+
+test(() => {
+  const element = document.getElementById("math-source");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A script containing MathML source has a computed style");
+
+test(() => {
+  const element = document.getElementById("unknown");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An unknown HTML element has a computed style");
+
+test(() => {
+  const element = document.getElementById("math-token");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A MathML element has a computed style");
+</script>
