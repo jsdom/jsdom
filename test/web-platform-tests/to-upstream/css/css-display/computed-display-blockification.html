@@ -1,0 +1,61 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Flex and grid items are blockified in computed display</title>
+<link rel="help" href="https://drafts.csswg.org/css-display-3/#transformations">
+<link rel="help" href="https://drafts.csswg.org/css-flexbox-1/#flex-items">
+<link rel="help" href="https://drafts.csswg.org/css-grid-1/#grid-item-display">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  .flex { display: flex; }
+  .inline-flex { display: inline-flex; }
+  .grid { display: grid; }
+  .inline-item { display: inline-flex; }
+  .inline-block-item { display: inline-block; }
+  .inline-list-item { display: inline list-item; }
+  .hidden-item { display: none; }
+</style>
+<body>
+<div class="flex"><span id="flex-item"></span></div>
+<span class="inline-flex"><span id="inline-flex-item"></span></span>
+<div class="grid"><span id="grid-item"></span></div>
+<div><span id="normal-span"></span></div>
+<div class="flex"><span id="specified-inline-flex" class="inline-item"></span></div>
+<div class="flex"><span id="specified-inline-block" class="inline-block-item"></span></div>
+<div class="flex"><span id="specified-inline-list-item" class="inline-list-item"></span></div>
+<div class="flex"><span id="specified-none" class="hidden-item"></span></div>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("flex-item")).display, "block");
+}, "A flex item is blockified");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("inline-flex-item")).display, "block");
+}, "A child of an inline-flex container is blockified");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("grid-item")).display, "block");
+}, "A grid item is blockified");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("normal-span")).display, "inline");
+}, "An element that is not a flex or grid item is not blockified");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("specified-inline-flex")).display, "flex");
+}, "Specified inline-flex loses the inline prefix in an item");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("specified-inline-block")).display, "block");
+}, "Specified inline-block is blockified to block");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("specified-inline-list-item")).display, "list-item");
+}, "Specified inline list-item is blockified to list-item");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("specified-none")).display, "none");
+}, "display: none is not blockified");
+</script>
