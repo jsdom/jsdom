@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Blockification changes the computed value of display</title>
+<link rel="help" href="https://www.w3.org/TR/css-display-3/#transformations">
+<link rel="help" href="https://www.w3.org/TR/css-display-3/#root">
+<link rel="help" href="https://www.w3.org/TR/css-flexbox-1/#flex-items">
+<link rel="help" href="https://www.w3.org/TR/css-grid-1/#grid-item-display">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<!-- Test for https://github.com/jsdom/jsdom/issues/4409 -->
+
+<div id="container"></div>
+
+<script>
+"use strict";
+
+const container = document.querySelector("#container");
+
+function computedChildDisplay(parentDisplay, childDisplay) {
+  const parent = document.createElement("div");
+  parent.style.display = parentDisplay;
+  const child = document.createElement("span");
+  if (childDisplay) {
+    child.style.display = childDisplay;
+  }
+  parent.append(child);
+  container.append(parent);
+  const result = getComputedStyle(child).display;
+  parent.remove();
+  return result;
+}
+
+for (const parentDisplay of ["flex", "inline-flex", "grid", "inline-grid"]) {
+  test(() => {
+    assert_equals(computedChildDisplay(parentDisplay), "block");
+  }, `An inline child of a ${parentDisplay} container computes to block`);
+}
+
+for (const [childDisplay, expected] of [
+  ["inline", "block"],
+  ["inline-block", "block"],
+  ["inline-flex", "flex"],
+  ["inline-grid", "grid"],
+  ["inline-table", "table"],
+  ["inline list-item", "list-item"],
+  ["inline flow-root list-item", "flow-root list-item"],
+  ["table-cell", "block"],
+  ["table-row", "block"],
+  ["block", "block"],
+  ["flex", "flex"],
+  ["list-item", "list-item"],
+  ["contents", "contents"],
+  ["none", "none"]
+]) {
+  test(() => {
+    assert_equals(computedChildDisplay("flex", childDisplay), expected);
+  }, `display: ${childDisplay} on a flex item computes to ${expected}`);
+}
+
+for (const parentDisplay of ["block", "inline", "inline-block", "table-cell", "none"]) {
+  test(() => {
+    assert_equals(computedChildDisplay(parentDisplay), "inline");
+  }, `An inline child of a ${parentDisplay} element is not blockified`);
+}
+
+test(() => {
+  const flex = document.createElement("div");
+  flex.style.display = "flex";
+  const contents = document.createElement("div");
+  contents.style.display = "contents";
+  const child = document.createElement("span");
+  contents.append(child);
+  flex.append(contents);
+  container.append(flex);
+  assert_equals(getComputedStyle(child).display, "block");
+  flex.remove();
+}, "A child of a display: contents element inside a flex container is blockified");
+
+test(() => {
+  const grandparent = document.createElement("div");
+  grandparent.style.display = "flex";
+  const parent = document.createElement("span");
+  const child = document.createElement("span");
+  parent.append(child);
+  grandparent.append(parent);
+  container.append(grandparent);
+  assert_equals(getComputedStyle(parent).display, "block", "flex item");
+  assert_equals(getComputedStyle(child).display, "inline", "child of the flex item");
+  grandparent.remove();
+}, "Blockification only applies to the flex container's children");
+
+test(() => {
+  const parent = document.createElement("div");
+  const child = document.createElement("span");
+  parent.append(child);
+  container.append(parent);
+  assert_equals(getComputedStyle(child).display, "inline", "before");
+  parent.style.display = "grid";
+  assert_equals(getComputedStyle(child).display, "block", "after");
+  parent.remove();
+}, "Changing the parent's display updates the child's computed display");
+
+test(() => {
+  const child = document.createElement("span");
+  child.style.float = "left";
+  container.append(child);
+  assert_equals(getComputedStyle(child).display, "block");
+  child.remove();
+}, "A floated inline element computes to block");
+
+for (const position of ["absolute", "fixed"]) {
+  test(() => {
+    const child = document.createElement("span");
+    child.style.position = position;
+    child.style.display = "inline-flex";
+    container.append(child);
+    assert_equals(getComputedStyle(child).display, "flex");
+    child.remove();
+  }, `A position: ${position} inline-flex element computes to flex`);
+}
+
+test(() => {
+  const child = document.createElement("span");
+  child.style.position = "relative";
+  container.append(child);
+  assert_equals(getComputedStyle(child).display, "inline");
+  child.remove();
+}, "A position: relative inline element is not blockified");
+
+test(t => {
+  const root = document.documentElement;
+  t.add_cleanup(() => {
+    root.style.removeProperty("display");
+  });
+  root.style.display = "inline-grid";
+  assert_equals(getComputedStyle(root).display, "grid");
+}, "The root element is blockified");
+
+test(t => {
+  const root = document.documentElement;
+  t.add_cleanup(() => {
+    root.style.removeProperty("display");
+  });
+  root.style.display = "contents";
+  assert_equals(getComputedStyle(root).display, "block");
+}, "display: contents on the root element computes to block");
+</script>

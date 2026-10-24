@@ -464,8 +464,6 @@ DIR: css/css-display
 
 animations/display-interpolation-none.html: [fail, Not implemented]
 animations/display-interpolation.html: [fail, Not implemented]
-display-contents-blockify-dynamic.html: [fail, Unknown]
-display-contents-computed-style.html: [fail, Unknown]
 display-contents-focusable-001.html: [fail, Unknown]
 display-first-letter-001.html: [fail, Unknown]
 display-first-line-001.html: [fail, Unknown]
@@ -477,7 +475,6 @@ display-math-on-non-mathml-elements.html: [fail, Unknown]
 display-math-on-pseudo-elements-001.html: [fail, Unknown]
 empty-text-baseline-001.html: [fail, Unknown]
 empty-text-baseline-002.html: [fail, Unknown]
-parsing/display-computed.html: [fail, Unknown]
 textarea-display.html: [fail, Unknown]
 
 ---
