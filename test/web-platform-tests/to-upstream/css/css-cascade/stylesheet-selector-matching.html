@@ -155,6 +155,14 @@ test(t => {
 }, "A pseudo-element branch does not prevent a matching element branch from applying");
 
 test(t => {
+  const { element } = fixture(t, `
+    .target::before, #unmatched::after { color: red; }
+    .target { color: blue; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "A selector list does not apply when every branch targets a pseudo-element");
+
+test(t => {
   const { element, sheet } = fixture(t, `
     #target, .target { color: red; }
     .target.other { color: blue; }
