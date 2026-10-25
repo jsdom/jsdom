@@ -139,9 +139,15 @@ place-self-valid.html: [fail, Align parsing and serialization are incomplete]
 
 DIR: css/css-anchor-position
 
-'!(at-position-try-cssom.html|position-area-parsing.html|position-area-computed.html|parsing)': [fail-slow, Anchor positioning requires layout]
-'!(parsing)/**': [fail-slow, Anchor positioning requires layout]
+'!(anchor-@(parse|size-parse)-@(invalid|valid).html|at-position-try-@(allowed-declarations|cssom).html|position-area-@(parsing|computed).html|parsing)': [fail-slow, Anchor positioning requires layout]
+anchor-parse-valid.html: [fail, Nested anchor fallback parsing is incomplete]
+anchor-size-parse-valid.html: [fail, Nested anchor-size fallback parsing is incomplete]
 at-position-try-cssom.html: [fail, Anchor position parsing and serialization are incomplete]
+container-queries/**/!(at-container-anchored-@(parsing-any|parsing|serialization).html|container-type-anchored-parsing.html): [fail-slow, Anchor positioning requires layout]
+container-queries/at-container-anchored-parsing-any.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/at-container-anchored-parsing.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/at-container-anchored-serialization.html: [fail, Container query whitespace serialization differs]
+container-queries/container-type-anchored-parsing.html: [fail, The anchored container type is not implemented]
 parsing/position-visibility-computed.html: [fail, Anchor position computed values are incomplete]
 parsing/position-visibility-parsing.html: [fail, Anchor position parsing and serialization are incomplete]
 
@@ -150,7 +156,7 @@ parsing/position-visibility-parsing.html: [fail, Anchor position parsing and ser
 DIR: css/css-animations
 
 # Keep declaration and keyframes parsing; animation execution is excluded.
-'!(animation-name-case-sensitive.html|keyframes-rule-caching.html|parsing)': [fail-slow, Animation execution not implemented]
+'!(animation-name-case-sensitive.html|@(computed-style|style)-animation-parsing.html|keyframes-rule-caching.html|parsing)': [fail-slow, Animation execution not implemented]
 '!(parsing)/**': [fail-slow, Animation execution not implemented]
 parsing/animation-name-computed.html: [fail, Animations computed values are incomplete]
 parsing/animation-name-valid.html: [fail, Animations parsing and serialization are incomplete]
@@ -212,14 +218,14 @@ DIR: css/css-break/parsing
 
 DIR: css/css-cascade
 
-all-prop-initial-xml.html: [fail-slow, Unknown]
+all-prop-initial-xml.html: [fail-slow, Blob URLs are not implemented]
 all-prop-revert-layer.html: [fail, Fixture values leave animation-delay-end and box-shadow-position at their initial values; https://github.com/web-platform-tests/wpt/pull/63874]
 idlharness.html: [fail, Unknown]
-import-conditions.html: [fail-slow, Unknown]
+import-conditions.html: [fail-slow, innerText is not implemented]
 layer-cssom-order-reverse.html: [fail, Unknown]
 layer-font-face-override.html: [fail, Unknown]
 layer-keyframes-override.html: [fail, Unknown]
-layer-media-query.html: [fail-slow, Unknown]
+layer-media-query.html: [fail-slow, iframe srcdoc and viewport layout are not implemented]
 layer-replaceSync-clears-stale.html: [fail, Unknown]
 layer-stylesheet-multi-adoption.html: [fail, Unknown]
 presentational-hints-rollback.html: [fail, Unknown]
@@ -284,7 +290,20 @@ at-media-matches-002.html: [timeout, CSS conditional rules are incomplete]
 at-supports-named-feature-001.html:
   can detect whether anchor position follows transforms: [fail, CSS conditional rules are incomplete]
 container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
-container-queries/**/!(container-name-parsing.html|container-rule-cssom.html|container-type-parsing.html): [fail-slow, Container queries not implemented]
+container-queries/**/!(at-container-@(parsing|serialization|@(scrollable|scrolled|snapped|stuck|style)-@(parsing|serialization)).html|container-@(name-parsing|rule-cssom|type-parsing|parsing|type-scroll-state-parsing).html): [fail-slow, Container queries not implemented]
+container-queries/at-container-parsing.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/at-container-serialization.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/at-container-style-parsing.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/at-container-style-serialization.html: [fail, Container query whitespace serialization differs]
+container-queries/container-parsing.html: [fail, Container shorthand accepts repeated none keywords]
+container-queries/scroll-state/at-container-scrollable-parsing.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/scroll-state/at-container-scrollable-serialization.html: [fail, Container query whitespace serialization differs]
+container-queries/scroll-state/at-container-scrolled-parsing.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/scroll-state/at-container-scrolled-serialization.html: [fail, Container query whitespace serialization differs]
+container-queries/scroll-state/at-container-snapped-parsing.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/scroll-state/at-container-snapped-serialization.html: [fail, Container query whitespace serialization differs]
+container-queries/scroll-state/at-container-stuck-parsing.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/scroll-state/at-container-stuck-serialization.html: [fail, Container query whitespace serialization differs]
 idlharness.html: [fail, fetch not implemented]
 js/CSS-supports-details-content-pseudo-parsing.html: [fail, WPT applies matching restrictions during element-backed pseudo-element parsing; https://github.com/web-platform-tests/wpt/pull/63932]
 
@@ -331,13 +350,15 @@ flex-basis-computed.html:
 DIR: css/css-fonts
 
 # Keep font property handling and the previously enabled parsing directory.
-'!(font-@(family|shorthand|size|style|weight|variant|palette)-*.html|getComputedStyle-fontFamily.html|font-feature-values-map-live.html|inheritance.html|crash-font-face-invalid-descriptor.html|parsing|variations)': [fail-slow, Font loading and rendering not implemented]
+'!(font-@(family|feature-settings|shorthand|size|style|weight|variant|variation-settings|palette)-*.html|getComputedStyle-fontFamily.html|font-feature-values-map-live.html|inheritance.html|crash-font-face-invalid-descriptor.html|test_font_@(family|feature_values)_parsing.html|parsing|variations)': [fail-slow, Font loading and rendering not implemented]
 '!(parsing|variations)/**': [fail-slow, Font loading and rendering not implemented]
 font-family-src-quoted.html: [fail, Font value computation is incomplete]
 font-feature-values-map-live.html: [fail, CSSFontFeatureValuesMap not implemented]
 font-size-@(adjust-interpolation-math-functions|zero-ligatures).html: [fail-slow, Font loading and rendering not implemented]
 font-size-computed.html:
   box3: [fail, Need percentage value resolver for width]
+font-variation-settings-serialization-001.html: [fail, Computed font variation settings retain duplicate axes]
+font-variation-settings-serialization-002.html: [fail, Computed font variation settings are not sorted]
 parsing/font-feature-settings-computed.html: [fail, Unknown]
 parsing/font-language-override-computed.html: [fail, Unknown]
 parsing/font-language-override-invalid.html: [fail, Unknown]
@@ -351,7 +372,11 @@ parsing/font-synthesis-valid.html: [fail, Unknown]
 parsing/font-variation-settings-computed.html: [fail, Unknown]
 parsing/palette-mix-computed.html: [fail, palette-mix parsing and serialization are incomplete]
 parsing/palette-mix-valid.html: [fail, palette-mix parsing and serialization are incomplete]
-variations/!(font-style-parsing.html|font-weight-parsing.html|font-weight-lighter-bolder.html): [fail-slow, Font loading and rendering not implemented]
+test_font_feature_values_parsing.html: [fail, Font feature value parsing and serialization are incomplete]
+variations/!(at-font-face-descriptors.html|font-@(parse-numeric-stretch-style-weight|shorthand|stretch|style-parsing|weight-parsing|weight-lighter-bolder).html): [fail-slow, Font loading and rendering not implemented]
+variations/at-font-face-descriptors.html: [fail, Equal font-style range bounds are collapsed during serialization]
+variations/font-parse-numeric-stretch-style-weight.html: [fail, FontFace is not implemented]
+variations/font-stretch.html: [fail, Large percentage serialization differs]
 
 ---
 
@@ -374,7 +399,7 @@ gap-decorations-rule-shorthand.html: [fail, Gaps parsing and serialization are i
 DIR: css/css-grid
 
 '!(grid-template-columns-mixed-calc.html|parsing)': [fail-slow, Grid layout and general grid property processing not implemented]
-'!(parsing)/**': [fail-slow, Grid layout and general grid property processing not implemented]
+'!(parsing|subgrid)/**': [fail-slow, Grid layout and general grid property processing not implemented]
 parsing/grid-columns-rows-get-set-multiple.html: [fail-slow, Requires the Font Loading API before running assertions]
 parsing/grid-content-sized-columns-resolution.html: [fail-slow, Requires the Font Loading API before running assertions]
 parsing/grid-template-columns-computed-implicit-track.html: [fail, Grid computed values are incomplete]
@@ -385,15 +410,19 @@ parsing/grid-template-repeat-auto-computed-withcontent-002.html: [fail, Grid com
 parsing/grid-template-rows-computed-implicit-track.html: [fail, Grid computed values are incomplete]
 parsing/grid-template-rows-computed-withcontent.html: [fail, Grid computed values are incomplete]
 parsing/grid-template-rows-computed.html: [fail, Grid computed values are incomplete]
+subgrid/**/!(grid-template-invalid.html|grid-template-valid.html): [fail-slow, Grid layout and general grid property processing not implemented]
+subgrid/grid-template-invalid.html: [fail, Multiple auto-fill repetitions are accepted]
 
 ---
 
 DIR: css/css-images
 
 # Keep image and gradient declaration parsing and serialization.
-'!(gradient-specified-values.html|gradient|parsing)': [fail-slow, Image rendering not implemented]
-'!(gradient|parsing)/**': [fail-slow, Image rendering not implemented]
+'!(gradient-specified-values.html|gradient|parsing|object-view-box-parsing.html)': [fail-slow, Image rendering not implemented]
+'!(gradient|parsing|image-set)/**': [fail-slow, Image rendering not implemented]
 gradient/color-stops-parsing.html: [fail, Radial-gradient fixtures allow a leading percentage to parse as a radius instead of a color stop; https://github.com/web-platform-tests/wpt/pull/63930]
+image-set/**/!(image-set-parsing.html): [fail-slow, Image rendering not implemented]
+image-set/image-set-parsing.html: [fail, Image-set serialization differs]
 parsing/image-function-invalid.html: [fail, Images 5 allows URL sources in image(); https://github.com/web-platform-tests/wpt/pull/63919]
 parsing/image-orientation-invalid.html: [fail, Images parsing and serialization are incomplete]
 parsing/image-resolution-valid.html: [fail, WPT accepts a negative resolution and expects noncanonical keyword order; https://github.com/web-platform-tests/wpt/pull/63885 and https://github.com/web-platform-tests/wpt/pull/63928]
@@ -437,7 +466,7 @@ padding-block-inline-computed.html: [fail, Resolved sizes and positions require 
 DIR: css/css-masking
 
 # Keep clipping and masking declaration parsing and computed values.
-'!(clip.html|parsing)': [fail-slow, Masking and clipping not implemented]
+'!(clip.html|parsing|mask-shorthand-subproperties-reset.html)': [fail-slow, Masking and clipping not implemented]
 '!(parsing)/**': [fail-slow, Masking and clipping not implemented]
 parsing/clip-path-computed.html: [fail, Masking computed values are incomplete]
 parsing/clip-path-invalid.html: [fail, Tests reject single-radius ellipses; https://github.com/web-platform-tests/wpt/pull/63924]
@@ -451,7 +480,7 @@ parsing/mask-valid.sub.html: [fail, Masking parsing and serialization are incomp
 
 DIR: css/css-mixins/functions
 
-'!(at-function-cssom.html)': [fail-slow, Custom function evaluation is not implemented]
+'!(at-function-cssom.html|at-function-parsing.html|dashed-function-parsing.html)': [fail-slow, Custom function evaluation is not implemented]
 
 ---
 
@@ -500,7 +529,9 @@ DIR: css/css-position
 
 # Keep inset property parsing and computed values.
 '!(box-insets-top-right-bottom-left.html|parsing)': [fail-slow, Positioning requires layout]
-'!(parsing)/**': [fail-slow, Positioning requires layout]
+'!(parsing|overlay|sticky)/**': [fail-slow, Positioning requires layout]
+overlay/**/!(overlay-invalid.html|overlay-transition-property.html|overlay-valid.html): [fail-slow, Positioning requires layout]
+sticky/**/!(position-sticky-parsing.html): [fail-slow, Positioning requires layout]
 
 ---
 
@@ -523,7 +554,7 @@ var-reference-registered-properties.html: [fail, Invalid registered values subst
 DIR: css/css-pseudo/parsing
 
 highlight-pseudos.html: [fail, WPT rejects user-action pseudo-classes after pseudo-elements; https://github.com/web-platform-tests/wpt/pull/63933]
-marker-supported-properties-in-animation.html: [fail-slow, Animation execution is not implemented]
+marker-supported-properties-in-animation.html: [fail, Animation execution is not implemented]
 marker-supported-properties.html: [fail, Initial list-style components are omitted; https://github.com/w3c/csswg-drafts/issues/5642]
 tree-abiding-pseudo-elements.html: [fail, WPT applies matching restrictions during element-backed pseudo-element parsing; https://github.com/web-platform-tests/wpt/pull/63932]
 
@@ -605,13 +636,14 @@ DIR: css/css-sizing
 
 # Keep size and aspect-ratio declarations, including intrinsic-size and responsive-iframe parsing.
 '!(aspect-ratio.html|aspect-ratio|contain-intrinsic-size|responsive-iframe|parsing)': [fail-slow, Sizing requires layout]
-'!(aspect-ratio|contain-intrinsic-size|responsive-iframe|parsing)/**': [fail-slow, Sizing requires layout]
+'!(aspect-ratio|contain-intrinsic-size|responsive-iframe|parsing|stretch)/**': [fail-slow, Sizing requires layout]
 '@(contain-intrinsic-size|responsive-iframe)/!(parsing)': [fail-slow, Sizing requires layout]
 '@(contain-intrinsic-size|responsive-iframe)/!(parsing)/**': [fail-slow, Sizing and animation require layout]
 aspect-ratio/!(parsing): [fail-slow, Sizing requires layout]
 parsing/size-shorthand.html: [fail, size parsing is incomplete]
 parsing/size-valid.html:
   e.style['size'] = "100px 100px" should set the property value: [fail, size serialization is incomplete]
+stretch/**/!(parsing.html): [fail-slow, Sizing requires layout]
 
 ---
 
@@ -692,8 +724,9 @@ transitionevent-interface.html:
 
 DIR: css/css-ui
 
-'!(appearance-cssom-001.html*|parsing)': [fail-slow, User interface rendering and interactions are not implemented]
-'!(parsing)/**': [fail-slow, User interface rendering and interactions are not implemented]
+'!(appearance-cssom-001.html*|@(accent-color|appearance|caret-shape|input-security|webkit-appearance)-@(parsing|serialization).html|parsing)': [fail-slow, User interface rendering and interactions are not implemented]
+'!(parsing|animation)/**': [fail-slow, User interface rendering and interactions are not implemented]
+animation/**/!(caret-animation-parsing.html): [fail-slow, User interface rendering and interactions are not implemented]
 parsing/canonical-order-outline-sub-properties-001.html: [fail, Obsolete invert and default-omission assumptions; https://github.com/web-platform-tests/wpt/pull/63926]
 parsing/caret-color-computed.html: [fail, Current caret-color grammar excludes auto followed by another component; https://github.com/web-platform-tests/wpt/pull/63923]
 parsing/caret-color-valid.html: [fail, Current caret-color grammar excludes auto followed by another component; https://github.com/web-platform-tests/wpt/pull/63923]
@@ -838,7 +871,6 @@ HTMLLinkElement-disabled-001.html: [fail, Unknown]
 HTMLLinkElement-disabled-002.html: [fail, Unknown]
 HTMLLinkElement-disabled-003.html: [fail, Unknown]
 HTMLLinkElement-disabled-004.html: [fail, Unknown]
-HTMLLinkElement-disabled-005.html: [timeout, Unknown]
 HTMLLinkElement-disabled-006.html: [fail, Unknown]
 HTMLLinkElement-load-event.html: [fail, Unknown]
 adoptedstylesheets-cascade-order.html: [fail, adoptedStyleSheets not implemented]
@@ -847,7 +879,7 @@ adoptedstylesheets-observablearray.html: [fail, Unknown]
 base-uri.html: [fail, Unknown]
 caretPositionFromPoint-audioVideo.html: [fail, Unknown]
 caretPositionFromPoint-in-flex-container.html: [fail, Unknown]
-caretPositionFromPoint-with-transformation.html: [timeout, Unknown]
+caretPositionFromPoint-with-transformation.html: [timeout, iframe srcdoc and caretPositionFromPoint are not implemented]
 caretPositionFromPoint.html: [fail, Unknown]
 computed-style-001.html: [fail, Unknown]
 computed-style-002.html: [fail, Unknown]
@@ -863,15 +895,15 @@ getComputedStyle-calc.html:
   getComputedStyle() returns computed value for calc(100% - 40px): [fail, Need to fix calc() with percentages]
   getComputedStyle() returns computed value for calc(608px - env(safe-area-inset-top)): [fail, Need to fix calc() with CSS functions]
 getComputedStyle-dynamic-subdoc.html: [fail, Unknown]
-getComputedStyle-insets-absolute.html: [timeout, Unknown]
-getComputedStyle-insets-fixed.html: [timeout, Unknown]
+getComputedStyle-insets-absolute.html: [timeout, Module scripts are not implemented]
+getComputedStyle-insets-fixed.html: [timeout, Module scripts are not implemented]
 getComputedStyle-insets-grid.html: [fail, Unknown]
-getComputedStyle-insets-nobox.html: [timeout, Unknown]
-getComputedStyle-insets-relative.html: [timeout, Unknown]
+getComputedStyle-insets-nobox.html: [timeout, Module scripts are not implemented]
+getComputedStyle-insets-relative.html: [timeout, Module scripts are not implemented]
 getComputedStyle-insets-relpos-inline.html: [fail, Unknown]
-getComputedStyle-insets-static.html: [timeout, Unknown]
-getComputedStyle-insets-sticky-container-for-abspos.html: [timeout, Unknown]
-getComputedStyle-insets-sticky.html: [timeout, Unknown]
+getComputedStyle-insets-static.html: [timeout, Module scripts are not implemented]
+getComputedStyle-insets-sticky-container-for-abspos.html: [timeout, Module scripts are not implemented]
+getComputedStyle-insets-sticky.html: [timeout, Module scripts are not implemented]
 getComputedStyle-layout-dependent-removed-ib-sibling.html: [fail, Unknown]
 getComputedStyle-layout-dependent-replaced-into-ib-split.html: [fail, Unknown]
 getComputedStyle-line-height.html: [fail, Unknown]
@@ -1036,7 +1068,10 @@ structured-serialization.html: [fail, need MessageChannel]
 
 DIR: css/mediaqueries
 
-'!(nested-media-queries.html)': [fail-slow, Media query evaluation and matchMedia not implemented]
+'!(at-custom-media-@(cssom|parsing).html|mq-escaped-serialization.html|mq-invalid-media-type-@(005|layer-002).html|mq-unknown-feature-custom-property.html|nested-media-queries.html|test_media_queries.html)': [fail-slow, matchMedia and dynamic viewport changes are not implemented]
+at-custom-media-cssom.html: [fail, Custom media rules are not implemented]
+at-custom-media-parsing.html: [fail, Custom media rules are not implemented]
+test_media_queries.html: [fail, Viewport geometry and media query results differ]
 
 ---
 
@@ -1057,8 +1092,6 @@ focus-display-none-001.html: [fail, Focus fixup rule not properly implemented; h
 focus-visible-009.html: [fail, autofocus not implemented]
 focus-visible-017-2.html: [fail-slow, https://github.com/jsdom/jsdom/issues/3426]
 focus-visible-020.html: [fail, https://github.com/jsdom/jsdom/issues/3426]
-focus-visible-script-focus-001.html: [fail-slow, https://github.com/jsdom/jsdom/issues/3426]
-focus-within-009.html: [fail-slow, Unknown]
 focus-within-display-none-001.html: [fail, Focus fixup rule not properly implemented; https://github.com/jsdom/jsdom/issues/3029]
 focus-within-toplayer-001.html: [fail, Unknown]
 i18n/css3-selectors-lang-001.html: [fail, offsetWidth not implemented; has dont-upstream version]
@@ -1110,11 +1143,9 @@ invalidation/empty-pseudo-in-has-display-none.html:
   'Visible after inserting text into empty #child': [fail, Unknown]
   'Visible again after inserting text into empty #child': [fail, Unknown]
   'Visible after inserting non-empty element into #child': [fail, Unknown]
-invalidation/has-complexity.html: [timeout, Timeout on ChildNode.remove() recursive call; has dont-upstream version]
 invalidation/heading-pseudo-class-in-has-with-slot-reassignment.html: [fail, Unknown]
 invalidation/host-has-shadow-tree-element-at-nonsubject-position.html: [fail, Unknown]
 invalidation/host-has-shadow-tree-element-at-subject-position.html: [fail, Unknown]
-invalidation/is-where-pseudo-containing-hard-pseudo.html: [fail-slow, Unknown]
 invalidation/media-loading-pseudo-classes-in-has.sub.html: [timeout, Media loading and playback are not implemented]
 invalidation/media-pseudo-classes-in-has.html: [fail-slow, Unknown]
 invalidation/nth-child-whole-subtree.html: [fail-slow, offsetTop not implemented]
@@ -2493,8 +2524,8 @@ DIR: html/semantics/selectors
 
 pseudo-classes/disabled.html:
   "':disabled' should match elements that are appended to a disabled fieldset dynamically": [fail, Unknown]
-pseudo-classes/focus-autofocus.html: [timeout, Unknown]
-pseudo-classes/focus.html: [timeout, Unknown]
+pseudo-classes/focus-autofocus.html: [timeout, Autofocus is not implemented]
+pseudo-classes/focus.html: [timeout, Waits for document focus before running assertions]
 pseudo-classes/readwrite-readonly.html:
   "The :read-write pseudo-class must match elements that are editing hosts": [fail, document.designMode is not implemented]
   "The :read-only pseudo-class must not match elements that are editing hosts": [fail, document.designMode is not implemented]
