@@ -96,6 +96,11 @@ export const propertyOverrides = {
   "column-width": {
     initial: "auto"
   },
+  // Anchor Positioning 2 extends the Conditional 5 definition in the catalogs.
+  // https://drafts.csswg.org/css-anchor-position-2/#container-type
+  "container-type": {
+    value: "normal | [[size | inline-size] || scroll-state || anchored]"
+  },
   "font-family": {
     initial: "monospace"
   },

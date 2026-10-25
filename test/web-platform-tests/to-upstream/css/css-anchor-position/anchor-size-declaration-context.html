@@ -54,4 +54,17 @@ test(() => {
   style.setProperty("--basis", "anchor-size(width)");
   assert_equals(style.getPropertyValue("--basis"), "anchor-size(width)");
 }, "Unregistered custom properties retain anchor size tokens");
+test(() => {
+  assert_false(CSS.supports("flex-basis", "calc(anchor-size(width) + 1px)"));
+  assert_false(CSS.supports("padding-top", "max(anchor-size(width), 1px)"));
+  assert_false(CSS.supports("width", "calc(anchor(left) + 1px)"));
+  assert_false(CSS.supports("margin-top", "anchor-size(width, anchor(top))"));
+}, "Calculations and fallbacks preserve anchor function property restrictions");
+
+test(() => {
+  assert_true(CSS.supports("inset", "calc(anchor(left) + 1px)"));
+  assert_true(CSS.supports("margin", "calc(anchor-size(width) + 1px)"));
+  assert_true(CSS.supports("width", "anchor-size(width, anchor-size(height))"));
+}, "Calculations and nested fallbacks accept anchors in allowed properties");
+
 </script>

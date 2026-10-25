@@ -83,4 +83,12 @@ test(() => {
   assert_equals(sheet.cssRules.length, 1);
   assert_equals(sheet.cssRules[0].conditionText, "scroll-state(stuck: top)");
 }, "Inserting a container rule uses the same feature context as stylesheet parsing");
+test(() => {
+  checkQuery("not (width)", "not (width)");
+}, "An unnamed container query can start with not");
+
+test(() => {
+  checkQuery("not style(--x)", "not style(--x)");
+}, "An unnamed style query can start with not");
+
 </script>

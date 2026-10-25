@@ -140,14 +140,10 @@ place-self-valid.html: [fail, Align parsing and serialization are incomplete]
 DIR: css/css-anchor-position
 
 '!(anchor-@(parse|size-parse)-@(invalid|valid).html|at-position-try-@(allowed-declarations|cssom).html|position-area-@(parsing|computed).html|parsing)': [fail-slow, Anchor positioning requires layout]
-anchor-parse-valid.html: [fail, Nested anchor fallback parsing is incomplete]
-anchor-size-parse-valid.html: [fail, Nested anchor-size fallback parsing is incomplete]
 at-position-try-cssom.html: [fail, Anchor position parsing and serialization are incomplete]
 container-queries/**/!(at-container-anchored-@(parsing-any|parsing|serialization).html|container-type-anchored-parsing.html): [fail-slow, Anchor positioning requires layout]
-container-queries/at-container-anchored-parsing-any.html: [fail, Test helper uses innerText which is not implemented]
-container-queries/at-container-anchored-parsing.html: [fail, Test helper uses innerText which is not implemented]
-container-queries/at-container-anchored-serialization.html: [fail, Container query whitespace serialization differs]
-container-queries/container-type-anchored-parsing.html: [fail, The anchored container type is not implemented]
+container-queries/at-container-anchored-parsing-any.html: [fail, innerText and container query evaluation are not implemented]
+container-queries/at-container-anchored-parsing.html: [fail, innerText and container query evaluation are not implemented]
 parsing/position-visibility-computed.html: [fail, Anchor position computed values are incomplete]
 parsing/position-visibility-parsing.html: [fail, Anchor position parsing and serialization are incomplete]
 
@@ -291,19 +287,13 @@ at-supports-named-feature-001.html:
   can detect whether anchor position follows transforms: [fail, CSS conditional rules are incomplete]
 container-queries-basic.html: [fail, https://github.com/jsdom/jsdom/issues/3597]
 container-queries/**/!(at-container-@(parsing|serialization|@(scrollable|scrolled|snapped|stuck|style)-@(parsing|serialization)).html|container-@(name-parsing|rule-cssom|type-parsing|parsing|type-scroll-state-parsing).html): [fail-slow, Container queries not implemented]
-container-queries/at-container-parsing.html: [fail, Test helper uses innerText which is not implemented]
+container-queries/at-container-parsing.html: [fail, innerText and query evaluation are not implemented]
 container-queries/at-container-serialization.html: [fail, Test helper uses innerText which is not implemented]
-container-queries/at-container-style-parsing.html: [fail, Test helper uses innerText which is not implemented]
-container-queries/at-container-style-serialization.html: [fail, Container query whitespace serialization differs]
-container-queries/container-parsing.html: [fail, Container shorthand accepts repeated none keywords]
-container-queries/scroll-state/at-container-scrollable-parsing.html: [fail, Test helper uses innerText which is not implemented]
-container-queries/scroll-state/at-container-scrollable-serialization.html: [fail, Container query whitespace serialization differs]
-container-queries/scroll-state/at-container-scrolled-parsing.html: [fail, Test helper uses innerText which is not implemented]
-container-queries/scroll-state/at-container-scrolled-serialization.html: [fail, Container query whitespace serialization differs]
-container-queries/scroll-state/at-container-snapped-parsing.html: [fail, Test helper uses innerText which is not implemented]
-container-queries/scroll-state/at-container-snapped-serialization.html: [fail, Container query whitespace serialization differs]
-container-queries/scroll-state/at-container-stuck-parsing.html: [fail, Test helper uses innerText which is not implemented]
-container-queries/scroll-state/at-container-stuck-serialization.html: [fail, Container query whitespace serialization differs]
+container-queries/at-container-style-parsing.html: [fail, innerText and container query evaluation are not implemented]
+container-queries/scroll-state/at-container-scrollable-parsing.html: [fail, innerText and container query evaluation are not implemented]
+container-queries/scroll-state/at-container-scrolled-parsing.html: [fail, innerText and container query evaluation are not implemented]
+container-queries/scroll-state/at-container-snapped-parsing.html: [fail, innerText and container query evaluation are not implemented]
+container-queries/scroll-state/at-container-stuck-parsing.html: [fail, innerText and container query evaluation are not implemented]
 idlharness.html: [fail, fetch not implemented]
 js/CSS-supports-details-content-pseudo-parsing.html: [fail, WPT applies matching restrictions during element-backed pseudo-element parsing; https://github.com/web-platform-tests/wpt/pull/63932]
 
@@ -357,8 +347,6 @@ font-feature-values-map-live.html: [fail, CSSFontFeatureValuesMap not implemente
 font-size-@(adjust-interpolation-math-functions|zero-ligatures).html: [fail-slow, Font loading and rendering not implemented]
 font-size-computed.html:
   box3: [fail, Need percentage value resolver for width]
-font-variation-settings-serialization-001.html: [fail, Computed font variation settings retain duplicate axes]
-font-variation-settings-serialization-002.html: [fail, Computed font variation settings are not sorted]
 parsing/font-feature-settings-computed.html: [fail, Unknown]
 parsing/font-language-override-computed.html: [fail, Unknown]
 parsing/font-language-override-invalid.html: [fail, Unknown]
@@ -369,14 +357,14 @@ parsing/font-size-adjust-computed.html: [fail, Unknown]
 parsing/font-size-computed.html: [fail, Unknown]
 parsing/font-synthesis-computed.html: [fail, Unknown]
 parsing/font-synthesis-valid.html: [fail, Unknown]
-parsing/font-variation-settings-computed.html: [fail, Unknown]
 parsing/palette-mix-computed.html: [fail, palette-mix parsing and serialization are incomplete]
 parsing/palette-mix-valid.html: [fail, palette-mix parsing and serialization are incomplete]
-test_font_feature_values_parsing.html: [fail, Font feature value parsing and serialization are incomplete]
+# WPT corrections: https://github.com/web-platform-tests/wpt/pull/64192
+test_font_feature_values_parsing.html: [fail, Feature-index grammar differs (https://github.com/w3c/csswg-drafts/issues/14657); serialization order is underspecified (https://github.com/w3c/csswg-drafts/issues/14658); WPT preserves duplicates (https://github.com/web-platform-tests/wpt/pull/6647)]
 variations/!(at-font-face-descriptors.html|font-@(parse-numeric-stretch-style-weight|shorthand|stretch|style-parsing|weight-parsing|weight-lighter-bolder).html): [fail-slow, Font loading and rendering not implemented]
-variations/at-font-face-descriptors.html: [fail, Equal font-style range bounds are collapsed during serialization]
+variations/at-font-face-descriptors.html: [fail, WPT retains equal font-style range bounds; https://github.com/web-platform-tests/wpt/pull/64191]
 variations/font-parse-numeric-stretch-style-weight.html: [fail, FontFace is not implemented]
-variations/font-stretch.html: [fail, Large percentage serialization differs]
+variations/font-stretch.html: [fail, WPT expects an unclamped font-stretch percentage; https://github.com/web-platform-tests/wpt/pull/64193]
 
 ---
 
@@ -411,7 +399,6 @@ parsing/grid-template-rows-computed-implicit-track.html: [fail, Grid computed va
 parsing/grid-template-rows-computed-withcontent.html: [fail, Grid computed values are incomplete]
 parsing/grid-template-rows-computed.html: [fail, Grid computed values are incomplete]
 subgrid/**/!(grid-template-invalid.html|grid-template-valid.html): [fail-slow, Grid layout and general grid property processing not implemented]
-subgrid/grid-template-invalid.html: [fail, Multiple auto-fill repetitions are accepted]
 
 ---
 
@@ -422,7 +409,7 @@ DIR: css/css-images
 '!(gradient|parsing|image-set)/**': [fail-slow, Image rendering not implemented]
 gradient/color-stops-parsing.html: [fail, Radial-gradient fixtures allow a leading percentage to parse as a radius instead of a color stop; https://github.com/web-platform-tests/wpt/pull/63930]
 image-set/**/!(image-set-parsing.html): [fail-slow, Image rendering not implemented]
-image-set/image-set-parsing.html: [fail, Image-set serialization differs]
+image-set/image-set-parsing.html: [fail, Omitted resolutions differ; https://github.com/w3c/csswg-drafts/issues/14633]
 parsing/image-function-invalid.html: [fail, Images 5 allows URL sources in image(); https://github.com/web-platform-tests/wpt/pull/63919]
 parsing/image-orientation-invalid.html: [fail, Images parsing and serialization are incomplete]
 parsing/image-resolution-valid.html: [fail, WPT accepts a negative resolution and expects noncanonical keyword order; https://github.com/web-platform-tests/wpt/pull/63885 and https://github.com/web-platform-tests/wpt/pull/63928]
@@ -1071,7 +1058,9 @@ DIR: css/mediaqueries
 '!(at-custom-media-@(cssom|parsing).html|mq-escaped-serialization.html|mq-invalid-media-type-@(005|layer-002).html|mq-unknown-feature-custom-property.html|nested-media-queries.html|test_media_queries.html)': [fail-slow, matchMedia and dynamic viewport changes are not implemented]
 at-custom-media-cssom.html: [fail, Custom media rules are not implemented]
 at-custom-media-parsing.html: [fail, Custom media rules are not implemented]
-test_media_queries.html: [fail, Viewport geometry and media query results differ]
+# MQ4 removed MQ3's restriction of `scan` to TV devices. We follow MQ4 by matching `progressive`,
+# but browsers and this test still expect neither scan value to match a computer display.
+test_media_queries.html: [fail, Viewport geometry is not implemented; scan expectations retain MQ3 behavior; https://github.com/w3c/csswg-drafts/issues/12226]
 
 ---
 

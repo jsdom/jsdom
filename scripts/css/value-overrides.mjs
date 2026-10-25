@@ -29,6 +29,9 @@ export const valueOverrides = {
   // CSSWG requires the alpha argument; the published grammar still makes it optional.
   // https://github.com/w3c/csswg-drafts/issues/14070#issuecomment-5202934726
   "<alpha()>": "alpha(from <color> / [<alpha-value> | alpha | none])",
+  // Keep the fallback after both unordered arguments.
+  // https://github.com/w3c/csswg-drafts/issues/10317
+  "<anchor()>": "anchor([<anchor-name>? && <anchor-side>], <length-percentage>?)",
   "<anchored-feature>": "<media-feature>",
   "<attr-unit>": "<custom-ident> | '%'",
   // Grid Level 2 requires fixed sizes in automatic repetition.
