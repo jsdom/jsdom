@@ -2495,6 +2495,9 @@ pseudo-classes/disabled.html:
   "':disabled' should match elements that are appended to a disabled fieldset dynamically": [fail, Unknown]
 pseudo-classes/focus-autofocus.html: [timeout, Unknown]
 pseudo-classes/focus.html: [timeout, Unknown]
+pseudo-classes/readwrite-readonly.html:
+  "The :read-write pseudo-class must match elements that are editing hosts": [fail, document.designMode is not implemented]
+  "The :read-only pseudo-class must not match elements that are editing hosts": [fail, document.designMode is not implemented]
 pseudo-classes/required-optional-hidden.html: [fail, Hidden inputs match neither pseudo-class; https://github.com/whatwg/html/issues/11273]
 
 ---
