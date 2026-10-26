@@ -1,0 +1,78 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Parsed stylesheet rules have independent mutable owners</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-replacesync">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function makeSheet(text) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(text);
+  return sheet;
+}
+
+test(() => {
+  const source = "div { color: red; & span { color: blue; } color: green; }";
+  const first = makeSheet(source);
+  const second = makeSheet(source);
+  const firstRule = first.cssRules[0];
+  const secondRule = second.cssRules[0];
+  firstRule.style.color = "gold";
+  firstRule.cssRules[0].style.color = "purple";
+  firstRule.cssRules[1].style.color = "orange";
+  assert_equals(secondRule.style.color, "red");
+  assert_equals(secondRule.cssRules[0].style.color, "blue");
+  assert_equals(secondRule.cssRules[1].style.color, "green");
+  assert_equals(firstRule.cssRules[0].parentRule, firstRule);
+  assert_equals(secondRule.cssRules[0].parentRule, secondRule);
+  assert_equals(firstRule.cssRules[0].parentStyleSheet, first);
+  assert_equals(secondRule.cssRules[0].parentStyleSheet, second);
+  assert_equals(makeSheet(source).cssRules[0].style.color, "red");
+}, "Identical style rules have independent declarations and parent relationships");
+
+test(() => {
+  const source = "@media screen { div { color: red; } }";
+  const first = makeSheet(source);
+  const second = makeSheet(source);
+  first.cssRules[0].media.appendMedium("print");
+  assert_equals(second.cssRules[0].media.mediaText, "screen");
+  first.cssRules[0].media.mediaText = "speech";
+  assert_equals(second.cssRules[0].conditionText, "screen");
+  first.cssRules[0].insertRule("p { color: green; }", 0);
+  assert_equals(second.cssRules[0].cssRules.length, 1);
+  assert_equals(second.cssRules[0].cssRules[0].selectorText, "div");
+  assert_equals(makeSheet(source).cssRules[0].media.mediaText, "screen");
+}, "Identical grouping rules have independent media and child rule lists");
+
+test(() => {
+  const source = "@keyframes test { from { opacity: 0; } to { opacity: 1; } }";
+  const first = makeSheet(source);
+  const second = makeSheet(source);
+  first.cssRules[0].appendRule("50% { opacity: 0.5; }");
+  first.cssRules[0].cssRules[0].style.opacity = "0.25";
+  assert_equals(second.cssRules[0].cssRules.length, 2);
+  assert_equals(second.cssRules[0].cssRules[0].style.opacity, "0");
+  assert_equals(makeSheet(source).cssRules[0].cssRules.length, 2);
+}, "Identical keyframes rules have independent keyframe lists and declarations");
+
+test(() => {
+  const first = makeSheet(".first { margin: var(--space); --word: 𐐀 token; }");
+  const second = makeSheet("/* different source positions */\r\n.second { --word: 𐐀 token; margin: var(--space); }");
+  assert_equals(first.cssRules[0].style.margin, "var(--space)");
+  assert_equals(second.cssRules[0].style.margin, "var(--space)");
+  assert_equals(first.cssRules[0].style.getPropertyValue("--word"), "𐐀 token");
+  assert_equals(second.cssRules[0].style.getPropertyValue("--word"), "𐐀 token");
+  second.cssRules[0].style.setProperty("--word", "changed");
+  assert_equals(first.cssRules[0].style.getPropertyValue("--word"), "𐐀 token");
+}, "Shared declaration values retain the current source positions and independent owners");
+
+test(() => {
+  const sheet = makeSheet("div { --inherited: inherit; --initial: initial; --reverted: revert-layer; }");
+  const { style } = sheet.cssRules[0];
+  assert_equals(style.getPropertyValue("--inherited"), "inherit");
+  assert_equals(style.getPropertyValue("--initial"), "initial");
+  assert_equals(style.getPropertyValue("--reverted"), "revert-layer");
+}, "Custom property CSS-wide keywords preserve their specified serialization");
+</script>

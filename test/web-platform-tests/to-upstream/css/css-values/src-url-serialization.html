@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>src() serializes as a URL after substitution</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#urls">
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-url">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
+<div id="target"></div>
+<script>
+"use strict";
+/* global test_valid_value */
+
+test_valid_value("background-image", 'src("https://example.test/image.png")', 'url("https://example.test/image.png")');
+test_valid_value("background-image", 'url("https://example.test/image.png")');
+
+test(() => {
+  const target = document.querySelector("#target");
+  target.style.setProperty("--image", '"https://example.test/image.png"');
+  target.style.backgroundImage = "src(var(--image))";
+  assert_equals(target.style.backgroundImage, "src(var(--image))");
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("https://example.test/image.png")');
+}, "A pending src() retains its source until its URL value is resolved");
+
+test(() => {
+  const target = document.querySelector("#target");
+  target.style.setProperty("--raw", 'src("https://example.test/image.png")');
+  assert_equals(target.style.getPropertyValue("--raw"), 'src("https://example.test/image.png")');
+  assert_equals(getComputedStyle(target).getPropertyValue("--raw"), 'src("https://example.test/image.png")');
+}, "An unregistered custom property preserves src() as authored tokens");
+</script>

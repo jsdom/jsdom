@@ -1,0 +1,31 @@
+<!doctype html>
+<title>Empty typed attr() substitution before a literal value</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#attr-substitution">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const target = document.createElement("div");
+  target.setAttribute("data-source", "");
+  target.style.color = "attr(data-source type(*))red";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  const retained = getComputedStyle(target);
+  assert_equals(retained.color, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "An empty attribute substitution before a literal color does not throw");
+
+test(t => {
+  const target = document.createElement("div");
+  target.setAttribute("data-source", " ");
+  target.style.color = "attr(data-source type(*))red";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  const retained = getComputedStyle(target);
+  assert_equals(retained.color, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "A whitespace-only attribute substitution before a literal color does not throw");
+</script>

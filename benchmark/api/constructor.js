@@ -1,4 +1,6 @@
 "use strict";
+const { spawnSync } = require("node:child_process");
+const path = require("node:path");
 const { Bench } = require("tinybench");
 const { JSDOM } = require("../..");
 
@@ -54,6 +56,20 @@ module.exports = () => {
   bench.add("new JSDOM() and close with runScripts: outside-only", () => {
     const dom = new JSDOM("", { runScripts: "outside-only" });
     dom.window.close();
+  });
+
+  bench.add("new JSDOM() and first computed style in a fresh process", () => {
+    const result = spawnSync(process.execPath, [
+      "-e", `
+      const { JSDOM } = require('./lib/api.js');
+      const { window } = new JSDOM('<style>.probe { color: blue; }</style><div class=probe></div>');
+      window.getComputedStyle(window.document.querySelector('.probe')).color;
+      window.close();
+    `
+    ], { cwd: path.resolve(__dirname, "../.."), encoding: "utf8" });
+    if (result.status !== 0) {
+      throw new Error(result.stderr);
+    }
   });
 
   return bench;

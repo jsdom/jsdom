@@ -1,0 +1,77 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Animation and transition shorthand serialization preserves component identity</title>
+<link rel="help" href="https://drafts.csswg.org/css-animations-2/#animation-shorthand">
+<link rel="help" href="https://drafts.csswg.org/css-transitions-2/#transition-shorthand-property">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/12467">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.animation = "1s";
+  assert_equals(getComputedStyle(element).animation, "1s");
+}, "Computed animation omits default components");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transition = "1s -3s ease-in-out top";
+  assert_equals(style.transition, "top 1s ease-in-out -3s");
+}, "Transition serializes the property before its timing components");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transition = "all";
+  style.transitionDelay = "1s";
+  const copy = document.createElement("div").style;
+  copy.transition = style.transition;
+  assert_equals(copy.transitionDuration, "0s");
+  assert_equals(copy.transitionDelay, "1s");
+}, "A nonzero transition delay retains the initial duration");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.animation = "none";
+  style.animationName = "Ease";
+  const copy = document.createElement("div").style;
+  copy.animation = style.animation;
+  assert_equals(copy.animationName, "Ease");
+  assert_equals(copy.animationTimingFunction, "ease");
+}, "An animation name that resembles an easing keyword retains its component identity");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.animation = "none";
+  style.animationName = "normal";
+  const copy = document.createElement("div").style;
+  copy.animation = style.animation;
+  assert_equals(copy.animationName, "normal");
+  assert_equals(copy.animationDirection, "normal");
+}, "An animation name that resembles a direction keyword retains its component identity");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transition = "all";
+  style.transitionProperty = "ease";
+  style.transitionTimingFunction = "linear";
+  const copy = document.createElement("div").style;
+  copy.transition = style.transition;
+  assert_equals(copy.transitionProperty, "ease");
+  assert_equals(copy.transitionTimingFunction, "linear");
+}, "A transition property that resembles an easing keyword retains its component identity");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transition = "all";
+  style.transitionProperty = "allow-discrete";
+  const copy = document.createElement("div").style;
+  copy.transition = style.transition;
+  assert_equals(copy.transitionProperty, "allow-discrete");
+  assert_equals(copy.transitionBehavior, "normal");
+}, "A transition property that resembles a behavior keyword retains its component identity");
+</script>

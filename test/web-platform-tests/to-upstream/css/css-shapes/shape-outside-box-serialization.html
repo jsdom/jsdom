@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>shape-outside serialization preserves shapes and reference boxes</title>
+<link rel="help" href="https://drafts.csswg.org/css-shapes-1/#shape-outside-property">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function checkSerialization(input, expected = input) {
+  test(() => {
+    const { style } = document.createElement("div");
+    style.shapeOutside = input;
+    assert_equals(style.shapeOutside, expected);
+  }, `${input} serializes as ${expected}`);
+}
+
+checkSerialization("circle() margin-box", "circle()");
+checkSerialization("margin-box circle()", "circle()");
+checkSerialization("circle() content-box");
+checkSerialization("content-box circle()", "circle() content-box");
+checkSerialization("margin-box");
+checkSerialization("content-box");
+</script>

@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>addRule observes the stylesheet replacement lock</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-addrule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+promise_test(async () => {
+  const sheet = new CSSStyleSheet();
+  const replacement = sheet.replace(".replacement {}");
+  assert_true(replacement instanceof Promise);
+  let insertionError;
+  try {
+    sheet.insertRule(".inserted {}");
+  } catch (error) {
+    insertionError = error;
+  }
+  if (insertionError) {
+    assert_throws_dom(insertionError.name, () => sheet.addRule(".added", "color: red"));
+  }
+  await replacement;
+  sheet.replaceSync(".replacement {}");
+  assert_equals(sheet.addRule(".added", "color: red"), -1);
+  assert_equals(sheet.cssRules.length, 2);
+  assert_equals(sheet.cssRules[1].selectorText, ".added");
+}, "addRule observes the same replacement lock as insertRule");
+
+promise_test(async t => {
+  const style = document.createElement("style");
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  const rejected = style.sheet.replace("");
+  assert_true(rejected instanceof Promise);
+  await promise_rejects_dom(t, "NotAllowedError", rejected);
+}, "Rejected replacement returns a promise in the stylesheet's realm");
+</script>

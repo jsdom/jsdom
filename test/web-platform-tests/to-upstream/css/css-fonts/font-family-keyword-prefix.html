@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Generic font family keywords cannot start an unquoted family name</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts-4/#font-family-name-syntax">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#custom-idents">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/13692">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.fontFamily = "serif Example";
+  assert_equals(style.fontFamily, "");
+}, "A leading generic keyword is claimed by the generic-family grammar");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.fontFamily = '"serif Example"';
+  assert_equals(style.fontFamily, '"serif Example"');
+}, "A quoted family beginning with a generic keyword stays quoted");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.fontFamily = "Example serif";
+  const serialized = style.fontFamily;
+  style.fontFamily = serialized;
+  assert_equals(style.fontFamily, serialized);
+  assert_not_equals(serialized, "");
+}, "A generic keyword after the first identifier belongs to the family name");
+
+test(() => {
+  assert_true(CSS.supports("font-family", "initial Example"));
+}, "A CSS-wide keyword can start a multiword family name");
+
+test(() => {
+  assert_true(CSS.supports("font-family", "Example default"));
+}, "A reserved identifier can end a multiword family name");
+
+test(() => {
+  assert_false(CSS.supports("font-family", "Example, initial"));
+}, "A standalone CSS-wide keyword remains invalid within a family list");
+
+test(() => {
+  assert_false(CSS.supports("font-family", "default"));
+}, "A standalone default identifier remains reserved");
+</script>

@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Unknown media feature names do not inherit JavaScript object properties</title>
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#evaluating">
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#container-queries">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function checkDoesNotMatch(t, query) {
+  const style = document.createElement("style");
+  style.textContent = `#target { color: green; } @media ${query} { #target { color: red; } }`;
+  const target = document.createElement("div");
+  target.id = "target";
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  assert_equals(style.sheet.cssRules.length, 2);
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}
+
+test(t => {
+  checkDoesNotMatch(t, "(constructor: 1)");
+}, "constructor is an unknown media feature");
+
+test(t => {
+  checkDoesNotMatch(t, "(__proto__: 1)");
+}, "__proto__ is an unknown media feature");
+
+test(t => {
+  checkDoesNotMatch(t, "(constructor)");
+}, "constructor is unknown in a boolean media feature");
+
+test(t => {
+  checkDoesNotMatch(t, "not (constructor: 1)");
+}, "An unknown media feature remains unknown under negation");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@media (constructor: 1) { div { color: red; } }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssRules[0].style.color, "red");
+}, "An unknown media feature preserves the stylesheet rule and its children");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@media (__proto__: 1) { div { color: red; } }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssRules[0].style.color, "red");
+}, "__proto__ preserves the stylesheet media rule and its children");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@container (constructor: 1) { div { color: red; } }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssRules[0].style.color, "red");
+}, "constructor is an unknown container size feature");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@container (__proto__: 1) { div { color: red; } }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssRules[0].style.color, "red");
+}, "__proto__ is an unknown container size feature");
+</script>

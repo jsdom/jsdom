@@ -30,6 +30,14 @@ const transformer = new Webidl2js({
     `;
   },
   processReflect(idl, implObj) {
+    const reflectStyle = idl.extAttrs.find(attribute => attribute.name === "ReflectStyle");
+    if (reflectStyle) {
+      const property = reflectStyle.rhs.value;
+      return {
+        get: `return ${implObj}.getPropertyValue(${property});`,
+        set: `${implObj}.setProperty(${property}, V, "");`
+      };
+    }
     return processReflect(this, idl, implObj);
   }
 });
@@ -45,6 +53,10 @@ addDir("../../lib/jsdom/living/attributes");
 addDir("../../lib/jsdom/living/constraint-validation");
 addDir("../../lib/jsdom/living/crypto");
 addDir("../../lib/jsdom/living/css");
+transformer.addSource(
+  path.resolve(__dirname, "../../lib/generated/css-webidl"),
+  path.resolve(__dirname, "../../lib/jsdom/living/css")
+);
 addDir("../../lib/jsdom/living/custom-elements");
 addDir("../../lib/jsdom/living/deviceorientation");
 addDir("../../lib/jsdom/living/domparsing");

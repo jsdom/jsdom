@@ -1,0 +1,98 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The target selector tracks the indicated element</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#target-element">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#select-the-indicated-part">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<body>
+<script>
+"use strict";
+
+function fixture(t, markup) {
+  const container = document.createElement("div");
+  container.innerHTML = markup;
+  document.body.append(container);
+  const originalURL = location.href;
+  t.add_cleanup(() => {
+    location.hash = "";
+    history.replaceState(null, "", originalURL);
+    container.remove();
+  });
+  return container;
+}
+
+test(t => {
+  const container = fixture(t, '<div id="duplicate"></div><div id="duplicate"></div>');
+  location.hash = "duplicate";
+  assert_array_equals(document.querySelectorAll(":target"), [container.firstElementChild]);
+}, "Only the first element with a duplicate ID becomes the target");
+
+test(t => {
+  const container = fixture(t, '<a name="anchor"></a><div id="anchor"></div>');
+  location.hash = "anchor";
+  assert_equals(document.querySelector(":target"), container.lastElementChild);
+  container.lastElementChild.remove();
+  location.hash = "missing";
+  location.hash = "anchor";
+  assert_equals(document.querySelector(":target"), container.firstElementChild);
+}, "An ID takes precedence over a named anchor, which is the fallback");
+
+test(t => {
+  const container = fixture(t, '<div id="日本"></div><div id="%E6%97%A5%E6%9C%AC"></div>');
+  location.hash = "%E6%97%A5%E6%9C%AC";
+  assert_equals(document.querySelector(":target"), container.lastElementChild);
+  container.lastElementChild.remove();
+  location.hash = "missing";
+  location.hash = "%E6%97%A5%E6%9C%AC";
+  assert_equals(document.querySelector(":target"), container.firstElementChild);
+}, "Raw fragment matching precedes UTF-8 percent-decoded fragment matching");
+
+test(t => {
+  const container = fixture(t, '<div id="original"></div>');
+  const target = container.firstElementChild;
+  location.hash = "original";
+  target.id = "renamed";
+  assert_true(target.matches(":target"));
+  target.remove();
+  assert_true(target.matches(":target"));
+  container.append(target);
+  assert_equals(document.querySelector(":target"), target);
+}, "The target remains selected after ID changes and removal followed by reinsertion");
+
+test(t => {
+  const container = fixture(t, '<div id="before"></div><div id="after"></div>');
+  location.hash = "before";
+  history.pushState(null, "", "#after");
+  assert_equals(document.querySelector(":target"), container.firstElementChild);
+  history.replaceState(null, "", "#different");
+  assert_equals(document.querySelector(":target"), container.firstElementChild);
+}, "History state updates do not select a new target element");
+
+test(t => {
+  const container = fixture(t, '<div id="reselect"></div><div></div>');
+  location.hash = "reselect";
+  const original = container.firstElementChild;
+  const replacement = container.lastElementChild;
+  original.id = "previous";
+  replacement.id = "reselect";
+  location.hash = "reselect";
+  assert_equals(document.querySelector(":target"), original);
+  location.href = "#reselect";
+  assert_equals(document.querySelector(":target"), replacement);
+}, "Same-fragment href navigation selects the target again, while the hash setter returns early");
+
+test(t => {
+  const container = fixture(t, '<div id="styled"></div>');
+  const style = document.createElement("style");
+  style.textContent = "#styled { color: red; } #styled:target { color: green; }";
+  container.append(style);
+  const target = container.firstElementChild;
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+  location.hash = "styled";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  location.hash = "missing";
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "Fragment navigation updates computed style for target selectors");
+</script>

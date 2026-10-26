@@ -1,0 +1,58 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed numbers use their property range and relative length context</title>
+<link rel="help" href="https://drafts.csswg.org/css-color/#transparency">
+<link rel="help" href="https://drafts.csswg.org/css-values/#calc-computed-value">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+test(t => {
+  const element = document.createElement("div");
+  element.style.opacity = "-2";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  const computed = getComputedStyle(element);
+  assert_equals(computed.opacity, "0");
+  element.style.opacity = "3";
+  assert_equals(computed.opacity, "1");
+  element.style.opacity = "150%";
+  assert_equals(computed.opacity, "1");
+  element.style.opacity = "25%";
+  assert_equals(computed.opacity, "0.25");
+  element.style.opacity = "calc(NaN)";
+  assert_equals(computed.opacity, "0");
+  element.style.opacity = "calc(1 + calc(NaN))";
+  assert_equals(computed.opacity, "0");
+  element.style.opacity = "calc(infinity)";
+  assert_equals(computed.opacity, "1");
+  element.style.opacity = "calc(-infinity)";
+  assert_equals(computed.opacity, "0");
+}, "Computed opacity converts percentages and clamps to the allowed range");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.fontSize = "20px";
+  element.style.color = "rgb(calc(sign(1em - 10px) * 255) 0 0)";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  const computed = getComputedStyle(element);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  element.style.fontSize = "5px";
+  assert_equals(computed.color, "rgb(0, 0, 0)");
+}, "Color-channel math resolves relative lengths using the element's computed font size");
+test(t => {
+  const parent = document.createElement("div");
+  const first = document.createElement("span");
+  const target = document.createElement("span");
+  parent.append(first, target);
+  document.body.append(parent);
+  t.add_cleanup(() => parent.remove());
+  target.style.color = "rgb(calc(sibling-index() * 40) calc(sibling-count() * 10) 0)";
+  const computed = getComputedStyle(target);
+  assert_equals(computed.color, "rgb(80, 20, 0)");
+  parent.prepend(target);
+  assert_equals(computed.color, "rgb(40, 20, 0)");
+}, "Color channel calculations resolve live sibling indexes and counts");
+</script>

@@ -1,0 +1,69 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Selective declaration reads preserve authored order and owner independence</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-getpropertyvalue">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function makeStyle(t, text) {
+  const element = document.createElement("style");
+  element.textContent = `.target { ${text} }`;
+  document.head.append(element);
+  t.add_cleanup(() => element.remove());
+  return element.sheet.cssRules[0].style;
+}
+
+test(t => {
+  const style = makeStyle(t, "color: red; margin-left: 7px !important; margin: 2px; " +
+    "margin-right: invalid !important; margin: 3px 4px; margin-right: 9px !important;");
+  assert_equals(style.color, "red");
+  assert_equals(style.marginTop, "3px");
+  assert_equals(style.marginLeft, "7px");
+  assert_equals(style.marginRight, "9px");
+  assert_equals(style.marginBottom, "3px");
+  assert_equals(style.getPropertyPriority("margin-left"), "important");
+  assert_equals(style.margin, "");
+  style.marginLeft = "11px";
+  assert_equals(style.marginLeft, "11px");
+  assert_equals(style.getPropertyPriority("margin-left"), "");
+  assert_equals(style.marginRight, "9px");
+  assert_equals(style.marginTop, "3px");
+}, "Reading several longhands preserves shorthand ordering, validity and importance before mutation");
+
+test(t => {
+  const text = "--a: first !important; --b: second; --a: last; --c: third;";
+  const first = makeStyle(t, text);
+  const second = makeStyle(t, text);
+  assert_equals(first.getPropertyValue("--b"), "second");
+  assert_equals(first.getPropertyValue("--a"), "first");
+  assert_equals(first.getPropertyValue("--c"), "third");
+  first.removeProperty("--a");
+  assert_equals(first.getPropertyValue("--a"), "");
+  assert_equals(first.getPropertyValue("--b"), "second");
+  assert_equals(second.getPropertyValue("--c"), "third");
+  assert_equals(second.getPropertyValue("--a"), "first");
+  first.cssText = "--a: replacement; --b: replaced;";
+  assert_equals(first.getPropertyValue("--b"), "replaced");
+  assert_equals(first.getPropertyValue("--a"), "replacement");
+  assert_equals(first.getPropertyValue("--c"), "");
+}, "Reading several custom properties preserves owner independence before and after block replacement");
+
+test(t => {
+  const element = document.createElement("style");
+  element.textContent = ".target { color: red; margin: 1px 2px; }";
+  document.head.append(element);
+  t.add_cleanup(() => element.remove());
+  const rule = element.sheet.cssRules[0];
+  element.sheet.deleteRule(0);
+  assert_equals(rule.parentStyleSheet, null);
+  const { style } = rule;
+  assert_equals(rule.style, style);
+  assert_equals(style.parentRule, rule);
+  assert_equals(style.marginLeft, "2px");
+  style.marginLeft = "3px";
+  assert_equals(rule.style.marginLeft, "3px");
+  assert_equals(rule.style.marginTop, "1px");
+}, "A rule first observed after deletion retains its declarations and stable style identity");
+</script>

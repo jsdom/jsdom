@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Media rule matching uses stylesheet attachment</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-3/#dom-cssmediarule-matches">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = "@media all { div { color: red; } }";
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  const rule = style.sheet.cssRules[0];
+  assert_true(rule.matches);
+  Object.defineProperty(document, "styleSheets", {
+    configurable: true,
+    get() {
+      throw new Error("The public getter must not be invoked");
+    }
+  });
+  t.add_cleanup(() => {
+    delete document.styleSheets;
+  });
+  assert_true(rule.matches);
+}, "Checking a media rule does not invoke the public stylesheet getter");
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const shadow = host.attachShadow({ mode: "closed" });
+  shadow.innerHTML = "<style>@media all { div { color: red; } }</style>";
+  const rule = shadow.firstChild.sheet.cssRules[0];
+  assert_true(rule.matches);
+  host.remove();
+  assert_false(rule.matches);
+  document.body.append(host);
+  assert_true(shadow.firstChild.sheet.cssRules[0].matches);
+}, "A media rule tracks attachment of its closed shadow tree");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@media all { div { color: red; } }");
+  assert_false(sheet.cssRules[0].matches);
+}, "A media rule in an unadopted constructed stylesheet does not match");
+</script>

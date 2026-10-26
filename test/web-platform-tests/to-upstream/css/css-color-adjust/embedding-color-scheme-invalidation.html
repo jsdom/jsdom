@@ -1,0 +1,209 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Embedded computed styles follow changes to the embedding color scheme</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-adjust/#preferred-color-scheme">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createFrame(t, ownerDocument = document) {
+  const frame = ownerDocument.createElement("iframe");
+  frame.style.colorScheme = "light dark";
+  ownerDocument.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const meta = frame.contentDocument.createElement("meta");
+  meta.name = "color-scheme";
+  meta.content = "light dark";
+  frame.contentDocument.head.append(meta);
+  return frame;
+}
+
+function createColorTarget(frame) {
+  const element = frame.contentDocument.createElement("div");
+  element.style.cssText = "color-scheme: light dark; color: light-dark(red, blue)";
+  frame.contentDocument.body.append(element);
+  return element;
+}
+
+function createMediaTarget(frame) {
+  const style = frame.contentDocument.createElement("style");
+  style.textContent = `
+    @media (prefers-color-scheme: light) { #target { color: red; } }
+    @media (prefers-color-scheme: dark) { #target { color: blue; } }
+  `;
+  const element = frame.contentDocument.createElement("div");
+  element.id = "target";
+  frame.contentDocument.head.append(style);
+  frame.contentDocument.body.append(element);
+  return element;
+}
+
+test(t => {
+  const frame = createFrame(t);
+  frame.style.colorScheme = "light";
+  const element = createColorTarget(frame);
+  const computed = frame.contentWindow.getComputedStyle(element);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+
+  frame.style.colorScheme = "dark";
+  assert_equals(computed.color, "rgb(0, 0, 255)", "Retained computed declaration");
+  assert_equals(
+    frame.contentWindow.getComputedStyle(element).color,
+    "rgb(0, 0, 255)",
+    "Fresh computed declaration"
+  );
+
+  frame.style.colorScheme = "light";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_equals(frame.contentWindow.getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An embedded light-dark() color follows the embedding element's color scheme");
+
+test(t => {
+  const frame = createFrame(t);
+  frame.style.colorScheme = "light";
+  const element = createMediaTarget(frame);
+  const computed = frame.contentWindow.getComputedStyle(element);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+
+  frame.style.colorScheme = "dark";
+  assert_equals(computed.color, "rgb(0, 0, 255)", "Retained computed declaration");
+  assert_equals(
+    frame.contentWindow.getComputedStyle(element).color,
+    "rgb(0, 0, 255)",
+    "Fresh computed declaration"
+  );
+
+  frame.style.colorScheme = "light";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_equals(frame.contentWindow.getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Embedded media-rule candidates follow the embedding element's color scheme");
+
+test(t => {
+  const frame = createFrame(t);
+  frame.style.colorScheme = "light";
+  const style = frame.contentDocument.createElement("style");
+  style.textContent = `
+    @media (prefers-color-scheme: light) { @layer theme, base; }
+    @media (prefers-color-scheme: dark) { @layer base, theme; }
+    @layer theme { #target { color: blue; } }
+    @layer base { #target { color: red; } }
+  `;
+  const element = frame.contentDocument.createElement("div");
+  element.id = "target";
+  frame.contentDocument.head.append(style);
+  frame.contentDocument.body.append(element);
+  const computed = frame.contentWindow.getComputedStyle(element);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+
+  frame.style.colorScheme = "dark";
+  assert_equals(computed.color, "rgb(0, 0, 255)", "Retained computed declaration");
+  assert_equals(
+    frame.contentWindow.getComputedStyle(element).color,
+    "rgb(0, 0, 255)",
+    "Fresh computed declaration"
+  );
+
+  frame.style.colorScheme = "light";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_equals(frame.contentWindow.getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Embedded conditional layer order follows the embedding element's color scheme");
+
+test(t => {
+  const frame = createFrame(t);
+  frame.style.colorScheme = "light";
+  const style = frame.contentDocument.createElement("style");
+  style.textContent = `
+    @media (prefers-color-scheme: light) {
+      @property --registered-color {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: red;
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      @property --registered-color {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: blue;
+      }
+    }
+    #target { color: var(--registered-color); }
+  `;
+  const element = frame.contentDocument.createElement("div");
+  element.id = "target";
+  frame.contentDocument.head.append(style);
+  frame.contentDocument.body.append(element);
+  const computed = frame.contentWindow.getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--registered-color"), "rgb(255, 0, 0)");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+
+  frame.style.colorScheme = "dark";
+  assert_equals(
+    computed.getPropertyValue("--registered-color"),
+    "rgb(0, 0, 255)",
+    "Retained computed declaration"
+  );
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+  const fresh = frame.contentWindow.getComputedStyle(element);
+  assert_equals(
+    fresh.getPropertyValue("--registered-color"),
+    "rgb(0, 0, 255)",
+    "Fresh computed declaration"
+  );
+  assert_equals(fresh.color, "rgb(0, 0, 255)");
+
+  frame.style.colorScheme = "light";
+  assert_equals(computed.getPropertyValue("--registered-color"), "rgb(255, 0, 0)");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_equals(
+    frame.contentWindow.getComputedStyle(element).getPropertyValue("--registered-color"),
+    "rgb(255, 0, 0)"
+  );
+  assert_equals(frame.contentWindow.getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Embedded conditional property registrations follow the embedding element's color scheme");
+
+test(t => {
+  const outer = createFrame(t);
+  outer.style.colorScheme = "light";
+  const inner = createFrame(t, outer.contentDocument);
+  const element = createColorTarget(inner);
+  const computed = inner.contentWindow.getComputedStyle(element);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+
+  outer.style.colorScheme = "dark";
+  assert_equals(computed.color, "rgb(0, 0, 255)", "Retained computed declaration");
+  assert_equals(
+    inner.contentWindow.getComputedStyle(element).color,
+    "rgb(0, 0, 255)",
+    "Fresh computed declaration"
+  );
+
+  outer.style.colorScheme = "light";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_equals(inner.contentWindow.getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A nested embedded light-dark() color follows a containing document's color scheme");
+
+test(t => {
+  const outer = createFrame(t);
+  outer.style.colorScheme = "light";
+  const inner = createFrame(t, outer.contentDocument);
+  const element = createMediaTarget(inner);
+  const computed = inner.contentWindow.getComputedStyle(element);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+
+  outer.style.colorScheme = "dark";
+  assert_equals(computed.color, "rgb(0, 0, 255)", "Retained computed declaration");
+  assert_equals(
+    inner.contentWindow.getComputedStyle(element).color,
+    "rgb(0, 0, 255)",
+    "Fresh computed declaration"
+  );
+
+  outer.style.colorScheme = "light";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_equals(inner.contentWindow.getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Nested embedded media-rule candidates follow a containing document's color scheme");
+</script>

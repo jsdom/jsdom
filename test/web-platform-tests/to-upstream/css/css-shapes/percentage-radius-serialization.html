@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Serialization preserves the axes of percentage radii</title>
+<link rel="help" href="https://drafts.csswg.org/css-shapes-1/#typedef-shape-arc-command">
+<link rel="help" href="https://drafts.csswg.org/css-images-4/#radial-size">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = "shape(from 0px 0px, arc to 100px 100px of 10% 10%)";
+  assert_equals(style.clipPath, "shape(from 0px 0px, arc to 100px 100px of 10% 10%)");
+}, "Two equal percentage arc radii preserve their separate reference axes");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.offsetPath = "shape(from 0px 0px, arc to 100px 100px of calc(10% + 1px) calc(10% + 1px))";
+  assert_equals(
+    style.offsetPath,
+    "shape(from 0px 0px, arc to 100px 100px of calc(10% + 1px) calc(10% + 1px))"
+  );
+}, "Equal calculated arc radii preserve percentage dependencies");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.clipPath = "shape(from 0px 0px, arc to 100px 100px of min(10%, 20px) min(10%, 20px))";
+  assert_equals(
+    style.clipPath,
+    "shape(from 0px 0px, arc to 100px 100px of min(10%, 20px) min(10%, 20px))"
+  );
+}, "Equal arc radii preserve percentage dependencies inside math functions");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.clipPath = "shape(from 0px 0px, arc to 100px 100px of 10% 10%)";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).clipPath, "shape(from 0px 0px, arc to 100px 100px of 10% 10%)");
+}, "Computed arc radii retain separate percentage reference axes");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.backgroundImage = "radial-gradient(10% 10%, red, blue)";
+  assert_equals(style.backgroundImage, "radial-gradient(10% 10%, red, blue)");
+}, "An elliptical gradient with equal percentage radii remains elliptical");
+</script>

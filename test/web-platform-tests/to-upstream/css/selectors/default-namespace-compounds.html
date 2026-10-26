@@ -1,0 +1,85 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Default namespaces and implicit universal selectors</title>
+<link rel="help" href="https://drafts.csswg.org/selectors/#type-nmsp">
+<link rel="help" href="https://drafts.csswg.org/selectors/#matches">
+<link rel="help" href="https://drafts.csswg.org/selectors/#negation">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, selector, namespace = "http://www.w3.org/2000/svg") {
+  const container = document.createElement("div");
+  container.className = "parent";
+  container.innerHTML = '<div class="target"></div><svg class="parent"><g class="target"></g></svg>';
+  const style = document.createElement("style");
+  style.textContent = `@namespace url("${namespace}"); ${selector} { background-color: rgb(1 2 3); }`;
+  document.head.append(style);
+  document.body.append(container);
+  t.add_cleanup(() => {
+    style.remove();
+    container.remove();
+  });
+  return { html: container.firstElementChild, svg: container.lastElementChild.firstElementChild };
+}
+
+test(t => {
+  const { html, svg } = fixture(t, ".target");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+}, "A class selector without an explicit type is constrained by the default namespace");
+
+test(t => {
+  const { html, svg } = fixture(t, ":is(.target)");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+}, "The compound containing :is() is constrained by the default namespace");
+
+test(t => {
+  const { html, svg } = fixture(t, "*|*:is(.target)");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgb(1, 2, 3)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+}, "An implicit subject type inside :is() ignores the default namespace");
+
+test(t => {
+  const { html, svg } = fixture(t, "*|*:where(.target)");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgb(1, 2, 3)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+}, "An implicit subject type inside :where() ignores the default namespace");
+
+test(t => {
+  const { html, svg } = fixture(t, "*|*:not(.target)");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgba(0, 0, 0, 0)");
+}, "An implicit subject type inside :not() ignores the default namespace");
+
+test(t => {
+  const { html, svg } = fixture(t, "*|*:is(*.target)");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+}, "An explicit universal type inside :is() uses the default namespace");
+
+test(t => {
+  const { html, svg } = fixture(t, "*|*:is(.parent > .target)");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+}, "Only the subject compound inside :is() ignores the default namespace");
+
+test(t => {
+  const { html, svg } = fixture(t, "*|*:not(.parent > .target)");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgb(1, 2, 3)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgba(0, 0, 0, 0)");
+}, "Ancestor compounds inside :not() still use the default namespace");
+
+test(t => {
+  const { html, svg } = fixture(t, ".target", "");
+  const noNamespace = document.createElementNS(null, "target");
+  noNamespace.setAttribute("class", "target");
+  html.parentNode.append(noNamespace);
+  assert_equals(getComputedStyle(html).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(noNamespace).backgroundColor, "rgb(1, 2, 3)");
+}, "An empty default namespace selects only elements with no namespace");
+</script>

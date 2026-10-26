@@ -1,0 +1,85 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>RGB and HSL arguments preserve numeric and relative-color contexts</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#rgb-functions">
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#the-hsl-notation">
+<link rel="help" href="https://drafts.csswg.org/css-color-5/#relative-colors">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#calc-type-checking">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function target(t) {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+function assertColor(element, source, expected) {
+  assert_true(CSS.supports("color", source), source + " is supported");
+  element.style.color = "rebeccapurple";
+  element.style.color = source;
+  assert_equals(getComputedStyle(element).color, expected, source);
+}
+
+function assertRejectedColor(element, source) {
+  element.style.color = "rebeccapurple";
+  assert_false(CSS.supports("color", source), source + " is unsupported");
+  element.style.color = source;
+  assert_equals(element.style.color, "rebeccapurple", source + " preserves the previous declaration");
+}
+
+test(t => {
+  const element = target(t);
+  assertColor(element, "rgb(calc(1% + 1%) 2 3)", "rgb(5, 2, 3)");
+  assertColor(element, "rgb(calc(1 + 1), 2, 3)", "rgb(2, 2, 3)");
+  assertRejectedColor(element, "rgb(calc(1% + 1%), 2, 3)");
+}, "RGB calculations retain modern mixed types and homogeneous legacy channel types");
+
+test(t => {
+  const element = target(t);
+  assertColor(element, "hsl(30 calc(25 + 25) 50%)", "rgb(191, 128, 64)");
+  assertColor(element, "hsl(30, calc(25% + 25%), 50%)", "rgb(191, 128, 64)");
+  assertRejectedColor(element, "hsl(30, calc(1 + 1), 50%)");
+  assertRejectedColor(element, "hsl(calc(1%), 50%, 50%)");
+}, "HSL calculations keep hue and modern or legacy saturation types distinct");
+
+test(t => {
+  const element = target(t);
+  assertColor(element, "rgb(1 2 3 / calc(0.25 + 0.25))", "rgba(1, 2, 3, 0.5)");
+  assertColor(element, "rgb(1, 2, 3, calc(25% + 25%))", "rgba(1, 2, 3, 0.5)");
+}, "Modern and legacy RGB alpha use the same numeric resolution");
+
+test(t => {
+  const element = target(t);
+  assertColor(element, "rgb(from rgb(from red b r g) g b r)", "color(srgb 1 0 0)");
+}, "Nested relative RGB functions bind channel names to their own origins");
+
+test(t => {
+  const element = target(t);
+  assertRejectedColor(element, "rgb(from rgb(r g b) r g b)");
+}, "An absolute RGB origin cannot use the enclosing relative function's channel names");
+
+test(t => {
+  const element = target(t);
+  assertRejectedColor(element, "rgb(1 2 3 / calc(1 +))");
+  assertRejectedColor(element, "rgb(1, 2, 3, calc(1 +))");
+}, "An invalid optional alpha calculation rejects the complete RGB value");
+
+test(t => {
+  const element = target(t);
+  assertColor(element, "rgb(1 var(--missing,) var(--missing,) 2 3)", "rgb(1, 2, 3)");
+  assertColor(element, "rgb(1 var(--missing,) var(--missing,) , 2, 3)", "rgb(1, 2, 3)");
+  assertColor(element, "hsl(120 var(--missing,) var(--missing,) 100% 50%)", "rgb(0, 255, 0)");
+  assertColor(element, "hsl(120, var(--missing,) var(--missing,) 100%, 50%)", "rgb(0, 255, 0)");
+}, "Empty substitutions preserve whitespace between modern and legacy color arguments");
+
+test(t => {
+  const element = target(t);
+  assertColor(element, "rgb(1 2 3", "rgb(1, 2, 3)");
+  assertColor(element, "hsl(120 100% 50%", "rgb(0, 255, 0)");
+}, "End of input closes otherwise complete RGB and HSL functions");
+</script>

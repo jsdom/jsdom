@@ -1,0 +1,50 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Anchored fallback queries accept complete feature values</title>
+<link rel="help" href="https://drafts.csswg.org/css-anchor-position-2/#fallback">
+<link rel="help" href="https://drafts.csswg.org/css-anchor-position-2/#typedef-position-area-query">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function query(text) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`@container ${text} { div { color: red; } }`);
+  assert_equals(sheet.cssRules.length, 1);
+  return sheet.cssRules[0].conditionText;
+}
+
+test(() => {
+  assert_equals(query("anchored(FALLBACK: --bar flip-inline)"), "anchored(fallback: --bar flip-inline)");
+}, "An anchored fallback accepts a named fallback together with a try tactic");
+
+test(() => {
+  assert_equals(query("anchored((FALLBACK: --bar flip-inline))"), "anchored((fallback: --bar flip-inline))");
+}, "A parenthesized anchored feature accepts a complete fallback value");
+
+test(() => {
+  // Compare the recognized name without choosing an unspecified axis serialization order.
+  assert_equals(query("anchored(FALLBACK: bottom any)"), query("anchored(fallback: bottom any)"));
+}, "An anchored fallback accepts both position-area axes");
+
+test(() => {
+  assert_equals(query("anchored(FALLBACK: flip-start flip-block)"), "anchored(fallback: flip-start flip-block)");
+}, "A fallback query preserves the order of multiple try tactics");
+
+test(() => {
+  assert_equals(query("anchored(FALLBACK: flip-block flip-start)"), "anchored(fallback: flip-block flip-start)");
+}, "The reverse try-tactic order remains distinct");
+
+test(() => {
+  assert_equals(query("anchored(FALLBACK: none flip-block)"), "anchored(FALLBACK: none flip-block)");
+}, "An invalid fallback combination remains unknown syntax");
+
+test(() => {
+  assert_equals(query("anchored(FALLBACK: --bar --baz)"), "anchored(FALLBACK: --bar --baz)");
+}, "Multiple fallback names remain unknown syntax");
+
+test(() => {
+  assert_equals(query("anchored(FALLBACK > none)"), "anchored(FALLBACK > none)");
+}, "A discrete fallback feature cannot use a range comparison");
+</script>

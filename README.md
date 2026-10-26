@@ -266,7 +266,7 @@ virtualConsole.on("jsdomError", err => {
 The details for each type of jsdom error, listed by their `type` property, are:
 
 - `"css-parsing"`: an error parsing CSS stylesheets
-  - `cause`: the exception object from our CSS parser library, [`@acemir/cssom`](https://github.com/acemir/CSSOM)
+  - `cause`: the error object from jsdom's CSS parser
   - `sheetText`: the full text of the stylesheet that we attempted to parse
 - `"not-implemented"`: an error emitted when certain stub methods from [unimplemented parts of the web platform](#unimplemented-parts-of-the-web-platform) are called
 - `"resource-loading"`: an error [loading resources](#loading-subresources), e.g. due to a network error or a bad response code from the server
@@ -531,8 +531,6 @@ For more details, see the discussion in [#640](https://github.com/jsdom/jsdom/is
 ### Unimplemented parts of the web platform
 
 Although we enjoy adding new features to jsdom and keeping it up to date with the latest web specs, it has many missing APIs. Please feel free to file an issue for anything missing, but we're a small and busy team, so a pull request might work even better.
-
-Some features of jsdom are provided by our dependencies. Notable documentation in that regard includes the list of [supported CSS selectors](https://github.com/dperini/nwsapi/wiki/CSS-supported-selectors) for our CSS selector engine, [`nwsapi`](https://github.com/dperini/nwsapi).
 
 Beyond just features that we haven't gotten to yet, there are two major features that are currently outside the scope of jsdom. These are:
 

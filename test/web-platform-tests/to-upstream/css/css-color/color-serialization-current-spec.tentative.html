@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Color serialization preserves missing components and origin colors</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#css-serialization-of-srgb">
+<link rel="help" href="https://drafts.csswg.org/css-color-5/#serial-origin-color">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/10254">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/12543">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "#0000";
+  assert_equals(style.color, "rgba(0, 0, 0, 0)");
+  style.color = "#ff000000";
+  assert_equals(style.color, "rgba(255, 0, 0, 0)");
+}, "A zero alpha channel in hexadecimal syntax remains transparent");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "color-mix(in srgb, red 70%, blue 50%)";
+  assert_equals(style.color, "color-mix(in srgb, red 70%, blue 50%)");
+}, "Unequal color-mix weights cannot both be omitted");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "rgb(none 0 0)";
+  assert_equals(style.color, "color(srgb none 0 0)");
+  style.color = "hsl(none 50% 50%)";
+  assert_equals(style.color, "hsl(none 50% 50%)");
+  style.color = "hwb(20 none 30% / none)";
+  assert_equals(style.color, "hwb(20 none 30% / none)");
+}, "Missing RGB, HSL, and HWB components survive serialization");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "rgb(from hsl(380deg 150% 50% / 100%) r g b)";
+  assert_equals(style.color, "rgb(from hsl(380deg 150% 50% / 100%) r g b)");
+}, "A relative origin preserves its component types and out-of-range values");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "color-mix(in srgb, rgb(50% 0% 0%), blue)";
+  assert_equals(style.color, "color-mix(in srgb, rgb(50% 0% 0%), blue)");
+}, "Color-mix arguments preserve their declared component types");
+</script>

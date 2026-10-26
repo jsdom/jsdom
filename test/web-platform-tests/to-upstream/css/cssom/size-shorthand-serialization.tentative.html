@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The size shorthand is omitted from declaration block serialization</title>
+<link rel="help" href="https://drafts.csswg.org/css-sizing-4/#sizing-properties">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/820">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "width: 100px; height: 200px;";
+  assert_equals(style.cssText, "width: 100px; height: 200px;");
+}, "Width and height remain separate in declaration block serialization");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("size", "100px 200px");
+  assert_equals(style.getPropertyValue("size"), "100px 200px");
+  assert_equals(style.width, "100px");
+  assert_equals(style.height, "200px");
+  assert_equals(style.cssText, "width: 100px; height: 200px;");
+}, "The size shorthand can be set and read without serializing it in a declaration block");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page { size: 100px 200px; }");
+  assert_equals(sheet.cssRules[0].style.cssText, "size: 100px 200px;");
+}, "The page size descriptor is unaffected");
+</script>

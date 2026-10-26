@@ -3,6 +3,7 @@
 <title>CSS input preprocessing through CSSOM</title>
 <link rel="help" href="https://drafts.csswg.org/css-syntax/#input-preprocessing">
 <link rel="help" href="https://drafts.csswg.org/css-syntax/#consume-escaped-code-point">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/5846">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 
@@ -24,9 +25,9 @@ function testFontFamily(input, expected, description) {
 }
 
 const preprocessingCases = [
-  ["a\rb", '"a b"', "A carriage return becomes a newline"],
-  ["a\r\nb", '"a b"', "A carriage return followed by a newline becomes a newline"],
-  ["a\fb", '"a b"', "A form feed becomes a newline"],
+  ["a\rb", "a b", "A carriage return becomes a newline"],
+  ["a\r\nb", "a b", "A carriage return followed by a newline becomes a newline"],
+  ["a\fb", "a b", "A form feed becomes a newline"],
   ["a\0b", "a\uFFFDb", "A null becomes a replacement character"],
   ["a\uD800b", "a\uFFFDb", "A lone high surrogate becomes a replacement character"],
   ["a\uDFFFb", "a\uFFFDb", "A lone low surrogate becomes a replacement character"],

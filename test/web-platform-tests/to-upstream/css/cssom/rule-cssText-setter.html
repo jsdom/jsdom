@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Setting rule cssText converts its input without changing the rule</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssrule-csstext">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const source of [
+  "a { color: red; }",
+  "@media all { b { color: blue; } }",
+  "@keyframes example { from { opacity: 0; } }",
+  "@font-face { font-family: Example; src: url(example.woff); }",
+  "@font-feature-values Example { @styleset { one: 1; } }"
+]) {
+  test(() => {
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync(source);
+    const rule = sheet.cssRules[0];
+    const original = rule.cssText;
+    rule.cssText = original;
+    assert_equals(rule.cssText, original);
+    rule.cssText = "replaced { color: green; }";
+    assert_equals(rule.cssText, original);
+    let conversions = 0;
+    rule.cssText = {
+      toString() {
+        ++conversions;
+        return "ignored {}";
+      }
+    };
+    assert_equals(conversions, 1);
+    assert_equals(rule.cssText, original);
+    assert_throws_js(TypeError, () => {
+      rule.cssText = Symbol("invalid CSS text");
+    });
+    assert_equals(sheet.cssRules[0], rule);
+  }, `cssText assignment is a converting no-op for ${source}`);
+}
+</script>

@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Registered property syntax preserves literal identity and canonicalizes its CSSOM representation</title>
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api-1/#syntax-strings">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/11426">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  CSS.registerProperty({ name: "--syntax-literal", syntax: "Foo | bar", inherits: false, initialValue: "Foo" });
+  const element = document.createElement("div");
+  document.body.append(element);
+  element.style.setProperty("--syntax-literal", "Bar");
+  assert_equals(getComputedStyle(element).getPropertyValue("--syntax-literal"), "Foo");
+  element.style.setProperty("--syntax-literal", "bar");
+  assert_equals(getComputedStyle(element).getPropertyValue("--syntax-literal"), "bar");
+  element.remove();
+}, "Registered literal syntax preserves case and compares values case-sensitively");
+
+test(() => {
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--syntax-initial-case", syntax: "Foo", inherits: false, initialValue: "foo"
+  }));
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--syntax-reserved", syntax: "<length> | INHERIT", inherits: false, initialValue: "1px"
+  }));
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--syntax-default", syntax: "<number> | default", inherits: false, initialValue: "1"
+  }));
+}, "Registration rejects mismatched initial literals and reserved literal alternatives");
+
+test(() => {
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--syntax-type-case", syntax: "<LENGTH>", inherits: false, initialValue: "1px"
+  }));
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--syntax-type-escape", syntax: "<len\\67th>", inherits: false, initialValue: "1px"
+  }));
+}, "Registered syntax type names use their specified unescaped lowercase spelling");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(
+    '@property --syntax-canonical { syntax: "  <length>  |  Foo  "; inherits: false; initial-value: Foo; }'
+  );
+  const rule = sheet.cssRules[0];
+  assert_equals(rule.syntax, "<length> | Foo");
+  assert_equals(
+    rule.cssText,
+    '@property --syntax-canonical { syntax: "<length> | Foo"; inherits: false; initial-value: Foo; }'
+  );
+}, "The syntax getter returns a canonical syntax definition");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@property --syntax-unquoted { syntax: <length> | Foo; inherits: false; initial-value: Foo; }");
+  const rule = sheet.cssRules[0];
+  assert_equals(rule.syntax, "<length> | Foo");
+  assert_equals(rule.initialValue, "Foo");
+}, "The syntax descriptor accepts an unquoted syntax definition");
+</script>

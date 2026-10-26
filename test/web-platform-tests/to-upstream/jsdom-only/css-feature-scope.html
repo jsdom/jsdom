@@ -1,0 +1,92 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Intentionally unsupported CSS features</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const container = document.createElement("div");
+  container.innerHTML = `<style>
+    div { voice-family: female; event-trigger: --click click; color: green; }
+  </style><div style="flow-into: article; pointer-timeline: --pointer; color: red"></div>`;
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  const element = container.querySelector("div");
+  assert_false("voiceFamily" in element.style);
+  assert_equals(element.style.cssText, "color: red;");
+  assert_equals(container.querySelector("style").sheet.cssRules[0].style.cssText, "color: green;");
+  for (const property of ["voice-family", "event-trigger", "flow-into", "pointer-timeline"]) {
+    for (const value of ["initial", "var(--value)"]) {
+      assert_false(CSS.supports(property, value));
+      element.style.setProperty(property, value);
+      assert_equals(element.style.getPropertyValue(property), "");
+    }
+  }
+}, "Discards unsupported properties in declarations and stylesheets");
+
+test(() => {
+  const { style } = document.createElement("div");
+  for (const [property, initial, value] of [
+    ["color", "red", "first-valid(blue, red)"],
+    ["color", "red", "cycle(red, blue)"],
+    ["color", "red", "color-interpolate(0.5, 0: red, 1: blue)"],
+    ["color", "red", "color(--custom 0 0 0)"],
+    ["color", "red", "device-cmyk(0 0 0 1)"],
+    ["width", "1px", "calc-interpolate(0.5, 0: 1px, 1: 2px)"],
+    ["width", "1px", "interpolate(0.5, 0: 1px, 1: 2px)"],
+    ["transform", "scale(1)", "transform-interpolate(0.5, 0: scale(1), 1: scale(2))"],
+    ["transform", "scale(1)", "transform-mix(scale(1) 50%, scale(2) 50%)"],
+    ["display", "block", "layout(example)"],
+    ["position", "relative", "running(header)"],
+    ["content", '"text"', "string(heading)"],
+    ["content", '"text"', "leader(dotted)"]
+  ]) {
+    style.setProperty(property, initial);
+    assert_false(CSS.supports(property, value), `${property}: ${value}`);
+    style.setProperty(property, value);
+    assert_equals(style.getPropertyValue(property), initial);
+    style.setProperty("--custom", value);
+    assert_equals(style.getPropertyValue("--custom"), value);
+  }
+  assert_true(CSS.supports("content", 'counter(chapter) ". " attr(title)'));
+  assert_true(CSS.supports("color", "color(display-p3 1 0 0)"));
+  assert_true(CSS.supports("speak", "auto"));
+}, "Rejects unsupported functions while preserving them in custom properties");
+
+test(t => {
+  const container = document.createElement("div");
+  container.innerHTML = `<style>
+    @color-profile --custom { src: url(profile.icc); }
+    div { color: green; }
+  </style>`;
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  assert_false("CSSColorProfileRule" in window);
+  const { cssRules } = container.querySelector("style").sheet;
+  assert_equals(cssRules.length, 1);
+  assert_equals(cssRules[0].cssText, "div { color: green; }");
+}, "Ignores color profile rules without exposing their interface");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = `
+    #named-feature-target { color: green; }
+    @supports named-feature(anchor-position-follows-transforms) { #named-feature-target { color: red; } }
+    @supports named-feature(single-axis-scroll-container) { #named-feature-target { color: red; } }
+  `;
+  const target = document.createElement("div");
+  target.id = "named-feature-target";
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  assert_false(CSS.supports("named-feature(anchor-position-follows-transforms)"));
+  assert_false(CSS.supports("named-feature(single-axis-scroll-container)"));
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "Named layout features are unsupported");
+</script>

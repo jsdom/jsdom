@@ -1,0 +1,73 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Serialization of unresolved reciprocal calculations</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#serialize-a-calculation-tree">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.color = "oklch(from red calc(1 / l) c h)";
+  assert_equals(element.style.color, "oklch(from red calc(1 / l) c h)");
+}, "A reciprocal can be the root calculation of a relative color channel");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.color = "oklch(from red calc(1 / (l + 1)) c h)";
+  assert_equals(element.style.color, "oklch(from red calc(1 / (1 + l)) c h)");
+}, "A reciprocal preserves parentheses around a sum in its denominator");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.color = "oklch(from red calc((1 / l) * c) c h)";
+  assert_equals(element.style.color, "oklch(from red calc((1 / l) * c) c h)");
+}, "A reciprocal first factor retains its order and parentheses");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.color = "oklch(from red calc(2 / l) c h)";
+  assert_equals(element.style.color, "oklch(from red calc(2 / l) c h)");
+}, "A reciprocal after a numeric factor uses division syntax");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.color = "oklch(from red min(1 / l, 1) c h)";
+  assert_equals(element.style.color, "oklch(from red min(1 / l, 1) c h)");
+}, "A reciprocal can be an argument of min()");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.color = "oklch(from red max(1 / l, c) c h)";
+  assert_equals(element.style.color, "oklch(from red max(1 / l, c) c h)");
+}, "A reciprocal can be an argument of max()");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.color = "oklch(from red clamp(0, 1 / l, 1) c h)";
+  assert_equals(element.style.color, "oklch(from red clamp(0, 1 / l, 1) c h)");
+}, "A reciprocal can be an argument of clamp()");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.color = "oklch(from red calc(1 / (1 / l)) c h)";
+  assert_equals(element.style.color, "oklch(from red calc(l) c h)");
+}, "Two nested reciprocal operators cancel during simplification");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.opacity = "calc(1 / sign(1em - 1px))";
+  assert_equals(element.style.opacity, "calc(1 / sign(1em - 1px))");
+}, "A reciprocal can contain an unresolved numeric function");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.fontSize = "16px";
+  element.style.opacity = "calc(1 / sign(1em - 1px))";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).opacity, "1");
+}, "A serialized reciprocal retains its computed numeric value");
+</script>

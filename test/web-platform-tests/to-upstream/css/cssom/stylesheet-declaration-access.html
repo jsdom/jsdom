@@ -1,0 +1,149 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stylesheet declarations preserve parsing and cascade behavior across access orders</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#concept-declarations-specified-order">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-insertrule">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-replacesync">
+<link rel="help" href="https://drafts.csswg.org/css-nesting/#nested-declarations-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function makeSheet(source) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(source);
+  return sheet;
+}
+
+test(() => {
+  const { style } = makeSheet("div { color: red; color: invalid; margin: 1px 2px; margin-left: invalid; }")
+    .cssRules[0];
+  assert_equals(style.marginLeft, "2px");
+  assert_equals(style.color, "red");
+  assert_equals(style.length, 5);
+  assert_equals(style.cssText, "color: red; margin: 1px 2px;");
+  assert_equals(style.marginRight, "2px");
+}, "Invalid declarations do not override valid declarations before or after enumeration");
+
+test(() => {
+  const { style } = makeSheet("div { margin: 1px !important; margin-left: 2px; margin-right: 3px !important; }")
+    .cssRules[0];
+  assert_equals(style.marginLeft, "1px");
+  assert_equals(style.marginRight, "3px");
+  assert_equals(style.getPropertyPriority("margin"), "important");
+  assert_equals(style.margin, "1px 3px 1px 1px");
+  style.marginTop = "4px";
+  assert_equals(style.marginTop, "4px");
+  assert_equals(style.getPropertyPriority("margin-top"), "");
+  assert_equals(style.marginLeft, "1px");
+}, "Shorthand priorities and subsequent CSSOM mutations preserve independent longhands");
+
+test(() => {
+  const { style } = makeSheet("div { margin: var(--space); margin-left: 4px; color: invalid; --space: 2px; }")
+    .cssRules[0];
+  assert_equals(style.marginLeft, "4px");
+  assert_equals(style.marginTop, "");
+  assert_equals(style.margin, "");
+  assert_equals(style.getPropertyValue("--space"), "2px");
+  style.removeProperty("margin-left");
+  assert_equals(style.marginLeft, "");
+  assert_equals(style.length, 4);
+}, "Pending shorthand values remain distinct from authored longhand overrides");
+
+test(() => {
+  const rule = makeSheet("div { color: invalid; .first {} color: invalid; .second {} unknown: invalid; }")
+    .cssRules[0];
+  assert_equals(rule.style.length, 0);
+  assert_equals(rule.cssRules.length, 2);
+  assert_equals(rule.cssRules[0].selectorText, "& .first");
+  assert_equals(rule.cssRules[1].selectorText, "& .second");
+}, "Runs containing only invalid declarations do not create nested declaration rules");
+
+test(() => {
+  const rule = makeSheet("div { .first {} color: invalid; --custom: bogus; .second {} color: var(--missing); }")
+    .cssRules[0];
+  assert_equals(rule.cssRules.length, 4);
+  assert_equals(rule.cssRules[1].style.getPropertyValue("--custom"), "bogus");
+  assert_equals(rule.cssRules[1].style.color, "");
+  assert_equals(rule.cssRules[3].style.color, "var(--missing)");
+}, "Custom properties and pending values make a nested declaration run nonempty");
+
+test(() => {
+  const source = "div { margin: 1px 2px; color: red; }";
+  const first = makeSheet(source).cssRules[0].style;
+  const second = makeSheet(source).cssRules[0].style;
+  assert_equals(first.marginLeft, "2px");
+  first.margin = "3px";
+  assert_equals(second.marginRight, "2px");
+  second.cssText = "color: blue";
+  assert_equals(first.color, "red");
+  assert_equals(first.marginTop, "3px");
+  assert_equals(second.marginLeft, "");
+}, "Partially accessed declaration blocks remain independent when their owners mutate");
+
+test(() => {
+  const sheet = makeSheet('div { content: "{"; color: red; } p { content: ")"; margin: 2px; }');
+  assert_equals(sheet.cssRules.length, 2);
+  assert_equals(sheet.cssRules[0].style.content, '"{"');
+  assert_equals(sheet.cssRules[0].style.color, "red");
+  assert_equals(sheet.cssRules[1].style.content, '")"');
+  assert_equals(sheet.cssRules[1].style.margin, "2px");
+}, "String tokens containing delimiters do not affect declaration or rule boundaries");
+
+test(t => {
+  const style = document.createElement("style");
+  const target = document.createElement("div");
+  target.id = "declaration-access-target";
+  style.textContent = "#declaration-access-target { --space: 2px; margin: var(--space); color: green; }";
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  const computed = getComputedStyle(target);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  assert_equals(computed.marginLeft, "2px");
+  assert_equals(style.sheet.cssRules[0].style.margin, "var(--space)");
+  style.sheet.cssRules[0].style.setProperty("--space", "5px");
+  assert_equals(computed.marginRight, "5px");
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "Computed reads and later authored mutations preserve pending shorthand dependencies");
+
+test(t => {
+  const source = ".inserted-custom-literal { --payload: red !important; --payload: blue; " +
+    "--payload: red !important; color: var(--payload); }";
+  const replacementStyle = makeSheet(source).cssRules[0].style;
+  const styleElement = document.createElement("style");
+  const target = document.createElement("div");
+  target.className = "inserted-custom-literal";
+  document.head.append(styleElement);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    styleElement.remove();
+    target.remove();
+  });
+  styleElement.sheet.insertRule(source);
+  const insertedStyle = styleElement.sheet.cssRules[0].style;
+
+  assert_equals(insertedStyle.getPropertyValue("--payload"), "red");
+  assert_equals(replacementStyle.getPropertyValue("--payload"), "red");
+  assert_equals(insertedStyle.getPropertyPriority("--payload"), "important");
+  const specifiedText = insertedStyle.cssText;
+  assert_equals(specifiedText, replacementStyle.cssText);
+  assert_equals(insertedStyle.length, 2);
+
+  assert_equals(getComputedStyle(target).getPropertyValue("--payload"), "red");
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+  assert_equals(insertedStyle.getPropertyValue("--payload"), "red");
+  assert_equals(insertedStyle.getPropertyPriority("--payload"), "important");
+  assert_equals(insertedStyle.cssText, specifiedText);
+
+  insertedStyle.setProperty("--payload", "green");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  assert_equals(replacementStyle.getPropertyValue("--payload"), "red");
+  assert_equals(replacementStyle.getPropertyPriority("--payload"), "important");
+}, "Custom declarations inserted as one rule match replacement parsing before and after computed reads");
+</script>

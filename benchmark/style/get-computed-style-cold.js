@@ -1,9 +1,9 @@
 "use strict";
 const documentBench = require("../document-bench");
 
-// Cold-path benchmark: DOM is rebuilt before each iteration via beforeEach,
-// so the style cache is always empty and every iteration measures the full
-// cascade computation and property resolution.
+// Rebuild the DOM before each iteration to measure getComputedStyle() with
+// invalidated element styles. These calls create computed-style objects without
+// reading properties; property resolution has separate benchmarks.
 
 const SIBLINGS = 20;
 const DEPTH = 10;

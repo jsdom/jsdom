@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>View-transition pseudo-elements accept only their specified structural pseudo-classes</title>
+<link rel="help" href="https://drafts.csswg.org/css-view-transitions-2/#pseudo-element-tree">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#pseudo-element-syntax">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+test(() => {
+  assert_throws_dom("SyntaxError", () => document.querySelector("::view-transition:empty"));
+  assert_throws_dom("SyntaxError", () => document.querySelector("::view-transition-group(name):empty"));
+  assert_throws_dom("SyntaxError", () => document.querySelector("::view-transition-image-pair(name):empty"));
+}, "View-transition pseudo-elements do not accept :empty");
+
+test(() => {
+  assert_throws_dom("SyntaxError", () => document.querySelector("::view-transition-group(name):first-child"));
+  assert_throws_dom("SyntaxError", () => document.querySelector("::view-transition-image-pair(name):last-child"));
+  assert_throws_dom("SyntaxError", () => document.querySelector("::view-transition-old(name):first-of-type"));
+  assert_throws_dom("SyntaxError", () => document.querySelector("::view-transition-new(name):last-of-type"));
+}, "View-transition pseudo-elements do not accept unspecified structural pseudo-classes");
+
+test(() => {
+  assert_equals(document.querySelector("::view-transition-old(name):only-child"), null);
+  assert_equals(document.querySelector("::view-transition-new(name):only-child"), null);
+  assert_true(CSS.supports("selector(::view-transition-old(name):only-child)"));
+  assert_true(CSS.supports("selector(::view-transition-new(name):only-child)"));
+}, "View-transition images accept the specified :only-child pseudo-class");
+</script>

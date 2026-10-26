@@ -102,4 +102,34 @@ test(t => {
   assert_equals(getComputedStyle(second).color, "rgb(0, 0, 255)");
   assert_equals(getComputedStyle(third).color, "rgb(255, 0, 0)");
 }, "Stylesheet matching uses the new sibling order after reordering");
+
+test(() => {
+  const xml = document.implementation.createDocument("urn:root", "root");
+  const parent = xml.documentElement;
+  const first = xml.createElementNS("urn:first", "item");
+  const otherNamespace = xml.createElementNS("urn:second", "item");
+  const otherCase = xml.createElementNS("urn:first", "Item");
+  const last = xml.createElementNS("urn:first", "prefix:item");
+  parent.append("text", first, xml.createComment("comment"), otherNamespace, otherCase, last);
+  assert_true(first.matches(":nth-child(1):nth-of-type(1):nth-last-of-type(2)"));
+  assert_true(last.matches(":nth-child(4):nth-of-type(2):nth-last-of-type(1)"));
+  assert_true(otherNamespace.matches(":only-of-type"));
+  assert_true(otherCase.matches(":only-of-type"));
+  parent.append(first);
+  assert_true(last.matches(":nth-child(3):nth-of-type(1):nth-last-of-type(2)"));
+  assert_true(first.matches(":nth-child(4):nth-of-type(2):nth-last-of-type(1)"));
+}, "Type indexes use namespace and case-sensitive local name, ignoring prefixes and non-elements");
+
+test(() => {
+  const parent = document.createElement("div");
+  parent.innerHTML = '<input type="checkbox" checked><input type="checkbox" checked><input type="checkbox">';
+  const [first, second, third] = parent.children;
+  assert_true(second.matches(":nth-child(2):nth-child(2 of :checked)"));
+  assert_true(first.matches(":nth-last-child(2 of :checked)"));
+  first.checked = false;
+  third.checked = true;
+  assert_true(second.matches(":nth-child(2):nth-child(1 of :checked)"));
+  assert_true(third.matches(":nth-child(2 of :checked):nth-last-child(1 of :checked)"));
+  assert_false(first.matches(":nth-child(1 of :checked)"));
+}, "Filtered sibling indexes reflect form state changes without tree or attribute mutations");
 </script>

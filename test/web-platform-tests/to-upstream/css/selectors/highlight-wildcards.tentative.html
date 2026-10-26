@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Custom highlight wildcard selectors match named computed style targets</title>
+<link rel="help" href="https://drafts.csswg.org/css-pseudo-4/#highlight-selectors">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/9091">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+function targetWithRules(t, rules) {
+  const target = document.createElement("span");
+  target.className = "target";
+  const style = document.createElement("style");
+  style.textContent = ".target { color: black } " + rules;
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    target.remove();
+    style.remove();
+  });
+  return target;
+}
+test(t => {
+  assert_true(CSS.supports("selector(::highlight(*))"));
+  const target = targetWithRules(t, ".target::highlight(*) { color: green }");
+  assert_equals(getComputedStyle(target, "::highlight(first)").color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(target, "::highlight(second)").color, "rgb(0, 128, 0)");
+}, "A highlight wildcard matches distinct names without active highlights");
+test(t => {
+  assert_true(CSS.supports("selector(::highlight(*))"));
+  const target = targetWithRules(t, ".target::highlight(*) { color: green }");
+  assert_equals(getComputedStyle(target, "::highlight(\\*)").color, "rgb(0, 128, 0)");
+}, "A highlight wildcard matches an escaped asterisk name");
+test(t => {
+  assert_true(CSS.supports("selector(::highlight(*))"));
+  const target = targetWithRules(t, ".target::highlight(first) { color: green } .target::highlight(*) { color: red }");
+  assert_equals(getComputedStyle(target, "::highlight(first)").color, "rgb(0, 128, 0)");
+}, "A named highlight has greater specificity than a wildcard");
+test(t => {
+  assert_true(CSS.supports("selector(::highlight(*))"));
+  const target = targetWithRules(t, ".target::highlight(\\*) { color: green } .target::highlight(*) { color: red }");
+  assert_equals(getComputedStyle(target, "::highlight(\\*)").color, "rgb(0, 128, 0)");
+}, "An escaped asterisk highlight has greater specificity than a wildcard");
+</script>

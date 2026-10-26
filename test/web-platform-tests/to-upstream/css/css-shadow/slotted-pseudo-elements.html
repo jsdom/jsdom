@@ -1,0 +1,74 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Tree-abiding pseudo-elements of assigned elements match slotted selectors</title>
+<link rel="help" href="https://drafts.csswg.org/css-shadow-1/#slotted-pseudo">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function slottedTree(t, shadowHTML, lightHTML) {
+  const host = document.createElement("div");
+  document.body.append(host);
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = shadowHTML;
+  host.innerHTML = lightHTML;
+  t.add_cleanup(() => host.remove());
+  return { host, root, target: host.firstElementChild };
+}
+
+test(t => {
+  const { target } = slottedTree(
+    t,
+    "<style>slot::slotted(.target)::before { content: 'before'; color: green; } " +
+    "slot::slotted(.target)::after { content: 'after'; color: blue; }</style><slot></slot>",
+    "<span class='target'></span>"
+  );
+  assert_equals(getComputedStyle(target, "::before").content, '"before"');
+  assert_equals(getComputedStyle(target, "::before").color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(target, "::after").content, '"after"');
+  assert_equals(getComputedStyle(target, "::after").color, "rgb(0, 0, 255)");
+}, "Slotted selector arguments match the assigned element and suffixes match its pseudo-elements");
+
+test(t => {
+  const { target } = slottedTree(
+    t,
+    "<style>section > slot.named::slotted(span)::before { content: 'matched'; color: green; } " +
+    "section > slot.named::slotted(.missing)::before { color: red; } " +
+    "section > slot.missing::slotted(span)::before { color: blue; }</style>" +
+    "<section><slot class='named' name='chosen'></slot></section>",
+    "<span slot='chosen'></span>"
+  );
+  assert_equals(getComputedStyle(target, "::before").content, '"matched"');
+  assert_equals(getComputedStyle(target, "::before").color, "rgb(0, 128, 0)");
+}, "Selectors before slotted match the slot and its shadow ancestry");
+
+test(t => {
+  const { target } = slottedTree(
+    t,
+    "<style>slot::slotted(*) { color: green; } " +
+    "slot::before { content: 'slot'; color: red; } " +
+    "span::before { content: 'unassigned'; color: blue; }</style><slot></slot>",
+    "<span></span>"
+  );
+  assert_equals(getComputedStyle(target, "::before").content, "none");
+  assert_equals(getComputedStyle(target, "::before").color, "rgb(0, 128, 0)");
+}, "Slot pseudo-elements and ordinary shadow selectors do not match assigned pseudo-elements");
+
+test(t => {
+  const { target } = slottedTree(
+    t,
+    "<style>slot[name=a]::slotted(*)::before { content: 'a'; color: green; } " +
+    "slot[name=b]::slotted(*)::before { content: 'b'; color: blue; }</style>" +
+    "<slot name='a'></slot><slot name='b'></slot>",
+    "<span slot='a'></span>"
+  );
+  const computed = getComputedStyle(target, "::before");
+  assert_equals(computed.content, '"a"');
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  target.slot = "b";
+  assert_equals(computed.content, '"b"');
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+}, "A live pseudo-element style follows slot reassignment");
+</script>

@@ -1,0 +1,100 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Legacy box properties retain their own values and defaults</title>
+<link rel="help" href="https://compat.spec.whatwg.org/#css-property-mappings">
+<link rel="help" href="https://github.com/whatwg/compat/issues/87">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+const properties = [
+  ["-webkit-box-align", "align-items", "stretch", "end"],
+  ["-webkit-box-flex", "flex-grow", "0", "2"],
+  ["-webkit-box-ordinal-group", "order", "1", "3"],
+  ["-webkit-box-orient", "flex-direction", "horizontal", "vertical"],
+  ["-webkit-box-pack", "justify-content", "start", "justify"]
+];
+
+function fixture(t) {
+  const parent = document.createElement("div");
+  const target = document.createElement("div");
+  parent.append(target);
+  document.body.append(parent);
+  t.add_cleanup(() => parent.remove());
+  return { parent, target };
+}
+
+for (const [property, modern, initial, authored] of properties) {
+  test(t => {
+    const { target } = fixture(t);
+    const computed = getComputedStyle(target);
+    assert_equals(computed.getPropertyValue(property), initial);
+    target.style.setProperty(property, authored);
+    assert_equals(target.style.getPropertyValue(property), authored);
+    assert_equals(computed.getPropertyValue(property), authored);
+    target.style.removeProperty(property);
+    assert_equals(computed.getPropertyValue(property), initial);
+  }, property + " has its own initial and authored computed values");
+
+  test(t => {
+    const { parent, target } = fixture(t);
+    const computed = getComputedStyle(target);
+    parent.style.setProperty(property, authored);
+    assert_equals(computed.getPropertyValue(property), initial);
+    target.style.setProperty(property, "inherit");
+    assert_equals(computed.getPropertyValue(property), authored);
+    target.style.setProperty(property, "initial");
+    assert_equals(computed.getPropertyValue(property), initial);
+    target.style.setProperty(property, "unset");
+    assert_equals(computed.getPropertyValue(property), initial);
+    target.style.setProperty(property, "revert");
+    assert_equals(computed.getPropertyValue(property), initial);
+  }, property + " follows CSS-wide defaulting independently of its parent");
+
+  test(t => {
+    const { target } = fixture(t);
+    const computed = getComputedStyle(target);
+    const modernInitial = computed.getPropertyValue(modern);
+    target.style.setProperty(property, authored);
+    assert_equals(computed.getPropertyValue(modern), modernInitial);
+    target.style.setProperty(modern, "initial", "important");
+    assert_equals(computed.getPropertyValue(property), authored);
+    target.style.removeProperty(property);
+    assert_equals(computed.getPropertyValue(property), initial);
+  }, property + " does not alias " + modern);
+}
+
+test(t => {
+  const { target } = fixture(t);
+  for (const writingMode of ["horizontal-tb", "vertical-rl", "vertical-lr"]) {
+    target.style.writingMode = writingMode;
+    for (const [authored, computed] of [["inline-axis", "horizontal"], ["block-axis", "vertical"]]) {
+      target.style.setProperty("-webkit-box-orient", authored);
+      assert_equals(getComputedStyle(target).getPropertyValue("-webkit-box-orient"), computed);
+    }
+  }
+}, "Legacy box-orient axis values have physical computed values");
+
+test(t => {
+  const { target } = fixture(t);
+  target.style.setProperty("-webkit-box-flex", "calc(1 + 2)");
+  target.style.setProperty("-webkit-box-ordinal-group", "calc(2 + 3)");
+  assert_equals(getComputedStyle(target).getPropertyValue("-webkit-box-flex"), "3");
+  assert_equals(getComputedStyle(target).getPropertyValue("-webkit-box-ordinal-group"), "5");
+}, "Legacy numeric box properties compute calculations");
+
+test(t => {
+  const { target } = fixture(t);
+  for (const [property, invalid] of [
+    ["-webkit-box-align", "normal"],
+    ["-webkit-box-orient", "row"],
+    ["-webkit-box-pack", "space-between"]
+  ]) {
+    target.style.setProperty(property, invalid);
+    assert_equals(target.style.getPropertyValue(property), "");
+    assert_false(CSS.supports(property, invalid));
+  }
+}, "Legacy box properties reject modern-only values");
+</script>

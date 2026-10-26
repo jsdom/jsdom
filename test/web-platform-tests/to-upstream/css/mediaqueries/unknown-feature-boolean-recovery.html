@@ -1,0 +1,66 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Unknown media features participate in Boolean conditions after recovery</title>
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#evaluating">
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#error-handling">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function checkMediaColor(t, query, color) {
+  const style = document.createElement("style");
+  style.textContent = `#target { color: green; } @media ${query} { #target { color: red; } }`;
+  const target = document.createElement("div");
+  target.id = "target";
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  assert_equals(style.sheet.cssRules.length, 2);
+  assert_equals(getComputedStyle(target).color, color);
+}
+
+test(t => {
+  checkMediaColor(t, "(unknown-feature: 1) or (min-width: 0px)", "rgb(255, 0, 0)");
+}, "An unknown feature followed by a true disjunct matches");
+
+test(t => {
+  checkMediaColor(t, "(min-width: 0px) or (unknown-feature: 1)", "rgb(255, 0, 0)");
+}, "A true disjunct followed by an unknown feature matches");
+
+test(t => {
+  checkMediaColor(t, "(unknown-feature: 1) or (max-width: -1px)", "rgb(0, 128, 0)");
+}, "An unknown feature and a false disjunct do not match");
+
+test(t => {
+  checkMediaColor(t, "(unknown-feature: 1) and (min-width: 0px)", "rgb(0, 128, 0)");
+}, "An unknown feature and a true conjunct do not match");
+
+test(t => {
+  checkMediaColor(t, "(unknown-feature: 1) and (max-width: -1px)", "rgb(0, 128, 0)");
+}, "An unknown feature and a false conjunct do not match");
+
+test(t => {
+  checkMediaColor(t, "not (unknown-feature: 1)", "rgb(0, 128, 0)");
+}, "Negating an unknown feature does not match");
+
+test(t => {
+  checkMediaColor(t, "not ((unknown-feature: 1) and (max-width: -1px))", "rgb(255, 0, 0)");
+}, "Negating an unknown feature combined with a false conjunct matches");
+
+test(t => {
+  checkMediaColor(t, "((unknown-feature: 1) or (min-width: 0px))", "rgb(255, 0, 0)");
+}, "An unknown feature followed by a true disjunct matches inside a nested condition");
+
+test(t => {
+  checkMediaColor(t, "(min-width: invalid) or (min-width: 0px)", "rgb(255, 0, 0)");
+}, "An invalid feature value followed by a true disjunct matches");
+
+test(t => {
+  checkMediaColor(t, "unknown-function(value) or (min-width: 0px)", "rgb(255, 0, 0)");
+}, "An unknown function followed by a true disjunct matches");
+</script>

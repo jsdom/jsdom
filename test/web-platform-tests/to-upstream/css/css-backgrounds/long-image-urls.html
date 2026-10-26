@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Background image declarations preserve long URLs</title>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/4394 -->
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#the-background-image">
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#the-background">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const image = `url("https://example.com/${"a".repeat(4096)}.png")`;
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.backgroundImage = image;
+  assert_equals(style.backgroundImage, image);
+  assert_equals(style.cssText, `background-image: ${image};`);
+}, "A background-image declaration preserves a URL longer than 4096 characters");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.background = image;
+  assert_equals(style.backgroundImage, image);
+  assert_equals(style.background, image);
+}, "The background shorthand preserves a URL longer than 4096 characters");
+</script>

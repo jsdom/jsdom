@@ -1,0 +1,55 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Transform function names and omitted arguments serialize correctly</title>
+<link rel="help" href="https://drafts.csswg.org/css-transforms/#serialization-of-transform-functions">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transform = "TRANSLATEX(2px) rotateY(3deg) scaleZ(4)";
+  assert_equals(style.transform, "translateX(2px) rotateY(3deg) scaleZ(4)");
+}, "Transform names serialize with their canonical capitalization");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transform = "scale(2)";
+  assert_equals(style.transform, "scale(2)");
+}, "A scale function preserves an omitted second coordinate");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transform = "translate(2px)";
+  assert_equals(style.transform, "translate(2px)");
+}, "A translate function preserves an omitted second coordinate");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transform = "skew(3deg)";
+  assert_equals(style.transform, "skew(3deg)");
+}, "A skew function preserves an omitted second angle");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.scale = "2";
+  assert_equals(style.scale, "2");
+  style.scale = "2 3";
+  assert_equals(style.scale, "2 3");
+}, "The scale property supplies the omitted coordinate defaults");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.transform = "scale(250%) scaleX(25%) scale3d(50%, 100%, 150%)";
+  assert_equals(style.transform, "scale(2.5) scaleX(0.25) scale3d(0.5, 1, 1.5)");
+}, "Scale function percentages serialize as numbers");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.scale = "25% 50%";
+  assert_equals(style.scale, "0.25 0.5");
+  style.scale = "calc(25% + 50%)";
+  assert_equals(style.scale, "calc(75%)");
+}, "Scale property percentages serialize as numbers while calculations preserve their units");
+</script>

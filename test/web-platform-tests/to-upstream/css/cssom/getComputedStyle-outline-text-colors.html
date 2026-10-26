@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Resolved outline and prefixed text colors</title>
+<link rel="help" href="https://drafts.csswg.org/css-ui/#propdef-outline-color">
+<link rel="help" href="https://compat.spec.whatwg.org/#text-fill-and-stroking">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createElement(t, style, parent = document.body) {
+  const element = document.createElement("div");
+  element.style.cssText = style;
+  parent.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = createElement(t, "color: blue");
+  assert_equals(getComputedStyle(element).outlineColor, "rgb(0, 0, 255)");
+  element.style.outlineStyle = "solid";
+  assert_equals(getComputedStyle(element).outlineColor, "rgb(0, 0, 255)");
+  element.style.color = "green";
+  assert_equals(getComputedStyle(element).outlineColor, "rgb(0, 128, 0)");
+}, "The initial outline color follows color when the outline style is none or solid");
+
+test(t => {
+  const element = createElement(t, "color: blue; outline: 1px solid currentcolor");
+  assert_equals(element.style.outlineColor, "currentcolor");
+  assert_equals(getComputedStyle(element).outlineColor, "rgb(0, 0, 255)");
+  element.style.color = "green";
+  assert_equals(getComputedStyle(element).outlineColor, "rgb(0, 128, 0)");
+  element.style.outlineColor = "red";
+  assert_equals(getComputedStyle(element).outlineColor, "rgb(255, 0, 0)");
+  element.style.color = "blue";
+  assert_equals(getComputedStyle(element).outlineColor, "rgb(255, 0, 0)");
+}, "A currentcolor outline follows color without changing the specified declaration");
+
+test(t => {
+  const parent = createElement(t, "color: blue; outline: 1px solid");
+  const child = createElement(t, "color: green; outline-color: inherit", parent);
+  assert_equals(getComputedStyle(parent).outlineColor, "rgb(0, 0, 255)");
+  assert_equals(getComputedStyle(child).outlineColor, "rgb(0, 128, 0)");
+  parent.style.outlineColor = "red";
+  assert_equals(getComputedStyle(child).outlineColor, "rgb(255, 0, 0)");
+}, "An inherited initial outline color uses the child's color");
+
+test(t => {
+  const parent = createElement(t, "color: blue");
+  const child = createElement(t, "color: green", parent);
+  assert_equals(getComputedStyle(parent).webkitTextFillColor, "rgb(0, 0, 255)");
+  assert_equals(getComputedStyle(child).webkitTextFillColor, "rgb(0, 128, 0)");
+  child.style.color = "red";
+  assert_equals(getComputedStyle(child).webkitTextFillColor, "rgb(255, 0, 0)");
+}, "The initial and inherited text fill color resolve against each element's color");
+
+test(t => {
+  const parent = createElement(t, "color: blue");
+  const child = createElement(t, "color: green", parent);
+  assert_equals(getComputedStyle(parent).webkitTextStrokeColor, "rgb(0, 0, 255)");
+  assert_equals(getComputedStyle(child).webkitTextStrokeColor, "rgb(0, 128, 0)");
+  child.style.color = "red";
+  assert_equals(getComputedStyle(child).webkitTextStrokeColor, "rgb(255, 0, 0)");
+}, "The initial and inherited text stroke color resolve against each element's color");
+
+test(t => {
+  const element = createElement(t, "color: blue; -webkit-text-stroke: 1px currentcolor");
+  assert_equals(element.style.webkitTextStrokeColor, "currentcolor");
+  assert_equals(getComputedStyle(element).webkitTextStroke, "1px rgb(0, 0, 255)");
+  element.style.color = "green";
+  assert_equals(getComputedStyle(element).webkitTextStroke, "1px rgb(0, 128, 0)");
+  element.style.webkitTextStrokeColor = "red";
+  assert_equals(getComputedStyle(element).webkitTextStroke, "1px rgb(255, 0, 0)");
+}, "The text stroke shorthand retains its resolved color");
+
+test(t => {
+  const parent = createElement(t, "color: blue; -webkit-text-fill-color: color-mix(in srgb, currentcolor, red)");
+  const child = createElement(t, "color: green", parent);
+  assert_equals(getComputedStyle(parent).webkitTextFillColor, "color(srgb 0.5 0 0.5)");
+  assert_equals(getComputedStyle(child).webkitTextFillColor, "color(srgb 0.5 0.25098 0)");
+  parent.style.webkitTextFillColor = "red";
+  assert_equals(getComputedStyle(child).webkitTextFillColor, "rgb(255, 0, 0)");
+}, "An inherited text fill color mix resolves currentcolor against the child's color");
+
+test(t => {
+  const parent = createElement(t, "color: blue; -webkit-text-stroke-color: color-mix(in srgb, currentcolor, red)");
+  const child = createElement(t, "color: green", parent);
+  assert_equals(getComputedStyle(parent).webkitTextStrokeColor, "color(srgb 0.5 0 0.5)");
+  assert_equals(getComputedStyle(child).webkitTextStrokeColor, "color(srgb 0.5 0.25098 0)");
+  parent.style.webkitTextStrokeColor = "red";
+  assert_equals(getComputedStyle(child).webkitTextStrokeColor, "rgb(255, 0, 0)");
+}, "An inherited text stroke color mix resolves currentcolor against the child's color");
+</script>

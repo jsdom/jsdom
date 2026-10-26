@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Legacy color serialization resolves NaN channels and alpha to zero</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#calc-type-checking">
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#css-serialization-of-srgb">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "rgb(calc(NaN) 0 0)";
+  assert_equals(style.color, "rgb(0, 0, 0)");
+}, "A NaN RGB channel serializes as zero");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "rgb(0 0 0 / calc(NaN))";
+  assert_equals(style.color, "rgba(0, 0, 0, 0)");
+}, "A NaN RGB alpha serializes as zero rather than being omitted");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "hsl(120 calc(NaN) 50%)";
+  assert_equals(style.color, "rgb(128, 128, 128)");
+}, "A NaN HSL saturation serializes as zero");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.color = "hwb(120 0% 0% / calc(NaN))";
+  assert_equals(style.color, "rgba(0, 255, 0, 0)");
+}, "A NaN HWB alpha serializes as zero rather than being omitted");
+</script>

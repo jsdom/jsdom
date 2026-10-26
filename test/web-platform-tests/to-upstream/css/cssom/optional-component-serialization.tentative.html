@@ -1,0 +1,82 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Optional components preserve compatible property serialization</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-value">
+<link rel="help" href="https://drafts.csswg.org/css-ui-4/#caret-color">
+<link rel="help" href="https://drafts.csswg.org/css-gaps-1/#rule-inset">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/5642">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="target"></div>
+<div id="copy"></div>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+const copy = document.getElementById("copy");
+
+test(() => {
+  target.style.cssText = "caret-color: rgb(10, 20, 30) auto";
+  assert_equals(target.style.caretColor, "rgb(10, 20, 30) auto");
+  assert_equals(getComputedStyle(target).caretColor, "rgb(10, 20, 30)");
+}, "An explicit second auto in caret-color is retained only in the specified value");
+
+test(() => {
+  target.style.cssText = "color: blue; caret-color: currentcolor auto";
+  assert_equals(target.style.caretColor, "currentcolor auto");
+  assert_equals(getComputedStyle(target).caretColor, "rgb(0, 0, 255)");
+}, "A currentcolor caret retains its specified second auto");
+
+test(() => {
+  target.style.cssText = "caret-color: red";
+  assert_equals(target.style.caretColor, "red");
+  assert_equals(getComputedStyle(target).caretColor, "rgb(255, 0, 0)");
+}, "A missing second caret color remains omitted");
+
+test(() => {
+  target.style.cssText = "caret-color: red blue";
+  assert_equals(target.style.caretColor, "red blue");
+  assert_equals(getComputedStyle(target).caretColor, "rgb(255, 0, 0) rgb(0, 0, 255)");
+  copy.style.cssText = target.style.cssText;
+  assert_equals(copy.style.caretColor, "red blue");
+}, "A distinct second caret color survives serialization and computation");
+
+test(() => {
+  target.style.cssText = "column-rule-inset: 10px 10px / 10px 10px";
+  assert_equals(target.style.columnRuleInset, "10px");
+  assert_equals(getComputedStyle(target).columnRuleInset, "10px");
+}, "Four equal rule inset endpoints serialize as one value");
+
+test(() => {
+  target.style.cssText = "column-rule-inset: 10px 20px";
+  assert_equals(target.style.columnRuleInset, "10px 20px / 10px 20px");
+  assert_equals(getComputedStyle(target).columnRuleInset, "10px 20px / 10px 20px");
+}, "Different start and end rule insets retain both cap and junction pairs");
+
+test(() => {
+  target.style.cssText = "row-rule-inset: 10px / 20px";
+  assert_equals(target.style.rowRuleInset, "10px 10px / 20px 20px");
+  assert_equals(getComputedStyle(target).rowRuleInset, "10px 10px / 20px 20px");
+}, "Different cap and junction rule insets retain both endpoint pairs");
+
+test(() => {
+  target.style.cssText = "rule-inset: overlap-join 10px / overlap-join 10px";
+  assert_equals(target.style.ruleInset, "overlap-join 10px / overlap-join 10px");
+  assert_equals(getComputedStyle(target).ruleInset, "overlap-join 10px / overlap-join 10px");
+}, "The bidirectional rule inset retains nonuniform endpoint pairs");
+
+test(() => {
+  target.style.cssText = "column-rule-inset: 10px 20px / 30px 40px";
+  copy.style.cssText = target.style.cssText;
+  assert_equals(copy.style.columnRuleInsetCapStart, "10px");
+  assert_equals(copy.style.columnRuleInsetCapEnd, "20px");
+  assert_equals(copy.style.columnRuleInsetJunctionStart, "30px");
+  assert_equals(copy.style.columnRuleInsetJunctionEnd, "40px");
+}, "Rule inset serialization preserves all four longhands");
+
+test(() => {
+  target.style.cssText = "column-rule-inset-cap-start: 10px; column-rule-inset-cap-end: 20px; " +
+    "column-rule-inset-junction-start: 10px; column-rule-inset-junction-end: 20px";
+  assert_equals(target.style.columnRuleInset, "10px 20px / 10px 20px");
+}, "Reading a rule inset shorthand reconstructs all nonuniform endpoints");
+</script>

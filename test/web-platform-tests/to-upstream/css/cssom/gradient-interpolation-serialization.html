@@ -1,0 +1,88 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Gradient serialization preserves the interpolation color space</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#interpolation-space">
+<link rel="help" href="https://drafts.csswg.org/css-images-4/#serialization">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.backgroundImage = "linear-gradient(in oklab, red, blue)";
+  assert_equals(element.style.backgroundImage, "linear-gradient(in oklab, red, blue)");
+  assert_equals(
+    getComputedStyle(element).backgroundImage,
+    "linear-gradient(in oklab, rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+}, "Linear gradients retain explicit Oklab interpolation between legacy colors");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.backgroundImage = "radial-gradient(in oklab, red, blue)";
+  assert_equals(element.style.backgroundImage, "radial-gradient(in oklab, red, blue)");
+  assert_equals(
+    getComputedStyle(element).backgroundImage,
+    "radial-gradient(in oklab, rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+}, "Radial gradients retain explicit Oklab interpolation between legacy colors");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.backgroundImage = "conic-gradient(in oklab, red, blue)";
+  assert_equals(element.style.backgroundImage, "conic-gradient(in oklab, red, blue)");
+  assert_equals(
+    getComputedStyle(element).backgroundImage,
+    "conic-gradient(in oklab, rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+}, "Conic gradients retain explicit Oklab interpolation between legacy colors");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.backgroundImage = "linear-gradient(in srgb, color(srgb 1 0 0), blue)";
+  assert_equals(element.style.backgroundImage, "linear-gradient(in srgb, color(srgb 1 0 0), blue)");
+  assert_equals(
+    getComputedStyle(element).backgroundImage,
+    "linear-gradient(in srgb, color(srgb 1 0 0), rgb(0, 0, 255))"
+  );
+}, "A modern color stop makes explicit sRGB interpolation significant");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.backgroundImage = "linear-gradient(in srgb, rgba(255, 0, 0, 0.5), hsl(240, 100%, 50%))";
+  assert_equals(style.backgroundImage, "linear-gradient(rgba(255, 0, 0, 0.5), rgb(0, 0, 255))");
+}, "Legacy alpha-including color functions retain the sRGB default");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.backgroundImage = "linear-gradient(in oklab, color(srgb 1 0 0), blue)";
+  assert_equals(style.backgroundImage, "linear-gradient(color(srgb 1 0 0), blue)");
+}, "An explicit Oklab method can be omitted when a modern color stop makes it the default");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.setProperty("--stop", "red");
+  element.style.backgroundImage = "linear-gradient(in oklab, var(--stop), blue)";
+  assert_equals(
+    getComputedStyle(element).backgroundImage,
+    "linear-gradient(in oklab, rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+  element.style.setProperty("--stop", "color(srgb 1 0 0)");
+  assert_equals(
+    getComputedStyle(element).backgroundImage,
+    "linear-gradient(color(srgb 1 0 0), rgb(0, 0, 255))"
+  );
+}, "Variable substitution determines whether an explicit interpolation method remains significant");
+</script>

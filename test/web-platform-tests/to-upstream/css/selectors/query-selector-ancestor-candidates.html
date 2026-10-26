@@ -1,0 +1,73 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Selector queries preserve scope and order when matching ancestors</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#scope-match-a-selectors-string">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function fixture(markup) {
+  const element = document.createElement("section");
+  element.innerHTML = markup;
+  return element;
+}
+
+test(() => {
+  const root = fixture(`<div><i class="target" id="a"></i><i class="target" id="b"></i></div>
+    <div class="ancestor"><i class="target" id="c"></i><i class="target" id="d"></i></div>`);
+  assert_equals(root.querySelector(".ancestor .target").id, "c");
+  assert_array_equals(root.querySelectorAll(".ancestor .target"), [root.querySelector("#c"), root.querySelector("#d")]);
+}, "An ancestor selector excludes earlier subjects outside its matching subtree");
+
+test(() => {
+  const root = fixture(`<div class="ancestor"><i class="target" id="a"></i>
+    <div class="ancestor"><i class="target" id="b"></i><i class="target" id="c"></i></div>
+    <i class="target" id="d"></i></div>`);
+  const expected = [
+    root.querySelector("#a"), root.querySelector("#b"),
+    root.querySelector("#c"), root.querySelector("#d")
+  ];
+  assert_array_equals(root.querySelectorAll(".ancestor .target"), expected);
+}, "Overlapping matching ancestor subtrees produce each subject once in tree order");
+
+test(() => {
+  const root = fixture(`<div class="ancestor"><section id="scope"><i class="target" id="a"></i>
+    <div class="ancestor"><i class="target" id="b"></i></div><i class="target" id="c"></i></section></div>`);
+  const scope = root.querySelector("#scope");
+  const expected = [root.querySelector("#a"), root.querySelector("#b"), root.querySelector("#c")];
+  assert_array_equals(scope.querySelectorAll(".ancestor .target"), expected);
+}, "An ancestor outside the query scope can match the selector prefix");
+
+test(() => {
+  const root = fixture(`<i class="target" id="a"></i><div class="ancestor"><i class="target" id="b"></i></div>`);
+  root.className = "ancestor";
+  const expected = [root.querySelector("#a"), root.querySelector("#b")];
+  assert_array_equals(root.querySelectorAll(".ancestor > .target"), expected);
+  assert_array_equals(root.querySelectorAll(":scope > .target"), [root.querySelector("#a")]);
+}, "The query scope itself can match the selector prefix");
+
+test(() => {
+  const root = fixture(`<div class="ancestor"><input type="checkbox"><i class="target" id="a"></i>
+    <i class="target" id="b"></i><i class="target" id="c"></i></div>`);
+  const selector = ".ancestor:has(> input:checked) .target";
+  assert_array_equals(root.querySelectorAll(selector), []);
+  root.querySelector("input").checked = true;
+  const expected = [root.querySelector("#a"), root.querySelector("#b"), root.querySelector("#c")];
+  assert_array_equals(root.querySelectorAll(selector), expected);
+  root.querySelector("input").checked = false;
+  assert_array_equals(root.querySelectorAll(selector), []);
+}, "Ancestor matching reflects state changes that do not mutate the tree or attributes");
+
+test(() => {
+  const root = fixture(`<div class="first"><i class="target" id="a"></i><i class="target" id="b"></i></div>
+    <div class="last"><i class="target" id="c"></i><i class="target" id="d"></i></div>`);
+  const selector = ".last .target, .first .target, .first > .target";
+  assert_equals(root.querySelector(selector).id, "a");
+  const expected = [
+    root.querySelector("#a"), root.querySelector("#b"),
+    root.querySelector("#c"), root.querySelector("#d")
+  ];
+  assert_array_equals(root.querySelectorAll(selector), expected);
+}, "Selector-list order and overlapping branches do not change result order or duplicate subjects");
+</script>

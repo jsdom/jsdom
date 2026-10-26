@@ -1,0 +1,93 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Selector serialization preserves matching state and namespace context</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serializing-selectors">
+<link rel="help" href="https://drafts.csswg.org/selectors/#matches">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function sheet(t, text) {
+  const style = document.createElement("style");
+  style.textContent = text;
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  return style.sheet;
+}
+
+test(t => {
+  const rules = sheet(t, '*::before, *.target, *|div, [data-value="*.target"] {}').cssRules;
+  assert_equals(rules[0].selectorText, '::before, .target, div, [data-value="*.target"]');
+  assert_equals(rules[0].cssText, '::before, .target, div, [data-value="*.target"] { }');
+}, "Redundant universal selectors and wildcard prefixes are omitted without changing attribute values");
+
+test(t => {
+  const rules = sheet(t, '@namespace "svg"; @namespace same "svg"; @namespace other "other"; ' +
+    "same|*.target, same|div, *|*.target, other|*.target, |*.target {}").cssRules;
+  assert_equals(rules[3].selectorText, ".target, div, *|*.target, other|*.target, |*.target");
+}, "Prefixes can be omitted only when they identify the default namespace");
+
+test(t => {
+  const rule = sheet(t, '@namespace "urn:default"; @namespace p "urn:attribute"; ' +
+    "[|data-value], [data-value], [*|data-value], [p|data-value] {}").cssRules[2];
+  assert_equals(rule.selectorText, "[data-value], [data-value], [*|data-value], [p|data-value]");
+  assert_equals(rule.cssText, "[data-value], [data-value], [*|data-value], [p|data-value] { }");
+}, "Attribute selectors omit the explicit empty namespace and preserve wildcard and named prefixes");
+
+test(t => {
+  const rule = sheet(t, '[|data-value="a|b" i], :is([|data-value~="a"]), ' +
+    '[*|data-value|="en"] {}').cssRules[0];
+  assert_equals(rule.selectorText, '[data-value="a|b" i], :is([data-value~="a"]), [*|data-value|="en"]');
+  rule.selectorText = '[|data-value^="a"], :not([|data-value$="b"])';
+  assert_equals(rule.selectorText, '[data-value^="a"], :not([data-value$="b"])');
+}, "Attribute namespace serialization preserves comparisons, flags, and nested selectors");
+
+test(t => {
+  const rules = sheet(t, '@namespace "svg"; :is(*.target), :where(*.target), :not(*.target), ' +
+    ":has(> *.target), :nth-child(2 of *.target) {}").cssRules;
+  assert_equals(
+    rules[1].selectorText,
+    ":is(.target), :where(.target), :not(.target), :has(> .target), :nth-child(2 of .target)"
+  );
+}, "Selectors inside functional pseudo-classes use canonical serialization");
+
+test(t => {
+  const container = document.createElement("div");
+  container.innerHTML = '<div class="target"></div><svg><g class="target"></g></svg>';
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  const html = container.firstElementChild;
+  const svg = container.lastElementChild.firstElementChild;
+  const rules = sheet(t, '@namespace "http://www.w3.org/2000/svg"; ' +
+    "*|*:is(*.target) { background-color: rgb(1 2 3); }").cssRules;
+  assert_equals(getComputedStyle(html).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+  assert_equals(rules[1].selectorText, "*|*:is(.target)");
+  assert_equals(rules[1].cssText, "*|*:is(.target) { background-color: rgb(1, 2, 3); }");
+  html.setAttribute("data-invalidate", "");
+  assert_equals(getComputedStyle(html).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+  rules[1].selectorText = "*|*:is(.target)";
+  assert_equals(getComputedStyle(html).backgroundColor, "rgb(1, 2, 3)");
+  assert_equals(getComputedStyle(svg).backgroundColor, "rgb(1, 2, 3)");
+}, "Reading canonical selector text leaves explicit namespace constraints in the matching AST intact");
+
+test(t => {
+  const rules = sheet(t, '@namespace "svg"; *.parent { > *.child {} }').cssRules;
+  assert_equals(rules[1].selectorText, ".parent");
+  assert_equals(rules[1].cssRules[0].selectorText, "& > .child");
+  rules[1].selectorText = "*|*.parent";
+  assert_equals(rules[1].selectorText, "*|*.parent");
+  rules[1].cssRules[0].selectorText = "& *|*.child";
+  assert_equals(rules[1].cssRules[0].selectorText, "& *|*.child");
+}, "Nested selectors and selectorText mutations retain the stylesheet namespace context");
+
+test(t => {
+  const rule = sheet(t, '@namespace "svg"; @scope (*.parent) to (*|*.child) {}').cssRules[1];
+  assert_equals(rule.start, ".parent");
+  assert_equals(rule.end, "*|*.child");
+  assert_equals(rule.cssText, "@scope (.parent) to (*|*.child) {\n}");
+}, "Scope boundaries use the stylesheet namespace context when serialized");
+</script>

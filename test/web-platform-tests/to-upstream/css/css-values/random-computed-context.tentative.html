@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Random CSS values are evaluated in the computed style context</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#random-caching">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.marginLeft = "random(--shared, 10px, 20px)";
+  assert_equals(element.style.marginLeft, "random(--shared, 10px, 20px)");
+}, "Authored random values retain their cache key until computed value time");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.marginLeft = "calc(random(--shared element-scoped, 10px, 20px) + 2px)";
+  element.style.marginRight = "random(--shared element-scoped, 12px, 22px)";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  const computed = getComputedStyle(element);
+  assert_equals(computed.marginLeft, computed.marginRight);
+  assert_true(/^\d+(\.\d+)?px$/.test(computed.marginLeft));
+}, "Nested random functions resolve using the same scoped base as top-level functions");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.marginLeft = "calc(random(fixed 0.25, 0px, 100px) + 2px)";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).marginLeft, "27px");
+}, "Fixed random values remain deterministic inside a calculation");
+</script>

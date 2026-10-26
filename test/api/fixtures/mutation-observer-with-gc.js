@@ -13,11 +13,16 @@ const { JSDOM } = require("../../..");
   observer.observe(target, { attributes: true });
   target = undefined;
 
+  let discardedObserver = new window.MutationObserver(() => {});
+  discardedObserver.observe(window.document.createElement("div"), { attributes: true });
+  const observerRef = new WeakRef(discardedObserver);
+  discardedObserver = undefined;
+
   let collected = false;
   for (let i = 0; i < 10; ++i) {
     await setImmediate();
     global.gc();
-    if (targetRef.deref() === undefined) {
+    if (targetRef.deref() === undefined && observerRef.deref() === undefined) {
       collected = true;
       break;
     }

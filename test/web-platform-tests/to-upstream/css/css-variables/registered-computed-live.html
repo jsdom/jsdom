@@ -1,0 +1,121 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Registered custom properties use live computed values</title>
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api-1/#computed-value-time-behavior">
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api-1/#shadow-dom">
+<link rel="help" href="https://drafts.csswg.org/css-variables-1/#serializing-custom-props">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.cssText = "font-size: 10px; --live-length: 2em; width: var(--live-length)";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--live-length"), "2em");
+  CSS.registerProperty({ name: "--live-length", syntax: "<length>", inherits: false, initialValue: "1px" });
+  assert_equals(computed.getPropertyValue("--live-length"), "20px");
+  assert_equals(computed.width, "20px");
+  element.style.fontSize = "15px";
+  assert_equals(computed.getPropertyValue("--live-length"), "30px");
+  assert_equals(computed.width, "30px");
+}, "Registering a property and changing its dependencies updates an existing computed style");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = '@property --sheet-length { syntax: "<length>"; inherits: false; initial-value: 5px; }';
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  const computed = getComputedStyle(document.body);
+  assert_equals(computed.getPropertyValue("--sheet-length"), "5px");
+  assert_true([...computed].includes("--sheet-length"));
+  style.sheet.deleteRule(0);
+  assert_equals(computed.getPropertyValue("--sheet-length"), "");
+  assert_false([...computed].includes("--sheet-length"));
+  style.sheet.insertRule('@property --sheet-length { syntax: "<length>"; inherits: false; initial-value: 9px; }');
+  assert_equals(computed.getPropertyValue("--sheet-length"), "9px");
+}, "Stylesheet registration changes invalidate values and computed property enumeration");
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  host.attachShadow({ mode: "closed" }).innerHTML =
+    '<style>@property --shadow-length { syntax: "<length>"; inherits: false; initial-value: 7px; }</style>';
+  const computed = getComputedStyle(document.body);
+  assert_equals(computed.getPropertyValue("--shadow-length"), "7px");
+  host.remove();
+  assert_equals(computed.getPropertyValue("--shadow-length"), "");
+  document.body.append(host);
+  assert_equals(computed.getPropertyValue("--shadow-length"), "7px");
+}, "Registrations in a closed shadow tree affect the document while the tree is connected");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = '@property --script-priority { syntax: "<length>"; inherits: false; initial-value: 3px; }';
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  CSS.registerProperty({ name: "--script-priority", syntax: "<length>", inherits: false, initialValue: "8px" });
+  const computed = getComputedStyle(document.body);
+  assert_equals(computed.getPropertyValue("--script-priority"), "8px");
+  style.sheet.deleteRule(0);
+  assert_equals(computed.getPropertyValue("--script-priority"), "8px");
+}, "A script registration takes precedence over stylesheet registrations");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  CSS.registerProperty({ name: "--cycle-size", syntax: "<length>", inherits: false, initialValue: "3px" });
+  element.style.cssText = "--cycle-size: 3em; --cycle-alias: var(--cycle-size); font-size: var(--cycle-alias)";
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--cycle-size"), "3px");
+  assert_equals(computed.getPropertyValue("--cycle-alias"), "");
+  element.style.fontSize = "10px";
+  assert_equals(computed.getPropertyValue("--cycle-size"), "30px");
+  assert_equals(computed.getPropertyValue("--cycle-alias"), "30px");
+}, "Breaking a registered property cycle updates the existing computed style");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  CSS.registerProperty({ name: "--empty-universal", syntax: "*", inherits: false, initialValue: "" });
+  element.style.backgroundColor = "var(--empty-universal) green";
+  element.style.setProperty("--empty-alias", "var(--empty-universal, fallback)");
+  assert_equals(getComputedStyle(element).backgroundColor, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(element).getPropertyValue("--empty-alias"), " ");
+}, "An empty universal initial value substitutes an empty token sequence");
+
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  CSS.registerProperty({ name: "--density", syntax: "<resolution>", inherits: false, initialValue: "96dpi" });
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--density"), "1dppx");
+  element.style.setProperty("--density", "120dpcm");
+  assert_equals(computed.getPropertyValue("--density"), "3.175dppx");
+}, "Registered resolution values convert dots per physical unit into dots per pixel");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.cssText = "color: blue; color-scheme: light";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  CSS.registerProperty({ name: "--typed-color", syntax: "<color>", inherits: false, initialValue: "black" });
+  const computed = getComputedStyle(element);
+  element.style.setProperty("--typed-color", "currentcolor");
+  assert_equals(computed.getPropertyValue("--typed-color"), "rgb(0, 0, 255)");
+  element.style.setProperty("--typed-color", "color-mix(in srgb, currentcolor, red)");
+  assert_equals(computed.getPropertyValue("--typed-color"), "color(srgb 0.5 0 0.5)");
+  element.style.setProperty("--typed-color", "light-dark(currentcolor, red)");
+  assert_equals(computed.getPropertyValue("--typed-color"), "rgb(0, 0, 255)");
+  element.style.color = "green";
+  assert_equals(computed.getPropertyValue("--typed-color"), "rgb(0, 128, 0)");
+}, "Registered colors resolve currentcolor inside color functions and remain live");
+</script>

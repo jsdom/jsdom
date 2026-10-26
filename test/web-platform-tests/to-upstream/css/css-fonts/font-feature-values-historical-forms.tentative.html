@@ -1,0 +1,21 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Historical forms have a font feature value map</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts/#font-feature-values-syntax">
+<link rel="help" href="https://drafts.csswg.org/css-fonts/#cssfontfeaturevaluesrule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@font-feature-values Example { @historical-forms { example: 1; } }");
+  const rule = sheet.cssRules[0];
+  assert_true(rule.historicalForms instanceof window.CSSFontFeatureValuesMap);
+  assert_array_equals(rule.historicalForms.get("example"), [1]);
+  rule.historicalForms.set("another", 2);
+  assert_array_equals(rule.historicalForms.get("another"), [2]);
+  assert_true(rule.cssText.includes("@historical-forms { example: 1; another: 2; }"));
+}, "Historical forms parse, expose their map, and serialize mutations");
+</script>

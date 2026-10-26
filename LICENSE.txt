@@ -1,4 +1,26 @@
+MIT License
+
+jsdom:
 Copyright (c) 2010 Elijah Insua
+
+CSS implementation derived from cdoublev/css:
+https://github.com/cdoublev/css/tree/27fc904439ddb97d84cb701a7429f2f384114103
+Copyright (c) Guillaume Lebas
+
+Generated CSS grammar data derived from CSSTree:
+https://github.com/csstree/csstree
+Copyright (C) 2016-2026 by Roman Dvornov
+
+Generated CSS grammar and property data derived from webref:
+https://github.com/w3c/webref
+Copyright (c) 2020 World Wide Web Consortium
+
+Generated bidirectional character data derived from node-unicode:
+https://github.com/node-unicode/unicode-17.0.0
+Copyright Mathias Bynens <https://mathiasbynens.be/>
+
+The following MIT license applies to the above material. Additional notices
+for the CSS Color 4 algorithms and Unicode data follow it.
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -20,3 +42,99 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
+
+------------------------------------------------------------------------
+
+W3C Software and Document License (2023)
+https://www.w3.org/copyright/software-license-2023/
+
+This software includes material copied from or derived from CSS Color
+Module Level 4, https://drafts.csswg.org/css-color-4/conversions.js.
+Copyright © 2026 World Wide Web Consortium. Modified for jsdom in
+lib/jsdom/living/css/utils/color-spaces.js.
+
+This work is being provided by the copyright holders under the following
+license.
+
+License
+
+By obtaining and/or copying this work, you (the licensee) agree that you
+have read, understood, and will comply with the following terms and
+conditions.
+
+Permission to copy, modify, and distribute this work, with or without
+modification, for any purpose and without fee or royalty is hereby
+granted, provided that you include the following on ALL copies of the
+work or portions thereof, including modifications:
+
+- The full text of this NOTICE in a location viewable to users of the
+  redistributed or derivative work.
+- Any pre-existing intellectual property disclaimers, notices, or terms
+  and conditions. If none exist, the W3C software and document short
+  notice should be included.
+- Notice of any changes or modifications, through a copyright statement
+  on the new code or document such as "This software or document includes
+  material copied from or derived from [title and URI of the W3C
+  document]. Copyright © [$year-of-document] World Wide Web Consortium .
+  https://www.w3.org/copyright/software-license-2023/ "
+
+Disclaimers
+
+THIS WORK IS PROVIDED "AS IS," AND COPYRIGHT HOLDERS MAKE NO
+REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO, WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR
+PURPOSE OR THAT THE USE OF THE SOFTWARE OR DOCUMENT WILL NOT INFRINGE ANY
+THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.
+
+COPYRIGHT HOLDERS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR
+CONSEQUENTIAL DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENT.
+
+The name and trademarks of copyright holders may NOT be used in
+advertising or publicity pertaining to the work without specific, written
+prior permission. Title to copyright in this work will at all times
+remain with copyright holders.
+
+------------------------------------------------------------------------
+
+Unicode Character Database 17.0.0, used for bidirectional character data:
+https://www.unicode.org/Public/17.0.0/ucd/
+© 2025 Unicode®, Inc.
+Unicode and the Unicode Logo are registered trademarks of Unicode, Inc.
+in the U.S. and other countries.
+
+UNICODE LICENSE V3
+https://www.unicode.org/license.txt
+
+COPYRIGHT AND PERMISSION NOTICE
+
+Copyright © 1991-2026 Unicode, Inc.
+
+NOTICE TO USER: Carefully read the following legal agreement. BY
+DOWNLOADING, INSTALLING, COPYING OR OTHERWISE USING DATA FILES, AND/OR
+SOFTWARE, YOU UNEQUIVOCALLY ACCEPT, AND AGREE TO BE BOUND BY, ALL OF THE
+TERMS AND CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT
+DOWNLOAD, INSTALL, COPY, DISTRIBUTE OR USE THE DATA FILES OR SOFTWARE.
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of data files and any associated documentation (the "Data Files") or
+software and any associated documentation (the "Software") to deal in the
+Data Files or Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, and/or sell
+copies of the Data Files or Software, and to permit persons to whom the
+Data Files or Software are furnished to do so, provided that either (a)
+this copyright and permission notice appear with all copies of the Data
+Files or Software, or (b) this copyright and permission notice appear in
+associated Documentation.
+THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF
+THIRD PARTY RIGHTS.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS NOTICE
+BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL DAMAGES,
+OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE DATA
+FILES OR SOFTWARE.
+Except as contained in this notice, the name of a copyright holder shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in these Data Files or Software without prior written
+authorization of the copyright holder.

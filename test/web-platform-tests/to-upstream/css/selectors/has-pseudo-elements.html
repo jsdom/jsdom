@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Pseudo-elements in relational and forgiving selectors</title>
+<link rel="help" href="https://drafts.csswg.org/selectors/#relational">
+<link rel="help" href="https://drafts.csswg.org/css-conditional-4/#typedef-supports-selector-fn">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
+<div id="target"><span></span></div>
+<script>
+"use strict";
+/* global test_valid_selector, test_invalid_selector */
+
+test_valid_selector("::slotted(:has(:first-child:last-child))");
+test_valid_selector("::slotted(:has(.parent > .child))");
+test_valid_selector(":host(:has(.child))");
+test_invalid_selector("::slotted(:has(:has(.child)))");
+test_invalid_selector("::slotted(.parent > .child)");
+
+test(() => {
+  const target = document.querySelector("#target");
+  assert_throws_dom("SyntaxError", () => target.matches(":has(::before)"));
+  assert_throws_dom("SyntaxError", () => target.matches(":has(::after)"));
+  assert_throws_dom("SyntaxError", () => target.querySelector(":has(::first-letter)"));
+  assert_throws_dom("SyntaxError", () => target.querySelectorAll(":has(::first-line)"));
+}, "Pseudo-elements directly inside :has() invalidate DOM selector queries");
+
+test(() => {
+  assert_false(CSS.supports("selector(:has(::before))"));
+  assert_false(CSS.supports("selector(:has(::after))"));
+  assert_false(CSS.supports("selector(:has(::first-letter))"));
+  assert_false(CSS.supports("selector(:has(::first-line))"));
+}, "CSS.supports rejects pseudo-elements directly inside :has()");
+
+test(() => {
+  const target = document.querySelector("#target");
+  assert_true(target.matches(":has(:is(::before, span))"));
+  assert_false(target.matches(":has(:is(::before))"));
+  assert_false(CSS.supports("selector(:has(:is(::before, span)))"));
+}, "A forgiving nested list can discard a pseudo-element, but supports parsing stays unforgiving");
+</script>

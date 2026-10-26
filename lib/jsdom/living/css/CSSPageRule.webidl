@@ -1,9 +1,7 @@
-// https://drafts.csswg.org/cssom/#the-csspagerule-interface
+
+// https://drafts.csswg.org/cssom-1/#csspagerule
 [Exposed=Window]
 interface CSSPageRule : CSSGroupingRule {
-  attribute CSSOMString selectorText;
-
-  // TODO: use `CSSPageDescriptors` instead of `CSSStyleDeclaration` here, per
-  // https://drafts.csswg.org/cssom/#csspagedescriptors.
-  [SameObject, PutForwards=cssText] readonly attribute CSSStyleDeclaration style;
+    attribute CSSOMString selectorText;
+    [SameObject, PutForwards=cssText] readonly attribute CSSPageDescriptors style;
 };

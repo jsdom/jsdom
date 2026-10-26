@@ -1,0 +1,51 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Universal registered initial values reject variable references</title>
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api-1/#computationally-independent">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--initial-var", syntax: "*", inherits: false, initialValue: "var(--other)"
+  }));
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--initial-nested-var", syntax: "*", inherits: false, initialValue: "outer(var(--other))"
+  }));
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--initial-fallback-var", syntax: "*", inherits: false, initialValue: "env(missing, var(--other))"
+  }));
+}, "Universal initial values reject variable references at every nesting level");
+
+test(() => {
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--initial-uppercase-var", syntax: "*", inherits: false, initialValue: "VAR(--other)"
+  }));
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--initial-escaped-var", syntax: "*", inherits: false, initialValue: "v\\61r(--other)"
+  }));
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({
+    name: "--initial-uppercase-keyword", syntax: "*", inherits: false, initialValue: "INITIAL"
+  }));
+}, "Universal initial-value validation uses decoded case-insensitive function names and keywords");
+
+test(() => {
+  CSS.registerProperty({ name: "--initial-raw-length", syntax: "*", inherits: false, initialValue: "3em" });
+  CSS.registerProperty({
+    name: "--initial-raw-calc", syntax: "*", inherits: false, initialValue: "calc(3em + 1px)"
+  });
+  CSS.registerProperty({ name: "--initial-quoted-var", syntax: "*", inherits: false, initialValue: '"var(--other)"' });
+  CSS.registerProperty({
+    name: "--initial-keyword-sequence", syntax: "*", inherits: false, initialValue: "initial foo"
+  });
+  const style = getComputedStyle(document.body);
+  assert_equals(style.getPropertyValue("--initial-raw-length"), "3em");
+  assert_equals(style.getPropertyValue("--initial-raw-calc"), "calc(3em + 1px)");
+  assert_equals(style.getPropertyValue("--initial-quoted-var"), '"var(--other)"');
+  assert_equals(style.getPropertyValue("--initial-keyword-sequence"), "initial foo");
+}, "Universal syntax retains untyped relative dimensions, calculations, strings, and identifier sequences");
+
+</script>

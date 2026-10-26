@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed styles of nested pseudo-elements</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/4456">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  #target { color: blue; }
+  #target::marker { color: orange; }
+  #target::before { content: "before"; display: list-item; color: green; }
+  #target::before::marker { color: red; }
+  #target::after { content: "after"; display: list-item; color: purple; }
+  #target.changed::before::marker { color: black; }
+</style>
+<div id="target"></div>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+
+test(() => {
+  assert_equals(getComputedStyle(target, "::before::marker").color, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(target, ":before/**/::marker").color, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(target, "::after::marker").color, "rgb(128, 0, 128)");
+}, "Nested pseudo-elements match their own rules and inherit from their originating pseudo-element");
+
+test(t => {
+  const style = getComputedStyle(target, "::before::marker");
+  t.add_cleanup(() => target.classList.remove("changed"));
+  target.classList.add("changed");
+  assert_equals(style.color, "rgb(0, 0, 0)");
+}, "A computed declaration for a nested pseudo-element remains live");
+
+test(() => {
+  assert_equals(getComputedStyle(target, "::before ::marker").length, 0);
+  assert_equals(getComputedStyle(target, "::before > ::marker").length, 0);
+  assert_equals(getComputedStyle(target, "::before::after").length, 0);
+  assert_equals(getComputedStyle(target, "::before::marker::marker").length, 0);
+  assert_equals(getComputedStyle(target, "::before::marker ").length, 0);
+}, "Only valid nested pseudo-element chains are accepted");
+</script>

@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Muting media updates computed style</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-muted">
+<link rel="help" href="https://drafts.csswg.org/selectors/#relational">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const tag of ["audio", "video"]) {
+  test(t => {
+    const style = document.createElement("style");
+    style.textContent = `
+      .container, .media, .sibling { color: red; }
+      .media:muted, .media:muted + .sibling,
+      .container:has(.media:muted) { color: green; }
+    `;
+    const container = document.createElement("div");
+    container.className = "container";
+    container.innerHTML = `<${tag} class="media"></${tag}><span class="sibling"></span><span></span>`;
+    document.body.append(style, container);
+    t.add_cleanup(() => {
+      style.remove();
+      container.remove();
+    });
+    const media = container.firstElementChild;
+    const computed = [container, ...container.children].map(element => getComputedStyle(element));
+    for (const declaration of computed) {
+      assert_equals(declaration.color, "rgb(255, 0, 0)");
+    }
+    media.muted = true;
+    assert_true(media.matches(":muted"));
+    for (const declaration of computed) {
+      assert_equals(declaration.color, "rgb(0, 128, 0)");
+    }
+    media.muted = false;
+    assert_false(media.matches(":muted"));
+    for (const declaration of computed) {
+      assert_equals(declaration.color, "rgb(255, 0, 0)");
+    }
+  }, `Muting and unmuting ${tag} updates related and inherited styles`);
+}
+</script>

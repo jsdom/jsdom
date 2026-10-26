@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Complete box-shadow items preserve numeric types and longhand defaults</title>
+<link rel="help" href="https://drafts.csswg.org/css-borders-4/#propdef-box-shadow">
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#calc-type-checking">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const longhands = [
+  "box-shadow-color",
+  "box-shadow-offset",
+  "box-shadow-blur",
+  "box-shadow-spread",
+  "box-shadow-position"
+];
+
+function assertRejected(value) {
+  const { style } = document.createElement("div");
+  style.setProperty("box-shadow", "blue 9px 10px 11px 12px inset", "important");
+  const previous = style.cssText;
+  assert_not_equals(previous, "", "The preservation control must be installed");
+  assert_false(CSS.supports("box-shadow", value));
+  style.setProperty("box-shadow", value);
+  assert_equals(style.cssText, previous, "An invalid complete item must preserve the declaration");
+  assert_equals(style.getPropertyPriority("box-shadow"), "important");
+}
+
+function assertLonghands(value, expected, priority = "") {
+  const { style } = document.createElement("div");
+  assert_true(CSS.supports("box-shadow", value));
+  style.setProperty("box-shadow", value, priority);
+  assert_array_equals(longhands.map(name => style.getPropertyValue(name)), expected);
+  for (const name of longhands) {
+    assert_equals(style.getPropertyPriority(name), priority, name);
+  }
+}
+
+test(() => {
+  assertRejected("1px 2px calc(1%)");
+}, "An optional blur calculation cannot have percentage type");
+
+test(() => {
+  assertRejected("1px 2px calc(1)");
+}, "An optional blur calculation cannot have number type");
+
+test(() => {
+  assertRejected("1px 2px 3px calc(1%)");
+}, "An optional spread calculation cannot have percentage type");
+
+test(() => {
+  assert_true(CSS.supports("box-shadow", "rgb(from red r g b) 1px 2px"));
+  assertRejected("rgb(from red r g b) 1px 2px calc(r * 1px)");
+}, "Relative color channels do not become available to the shadow geometry");
+
+test(() => {
+  assertLonghands("1px 2px", ["currentcolor", "1px 2px", "0px", "0px", "outset"]);
+}, "Two offsets supply the omitted color, blur, spread, and position longhands");
+
+// This uses the draft longhands and remains tentative. The separate
+// `box-shadow-initial-color.tentative.html` records the initial-color question;
+// this test only checks specified shorthand expansion, not computed color text.
+test(() => {
+  assertLonghands("none", ["transparent", "none", "0px", "0px", "outset"]);
+}, "None supplies all five specified longhand defaults");
+
+test(() => {
+  assertLonghands(
+    "inset 1px 2px red, outset blue 3px 4px 5px -6px",
+    ["red, blue", "1px 2px, 3px 4px", "0px, 5px", "0px, -6px", "inset, outset"],
+    "important"
+  );
+}, "Mixed complete items preserve corresponding longhand order and priority");
+
+</script>

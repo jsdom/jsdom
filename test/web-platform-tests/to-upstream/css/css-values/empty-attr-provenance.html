@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Empty attribute values retain provenance through custom substitutions</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#attr-security">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const target = document.createElement("div");
+  target.setAttribute("data-source", "");
+  target.style.cssText = '--raw: attr(data-source type(*)); --out: var(--raw)url("data:,empty"); ' +
+    "background-image: var(--out);";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  const retained = getComputedStyle(target);
+  assert_equals(retained.backgroundImage, "none");
+  assert_equals(getComputedStyle(target).backgroundImage, "none");
+}, "An empty attribute taints the combined custom substitution");
+
+test(t => {
+  const target = document.createElement("div");
+  target.setAttribute("data-source", " ");
+  target.style.cssText = '--raw: attr(data-source type(*)); --out: var(--raw)url("data:,empty"); ' +
+    "background-image: var(--out);";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  const retained = getComputedStyle(target);
+  assert_equals(retained.backgroundImage, "none");
+  assert_equals(getComputedStyle(target).backgroundImage, "none");
+}, "A whitespace-only attribute taints the combined custom substitution");
+
+test(t => {
+  const target = document.createElement("div");
+  target.setAttribute("data-source", "/**/");
+  target.style.cssText = '--raw: attr(data-source type(*)); --out: var(--raw)url("data:,empty"); ' +
+    "background-image: var(--out);";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  const retained = getComputedStyle(target);
+  assert_equals(retained.backgroundImage, "none");
+  assert_equals(getComputedStyle(target).backgroundImage, "none");
+}, "A comment-only attribute taints the combined custom substitution");
+
+test(t => {
+  const target = document.createElement("div");
+  target.style.cssText = '--raw: ; --out: var(--raw)url("data:,empty"); background-image: var(--out);';
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  const retained = getComputedStyle(target);
+  assert_equals(retained.backgroundImage, 'url("data:,empty")');
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("data:,empty")');
+}, "An untainted empty custom value does not taint an adjacent URL");
+</script>

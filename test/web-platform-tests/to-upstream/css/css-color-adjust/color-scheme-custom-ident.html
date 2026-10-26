@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Unknown color schemes do not take precedence over supported schemes</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-adjust/#determine-the-used-color-scheme">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/semantics.html#meta-color-scheme">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function target(t, scheme) {
+  const element = document.createElement("div");
+  element.style.cssText = `color-scheme: ${scheme}; color: light-dark(red, blue)`;
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  assert_equals(getComputedStyle(target(t, "custom dark")).color, "rgb(0, 0, 255)");
+}, "An unknown color scheme before dark does not prevent the dark scheme");
+
+test(t => {
+  assert_equals(getComputedStyle(target(t, "only custom dark")).color, "rgb(0, 0, 255)");
+}, "Sole support ignores unknown color schemes when selecting a scheme");
+
+test(t => {
+  assert_equals(getComputedStyle(target(t, "custom light")).color, "rgb(255, 0, 0)");
+}, "An unknown color scheme before light does not prevent the light scheme");
+
+test(t => {
+  const normal = target(t, "normal");
+  assert_equals(getComputedStyle(target(t, "only custom")).color, getComputedStyle(normal).color);
+}, "A list with no recognized color scheme uses the default scheme");
+
+test(t => {
+  const element = target(t, "normal");
+  const initial = getComputedStyle(element).color;
+  const first = document.createElement("meta");
+  first.name = "color-scheme";
+  first.content = "normal";
+  const second = document.createElement("meta");
+  second.name = "color-scheme";
+  second.content = "dark";
+  document.head.append(first, second);
+  t.add_cleanup(() => {
+    first.remove();
+    second.remove();
+  });
+  assert_equals(getComputedStyle(element).color, initial);
+  first.remove();
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "A normal color-scheme meta element stops the search for later declarations");
+</script>

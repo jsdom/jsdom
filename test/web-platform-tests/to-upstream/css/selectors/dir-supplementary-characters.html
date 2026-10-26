@@ -1,0 +1,30 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Automatic directionality recognizes supplementary Unicode characters</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dom.html#the-dir-attribute">
+<link rel="help" href="https://drafts.csswg.org/selectors/#the-dir-pseudo">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="ltr" dir="auto">&#x10400;א</div>
+<div id="rtl" dir="auto">&#x10800;a</div>
+<div id="arabic" dir="auto">&#x1EE00;a</div>
+<div id="neutral" dir="auto">&#x1F600;א</div>
+<script>
+"use strict";
+
+test(() => {
+  assert_true(document.getElementById("ltr").matches(":dir(ltr)"));
+}, "A supplementary L character determines direction before a BMP R character");
+
+test(() => {
+  assert_true(document.getElementById("rtl").matches(":dir(rtl)"));
+}, "A supplementary R character determines direction before a BMP L character");
+
+test(() => {
+  assert_true(document.getElementById("arabic").matches(":dir(rtl)"));
+}, "A supplementary AL character determines direction before a BMP L character");
+
+test(() => {
+  assert_true(document.getElementById("neutral").matches(":dir(rtl)"));
+}, "A supplementary neutral character does not mask a following strong character");
+</script>

@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Property registration descriptor defaults and multiple names</title>
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api-1/#at-property-rule">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/13211">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/14227">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@property --defaults {}");
+  assert_equals(sheet.cssRules.length, 1);
+  const rule = sheet.cssRules[0];
+  assert_equals(rule.syntax, "*");
+  assert_true(rule.inherits);
+  assert_equals(rule.initialValue, null);
+}, "Every @property descriptor can be omitted");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync('@property --typed { syntax: "<length>"; }');
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].syntax, "<length>");
+  assert_equals(sheet.cssRules[0].initialValue, null);
+}, "A non-universal syntax does not require an initial-value descriptor");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync('@property --invalid-initial { syntax: "<length>"; initial-value: red; }');
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].syntax, "<length>");
+  assert_equals(sheet.cssRules[0].initialValue, null);
+}, "An invalid initial-value descriptor does not discard the registration rule");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@property --first, --second {}");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_array_equals(sheet.cssRules[0].names, ["--first", "--second"]);
+  assert_equals(sheet.cssRules[0].name, "");
+}, "A multi-name registration is represented by one rule with a names array");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@property --single {}");
+  assert_array_equals(sheet.cssRules[0].names, ["--single"]);
+  assert_equals(sheet.cssRules[0].name, "--single");
+}, "The names array also includes a single registration name");
+</script>

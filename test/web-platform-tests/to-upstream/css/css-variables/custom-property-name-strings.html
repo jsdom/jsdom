@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Custom property APIs use decoded name strings</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<link rel="help" href="https://drafts.csswg.org/css-variables/#defining-variables">
+<link rel="help" href="https://drafts.css-houdini.org/css-typed-om-1/#custom-property-name-string">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("--", "red", "important");
+  assert_array_equals(style, []);
+  assert_equals(style.getPropertyValue("--"), "");
+  assert_equals(style.getPropertyPriority("--"), "");
+  assert_equals(style.cssText, "");
+  assert_false(CSS.supports("--", "red"));
+  assert_false(CSS.supports("(--: red)"));
+}, "The reserved custom property name -- is rejected by CSSOM setters and supports queries");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("--a b", "red");
+  style.setProperty("--a\\ b", "green");
+  style.setProperty("--a\tb", "blue", "important");
+  assert_array_equals(style, ["--a b", "--a\\ b", "--a\tb"]);
+  assert_equals(style.getPropertyValue("--a b"), "red");
+  assert_equals(style.getPropertyValue("--a\\ b"), "green");
+  assert_equals(style.getPropertyValue("--a\tb"), "blue");
+  assert_equals(style.getPropertyPriority("--a\tb"), "important");
+  assert_equals(style.cssText, "--a\\ b: red; --a\\\\\\ b: green; --a\\9 b: blue !important;");
+  assert_equals(style.removeProperty("--a b"), "red");
+  assert_array_equals(style, ["--a\\ b", "--a\tb"]);
+}, "Custom property name strings preserve spaces, tabs, and literal backslashes");
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.cssText = "--a\\ b: red; --a\\9 b: blue; color:var(--a\\ b); background-color:var(--a\\9 b)";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(element.style.item(0), "--a b");
+  assert_equals(element.style.item(1), "--a\tb");
+  assert_equals(getComputedStyle(element).getPropertyValue("--a b"), "red");
+  assert_equals(getComputedStyle(element).getPropertyValue("--a\tb"), "blue");
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+  assert_equals(getComputedStyle(element).backgroundColor, "rgb(0, 0, 255)");
+}, "CSS parsing and var() references use the same decoded custom property names");
+
+test(t => {
+  CSS.registerProperty({ name: "--registered name", syntax: "<length>", inherits: false, initialValue: "3px" });
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).getPropertyValue("--registered name"), "3px");
+  element.style.setProperty("--registered name", "5px");
+  assert_equals(getComputedStyle(element).getPropertyValue("--registered name"), "5px");
+  assert_throws_dom("SyntaxError", () => CSS.registerProperty({ name: "\\--escaped", inherits: false }));
+}, "Registration accepts a name string without parsing it as CSS source");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = '@property --sheet\\ name { syntax: "<length>"; inherits: false; initial-value: 7px; }';
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  assert_equals(getComputedStyle(document.body).getPropertyValue("--sheet name"), "7px");
+}, "An escaped @property name registers the corresponding decoded property");
+</script>

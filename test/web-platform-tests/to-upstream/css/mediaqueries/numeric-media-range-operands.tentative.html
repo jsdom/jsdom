@@ -1,0 +1,167 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Media comparison operands are numeric, while colon forms accept feature keywords</title>
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/8998#issuecomment-1663108401">
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#mq-min-max">
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#resolution">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function sheetMatches(t, condition) {
+  const style = document.createElement("style");
+  const target = document.createElement("div");
+  target.id = "probe";
+  style.textContent = `#probe { color: blue; } @media ${condition} { #probe { color: red; } }`;
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  return getComputedStyle(target).color === "rgb(255, 0, 0)";
+}
+function assertUnknown(t, feature) {
+  assert_false(sheetMatches(t, `(${feature})`), "The feature must not match");
+  assert_false(sheetMatches(t, `not (${feature})`), "An unknown feature must remain nonmatching under negation");
+}
+function inlineMatches(t, condition, custom) {
+  const target = document.createElement("div");
+  if (custom !== undefined) {
+    target.style.setProperty("--value", custom);
+  }
+  target.style.color = `if(media(${condition}): red; else: blue)`;
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  return getComputedStyle(target).color === "rgb(255, 0, 0)";
+}
+
+test(t => {
+  assertUnknown(t, "resolution = infinite");
+}, "Keyword comparison resolution = infinite is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "infinite = resolution");
+}, "Keyword comparison infinite = resolution is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "resolution < infinite");
+}, "Keyword comparison resolution < infinite is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "infinite > resolution");
+}, "Keyword comparison infinite > resolution is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "resolution <= infinite");
+}, "Keyword comparison resolution <= infinite is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "infinite >= resolution");
+}, "Keyword comparison infinite >= resolution is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "resolution > infinite");
+}, "Keyword comparison resolution > infinite is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "infinite < resolution");
+}, "Keyword comparison infinite < resolution is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "resolution >= infinite");
+}, "Keyword comparison resolution >= infinite is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "infinite <= resolution");
+}, "Keyword comparison infinite <= resolution is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "0dppx < resolution < infinite");
+}, "Keyword comparison 0dppx < resolution < infinite is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "infinite > resolution > 0dppx");
+}, "Keyword comparison infinite > resolution > 0dppx is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "infinite < resolution < 100dppx");
+}, "Keyword comparison infinite < resolution < 100dppx is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "100dppx > resolution > infinite");
+}, "Keyword comparison 100dppx > resolution > infinite is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "resolution = INFINITE");
+}, "Keyword comparison resolution = INFINITE is unknown, including under negation");
+
+test(t => {
+  assertUnknown(t, "inf\\69nite = resolution");
+}, "Keyword comparison inf\\69nite = resolution is unknown, including under negation");
+
+test(t => {
+  assert_true(sheetMatches(t, "not (resolution: infinite)"));
+}, "Plain infinite resolution remains a recognized keyword");
+
+test(t => {
+  assert_true(sheetMatches(t, "(max-resolution: infinite)"));
+}, "Maximum colon syntax preserves the infinite keyword");
+
+test(t => {
+  assert_true(sheetMatches(t, "not (min-resolution: infinite)"));
+}, "Minimum colon syntax preserves the infinite keyword");
+
+test(t => {
+  assert_true(sheetMatches(t, "(resolution <= calc(infinity * 1dppx))"));
+}, "A numeric infinite calculation is a valid name-first comparison operand");
+
+test(t => {
+  assert_true(sheetMatches(t, "(calc(infinity * 1dppx) >= resolution)"));
+}, "A numeric infinite calculation is a valid value-first comparison operand");
+
+test(t => {
+  assert_true(sheetMatches(t, "(0dppx < resolution <= calc(infinity * 1dppx))"));
+}, "A numeric infinite calculation is valid in a chained comparison");
+
+test(t => {
+  assert_true(sheetMatches(t, "(resolution > 0dppx)"));
+}, "Finite name-first resolution comparison remains supported");
+
+test(t => {
+  assert_true(sheetMatches(t, "(0dppx < resolution)"));
+}, "Finite value-first resolution comparison remains supported");
+
+test(t => {
+  assert_true(sheetMatches(t, "(0dppx < resolution < 100dppx)"));
+}, "Finite chained resolution comparison remains supported");
+
+test(t => {
+  assert_true(sheetMatches(t, "(-webkit-device-pixel-ratio > 0)"));
+}, "A numeric alias operand remains supported");
+
+test(t => {
+  assert_true(sheetMatches(t, "(0 < -webkit-device-pixel-ratio < 100)"));
+}, "A numeric alias remains supported between chained operators");
+
+test(t => {
+  assert_false(inlineMatches(t, "not (resolution <= infinite)"));
+}, "Inline name-first keyword comparisons remain unknown under negation");
+
+test(t => {
+  assert_false(inlineMatches(t, "not (infinite >= resolution)"));
+}, "Inline value-first keyword comparisons remain unknown under negation");
+
+test(t => {
+  assert_false(inlineMatches(t, "not (resolution >= var(--value))", "infinite"));
+}, "Substituted keyword comparison operands are rejected after substitution");
+
+test(t => {
+  assert_true(inlineMatches(t, "resolution <= var(--value)", "calc(infinity * 1dppx)"));
+}, "Substituted numeric infinity remains a numeric comparison operand");
+test(t => {
+  assert_false(inlineMatches(t, "not (var(--value) <= resolution)", "infinite"));
+}, "A substituted value-first keyword remains unknown under negation");
+</script>

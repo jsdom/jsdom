@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Nested cascade layers preserve hierarchy and identifier identity</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#layer-order">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#layer-names">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+function color(t, rules) {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  const target = document.createElement("div");
+  target.className = "target";
+  document.body.append(style, target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  return getComputedStyle(target).color;
+}
+
+test(t => {
+  assert_equals(color(t, `
+    @layer outer { .target { color: green; } }
+    @layer outer.inner { .target { color: red; } }
+  `), "rgb(0, 128, 0)");
+}, "Declarations directly in a layer outrank normal declarations in its sublayers");
+
+test(t => {
+  assert_equals(color(t, `
+    @layer early, late;
+    @layer late { .target { color: green; } }
+    @layer early.inner { .target { color: red; } }
+  `), "rgb(0, 128, 0)");
+}, "A late sublayer declaration does not change its parent layer's precedence");
+
+test(t => {
+  assert_equals(color(t, `
+    @layer outer { .target { color: red !important; } }
+    @layer outer.inner { .target { color: green !important; } }
+  `), "rgb(0, 128, 0)");
+}, "Important declarations in sublayers outrank important declarations directly in their parent");
+
+test(t => {
+  assert_equals(color(t, `
+    @layer early, late;
+    @layer late { .target { color: red !important; } }
+    @layer early.inner { .target { color: green !important; } }
+  `), "rgb(0, 128, 0)");
+}, "Important sublayer declarations retain their parent layer's precedence");
+
+test(t => {
+  assert_equals(color(t, `
+    @layer outer.inner { .target { color: green; } }
+    @layer outer { .target { color: revert-layer; } }
+  `), "rgb(0, 128, 0)");
+}, "Reverting declarations directly in a layer can select a sublayer declaration");
+
+test(t => {
+  assert_equals(color(t, String.raw`
+    @layer escaped\.name, later;
+    @layer later { .target { color: green; } }
+    @layer escaped\.name { .target { color: red; } }
+    @layer escaped.name { .target { color: blue; } }
+  `), "rgb(0, 0, 255)");
+}, "An escaped period belongs to a layer identifier rather than separating sublayers");
+
+test(t => {
+  assert_equals(color(t, String.raw`
+    @layer { .target { color: red !important; } }
+    @layer \30 { .target { color: green !important; } }
+  `), "rgb(255, 0, 0)");
+}, "Anonymous layers do not collide with escaped numeric names");
+</script>

@@ -1,0 +1,75 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Automatic random keys follow their order in a declaration</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#random-caching">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function randomNames(property, value) {
+  const element = document.createElement("div");
+  element.style.setProperty(property, value);
+  const serialized = element.style.getPropertyValue(property);
+  assert_not_equals(serialized, "", "The declaration parses");
+  return serialized.match(/\bua-[a-zA-Z0-9_-]+/g) || [];
+}
+
+test(() => {
+  assert_array_equals(randomNames("box-shadow", "random(2px, 2px) 2px red inset"), ["ua-box-shadow-1"]);
+}, "A shadow with its color after the lengths numbers its first random function as one");
+
+test(() => {
+  assert_array_equals(randomNames("box-shadow", "inset red random(2px, 2px) 2px"), ["ua-box-shadow-1"]);
+}, "Canonical shadow order does not determine the random occurrence index");
+
+test(() => {
+  assert_array_equals(
+    randomNames("box-shadow", "random(1px, 2px) random(3px, 4px) red inset"),
+    ["ua-box-shadow-1", "ua-box-shadow-2"]
+  );
+}, "Distinct random shadow lengths retain distinct lexical occurrence indexes");
+
+test(() => {
+  assert_array_equals(randomNames("margin", "random(--named, 1px, 2px) random(3px, 4px)"), ["ua-margin-2"]);
+}, "An explicitly named random function contributes to a following automatic occurrence index");
+
+test(() => {
+  assert_array_equals(randomNames("margin", "random(fixed 0.25, 1px, 2px) random(3px, 4px)"), ["ua-margin-2"]);
+}, "A fixed random function contributes to a following automatic occurrence index");
+
+test(() => {
+  assert_array_equals(
+    randomNames("margin", "random(property-scoped, 1px, 2px) random(3px, 4px)"),
+    ["ua-margin", "ua-margin-2"]
+  );
+}, "Property-scoped random functions also contribute to occurrence indexes");
+
+test(() => {
+  assert_array_equals(
+    randomNames("margin", "random(ua-author, 1px, 2px) random(3px, 4px)"),
+    ["ua-author", "ua-margin-2"]
+  );
+}, "An explicit user-agent key is preserved and contributes to following occurrence indexes");
+
+test(() => {
+  assert_array_equals(randomNames("width", "random(random(1px, 2px), 3px)"), ["ua-width-1", "ua-width-2"]);
+}, "The outer random function precedes its nested random argument");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.width = "calc(random(5px, 6px) + random(1px, 2px))";
+  assert_true(element.style.width.includes("random(element-scoped ua-width-1, 5px, 6px)"));
+  assert_true(element.style.width.includes("random(element-scoped ua-width-2, 1px, 2px)"));
+}, "Calculation canonicalization preserves the association between lexical occurrence and arguments");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.width = "random(1px, 2px)";
+  element.style.height = "random(1px, 2px)";
+  element.style.width = "random(3px, 4px)";
+  assert_array_equals(element.style.width.match(/\bua-[a-zA-Z0-9_-]+/g), ["ua-width-1"]);
+  assert_array_equals(element.style.height.match(/\bua-[a-zA-Z0-9_-]+/g), ["ua-height-1"]);
+}, "Occurrence numbering is local to each declaration parse");
+
+</script>

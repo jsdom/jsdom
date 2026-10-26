@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Unknown pseudo names do not match object properties</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#invalid">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  assert_throws_dom("SyntaxError", () => document.querySelector(":constructor"));
+  assert_throws_dom("SyntaxError", () => document.querySelector(":__proto__"));
+}, "Object property names are not supported pseudo-classes");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  assert_throws_dom("SyntaxError", () => sheet.insertRule("::constructor {}"));
+  assert_throws_dom("SyntaxError", () => sheet.insertRule("::__proto__ {}"));
+}, "Object property names are not supported pseudo-elements");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  assert_throws_dom("SyntaxError", () => sheet.insertRule("::-webkit-unknown:empty {}"));
+}, "An unknown compatibility pseudo-element does not acquire supported structural pseudo-classes");
+</script>

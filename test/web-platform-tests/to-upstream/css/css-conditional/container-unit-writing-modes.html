@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Container units select eligible physical axes using each container's writing mode</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#container-lengths">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const [containerMode, targetMode, expected] of [
+  ["horizontal-tb", "vertical-rl", { cqw: 2, cqh: 3, cqi: 3, cqb: 2, cqmin: 2, cqmax: 3 }],
+  ["vertical-rl", "horizontal-tb", { cqw: 2, cqh: 3, cqi: 2, cqb: 3, cqmin: 2, cqmax: 3 }]
+]) {
+  for (const [unit, pixels] of Object.entries(expected)) {
+    test(t => {
+      const container = document.createElement("div");
+      container.style.cssText = `container-type: size; width: 200px; height: 300px; writing-mode: ${containerMode}`;
+      const target = document.createElement("div");
+      target.style.cssText = `writing-mode: ${targetMode}; margin-left: 1${unit}`;
+      container.append(target);
+      document.body.append(container);
+      t.add_cleanup(() => container.remove());
+      assert_equals(getComputedStyle(target).marginLeft, `${pixels}px`);
+    }, `${unit} uses a ${containerMode} size container for a ${targetMode} target`);
+  }
+}
+
+for (const [outerMode, innerMode, expected] of [
+  ["horizontal-tb", "vertical-rl", { cqw: 4, cqh: 3, cqi: 4, cqb: 3, cqmin: 3, cqmax: 4 }],
+  ["vertical-rl", "horizontal-tb", { cqw: 2, cqh: 5, cqi: 5, cqb: 2, cqmin: 2, cqmax: 5 }]
+]) {
+  for (const [unit, pixels] of Object.entries(expected)) {
+    test(t => {
+      const outer = document.createElement("div");
+      outer.style.cssText = `container-type: size; width: 400px; height: 500px; writing-mode: ${outerMode}`;
+      const inner = document.createElement("div");
+      inner.style.cssText = `container-type: inline-size; width: 200px; height: 300px; writing-mode: ${innerMode}`;
+      const target = document.createElement("div");
+      target.style.cssText = `writing-mode: ${outerMode}; margin-left: 1${unit}`;
+      inner.append(target);
+      outer.append(inner);
+      document.body.append(outer);
+      t.add_cleanup(() => outer.remove());
+      assert_equals(getComputedStyle(target).marginLeft, `${pixels}px`);
+    }, `${unit} selects each eligible axis across a ${innerMode} inline-size container`);
+  }
+}
+
+for (const [unit, physicalUnit] of [["cqi", "svw"], ["cqb", "svh"]]) {
+  test(t => {
+    const root = document.documentElement;
+    const oldStyle = root.style.cssText;
+    root.style.writingMode = "vertical-rl";
+    const target = document.createElement("div");
+    target.style.writingMode = "horizontal-tb";
+    document.body.append(target);
+    t.add_cleanup(() => {
+      root.style.cssText = oldStyle;
+      target.remove();
+    });
+    target.style.marginLeft = `1${physicalUnit}`;
+    assert_equals(target.style.marginLeft, `1${physicalUnit}`);
+    const expected = getComputedStyle(target).marginLeft;
+    target.style.marginLeft = `1${unit}`;
+    assert_equals(target.style.marginLeft, `1${unit}`);
+    assert_equals(getComputedStyle(target).marginLeft, expected);
+  }, `${unit} without an eligible container uses the target's small viewport axis`);
+}
+</script>

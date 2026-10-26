@@ -1,12 +1,16 @@
-// https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface
+
+// https://drafts.csswg.org/cssom-1/#cssstyledeclaration
 [Exposed=Window]
 interface CSSStyleDeclaration {
-  [CEReactions] attribute CSSOMString cssText;
-  readonly attribute unsigned long length;
-  getter CSSOMString item(unsigned long index);
-  CSSOMString getPropertyValue(CSSOMString property);
-  CSSOMString getPropertyPriority(CSSOMString property);
-  [CEReactions] undefined setProperty(CSSOMString property, [LegacyNullToEmptyString] CSSOMString value, optional [LegacyNullToEmptyString] CSSOMString priority = "");
-  [CEReactions] CSSOMString removeProperty(CSSOMString property);
-  readonly attribute CSSRule? parentRule;
+
+    [CEReactions] attribute [LegacyNullToEmptyString] CSSOMString cssFloat;
+    [CEReactions] attribute CSSOMString cssText;
+    readonly attribute unsigned long length;
+    readonly attribute CSSRule? parentRule;
+
+    CSSOMString getPropertyPriority(CSSOMString property);
+    CSSOMString getPropertyValue(CSSOMString property);
+    getter CSSOMString item(unsigned long index);
+    [CEReactions] CSSOMString removeProperty(CSSOMString property);
+    [CEReactions] undefined setProperty(CSSOMString property, [LegacyNullToEmptyString] CSSOMString value, optional [LegacyNullToEmptyString] CSSOMString priority = "");
 };

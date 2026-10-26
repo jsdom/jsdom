@@ -1,0 +1,105 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Element-backed pseudo classes distinguish syntax from matching</title>
+<link rel="help" href="https://drafts.csswg.org/css-pseudo-4/#element-backed">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function assertValidSelector(selector) {
+  assert_true(CSS.supports(`selector(${selector})`), "CSS.supports() accepts the selector");
+  const sheet = new CSSStyleSheet();
+  sheet.insertRule(`${selector} { color: green; }`);
+  assert_equals(sheet.cssRules[0].selectorText, selector);
+}
+
+function createPart(t, content, rules) {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  document.head.append(style);
+  const host = document.createElement("div");
+  host.className = "host";
+  const shadow = host.attachShadow({ mode: "open" });
+  shadow.innerHTML = content;
+  document.body.append(host);
+  t.add_cleanup(() => {
+    style.remove();
+    host.remove();
+  });
+  return shadow.querySelector("[part]");
+}
+
+test(() => {
+  assertValidSelector("::part(label):empty");
+}, "A structural pseudo class after part is valid syntax");
+
+test(() => {
+  assertValidSelector("::part(label):nth-child(1 of .item)");
+}, "A child-index pseudo class retains its normal selector argument grammar after part");
+
+test(() => {
+  assertValidSelector("::part(label):has(> .child)");
+}, "A relational pseudo class retains its normal selector argument grammar after part");
+
+test(() => {
+  assertValidSelector("::part(label):scope");
+}, "The scope pseudo class after part is valid syntax");
+
+test(() => {
+  assertValidSelector("::part(label):host(div)");
+  assertValidSelector("::part(label):host-context(.container)");
+}, "Host pseudo classes retain their normal selector argument grammar after part");
+
+test(() => {
+  assertValidSelector("::part(label):not(:is(:first-child, :has(.child)))");
+}, "Logical pseudo classes preserve element-backed syntax through nested arguments");
+
+test(() => {
+  assertValidSelector("::details-content:empty");
+  assertValidSelector("::details-content:has(.child)");
+}, "Details content accepts otherwise nonmatching pseudo classes");
+
+test(() => {
+  assertValidSelector("::file-selector-button:empty");
+  assertValidSelector("::file-selector-button:disabled");
+}, "File selector buttons use element-backed pseudo syntax");
+
+test(() => {
+  assertValidSelector("::part(outer)::part(inner)");
+  assertValidSelector("::details-content::part(inner)");
+}, "Part selectors after element-backed pseudos are syntactically valid");
+
+test(t => {
+  const part = createPart(t, '<span part="label"></span>', `
+    .host::part(label) { color: red; }
+    .host:empty::part(label):not(:empty) { color: green; }
+  `);
+  assert_equals(getComputedStyle(part).color, "rgb(0, 128, 0)");
+}, "Structural pseudo classes never match a part, while the host prefix retains native matching");
+
+test(t => {
+  const part = createPart(t, '<div part="label"><span class="child"></span></div>', `
+    .host::part(label) { color: red; }
+    .host::part(label):not(:has(> .child)) { color: green; }
+  `);
+  assert_equals(getComputedStyle(part).color, "rgb(0, 128, 0)");
+}, "Relational pseudo classes never inspect a part's descendants");
+
+test(t => {
+  const part = createPart(t, '<span class="item" part="label"></span>', `
+    .host::part(label) { color: red; }
+    .host::part(label):is(:not(:nth-child(1 of .item))) { color: green; }
+  `);
+  assert_equals(getComputedStyle(part).color, "rgb(0, 128, 0)");
+}, "Nested logical pseudo classes preserve nonmatching structural predicates on parts");
+
+test(t => {
+  const part = createPart(t, '<button part="label" disabled></button>', `
+    .host::part(label) { color: red; }
+    .host::part(label):is(:disabled):not(:scope, :host, :host(div), :host-context(.host)) { color: green; }
+  `);
+  assert_equals(getComputedStyle(part).color, "rgb(0, 128, 0)");
+}, "Part aliases retain native control state while scope and host predicates never match");
+</script>

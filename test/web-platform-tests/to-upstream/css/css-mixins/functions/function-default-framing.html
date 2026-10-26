@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Custom function default values preserve their meaning through serialization</title>
+<link rel="help" href="https://drafts.csswg.org/css-mixins-1/#cssfunctionrule">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#free-form-productions">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/11042">
+<!--
+  These round-trip checks do not choose whether initial braces are default-value
+  content or a syntactic wrapper. That separate question is related to #11042.
+-->
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function parseFunction(source) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(source);
+  assert_equals(sheet.cssRules.length, 1, "The function rule must parse");
+  return sheet.cssRules[0];
+}
+
+test(() => {
+  const rule = parseFunction("@function --f(--x: {a,b}, --y: c) { result: var(--x); }");
+  const parameters = rule.getParameters();
+  assert_equals(parameters.length, 2);
+  const reparsed = parseFunction(rule.cssText);
+  assert_equals(JSON.stringify(reparsed.getParameters()), JSON.stringify(parameters));
+}, "A comma-containing default keeps its parameter boundary when the rule is serialized");
+
+test(() => {
+  const rule = parseFunction("@function --f(--x: {{a}}, --y: c) { result: var(--x); }");
+  const parameters = rule.getParameters();
+  assert_equals(parameters.length, 2);
+  const reparsed = parseFunction(rule.cssText);
+  assert_equals(JSON.stringify(reparsed.getParameters()), JSON.stringify(parameters));
+}, "A curly-block default keeps its nesting when the rule is serialized");
+
+test(() => {
+  const rule = parseFunction("@function --f(--x: f(a,b), --y: c) { result: var(--x); }");
+  const parameters = rule.getParameters();
+  assert_equals(parameters.length, 2);
+  const reparsed = parseFunction(rule.cssText);
+  assert_equals(JSON.stringify(reparsed.getParameters()), JSON.stringify(parameters));
+}, "A default containing a nested comma preserves its parameters through serialization");
+
+test(() => {
+  const rule = parseFunction("@function --f(--x: f({a}), --y: c) { result: var(--x); }");
+  const parameters = rule.getParameters();
+  assert_equals(parameters.length, 2);
+  const reparsed = parseFunction(rule.cssText);
+  assert_equals(JSON.stringify(reparsed.getParameters()), JSON.stringify(parameters));
+}, "A default containing a nested curly block preserves its parameters through serialization");
+
+test(() => {
+  const rule = parseFunction("@function --f(--x <number>: 1, --y <color>: red) { result: var(--x); }");
+  const parameters = rule.getParameters();
+  assert_equals(parameters.length, 2);
+  const reparsed = parseFunction(rule.cssText);
+  assert_equals(JSON.stringify(reparsed.getParameters()), JSON.stringify(parameters));
+}, "Typed defaults keep their types and values through rule serialization");
+
+test(() => {
+  const rule = parseFunction("@function --f(--x: (a,b), --y: c) { result: var(--x); }");
+  const parameters = rule.getParameters();
+  assert_equals(parameters.length, 2);
+  const reparsed = parseFunction(rule.cssText);
+  assert_equals(JSON.stringify(reparsed.getParameters()), JSON.stringify(parameters));
+}, "A default containing a parenthesized comma keeps its parameter boundary");
+
+test(() => {
+  const rule = parseFunction("@function --f(--x, --y <color>) { result: red; }");
+  const parameters = rule.getParameters();
+  assert_equals(parameters.length, 2);
+  assert_false("defaultValue" in parameters[0]);
+  assert_false("defaultValue" in parameters[1]);
+  const reparsed = parseFunction(rule.cssText);
+  assert_equals(JSON.stringify(reparsed.getParameters()), JSON.stringify(parameters));
+}, "Parameters without defaults remain without defaults after rule serialization");
+</script>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed style remains live after CSSOM changes</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<link rel="help" href="https://drafts.csswg.org/cssom/#remove-a-css-rule">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-replacesync">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, rules) {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  const target = document.createElement("div");
+  target.className = "target";
+  document.body.append(style, target);
+  t.add_cleanup(() => {
+    target.remove();
+    style.remove();
+  });
+  return { target, sheet: style.sheet, computed: getComputedStyle(target) };
+}
+
+test(t => {
+  const { target, computed } = fixture(t, ".target { color: red; }");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  target.style.color = "blue";
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+  target.style.removeProperty("color");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+}, "A retained computed declaration reflects inline style changes");
+
+test(t => {
+  const { sheet, computed } = fixture(t, ".target { color: red; }");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  sheet.cssRules[0].style.color = "green";
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  sheet.insertRule(".target { color: blue; }", 1);
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+  sheet.deleteRule(1);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "A retained computed declaration reflects rule edits, insertion, and deletion");
+
+test(t => {
+  const { sheet, computed } = fixture(t, ".target { color: red; }");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  sheet.disabled = true;
+  assert_equals(computed.color, getComputedStyle(document.body).color);
+  sheet.disabled = false;
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+}, "A retained computed declaration reflects stylesheet disabledness");
+
+test(t => {
+  const { sheet } = fixture(t, "@media all { .target { color: red; } .other { color: blue; } }");
+  const group = sheet.cssRules[0];
+  const first = group.cssRules[0];
+  const second = group.cssRules[1];
+  sheet.deleteRule(0);
+  assert_equals(sheet.cssRules.length, 0);
+  assert_equals(group.cssRules.length, 2);
+  assert_equals(group.cssRules[0], first);
+  assert_equals(group.cssRules[1], second);
+  assert_equals(first.parentRule, group);
+  assert_equals(second.parentRule, group);
+  assert_equals(group.parentStyleSheet, null);
+  assert_equals(first.parentStyleSheet, null);
+  assert_equals(second.parentStyleSheet, null);
+}, "Removing a grouping rule preserves its child rule list and detaches stylesheet references");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("a { color: red; } b { color: blue; } c { color: green; }");
+  const first = sheet.cssRules[0];
+  const second = sheet.cssRules[1];
+  const third = sheet.cssRules[2];
+  sheet.replaceSync("p { color: purple; }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].selectorText, "p");
+  assert_equals(first.parentStyleSheet, null);
+  assert_equals(second.parentStyleSheet, null);
+  assert_equals(third.parentStyleSheet, null);
+}, "replaceSync removes every previous rule");
+
+promise_test(async () => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("a { color: red; } b { color: blue; } c { color: green; }");
+  const first = sheet.cssRules[0];
+  const second = sheet.cssRules[1];
+  const third = sheet.cssRules[2];
+  assert_equals(await sheet.replace("p { color: purple; }"), sheet);
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].selectorText, "p");
+  assert_equals(first.parentStyleSheet, null);
+  assert_equals(second.parentStyleSheet, null);
+  assert_equals(third.parentStyleSheet, null);
+}, "replace removes every previous rule and resolves with the same stylesheet");
+
+test(t => {
+  const { target, computed } = fixture(t, "");
+  target.style.margin = "1px 2px";
+  assert_equals(computed.marginLeft, "2px");
+  target.style.margin = "1px 3px";
+  assert_equals(target.getAttribute("style"), "margin: 1px 3px;");
+  assert_equals(computed.marginLeft, "3px");
+}, "Changing only some shorthand components updates the style attribute and retained computed style");
+
+test(t => {
+  const { target, computed } = fixture(t, "");
+  const before = computed.length;
+  target.style.setProperty("--custom", "hello");
+  assert_equals(computed.getPropertyValue("--custom"), "hello");
+  assert_equals(computed.length, before + 1);
+  assert_equals(computed.item(computed.length - 1), "--custom");
+  target.style.removeProperty("--custom");
+  assert_equals(computed.getPropertyValue("--custom"), "");
+  assert_equals(computed.length, before);
+}, "Computed declaration enumeration tracks custom properties");
+
+test(t => {
+  const { sheet, computed } = fixture(t, ".other { color: green; }");
+  assert_equals(computed.color, getComputedStyle(document.body).color);
+  sheet.cssRules[0].selectorText = ".target";
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  sheet.cssRules[0].selectorText = ".other";
+  assert_equals(computed.color, getComputedStyle(document.body).color);
+}, "Changing a selector updates which declarations can match an existing computed style");
+
+test(t => {
+  const { sheet, computed } = fixture(t, "@media all { .target { color: red; } }");
+  const group = sheet.cssRules[0];
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  group.insertRule(".target { color: green; }", 1);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  group.deleteRule(1);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  group.media.mediaText = "not all";
+  assert_equals(computed.color, getComputedStyle(document.body).color);
+  group.media.mediaText = "all";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+}, "Nested rule insertion, deletion, and media changes update an existing computed style");
+
+test(t => {
+  const { target, computed } = fixture(t, ".target { color: red; } .other { color: green; }");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  target.className = "other";
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  target.className = "target";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+}, "DOM changes reevaluate matching against unchanged stylesheet syntax");
+test(t => {
+  const host = document.createElement("div");
+  const shadow = host.attachShadow({ mode: "closed" });
+  const style = document.createElement("style");
+  style.textContent = "@namespace url('http://www.w3.org/1999/xhtml'); .target { color: red; }";
+  const target = document.createElement("div");
+  target.className = "target";
+  shadow.append(style, target);
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const { sheet } = style;
+  const computed = getComputedStyle(target);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  sheet.deleteRule(1);
+  sheet.deleteRule(0);
+  sheet.insertRule("@namespace url('http://www.w3.org/2000/svg');");
+  sheet.insertRule(".target { color: blue; }", 1);
+  assert_equals(computed.color, getComputedStyle(host).color);
+  sheet.deleteRule(1);
+  sheet.deleteRule(0);
+  sheet.insertRule("@namespace url('http://www.w3.org/1999/xhtml');");
+  sheet.insertRule(".target { color: green; }", 1);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "Replacing namespace and style rules in a shadow stylesheet updates existing computed style");
+</script>

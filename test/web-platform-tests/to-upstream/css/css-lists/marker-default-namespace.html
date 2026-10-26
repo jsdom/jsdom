@@ -1,0 +1,54 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Marker defaults apply to list items in every namespace</title>
+<link rel="help" href="https://drafts.csswg.org/css-lists-3/#marker-properties">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  .item {
+    display: list-item;
+    font-variant-numeric: normal;
+    text-transform: uppercase;
+    white-space: normal;
+  }
+</style>
+<body>
+<script>
+"use strict";
+
+function appendItem(t, namespace) {
+  const element = document.createElementNS(namespace, "item");
+  element.setAttribute("class", "item");
+  element.textContent = "item";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = appendItem(t, "http://www.w3.org/1999/xhtml");
+  const marker = getComputedStyle(element, "::marker");
+  assert_equals(marker.unicodeBidi, "isolate");
+  assert_equals(marker.fontVariantNumeric, "tabular-nums");
+  assert_equals(marker.whiteSpace, "pre");
+  assert_equals(marker.textTransform, "none");
+}, "Marker defaults apply to HTML list items");
+
+test(t => {
+  const element = appendItem(t, "urn:foreign");
+  const marker = getComputedStyle(element, "::marker");
+  assert_equals(marker.unicodeBidi, "isolate");
+  assert_equals(marker.fontVariantNumeric, "tabular-nums");
+  assert_equals(marker.whiteSpace, "pre");
+  assert_equals(marker.textTransform, "none");
+}, "Marker defaults apply to foreign list items");
+
+test(t => {
+  const element = appendItem(t, null);
+  const marker = getComputedStyle(element, "::marker");
+  assert_equals(marker.unicodeBidi, "isolate");
+  assert_equals(marker.fontVariantNumeric, "tabular-nums");
+  assert_equals(marker.whiteSpace, "pre");
+  assert_equals(marker.textTransform, "none");
+}, "Marker defaults apply to null-namespace list items");
+</script>

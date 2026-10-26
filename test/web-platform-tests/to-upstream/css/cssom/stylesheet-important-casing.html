@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Declaration priorities use ASCII case-insensitive identifiers</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#consume-declaration">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("div { color: red !IMPORTANT; color: blue; }");
+  assert_equals(sheet.cssRules[0].style.color, "red");
+  assert_equals(sheet.cssRules[0].style.getPropertyPriority("color"), "important");
+}, "An uppercase priority in a stylesheet outranks a later normal declaration");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "color: red !ImPoRtAnT; color: blue;";
+  assert_equals(style.color, "red");
+  assert_equals(style.getPropertyPriority("color"), "important");
+}, "A mixed-case priority in a declaration list outranks a later normal declaration");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "color: red !\\49 MPORTANT; color: blue;";
+  assert_equals(style.color, "red");
+  assert_equals(style.getPropertyPriority("color"), "important");
+}, "Escaped priority identifiers are compared after decoding");
+</script>
