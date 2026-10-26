@@ -10,3 +10,4 @@ npm-debug.log*
 
 .wireit
 lib/generated/
+lib/jsdom/living/css/CSSStyleProperties.webidl
