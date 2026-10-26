@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Interface objects, operations and accessors use the global's %Function.prototype%</title>
+<link rel="help" href="https://webidl.spec.whatwg.org/#interface-object">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(Object.getPrototypeOf(Crypto), Function.prototype);
+  assert_equals(Crypto.constructor, Function);
+}, "An interface object without a parent interface inherits from this global's Function.prototype");
+
+test(() => {
+  assert_equals(Object.getPrototypeOf(Node), EventTarget);
+}, "An interface object with a parent interface still inherits from the parent");
+
+test(() => {
+  assert_equals(Object.getPrototypeOf(crypto.getRandomValues), Function.prototype, "operation");
+  const getter = Object.getOwnPropertyDescriptor(Node.prototype, "nodeName").get;
+  assert_equals(Object.getPrototypeOf(getter), Function.prototype, "attribute getter");
+  assert_equals(Object.getPrototypeOf(setTimeout), Function.prototype, "global operation");
+}, "Operations and attribute accessors inherit from this global's Function.prototype");
+
+test(() => {
+  assert_throws_js(ReferenceError, () => crypto.constructor.constructor("return process")());
+}, "Function reached through an interface object evaluates in this global");
+</script>
