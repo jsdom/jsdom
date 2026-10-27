@@ -34,5 +34,38 @@ module.exports = () => {
     }
   });
 
+  // https://github.com/jsdom/jsdom/issues/3984#issuecomment-6082073684
+  for (const depth of [5, 25, 100]) {
+    let buttons;
+    bench.add(`focus() between buttons at depth ${depth} with utility styles`, () => {
+      for (const button of buttons) {
+        button.focus();
+      }
+    }, {
+      beforeAll() {
+        const style = document.createElement("style");
+        for (let i = 0; i < 40; i++) {
+          style.textContent += `.p-${i} { padding: ${i}px } .text-${i} { font-size: ${i}px }`;
+        }
+        style.textContent += "body { font-family: sans-serif; line-height: 1.5 } .wrap { display: flex }";
+        document.body.append(style);
+
+        let parent = document.body;
+        for (let i = 0; i < depth; i++) {
+          const div = document.createElement("div");
+          div.className = `wrap p-${i % 40}`;
+          parent.append(div);
+          parent = div;
+        }
+        buttons = Array.from({ length: 50 }, (_, i) => {
+          const button = document.createElement("button");
+          button.textContent = `b${i}`;
+          parent.append(button);
+          return button;
+        });
+      }
+    });
+  }
+
   return bench;
 };
