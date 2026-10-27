@@ -222,8 +222,6 @@ layer-cssom-order-reverse.html: [fail, Unknown]
 layer-font-face-override.html: [fail, Unknown]
 layer-keyframes-override.html: [fail, Unknown]
 layer-media-query.html: [fail-slow, iframe srcdoc and viewport layout are not implemented]
-layer-replaceSync-clears-stale.html: [fail, Unknown]
-layer-stylesheet-multi-adoption.html: [fail, Unknown]
 presentational-hints-rollback.html: [fail, Unknown]
 revert-layer-008.html: [fail, Unknown]
 revert-val-003.html: [fail, Unknown]
@@ -236,7 +234,7 @@ scope-container.html: [fail, Unknown]
 scope-implicit-external.html: [fail, Unknown]
 scope-name-defining-rules.html: [fail, Unknown]
 scope-nesting.html: [fail, Unknown]
-scope-shadow.html: [fail, Unknown]
+scope-shadow.html: [fail, Declarative shadow roots are not implemented]
 scope-starting-style.html: [fail, Unknown]
 
 ---
@@ -597,7 +595,6 @@ part/host-part-003.html: [fail, Part generated content or rendering is incomplet
 part/pseudo-classes-after-part.html: [fail, WPT applies matching restrictions during element-backed pseudo-element parsing; https://github.com/web-platform-tests/wpt/pull/63932]
 part/pseudo-elements-after-part.html: [fail, Font loading is not implemented]
 shadow-cascade-order-001.html: [fail, Unknown]
-shadow-host-style-sharing.html: [fail, Unknown]
 slotted-parsing.html: [fail, WPT rejects user-action pseudo-classes after slotted; https://github.com/web-platform-tests/wpt/pull/63933]
 slotted-slot.html: [fail, Unknown]
 slotted-user-agent-part-invalidation.html: [fail, Unknown]
@@ -848,21 +845,16 @@ DIR: css/css-writing-modes/parsing
 DIR: css/cssom
 
 CSSFontFeatureValuesRule.html: [fail, CSSFontFeatureValuesMap not implemented]
-CSSStyleSheet-constructable-cssRules.html: [fail, Unknown]
-CSSStyleSheet-constructable-duplicate.html: [fail, Unknown]
-CSSStyleSheet-constructable-invalidation.html: [fail, Unknown]
-CSSStyleSheet-constructable-replace-cssRules.html: [fail, Unknown]
-CSSStyleSheet-constructable.html: [fail, Unknown]
-CSSStyleSheet-template-adoption.html: [fail, Unknown]
+CSSStyleSheet-constructable.html:
+  CSSStyleSheet.replaceSync should not trigger any loads from @import rules: [fail, Resource Timing is not implemented]
+  CSSStyleSheet.replace allows, but ignores, import rule inside: [fail, The preceding Resource Timing failure leaves a stylesheet attached; https://github.com/web-platform-tests/wpt/pull/64246]
+  CSSStyleSheet.replace ignores @import rule but still loads other rules: [fail, The preceding Resource Timing failure leaves a stylesheet attached; https://github.com/web-platform-tests/wpt/pull/64246]
 HTMLLinkElement-disabled-001.html: [fail, Unknown]
 HTMLLinkElement-disabled-002.html: [fail, Unknown]
 HTMLLinkElement-disabled-003.html: [fail, Unknown]
 HTMLLinkElement-disabled-004.html: [fail, Unknown]
 HTMLLinkElement-disabled-006.html: [fail, Unknown]
 HTMLLinkElement-load-event.html: [fail, Unknown]
-adoptedstylesheets-cascade-order.html: [fail, adoptedStyleSheets not implemented]
-adoptedstylesheets-modify-array-and-sheet.html: [fail, Unknown]
-adoptedstylesheets-observablearray.html: [fail, Unknown]
 base-uri.html: [fail, Unknown]
 caretPositionFromPoint-audioVideo.html: [fail, Unknown]
 caretPositionFromPoint-in-flex-container.html: [fail, Unknown]
@@ -2982,6 +2974,49 @@ url-origin.any.html: [fail, Depends on fetch]
 url-setters-a-area.window.html**: [fail, Depends on fetch]
 url-setters.any.html**: [fail, Depends on fetch]
 urlencoded-parser.any.html: [fail, Depends on fetch]
+
+---
+
+DIR: webidl
+
+current-realm.html: [fail, "Cross-realm factory results are incomplete; Fetch, FontFace and iframe srcdoc are not implemented"]
+ecmascript-binding/allow-resizable.html: [timeout, "Module scripts are not implemented"]
+ecmascript-binding/allow-shared.https.html: [fail, "ImageDecoder and MIDIMessageEvent are not implemented"]
+ecmascript-binding/constructors.html:
+  "Constructor in child window with bad NewTarget from parent window": [fail, "Constructors do not fall back when newTarget.prototype is not an object"]
+  "Constructor in parent window with bad NewTarget from child window": [fail, "Constructors do not fall back when newTarget.prototype is not an object"]
+  "Constructor in parent window with bad NewTarget from parent window that's a bound child window function": [fail, "Constructors do not fall back when newTarget.prototype is not an object"]
+  "Constructor in child window with bad NewTarget from child window that's a bound parent window function": [fail, "Constructors do not fall back when newTarget.prototype is not an object"]
+  "Constructor in parent window with bad NewTarget from parent window that's a proxy for a child window function": [fail, "Constructors do not fall back when newTarget.prototype is not an object"]
+  "Constructor in child window with bad NewTarget from child window that's a proxy for a parent window function": [fail, "Constructors do not fall back when newTarget.prototype is not an object"]
+ecmascript-binding/default-toJSON-cross-realm.html: [fail, "toJSON results use the host realm; DOMQuad and DOMPoint are not implemented"]
+ecmascript-binding/es-exceptions/DOMException-custom-bindings.any.html:
+  "does not inherit from Error: class-side": [fail, "The DOMException constructor has a Function prototype from the host realm"]
+ecmascript-binding/es-exceptions/DOMException-is-error.any.html: [fail, "DOMException instances lack the Error internal slots"]
+ecmascript-binding/es-exceptions/DOMException-stack-accessor.any.html: [fail, DOMException instances have own stack properties and Error.prototype has no stack accessor]
+ecmascript-binding/global-immutable-prototype.any.html: [fail, "The Window prototype chain does not implement immutable prototype semantics"]
+ecmascript-binding/global-object-implicit-this-value-cross-realm.html: [fail, "Window receiver checks and cross-realm invocation are incomplete"]
+ecmascript-binding/global-object-implicit-this-value.any.html: [fail, Window receiver checks and replaceable attribute setters are incomplete]
+ecmascript-binding/legacy-callback-interface-object.html:
+  "Must have the correct [[Prototype]]": [fail, "NodeFilter has a Function prototype from the host realm"]
+ecmascript-binding/legacy-factor-function-subclass.window.html: [fail, "The Image factory does not honor newTarget.prototype"]
+ecmascript-binding/legacy-platform-object/DefineOwnProperty.html: [fail, Proxy invariants prevent defining non-configurable indexed or named properties]
+ecmascript-binding/legacy-platform-object/Set.html:
+  "must allow setting built-in property on a [LegacyOverrideBuiltIns] object even if a named property shadows it": [fail, "Named form controls do not override built-in members"]
+ecmascript-binding/no-regexp-special-casing.any.html: [fail, MessageChannel and Response are not implemented]
+ecmascript-binding/put-forwards.html:
+  "Setting form.relList to noreferrer is reflected in rel": [fail, "relList is not implemented on form elements"]
+ecmascript-binding/sequence-conversion.html: [fail, "Canvas context methods require the canvas package; URLSearchParams reads @@iterator twice"]
+ecmascript-binding/setter-argument.html:
+  "String attribute setter should throw if this value is invalid": [fail, "Animation is not implemented"]
+  "String attribute setter should treat no arguments as undefined": [fail, "Animation is not implemented"]
+  "String attribute setter called with undefined should behave in the same way as no arguments": [fail, "Animation is not implemented"]
+  "String attribute setter called with string should just work": [fail, "Animation is not implemented"]
+  "[LegacyLenientSetter] setter should treat no arguments as undefined": [fail, "fullscreenEnabled is not implemented"]
+  "[LegacyLenientSetter] setter called with undefined should behave in the same way as no arguments": [fail, "fullscreenEnabled is not implemented"]
+ecmascript-binding/window-named-properties-object.html:
+  "[[SetPrototypeOf]] and [[GetPrototypeOf]]": [fail, "WindowProperties rejects setting its prototype to its current value"]
+idlharness.any.html: [fail, "fetch is not implemented"]
 
 ---
 

@@ -1,0 +1,136 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Adopted stylesheet metadata and mutation invalidation</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-documentorshadowroot-adoptedstylesheets">
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api/#at-property-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const type of ["document", "shadow root"]) {
+  test(t => {
+    const host = document.createElement("div");
+    document.body.append(host);
+    t.add_cleanup(() => host.remove());
+    const root = type === "document" ? document : host.attachShadow({ mode: "open" });
+    const target = document.createElement("span");
+    host.append(target);
+    if (root !== document) {
+      root.append(target);
+    }
+    t.add_cleanup(() => {
+      root.adoptedStyleSheets = [];
+    });
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync("span { color: red; }");
+    function color() {
+      return getComputedStyle(target).color;
+    }
+    root.adoptedStyleSheets = [sheet];
+    assert_equals(color(), "rgb(255, 0, 0)");
+    sheet.media.mediaText = "not all";
+    assert_equals(color(), "rgb(0, 0, 0)");
+    sheet.media.mediaText = "all";
+    assert_equals(color(), "rgb(255, 0, 0)");
+  }, `Changing an adopted stylesheet's media updates styles on a ${type}`);
+}
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const target = document.createElement("span");
+  host.append(target);
+  const root = document;
+  t.add_cleanup(() => {
+    root.adoptedStyleSheets = [];
+  });
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`
+    @property --adopted-color { syntax: "<color>"; inherits: false; initial-value: green; }
+    span { color: var(--adopted-color, red); }
+  `);
+  root.adoptedStyleSheets = [sheet, sheet];
+  function color() {
+    return getComputedStyle(target).color;
+  }
+  assert_equals(color(), "rgb(0, 128, 0)");
+  root.adoptedStyleSheets.pop();
+  assert_equals(color(), "rgb(0, 128, 0)");
+
+  const style = document.createElement("style");
+  document.head.append(style);
+  style.remove();
+  assert_equals(color(), "rgb(0, 128, 0)");
+  sheet.deleteRule(0);
+  sheet.insertRule('@property --adopted-color { syntax: "<color>"; inherits: false; initial-value: blue; }');
+  assert_equals(color(), "rgb(0, 0, 255)");
+  sheet.deleteRule(0);
+  assert_equals(color(), "rgb(255, 0, 0)");
+  root.adoptedStyleSheets.length = 0;
+  assert_equals(color(), "rgb(0, 0, 0)");
+}, "Adopted stylesheets keep property registrations after removing duplicates and regular sheets");
+
+for (const type of ["document", "shadow root"]) {
+  test(t => {
+    const host = document.createElement("div");
+    document.body.append(host);
+    t.add_cleanup(() => host.remove());
+    const root = type === "document" ? document : host.attachShadow({ mode: "open" });
+    const target = document.createElement("span");
+    (root === document ? host : root).append(target);
+    t.add_cleanup(() => {
+      root.adoptedStyleSheets = [];
+    });
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync("span { color: red; }");
+    root.adoptedStyleSheets = [sheet];
+    assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+    const style = document.createElement("style");
+    document.head.append(style);
+    const regularSheet = style.sheet;
+    style.remove();
+    assert_throws_dom("NotAllowedError", () => {
+      root.adoptedStyleSheets[0] = regularSheet;
+    });
+    assert_equals(root.adoptedStyleSheets[0], sheet);
+    sheet.cssRules[0].style.color = "blue";
+    assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+  }, `A rejected indexed replacement keeps the existing stylesheet active on a ${type}`);
+}
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const root = host.attachShadow({ mode: "open" });
+  const target = document.createElement("span");
+  root.append(target);
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("span { color: red; }");
+  root.adoptedStyleSheets = [sheet];
+  const array = root.adoptedStyleSheets;
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+  const template = document.createElement("template");
+  template.content.append(host);
+  sheet.replaceSync("span { color: blue; }");
+  document.body.append(host);
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  frame.contentDocument.body.append(host);
+  const childSheet = new frame.contentWindow.CSSStyleSheet();
+  childSheet.replaceSync("span { color: green; }");
+  array.push(childSheet);
+  function color() {
+    return frame.contentWindow.getComputedStyle(target).color;
+  }
+  assert_equals(color(), "rgb(0, 128, 0)");
+  childSheet.cssRules[0].style.color = "blue";
+  assert_equals(color(), "rgb(0, 0, 255)");
+}, "Stylesheet mutations apply after moving a shadow host through a template and into another document");
+</script>
