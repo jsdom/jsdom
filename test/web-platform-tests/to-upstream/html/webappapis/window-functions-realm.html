@@ -7,8 +7,10 @@
 <script>
 "use strict";
 
-for (const name of ["setTimeout", "setInterval", "clearTimeout", "clearInterval", "queueMicrotask", "atob", "btoa",
-  "getComputedStyle", "getSelection", "postMessage", "alert", "close", "stop"]) {
+for (const name of [
+  "setTimeout", "setInterval", "clearTimeout", "clearInterval", "queueMicrotask", "atob", "btoa",
+  "getComputedStyle", "getSelection", "postMessage", "alert", "close", "stop"
+]) {
   test(() => {
     assert_equals(Object.getPrototypeOf(self[name]), Function.prototype);
   }, `${name} inherits from this global's Function.prototype`);
