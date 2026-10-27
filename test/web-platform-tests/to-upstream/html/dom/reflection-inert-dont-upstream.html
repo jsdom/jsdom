@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTMLElement: inert attribute reflection</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#inert">
+<link rel="help" href="/html/dom/reflection.js">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="log"></div>
+<div id="test-div"></div>
+
+<script>
+"use strict";
+
+test(() => {
+  assert_true("inert" in HTMLElement.prototype, "inert property should exist on HTMLElement.prototype");
+  assert_false("inert" in Element.prototype, "inert property should NOT exist on Element.prototype");
+}, "The inert property exists on the correct interface (HTMLElement)");
+
+test(() => {
+  const el = document.getElementById("test-div");
+  assert_false(el.inert, "inert should be false by default");
+  assert_false(el.hasAttribute("inert"), "inert attribute should not be present initially");
+
+  el.inert = true;
+  assert_true(el.hasAttribute("inert"), "Setting property to true should add the attribute");
+  assert_equals(el.getAttribute("inert"), "", "The added attribute value should be an empty string");
+
+  el.inert = false;
+  assert_false(el.hasAttribute("inert"), "Setting property to false should remove the attribute");
+
+  el.setAttribute("inert", "inert");
+  assert_true(el.inert, "Adding the attribute manually should set the property to true");
+
+  el.removeAttribute("inert");
+  assert_false(el.inert, "Removing the attribute manually should set the property to false");
+}, "HTMLElement.inert reflects the inert content attribute");
+
+test(() => {
+  const el = document.createElement("button");
+
+  el.setAttribute("inert", "any-value");
+  assert_true(el.inert, "Property should be true regardless of the attribute's string value");
+
+  el.inert = true;
+  assert_equals(el.getAttribute("inert"), "", "Setting property to true normalizes the attribute to empty string");
+}, "HTMLElement.inert handles arbitrary string values correctly");
+</script>
