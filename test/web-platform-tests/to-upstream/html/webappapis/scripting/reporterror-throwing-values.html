@@ -1,0 +1,50 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>reportError() with values whose properties or inspection throw</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-reporterror">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+setup({ allow_uncaught_exception: true });
+
+function reportAndCapture(value) {
+  let event = null;
+  self.addEventListener("error", e => {
+    event = e;
+  }, { once: true });
+  self.reportError(value);
+  return event;
+}
+
+for (const property of ["message", "name", "stack"]) {
+  test(() => {
+    const error = new TypeError("original");
+    Object.defineProperty(error, property, {
+      get() {
+        throw new Error(`${property} getter`);
+      }
+    });
+
+    const event = reportAndCapture(error);
+    assert_not_equals(event, null, "an error event is dispatched");
+    assert_equals(event.error, error);
+  }, `reportError() still reports a native error whose ${property} getter throws`);
+}
+
+test(() => {
+  const value = {
+    [Symbol.for("nodejs.util.inspect.custom")]() {
+      throw new Error("custom inspection");
+    }
+  };
+
+  const event = reportAndCapture(value);
+  assert_not_equals(event, null, "an error event is dispatched");
+  assert_equals(event.error, value);
+
+  const nextEvent = reportAndCapture(1);
+  assert_not_equals(nextEvent, null, "a later error event is dispatched");
+  assert_equals(nextEvent.error, 1);
+}, "reportError() keeps reporting after a value whose Node.js custom inspection throws");
+</script>
