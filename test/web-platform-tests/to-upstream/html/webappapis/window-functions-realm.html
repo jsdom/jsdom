@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Window operations and legacy factory functions use this global's %Function.prototype%</title>
+<link rel="help" href="https://webidl.spec.whatwg.org/#dfn-create-operation-function">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const name of ["setTimeout", "setInterval", "clearTimeout", "clearInterval", "queueMicrotask", "atob", "btoa",
+  "getComputedStyle", "getSelection", "postMessage", "alert", "close", "stop"]) {
+  test(() => {
+    assert_equals(Object.getPrototypeOf(self[name]), Function.prototype);
+  }, `${name} inherits from this global's Function.prototype`);
+}
+
+for (const name of ["Image", "Audio", "Option"]) {
+  test(() => {
+    assert_equals(Object.getPrototypeOf(self[name]), Function.prototype);
+  }, `${name} inherits from this global's Function.prototype`);
+}
+
+test(() => {
+  assert_throws_js(ReferenceError, () => setTimeout.constructor("return process")());
+}, "Function reached through a window operation evaluates in this global");
+</script>
