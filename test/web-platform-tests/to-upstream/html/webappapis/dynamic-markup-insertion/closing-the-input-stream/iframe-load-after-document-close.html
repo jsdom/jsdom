@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Iframe load after closing a new document input stream</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html#dom-document-close">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#iframe-load-event-steps">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/2133 -->
+<body>
+<script>
+"use strict";
+
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  t.add_cleanup(() => frame.remove());
+  const loadedContents = [];
+  frame.onload = () => loadedContents.push(frame.contentDocument.body.textContent);
+  document.body.append(frame);
+  assert_array_equals(loadedContents, [""], "Inserting the iframe fires its initial load event");
+
+  const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+  frame.contentDocument.open();
+  frame.contentDocument.write("hello");
+  frame.contentDocument.close();
+  await loaded;
+
+  assert_array_equals(loadedContents, ["", "hello"], "Closing the input stream fires another iframe load event");
+}, "An iframe fires load both on insertion and after its document is reopened, written to, and closed");
+</script>
