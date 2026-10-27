@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Inserting a row into a table containing only whitespace</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/tables.html#dom-table-insertrow">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/973 -->
+<table>
+</table>
+<script>
+"use strict";
+
+test(() => {
+  const table = document.querySelector("table");
+  assert_equals(table.childNodes.length, 1);
+  assert_equals(table.firstChild.nodeType, Node.TEXT_NODE);
+  assert_equals(table.rows.length, 0);
+
+  const row = table.insertRow(-1);
+
+  assert_equals(table.tBodies.length, 1);
+  assert_equals(table.tBodies[0].parentNode, table);
+  assert_equals(row.parentNode, table.tBodies[0]);
+  assert_array_equals(table.rows, [row]);
+}, "insertRow(-1) inserts a tbody and row into a table containing only whitespace");
+</script>
