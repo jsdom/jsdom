@@ -1,0 +1,108 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Observable array bindings for adopted stylesheets</title>
+<link rel="help" href="https://webidl.spec.whatwg.org/#idl-observable-array">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-documentorshadowroot-adoptedstylesheets">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createRoot(t, type) {
+  if (type === "document") {
+    t.add_cleanup(() => {
+      document.adoptedStyleSheets = [];
+    });
+    return document;
+  }
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  return host.attachShadow({ mode: "open" });
+}
+
+for (const type of ["document", "shadow root"]) {
+  test(t => {
+    const root = createRoot(t, type);
+    const array = root.adoptedStyleSheets;
+    const first = new CSSStyleSheet();
+    const second = new CSSStyleSheet();
+    root.adoptedStyleSheets = new Set([first, second]);
+    assert_equals(root.adoptedStyleSheets, array);
+    assert_array_equals(array, [first, second]);
+    root.adoptedStyleSheets = array;
+    assert_array_equals(array, [first, second]);
+    assert_equals(Object.getOwnPropertyDescriptor(array, "0").value, first);
+
+    assert_true(Reflect.deleteProperty(array, "1"));
+    assert_array_equals(array, [first]);
+    Object.defineProperty(array, "0", { value: second });
+    assert_array_equals(array, [second]);
+    array.length = 0;
+    assert_array_equals(array, []);
+    assert_equals(root.adoptedStyleSheets, array);
+  }, `Iterable assignment, self-assignment, and indexed operations preserve array identity on a ${type}`);
+
+  test(t => {
+    const root = createRoot(t, type);
+    const sheet = new CSSStyleSheet();
+    root.adoptedStyleSheets = [sheet];
+    const array = root.adoptedStyleSheets;
+    assert_false(Reflect.set(array, "2", sheet));
+    assert_false(Reflect.set(array, "length", 2));
+    assert_false(Reflect.deleteProperty(array, "length"));
+    assert_false(Reflect.deleteProperty(array, "1"));
+    assert_false(Reflect.defineProperty(array, "0", { writable: false }));
+    assert_false(Reflect.defineProperty(array, "0", { get: () => sheet }));
+    assert_false(Reflect.preventExtensions(array));
+    assert_throws_js(RangeError, () => {
+      array.length = -1;
+    });
+    assert_array_equals(array, [sheet]);
+
+    const style = document.createElement("style");
+    document.head.append(style);
+    t.add_cleanup(() => style.remove());
+    const regularSheet = style.sheet;
+    assert_throws_dom("NotAllowedError", () => {
+      array[0] = regularSheet;
+    });
+    assert_array_equals(array, [sheet]);
+    assert_throws_js(TypeError, () => {
+      root.adoptedStyleSheets = [sheet, {}];
+    });
+    assert_array_equals(array, [sheet]);
+    assert_throws_dom("NotAllowedError", () => {
+      root.adoptedStyleSheets = [sheet, regularSheet, sheet];
+    });
+    assert_array_equals(array, [sheet]);
+    assert_throws_dom("NotAllowedError", () => {
+      root.adoptedStyleSheets = [regularSheet];
+    });
+    assert_array_equals(array, []);
+    assert_equals(root.adoptedStyleSheets, array);
+  }, `Failed conversions and adoption hooks preserve the specified partial changes on a ${type}`);
+}
+
+test(t => {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  const childDocument = child.document;
+  const descriptor = Object.getOwnPropertyDescriptor(Document.prototype, "adoptedStyleSheets");
+  const array = childDocument.adoptedStyleSheets;
+  assert_equals(descriptor.get.call(childDocument), array, "Borrowing the getter preserves identity");
+  assert_equals(Object.getPrototypeOf(array), child.Array.prototype, "The array uses the document's realm");
+  const childSheet = new child.CSSStyleSheet();
+  descriptor.set.call(childDocument, [childSheet]);
+  assert_array_equals(array, [childSheet]);
+  assert_throws_js(child.TypeError, () => array.push({}));
+  assert_throws_dom("NotAllowedError", child.DOMException, () => array.push(new CSSStyleSheet()));
+  assert_throws_dom("NotAllowedError", () => {
+    document.adoptedStyleSheets.push(childSheet);
+  });
+  assert_array_equals(array, [childSheet]);
+}, "Borrowed accessors retain the owning realm for arrays, element conversions, and adoption errors");
+</script>

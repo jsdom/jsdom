@@ -29,6 +29,10 @@ describe("Garbage collection", () => {
     assert.equal(runFixture("removed-stylesheet-with-gc.mjs"), "collected");
   });
 
+  it("does not retain detached shadow trees through adopted stylesheets", { timeout: 5000 }, () => {
+    assert.equal(runFixture("adopted-stylesheets-with-gc.mjs"), "collected");
+  });
+
   // Regression test for https://github.com/jsdom/jsdom/issues/4338
   it("does not retain closed windows after computing styles", { timeout: 5000 }, () => {
     assert.equal(runFixture("computed-style-with-gc.mjs"), "collected");
