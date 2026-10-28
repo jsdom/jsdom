@@ -9,23 +9,22 @@ const {
   renderSuiteResults,
   compareSuites,
   renderComparisonTable,
-  renderComparisonList
+  renderComparisonList,
 } = require("./lib");
 
 const { values, positionals } = parseArgs({
   options: {
     suite: { type: "string", multiple: true, short: "s" },
     format: { type: "string", short: "f", default: "terminal" },
-    output: { type: "string", short: "o", default: "table" }
+    output: { type: "string", short: "o", default: "table" },
   },
   allowPositionals: true,
-  strict: false
+  strict: false,
 });
 
 if (positionals.length !== 2) {
   console.error(
-    "Usage: npm run benchmark:compare -- <ref1> <ref2> " +
-      "[--suite <name>]... [--format=terminal|markdown] [--output=table|list]"
+    "Usage: npm run benchmark:compare -- <ref1> <ref2> [--suite <name>]... [--format=terminal|markdown] [--output=table|list]",
   );
   process.exit(1);
 }
@@ -51,7 +50,9 @@ function git(...args) {
 function ensureCleanTree() {
   const status = git("status", "--porcelain");
   if (status !== "") {
-    console.error("Working tree is not clean. Commit or stash your changes before running benchmark:compare.");
+    console.error(
+      "Working tree is not clean. Commit or stash your changes before running benchmark:compare.",
+    );
     console.error(status);
     process.exit(1);
   }
@@ -84,14 +85,17 @@ function runSuites(suiteFilters) {
       args.push("--suite", s);
     }
   }
-  const r = spawnSync(process.execPath, args, { encoding: "utf-8", stdio: ["ignore", "pipe", "inherit"] });
+  const r = spawnSync(process.execPath, args, {
+    encoding: "utf-8",
+    stdio: ["ignore", "pipe", "inherit"],
+  });
   if (r.status !== 0) {
     throw new Error(`benchmark subprocess failed (exit ${r.status})`);
   }
   return r.stdout
     .split("\n")
-    .filter(line => line.trim() !== "")
-    .map(line => JSON.parse(line));
+    .filter((line) => line.trim() !== "")
+    .map((line) => JSON.parse(line));
 }
 
 function runForRef(ref, suiteFilters) {
@@ -120,8 +124,8 @@ try {
 }
 
 // Render per-suite raw results, then a combined summary at the end.
-const ref1BySuite = new Map(ref1Results.map(r => [r.suite, r]));
-const ref2BySuite = new Map(ref2Results.map(r => [r.suite, r]));
+const ref1BySuite = new Map(ref1Results.map((r) => [r.suite, r]));
+const ref2BySuite = new Map(ref2Results.map((r) => [r.suite, r]));
 const allSuites = [...new Set([...ref1BySuite.keys(), ...ref2BySuite.keys()])];
 
 for (const suite of allSuites) {

@@ -27,19 +27,22 @@ describe("API: runScripts constructor option", () => {
       assert.equal(dom.window.prop, undefined);
     });
 
-    it("should execute <script>s and eval when set to \"dangerously\"", () => {
-      const dom = new JSDOM(`<body>
+    it('should execute <script>s and eval when set to "dangerously"', () => {
+      const dom = new JSDOM(
+        `<body>
         <script>document.body.appendChild(document.createElement("hr"));</script>
-      </body>`, { runScripts: "dangerously" });
+      </body>`,
+        { runScripts: "dangerously" },
+      );
       dom.window.eval(`document.body.appendChild(document.createElement("p"));`);
 
       assert.equal(dom.window.document.body.children.length, 3);
     });
 
-    it("should execute <script>s with correct location when set to \"dangerously\" and includeNodeLocations", () => {
+    it('should execute <script>s with correct location when set to "dangerously" and includeNodeLocations', () => {
       const virtualConsole = new VirtualConsole();
       const promise = new Promise((resolve, reject) => {
-        virtualConsole.on("jsdomError", err => {
+        virtualConsole.on("jsdomError", (err) => {
           try {
             assert.equal(err.type, "unhandled-exception");
             assert.equal(err.cause.stack.includes("at about:blank:2"), true);
@@ -51,23 +54,29 @@ describe("API: runScripts constructor option", () => {
       });
 
       // eslint-disable-next-line no-new
-      new JSDOM(`<body>
+      new JSDOM(
+        `<body>
         <script>throw new Error();</script>
-      </body>`, { runScripts: "dangerously", includeNodeLocations: true, virtualConsole });
+      </body>`,
+        { runScripts: "dangerously", includeNodeLocations: true, virtualConsole },
+      );
 
       return promise;
     });
 
-    it("should only run eval when set to \"outside-only\"", () => {
-      const dom = new JSDOM(`<body>
+    it('should only run eval when set to "outside-only"', () => {
+      const dom = new JSDOM(
+        `<body>
         <script>document.body.appendChild(document.createElement("hr"));</script>
-      </body>`, { runScripts: "outside-only" });
+      </body>`,
+        { runScripts: "outside-only" },
+      );
       dom.window.eval(`document.body.appendChild(document.createElement("p"));`);
 
       assert.equal(dom.window.document.body.children.length, 2);
     });
 
-    it("should ensure eval exists on iframes when set to \"outside-only\"", () => {
+    it('should ensure eval exists on iframes when set to "outside-only"', () => {
       const dom = new JSDOM(`<iframe></iframe>`, { runScripts: "outside-only" });
       const frameWindow = dom.window.document.querySelector("iframe").contentWindow;
 
@@ -76,7 +85,7 @@ describe("API: runScripts constructor option", () => {
       assert.equal(frameWindow.document.body.children.length, 1);
     });
 
-    it("should execute <script>s in iframes when set to \"dangerously\"", () => {
+    it('should execute <script>s in iframes when set to "dangerously"', () => {
       const dom = new JSDOM(`<iframe></iframe>`, { runScripts: "dangerously" });
       const frameWindow = dom.window.document.querySelector("iframe").contentWindow;
 
@@ -93,7 +102,7 @@ describe("API: runScripts constructor option", () => {
     const cases = [
       { runScripts: undefined, childInterface: "HTMLDivElement", textContent: "" },
       { runScripts: "outside-only", childInterface: "HTMLDivElement", textContent: "" },
-      { runScripts: "dangerously", childInterface: "Text", textContent: "<div></div>" }
+      { runScripts: "dangerously", childInterface: "Text", textContent: "<div></div>" },
     ];
 
     for (const { runScripts, childInterface, textContent } of cases) {
@@ -118,10 +127,13 @@ describe("API: runScripts constructor option", () => {
         });
 
         it("should parse loaded iframe contents according to runScripts", async () => {
-          const dom = new JSDOM(`<iframe src="data:text/html,${encodeURIComponent(html)}"></iframe>`, {
-            runScripts,
-            resources: "usable"
-          });
+          const dom = new JSDOM(
+            `<iframe src="data:text/html,${encodeURIComponent(html)}"></iframe>`,
+            {
+              runScripts,
+              resources: "usable",
+            },
+          );
           await once(dom.window, "load");
 
           assertNoscriptContents(dom.window.document.querySelector("iframe").contentWindow);
@@ -163,7 +175,7 @@ describe("API: runScripts constructor option", () => {
           return new JSDOM(
             `<body onload="document.body.onloadRan = true;" onhashchange="document.body.onhashchangeRan = true;">
              <div onclick="document.body.onclickRan = true;"></div>`,
-            { runScripts: optionValue, url: "https://example.com/" } // url set for hashchange tests
+            { runScripts: optionValue, url: "https://example.com/" }, // url set for hashchange tests
           );
         }
 
@@ -213,14 +225,20 @@ describe("API: runScripts constructor option", () => {
           it("should still parse the handler as an attribute", () => {
             const { body } = createJSDOMWithParsedHandlers().window.document;
 
-            assert.equal(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
+            assert.equal(
+              body.getAttribute("onhashchange"),
+              "document.body.onhashchangeRan = true;",
+            );
           });
         });
 
         describe("body onhashchange handler set via setAttribute", () => {
           it("should not evaluate the handler", () => {
             const dom = createJSDOM();
-            dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
+            dom.window.document.body.setAttribute(
+              "onhashchange",
+              "document.body.onhashchangeRan = true;",
+            );
 
             const hashchange = once(dom.window, "hashchange");
             dom.window.location.href = "#foo";
@@ -231,7 +249,10 @@ describe("API: runScripts constructor option", () => {
 
           it("should not generate the body or Window property", () => {
             const dom = createJSDOM();
-            dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
+            dom.window.document.body.setAttribute(
+              "onhashchange",
+              "document.body.onhashchangeRan = true;",
+            );
 
             assert.equal(dom.window.document.body.onhashchange, null);
             assert.equal(dom.window.onhashchange, null);
@@ -241,7 +262,10 @@ describe("API: runScripts constructor option", () => {
             const { body } = createJSDOM().window.document;
             body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
-            assert.equal(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
+            assert.equal(
+              body.getAttribute("onhashchange"),
+              "document.body.onhashchangeRan = true;",
+            );
           });
         });
 
@@ -300,7 +324,7 @@ describe("API: runScripts constructor option", () => {
       });
     }
 
-    describe("when set to \"dangerously\"", () => {
+    describe('when set to "dangerously"', () => {
       function createJSDOM() {
         return new JSDOM(`<div>`, { runScripts: "dangerously" });
       }
@@ -308,7 +332,7 @@ describe("API: runScripts constructor option", () => {
         return new JSDOM(
           `<body onload="document.body.onloadRan = true;" onhashchange="document.body.onhashchangeRan = true;">
             <div onclick="document.body.onclickRan = true;"></div>`,
-          { runScripts: "dangerously", url: "https://example.com/" } // url set for hashchange tests
+          { runScripts: "dangerously", url: "https://example.com/" }, // url set for hashchange tests
         );
       }
 
@@ -365,7 +389,10 @@ describe("API: runScripts constructor option", () => {
       describe("body onhashchange handler set via setAttribute", () => {
         it("should evaluate the handler", () => {
           const dom = createJSDOM();
-          dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
+          dom.window.document.body.setAttribute(
+            "onhashchange",
+            "document.body.onhashchangeRan = true;",
+          );
 
           const hashchange = once(dom.window, "hashchange");
           dom.window.location.href = "#foo";
@@ -376,7 +403,10 @@ describe("API: runScripts constructor option", () => {
 
         it("should generate the body and Window property", () => {
           const dom = createJSDOM();
-          dom.window.document.body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
+          dom.window.document.body.setAttribute(
+            "onhashchange",
+            "document.body.onhashchangeRan = true;",
+          );
 
           assert.equal(typeof dom.window.document.body.onhashchange, "function");
           assert.equal(typeof dom.window.onhashchange, "function");
@@ -546,7 +576,11 @@ function assertAliasedGlobal(window, globalName) {
   const globalPropDesc = Object.getOwnPropertyDescriptor(global);
 
   assert.equal(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value`);
-  assert.equal(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
+  assert.equal(
+    windowPropDesc.configurable,
+    globalPropDesc.configurable,
+    `${globalName} configurable`,
+  );
   assert.equal(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
   assert.equal(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
 }
@@ -556,11 +590,23 @@ function assertFreshGlobal(window, globalName) {
   const globalPropDesc = Object.getOwnPropertyDescriptor(global);
 
   if (isObject(globalPropDesc.value)) {
-    assert.equal(Object.is(windowPropDesc.value, globalPropDesc.value), false, `${globalName} value inequality`);
+    assert.equal(
+      Object.is(windowPropDesc.value, globalPropDesc.value),
+      false,
+      `${globalName} value inequality`,
+    );
   } else {
-    assert.equal(Object.is(windowPropDesc.value, globalPropDesc.value), true, `${globalName} value equality`);
+    assert.equal(
+      Object.is(windowPropDesc.value, globalPropDesc.value),
+      true,
+      `${globalName} value equality`,
+    );
   }
-  assert.equal(windowPropDesc.configurable, globalPropDesc.configurable, `${globalName} configurable`);
+  assert.equal(
+    windowPropDesc.configurable,
+    globalPropDesc.configurable,
+    `${globalName} configurable`,
+  );
   assert.equal(windowPropDesc.enumerable, globalPropDesc.enumerable, `${globalName} enumerable`);
   assert.equal(windowPropDesc.writable, globalPropDesc.writable, `${globalName} writable`);
 }

@@ -1,5 +1,5 @@
-import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 
 function isMember(node, property) {
   return node.type === "MemberExpression" && !node.computed && node.property.name === property;
@@ -23,15 +23,22 @@ function findBinding(program, name) {
 
 function findImplementation(program) {
   for (const statement of program.body) {
-    if (statement.type !== "ExpressionStatement" || statement.expression.type !== "AssignmentExpression") {
+    if (
+      statement.type !== "ExpressionStatement" ||
+      statement.expression.type !== "AssignmentExpression"
+    ) {
       continue;
     }
     const { left, right } = statement.expression;
     if (isMember(left, "implementation") && left.object.name === "exports") {
       return right;
     }
-    if (isMember(left, "exports") && left.object.name === "module" && right.type === "ObjectExpression") {
-      return right.properties.find(property => property.key.name === "implementation")?.value;
+    if (
+      isMember(left, "exports") &&
+      left.object.name === "module" &&
+      right.type === "ObjectExpression"
+    ) {
+      return right.properties.find((property) => property.key.name === "implementation")?.value;
     }
   }
   return null;
@@ -51,9 +58,14 @@ export function createInheritanceChecker(context) {
       const binding = findBinding(module.program, expression.name);
       return resolveModule(binding, module, seen);
     }
-    if (expression.type !== "CallExpression" || expression.callee.name !== "require" ||
-        expression.arguments.length !== 1 || expression.arguments[0].type !== "Literal" ||
-        typeof expression.arguments[0].value !== "string" || !expression.arguments[0].value.startsWith(".")) {
+    if (
+      expression.type !== "CallExpression" ||
+      expression.callee.name !== "require" ||
+      expression.arguments.length !== 1 ||
+      expression.arguments[0].type !== "Literal" ||
+      typeof expression.arguments[0].value !== "string" ||
+      !expression.arguments[0].value.startsWith(".")
+    ) {
       return null;
     }
     const filename = createRequire(module.filename).resolve(expression.arguments[0].value);
@@ -66,8 +78,8 @@ export function createInheritanceChecker(context) {
           loc: true,
           range: true,
           tokens: true,
-          comment: true
-        })
+          comment: true,
+        }),
       });
     }
     return modules.get(filename);

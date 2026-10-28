@@ -10,8 +10,14 @@ const transformer = new Webidl2js({
   implSuffix: "-impl",
   suppressErrors: true,
   processCEReactions(code) {
-    const preSteps = this.addImport("../../jsdom/living/helpers/custom-elements", "ceReactionsPreSteps");
-    const postSteps = this.addImport("../../jsdom/living/helpers/custom-elements", "ceReactionsPostSteps");
+    const preSteps = this.addImport(
+      "../../jsdom/living/helpers/custom-elements",
+      "ceReactionsPreSteps",
+    );
+    const postSteps = this.addImport(
+      "../../jsdom/living/helpers/custom-elements",
+      "ceReactionsPostSteps",
+    );
 
     return `
       ${preSteps}(globalObject);
@@ -23,23 +29,26 @@ const transformer = new Webidl2js({
     `;
   },
   processHTMLConstructor() {
-    const identifier = this.addImport("../../jsdom/living/helpers/html-constructor", "HTMLConstructor");
+    const identifier = this.addImport(
+      "../../jsdom/living/helpers/html-constructor",
+      "HTMLConstructor",
+    );
 
     return `
       return ${identifier}(globalObject, interfaceName, new.target);
     `;
   },
   processReflect(idl, implObj) {
-    const reflectStyle = idl.extAttrs.find(attribute => attribute.name === "ReflectStyle");
+    const reflectStyle = idl.extAttrs.find((attribute) => attribute.name === "ReflectStyle");
     if (reflectStyle) {
       const property = reflectStyle.rhs.value;
       return {
         get: `return ${implObj}.getPropertyValue(${property});`,
-        set: `${implObj}.setProperty(${property}, V, "");`
+        set: `${implObj}.setProperty(${property}, V, "");`,
       };
     }
     return processReflect(this, idl, implObj);
-  }
+  },
 });
 
 function addDir(dir) {
@@ -55,7 +64,7 @@ addDir("../../lib/jsdom/living/crypto");
 addDir("../../lib/jsdom/living/css");
 transformer.addSource(
   path.resolve(__dirname, "../../lib/generated/css-webidl"),
-  path.resolve(__dirname, "../../lib/jsdom/living/css")
+  path.resolve(__dirname, "../../lib/jsdom/living/css"),
 );
 addDir("../../lib/jsdom/living/custom-elements");
 addDir("../../lib/jsdom/living/deviceorientation");
@@ -85,8 +94,7 @@ const outputDir = path.resolve(__dirname, "../../lib/generated/idl/");
 fs.rmSync(outputDir, { force: true, recursive: true, maxRetries: 2 });
 fs.mkdirSync(outputDir, { recursive: true });
 
-transformer.generate(outputDir)
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+transformer.generate(outputDir).catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

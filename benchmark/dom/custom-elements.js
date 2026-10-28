@@ -59,7 +59,9 @@ function addCustomElementControls(bench) {
   const { document } = window;
 
   window.customElements.define("benchmark-element", class extends window.HTMLElement {});
-  window.customElements.define("benchmark-button", class extends window.HTMLButtonElement {}, { extends: "button" });
+  window.customElements.define("benchmark-button", class extends window.HTMLButtonElement {}, {
+    extends: "button",
+  });
 
   bench.add(`createElement(): ${ELEMENTS} defined autonomous custom elements`, () => {
     for (let i = 0; i < ELEMENTS; ++i) {

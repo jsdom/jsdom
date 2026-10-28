@@ -9,7 +9,7 @@ module.exports = () => {
   // Best case for the cache: only one element with this ID, so get() returns the cached element directly.
   {
     const ELEMENTS = 1000;
-    const { document } = (new JSDOM()).window;
+    const { document } = new JSDOM().window;
     for (let i = 0; i < ELEMENTS; i++) {
       const el = document.createElement("div");
       el.id = `el-${i}`;
@@ -26,7 +26,7 @@ module.exports = () => {
   {
     const DUPLICATES = 10;
     const ELEMENTS = 1000;
-    const { document } = (new JSDOM()).window;
+    const { document } = new JSDOM().window;
     for (let i = 0; i < ELEMENTS; i++) {
       const el = document.createElement("div");
       el.id = i < DUPLICATES ? "dup" : `el-${i}`;
@@ -42,7 +42,7 @@ module.exports = () => {
   // Tests that cache invalidation (add/delete) doesn't introduce regressions in mutation-heavy workloads.
   {
     const ELEMENTS = 1000;
-    const { document } = (new JSDOM()).window;
+    const { document } = new JSDOM().window;
     const container = document.createElement("div");
     document.body.appendChild(container);
     for (let i = 0; i < ELEMENTS; i++) {
@@ -63,22 +63,26 @@ module.exports = () => {
   // Common pattern: build up a document, then query by ID.
   {
     const ELEMENTS = 200;
-    const { document } = (new JSDOM()).window;
+    const { document } = new JSDOM().window;
 
-    bench.add(`bulk insert ${ELEMENTS} + getElementById`, () => {
-      const frag = document.createDocumentFragment();
-      for (let i = 0; i < ELEMENTS; i++) {
-        const el = document.createElement("div");
-        el.id = `item-${i}`;
-        frag.appendChild(el);
-      }
-      document.body.appendChild(frag);
-      document.getElementById("item-100");
-    }, {
-      afterEach() {
-        document.body.innerHTML = "";
-      }
-    });
+    bench.add(
+      `bulk insert ${ELEMENTS} + getElementById`,
+      () => {
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < ELEMENTS; i++) {
+          const el = document.createElement("div");
+          el.id = `item-${i}`;
+          frag.appendChild(el);
+        }
+        document.body.appendChild(frag);
+        document.getElementById("item-100");
+      },
+      {
+        afterEach() {
+          document.body.innerHTML = "";
+        },
+      },
+    );
   }
 
   return bench;

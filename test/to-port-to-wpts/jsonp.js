@@ -17,14 +17,14 @@ describe("jsonp/jsonp", () => {
       res.writeHead(200);
       res.write(url.searchParams.get("jsoncallback") + `({"message":"jsonp works!"});`);
       res.end();
-    }).then(s => {
+    }).then((s) => {
       const host = `http://127.0.0.1:${s.address().port}`;
       const options = { resources: "usable", runScripts: "dangerously" };
       const { window } = new JSDOM(`<script src="file://${jQueryFile}"></script>`, options);
 
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         window.onload = () => {
-          window.jQuery.getJSON(host + "?jsoncallback=?", data => {
+          window.jQuery.getJSON(host + "?jsoncallback=?", (data) => {
             assert.equal(data.message, "jsonp works!");
             s.destroy();
             resolve();

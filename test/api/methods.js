@@ -20,11 +20,13 @@ describe("API: JSDOM class's methods", () => {
     });
 
     it("should serialize a document with HTML correctly", () => {
-      const dom = new JSDOM(`<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`);
+      const dom = new JSDOM(
+        `<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`,
+      );
 
       assert.equal(
         dom.serialize(),
-        `<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`
+        `<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`,
       );
     });
 
@@ -34,10 +36,10 @@ describe("API: JSDOM class's methods", () => {
         "<html><BODY></Body></HTML>",
         "<html><body></body></html>",
         "<body></body>",
-        ""
+        "",
       ];
 
-      const outputs = inputs.map(input => (new JSDOM(input)).serialize());
+      const outputs = inputs.map((input) => new JSDOM(input).serialize());
 
       for (const output of outputs) {
         assert.equal(output, `<html><head></head><body></body></html>`);
@@ -71,8 +73,22 @@ describe("API: JSDOM class's methods", () => {
         startCol: 1,
         startOffset: 0,
         endOffset: 12,
-        startTag: { endCol: 4, endLine: 1, startLine: 1, startCol: 1, startOffset: 0, endOffset: 3 },
-        endTag: { endCol: 13, endLine: 1, startLine: 1, startCol: 9, startOffset: 8, endOffset: 12 }
+        startTag: {
+          endCol: 4,
+          endLine: 1,
+          startLine: 1,
+          startCol: 1,
+          startOffset: 0,
+          endOffset: 3,
+        },
+        endTag: {
+          endCol: 13,
+          endLine: 1,
+          startLine: 1,
+          startCol: 9,
+          startOffset: 8,
+          endOffset: 12,
+        },
       });
     });
 
@@ -86,14 +102,17 @@ describe("API: JSDOM class's methods", () => {
         startLine: 1,
         startCol: 4,
         startOffset: 3,
-        endOffset: 8
+        endOffset: 8,
       });
     });
 
     it("should give the correct location for a void element", () => {
-      const dom = new JSDOM(`<p>Hello
+      const dom = new JSDOM(
+        `<p>Hello
         <img src="foo.jpg">
-      </p>`, { includeNodeLocations: true });
+      </p>`,
+        { includeNodeLocations: true },
+      );
       const node = dom.window.document.querySelector("img");
 
       assert.deepEqual(dom.nodeLocation(node), {
@@ -106,15 +125,15 @@ describe("API: JSDOM class's methods", () => {
               startLine: 2,
               startCol: 14,
               startOffset: 22,
-              endOffset: 35
-            }
+              endOffset: 35,
+            },
           },
           endCol: 28,
           endLine: 2,
           startLine: 2,
           startCol: 9,
           startOffset: 17,
-          endOffset: 36
+          endOffset: 36,
         },
         attrs: {
           __proto__: null,
@@ -124,15 +143,15 @@ describe("API: JSDOM class's methods", () => {
             startLine: 2,
             startCol: 14,
             startOffset: 22,
-            endOffset: 35
-          }
+            endOffset: 35,
+          },
         },
         endCol: 28,
         endLine: 2,
         startLine: 2,
         startCol: 9,
         startOffset: 17,
-        endOffset: 36
+        endOffset: 36,
       });
     });
 
@@ -179,7 +198,7 @@ describe("API: JSDOM class's methods", () => {
       assert.equal(dom.window.ran, undefined);
     });
 
-    it("should work when runScripts is set to \"outside-only\"", () => {
+    it('should work when runScripts is set to "outside-only"', () => {
       const dom = new JSDOM(``, { runScripts: "outside-only" });
       const script = new vm.Script("this.ran = true;");
 
@@ -188,7 +207,7 @@ describe("API: JSDOM class's methods", () => {
       assert.equal(dom.window.ran, true);
     });
 
-    it("should work when runScripts is set to \"dangerously\"", () => {
+    it('should work when runScripts is set to "dangerously"', () => {
       const dom = new JSDOM(``, { runScripts: "dangerously" });
       const script = new vm.Script("this.ran = true;");
 
@@ -223,7 +242,7 @@ describe("API: JSDOM class's methods", () => {
 
       assert.throws(
         () => script.runInContext(dom.getInternalVMContext(), { timeout: 50 }),
-        /Script execution timed out(?: after 50ms|\.)/
+        /Script execution timed out(?: after 50ms|\.)/,
       );
     });
   });
@@ -240,7 +259,9 @@ describe("API: JSDOM class's methods", () => {
       });
 
       it("should reconfigure the window.top property (tested from the inside)", () => {
-        const dom = new JSDOM(`<script>window.getTopResult = () => top.is;</script>`, { runScripts: "dangerously" });
+        const dom = new JSDOM(`<script>window.getTopResult = () => top.is;</script>`, {
+          runScripts: "dangerously",
+        });
         const newTop = { is: "top" };
 
         dom.reconfigure({ windowTop: newTop });
@@ -251,7 +272,7 @@ describe("API: JSDOM class's methods", () => {
       it("should do nothing when no options are passed", () => {
         const dom = new JSDOM();
 
-        dom.reconfigure({ });
+        dom.reconfigure({});
 
         assert.equal(dom.window.top, dom.window);
       });
@@ -310,14 +331,13 @@ describe("API: JSDOM class's methods", () => {
         testFail(undefined);
       });
 
-
       it("should not throw and not impact the URL when no url option is given", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
         const { window } = dom;
 
         assert.equal(window.document.URL, "http://example.com/");
 
-        assert.doesNotThrow(() => dom.reconfigure({ }));
+        assert.doesNotThrow(() => dom.reconfigure({}));
 
         assert.equal(window.location.href, "http://example.com/");
         assert.equal(window.document.URL, "http://example.com/");

@@ -16,31 +16,39 @@ module.exports = () => {
 
     // Restore the trees outside the timed region. Repeated mutations at the end
     // invalidate sibling-index caches and expose unnecessary rescans.
-    bench.add(`removeChild: last of 1000 siblings, ${suffix}`, () => {
-      while (removalParent.lastChild) {
-        removalParent.removeChild(removalParent.lastChild);
-      }
-    }, {
-      beforeEach() {
-        removalParent.replaceChildren(...removalChildren);
-        if (liveRange) {
-          removalRange.selectNodeContents(removalParent);
+    bench.add(
+      `removeChild: last of 1000 siblings, ${suffix}`,
+      () => {
+        while (removalParent.lastChild) {
+          removalParent.removeChild(removalParent.lastChild);
         }
-      }
-    });
+      },
+      {
+        beforeEach() {
+          removalParent.replaceChildren(...removalChildren);
+          if (liveRange) {
+            removalRange.selectNodeContents(removalParent);
+          }
+        },
+      },
+    );
 
-    bench.add(`insertBefore: 1000 siblings before last child, ${suffix}`, () => {
-      for (const child of insertionChildren) {
-        insertionParent.insertBefore(child, reference);
-      }
-    }, {
-      beforeEach() {
-        insertionParent.replaceChildren(reference);
-        if (liveRange) {
-          insertionRange.selectNodeContents(insertionParent);
+    bench.add(
+      `insertBefore: 1000 siblings before last child, ${suffix}`,
+      () => {
+        for (const child of insertionChildren) {
+          insertionParent.insertBefore(child, reference);
         }
-      }
-    });
+      },
+      {
+        beforeEach() {
+          insertionParent.replaceChildren(reference);
+          if (liveRange) {
+            insertionRange.selectNodeContents(insertionParent);
+          }
+        },
+      },
+    );
   }
 
   return bench;

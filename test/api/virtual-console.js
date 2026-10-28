@@ -23,7 +23,7 @@ const consoleMethods = [
   "timeLog",
   "timeEnd",
   "trace",
-  "warn"
+  "warn",
 ];
 
 describe("API: virtual consoles", () => {
@@ -54,7 +54,7 @@ describe("API: virtual consoles", () => {
     const virtualConsole = new VirtualConsole();
 
     const messages = [];
-    virtualConsole.on("log", message => messages.push(message));
+    virtualConsole.on("log", (message) => messages.push(message));
 
     const dom = new JSDOM(`<iframe></iframe>`, { virtualConsole });
     dom.window.console.log("from the parent");
@@ -83,19 +83,22 @@ describe("API: virtual consoles", () => {
     const insertedStyle = createStyle("inserted light child");
 
     const errors = [];
-    virtualConsole.on("jsdomError", error => errors.push(error));
+    virtualConsole.on("jsdomError", (error) => errors.push(error));
     // CSS errors are synchronous: this runs while visiting the nested shadow tree.
     virtualConsole.once("jsdomError", () => root.prepend(insertedStyle));
 
     document.body.appendChild(root);
 
-    assert(errors.every(error => error.type === "css-parsing"));
-    assert.deepEqual(errors.map(error => error.sheetText), [
-      innerStyle.textContent,
-      insertedStyle.textContent,
-      hostStyle.textContent,
-      rootStyle.textContent
-    ]);
+    assert(errors.every((error) => error.type === "css-parsing"));
+    assert.deepEqual(
+      errors.map((error) => error.sheetText),
+      [
+        innerStyle.textContent,
+        insertedStyle.textContent,
+        hostStyle.textContent,
+        rootStyle.textContent,
+      ],
+    );
     assert.equal(root.firstChild, insertedStyle);
     for (const style of [innerStyle, insertedStyle, hostStyle, rootStyle]) {
       assert.notEqual(style.sheet, null);
@@ -138,13 +141,17 @@ describe("API: virtual consoles", () => {
             assert.equal(arg2, 2);
             assert.equal(arg3, true);
             assert.equal(arg4, null);
-          }
+          },
         };
         virtualConsole.forwardTo(destinationConsole);
 
         dom.window.console[method]("1", 2, true, null);
 
-        assert.equal(called, true, `The method ${method} on the destination console must have been called`);
+        assert.equal(
+          called,
+          true,
+          `The method ${method} on the destination console must have been called`,
+        );
       });
     }
 
@@ -158,11 +165,11 @@ describe("API: virtual consoles", () => {
     describe("jsdom errors", () => {
       it("should forward to the error() method by default, sending the message for most types", () => {
         let calledTimes = 0;
-        const virtualConsole = (new VirtualConsole()).forwardTo({
+        const virtualConsole = new VirtualConsole().forwardTo({
           error(...args) {
             assert.deepEqual(args, ["Test message"]);
             ++calledTimes;
-          }
+          },
         });
 
         const typesToTest = ["css-parsing", "not-implemented", "resource-loading"];
@@ -174,71 +181,94 @@ describe("API: virtual consoles", () => {
         assert.equal(
           calledTimes,
           typesToTest.length,
-          "The error method on the destination console must have been called for each type"
+          "The error method on the destination console must have been called for each type",
         );
       });
 
-      it("should forward \"unhandled-exception\"s to the error() method by default, sending the cause stack", () => {
+      it('should forward "unhandled-exception"s to the error() method by default, sending the cause stack', () => {
         const cause = new Error("Test cause");
         const e = new Error("Test message", { cause });
         e.type = "unhandled-exception";
 
         let called = false;
-        const virtualConsole = (new VirtualConsole()).forwardTo({
+        const virtualConsole = new VirtualConsole().forwardTo({
           error(...args) {
             assert.deepEqual(args, [e.cause.stack]);
             called = true;
-          }
+          },
         });
 
         virtualConsole.emit("jsdomError", e);
-        assert.equal(called, true, "The error method on the destination console must have been called");
+        assert.equal(
+          called,
+          true,
+          "The error method on the destination console must have been called",
+        );
       });
 
-      it("should not forward to the error method when set to \"none\"", () => {
+      it('should not forward to the error method when set to "none"', () => {
         let called = false;
-        const virtualConsole = (new VirtualConsole()).forwardTo({
-          error() {
-            called = true;
-          }
-        }, { jsdomErrors: "none" });
+        const virtualConsole = new VirtualConsole().forwardTo(
+          {
+            error() {
+              called = true;
+            },
+          },
+          { jsdomErrors: "none" },
+        );
 
-        const typesToTest = ["css-parsing", "not-implemented", "resource-loading", "unhandled-exception", "bogus-type"];
+        const typesToTest = [
+          "css-parsing",
+          "not-implemented",
+          "resource-loading",
+          "unhandled-exception",
+          "bogus-type",
+        ];
         for (const type of typesToTest) {
           const e = new Error("Test message");
           e.type = type;
           virtualConsole.emit("jsdomError", e);
         }
 
-        assert.equal(called, false, "The error method on the destination console must *not* have been called");
+        assert.equal(
+          called,
+          false,
+          "The error method on the destination console must *not* have been called",
+        );
       });
 
       it("should only forward specific types when they are specified as an array", () => {
         const typesToForward = ["css-parsing", "not-implemented"];
 
         const records = [];
-        const virtualConsole = (new VirtualConsole()).forwardTo({
-          error(...args) {
-            records.push(args);
-          }
-        }, { jsdomErrors: typesToForward });
+        const virtualConsole = new VirtualConsole().forwardTo(
+          {
+            error(...args) {
+              records.push(args);
+            },
+          },
+          { jsdomErrors: typesToForward },
+        );
 
-        const typesToTest = ["css-parsing", "not-implemented", "resource-loading", "unhandled-exception", "bogus-type"];
+        const typesToTest = [
+          "css-parsing",
+          "not-implemented",
+          "resource-loading",
+          "unhandled-exception",
+          "bogus-type",
+        ];
         for (const type of typesToTest) {
           const e = new Error(type);
           e.type = type;
           virtualConsole.emit("jsdomError", e);
         }
 
-        assert.deepEqual(records, [
-          ["css-parsing"],
-          ["not-implemented"]
-        ]);
+        assert.deepEqual(records, [["css-parsing"], ["not-implemented"]]);
       });
 
       it("should not accept an invalid jsdomErrors option", () => {
         assert.throws(() => {
-          (new VirtualConsole()).forwardTo({}, { jsdomErrors: "not an array or none" });
+          new VirtualConsole().forwardTo({}, { jsdomErrors: "not an array or none" });
         }, TypeError);
       });
     });

@@ -6,7 +6,7 @@ module.exports = () => {
   const bench = new Bench();
 
   function addTask(controlCount, labelCount, readCount) {
-    const { document } = (new JSDOM()).window;
+    const { document } = new JSDOM().window;
     const inputs = [];
 
     for (let i = 0; i < controlCount; i++) {
@@ -23,14 +23,17 @@ module.exports = () => {
       inputs.push(input);
     }
 
-    bench.add(`read labels for ${readCount}/${controlCount} controls after mutation (${labelCount} labels)`, () => {
-      document.body.toggleAttribute("data-mutated");
-      let labels = 0;
-      for (let i = 0; i < readCount; i++) {
-        labels += inputs[i].labels.length;
-      }
-      return labels;
-    });
+    bench.add(
+      `read labels for ${readCount}/${controlCount} controls after mutation (${labelCount} labels)`,
+      () => {
+        document.body.toggleAttribute("data-mutated");
+        let labels = 0;
+        for (let i = 0; i < readCount; i++) {
+          labels += inputs[i].labels.length;
+        }
+        return labels;
+      },
+    );
   }
 
   addTask(100, 100, 1);

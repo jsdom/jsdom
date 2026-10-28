@@ -5,9 +5,10 @@
   "keywords": [
     "dom",
     "html",
-    "whatwg",
-    "w3c"
+    "w3c",
+    "whatwg"
   ],
+  "license": "MIT",
   "maintainers": [
     "Elijah Insua <tmpvar@gmail.com> (http://tmpvar.com)",
     "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
@@ -17,63 +18,12 @@
     "Magne Andersson <code@zirro.se> (https://zirro.se/)",
     "Pierre-Marie Dartus <dartus.pierremarie@gmail.com>"
   ],
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
-  "dependencies": {
-    "@exodus/bytes": "^1.16.0",
-    "bcp-47": "^2.1.2",
-    "bcp-47-match": "^2.0.3",
-    "data-urls": "^8.0.0",
-    "decimal.js": "^10.6.0",
-    "html-encoding-sniffer": "^7.0.0",
-    "is-potential-custom-element-name": "^1.0.1",
-    "lru-cache": "^11.5.3",
-    "parse5": "^8.0.1",
-    "parse5-parser-stream": "^8.0.0",
-    "saxes": "^6.0.0",
-    "tough-cookie": "^6.0.2",
-    "undici": "^8.12.1",
-    "w3c-xmlserializer": "^6.0.0",
-    "webidl-conversions": "^8.0.1",
-    "whatwg-mimetype": "^5.0.0",
-    "whatwg-url": "^17.2.0",
-    "xml-name-validator": "^5.0.0"
-  },
-  "peerDependencies": {
-    "canvas": "^3.2.3"
-  },
-  "peerDependenciesMeta": {
-    "canvas": {
-      "optional": true
-    }
-  },
-  "devDependencies": {
-    "@csstools/css-syntax-patches-for-csstree": "^1.1.15",
-    "@domenic/eslint-config": "^5.1.0",
-    "@stylistic/eslint-plugin": "^5.10.0",
-    "@unicode/unicode-17.0.0": "^2.0.8",
-    "@webref/css": "^8.7.7",
-    "css-tree": "^3.2.1",
-    "eslint": "^10.12.0",
-    "eslint-plugin-html": "^8.2.1",
-    "eslint-plugin-n": "^18.4.1",
-    "globals": "^17.13.0",
-    "js-yaml": "^5.4.2",
-    "language-subtag-registry": "^0.4.2",
-    "mocha": "^12.0.3",
-    "mocha-sugar-free": "^1.4.0",
-    "npm-run-all2": "^9.0.3",
-    "opener": "^1.5.2",
-    "semver": "^7.8.5",
-    "server-destroy": "^1.0.1",
-    "tinybench": "^6.2.0",
-    "webidl2": "^24.5.0",
-    "webidl2js": "^21.1.0",
-    "wireit": "^0.14.13"
-  },
+  "type": "commonjs",
+  "main": "./lib/api.js",
   "scripts": {
     "prepare": "wireit",
     "prepare:convert-idl": "wireit",
@@ -88,7 +38,11 @@
     "test:tuwpt": "mocha test/web-platform-tests/run-tuwpts.js",
     "test:tuwpt:browser": "node scripts/verify-tuwpts-in-browser.js",
     "test:wpt": "mocha test/web-platform-tests/run-wpts.js",
+    "check": "npm run lint && npm run fmt:check",
     "lint": "eslint --cache",
+    "lint:fix": "eslint --cache --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
     "wpt:init": "git submodule update --init --recursive",
     "wpt:reset": "rm -rf ./test/web-platform-tests/tests && npm run wpt:init",
     "wpt:update": "git submodule update --init --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
@@ -146,8 +100,59 @@
       "command": "node ./scripts/generate-css-data.mjs"
     }
   },
-  "main": "./lib/api.js",
-  "type": "commonjs",
+  "dependencies": {
+    "@exodus/bytes": "^1.16.0",
+    "bcp-47": "^2.1.2",
+    "bcp-47-match": "^2.0.3",
+    "data-urls": "^8.0.0",
+    "decimal.js": "^10.6.0",
+    "html-encoding-sniffer": "^7.0.0",
+    "is-potential-custom-element-name": "^1.0.1",
+    "lru-cache": "^11.5.3",
+    "parse5": "^8.0.1",
+    "parse5-parser-stream": "^8.0.0",
+    "saxes": "^6.0.0",
+    "tough-cookie": "^6.0.2",
+    "undici": "^8.12.1",
+    "w3c-xmlserializer": "^6.0.0",
+    "webidl-conversions": "^8.0.1",
+    "whatwg-mimetype": "^5.0.0",
+    "whatwg-url": "^17.2.0",
+    "xml-name-validator": "^5.0.0"
+  },
+  "devDependencies": {
+    "@csstools/css-syntax-patches-for-csstree": "^1.1.15",
+    "@domenic/eslint-config": "^6.1.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@unicode/unicode-17.0.0": "^2.0.8",
+    "@webref/css": "^8.7.7",
+    "css-tree": "^3.2.1",
+    "eslint": "^10.13.0",
+    "eslint-plugin-html": "^8.2.1",
+    "eslint-plugin-n": "^18.4.1",
+    "globals": "^17.13.0",
+    "js-yaml": "^5.4.2",
+    "language-subtag-registry": "^0.4.2",
+    "mocha": "^12.0.3",
+    "mocha-sugar-free": "^1.4.0",
+    "npm-run-all2": "^9.0.3",
+    "opener": "^1.5.2",
+    "oxfmt": "0.75.0",
+    "semver": "^7.8.5",
+    "server-destroy": "^1.0.1",
+    "tinybench": "^6.2.0",
+    "webidl2": "^24.5.0",
+    "webidl2js": "^21.1.0",
+    "wireit": "^0.14.13"
+  },
+  "peerDependencies": {
+    "canvas": "^3.2.3"
+  },
+  "peerDependenciesMeta": {
+    "canvas": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
   }

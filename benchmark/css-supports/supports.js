@@ -40,7 +40,7 @@ module.exports = () => {
     "aspect-ratio: 16/9",
     "scroll-behavior: smooth",
     "(transform-style: preserve-3d) or (-webkit-transform-style: preserve-3d)",
-    "color: color(display-p3 1 0.5 0)"
+    "color: color(display-p3 1 0.5 0)",
   ];
   bench.add("Real-world: Modernizr-like startup batch (9 queries)", () => {
     for (const query of modernizrQueries) {

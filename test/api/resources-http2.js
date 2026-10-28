@@ -28,7 +28,9 @@ describe("API: HTTP/2 resource loading", () => {
           break;
         case "/page/index.html":
           res.writeHead(200, { "Content-Type": "text/html" });
-          res.end(`<!DOCTYPE html><link rel="stylesheet" href="style.css"><script src="script.js"></script>`);
+          res.end(
+            `<!DOCTYPE html><link rel="stylesheet" href="style.css"><script src="script.js"></script>`,
+          );
           break;
         case "/page/style.css":
           res.writeHead(200, { "Content-Type": "text/css" });
@@ -68,16 +70,19 @@ describe("API: HTTP/2 resource loading", () => {
   it("should load relative scripts and stylesheets from an HTTP/2-only server", async () => {
     const dom = await JSDOM.fromURL(serverURL(server, { scheme: "https" }) + "/page/index.html", {
       resources: { dispatcher },
-      runScripts: "dangerously"
+      runScripts: "dangerously",
     });
     await once(dom.window, "load");
 
     assert.equal(dom.window.scriptRan, true);
     assert.equal(dom.window.getComputedStyle(dom.window.document.body).color, "rgb(1, 2, 3)");
-    assert.deepEqual(requests.toSorted((a, b) => a.path.localeCompare(b.path)), [
-      { path: "/page/index.html", version: "2.0" },
-      { path: "/page/script.js", version: "2.0" },
-      { path: "/page/style.css", version: "2.0" }
-    ]);
+    assert.deepEqual(
+      requests.toSorted((a, b) => a.path.localeCompare(b.path)),
+      [
+        { path: "/page/index.html", version: "2.0" },
+        { path: "/page/script.js", version: "2.0" },
+        { path: "/page/style.css", version: "2.0" },
+      ],
+    );
   });
 });

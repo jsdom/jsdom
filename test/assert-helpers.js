@@ -14,13 +14,13 @@ exports.assertThrowsDOMException = (fn, document, name) => {
 
   assert(
     thrownError &&
-    thrownError instanceof document.defaultView.DOMException &&
-    thrownError.name === name &&
-    thrownError.code === expectedCode,
+      thrownError instanceof document.defaultView.DOMException &&
+      thrownError.name === name &&
+      thrownError.code === expectedCode,
     `expected #{this} to throw a window.DOMException with name '${name}' and code '${expectedCode}' but ` +
-    (thrownError ?
-      `#{act} was thrown with name '${thrownError.name}' and code '${thrownError.code}'` :
-      `nothing was thrown`),
-    `expected #{this} to not throw a window.DOMException with name '${name}' and code '${expectedCode}'`
+      (thrownError
+        ? `#{act} was thrown with name '${thrownError.name}' and code '${thrownError.code}'`
+        : `nothing was thrown`),
+    `expected #{this} to not throw a window.DOMException with name '${name}' and code '${expectedCode}'`,
   );
 };

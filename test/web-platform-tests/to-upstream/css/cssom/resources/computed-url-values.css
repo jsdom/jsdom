@@ -14,7 +14,11 @@
   --external-typed-url: url(typed.png);
   --external-raw-url: url(raw.png);
 }
-#inherited { list-style-image: url(inherited.png); }
+#inherited {
+  list-style-image: url(inherited.png);
+}
 @layer external {
-  #rollback { background-image: url(rollback.png); }
+  #rollback {
+    background-image: url(rollback.png);
+  }
 }

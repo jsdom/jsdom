@@ -13,7 +13,7 @@ describe("API: virtual console jsdomErrors", () => {
       const dom = new JSDOM(``, { virtualConsole });
 
       let called = false;
-      virtualConsole.on("jsdomError", error => {
+      virtualConsole.on("jsdomError", (error) => {
         assert(error instanceof Error);
         assert.equal(error.type, "not-implemented");
         assert.equal(error.message, "Not implemented: Window's alert() method");
@@ -32,7 +32,7 @@ describe("API: virtual console jsdomErrors", () => {
       const dom = new JSDOM(``, { virtualConsole, runScripts: "dangerously" });
 
       let called = false;
-      virtualConsole.on("jsdomError", error => {
+      virtualConsole.on("jsdomError", (error) => {
         assert(error instanceof Error);
         assert.equal(error.type, "unhandled-exception");
         assert.equal(error.message, "Uncaught [SyntaxError: foo]");
@@ -52,7 +52,7 @@ describe("API: virtual console jsdomErrors", () => {
     it("should emit an exception thrown in an inline event handler", () => {
       const virtualConsole = new VirtualConsole();
       let called = false;
-      virtualConsole.on("jsdomError", error => {
+      virtualConsole.on("jsdomError", (error) => {
         assert.ok(error instanceof Error);
         assert.equal(error.type, "unhandled-exception");
         assert.equal(error.message, "Uncaught [Error: oh no!]");
@@ -73,7 +73,7 @@ describe("API: virtual console jsdomErrors", () => {
       const virtualConsole = new VirtualConsole();
 
       let called = false;
-      virtualConsole.on("jsdomError", error => {
+      virtualConsole.on("jsdomError", (error) => {
         assert(error instanceof Error);
         assert.equal(error.type, "unhandled-exception");
         assert.equal(error.message, "Uncaught null");
@@ -82,7 +82,7 @@ describe("API: virtual console jsdomErrors", () => {
       });
 
       const html = `<body onclick="throw null"></body>`;
-      const { document } = (new JSDOM(html, { virtualConsole, runScripts: "dangerously" })).window;
+      const { document } = new JSDOM(html, { virtualConsole, runScripts: "dangerously" }).window;
 
       document.body.click();
 
@@ -92,7 +92,7 @@ describe("API: virtual console jsdomErrors", () => {
     it("should emit an Error thrown in sync script execution during parsing", () => {
       const virtualConsole = new VirtualConsole();
       let called = false;
-      virtualConsole.on("jsdomError", error => {
+      virtualConsole.on("jsdomError", (error) => {
         assert.ok(error instanceof Error);
         assert.equal(error.type, "unhandled-exception");
         assert.equal(error.message, "Uncaught [TypeError: oh no!]");
@@ -101,10 +101,10 @@ describe("API: virtual console jsdomErrors", () => {
       });
 
       // eslint-disable-next-line no-new
-      new JSDOM(
-        `<script>throw new TypeError("oh no!")</script>`,
-        { virtualConsole, runScripts: "dangerously" }
-      );
+      new JSDOM(`<script>throw new TypeError("oh no!")</script>`, {
+        virtualConsole,
+        runScripts: "dangerously",
+      });
 
       assert.equal(called, true, `The "jsdomError" event must have been emitted`);
     });
@@ -112,7 +112,7 @@ describe("API: virtual console jsdomErrors", () => {
     it("should emit an non-Error exception thrown in sync script execution during parsing", () => {
       const virtualConsole = new VirtualConsole();
       let called = false;
-      virtualConsole.on("jsdomError", error => {
+      virtualConsole.on("jsdomError", (error) => {
         assert.ok(error instanceof Error);
         assert.equal(error.type, "unhandled-exception");
         assert.equal(error.message, "Uncaught {}");
@@ -130,7 +130,7 @@ describe("API: virtual console jsdomErrors", () => {
     it("should still emit errors when adding an onerror handler", () => {
       const virtualConsole = new VirtualConsole();
       let called = false;
-      virtualConsole.on("jsdomError", error => {
+      virtualConsole.on("jsdomError", (error) => {
         assert.ok(error instanceof Error);
         assert.equal(error.type, "unhandled-exception");
         assert.equal(error.message, "Uncaught [Error: oh no!]");
@@ -176,10 +176,13 @@ describe("API: virtual console jsdomErrors", () => {
       const dom = new JSDOM(``, { virtualConsole });
 
       let called = false;
-      virtualConsole.on("jsdomError", error => {
+      virtualConsole.on("jsdomError", (error) => {
         assert(error instanceof Error);
         assert.equal(error.type, "resource-loading");
-        assert.equal(error.message, `Could not parse CSS @import URL "http:::bar" relative to base URL "about:blank"`);
+        assert.equal(
+          error.message,
+          `Could not parse CSS @import URL "http:::bar" relative to base URL "about:blank"`,
+        );
         assert.equal(error.url, "http:::bar");
         assert(error.cause instanceof Error);
         called = true;

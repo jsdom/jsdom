@@ -11,7 +11,7 @@ const COLLECTIONS = [
   ["elements", "form", "input", 0, true],
   ["elements", "form", "input", 1000, true],
   ["options", "select", "option", 0, true],
-  ["options", "select", "option", 1000, true]
+  ["options", "select", "option", 1000, true],
 ];
 
 module.exports = () => {
@@ -48,7 +48,7 @@ module.exports = () => {
             throw new Error("Unexpected initial collection length");
           }
         },
-        afterAll: removeContainer
+        afterAll: removeContainer,
       });
     }
 
@@ -127,15 +127,19 @@ module.exports = () => {
       return snapshot;
     });
 
-    bench.add(`${prefix}: single namedItem miss on a fresh collection`, () => {
-      if (container.children.namedItem("absent") !== null) {
-        throw new Error("Unexpected named item");
-      }
-    }, {
-      // Exclude DOM construction, but include the first collection access in each sample.
-      beforeEach: createContainer,
-      afterEach: removeContainer
-    });
+    bench.add(
+      `${prefix}: single namedItem miss on a fresh collection`,
+      () => {
+        if (container.children.namedItem("absent") !== null) {
+          throw new Error("Unexpected named item");
+        }
+      },
+      {
+        // Exclude DOM construction, but include the first collection access in each sample.
+        beforeEach: createContainer,
+        afterEach: removeContainer,
+      },
+    );
   }
 
   return bench;

@@ -49,7 +49,7 @@ describe("API: JSDOM.fragment()", () => {
       url: "https://example.org",
       referrer: "https://example.com",
       contentType: "application/xhtml+xml",
-      userAgent: "Mellblomenator/9000"
+      userAgent: "Mellblomenator/9000",
     });
 
     assert.equal(frag.ownerDocument.URL, "about:blank");

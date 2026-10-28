@@ -11,7 +11,8 @@ module.exports = () => {
     for (let i = 0; i < 100; ++i) {
       const parent = document.createElement("div");
       const gap = shape === "adjacent elements" ? "" : "text<!-- comment -->".repeat(4);
-      parent.innerHTML = shape === "no elements" ? gap : `${gap}<span></span>${gap}<span></span>${gap}`;
+      parent.innerHTML =
+        shape === "no elements" ? gap : `${gap}<span></span>${gap}<span></span>${gap}`;
       parents.push(parent);
       firstNodes.push(parent.firstChild);
       lastNodes.push(parent.lastChild);

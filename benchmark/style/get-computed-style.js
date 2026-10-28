@@ -12,7 +12,7 @@ let siblings = [];
 let nested = [];
 
 module.exports = () => {
-  const { document, bench } = documentBench(doc => {
+  const { document, bench } = documentBench((doc) => {
     siblings = [];
     for (let i = 0; i < SIBLINGS; i++) {
       const div = doc.createElement("div");

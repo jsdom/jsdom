@@ -15,8 +15,8 @@ const testCookies = [
   "Test7=Secure; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/; Secure",
   "Test8=Expired; expires=Wed, 13-Jan-1977 22:23:01 GMT; path=/",
   "Test9=Duplicate; One=More; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/",
-  "Test10={\"prop1\":5,\"prop2\":\"value\"}; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/",
-  "Malformed; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/"
+  'Test10={"prop1":5,"prop2":"value"}; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/',
+  "Malformed; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/",
 ];
 
 let testHost, testNonSecureHost;
@@ -33,10 +33,7 @@ describe("Cookie processing", () => {
   });
 
   after(() => {
-    return Promise.all([
-      server.destroy(),
-      nonSecureServer.destroy()
-    ]);
+    return Promise.all([server.destroy(), nonSecureServer.destroy()]);
   });
 
   describe("document.cookie", () => {
@@ -51,8 +48,8 @@ describe("Cookie processing", () => {
         "Test2=PathMatch",
         "Test7=Secure",
         "Test9=Duplicate",
-        "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-        "Malformed"
+        'Test10={"prop1":5,"prop2":"value"}',
+        "Malformed",
       ]);
     });
 
@@ -63,8 +60,8 @@ describe("Cookie processing", () => {
           "Test2=PathMatch",
           "Test7=Secure",
           "Test9=Duplicate",
-          "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-          "Malformed"
+          'Test10={"prop1":5,"prop2":"value"}',
+          "Malformed",
         ]);
       });
     });
@@ -73,20 +70,20 @@ describe("Cookie processing", () => {
       const { window } = new JSDOM(``, {
         url: testHost + "/TestPath/test-page",
         resources: "usable",
-        runScripts: "dangerously"
+        runScripts: "dangerously",
       });
 
       const script = window.document.createElement("script");
 
-      const loadPromise = new Promise(resolve => {
+      const loadPromise = new Promise((resolve) => {
         script.onload = () => {
           assertCookies(window.document.cookie, [
             "Test1=Basic",
             "Test2=PathMatch",
             "Test7=Secure",
             "Test9=Duplicate",
-            "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-            "Malformed"
+            'Test10={"prop1":5,"prop2":"value"}',
+            "Malformed",
           ]);
           resolve();
         };
@@ -103,15 +100,15 @@ describe("Cookie processing", () => {
 
       const xhr = new window.XMLHttpRequest();
 
-      const loadPromise = new Promise(resolve => {
+      const loadPromise = new Promise((resolve) => {
         xhr.onload = () => {
           assertCookies(window.document.cookie, [
             "Test1=Basic",
             "Test2=PathMatch",
             "Test7=Secure",
             "Test9=Duplicate",
-            "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-            "Malformed"
+            'Test10={"prop1":5,"prop2":"value"}',
+            "Malformed",
           ]);
           resolve();
         };
@@ -140,70 +137,74 @@ describe("Cookie processing", () => {
   describe("sent with requests", () => {
     it("should send the Cookies header with a script request", () => {
       const options = { runScripts: "dangerously", resources: "usable" };
-      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", options).then(({ window }) => {
-        const loadPromise = new Promise(resolve => {
-          window.scriptCallback = cookiesHeader => {
-            assertCookies(cookiesHeader, [
-              "Test1=Basic",
-              "Test2=PathMatch",
-              "Test6=HttpOnly",
-              "Test7=Secure",
-              "Test9=Duplicate",
-              "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-              "Malformed"
-            ]);
-            resolve();
-          };
-        });
+      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", options).then(
+        ({ window }) => {
+          const loadPromise = new Promise((resolve) => {
+            window.scriptCallback = (cookiesHeader) => {
+              assertCookies(cookiesHeader, [
+                "Test1=Basic",
+                "Test2=PathMatch",
+                "Test6=HttpOnly",
+                "Test7=Secure",
+                "Test9=Duplicate",
+                'Test10={"prop1":5,"prop2":"value"}',
+                "Malformed",
+              ]);
+              resolve();
+            };
+          });
 
-        const script = window.document.createElement("script");
-        script.src = testHost + "/TestPath/get-cookie-header-via-script";
-        window.document.body.appendChild(script);
+          const script = window.document.createElement("script");
+          script.src = testHost + "/TestPath/get-cookie-header-via-script";
+          window.document.body.appendChild(script);
 
-        return loadPromise;
-      });
+          return loadPromise;
+        },
+      );
     });
 
     it("should send the Cookies header with iframes", () => {
       const options = { resources: "usable" };
-      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", options).then(({ window }) => {
-        const iframe = window.document.createElement("iframe");
+      return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", options).then(
+        ({ window }) => {
+          const iframe = window.document.createElement("iframe");
 
-        const loadPromise = new Promise(resolve => {
-          iframe.onload = () => {
-            assertCookies(iframe.contentDocument.cookie, [
-              "Test1=Basic",
-              "Test2=PathMatch",
-              "Test7=Secure",
-              "Test9=Duplicate",
-              "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-              "Malformed"
-            ]);
-            assertCookies(iframe.contentDocument.body.textContent, [
-              "Test1=Basic",
-              "Test2=PathMatch",
-              "Test6=HttpOnly",
-              "Test7=Secure",
-              "Test9=Duplicate",
-              "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-              "Malformed"
-            ]);
-            resolve();
-          };
-        });
+          const loadPromise = new Promise((resolve) => {
+            iframe.onload = () => {
+              assertCookies(iframe.contentDocument.cookie, [
+                "Test1=Basic",
+                "Test2=PathMatch",
+                "Test7=Secure",
+                "Test9=Duplicate",
+                'Test10={"prop1":5,"prop2":"value"}',
+                "Malformed",
+              ]);
+              assertCookies(iframe.contentDocument.body.textContent, [
+                "Test1=Basic",
+                "Test2=PathMatch",
+                "Test6=HttpOnly",
+                "Test7=Secure",
+                "Test9=Duplicate",
+                'Test10={"prop1":5,"prop2":"value"}',
+                "Malformed",
+              ]);
+              resolve();
+            };
+          });
 
-        iframe.src = testHost + "/TestPath/get-cookie-header";
-        window.document.body.appendChild(iframe);
+          iframe.src = testHost + "/TestPath/get-cookie-header";
+          window.document.body.appendChild(iframe);
 
-        return loadPromise;
-      });
+          return loadPromise;
+        },
+      );
     });
 
     it("should send the Cookies header with an XHR request", () => {
       return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server").then(({ window }) => {
         const xhr = new window.XMLHttpRequest();
 
-        const loadPromise = new Promise(resolve => {
+        const loadPromise = new Promise((resolve) => {
           xhr.onload = () => {
             assertCookies(xhr.responseText, [
               "Test1=Basic",
@@ -211,8 +212,8 @@ describe("Cookie processing", () => {
               "Test6=HttpOnly",
               "Test7=Secure",
               "Test9=Duplicate",
-              "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-              "Malformed"
+              'Test10={"prop1":5,"prop2":"value"}',
+              "Malformed",
             ]);
             resolve();
           };
@@ -230,7 +231,7 @@ describe("Cookie processing", () => {
         assertCookies(window.document.cookie, [
           "Test1=Redirect1",
           "Test2=Redirect2",
-          "Test3=Redirect3"
+          "Test3=Redirect3",
         ]);
       });
     });
@@ -240,7 +241,10 @@ describe("Cookie processing", () => {
     const url = testNonSecureHost + "/TestPath/somewhere";
 
     const cookieJar = new CookieJar();
-    cookieJar.setCookieSync("OptionsTest=FooBar; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/TestPath; HttpOnly", url);
+    cookieJar.setCookieSync(
+      "OptionsTest=FooBar; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/TestPath; HttpOnly",
+      url,
+    );
     cookieJar.setCookieSync("SecureAliasUrlTest=Baz; Secure", url);
 
     const { window } = new JSDOM(``, { url, cookieJar });
@@ -249,7 +253,7 @@ describe("Cookie processing", () => {
     const xhr = new window.XMLHttpRequest();
     xhr.withCredentials = true;
 
-    const loadPromise = new Promise(resolve => {
+    const loadPromise = new Promise((resolve) => {
       xhr.onload = () => {
         assertCookies(xhr.responseText, []);
         resolve();
@@ -265,30 +269,32 @@ describe("Cookie processing", () => {
   it("should share cookies when a cookie jar is shared", () => {
     const cookieJar = new CookieJar();
 
-    return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", { cookieJar }).then(() => {
-      return JSDOM.fromURL(testHost + "/TestPath/html-get-cookie-header", { cookieJar });
-    }).then(({ window }) => {
-      const cookieHeader = window.document.querySelector(".cookie-header").innerHTML;
+    return JSDOM.fromURL(testHost + "/TestPath/set-cookie-from-server", { cookieJar })
+      .then(() => {
+        return JSDOM.fromURL(testHost + "/TestPath/html-get-cookie-header", { cookieJar });
+      })
+      .then(({ window }) => {
+        const cookieHeader = window.document.querySelector(".cookie-header").innerHTML;
 
-      assertCookies(cookieHeader, [
-        "Test1=Basic",
-        "Test2=PathMatch",
-        "Test6=HttpOnly",
-        "Test7=Secure",
-        "Test9=Duplicate",
-        "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-        "Malformed"
-      ]);
+        assertCookies(cookieHeader, [
+          "Test1=Basic",
+          "Test2=PathMatch",
+          "Test6=HttpOnly",
+          "Test7=Secure",
+          "Test9=Duplicate",
+          'Test10={"prop1":5,"prop2":"value"}',
+          "Malformed",
+        ]);
 
-      assertCookies(window.document.cookie, [
-        "Test1=Basic",
-        "Test2=PathMatch",
-        "Test7=Secure",
-        "Test9=Duplicate",
-        "Test10={\"prop1\":5,\"prop2\":\"value\"}",
-        "Malformed"
-      ]);
-    });
+        assertCookies(window.document.cookie, [
+          "Test1=Basic",
+          "Test2=PathMatch",
+          "Test7=Secure",
+          "Test9=Duplicate",
+          'Test10={"prop1":5,"prop2":"value"}',
+          "Malformed",
+        ]);
+      });
   });
 });
 
@@ -296,7 +302,10 @@ function setupServer() {
   return createServer((req, res) => {
     switch (req.url) {
       case "/TestPath/set-cookie-from-server": {
-        res.writeHead(200, testCookies.map(cookieStr => ["set-cookie", cookieStr]));
+        res.writeHead(
+          200,
+          testCookies.map((cookieStr) => ["set-cookie", cookieStr]),
+        );
         res.end();
         break;
       }
@@ -331,7 +340,7 @@ function setupServer() {
       }
 
       case "/TestPath/html-get-cookie-header": {
-        res.end("<div class=\"cookie-header\">" + req.headers.cookie + "</div>");
+        res.end('<div class="cookie-header">' + req.headers.cookie + "</div>");
         break;
       }
 

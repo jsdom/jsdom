@@ -33,7 +33,10 @@ const toUpstreamDir = resolve(wptDir, "to-upstream");
 
 const wptServer = require("../test/web-platform-tests/wpt-server.js");
 const { killSubprocess } = require("../test/web-platform-tests/utils.js");
-const { regenerateManifest, getPossibleTestFilePaths } = require("../test/web-platform-tests/wpt-manifest-utils.js");
+const {
+  regenerateManifest,
+  getPossibleTestFilePaths,
+} = require("../test/web-platform-tests/wpt-manifest-utils.js");
 
 // --- Custom testharnessreport.js ---
 // Notifies the runner page (opener window) of test completion via postMessage.
@@ -214,7 +217,7 @@ const MIME = {
   ".png": "image/png",
   ".xml": "application/xml",
   ".xht": "application/xhtml+xml",
-  ".xhtml": "application/xhtml+xml"
+  ".xhtml": "application/xhtml+xml",
 };
 
 // --- Helpers ---
@@ -241,11 +244,11 @@ async function tryReadFile(filePath) {
 async function main() {
   const { values } = parseArgs({
     options: {
-      "browser": { type: "string", short: "b" },
+      browser: { type: "string", short: "b" },
       "browser-arg": { type: "string", multiple: true },
-      "fgrep": { type: "string", multiple: true },
-      "reporter": { type: "string" }
-    }
+      fgrep: { type: "string", multiple: true },
+      reporter: { type: "string" },
+    },
   });
   const { browser, fgrep, reporter } = values;
   const browserArgs = values["browser-arg"] ?? [];
@@ -258,11 +261,10 @@ async function main() {
 
   // Regenerate the manifest (cheap since we have few files) and read test paths from it.
   const manifest = regenerateManifest(toUpstreamDir, resolve(wptDir, "tuwpt-manifest.json"));
-  const testPaths = getPossibleTestFilePaths(manifest).map(p => "/" + p);
+  const testPaths = getPossibleTestFilePaths(manifest).map((p) => "/" + p);
   const filters = fgrep ?? [];
-  const filtered = filters.length > 0 ?
-    testPaths.filter(p => filters.some(f => p.includes(f))) :
-    testPaths;
+  const filtered =
+    filters.length > 0 ? testPaths.filter((p) => filters.some((f) => p.includes(f))) : testPaths;
 
   if (filtered.length === 0) {
     console.error("No tests found" + (filters.length ? ` matching: ${filters.join(", ")}` : ""));
@@ -287,7 +289,7 @@ async function main() {
 
   function printResult(data) {
     const statusNames = ["PASS", "FAIL", "TIMEOUT", "NOTRUN", "PRECONDITION_FAILED"];
-    const passed = data.subtests.filter(t => t.status === TEST_PASS).length;
+    const passed = data.subtests.filter((t) => t.status === TEST_PASS).length;
     const total = data.subtests.length;
     const allPass = passed === total && data.status === HARNESS_OK;
 
@@ -313,7 +315,7 @@ async function main() {
     let passCount = 0;
     let failCount = 0;
     for (const [, data] of results) {
-      const passed = data.subtests.filter(t => t.status === TEST_PASS).length;
+      const passed = data.subtests.filter((t) => t.status === TEST_PASS).length;
       if (passed === data.subtests.length && data.status === HARNESS_OK) {
         passCount++;
       } else {
@@ -321,7 +323,9 @@ async function main() {
       }
     }
     const missing = filtered.length - results.size;
-    console.log(`${passCount} passed, ${failCount} failed` + (missing ? `, ${missing} not run` : ""));
+    console.log(
+      `${passCount} passed, ${failCount} failed` + (missing ? `, ${missing} not run` : ""),
+    );
     return failCount === 0 && missing === 0;
   }
 
@@ -338,16 +342,19 @@ async function main() {
 
   function proxyToWPT(req, res) {
     return new Promise((resolveResponse, reject) => {
-      const proxyReq = http.request({
-        hostname: wptOrigin.hostname,
-        port: wptOrigin.port,
-        path: req.url,
-        method: req.method,
-        headers: {
-          ...req.headers,
-          host: wptOrigin.host
-        }
-      }, resolveResponse);
+      const proxyReq = http.request(
+        {
+          hostname: wptOrigin.hostname,
+          port: wptOrigin.port,
+          path: req.url,
+          method: req.method,
+          headers: {
+            ...req.headers,
+            host: wptOrigin.host,
+          },
+        },
+        resolveResponse,
+      );
 
       proxyReq.on("error", reject);
       res.on("close", () => proxyReq.destroy());
@@ -361,7 +368,7 @@ async function main() {
     // Result reporting
     if (req.method === "POST" && url.pathname === "/__report__") {
       let body = "";
-      req.on("data", chunk => {
+      req.on("data", (chunk) => {
         body += chunk;
       });
       req.on("end", () => {
@@ -457,7 +464,7 @@ async function main() {
     console.log("Results will appear below as tests complete.");
     console.log("Press Ctrl+C to stop.\n");
     if (browser === undefined) {
-      opener(url, error => {
+      opener(url, (error) => {
         if (error) {
           console.error(`Could not open the default browser: ${error.message}`);
           finish(1);
@@ -467,32 +474,44 @@ async function main() {
     }
 
     const args = [];
-    const browserName = basename(browser).toLowerCase().replace(/\.exe$/, "");
-    const isChromium = /^(?:chrome|chromium(?:-browser)?|google[- ]chrome(?:-(?:stable|beta|unstable|canary))?)$/
-      .test(browserName);
+    const browserName = basename(browser)
+      .toLowerCase()
+      .replace(/\.exe$/, "");
+    const isChromium =
+      /^(?:chrome|chromium(?:-browser)?|google[- ]chrome(?:-(?:stable|beta|unstable|canary))?)$/.test(
+        browserName,
+      );
     if (isChromium) {
-      args.push("--disable-popup-blocking", "--disable-background-timer-throttling", "--no-first-run");
-      if (!browserArgs.some(arg => arg === "--user-data-dir" || arg.startsWith("--user-data-dir="))) {
+      args.push(
+        "--disable-popup-blocking",
+        "--disable-background-timer-throttling",
+        "--no-first-run",
+      );
+      if (
+        !browserArgs.some((arg) => arg === "--user-data-dir" || arg.startsWith("--user-data-dir="))
+      ) {
         browserProfile = await mkdtemp(join(tmpdir(), "jsdom-wpt-browser-"));
         args.push(`--user-data-dir=${browserProfile}`);
       }
     }
 
     browserProcess = spawn(browser, [...args, ...browserArgs, url], { stdio: "inherit" });
-    browserProcess.on("error", error => {
+    browserProcess.on("error", (error) => {
       console.error(`Could not launch ${browser}: ${error.message}`);
       finish(1);
     });
     browserProcess.on("exit", (code, signal) => {
       if (!finishing && (code !== 0 || browserProfile !== null)) {
-        console.error(`${browser} exited before verification finished (${signal || `status ${code}`})`);
+        console.error(
+          `${browser} exited before verification finished (${signal || `status ${code}`})`,
+        );
         finish(1);
       }
     });
   }
 
   let portIndex = 0;
-  proxy.on("error", e => {
+  proxy.on("error", (e) => {
     if (e.code === "EADDRINUSE" && portIndex < PREFERRED_PORTS.length) {
       proxy.listen(PREFERRED_PORTS[portIndex++]);
     } else {
@@ -500,7 +519,7 @@ async function main() {
     }
   });
   proxy.on("listening", () => {
-    onListening().catch(error => {
+    onListening().catch((error) => {
       console.error(`Could not launch the browser: ${error.message}`);
       finish(1);
     });
@@ -513,8 +532,12 @@ async function main() {
     }
     proxy.close();
     try {
-      if (browserProcess !== null && browserProcess.pid !== undefined &&
-          browserProcess.exitCode === null && browserProcess.signalCode === null) {
+      if (
+        browserProcess !== null &&
+        browserProcess.pid !== undefined &&
+        browserProcess.exitCode === null &&
+        browserProcess.signalCode === null
+      ) {
         const exited = once(browserProcess, "exit");
         browserProcess.kill();
         await exited;
@@ -547,13 +570,13 @@ async function main() {
     finish(130);
   });
 
-  process.on("uncaughtException", e => {
+  process.on("uncaughtException", (e) => {
     console.error("Uncaught exception:", e);
     finish(1);
   });
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error(error.message);
   process.exitCode = 1;
 });

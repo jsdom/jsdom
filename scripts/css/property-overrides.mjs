@@ -53,7 +53,7 @@ export const excludedProperties = new Set([
   "voice-pitch",
   "voice-range",
   "voice-rate",
-  "voice-volume"
+  "voice-volume",
 ]);
 
 // Grammar differences, missing metadata, and implementation-defined defaults.
@@ -62,87 +62,86 @@ export const propertyOverrides = {
   "--*": {
     inherited: true,
     initial: null,
-    value: "<declaration-value>?"
+    value: "<declaration-value>?",
   },
   "-webkit-box-align": {
     initial: "stretch",
-    value: syntaxData.properties["box-align"]
+    value: syntaxData.properties["box-align"],
   },
   "-webkit-box-flex": {
     initial: "0",
-    value: "<number [0,∞]>"
+    value: "<number [0,∞]>",
   },
   "-webkit-box-ordinal-group": {
     initial: "1",
-    value: "<integer [1,∞]>"
+    value: "<integer [1,∞]>",
   },
   "-webkit-box-orient": {
     initial: "horizontal",
-    value: syntaxData.properties["box-orient"]
+    value: syntaxData.properties["box-orient"],
   },
   "-webkit-box-pack": {
     initial: "start",
-    value: syntaxData.properties["box-pack"]
+    value: syntaxData.properties["box-pack"],
   },
   "background-position": {
-    initial: "0% 0%"
+    initial: "0% 0%",
   },
   "background-repeat": {
-    initial: undefined
+    initial: undefined,
   },
   "caption-side": {
-    value: "top | bottom | inline-start | inline-end"
+    value: "top | bottom | inline-start | inline-end",
   },
   "column-width": {
-    initial: "auto"
+    initial: "auto",
   },
   // Anchor Positioning 2 extends the Conditional 5 definition in the catalogs.
   // https://drafts.csswg.org/css-anchor-position-2/#container-type
   "container-type": {
-    value: "normal | [[size | inline-size] || scroll-state || anchored]"
+    value: "normal | [[size | inline-size] || scroll-state || anchored]",
   },
   "font-family": {
-    initial: "monospace"
+    initial: "monospace",
   },
   "glyph-orientation-vertical": {
-    value: "auto | <angle> | <number>"
+    value: "auto | <angle> | <number>",
   },
   "page-break-after": {
     value: "auto | always | avoid | left | right",
-    initial: undefined
+    initial: undefined,
   },
   "page-break-before": {
     value: "auto | always | avoid | left | right",
-    initial: undefined
+    initial: undefined,
   },
   "page-break-inside": {
-    initial: undefined
+    initial: undefined,
   },
   "stop-color": {
-    initial: "black"
+    initial: "black",
   },
   "stop-opacity": {
-    initial: "1"
+    initial: "1",
   },
   "stroke-dasharray": {
-    value: "none | <dasharray>"
+    value: "none | <dasharray>",
   },
   "text-box": {
-    initial: undefined
+    initial: undefined,
   },
   "timeline-trigger": {
-    value: "none | [<'timeline-trigger-name'> <'timeline-trigger-source'> " +
-      "[<'timeline-trigger-activation-range'> [/ " +
-      "<'timeline-trigger-active-range'>]?]?]#"
+    value:
+      "none | [<'timeline-trigger-name'> <'timeline-trigger-source'> [<'timeline-trigger-activation-range'> [/ <'timeline-trigger-active-range'>]?]?]#",
   },
   "transition-property": {
-    value: "[none | <single-transition-property>]#"
+    value: "[none | <single-transition-property>]#",
   },
   "view-transition-name": {
-    value: "none | auto | match-element | <custom-ident>"
+    value: "none | auto | match-element | <custom-ident>",
   },
-  "zoom": {
+  zoom: {
     // https://github.com/w3c/csswg-drafts/issues/14618
-    value: "normal | <number [0,∞]> | <percentage [0,∞]>"
-  }
+    value: "normal | <number [0,∞]> | <percentage [0,∞]>",
+  },
 };

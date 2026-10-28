@@ -13,7 +13,7 @@ function isParsedAsXml(document) {
 
 describe("jsdom/xml", () => {
   specify("should ignore self-closing of tags in html docs", () => {
-    return xmlStringPromise.then(xmlString => {
+    return xmlStringPromise.then((xmlString) => {
       const { window } = new JSDOM(xmlString);
 
       assert.ok(!isParsedAsXml(window.document));
@@ -21,7 +21,7 @@ describe("jsdom/xml", () => {
   });
 
   specify("should handle self-closing tags properly in xml docs", () => {
-    return xmlStringPromise.then(xmlString => {
+    return xmlStringPromise.then((xmlString) => {
       const { window } = new JSDOM(xmlString, { contentType: "application/xml" });
 
       assert.ok(isParsedAsXml(window.document));
@@ -56,7 +56,9 @@ describe("jsdom/xml", () => {
   });
 
   specify("xml parser recognizes built-in schemas (GH-1276)", () => {
-    const { window } = new JSDOM("<element xml:lang='uk'></element>", { contentType: "application/xml" });
+    const { window } = new JSDOM("<element xml:lang='uk'></element>", {
+      contentType: "application/xml",
+    });
 
     const xmlns = "http://www.w3.org/XML/1998/namespace";
     const lang = window.document.documentElement.getAttributeNS(xmlns, "lang");

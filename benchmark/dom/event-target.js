@@ -20,7 +20,7 @@ module.exports = () => {
 };
 
 function addDispatchBenchmark(bench, depth, listenerPattern) {
-  const { document, Event } = (new JSDOM()).window;
+  const { document, Event } = new JSDOM().window;
   const root = document.createElement("div");
   document.body.append(root);
 

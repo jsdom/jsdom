@@ -24,7 +24,10 @@ delete globals.console;
 // All JS globals are data properties as of the time of this writing. If that becomes false then we need to adapt the
 // code in Window.js.
 for (const [key, global] of Object.entries(globals)) {
-  assert("value" in global && !("get" in global) && !("set" in global), `${key} was unexpectedly a non-data property`);
+  assert(
+    "value" in global && !("get" in global) && !("set" in global),
+    `${key} was unexpectedly a non-data property`,
+  );
 
   // We don't want to serialize value; Window.js will get it afresh, and having it in the JSON is confusing.
   delete global.value;
