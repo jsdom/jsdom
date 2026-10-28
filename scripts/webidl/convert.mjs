@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 
-"use strict";
-const fs = require("node:fs");
-const path = require("node:path");
-const Webidl2js = require("webidl2js");
-const processReflect = require("./reflection.js");
+import fs from "node:fs";
+import path from "node:path";
 
-const transformer = new Webidl2js({
+import WebIDL2JS from "webidl2js";
+
+import processReflect from "./reflection.mjs";
+
+const transformer = new WebIDL2JS({
   implSuffix: "-impl",
   suppressErrors: true,
   processCEReactions(code) {
@@ -52,7 +53,7 @@ const transformer = new Webidl2js({
 });
 
 function addDir(dir) {
-  const resolved = path.resolve(__dirname, dir);
+  const resolved = path.resolve(import.meta.dirname, dir);
   transformer.addSource(resolved, resolved);
 }
 
@@ -63,8 +64,8 @@ addDir("../../lib/jsdom/living/constraint-validation");
 addDir("../../lib/jsdom/living/crypto");
 addDir("../../lib/jsdom/living/css");
 transformer.addSource(
-  path.resolve(__dirname, "../../lib/generated/css-webidl"),
-  path.resolve(__dirname, "../../lib/jsdom/living/css"),
+  path.resolve(import.meta.dirname, "../../lib/generated/css-webidl"),
+  path.resolve(import.meta.dirname, "../../lib/jsdom/living/css"),
 );
 addDir("../../lib/jsdom/living/custom-elements");
 addDir("../../lib/jsdom/living/deviceorientation");
@@ -88,7 +89,7 @@ addDir("../../lib/jsdom/living/window");
 addDir("../../lib/jsdom/living/xhr");
 addDir("../../lib/jsdom/living/webidl");
 
-const outputDir = path.resolve(__dirname, "../../lib/generated/idl/");
+const outputDir = path.resolve(import.meta.dirname, "../../lib/generated/idl/");
 
 // Clean up any old stuff lying around.
 fs.rmSync(outputDir, { force: true, recursive: true, maxRetries: 2 });

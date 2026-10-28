@@ -6,17 +6,24 @@ on:
       - "v*"
 
 permissions:
-  id-token: write
   contents: read
+  id-token: write
 
 jobs:
   publish:
+    name: Publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - name: Check out repository
+        uses: actions/checkout@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
           registry-url: https://registry.npmjs.org
-      - run: npm ci
-      - run: npm publish
+      - name: Install dependencies
+        run: npm ci --engine-strict
+      - name: Lint and formatting
+        run: npm run check
+      - name: Publish to npm
+        run: npm publish

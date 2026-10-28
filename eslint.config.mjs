@@ -1,5 +1,5 @@
 import domenicConfig from "@domenic/eslint-config";
-import domenicStylistic from "@domenic/eslint-config/stylistic";
+import domenicStylisticConfig from "@domenic/eslint-config/stylistic";
 import html from "eslint-plugin-html";
 import n from "eslint-plugin-n";
 import globals from "globals";
@@ -17,12 +17,12 @@ export default [
   {
     ignores: [
       "benchmark/selectors/sizzle-speed/**",
-      "lib/jsdom/level3/xpath.js",
       "lib/generated/**",
+      "lib/jsdom/level3/xpath.js",
       "test/api/fixtures/**",
-      "test/to-port-to-wpts/jquery-fixtures/**",
       "test/to-port-to-wpts/files/**",
       "test/to-port-to-wpts/frame.js",
+      "test/to-port-to-wpts/jquery-fixtures/**",
       "test/to-port-to-wpts/level1/**",
       "test/to-port-to-wpts/level2/**",
       "test/to-port-to-wpts/level3/**",
@@ -31,15 +31,23 @@ export default [
       "test/web-platform-tests/to-upstream/**/*dont-upstream*",
     ],
   },
+  ...domenicConfig,
+  ...domenicStylisticConfig,
   {
     files: ["**/*.js"],
+    ignores: ["test/web-platform-tests/to-upstream/**"],
     languageOptions: {
       sourceType: "commonjs",
       globals: globals.node,
     },
   },
-  ...domenicConfig,
-  ...domenicStylistic,
+  {
+    files: ["**/*.mjs"],
+    ignores: ["test/web-platform-tests/**"],
+    languageOptions: {
+      globals: globals.nodeBuiltin,
+    },
+  },
   {
     plugins: {
       "jsdom-internal": jsdomInternal,

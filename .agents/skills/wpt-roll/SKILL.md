@@ -50,7 +50,7 @@ Choose what is worth running before shortening individual failure entries:
 - Preserve existing intentional coverage and the migrated regressions. Then consider nearby tests exercising the same implemented behavior.
 - A tiny parsing fix does not justify enabling a whole animation, rendering, or navigation feature. Broad negative globs with focused exceptions are often the right result.
 - Keep useful parsing, serialization, CSSOM, state, reflection, and event coverage within otherwise unsupported areas. Do not retain files mechanically because their names contain `parsing`, `computed`, or `inheritance`; read what the assertions actually require.
-- Absence of a dedicated file in `lib/jsdom/living/css/properties` does not establish absence of parsing support. Check `scripts/generate-css-style-properties.js` and `lib/jsdom/living/css/helpers/generic-property-descriptor.js`: generic descriptors provide property handling too.
+- Absence of a dedicated file in `lib/jsdom/living/css/properties` does not establish absence of parsing support. Check `scripts/generate-css-style-properties.mjs` and `lib/jsdom/living/css/helpers/generic-property-descriptor.js`: generic descriptors provide property handling too.
 - Finishing quickly is not a reason to run hundreds of expected failures against absent APIs. Likewise, a passing test may only compare zero-valued geometry, compare `NaN` values, observe an ignored query, or execute an empty crash-test callback. Such results do not establish support for the surrounding feature.
 - Ask for calibration when the tradeoff is material. Present the concrete behavior, useful assertions, expectation cost, and a recommendation. Make the unambiguous local edits while the user considers the choice.
 

@@ -35,6 +35,11 @@ async function runSuite(suiteName) {
   const factory = require(path.join(benchmarkDir, suiteName));
   const bench = factory();
   await bench.run();
+  for (const task of bench.tasks) {
+    if (task.result.state === "errored") {
+      throw task.result.error;
+    }
+  }
   return {
     suite: suiteName,
     // bench.table() returns rows pre-formatted by tinybench (one record per task,

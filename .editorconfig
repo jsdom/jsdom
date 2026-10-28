@@ -7,3 +7,10 @@ trim_trailing_whitespace = true
 charset = utf-8
 indent_style = space
 indent_size = 2
+
+# Preserve fixture encodings and whitespace, including the generated WPT manifest.
+[test/{api/fixtures/**,to-port-to-wpts/files/**,to-port-to-wpts/jquery-fixtures/**,web-platform-tests/wpt-manifest.json}]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = false
+charset = unset

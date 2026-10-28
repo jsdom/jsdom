@@ -1,6 +1,4 @@
-"use strict";
-
-const { XLINK_NS } = require("../../lib/jsdom/living/helpers/namespaces.js");
+import { XLINK_NS } from "../../lib/jsdom/living/helpers/namespaces.js";
 
 const recognizedReflectXAttrNames = new Set([
   "Reflect",
@@ -52,7 +50,7 @@ function extractAttributeInfo(attr) {
   throw new Error(`Invalid attribute "${attr}"`);
 }
 
-module.exports = (transformer, idl, implObj) => {
+export default (transformer, idl, implObj) => {
   const reflectAttr = idl.extAttrs.find((attr) => recognizedReflectXAttrNames.has(attr.name));
   const attrName = reflectAttr?.rhs ? JSON.parse(reflectAttr.rhs.value) : idl.name.toLowerCase();
 
