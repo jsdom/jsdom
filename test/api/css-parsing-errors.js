@@ -9,13 +9,15 @@ describe("CSS parsing errors", () => {
     ["nested rules", "a {".repeat(1600) + "}".repeat(1600)],
     ["unclosed blocks", "{".repeat(20000)],
     ["selector functions", ":not(".repeat(1600) + "a" + ")".repeat(1600) + " { color: red; }"],
-    ["value functions", "a { --value: " + "f(".repeat(1600) + "x" + ")".repeat(1600) + "; }"]
+    ["value functions", "a { --value: " + "f(".repeat(1600) + "x" + ")".repeat(1600) + "; }"],
   ]) {
     for (const insertion of ["document construction", "appendChild", "innerHTML"]) {
       it(`reports excessive ${description} during ${insertion} without aborting the DOM operation`, () => {
         const virtualConsole = cssParsingErrorRecordingVC();
         const html = `<style>${sheetText}</style><p>after stylesheet</p>`;
-        const { window } = new JSDOM(insertion === "document construction" ? html : "", { virtualConsole });
+        const { window } = new JSDOM(insertion === "document construction" ? html : "", {
+          virtualConsole,
+        });
         try {
           if (insertion === "appendChild") {
             const style = window.document.createElement("style");
@@ -47,7 +49,10 @@ describe("CSS parsing errors", () => {
     virtualConsole.on("jsdomError", () => {
       throw error;
     });
-    assert.throws(() => new JSDOM(`<style>${"{".repeat(20000)}</style>`, { virtualConsole }), cause => cause === error);
+    assert.throws(
+      () => new JSDOM(`<style>${"{".repeat(20000)}</style>`, { virtualConsole }),
+      (cause) => cause === error,
+    );
   });
 
   it("should detect invalid CSS", () => {
@@ -60,13 +65,16 @@ describe("CSS parsing errors", () => {
     `;
 
     // eslint-disable-next-line no-new
-    new JSDOM(`
+    new JSDOM(
+      `
       <html>
         <head>
           <style>${sheetText}</style>
         </head>
       </html>
-    `, { virtualConsole });
+    `,
+      { virtualConsole },
+    );
 
     assert.equal(virtualConsole.cssParsingErrors.length, 2);
 
@@ -105,25 +113,35 @@ describe("CSS parsing errors", () => {
   });
 
   for (const [description, css] of [
-    ["nested page-margin rules (GH-1374)", "@page { @top-center { content: element(headerIdentifier); } }"],
-    ["nested font feature values (GH-1374)", "@font-feature-values Font One { @styleset { nice-style: 12; } }"],
+    [
+      "nested page-margin rules (GH-1374)",
+      "@page { @top-center { content: element(headerIdentifier); } }",
+    ],
+    [
+      "nested font feature values (GH-1374)",
+      "@font-feature-values Font One { @styleset { nice-style: 12; } }",
+    ],
     ["a qualified rule without a selector (GH-2460)", "{ /* rule without parent */ }"],
     [
       "spaces in font-family names (GH-2123)",
-      '.cool-class { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }'
+      '.cool-class { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }',
     ],
-    ["@container queries (GH-3597)", "@container (min-width: 700px) { .card h2 { font-size: 2em; } }"],
-    ["@layer (GH-3597)", "@layer { .card h2 { font-size: 2em; } }"]
+    [
+      "@container queries (GH-3597)",
+      "@container (min-width: 700px) { .card h2 { font-size: 2em; } }",
+    ],
+    ["@layer (GH-3597)", "@layer { .card h2 { font-size: 2em; } }"],
   ]) {
     for (const source of ["inline", "external"]) {
       it(`should handle ${description} in ${source} stylesheets without CSS parsing errors`, async () => {
         const virtualConsole = cssParsingErrorRecordingVC();
         const sheetText = `${css} p { color: green; }`;
-        const html = source === "inline" ?
-          `<style>${sheetText}</style>` :
-          `<link rel="stylesheet" href="data:text/css,${encodeURIComponent(sheetText)}">`;
+        const html =
+          source === "inline"
+            ? `<style>${sheetText}</style>`
+            : `<link rel="stylesheet" href="data:text/css,${encodeURIComponent(sheetText)}">`;
         const { window } = new JSDOM(html, { virtualConsole, resources: "usable" });
-        await new Promise(resolve => {
+        await new Promise((resolve) => {
           window.addEventListener("load", resolve);
         });
 
@@ -144,18 +162,21 @@ describe("CSS parsing errors", () => {
       runScripts: "dangerously",
       resources: "usable",
       virtualConsole,
-      url: `file://${resourcesPath}/`
+      url: `file://${resourcesPath}/`,
     };
 
-    const dom = new JSDOM(`
+    const dom = new JSDOM(
+      `
       <html>
         <head>
           <link href="sweetalert2.css" rel="stylesheet" type="text/css" media="all">
         </head>
       </html>
-    `, options);
+    `,
+      options,
+    );
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       dom.window.addEventListener("load", resolve);
     });
 
@@ -168,7 +189,7 @@ function cssParsingErrorRecordingVC() {
   virtualConsole.cssParsingErrors = [];
 
   virtualConsole.forwardTo(console, { jsdomErrors: "none" });
-  virtualConsole.on("jsdomError", error => {
+  virtualConsole.on("jsdomError", (error) => {
     if (error.type === "css-parsing") {
       virtualConsole.cssParsingErrors.push(error);
     } else {

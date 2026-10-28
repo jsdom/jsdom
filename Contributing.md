@@ -54,6 +54,10 @@ Web platform changes must be exercised by the relevant web platform tests, as de
 
 Contributions that look especially agent-driven, with little evidence of human involvement, may receive agent-driven reviews in return.
 
+## Lint and formatting
+
+Run `npm run check` to check lint and formatting. Use `npm run lint:fix` for automatic lint fixes and `npm run fmt` to format source files.
+
 ## Tests
 
 ### Running the tests

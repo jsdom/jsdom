@@ -10,7 +10,7 @@ module.exports = () => {
   // Real-world: framework checking node.getRootNode() === document during a rendering cycle.
   {
     const DEPTH = 200;
-    const { document } = (new JSDOM()).window;
+    const { document } = new JSDOM().window;
     let deepest = document.body;
     for (let i = 0; i < DEPTH; i++) {
       const child = document.createElement("div");
@@ -28,7 +28,7 @@ module.exports = () => {
   // Common in frameworks to check if an element is still in the DOM.
   {
     const DEPTH = 200;
-    const { document } = (new JSDOM()).window;
+    const { document } = new JSDOM().window;
     let deepest = document.body;
     for (let i = 0; i < DEPTH; i++) {
       const child = document.createElement("div");
@@ -46,7 +46,7 @@ module.exports = () => {
   // The parent's root doesn't change, so caching should help.
   {
     const DEPTH = 200;
-    const { document } = (new JSDOM()).window;
+    const { document } = new JSDOM().window;
     let parent = document.body;
     for (let i = 0; i < DEPTH; i++) {
       const child = document.createElement("div");

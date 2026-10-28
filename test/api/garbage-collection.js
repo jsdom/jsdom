@@ -7,10 +7,14 @@ const { describe, it } = require("mocha-sugar-free");
 
 function runFixture(name, ...args) {
   const fixture = path.resolve(__dirname, "fixtures", name);
-  const { error, status, stderr, stdout } = spawnSync(process.execPath, ["--expose-gc", fixture, ...args], {
-    encoding: "utf-8",
-    timeout: 5000
-  });
+  const { error, status, stderr, stdout } = spawnSync(
+    process.execPath,
+    ["--expose-gc", fixture, ...args],
+    {
+      encoding: "utf-8",
+      timeout: 5000,
+    },
+  );
   assert.ifError(error);
   assert.equal(status, 0, stderr);
   return stdout.trim();
@@ -25,9 +29,13 @@ describe("Garbage collection", () => {
     assert(ratio < 0.3);
   });
 
-  it("does not retain removed stylesheets or rules when matched elements remain alive", { timeout: 5000 }, () => {
-    assert.equal(runFixture("removed-stylesheet-with-gc.mjs"), "collected");
-  });
+  it(
+    "does not retain removed stylesheets or rules when matched elements remain alive",
+    { timeout: 5000 },
+    () => {
+      assert.equal(runFixture("removed-stylesheet-with-gc.mjs"), "collected");
+    },
+  );
 
   it("does not retain detached shadow trees through adopted stylesheets", { timeout: 5000 }, () => {
     assert.equal(runFixture("adopted-stylesheets-with-gc.mjs"), "collected");
@@ -58,21 +66,33 @@ describe("Garbage collection", () => {
     assert.equal(runFixture("range-indexes-with-gc.js"), "collected");
   });
 
-  it("does not retain observed nodes or unreachable MutationObserver instances", { timeout: 5000 }, () => {
-    assert.equal(runFixture("mutation-observer-with-gc.js"), "collected");
-  });
+  it(
+    "does not retain observed nodes or unreachable MutationObserver instances",
+    { timeout: 5000 },
+    () => {
+      assert.equal(runFixture("mutation-observer-with-gc.js"), "collected");
+    },
+  );
 
-  it("does not retain targets or callbacks of removed signal-bound event listeners", { timeout: 5000 }, () => {
-    assert.equal(runFixture("event-listener-signal-with-gc.js"), "collected");
-  });
+  it(
+    "does not retain targets or callbacks of removed signal-bound event listeners",
+    { timeout: 5000 },
+    () => {
+      assert.equal(runFixture("event-listener-signal-with-gc.js"), "collected");
+    },
+  );
 
   it("does not retain removed iframe windows", { timeout: 5000 }, () => {
     assert.equal(runFixture("removed-iframe-with-gc.js"), "collected");
   });
 
   for (const scenario of ["valid", "invalid", "throwing", "imported"]) {
-    it(`does not retain closed windows after stylesheet parsing (${scenario})`, { timeout: 5000 }, () => {
-      assert.equal(runFixture("stylesheet-parsing-with-gc.mjs", scenario), "collected");
-    });
+    it(
+      `does not retain closed windows after stylesheet parsing (${scenario})`,
+      { timeout: 5000 },
+      () => {
+        assert.equal(runFixture("stylesheet-parsing-with-gc.mjs", scenario), "collected");
+      },
+    );
   }
 });

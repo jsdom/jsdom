@@ -7,17 +7,40 @@ const documentBench = require("../document-bench");
 const FEW_PROPERTIES = ["color", "display", "visibility", "opacity"];
 const NON_COLOR_OR_LENGTH_PROPERTIES = ["display", "visibility", "opacity", "position"];
 const MANY_PROPERTIES = [
-  "color", "display", "visibility", "opacity",
-  "background-color", "font-size", "font-weight", "font-style",
-  "margin-top", "margin-right", "margin-bottom", "margin-left",
-  "padding-top", "padding-right", "padding-bottom", "padding-left",
-  "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
-  "width", "height", "top", "left", "right", "bottom",
-  "line-height", "float", "clear", "border-collapse"
+  "color",
+  "display",
+  "visibility",
+  "opacity",
+  "background-color",
+  "font-size",
+  "font-weight",
+  "font-style",
+  "margin-top",
+  "margin-right",
+  "margin-bottom",
+  "margin-left",
+  "padding-top",
+  "padding-right",
+  "padding-bottom",
+  "padding-left",
+  "border-top-width",
+  "border-right-width",
+  "border-bottom-width",
+  "border-left-width",
+  "width",
+  "height",
+  "top",
+  "left",
+  "right",
+  "bottom",
+  "line-height",
+  "float",
+  "clear",
+  "border-collapse",
 ];
 
 module.exports = () => {
-  const { document, bench } = documentBench(doc => {
+  const { document, bench } = documentBench((doc) => {
     const div = doc.createElement("div");
     div.style.color = "blue";
     div.style.display = "block";

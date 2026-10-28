@@ -9,7 +9,7 @@ const { toFileUrl, todo } = require("../util.js");
 describe("on-error", () => {
   specify(
     "onerror catches exceptions thrown in addEventListener event handlers",
-    t => {
+    (t) => {
       const doc = docForTests();
 
       const error = new Error("oh no!");
@@ -17,10 +17,11 @@ describe("on-error", () => {
         throw error;
       });
 
-      doc.defaultView.addEventListener("error", event => {
+      doc.defaultView.addEventListener("error", (event) => {
         assert.equal(event.message, "oh no!");
 
-        todo(assert, tt => { // TODO url parser
+        todo(assert, (tt) => {
+          // TODO url parser
           tt.ok(event.filename === toFileUrl(__filename), "filename equality");
         });
 
@@ -33,13 +34,13 @@ describe("on-error", () => {
       doc.body.click();
     },
     {
-      async: true
-    }
+      async: true,
+    },
   );
 
   specify(
     "onerror property catches exceptions thrown in addEventListener event handlers",
-    t => {
+    (t) => {
       const doc = docForTests();
 
       const errorThrown = new Error("oh no!");
@@ -50,7 +51,8 @@ describe("on-error", () => {
       doc.defaultView.onerror = (message, filename, lineno, colno, error) => {
         assert.equal(message, "oh no!");
 
-        todo(assert, tt => { // TODO url parser
+        todo(assert, (tt) => {
+          // TODO url parser
           tt.ok(filename === toFileUrl(__filename), "filename equality");
         });
 
@@ -63,13 +65,13 @@ describe("on-error", () => {
       doc.body.click();
     },
     {
-      async: true
-    }
+      async: true,
+    },
   );
 
   specify(
     "onerror catches exceptions thrown in addEventListener event handlers (multiline message)",
-    t => {
+    (t) => {
       const doc = docForTests();
 
       const error = new Error("oh\nno\n!");
@@ -77,8 +79,9 @@ describe("on-error", () => {
         throw error;
       });
 
-      doc.defaultView.addEventListener("error", event => {
-        todo(assert, tt => { // TODO url parser
+      doc.defaultView.addEventListener("error", (event) => {
+        todo(assert, (tt) => {
+          // TODO url parser
           tt.ok(event.filename === toFileUrl(__filename), "filename equality");
         });
 
@@ -91,40 +94,47 @@ describe("on-error", () => {
       doc.body.click();
     },
     {
-      async: true
-    }
+      async: true,
+    },
   );
 
-  specify("onerror catches exceptions thrown in inline event handlers", t => {
-    const doc = docForTests(`<body onclick="throw new Error('oh no!')"></body>`, { runScripts: "dangerously" });
+  specify(
+    "onerror catches exceptions thrown in inline event handlers",
+    (t) => {
+      const doc = docForTests(`<body onclick="throw new Error('oh no!')"></body>`, {
+        runScripts: "dangerously",
+      });
 
-    doc.defaultView.addEventListener("error", event => {
-      assert.equal(event.message, "oh no!");
-      assert.equal(event.filename, "http://example.com/");
-      assert.ok(event.lineno > 0, "lineno set");
-      assert.ok(event.colno > 0, "colno set");
-      assert.ok(event.error);
-      t.done();
-    });
+      doc.defaultView.addEventListener("error", (event) => {
+        assert.equal(event.message, "oh no!");
+        assert.equal(event.filename, "http://example.com/");
+        assert.ok(event.lineno > 0, "lineno set");
+        assert.ok(event.colno > 0, "colno set");
+        assert.ok(event.error);
+        t.done();
+      });
 
-    doc.body.click();
-  }, {
-    async: true
-  });
+      doc.body.click();
+    },
+    {
+      async: true,
+    },
+  );
 
   specify(
     "onerror catches exceptions thrown in inline event handler properties",
-    t => {
+    (t) => {
       const doc = docForTests();
 
       doc.body.onclick = () => {
         throw new Error("oh no!");
       };
 
-      doc.defaultView.addEventListener("error", event => {
+      doc.defaultView.addEventListener("error", (event) => {
         assert.equal(event.message, "oh no!", "message equality");
 
-        todo(assert, tt => { // TODO url parser
+        todo(assert, (tt) => {
+          // TODO url parser
           tt.ok(event.filename === toFileUrl(__filename), "filename equality");
         });
 
@@ -137,8 +147,8 @@ describe("on-error", () => {
       doc.body.click();
     },
     {
-      async: true
-    }
+      async: true,
+    },
   );
 
   specify("onerror catches exceptions thrown in sync script execution", () => {
@@ -146,7 +156,7 @@ describe("on-error", () => {
     doc.open();
 
     let errorEvent;
-    doc.defaultView.addEventListener("error", event => {
+    doc.defaultView.addEventListener("error", (event) => {
       errorEvent = event;
     });
 
@@ -163,7 +173,8 @@ describe("on-error", () => {
   specify(
     "onerror set during parsing catches exceptions thrown in sync script execution during parsing",
     () => {
-      const doc = docForTests(`<script>
+      const doc = docForTests(
+        `<script>
         onerror = (message, filename, lineno, colno, error) => {
           window.onerrorMessage = message;
           window.onerrorFilename = filename;
@@ -172,14 +183,16 @@ describe("on-error", () => {
           window.onerrorError = error;
         };
         throw new Error("oh no!");
-      </script>`, { runScripts: "dangerously" });
+      </script>`,
+        { runScripts: "dangerously" },
+      );
 
       assert.equal(doc.defaultView.onerrorMessage, "oh no!", "message equality");
       assert.equal(doc.defaultView.onerrorFilename, "http://example.com/");
       assert.ok(doc.defaultView.onerrorLineno > 0, "lineno set");
       assert.ok(doc.defaultView.onerrorColno > 0, "colno set");
       assert.ok(doc.defaultView.onerrorError);
-    }
+    },
   );
 });
 
@@ -187,5 +200,5 @@ function docForTests(html = ``, options = {}) {
   // Purposefully not sent to the real console since we're expecting jsdomErrors
   const virtualConsole = new VirtualConsole();
 
-  return (new JSDOM(html, { virtualConsole, url: "http://example.com", ...options })).window.document;
+  return new JSDOM(html, { virtualConsole, url: "http://example.com", ...options }).window.document;
 }

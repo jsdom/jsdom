@@ -40,11 +40,11 @@ npm run test:wpt -- --fgrep "some-test.htm" 2>&1              # Just run it, no 
 
 **Always pass `--reporter min`** when running tests. The default reporter prints every passing test name, which wastes context window space. The `min` reporter prints only a one-line summary for passing runs, while still showing full details (test name, error message, stack trace) for any failures.
 
-* `npm run test:api -- --reporter min`: relatively quick to run, mostly tests the jsdom API. Often worth running since it will quickly blow up if things are broken.
+- `npm run test:api -- --reporter min`: relatively quick to run, mostly tests the jsdom API. Often worth running since it will quickly blow up if things are broken.
 
-* `npm run test:wpt -- --reporter min`: very slow (~15 minutes). Should generally only be run with user signoff, or with targeted `--fgrep`.
+- `npm run test:wpt -- --reporter min`: very slow (~15 minutes). Should generally only be run with user signoff, or with targeted `--fgrep`.
 
-* `npm run test:tuwpt -- --reporter min`: slower, so run sparingly. Tests a subset of the web platform implementation that we've specifically crafted tests for. Worth running once in its entirety as a final check to establish everything is working before turning over control to the user.
+- `npm run test:tuwpt -- --reporter min`: slower, so run sparingly. Tests a subset of the web platform implementation that we've specifically crafted tests for. Worth running once in its entirety as a final check to establish everything is working before turning over control to the user.
 
 All these commands can be restricted to specific tests, e.g. `npm run test:tuwpt -- --fgrep css-borders --reporter min` or `npm run test:wpt -- --fgrep WebSocket/readyState/006.html --reporter min`. It is often best to run a single test in that latter fashion while iterating, before finally running a larger suite like `npm run test:wpt -- --fgrep xhr --reporter min` or `npm run test:tuwpt -- --reporter min`.
 
@@ -58,11 +58,11 @@ Always use the project's npm scripts rather than running tools directly. Use `np
 
 Avoid overly-defensive coding:
 
-* Don't blindly insert optional chaining (`?.`). Think about whether the value can actually be null/undefined; if not, access it directly.
+- Don't blindly insert optional chaining (`?.`). Think about whether the value can actually be null/undefined; if not, access it directly.
 
-* Don't add guards to prevent double promise resolution. Resolving a promise a second time is a no-op by design.
+- Don't add guards to prevent double promise resolution. Resolving a promise a second time is a no-op by design.
 
-* Don't add error handling for scenarios the framework already handles.
+- Don't add error handling for scenarios the framework already handles.
 
 When adding new code, look at how similar things are done elsewhere in the codebase first. This helps match style and avoid lint issues.
 
@@ -70,8 +70,8 @@ When adding new code, look at how similar things are done elsewhere in the codeb
 
 Avoid millisecond delays in tests. Try to make tests deterministic:
 
-* Sequence events using promise chains where you control when promises resolve, rather than using arbitrary `setTimeout` delays.
+- Sequence events using promise chains where you control when promises resolve, rather than using arbitrary `setTimeout` delays.
 
-* If a test naturally fails by timing out (because something never happens), rely on the test harness's generic timeout rather than adding artificial timeouts in the test code.
+- If a test naturally fails by timing out (because something never happens), rely on the test harness's generic timeout rather than adding artificial timeouts in the test code.
 
 When investigating issues raised by the user, try to write a failing test first, before changing any code. If you can't get a test to fail, then escalate to the user for discussion before proceeding.

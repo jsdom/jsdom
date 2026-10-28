@@ -8,7 +8,7 @@ const { JSDOM } = require("../..");
 
 describe("jsdom/serialization", () => {
   specify("style attribute should not appear when accessing style property (GH-1109)", () => {
-    const { document } = (new JSDOM("<p>hello</p>")).window;
+    const { document } = new JSDOM("<p>hello</p>").window;
     const p = document.querySelector("p");
 
     assert.equal(p.outerHTML, "<p>hello</p>", "style attribute should not appear before");
@@ -21,14 +21,15 @@ describe("jsdom/serialization", () => {
   });
 
   specify("void elements should serialize correctly", () => {
-    const html = "<html><head></head><body><div><br><hr><audio><source></audio></div></body></html>";
+    const html =
+      "<html><head></head><body><div><br><hr><audio><source></audio></div></body></html>";
 
-    assert.equal((new JSDOM(html)).serialize(), html);
+    assert.equal(new JSDOM(html).serialize(), html);
   });
 
   specify("outerHTML should not format the HTML (GH-371)", () => {
     const originalHTML = "<li><span>A</span><span>B</span></li>";
-    const { document } = (new JSDOM(originalHTML)).window;
+    const { document } = new JSDOM(originalHTML).window;
     const { outerHTML } = document.body.firstChild;
 
     assert.equal(outerHTML, originalHTML);

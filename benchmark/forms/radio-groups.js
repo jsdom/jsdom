@@ -25,7 +25,7 @@ module.exports = () => {
     });
   }
 
-  addTask("check 200 radios across 100 groups", i => `group-${Math.floor(i / 2)}`);
+  addTask("check 200 radios across 100 groups", (i) => `group-${Math.floor(i / 2)}`);
   addTask("check 200 radios in one group", () => "group");
 
   for (const external of [false, true]) {
@@ -48,11 +48,14 @@ module.exports = () => {
       radios.push(radio);
     }
 
-    bench.add(`check 200 ${external ? "external" : "internal"} radios with 1,000 unrelated elements`, () => {
-      for (const radio of radios) {
-        radio.checked = true;
-      }
-    });
+    bench.add(
+      `check 200 ${external ? "external" : "internal"} radios with 1,000 unrelated elements`,
+      () => {
+        for (const radio of radios) {
+          radio.checked = true;
+        }
+      },
+    );
   }
 
   for (const depth of [1, 10]) {

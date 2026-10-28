@@ -17,28 +17,31 @@ const {
   imageServer,
   htmlServer,
   threeRequestServer,
-  webSocketServer
+  webSocketServer,
 } = require("./helpers/servers.js");
 const {
   setUpLoadingAsserts,
   assertLoaded,
   assertError,
-  resourceLoadingErrorRecordingVC
+  resourceLoadingErrorRecordingVC,
 } = require("./helpers/resources.js");
 
 describe("API: resources interceptors option", () => {
   it("should finish loading a cached response", async () => {
     const agent = new Agent();
     const cache = interceptors.cache({ store: new cacheStores.MemoryCacheStore() });
-    const url = await resourceServer({
-      "Content-Type": "text/html",
-      "Cache-Control": "public, max-age=3600"
-    }, "<p>cached response</p>");
+    const url = await resourceServer(
+      {
+        "Content-Type": "text/html",
+        "Cache-Control": "public, max-age=3600",
+      },
+      "<p>cached response</p>",
+    );
 
     try {
       for (let i = 0; i < 2; i++) {
         const dom = await JSDOM.fromURL(url, {
-          resources: { dispatcher: agent, interceptors: [cache] }
+          resources: { dispatcher: agent, interceptors: [cache] },
         });
         assert.equal(dom.window.document.querySelector("p").textContent, "cached response");
       }
@@ -59,14 +62,14 @@ describe("API: resources interceptors option", () => {
     });
     const redirect = await createServer((req, res) => {
       redirectRequests++;
-      res.writeHead(302, { "Location": serverURL(target), "Cache-Control": "public, max-age=3600" });
+      res.writeHead(302, { Location: serverURL(target), "Cache-Control": "public, max-age=3600" });
       res.end();
     });
 
     try {
       for (let i = 0; i < 2; i++) {
         const dom = await JSDOM.fromURL(serverURL(redirect), {
-          resources: { dispatcher: agent, interceptors: [cache] }
+          resources: { dispatcher: agent, interceptors: [cache] },
         });
         assert.equal(dom.window.document.querySelector("p").textContent, "redirect target");
       }
@@ -87,7 +90,7 @@ describe("API: resources interceptors option", () => {
     let redirectRequests = 0;
     const redirect = await createServer((req, res) => {
       redirectRequests++;
-      res.writeHead(302, { "Location": serverURL(target), "Cache-Control": "public, max-age=3600" });
+      res.writeHead(302, { Location: serverURL(target), "Cache-Control": "public, max-age=3600" });
       res.end();
     });
     const redirectOrigin = serverURL(redirect);
@@ -95,28 +98,34 @@ describe("API: resources interceptors option", () => {
 
     try {
       // Cache only the redirect, leaving the target's first connection available for cancellation.
-      await (await dispatcher.request({ origin: redirectOrigin, path: "/", method: "GET" })).body.dump();
+      await (
+        await dispatcher.request({ origin: redirectOrigin, path: "/", method: "GET" })
+      ).body.dump();
 
-      await assert.rejects(JSDOM.fromURL(redirectOrigin, {
-        resources: {
-          dispatcher,
-          interceptors: [
-            dispatch => (options, handler) => dispatch(options, {
-              ...handler,
-              onRequestStart(controller, context) {
-                handler.onRequestStart(controller, context);
-                if (options.origin === redirectOrigin) {
-                  // Abort the completed cached response before the target supplies its controller.
-                  target.once("connection", () => {
-                    controller.abort(firstReason);
-                    controller.abort(new Error("second abort"));
-                  });
-                }
-              }
-            })
-          ]
-        }
-      }), err => err === firstReason);
+      await assert.rejects(
+        JSDOM.fromURL(redirectOrigin, {
+          resources: {
+            dispatcher,
+            interceptors: [
+              (dispatch) => (options, handler) =>
+                dispatch(options, {
+                  ...handler,
+                  onRequestStart(controller, context) {
+                    handler.onRequestStart(controller, context);
+                    if (options.origin === redirectOrigin) {
+                      // Abort the completed cached response before the target supplies its controller.
+                      target.once("connection", () => {
+                        controller.abort(firstReason);
+                        controller.abort(new Error("second abort"));
+                      });
+                    }
+                  },
+                }),
+            ],
+          },
+        }),
+        (err) => err === firstReason,
+      );
       assert.equal(redirectRequests, 1, "The redirect response must come from the cache");
     } finally {
       await agent.destroy();
@@ -135,9 +144,9 @@ describe("API: resources interceptors option", () => {
             requestInterceptor((request, { element }) => {
               capturedElement = element;
               return undefined; // Pass through
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
       assert.equal(capturedElement, null, "Element must be null for fromURL requests");
       assert.equal(dom.window.document.body.textContent, "Hello");
@@ -147,7 +156,7 @@ describe("API: resources interceptors option", () => {
       const sourceString = `window.x = 5;`;
       const url = await resourceServer(
         { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-        sourceString
+        sourceString,
       );
       let capturedElement;
 
@@ -160,9 +169,9 @@ describe("API: resources interceptors option", () => {
             requestInterceptor((request, { element }) => {
               capturedElement = element;
               return undefined;
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       const element = dom.window.document.createElement("script");
@@ -179,7 +188,7 @@ describe("API: resources interceptors option", () => {
       const sourceString = `body { color: blue; }`;
       const url = await resourceServer(
         { "Content-Type": "text/css", "Content-Length": sourceString.length },
-        sourceString
+        sourceString,
       );
       let capturedElement;
 
@@ -190,10 +199,10 @@ describe("API: resources interceptors option", () => {
             requestInterceptor((request, { element }) => {
               capturedElement = element;
               return undefined;
-            })
-          ]
+            }),
+          ],
         },
-        virtualConsole
+        virtualConsole,
       });
 
       const element = dom.window.document.createElement("link");
@@ -219,10 +228,10 @@ describe("API: resources interceptors option", () => {
               requestInterceptor((request, { element }) => {
                 capturedElement = element;
                 return undefined;
-              })
-            ]
+              }),
+            ],
           },
-          virtualConsole
+          virtualConsole,
         });
 
         const element = dom.window.document.createElement("img");
@@ -246,10 +255,10 @@ describe("API: resources interceptors option", () => {
             requestInterceptor((request, { element }) => {
               capturedElement = element;
               return undefined;
-            })
-          ]
+            }),
+          ],
         },
-        virtualConsole
+        virtualConsole,
       });
 
       const element = dom.window.document.createElement("iframe");
@@ -273,10 +282,10 @@ describe("API: resources interceptors option", () => {
             requestInterceptor((request, { element }) => {
               capturedElement = element;
               return undefined;
-            })
-          ]
+            }),
+          ],
         },
-        virtualConsole
+        virtualConsole,
       });
 
       const element = dom.window.document.createElement("frame");
@@ -301,9 +310,9 @@ describe("API: resources interceptors option", () => {
               capturedElement = element;
               capturedURL = request.url;
               return undefined;
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       const ws = new dom.window.WebSocket(wsURL);
@@ -330,23 +339,32 @@ describe("API: resources interceptors option", () => {
         runScripts: "dangerously",
         resources: {
           interceptors: [
-            requestInterceptor(request => {
+            requestInterceptor((request) => {
               requestedURLs.push(request.url);
               return undefined; // Pass through
-            })
-          ]
-        }
+            }),
+          ],
+        },
       };
       const dom = await JSDOM.fromURL(mainHost + "/html", options);
 
-      await new Promise(resolve => {
+      await new Promise((resolve) => {
         dom.window.done = resolve;
       });
 
       assert.equal(requestedURLs.length, 3);
-      assert.ok(requestedURLs.some(url => url.endsWith("/html")), "Should have requested /html");
-      assert.ok(requestedURLs.some(url => url.endsWith("/js")), "Should have requested /js");
-      assert.ok(requestedURLs.some(url => url.endsWith("/xhr")), "Should have requested /xhr");
+      assert.ok(
+        requestedURLs.some((url) => url.endsWith("/html")),
+        "Should have requested /html",
+      );
+      assert.ok(
+        requestedURLs.some((url) => url.endsWith("/js")),
+        "Should have requested /js",
+      );
+      assert.ok(
+        requestedURLs.some((url) => url.endsWith("/xhr")),
+        "Should have requested /xhr",
+      );
 
       mainServer.destroy();
     });
@@ -364,7 +382,7 @@ describe("API: resources interceptors option", () => {
             controller.enqueue(bytes.slice(i, i + chunkSize));
           }
           controller.close();
-        }
+        },
       });
     }
 
@@ -378,11 +396,11 @@ describe("API: resources interceptors option", () => {
               requestInterceptor((request, { element }) => {
                 capturedElement = element;
                 return new Response("<html><body>Mocked content</body></html>", {
-                  headers: { "Content-Type": "text/html" }
+                  headers: { "Content-Type": "text/html" },
                 });
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
         assert.equal(capturedElement, null, "Element must be null for fromURL requests");
         assert.equal(dom.window.document.body.textContent, "Mocked content");
@@ -390,7 +408,7 @@ describe("API: resources interceptors option", () => {
 
       it("should work for script requests", async () => {
         let scriptRanResolve;
-        const scriptRanPromise = new Promise(resolve => {
+        const scriptRanPromise = new Promise((resolve) => {
           scriptRanResolve = resolve;
         });
         let capturedElement = null;
@@ -404,13 +422,13 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/test.js")) {
                   capturedElement = element;
                   return new Response("window.mocked = true; window.scriptDone();", {
-                    headers: { "Content-Type": "application/javascript" }
+                    headers: { "Content-Type": "application/javascript" },
                   });
                 }
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         dom.window.scriptDone = scriptRanResolve;
@@ -419,7 +437,7 @@ describe("API: resources interceptors option", () => {
         assert.equal(
           capturedElement,
           dom.window.document.querySelector("script"),
-          "Element context must be the correct element"
+          "Element context must be the correct element",
         );
       });
 
@@ -434,14 +452,14 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/test.css")) {
                   capturedElement = element;
                   return new Response("body { color: blue; }", {
-                    headers: { "Content-Type": "text/css" }
+                    headers: { "Content-Type": "text/css" },
                   });
                 }
                 return undefined;
-              })
-            ]
+              }),
+            ],
           },
-          virtualConsole
+          virtualConsole,
         });
 
         const element = dom.window.document.createElement("link");
@@ -467,14 +485,14 @@ describe("API: resources interceptors option", () => {
                   if (request.url.endsWith("/test.png")) {
                     capturedElement = element;
                     return new Response(pngBytes, {
-                      headers: { "Content-Type": "image/png" }
+                      headers: { "Content-Type": "image/png" },
                     });
                   }
                   return undefined;
-                })
-              ]
+                }),
+              ],
             },
-            virtualConsole
+            virtualConsole,
           });
 
           const element = dom.window.document.createElement("img");
@@ -498,14 +516,14 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/frame.html")) {
                   capturedElement = element;
                   return new Response("<html><body>Mocked iframe</body></html>", {
-                    headers: { "Content-Type": "text/html" }
+                    headers: { "Content-Type": "text/html" },
                   });
                 }
                 return undefined;
-              })
-            ]
+              }),
+            ],
           },
-          virtualConsole
+          virtualConsole,
         });
 
         const element = dom.window.document.createElement("iframe");
@@ -529,14 +547,14 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/frame.html")) {
                   capturedElement = element;
                   return new Response("<html><body>Mocked frame</body></html>", {
-                    headers: { "Content-Type": "text/html" }
+                    headers: { "Content-Type": "text/html" },
                   });
                 }
                 return undefined;
-              })
-            ]
+              }),
+            ],
           },
-          virtualConsole
+          virtualConsole,
         });
 
         const element = dom.window.document.createElement("frame");
@@ -560,17 +578,17 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/api/data")) {
                   capturedElement = element;
                   return new Response('{"mocked": true}', {
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json" },
                   });
                 }
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         const xhr = new dom.window.XMLHttpRequest();
-        const loadPromise = new Promise(resolve => {
+        const loadPromise = new Promise((resolve) => {
           xhr.onload = resolve;
         });
         xhr.open("GET", "/api/data");
@@ -589,15 +607,15 @@ describe("API: resources interceptors option", () => {
               requestInterceptor(() => {
                 return new Response("Not a WebSocket upgrade", {
                   status: 200,
-                  headers: { "Content-Type": "text/plain" }
+                  headers: { "Content-Type": "text/plain" },
                 });
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         const ws = new dom.window.WebSocket("ws://example.com/socket");
-        const errorPromise = new Promise(resolve => {
+        const errorPromise = new Promise((resolve) => {
           ws.onerror = resolve;
         });
 
@@ -616,11 +634,11 @@ describe("API: resources interceptors option", () => {
               requestInterceptor((request, { element }) => {
                 capturedElement = element;
                 return new Response(toStream("<html><body>Mocked content</body></html>"), {
-                  headers: { "Content-Type": "text/html" }
+                  headers: { "Content-Type": "text/html" },
                 });
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
         assert.equal(capturedElement, null, "Element must be null for fromURL requests");
         assert.equal(dom.window.document.body.textContent, "Mocked content");
@@ -628,7 +646,7 @@ describe("API: resources interceptors option", () => {
 
       it("should work for script requests", async () => {
         let scriptRanResolve;
-        const scriptRanPromise = new Promise(resolve => {
+        const scriptRanPromise = new Promise((resolve) => {
           scriptRanResolve = resolve;
         });
         let capturedElement = null;
@@ -642,13 +660,13 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/test.js")) {
                   capturedElement = element;
                   return new Response(toStream("window.mocked = true; window.scriptDone();"), {
-                    headers: { "Content-Type": "application/javascript" }
+                    headers: { "Content-Type": "application/javascript" },
                   });
                 }
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         dom.window.scriptDone = scriptRanResolve;
@@ -657,7 +675,7 @@ describe("API: resources interceptors option", () => {
         assert.equal(
           capturedElement,
           dom.window.document.querySelector("script"),
-          "Element context must be the correct element"
+          "Element context must be the correct element",
         );
       });
 
@@ -672,14 +690,14 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/test.css")) {
                   capturedElement = element;
                   return new Response(toStream("body { color: blue; }"), {
-                    headers: { "Content-Type": "text/css" }
+                    headers: { "Content-Type": "text/css" },
                   });
                 }
                 return undefined;
-              })
-            ]
+              }),
+            ],
           },
-          virtualConsole
+          virtualConsole,
         });
 
         const element = dom.window.document.createElement("link");
@@ -705,14 +723,14 @@ describe("API: resources interceptors option", () => {
                   if (request.url.endsWith("/test.png")) {
                     capturedElement = element;
                     return new Response(toStream(pngBytes), {
-                      headers: { "Content-Type": "image/png" }
+                      headers: { "Content-Type": "image/png" },
                     });
                   }
                   return undefined;
-                })
-              ]
+                }),
+              ],
             },
-            virtualConsole
+            virtualConsole,
           });
 
           const element = dom.window.document.createElement("img");
@@ -736,14 +754,14 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/frame.html")) {
                   capturedElement = element;
                   return new Response(toStream("<html><body>Mocked iframe</body></html>"), {
-                    headers: { "Content-Type": "text/html" }
+                    headers: { "Content-Type": "text/html" },
                   });
                 }
                 return undefined;
-              })
-            ]
+              }),
+            ],
           },
-          virtualConsole
+          virtualConsole,
         });
 
         const element = dom.window.document.createElement("iframe");
@@ -767,14 +785,14 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/frame.html")) {
                   capturedElement = element;
                   return new Response(toStream("<html><body>Mocked frame</body></html>"), {
-                    headers: { "Content-Type": "text/html" }
+                    headers: { "Content-Type": "text/html" },
                   });
                 }
                 return undefined;
-              })
-            ]
+              }),
+            ],
           },
-          virtualConsole
+          virtualConsole,
         });
 
         const element = dom.window.document.createElement("frame");
@@ -798,17 +816,17 @@ describe("API: resources interceptors option", () => {
                 if (request.url.endsWith("/api/data")) {
                   capturedElement = element;
                   return new Response(toStream('{"mocked": true}'), {
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json" },
                   });
                 }
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         const xhr = new dom.window.XMLHttpRequest();
-        const loadPromise = new Promise(resolve => {
+        const loadPromise = new Promise((resolve) => {
           xhr.onload = resolve;
         });
         xhr.open("GET", "/api/data");
@@ -827,11 +845,11 @@ describe("API: resources interceptors option", () => {
             interceptors: [
               requestInterceptor(() => {
                 return new Response(null, {
-                  headers: { "Content-Type": "text/html" }
+                  headers: { "Content-Type": "text/html" },
                 });
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
         assert.equal(dom.window.document.body.textContent, "");
       });
@@ -845,16 +863,16 @@ describe("API: resources interceptors option", () => {
           virtualConsole,
           resources: {
             interceptors: [
-              requestInterceptor(request => {
+              requestInterceptor((request) => {
                 if (request.url.endsWith("/test.js")) {
                   return new Response(null, {
-                    headers: { "Content-Type": "application/javascript" }
+                    headers: { "Content-Type": "application/javascript" },
                   });
                 }
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         dom.window.x = "unchanged";
@@ -874,7 +892,7 @@ describe("API: resources interceptors option", () => {
           ["Content-Type", "text/html"],
           ["Set-Cookie", "a=1"],
           ["Set-Cookie", "b=2"],
-          ["Set-Cookie", "c=3"]
+          ["Set-Cookie", "c=3"],
         ]);
 
         const dom = await JSDOM.fromURL("http://example.com/test", {
@@ -882,9 +900,9 @@ describe("API: resources interceptors option", () => {
             interceptors: [
               requestInterceptor(() => {
                 return new Response("<html><body>Hello</body></html>", { headers });
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         assert.equal(dom.window.document.cookie, "a=1; b=2; c=3");
@@ -900,11 +918,11 @@ describe("API: resources interceptors option", () => {
             requestInterceptor(async () => {
               await delay(1);
               return new Response("<html><body>Async mocked</body></html>", {
-                headers: { "Content-Type": "text/html" }
+                headers: { "Content-Type": "text/html" },
               });
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
       assert.equal(dom.window.document.body.textContent, "Async mocked");
     });
@@ -920,9 +938,9 @@ describe("API: resources interceptors option", () => {
               await delay(1);
               called = true;
               return undefined; // Pass through
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
       assert.equal(called, true);
       assert.equal(dom.window.document.body.textContent, "Hello from server");
@@ -932,10 +950,10 @@ describe("API: resources interceptors option", () => {
       // Script1 uses async delay, script2 returns immediately
       // Script1 should execute before script2 even though script2's response is ready first
       let script1Resolve, allDoneResolve;
-      const script1Promise = new Promise(resolve => {
+      const script1Promise = new Promise((resolve) => {
         script1Resolve = resolve;
       });
-      const allDonePromise = new Promise(resolve => {
+      const allDonePromise = new Promise((resolve) => {
         allDoneResolve = resolve;
       });
 
@@ -946,25 +964,28 @@ describe("API: resources interceptors option", () => {
           runScripts: "dangerously",
           resources: {
             interceptors: [
-              requestInterceptor(async request => {
+              requestInterceptor(async (request) => {
                 if (request.url.endsWith("/script1.js")) {
                   // Wait for signal before returning - simulates async file read
                   await script1Promise;
                   return new Response("window.order = (window.order || '') + '1';", {
-                    headers: { "Content-Type": "application/javascript" }
+                    headers: { "Content-Type": "application/javascript" },
                   });
                 }
                 if (request.url.endsWith("/script2.js")) {
                   // Sync response - ready immediately
-                  return new Response("window.order = (window.order || '') + '2'; window.allDone();", {
-                    headers: { "Content-Type": "application/javascript" }
-                  });
+                  return new Response(
+                    "window.order = (window.order || '') + '2'; window.allDone();",
+                    {
+                      headers: { "Content-Type": "application/javascript" },
+                    },
+                  );
                 }
                 return undefined;
-              })
-            ]
-          }
-        }
+              }),
+            ],
+          },
+        },
       );
 
       dom.window.allDone = allDoneResolve;
@@ -993,9 +1014,9 @@ describe("API: resources interceptors option", () => {
               requestInterceptor(() => {
                 callOrder.push("second");
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         assert.deepEqual(callOrder, ["first", "second"], "Interceptors must run in order");
@@ -1016,11 +1037,11 @@ describe("API: resources interceptors option", () => {
               requestInterceptor(() => {
                 callOrder.push("second");
                 return new Response("<html><body>From second</body></html>", {
-                  headers: { "Content-Type": "text/html" }
+                  headers: { "Content-Type": "text/html" },
                 });
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         assert.deepEqual(callOrder, ["first", "second"], "Both interceptors must run");
@@ -1036,15 +1057,15 @@ describe("API: resources interceptors option", () => {
               requestInterceptor(() => {
                 callOrder.push("first");
                 return new Response("<html><body>From first</body></html>", {
-                  headers: { "Content-Type": "text/html" }
+                  headers: { "Content-Type": "text/html" },
                 });
               }),
               requestInterceptor(() => {
                 callOrder.push("second");
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         assert.deepEqual(callOrder, ["first"], "Only first interceptor must run");
@@ -1060,17 +1081,17 @@ describe("API: resources interceptors option", () => {
               requestInterceptor(() => {
                 callOrder.push("first");
                 return new Response("<html><body>From first</body></html>", {
-                  headers: { "Content-Type": "text/html" }
+                  headers: { "Content-Type": "text/html" },
                 });
               }),
               requestInterceptor(() => {
                 callOrder.push("second");
                 return new Response("<html><body>From second</body></html>", {
-                  headers: { "Content-Type": "text/html" }
+                  headers: { "Content-Type": "text/html" },
                 });
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         assert.deepEqual(callOrder, ["first"], "Only first interceptor must run");
@@ -1092,9 +1113,9 @@ describe("API: resources interceptors option", () => {
               requestInterceptor(() => {
                 callOrder.push("second");
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         const ws = new dom.window.WebSocket(wsURL);
@@ -1107,7 +1128,11 @@ describe("API: resources interceptors option", () => {
         ws.close();
         wsServer.destroy();
 
-        assert.deepEqual(callOrder, ["first", "second"], "Both interceptors must run for WebSocket");
+        assert.deepEqual(
+          callOrder,
+          ["first", "second"],
+          "Both interceptors must run for WebSocket",
+        );
       });
     });
 
@@ -1132,8 +1157,8 @@ describe("API: resources interceptors option", () => {
 
         const dom = await JSDOM.fromURL(url, {
           resources: {
-            interceptors: [firstInterceptor, secondInterceptor]
-          }
+            interceptors: [firstInterceptor, secondInterceptor],
+          },
         });
 
         assert.deepEqual(callOrder, ["first", "second"], "Interceptors must run in order");
@@ -1160,8 +1185,8 @@ describe("API: resources interceptors option", () => {
 
         const dom = await JSDOM.fromURL(url, {
           resources: {
-            interceptors: [firstInterceptor, secondInterceptor]
-          }
+            interceptors: [firstInterceptor, secondInterceptor],
+          },
         });
 
         assert.equal(secondSawCustomData, true, "Second interceptor must see data added by first");
@@ -1186,9 +1211,9 @@ describe("API: resources interceptors option", () => {
               requestInterceptor(() => {
                 callOrder.push("helper");
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         assert.deepEqual(callOrder, ["raw", "helper"], "Both interceptor types must work together");
@@ -1216,8 +1241,8 @@ describe("API: resources interceptors option", () => {
         const dom = new JSDOM(``, {
           url: "http://example.com/",
           resources: {
-            interceptors: [firstInterceptor, secondInterceptor]
-          }
+            interceptors: [firstInterceptor, secondInterceptor],
+          },
         });
 
         const ws = new dom.window.WebSocket(wsURL);
@@ -1230,7 +1255,11 @@ describe("API: resources interceptors option", () => {
         ws.close();
         wsServer.destroy();
 
-        assert.deepEqual(callOrder, ["first", "second"], "Both interceptors must run for WebSocket");
+        assert.deepEqual(
+          callOrder,
+          ["first", "second"],
+          "Both interceptors must run for WebSocket",
+        );
       });
     });
   });
@@ -1244,12 +1273,12 @@ describe("API: resources interceptors option", () => {
           url: "https://example.test/",
           resources: {
             interceptors: [
-              requestInterceptor(request => {
+              requestInterceptor((request) => {
                 signal = request.signal;
                 return response.promise;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
         try {
           window.document.querySelector("link").removeAttribute(attribute);
@@ -1261,33 +1290,44 @@ describe("API: resources interceptors option", () => {
       });
     }
 
-    it("should release closed windows while an interceptor remains pending", { timeout: 5000 }, () => {
-      const fixturePath = path.resolve(__dirname, "fixtures/pending-interceptor-with-gc.mjs");
-      const { status, stderr, stdout } = spawnSync(process.execPath, ["--expose-gc", fixturePath], {
-        encoding: "utf-8"
-      });
+    it(
+      "should release closed windows while an interceptor remains pending",
+      { timeout: 5000 },
+      () => {
+        const fixturePath = path.resolve(__dirname, "fixtures/pending-interceptor-with-gc.mjs");
+        const { status, stderr, stdout } = spawnSync(
+          process.execPath,
+          ["--expose-gc", fixturePath],
+          {
+            encoding: "utf-8",
+          },
+        );
 
-      assert.equal(status, 0, stderr);
-      assert.equal(stdout.trim(), "collected");
-    });
+        assert.equal(status, 0, stderr);
+        assert.equal(stdout.trim(), "collected");
+      },
+    );
 
     for (const method of ["stop", "close"]) {
       it(`should finish window.${method}() when a custom stack formatter throws`, () => {
         const signals = [];
-        const { window } = new JSDOM(`
+        const { window } = new JSDOM(
+          `
           <script async src="https://example.test/first.js"></script>
           <script src="https://example.test/second.js"></script>
-        `, {
-          runScripts: "dangerously",
-          resources: {
-            interceptors: [
-              requestInterceptor(request => {
-                signals.push(request.signal);
-                return new Promise(() => {});
-              })
-            ]
-          }
-        });
+        `,
+          {
+            runScripts: "dangerously",
+            resources: {
+              interceptors: [
+                requestInterceptor((request) => {
+                  signals.push(request.signal);
+                  return new Promise(() => {});
+                }),
+              ],
+            },
+          },
+        );
         const originalFormatter = Error.prepareStackTrace;
         try {
           Error.prepareStackTrace = () => {
@@ -1295,7 +1335,7 @@ describe("API: resources interceptors option", () => {
           };
           window[method]();
           assert.equal(signals.length, 2);
-          assert(signals.every(signal => signal.aborted));
+          assert(signals.every((signal) => signal.aborted));
         } finally {
           Error.prepareStackTrace = originalFormatter;
         }
@@ -1309,15 +1349,15 @@ describe("API: resources interceptors option", () => {
         runScripts: "dangerously",
         resources: {
           interceptors: [
-            requestInterceptor(request => {
+            requestInterceptor((request) => {
               request.signal.addEventListener("abort", () => {
                 ++aborts;
                 window.close();
               });
               return new Promise(() => {});
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
       const script = window.document.createElement("script");
       script.src = "/pending.js";
@@ -1339,19 +1379,20 @@ describe("API: resources interceptors option", () => {
         runScripts: "dangerously",
         resources: {
           interceptors: [
-            dispatch => (options, handler) => dispatch(options, {
-              ...handler,
-              onResponseError(controller, error) {
-                handler.onResponseError(controller, error);
-                canceled.resolve(error);
-              }
-            }),
-            requestInterceptor(request => {
+            (dispatch) => (options, handler) =>
+              dispatch(options, {
+                ...handler,
+                onResponseError(controller, error) {
+                  handler.onResponseError(controller, error);
+                  canceled.resolve(error);
+                },
+              }),
+            requestInterceptor((request) => {
               signal = request.signal;
               return new Promise(() => {});
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       window.stop();
@@ -1368,13 +1409,13 @@ describe("API: resources interceptors option", () => {
         resources: {
           interceptors: [
             recordResponseErrors(errors),
-            requestInterceptor(request => {
+            requestInterceptor((request) => {
               signal = request.signal;
               fetched = fetch(request);
               return fetched;
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       try {
@@ -1399,24 +1440,31 @@ describe("API: resources interceptors option", () => {
         runScripts: "dangerously",
         resources: {
           interceptors: [
-            requestInterceptor(request => {
+            requestInterceptor((request) => {
               signal = request.signal;
               return response.promise;
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       window.stop();
-      response.resolve(new Response(new ReadableStream({
-        pull(controller) {
-          controller.close();
-          bodyAction.resolve({ action: "read" });
-        },
-        cancel(reason) {
-          bodyAction.resolve({ action: "cancel", reason });
-        }
-      }, { highWaterMark: 0 })));
+      response.resolve(
+        new Response(
+          new ReadableStream(
+            {
+              pull(controller) {
+                controller.close();
+                bodyAction.resolve({ action: "read" });
+              },
+              cancel(reason) {
+                bodyAction.resolve({ action: "cancel", reason });
+              },
+            },
+            { highWaterMark: 0 },
+          ),
+        ),
+      );
       const { action, reason } = await bodyAction.promise;
       assert.equal(action, "cancel");
       assert.equal(reason, signal.reason);
@@ -1433,21 +1481,28 @@ describe("API: resources interceptors option", () => {
         resources: {
           interceptors: [
             recordResponseErrors(errors),
-            requestInterceptor(request => {
+            requestInterceptor((request) => {
               signal = request.signal;
               return response.promise;
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       window.stop();
-      response.resolve(new Response(new ReadableStream({
-        cancel() {
-          canceled.resolve();
-          throw new Error("Response cleanup failed");
-        }
-      }, { highWaterMark: 0 })));
+      response.resolve(
+        new Response(
+          new ReadableStream(
+            {
+              cancel() {
+                canceled.resolve();
+                throw new Error("Response cleanup failed");
+              },
+            },
+            { highWaterMark: 0 },
+          ),
+        ),
+      );
       await canceled.promise;
       // Let the cleanup rejection reach the interceptor's rejection handler.
       await setImmediate();
@@ -1469,8 +1524,8 @@ describe("API: resources interceptors option", () => {
         runScripts: "dangerously",
         resources: {
           dispatcher: agent,
-          interceptors: [recordResponseErrors(errors), requestInterceptor(() => undefined)]
-        }
+          interceptors: [recordResponseErrors(errors), requestInterceptor(() => undefined)],
+        },
       });
 
       server.once("connection", () => {
@@ -1498,16 +1553,16 @@ describe("API: resources interceptors option", () => {
         runScripts: "dangerously",
         resources: {
           interceptors: [
-            dispatch => (options, handler) => {
+            (dispatch) => (options, handler) => {
               window.stop();
               return dispatch(options, handler);
             },
             requestInterceptor(() => {
               called = true;
               return new Response("");
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       const script = window.document.createElement("script");
@@ -1528,23 +1583,35 @@ describe("API: resources interceptors option", () => {
         runScripts: "dangerously",
         resources: {
           interceptors: [
-            requestInterceptor(request => {
+            requestInterceptor((request) => {
               try {
                 const { signal } = request;
 
                 // Signal should not be aborted before window.close()
-                assert.equal(signal.aborted, false, "Signal must not be aborted before window.close()");
+                assert.equal(
+                  signal.aborted,
+                  false,
+                  "Signal must not be aborted before window.close()",
+                );
 
                 // Call window.close() synchronously within the interceptor
                 capturedWindow.close();
 
                 // The signal should be aborted synchronously
-                assert.equal(signal.aborted, true, "Signal must be aborted synchronously after window.close()");
+                assert.equal(
+                  signal.aborted,
+                  true,
+                  "Signal must be aborted synchronously after window.close()",
+                );
                 assert(
                   signal.reason instanceof globalThis.DOMException,
-                  "Signal reason must be a DOMException"
+                  "Signal reason must be a DOMException",
                 );
-                assert.equal(signal.reason.name, "AbortError", "Signal reason must be an AbortError");
+                assert.equal(
+                  signal.reason.name,
+                  "AbortError",
+                  "Signal reason must be an AbortError",
+                );
 
                 interceptorCalledResolve();
               } catch (e) {
@@ -1553,9 +1620,9 @@ describe("API: resources interceptors option", () => {
 
               // Return a synthetic response to complete the request
               return new Response("", { headers: { "Content-Type": "application/javascript" } });
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       capturedWindow = dom.window;
@@ -1580,38 +1647,42 @@ describe("API: resources interceptors option", () => {
         }
 
         try {
-          await assert.rejects(JSDOM.fromURL("http://example.com/", {
-            resources: {
-              dispatcher: agent,
-              interceptors: [
-                dispatch => (options, handler) => dispatch(options, {
-                  ...handler,
-                  onRequestStart(controller, context) {
-                    requestController = controller;
-                    handler.onRequestStart(controller, context);
-                  },
-                  onResponseError(controller, error) {
-                    errors.push(error);
-                    handler.onResponseError(controller, error);
-                  }
-                }),
-                requestInterceptor(() => {
-                  if (failure === "the callback rejects") {
-                    return Promise.reject(callbackError);
-                  }
-                  return undefined;
-                })
-              ]
-            }
-          }), error => {
-            assert.equal(error, errors[0]);
-            if (failure === "the callback rejects") {
-              assert.equal(error, callbackError);
-            } else {
-              assert.equal(error.code, "UND_ERR_DESTROYED");
-            }
-            return true;
-          });
+          await assert.rejects(
+            JSDOM.fromURL("http://example.com/", {
+              resources: {
+                dispatcher: agent,
+                interceptors: [
+                  (dispatch) => (options, handler) =>
+                    dispatch(options, {
+                      ...handler,
+                      onRequestStart(controller, context) {
+                        requestController = controller;
+                        handler.onRequestStart(controller, context);
+                      },
+                      onResponseError(controller, error) {
+                        errors.push(error);
+                        handler.onResponseError(controller, error);
+                      },
+                    }),
+                  requestInterceptor(() => {
+                    if (failure === "the callback rejects") {
+                      return Promise.reject(callbackError);
+                    }
+                    return undefined;
+                  }),
+                ],
+              },
+            }),
+            (error) => {
+              assert.equal(error, errors[0]);
+              if (failure === "the callback rejects") {
+                assert.equal(error, callbackError);
+              } else {
+                assert.equal(error.code, "UND_ERR_DESTROYED");
+              }
+              return true;
+            },
+          );
 
           requestController.abort(new Error("Canceled after failure"));
           await setImmediate();
@@ -1625,7 +1696,7 @@ describe("API: resources interceptors option", () => {
     describe("invalid return values", () => {
       it("should cause a jsdomError if interceptor returns null for a script", async () => {
         const virtualConsole = new VirtualConsole();
-        const jsdomErrorPromise = new Promise(resolve => {
+        const jsdomErrorPromise = new Promise((resolve) => {
           virtualConsole.on("jsdomError", resolve);
         });
 
@@ -1635,8 +1706,8 @@ describe("API: resources interceptors option", () => {
           runScripts: "dangerously",
           virtualConsole,
           resources: {
-            interceptors: [requestInterceptor(() => null)]
-          }
+            interceptors: [requestInterceptor(() => null)],
+          },
         });
 
         const jsdomError = await jsdomErrorPromise;
@@ -1644,13 +1715,13 @@ describe("API: resources interceptors option", () => {
         assert(jsdomError.cause instanceof TypeError, "The cause should be a TypeError");
         assert(
           jsdomError.cause.message.includes("must return undefined or a Response"),
-          `Error message should mention valid return types, got: ${jsdomError.cause.message}`
+          `Error message should mention valid return types, got: ${jsdomError.cause.message}`,
         );
       });
 
       it("should cause a jsdomError if interceptor returns a random object for a script", async () => {
         const virtualConsole = new VirtualConsole();
-        const jsdomErrorPromise = new Promise(resolve => {
+        const jsdomErrorPromise = new Promise((resolve) => {
           virtualConsole.on("jsdomError", resolve);
         });
 
@@ -1660,8 +1731,8 @@ describe("API: resources interceptors option", () => {
           runScripts: "dangerously",
           virtualConsole,
           resources: {
-            interceptors: [requestInterceptor(() => ({ status: 200, body: "fake" }))]
-          }
+            interceptors: [requestInterceptor(() => ({ status: 200, body: "fake" }))],
+          },
         });
 
         const jsdomError = await jsdomErrorPromise;
@@ -1669,43 +1740,45 @@ describe("API: resources interceptors option", () => {
         assert(jsdomError.cause instanceof TypeError, "The cause should be a TypeError");
         assert(
           jsdomError.cause.message.includes("must return undefined or a Response"),
-          `Error message should mention valid return types, got: ${jsdomError.cause.message}`
+          `Error message should mention valid return types, got: ${jsdomError.cause.message}`,
         );
       });
 
       it("should reject fromURL() if interceptor returns null", async () => {
         await assert.rejects(
-          () => JSDOM.fromURL("http://example.com/", {
-            resources: {
-              interceptors: [requestInterceptor(() => null)]
-            }
-          }),
-          err => {
+          () =>
+            JSDOM.fromURL("http://example.com/", {
+              resources: {
+                interceptors: [requestInterceptor(() => null)],
+              },
+            }),
+          (err) => {
             assert(err instanceof TypeError, "Should reject with TypeError");
             assert(
               err.message.includes("must return undefined or a Response"),
-              `Error message should mention valid return types, got: ${err.message}`
+              `Error message should mention valid return types, got: ${err.message}`,
             );
             return true;
-          }
+          },
         );
       });
 
       it("should reject fromURL() if interceptor returns a random object", async () => {
         await assert.rejects(
-          () => JSDOM.fromURL("http://example.com/", {
-            resources: {
-              interceptors: [requestInterceptor(() => ({ status: 200, body: "fake" }))]
-            }
-          }),
-          err => {
+          () =>
+            JSDOM.fromURL("http://example.com/", {
+              resources: {
+                interceptors: [requestInterceptor(() => ({ status: 200, body: "fake" }))],
+              },
+            }),
+          (err) => {
             assert(err instanceof TypeError, "Should reject with TypeError");
             assert(
               err.message.includes("must return undefined or a Response"),
-              `Error message should mention valid return types, got: ${err.message}`
+              `Error message should mention valid return types, got: ${err.message}`,
             );
             return true;
-          }
+          },
         );
       });
     });
@@ -1715,16 +1788,17 @@ describe("API: resources interceptors option", () => {
         const expectedError = new Error("Interceptor sync error");
 
         await assert.rejects(
-          () => JSDOM.fromURL("http://example.com/", {
-            resources: {
-              interceptors: [
-                requestInterceptor(() => {
-                  throw expectedError;
-                })
-              ]
-            }
-          }),
-          expectedError
+          () =>
+            JSDOM.fromURL("http://example.com/", {
+              resources: {
+                interceptors: [
+                  requestInterceptor(() => {
+                    throw expectedError;
+                  }),
+                ],
+              },
+            }),
+          expectedError,
         );
       });
 
@@ -1740,9 +1814,9 @@ describe("API: resources interceptors option", () => {
             interceptors: [
               requestInterceptor(() => {
                 throw expectedError;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         const element = dom.window.document.createElement("script");
@@ -1777,23 +1851,30 @@ describe("API: resources interceptors option", () => {
               cancel(reason) {
                 cancelReason = reason;
                 return cleanup.promise;
-              }
+              },
             });
-            const headers = sizeSource === "Content-Length" ? { "Content-Length": String(bytes.length) } : {};
+            const headers =
+              sizeSource === "Content-Length" ? { "Content-Length": String(bytes.length) } : {};
 
-            await assert.rejects(JSDOM.fromURL("http://example.com/", {
-              resources: {
-                interceptors: [
-                  interceptors.dump({ maxSize: 1 }),
-                  requestInterceptor(() => new Response(body, { headers }))
-                ]
-              }
-            }), error => {
-              assert.equal(error.code, "UND_ERR_ABORTED");
-              assert.equal(error.message, `Response size (${bytes.length}) larger than maxSize (1)`);
-              assert.equal(cancelReason, error);
-              return true;
-            });
+            await assert.rejects(
+              JSDOM.fromURL("http://example.com/", {
+                resources: {
+                  interceptors: [
+                    interceptors.dump({ maxSize: 1 }),
+                    requestInterceptor(() => new Response(body, { headers })),
+                  ],
+                },
+              }),
+              (error) => {
+                assert.equal(error.code, "UND_ERR_ABORTED");
+                assert.equal(
+                  error.message,
+                  `Response size (${bytes.length}) larger than maxSize (1)`,
+                );
+                assert.equal(cancelReason, error);
+                return true;
+              },
+            );
           });
         }
       });
@@ -1810,33 +1891,41 @@ describe("API: resources interceptors option", () => {
             },
             cancel(reason) {
               cancelReason = reason;
-            }
+            },
           });
 
           try {
-            await assert.rejects(JSDOM.fromURL("http://example.com/", {
-              resources: {
-                interceptors: [
-                  dispatch => (options, handler) => dispatch(options, {
-                    ...handler,
-                    [hook]() {
-                      throw expectedError;
-                    },
-                    onResponseError(controller, error) {
-                      notifications.push("error");
-                      handler.onResponseError(controller, error);
-                    },
-                    onResponseEnd(controller, trailers) {
-                      notifications.push("end");
-                      handler.onResponseEnd(controller, trailers);
-                    }
-                  }),
-                  requestInterceptor(() => new Response(body))
-                ]
-              }
-            }), expectedError);
+            await assert.rejects(
+              JSDOM.fromURL("http://example.com/", {
+                resources: {
+                  interceptors: [
+                    (dispatch) => (options, handler) =>
+                      dispatch(options, {
+                        ...handler,
+                        [hook]() {
+                          throw expectedError;
+                        },
+                        onResponseError(controller, error) {
+                          notifications.push("error");
+                          handler.onResponseError(controller, error);
+                        },
+                        onResponseEnd(controller, trailers) {
+                          notifications.push("end");
+                          handler.onResponseEnd(controller, trailers);
+                        },
+                      }),
+                    requestInterceptor(() => new Response(body)),
+                  ],
+                },
+              }),
+              expectedError,
+            );
 
-            assert.equal(cancelReason, expectedError, "The body must be canceled with the handler's error");
+            assert.equal(
+              cancelReason,
+              expectedError,
+              "The body must be canceled with the handler's error",
+            );
             await setImmediate();
             assert.deepEqual(notifications, ["error"]);
           } finally {
@@ -1849,25 +1938,26 @@ describe("API: resources interceptors option", () => {
         const streamError = new Error("Stream failed mid-way");
 
         await assert.rejects(
-          () => JSDOM.fromURL("http://example.com/test", {
-            resources: {
-              interceptors: [
-                requestInterceptor(() => {
-                  const stream = new ReadableStream({
-                    async start(controller) {
-                      controller.enqueue(new TextEncoder().encode("<html><body>"));
-                      await delay(1);
-                      controller.error(streamError);
-                    }
-                  });
-                  return new Response(stream, {
-                    headers: { "Content-Type": "text/html" }
-                  });
-                })
-              ]
-            }
-          }),
-          streamError
+          () =>
+            JSDOM.fromURL("http://example.com/test", {
+              resources: {
+                interceptors: [
+                  requestInterceptor(() => {
+                    const stream = new ReadableStream({
+                      async start(controller) {
+                        controller.enqueue(new TextEncoder().encode("<html><body>"));
+                        await delay(1);
+                        controller.error(streamError);
+                      },
+                    });
+                    return new Response(stream, {
+                      headers: { "Content-Type": "text/html" },
+                    });
+                  }),
+                ],
+              },
+            }),
+          streamError,
         );
       });
 
@@ -1881,23 +1971,23 @@ describe("API: resources interceptors option", () => {
           virtualConsole,
           resources: {
             interceptors: [
-              requestInterceptor(request => {
+              requestInterceptor((request) => {
                 if (request.url.endsWith("/test.js")) {
                   const stream = new ReadableStream({
                     async start(controller) {
                       controller.enqueue(new TextEncoder().encode("window.x = "));
                       await delay(1);
                       controller.error(streamError);
-                    }
+                    },
                   });
                   return new Response(stream, {
-                    headers: { "Content-Type": "application/javascript" }
+                    headers: { "Content-Type": "application/javascript" },
                   });
                 }
                 return undefined;
-              })
-            ]
-          }
+              }),
+            ],
+          },
         });
 
         const element = dom.window.document.createElement("script");
@@ -1915,7 +2005,7 @@ describe("API: resources interceptors option", () => {
     it("should not dispatch the real request if aborted while async interceptor is pending", async () => {
       let requestDispatched = false;
       let resolveInterceptor;
-      const interceptorPromise = new Promise(resolve => {
+      const interceptorPromise = new Promise((resolve) => {
         resolveInterceptor = resolve;
       });
 
@@ -1931,9 +2021,9 @@ describe("API: resources interceptors option", () => {
             requestInterceptor(() => {
               requestDispatched = true;
               return undefined;
-            })
-          ]
-        }
+            }),
+          ],
+        },
       });
 
       const xhr = new dom.window.XMLHttpRequest();
@@ -1956,11 +2046,12 @@ describe("API: resources interceptors option", () => {
 });
 
 function recordResponseErrors(errors) {
-  return dispatch => (options, handler) => dispatch(options, {
-    ...handler,
-    onResponseError(controller, error) {
-      errors.push(error);
-      handler.onResponseError(controller, error);
-    }
-  });
+  return (dispatch) => (options, handler) =>
+    dispatch(options, {
+      ...handler,
+      onResponseError(controller, error) {
+        errors.push(error);
+        handler.onResponseError(controller, error);
+      },
+    });
 }

@@ -8,10 +8,7 @@ const { Canvas } = require("../../lib/jsdom/utils.js");
 
 const hasCanvas = Boolean(Canvas);
 
-const validInnerReasons = new Set([
-  "fail",
-  "fail-with-canvas"
-]);
+const validInnerReasons = new Set(["fail", "fail-with-canvas"]);
 
 const validReasons = new Set([
   "fail",
@@ -20,7 +17,7 @@ const validReasons = new Set([
   "timeout",
   "flaky",
   "needs-canvas",
-  "pass-slow"
+  "pass-slow",
 ]);
 
 const nodeVersionReasonPattern = /^(fail|skip)-node:(.+)$/;
@@ -41,7 +38,7 @@ exports.checkToUpstreamExpectations = (toUpstreamExpectationsFilename, possibleT
   const toRunString = fs.readFileSync(toUpstreamExpectationsFilename, { encoding: "utf-8" });
   let expectations = jsYAML.load(toRunString, null, {
     filename: toUpstreamExpectationsFilename,
-    schema: jsYAML.DEFAULT_SAFE_SCHEMA
+    schema: jsYAML.DEFAULT_SAFE_SCHEMA,
   });
 
   if (expectations === undefined) {
@@ -53,7 +50,10 @@ exports.checkToUpstreamExpectations = (toUpstreamExpectationsFilename, possibleT
 
 exports.checkToRunFile = (toRunFilename, possibleTestFilePaths) => {
   const toRunString = fs.readFileSync(toRunFilename, { encoding: "utf-8" });
-  const toRunDocs = jsYAML.loadAll(toRunString, null, { filename: toRunFilename, schema: jsYAML.DEFAULT_SAFE_SCHEMA });
+  const toRunDocs = jsYAML.loadAll(toRunString, null, {
+    filename: toRunFilename,
+    schema: jsYAML.DEFAULT_SAFE_SCHEMA,
+  });
   const testGroups = [];
 
   let lastDir = "";
@@ -72,21 +72,25 @@ exports.checkToRunFile = (toRunFilename, possibleTestFilePaths) => {
     if (doc.DIR < lastDir) {
       const toRunBasename = path.basename(toRunFilename);
       throw new Error(
-        `Bad lexicographical directory sorting in ${toRunBasename}: ${doc.DIR} should come before ${lastDir}`
+        `Bad lexicographical directory sorting in ${toRunBasename}: ${doc.DIR} should come before ${lastDir}`,
       );
     }
     lastDir = doc.DIR;
 
     const prefix = doc.DIR + "/";
-    const testFilePaths = possibleTestFilePaths.filter(testFilePath => testFilePath.startsWith(prefix));
+    const testFilePaths = possibleTestFilePaths.filter((testFilePath) =>
+      testFilePath.startsWith(prefix),
+    );
     const expectations = structuredClone(doc);
     delete expectations.DIR;
 
-    const expectationDataByTestFilePath = exports.prepareExpectations(expectations, testFilePaths, { prefix });
+    const expectationDataByTestFilePath = exports.prepareExpectations(expectations, testFilePaths, {
+      prefix,
+    });
     testGroups.push({
       dir: doc.DIR,
       expectationDataByTestFilePath,
-      testFilePaths
+      testFilePaths,
     });
   }
 
@@ -96,7 +100,7 @@ exports.checkToRunFile = (toRunFilename, possibleTestFilePaths) => {
 exports.runTestWithExpectations = (
   testFilePath,
   expectationDataByTestFilePath,
-  { runSingleWPT, prefix = "" } = {}
+  { runSingleWPT, prefix = "" } = {},
 ) => {
   const expectationData = expectationDataByTestFilePath.get(testFilePath);
   const testFile = testFilePath.slice(prefix.length);
@@ -111,8 +115,10 @@ exports.runTestWithExpectations = (
       // but others fail, and testharness status is OK.
       data = expectationData;
     }
-  } else if (prefix.startsWith("html/canvas/") ||
-             prefix === "html/semantics/embedded-content/the-canvas-element/") {
+  } else if (
+    prefix.startsWith("html/canvas/") ||
+    prefix === "html/semantics/embedded-content/the-canvas-element/"
+  ) {
     reason = "needs-canvas";
   }
 
@@ -164,8 +170,12 @@ exports.prepareExpectations = (expectations, possibleTestFilePaths, { prefix = "
     }
 
     if (pattern < lastPattern) {
-      throw new Error("Bad lexicographical expectation pattern sorting in WPT expectations: " + pattern +
-                      " should come before " + lastPattern);
+      throw new Error(
+        "Bad lexicographical expectation pattern sorting in WPT expectations: " +
+          pattern +
+          " should come before " +
+          lastPattern,
+      );
     }
     lastPattern = pattern;
 
@@ -180,14 +190,22 @@ exports.prepareExpectations = (expectations, possibleTestFilePaths, { prefix = "
           const parsed = parseNodeVersionReason(innerReason);
           if (parsed) {
             if (parsed.type === "skip") {
-              throw new Error(`Reason "${innerReason}" is only supported for files, not subtests (expectation "${
-                pattern}", subtest "${subtest}")`);
+              throw new Error(
+                `Reason "${innerReason}" is only supported for files, not subtests (expectation "${
+                  pattern
+                }", subtest "${subtest}")`,
+              );
             }
           } else if (!validReasons.has(innerReason)) {
-            throw new Error(`Bad reason "${innerReason}" for expectation "${pattern}" and subtest "${subtest}"`);
+            throw new Error(
+              `Bad reason "${innerReason}" for expectation "${pattern}" and subtest "${subtest}"`,
+            );
           } else {
-            throw new Error(`Reason "${innerReason}" is only supported for files, not subtests (expectation "${
-              pattern}", subtest "${subtest}")`);
+            throw new Error(
+              `Reason "${innerReason}" is only supported for files, not subtests (expectation "${
+                pattern
+              }", subtest "${subtest}")`,
+            );
           }
         }
       }
@@ -228,8 +246,7 @@ function resolveReason(reason) {
     return "run";
   }
 
-  if (reason === "fail" ||
-    (reason === "fail-with-canvas" && hasCanvas)) {
+  if (reason === "fail" || (reason === "fail-with-canvas" && hasCanvas)) {
     return "expect-fail";
   }
 

@@ -15,7 +15,7 @@ module.exports = () => {
     beforeEach() {
       deletionParent.appendChild(subtree);
       deletionRange.selectNode(subtree);
-    }
+    },
   });
 
   for (const siblingCount of [0, 1000]) {
@@ -27,18 +27,22 @@ module.exports = () => {
     }
     const wrapper = document.createElement("b");
     const range = document.createRange();
-    bench.add(`surroundContents: adjacent text with ${siblingCount} unrelated siblings`, () => {
-      range.surroundContents(wrapper);
-    }, {
-      beforeEach() {
-        wrapper.remove();
-        wrapper.replaceChildren();
-        left.data = "left";
-        right.data = "right";
-        range.setStart(left, 2);
-        range.setEnd(right, 3);
-      }
-    });
+    bench.add(
+      `surroundContents: adjacent text with ${siblingCount} unrelated siblings`,
+      () => {
+        range.surroundContents(wrapper);
+      },
+      {
+        beforeEach() {
+          wrapper.remove();
+          wrapper.replaceChildren();
+          left.data = "left";
+          right.data = "right";
+          range.setStart(left, 2);
+          range.setEnd(right, 3);
+        },
+      },
+    );
   }
 
   for (const siblingCount of [0, 1000]) {
@@ -55,22 +59,30 @@ module.exports = () => {
 
     const range = document.createRange();
     range.selectNode(selected);
-    bench.add(`toString: one child with ${siblingCount} unrelated subtrees`, () => range.toString());
+    bench.add(`toString: one child with ${siblingCount} unrelated subtrees`, () =>
+      range.toString(),
+    );
 
     const collapsed = document.createRange();
     collapsed.setStart(parent, 0);
     collapsed.collapse(true);
-    bench.add(`toString: collapsed with ${siblingCount} unrelated subtrees`, () => collapsed.toString());
+    bench.add(`toString: collapsed with ${siblingCount} unrelated subtrees`, () =>
+      collapsed.toString(),
+    );
 
     const deletionTree = parent.cloneNode(true);
     const childToDelete = deletionTree.firstChild;
     const deletion = document.createRange();
-    bench.add(`deleteContents: one child with ${siblingCount} unrelated subtrees`, () => deletion.deleteContents(), {
-      beforeEach() {
-        deletionTree.insertBefore(childToDelete, deletionTree.firstChild);
-        deletion.selectNode(childToDelete);
-      }
-    });
+    bench.add(
+      `deleteContents: one child with ${siblingCount} unrelated subtrees`,
+      () => deletion.deleteContents(),
+      {
+        beforeEach() {
+          deletionTree.insertBefore(childToDelete, deletionTree.firstChild);
+          deletion.selectNode(childToDelete);
+        },
+      },
+    );
   }
 
   return bench;

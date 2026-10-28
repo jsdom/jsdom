@@ -77,15 +77,19 @@ module.exports = () => {
         container.innerHTML = "<label><span>Name</span><input></label>".repeat(count);
         parent.appendChild(subtree);
         const name = `${connected ? "connected" : "detached"} ${shadow ? "shadow" : "light"} subtree (${count} fields)`;
-        bench.add(`appendChild: ${name}`, () => {
-          parent.appendChild(subtree);
-        }, {
-          beforeAll() {
-            if (connected) {
-              document.body.appendChild(parent);
-            }
-          }
-        });
+        bench.add(
+          `appendChild: ${name}`,
+          () => {
+            parent.appendChild(subtree);
+          },
+          {
+            beforeAll() {
+              if (connected) {
+                document.body.appendChild(parent);
+              }
+            },
+          },
+        );
       }
     }
   }

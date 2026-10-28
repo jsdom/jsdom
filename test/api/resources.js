@@ -14,14 +14,14 @@ const {
   resourceServer,
   neverRequestedServer,
   imageServer,
-  htmlServer
+  htmlServer,
 } = require("./helpers/servers.js");
 const {
   setUpLoadingAsserts,
   assertNotLoaded,
   assertLoaded,
   assertError,
-  resourceLoadingErrorRecordingVC
+  resourceLoadingErrorRecordingVC,
 } = require("./helpers/resources.js");
 
 describe("API: resource loading configuration", () => {
@@ -35,10 +35,7 @@ describe("API: resource loading configuration", () => {
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      return Promise.all([
-        assertNotLoaded(element),
-        neverRequestedPromise
-      ]);
+      return Promise.all([assertNotLoaded(element), neverRequestedPromise]);
     });
 
     it("should not download stylesheet links", { slow: 500 }, async () => {
@@ -51,26 +48,24 @@ describe("API: resource loading configuration", () => {
       element.href = url;
       dom.window.document.body.appendChild(element);
 
-      return Promise.all([
-        assertNotLoaded(element),
-        neverRequestedPromise
-      ]);
+      return Promise.all([assertNotLoaded(element), neverRequestedPromise]);
     });
 
-    it("should not download scripts (even with runScripts: \"dangerously\")", { slow: 500 }, async () => {
-      const [url, neverRequestedPromise] = await neverRequestedServer();
-      const dom = new JSDOM(``, { runScripts: "dangerously" });
+    it(
+      'should not download scripts (even with runScripts: "dangerously")',
+      { slow: 500 },
+      async () => {
+        const [url, neverRequestedPromise] = await neverRequestedServer();
+        const dom = new JSDOM(``, { runScripts: "dangerously" });
 
-      const element = dom.window.document.createElement("script");
-      setUpLoadingAsserts(element);
-      element.src = url;
-      dom.window.document.body.appendChild(element);
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
 
-      return Promise.all([
-        assertNotLoaded(element),
-        neverRequestedPromise
-      ]);
-    });
+        return Promise.all([assertNotLoaded(element), neverRequestedPromise]);
+      },
+    );
 
     it("should not download iframes", { slow: 500 }, async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
@@ -81,17 +76,14 @@ describe("API: resource loading configuration", () => {
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      await Promise.all([
-        assertNotLoaded(element),
-        neverRequestedPromise
-      ]);
+      await Promise.all([assertNotLoaded(element), neverRequestedPromise]);
 
       // This may not be the optimal behavior for "not loading" iframes: it's fine to change this test in the future
       // if we have better semantics. (E.g., perhaps we should treat all URLs as about:blank.)
       assert.equal(
         dom.window.frames[0].document.documentElement,
         null,
-        "The iframe must not have been downloaded"
+        "The iframe must not have been downloaded",
       );
     });
 
@@ -104,22 +96,19 @@ describe("API: resource loading configuration", () => {
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      await Promise.all([
-        assertNotLoaded(element),
-        neverRequestedPromise
-      ]);
+      await Promise.all([assertNotLoaded(element), neverRequestedPromise]);
 
       // This may not be the optimal behavior for "not loading" iframes: it's fine to change this test in the future
       // if we have better semantics. (E.g., perhaps we should treat all URLs as about:blank.)
       assert.equal(
         dom.window.frames[0].document.documentElement,
         null,
-        "The iframe must not have been downloaded"
+        "The iframe must not have been downloaded",
       );
     });
   });
 
-  describe("with resources: \"usable\"", () => {
+  describe('with resources: "usable"', () => {
     if (Canvas) {
       it("should download images [canvas is installed]", { slow: 500 }, async () => {
         const url = await imageServer();
@@ -143,10 +132,7 @@ describe("API: resource loading configuration", () => {
         element.src = url;
         dom.window.document.body.appendChild(element);
 
-        return Promise.all([
-          assertNotLoaded(element),
-          neverRequestedPromise
-        ]);
+        return Promise.all([assertNotLoaded(element), neverRequestedPromise]);
       });
     }
 
@@ -154,7 +140,7 @@ describe("API: resource loading configuration", () => {
       const sourceString = `body { color: blue; }`;
       const url = await resourceServer(
         { "Content-Type": "text/css", "Content-Length": sourceString.length },
-        sourceString
+        sourceString,
       );
       const virtualConsole = resourceLoadingErrorRecordingVC();
       const dom = new JSDOM(``, { resources: "usable", virtualConsole });
@@ -170,38 +156,47 @@ describe("API: resource loading configuration", () => {
       assert.equal(dom.window.getComputedStyle(dom.window.document.body).color, "rgb(0, 0, 255)");
     });
 
-    it("should download and run scripts, if runScripts: \"dangerously\" is also set", { slow: 500 }, async () => {
-      const sourceString = `window.x = 5;`;
-      const url = await resourceServer(
-        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-        sourceString
-      );
-      const virtualConsole = resourceLoadingErrorRecordingVC();
-      const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
+    it(
+      'should download and run scripts, if runScripts: "dangerously" is also set',
+      { slow: 500 },
+      async () => {
+        const sourceString = `window.x = 5;`;
+        const url = await resourceServer(
+          { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+          sourceString,
+        );
+        const virtualConsole = resourceLoadingErrorRecordingVC();
+        const dom = new JSDOM(``, {
+          resources: "usable",
+          runScripts: "dangerously",
+          virtualConsole,
+        });
 
-      const element = dom.window.document.createElement("script");
-      setUpLoadingAsserts(element);
-      element.src = url;
-      dom.window.document.body.appendChild(element);
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
 
-      await assertLoaded(element, virtualConsole);
-      assert.equal(dom.window.x, 5, "The script must have run");
-    });
+        await assertLoaded(element, virtualConsole);
+        assert.equal(dom.window.x, 5, "The script must have run");
+      },
+    );
 
-    it("should not download or run scripts, if runScripts: \"outside-only\" is set", { slow: 500 }, async () => {
-      const [url, neverRequestedPromise] = await neverRequestedServer();
-      const dom = new JSDOM(``, { resources: "usable", runScripts: "outside-only" });
+    it(
+      'should not download or run scripts, if runScripts: "outside-only" is set',
+      { slow: 500 },
+      async () => {
+        const [url, neverRequestedPromise] = await neverRequestedServer();
+        const dom = new JSDOM(``, { resources: "usable", runScripts: "outside-only" });
 
-      const element = dom.window.document.createElement("script");
-      setUpLoadingAsserts(element);
-      element.src = url;
-      dom.window.document.body.appendChild(element);
+        const element = dom.window.document.createElement("script");
+        setUpLoadingAsserts(element);
+        element.src = url;
+        dom.window.document.body.appendChild(element);
 
-      return Promise.all([
-        assertNotLoaded(element),
-        neverRequestedPromise
-      ]);
-    });
+        return Promise.all([assertNotLoaded(element), neverRequestedPromise]);
+      },
+    );
 
     it("should not download or run scripts, if runScripts is not set", { slow: 500 }, async () => {
       const [url, neverRequestedPromise] = await neverRequestedServer();
@@ -212,10 +207,7 @@ describe("API: resource loading configuration", () => {
       element.src = url;
       dom.window.document.body.appendChild(element);
 
-      return Promise.all([
-        assertNotLoaded(element),
-        neverRequestedPromise
-      ]);
+      return Promise.all([assertNotLoaded(element), neverRequestedPromise]);
     });
 
     it("should download iframes", { slow: 500 }, async () => {
@@ -232,7 +224,7 @@ describe("API: resource loading configuration", () => {
       assert.equal(
         dom.window.frames[0].document.body.textContent,
         "Hello",
-        "The iframe must have been downloaded"
+        "The iframe must have been downloaded",
       );
     });
 
@@ -250,7 +242,7 @@ describe("API: resource loading configuration", () => {
       assert.equal(
         dom.window.frames[0].document.body.textContent,
         "Hello",
-        "The frame must have been downloaded"
+        "The frame must have been downloaded",
       );
     });
 
@@ -287,7 +279,11 @@ describe("API: resource loading configuration", () => {
       it("should fire an error event downloading scripts", { slow: 500 }, async () => {
         const url = await emptyServer({ status: 404 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
+        const dom = new JSDOM(``, {
+          resources: "usable",
+          runScripts: "dangerously",
+          virtualConsole,
+        });
 
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
@@ -370,7 +366,11 @@ describe("API: resource loading configuration", () => {
       it("should fire an error event downloading scripts", { slow: 500 }, async () => {
         const url = await emptyServer({ status: 503 });
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
+        const dom = new JSDOM(``, {
+          resources: "usable",
+          runScripts: "dangerously",
+          virtualConsole,
+        });
 
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
@@ -452,7 +452,11 @@ describe("API: resource loading configuration", () => {
 
       it("should fire an error event downloading scripts", { slow: 500 }, () => {
         const virtualConsole = resourceLoadingErrorRecordingVC();
-        const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously", virtualConsole });
+        const dom = new JSDOM(``, {
+          resources: "usable",
+          runScripts: "dangerously",
+          virtualConsole,
+        });
 
         const element = dom.window.document.createElement("script");
         setUpLoadingAsserts(element);
@@ -516,7 +520,7 @@ describe("API: resource loading configuration", () => {
           // while the first still blocks execution.
           await setImmediate();
           assert.equal(window.readyScriptRan, undefined, "The first script still blocks execution");
-          const loaded = new Promise(resolve => {
+          const loaded = new Promise((resolve) => {
             ready.addEventListener("load", resolve, { once: true });
           });
           window.stop();
@@ -541,10 +545,11 @@ describe("API: resource loading configuration", () => {
           res.end();
         });
         const { window } = new JSDOM(`<script src="${serverURL(redirect)}"></script>`, {
-          resources: { dispatcher: agent }, runScripts: "dangerously"
+          resources: { dispatcher: agent },
+          runScripts: "dangerously",
         });
         // Stop as the redirect target accepts the connection, before it sends the script.
-        const stopped = new Promise(resolve => {
+        const stopped = new Promise((resolve) => {
           target.once("connection", () => {
             window.stop();
             resolve();
@@ -567,7 +572,7 @@ describe("API: resource loading configuration", () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
         const dom = new JSDOM(`<script>window.y = 6;</script>`, {
           resources: "usable",
-          runScripts: "dangerously"
+          runScripts: "dangerously",
         });
 
         const element = dom.window.document.createElement("script");
@@ -577,10 +582,7 @@ describe("API: resource loading configuration", () => {
 
         dom.window.close();
 
-        await Promise.all([
-          assertNotLoaded(element),
-          neverRequestedPromise
-        ]);
+        await Promise.all([assertNotLoaded(element), neverRequestedPromise]);
         assert.equal(dom.window.x, undefined, "The external script must not have run");
         assert.equal(dom.window.y, 6, "The inline script must have run");
       });
@@ -596,10 +598,7 @@ describe("API: resource loading configuration", () => {
 
         dom.window.close();
 
-        await Promise.all([
-          assertNotLoaded(xhr),
-          neverRequestedPromise
-        ]);
+        await Promise.all([assertNotLoaded(xhr), neverRequestedPromise]);
         assert.equal(xhr.abortFired, false);
       });
 
@@ -614,10 +613,7 @@ describe("API: resource loading configuration", () => {
 
         dom.window.close();
 
-        return Promise.all([
-          assertNotLoaded(element),
-          neverRequestedPromise
-        ]);
+        return Promise.all([assertNotLoaded(element), neverRequestedPromise]);
       });
 
       it("should abort a data: image request when closing the window", () => {
@@ -625,7 +621,8 @@ describe("API: resource loading configuration", () => {
 
         const element = dom.window.document.createElement("img");
         setUpLoadingAsserts(element);
-        element.src = "data:image/png;base64," +
+        element.src =
+          "data:image/png;base64," +
           "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=";
         dom.window.document.body.appendChild(element);
 
@@ -640,7 +637,7 @@ describe("API: resource loading configuration", () => {
         const [url, neverRequestedPromise] = await neverRequestedServer();
         const dom = new JSDOM(`<script>window.y = 6;</script>`, {
           resources: "usable",
-          runScripts: "dangerously"
+          runScripts: "dangerously",
         });
 
         const element = dom.window.document.createElement("script");
@@ -650,10 +647,7 @@ describe("API: resource loading configuration", () => {
 
         dom.window.stop();
 
-        await Promise.all([
-          assertNotLoaded(element),
-          neverRequestedPromise
-        ]);
+        await Promise.all([assertNotLoaded(element), neverRequestedPromise]);
         assert.equal(dom.window.x, undefined, "The script must not have run");
         assert.equal(dom.window.y, 6, "The inline script must have run");
       });
@@ -669,18 +663,16 @@ describe("API: resource loading configuration", () => {
 
         dom.window.stop();
 
-        await Promise.all([
-          assertNotLoaded(xhr),
-          neverRequestedPromise
-        ]);
+        await Promise.all([assertNotLoaded(xhr), neverRequestedPromise]);
         assert.equal(xhr.abortFired, false);
       });
     });
   });
 
   describe("userAgent option", () => {
-    const expected = `Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 ` +
-                     `(KHTML, like Gecko) jsdom/${packageVersion}`;
+    const expected =
+      `Mozilla/5.0 (${process.platform || "unknown OS"}) AppleWebKit/537.36 ` +
+      `(KHTML, like Gecko) jsdom/${packageVersion}`;
 
     it("should have a default user agent following the correct pattern", () => {
       const dom = new JSDOM(``);
@@ -698,7 +690,7 @@ describe("API: resource loading configuration", () => {
       const dom = await JSDOM.fromURL(url, { resources: { userAgent: "test user agent" } });
 
       assert.equal(dom.window.navigator.userAgent, "test user agent");
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         dom.window.onload = () => {
           assert.equal(dom.window.frames[0].navigator.userAgent, "test user agent");
           resolve();

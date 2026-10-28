@@ -10,12 +10,12 @@ const wptDir = path.resolve(__dirname, "tests");
 
 const configPaths = {
   default: path.resolve(__dirname, "wpt-config.json"),
-  toUpstream: path.resolve(__dirname, "tuwpt-config.json")
+  toUpstream: path.resolve(__dirname, "tuwpt-config.json"),
 };
 
 const configs = {
   default: require(configPaths.default),
-  toUpstream: require(configPaths.toUpstream)
+  toUpstream: require(configPaths.toUpstream),
 };
 
 let subprocess;
@@ -28,15 +28,16 @@ exports.start = async ({ toUpstream = false } = {}) => {
   try {
     await dns.lookup("web-platform.test");
   } catch {
-    throw new Error("Host entries not present for web platform tests. See " +
-                    "https://web-platform-tests.org/running-tests/from-local-system.html#system-setup");
+    throw new Error(
+      "Host entries not present for web platform tests. See https://web-platform-tests.org/running-tests/from-local-system.html#system-setup",
+    );
   }
 
   const configArg = path.relative(path.resolve(wptDir), configPath);
   const args = ["./wpt.py", "serve", "--config", configArg];
   subprocess = childProcess.spawn("python", args, {
     cwd: wptDir,
-    stdio: ["inherit", "pipe", "pipe"]
+    stdio: ["inherit", "pipe", "pipe"],
   });
 
   const logFilter = isQuietReporter() ? quietWPTLog : nonSpammyWPTLog;
@@ -49,7 +50,7 @@ exports.start = async ({ toUpstream = false } = {}) => {
     pollForServer(`http://${config.browser_host}:${config.ports.http[0]}/`),
     pollForServer(`https://${config.browser_host}:${config.ports.https[0]}/`),
     pollForServer(`http://${config.browser_host}:${config.ports.ws[0]}/`),
-    pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`)
+    pollForServer(`https://${config.browser_host}:${config.ports.wss[0]}/`),
   ]);
 
   return { urls, subprocess };
@@ -88,10 +89,12 @@ function nonSpammyWPTLog(buffer) {
   }
 
   // We'll get one message for each server startup. We don't need four more.
-  if (string.includes("INFO - Close on:") ||
-      string.includes("INFO - Bind on:") ||
-      string.includes("INFO - Listen on:") ||
-      string.includes("INFO - Create socket on:")) {
+  if (
+    string.includes("INFO - Close on:") ||
+    string.includes("INFO - Bind on:") ||
+    string.includes("INFO - Listen on:") ||
+    string.includes("INFO - Create socket on:")
+  ) {
     return false;
   }
 

@@ -15,18 +15,25 @@ const invalidFile = path.resolve(__dirname, "sizzle-speed/selectors.invalid.txt"
 const invalidSelectors = fs.readFileSync(invalidFile, "utf8").split("\n").filter(Boolean);
 
 module.exports = () => {
-  const { document } = (new JSDOM(domstr)).window;
+  const { document } = new JSDOM(domstr).window;
   const bench = new Bench();
 
   // Check the fixed corpus outside timing, including the exception type for rejected selectors.
   for (const method of ["querySelectorAll", "querySelector"]) {
     for (const selector of validSelectors) {
-      assert.doesNotThrow(() => document[method](selector), `${method}: ${JSON.stringify(selector)}`);
+      assert.doesNotThrow(
+        () => document[method](selector),
+        `${method}: ${JSON.stringify(selector)}`,
+      );
     }
     for (const selector of invalidSelectors) {
-      assert.throws(() => document[method](selector), {
-        name: "SyntaxError"
-      }, `${method}: ${JSON.stringify(selector)}`);
+      assert.throws(
+        () => document[method](selector),
+        {
+          name: "SyntaxError",
+        },
+        `${method}: ${JSON.stringify(selector)}`,
+      );
     }
   }
 

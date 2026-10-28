@@ -8,7 +8,7 @@ function setUpLoadingAsserts(loadable) {
   loadable.errorFired = false;
   loadable.abortFired = false;
 
-  loadable.loadPromise = new Promise(resolve => {
+  loadable.loadPromise = new Promise((resolve) => {
     loadable.addEventListener("load", () => {
       loadable.loadFired = true;
       resolve();
@@ -65,7 +65,7 @@ function resourceLoadingErrorRecordingVC() {
   virtualConsole.resourceLoadingErrors = [];
 
   virtualConsole.forwardTo(console, { jsdomErrors: "none" });
-  virtualConsole.on("jsdomError", err => {
+  virtualConsole.on("jsdomError", (err) => {
     if (err.type === "resource-loading") {
       virtualConsole.resourceLoadingErrors.push(err);
     } else {
@@ -82,5 +82,5 @@ module.exports = {
   assertNotLoaded,
   assertLoaded,
   assertError,
-  resourceLoadingErrorRecordingVC
+  resourceLoadingErrorRecordingVC,
 };

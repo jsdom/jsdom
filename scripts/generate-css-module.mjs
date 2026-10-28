@@ -32,7 +32,9 @@ export function generateCSSModule(syntax, source) {
     let properties = Object.entries(value);
     if (isList(value)) {
       expression = `list([${value.map(emit).join(",")}],${emit(value.separator)},${emit(value.types)})`;
-      properties = properties.filter(([key]) => key !== "types" && key !== "separator" && !/^\d+$/.test(key));
+      properties = properties.filter(
+        ([key]) => key !== "types" && key !== "separator" && !/^\d+$/.test(key),
+      );
     } else if (Array.isArray(value)) {
       expression = `[${value.map(emit).join(",")}]`;
       properties = properties.filter(([key]) => !/^\d+$/.test(key));
@@ -44,11 +46,13 @@ export function generateCSSModule(syntax, source) {
     } else {
       throw new Error(`CSS syntax contains a non-syntax object: ${value.constructor.name}`);
     }
-    if (Reflect.ownKeys(value).some(key => typeof key === "symbol")) {
+    if (Reflect.ownKeys(value).some((key) => typeof key === "symbol")) {
       throw new Error("CSS syntax contains unexpected symbol properties");
     }
     if (properties.length !== 0) {
-      const entries = properties.map(([key, entry]) => `${JSON.stringify(key)}:${emit(entry)}`).join(",");
+      const entries = properties
+        .map(([key, entry]) => `${JSON.stringify(key)}:${emit(entry)}`)
+        .join(",");
       expression = `Object.assign(${expression},{${entries}})`;
     }
     visiting.delete(value);
@@ -58,8 +62,10 @@ export function generateCSSModule(syntax, source) {
     return identifier;
   }
   const root = emit(syntax);
-  return '"use strict";\n\n' +
+  return (
+    '"use strict";\n\n' +
     `// Generated from ${source}.\n` +
     'const { list, omitted } = require("../jsdom/living/css/values/value.js");\n' +
-    `${statements.join("\n")}\nmodule.exports = ${root};\n`;
+    `${statements.join("\n")}\nmodule.exports = ${root};\n`
+  );
 }

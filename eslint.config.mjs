@@ -1,15 +1,16 @@
 import domenicConfig from "@domenic/eslint-config";
 import domenicStylistic from "@domenic/eslint-config/stylistic";
-import globals from "globals";
 import html from "eslint-plugin-html";
-import jsdomInternal from "./scripts/eslint-plugin/index.mjs";
 import n from "eslint-plugin-n";
+import globals from "globals";
+
+import jsdomInternal from "./scripts/eslint-plugin/index.mjs";
 
 const restrictedRequires = [
   {
     name: "@exodus/bytes/utf8.js",
-    message: "Use lib/jsdom/living/helpers/encoding.js instead."
-  }
+    message: "Use lib/jsdom/living/helpers/encoding.js instead.",
+  },
 ];
 
 export default [
@@ -27,25 +28,24 @@ export default [
       "test/to-port-to-wpts/level3/**",
       "test/to-port-to-wpts/script.js",
       "test/web-platform-tests/tests/**",
-      "test/web-platform-tests/to-upstream/**/*dont-upstream*"
-    ]
+      "test/web-platform-tests/to-upstream/**/*dont-upstream*",
+    ],
   },
   {
     files: ["**/*.js"],
     languageOptions: {
       sourceType: "commonjs",
-      globals: globals.node
-    }
+      globals: globals.node,
+    },
   },
   ...domenicConfig,
   ...domenicStylistic,
   {
     plugins: {
-      "jsdom-internal": jsdomInternal
+      "jsdom-internal": jsdomInternal,
     },
     rules: {
       // Overrides for jsdom
-      "@stylistic/array-element-newline": "off",
       "no-await-in-loop": "off",
       "no-implied-eval": "off",
       "no-invalid-this": "off",
@@ -61,9 +61,9 @@ export default [
         { ancestor: "NodeImpl", hook: "_childrenInsertedSteps" },
         { ancestor: "NodeImpl", hook: "_removingSteps" },
         { ancestor: "ElementImpl", hook: "_adoptingSteps" },
-        { ancestor: "ElementImpl", hook: "_attributeChangeSteps" }
-      ]
-    }
+        { ancestor: "ElementImpl", hook: "_attributeChangeSteps" },
+      ],
+    },
   },
   {
     files: ["lib/**"],
@@ -74,40 +74,44 @@ export default [
         "error",
         {
           name: "Buffer",
-          message: "Use Uint8Array instead."
-        }
+          message: "Use Uint8Array instead.",
+        },
       ],
       "no-restricted-properties": [
         "error",
         {
           property: "getAttribute",
-          message: "Use 'getAttributeNS' with null as the namespace to access attributes within jsdom"
+          message:
+            "Use 'getAttributeNS' with null as the namespace to access attributes within jsdom",
         },
         {
           property: "setAttribute",
-          message: "Use 'setAttributeNS' with null as the namespace to access attributes within jsdom"
+          message:
+            "Use 'setAttributeNS' with null as the namespace to access attributes within jsdom",
         },
         {
           property: "hasAttribute",
-          message: "Use 'hasAttributeNS' with null as the namespace to access attributes within jsdom"
+          message:
+            "Use 'hasAttributeNS' with null as the namespace to access attributes within jsdom",
         },
         {
           property: "removeAttribute",
-          message: "Use 'removeAttributeNS' with null as the namespace to access attributes within jsdom"
+          message:
+            "Use 'removeAttributeNS' with null as the namespace to access attributes within jsdom",
         },
         {
           property: "toggleAttribute",
-          message: "Use 'setAttributeNS' and 'removeAttributeNS' with null as the namespace to access attributes " +
-                   "within jsdom"
-        }
-      ]
-    }
+          message:
+            "Use 'setAttributeNS' and 'removeAttributeNS' with null as the namespace to access attributes within jsdom",
+        },
+      ],
+    },
   },
   {
     files: ["test/api/**"],
     rules: {
-      "no-loop-func": "off"
-    }
+      "no-loop-func": "off",
+    },
   },
   {
     files: ["test/web-platform-tests/to-upstream/**/*.{js,mjs,html}"],
@@ -161,20 +165,20 @@ export default [
         add_start_callback: "readonly",
         add_test_state_callback: "readonly",
         add_result_callback: "readonly",
-        add_completion_callback: "readonly"
+        add_completion_callback: "readonly",
         /* eslint-enable camelcase */
-      }
+      },
     },
     rules: {
-      "@stylistic/padded-blocks": "off", // we like to add spaces around the main test block
-      "camelcase": "off", // setting options like allow_uncaught_exception requires this
+      camelcase: "off", // setting options like allow_uncaught_exception requires this
       "no-implicit-globals": "off", // it doesn't much matter if we use top-level function declarations here
       "new-cap": [
-        "error", {
-        // window.external
-          capIsNewExceptions: ["AddSearchProvider", "IsSearchProviderInstalled"]
-        }
-      ]
-    }
-  }
+        "error",
+        {
+          // window.external
+          capIsNewExceptions: ["AddSearchProvider", "IsSearchProviderInstalled"],
+        },
+      ],
+    },
+  },
 ];

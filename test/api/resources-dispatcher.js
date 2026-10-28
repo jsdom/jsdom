@@ -22,16 +22,22 @@ describe("JSDOMDispatcher unit tests", () => {
       let redirectRequests = 0;
       const redirect = await createServer((req, res) => {
         redirectRequests++;
-        res.writeHead(302, { "Location": serverURL(target), "Cache-Control": "public, max-age=3600" });
+        res.writeHead(302, {
+          Location: serverURL(target),
+          "Cache-Control": "public, max-age=3600",
+        });
         res.end();
       });
-      const dispatcher = new JSDOMDispatcher({ cookieJar: new toughCookie.CookieJar(), baseDispatcher });
+      const dispatcher = new JSDOMDispatcher({
+        cookieJar: new toughCookie.CookieJar(),
+        baseDispatcher,
+      });
       const firstReason = new Error("first abort");
       const request = {
         origin: serverURL(redirect),
         path: "/",
         method: "GET",
-        opaque: { url: serverURL(redirect) + "/" }
+        opaque: { url: serverURL(redirect) + "/" },
       };
 
       try {
@@ -39,19 +45,22 @@ describe("JSDOMDispatcher unit tests", () => {
           await (await baseDispatcher.request(request)).body.dump();
         }
 
-        await assert.rejects(new Promise((resolve, reject) => {
-          dispatcher.dispatch(request, {
-            onRequestStart(controller) {
-              // Abort between hops, so the target request must receive the retained reason.
-              target.once("connection", () => {
-                controller.abort(firstReason);
-                controller.abort(new Error("second abort"));
-              });
-            },
-            onResponseError: (controller, err) => reject(err),
-            onResponseEnd: resolve
-          });
-        }), err => err === firstReason);
+        await assert.rejects(
+          new Promise((resolve, reject) => {
+            dispatcher.dispatch(request, {
+              onRequestStart(controller) {
+                // Abort between hops, so the target request must receive the retained reason.
+                target.once("connection", () => {
+                  controller.abort(firstReason);
+                  controller.abort(new Error("second abort"));
+                });
+              },
+              onResponseError: (controller, err) => reject(err),
+              onResponseEnd: resolve,
+            });
+          }),
+          (err) => err === firstReason,
+        );
         assert.equal(redirectRequests, 1);
       } finally {
         await agent.destroy();
@@ -76,7 +85,7 @@ describe("JSDOMDispatcher unit tests", () => {
       bodyTimeout: 5000,
       reset: true,
       throwOnError: false,
-      expectContinue: true
+      expectContinue: true,
     });
     const opts = getCapturedOpts();
     assert.equal(opts.method, "POST");
@@ -102,27 +111,30 @@ describe("JSDOMDispatcher unit tests", () => {
       close() {},
       destroy() {},
       closed: false,
-      destroyed: false
+      destroyed: false,
     };
     const cookieJar = new toughCookie.CookieJar();
     const dispatcher = new JSDOMDispatcher({
       baseDispatcher: mockBaseDispatcher,
-      cookieJar
+      cookieJar,
     });
 
     await new Promise((resolve, reject) => {
-      dispatcher.dispatch({
-        origin: "http://localhost",
-        path: "/test",
-        method: "GET",
-        headers: {},
-        upgrade: "websocket",
-        opaque: { url: "http://localhost/test" }
-      }, {
-        onRequestStart() {},
-        onRequestUpgrade: resolve,
-        onResponseError: reject
-      });
+      dispatcher.dispatch(
+        {
+          origin: "http://localhost",
+          path: "/test",
+          method: "GET",
+          headers: {},
+          upgrade: "websocket",
+          opaque: { url: "http://localhost/test" },
+        },
+        {
+          onRequestStart() {},
+          onRequestUpgrade: resolve,
+          onResponseError: reject,
+        },
+      );
     });
     assert.equal(capturedOpts.upgrade, "websocket");
   });
@@ -134,7 +146,7 @@ describe("JSDOMDispatcher unit tests", () => {
       path: "/ignored-path",
       method: "GET",
       headers: {},
-      opaque: { url: "http://actual-origin.com/actual-path?query=value" }
+      opaque: { url: "http://actual-origin.com/actual-path?query=value" },
     });
     assert.equal(getCapturedOpts().origin, "http://actual-origin.com");
     assert.equal(getCapturedOpts().path, "/actual-path?query=value");
@@ -147,7 +159,7 @@ describe("JSDOMDispatcher unit tests", () => {
       path: "/test",
       method: "GET",
       headers: { "X-Custom": "value" },
-      opaque: { url: "http://localhost/test" }
+      opaque: { url: "http://localhost/test" },
     });
     const { headers } = getCapturedOpts();
     assert.equal(headers["X-Custom"], "value");
@@ -165,7 +177,7 @@ describe("JSDOMDispatcher unit tests", () => {
       method: "GET",
       headers: {},
       query: { extra: "param" },
-      opaque: { url: "http://localhost/test?existing=query" }
+      opaque: { url: "http://localhost/test?existing=query" },
     });
     // query is nulled out to avoid conflicts with path derived from URL
     assert.equal(getCapturedOpts().query, null);
@@ -180,7 +192,7 @@ describe("JSDOMDispatcher unit tests", () => {
       method: "GET",
       headers: {},
       query: { extra: "param" },
-      opaque: { element: null }
+      opaque: { element: null },
     });
     assert.equal(getCapturedOpts().origin, "http://localhost");
     assert.equal(getCapturedOpts().path, "/test?foo=bar");
@@ -199,8 +211,8 @@ describe("JSDOMDispatcher unit tests", () => {
         url: "http://localhost/test",
         element: null,
         customField: "custom-value",
-        customData
-      }
+        customData,
+      },
     });
     const { opaque } = getCapturedOpts();
     assert.equal(opaque.customField, "custom-value");
@@ -221,12 +233,12 @@ function createCapturingDispatcher() {
     close() {},
     destroy() {},
     closed: false,
-    destroyed: false
+    destroyed: false,
   };
   const cookieJar = new toughCookie.CookieJar();
   const dispatcher = new JSDOMDispatcher({
     baseDispatcher: mockBaseDispatcher,
-    cookieJar
+    cookieJar,
   });
   return { dispatcher, getCapturedOpts: () => capturedOpts };
 }
@@ -237,7 +249,7 @@ function dispatchAndWait(dispatcher, opts) {
       onRequestStart() {},
       onResponseStart() {},
       onResponseEnd: resolve,
-      onResponseError: reject
+      onResponseError: reject,
     });
   });
 }

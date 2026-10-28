@@ -4,7 +4,8 @@ const documentBench = require("../document-bench");
 module.exports = () => {
   const { document, bench } = documentBench();
   const element = document.createElement("div");
-  element.innerHTML = '<label class="field"><span>Name</span><input value="initial"></label>'.repeat(100);
+  element.innerHTML =
+    '<label class="field"><span>Name</span><input value="initial"></label>'.repeat(100);
 
   const deep = document.createElement("div");
   let parent = deep;
