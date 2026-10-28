@@ -1,0 +1,51 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Random property keys in container conditions do not throw JavaScript exceptions</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#random-simplify">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/10982">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+// The truth value of a property-scoped random function outside a declaration is
+// unresolved. These cases assert CSSOM recovery, without selecting a truth value.
+function checkSurvives(condition) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`@container ${condition} { div { color: red; } } .after { color: blue; }`);
+  assert_equals(sheet.cssRules.length, 2);
+  assert_equals(sheet.cssRules[1].style.color, "blue");
+  sheet.insertRule("@media (width >= 0px) { div { color: green; } }", 2);
+  assert_equals(sheet.cssRules.length, 3);
+  assert_equals(sheet.cssRules[2].cssRules[0].style.color, "green");
+}
+
+test(() => {
+  checkSurvives("(width: random(1px, 1px))");
+}, "An omitted random key in a container prelude does not interrupt CSSOM parsing");
+
+test(() => {
+  checkSurvives("(width: random(auto, 1px, 1px))");
+}, "An auto random key in a container prelude does not interrupt CSSOM parsing");
+
+test(() => {
+  checkSurvives("(width: random(property-scoped, 1px, 1px))");
+}, "A property-scoped random key in a container prelude does not interrupt CSSOM parsing");
+
+test(() => {
+  checkSurvives("(width: random(property-index-scoped, 1px, 1px))");
+}, "A property-index-scoped random key in a container prelude does not interrupt CSSOM parsing");
+
+test(() => {
+  checkSurvives("(red junk < width < random(1px, 1px))");
+}, "An invalid left range operand does not evaluate a later property-scoped random function");
+
+test(() => {
+  checkSurvives("(< width < random(1px, 1px))");
+}, "A missing left range operand does not evaluate a later property-scoped random function");
+
+test(() => {
+  checkSurvives("(calc(red) < width < random(1px, 1px))");
+}, "An invalid left calculation does not evaluate a later property-scoped random function");
+</script>

@@ -1,0 +1,55 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Shorthands in rule-specific declaration blocks expand and serialize</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-declaration-block">
+<link rel="help" href="https://drafts.csswg.org/css-page/#page-properties">
+<link rel="help" href="https://drafts.csswg.org/css-anchor-position/#position-try-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page { margin: 1px 2px; }");
+  const { style } = sheet.cssRules[0];
+  assert_equals(style.getPropertyValue("margin-top"), "1px");
+  assert_equals(style.getPropertyValue("margin-right"), "2px");
+  assert_equals(style.getPropertyValue("margin"), "1px 2px");
+  style.setProperty("margin-left", "3px");
+  assert_equals(style.getPropertyValue("margin"), "1px 2px 1px 3px");
+}, "Page declaration shorthands expand and reflect longhand edits");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page { @top-left { margin: 1px 2px; } }");
+  const { style } = sheet.cssRules[0].cssRules[0];
+  assert_equals(style.getPropertyValue("margin-top"), "1px");
+  assert_equals(style.getPropertyValue("margin-right"), "2px");
+  assert_equals(style.getPropertyValue("margin"), "1px 2px");
+  style.setProperty("margin-left", "3px");
+  assert_equals(style.getPropertyValue("margin"), "1px 2px 1px 3px");
+}, "Page margin declaration shorthands expand and reflect longhand edits");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@keyframes test { from { margin: 1px 2px; } }");
+  const { style } = sheet.cssRules[0].cssRules[0];
+  assert_equals(style.getPropertyValue("margin-top"), "1px");
+  assert_equals(style.getPropertyValue("margin-right"), "2px");
+  assert_equals(style.getPropertyValue("margin"), "1px 2px");
+  style.setProperty("margin-left", "3px");
+  assert_equals(style.getPropertyValue("margin"), "1px 2px 1px 3px");
+}, "Keyframe declaration shorthands expand and reflect longhand edits");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@position-try --test { margin: 1px 2px; }");
+  const { style } = sheet.cssRules[0];
+  assert_equals(style.getPropertyValue("margin-top"), "1px");
+  assert_equals(style.getPropertyValue("margin-right"), "2px");
+  assert_equals(style.getPropertyValue("margin"), "1px 2px");
+  style.setProperty("margin-left", "3px");
+  assert_equals(style.getPropertyValue("margin"), "1px 2px 1px 3px");
+}, "Position-try declaration shorthands expand and reflect longhand edits");
+</script>

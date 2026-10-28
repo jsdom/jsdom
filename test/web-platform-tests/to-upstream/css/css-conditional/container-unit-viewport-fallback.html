@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Container units fall back to the small viewport without an eligible container</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#container-lengths">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const [containerUnit, viewportUnit] of [
+  ["cqw", "svw"], ["cqh", "svh"], ["cqi", "svi"],
+  ["cqb", "svb"], ["cqmin", "svmin"], ["cqmax", "svmax"]
+]) {
+  test(t => {
+    const target = document.createElement("div");
+    document.body.append(target);
+    t.add_cleanup(() => target.remove());
+    target.style.marginLeft = `1${viewportUnit}`;
+    const expected = getComputedStyle(target).marginLeft;
+    target.style.marginLeft = `1${containerUnit}`;
+    assert_equals(getComputedStyle(target).marginLeft, expected);
+  }, `${containerUnit} falls back to ${viewportUnit} without a size query container`);
+}
+</script>

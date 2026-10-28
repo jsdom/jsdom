@@ -11,14 +11,16 @@ const reporterPathname = "/resources/testharnessreport.js";
 // WPT servers use self-signed certificates
 const insecureDispatcher = new Agent({
   connect: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
 function unexpectedPassingTestMessage(expectationsFilename) {
-  return `Hey, did you fix a bug? This test used to be failing, but during this run there were no errors. If you ` +
+  return (
+    `Hey, did you fix a bug? This test used to be failing, but during this run there were no errors. If you ` +
     `have fixed the issue covered by this test, you can edit the "${expectationsFilename}" file and remove the line ` +
-    `containing this test. Thanks!`;
+    `containing this test. Thanks!`
+  );
 }
 
 module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
@@ -30,15 +32,20 @@ module.exports = (urlPrefixFactory, expectationsFilenameForErrorMessage) => {
       timeout: 120_000,
       slow: 10_000,
       fn() {
-        return createJSDOM(urlPrefixFactory(testPath), testPath, expectFail, expectationsFilenameForErrorMessage);
-      }
+        return createJSDOM(
+          urlPrefixFactory(testPath),
+          testPath,
+          expectFail,
+          expectationsFilenameForErrorMessage,
+        );
+      },
     });
   };
 };
 
 // Create an interceptor that handles special WPT test resources
 function createWPTInterceptor() {
-  return requestInterceptor(async request => {
+  return requestInterceptor(async (request) => {
     const url = new URL(request.url);
 
     if (url.pathname === reporterPathname) {
@@ -48,7 +55,8 @@ function createWPTInterceptor() {
       // So, always go to the one in ./tests.
       // The path replacement accounts for a rewrite performed by the WPT server:
       // https://github.com/web-platform-tests/wpt/blob/master/tools/serve/serve.py#L271
-      const filePath = path.resolve(__dirname, "tests" + url.pathname)
+      const filePath = path
+        .resolve(__dirname, "tests" + url.pathname)
         .replace("/resources/WebIDLParser.js", "/resources/webidl2/lib/webidl2.js");
 
       return new Response(await readFile(filePath));
@@ -59,7 +67,7 @@ function createWPTInterceptor() {
         "/dom/common.js",
         "/dom/nodes/ParentNode-querySelector-All-content.html",
         "/dom/nodes/ParentNode-querySelector-All.js",
-        "/dom/nodes/selectors.js"
+        "/dom/nodes/selectors.js",
       ];
       if (extraResources.includes(url.pathname)) {
         const filePath = path.resolve(__dirname, "tests" + url.pathname);
@@ -74,9 +82,11 @@ function createWPTInterceptor() {
 function formatFailedTest(test, expectationsFilenameForErrorMessage) {
   switch (test.status) {
     case test.PASS:
-      return "Unexpected passing test: " +
+      return (
+        "Unexpected passing test: " +
         JSON.stringify(test.name) +
-        unexpectedPassingTestMessage(expectationsFilenameForErrorMessage);
+        unexpectedPassingTestMessage(expectationsFilenameForErrorMessage)
+      );
     case test.FAIL:
     case test.PRECONDITION_FAILED:
       return `Failed in ${JSON.stringify(test.name)}:\n${test.message}\n\n${test.stack}`;
@@ -85,7 +95,9 @@ function formatFailedTest(test, expectationsFilenameForErrorMessage) {
     case test.NOTRUN:
       return `Uncompleted test ${JSON.stringify(test.name)}:\n${test.message}\n\n${test.stack}`;
     default:
-      throw new RangeError(`Unexpected test status: ${test.status} (test: ${JSON.stringify(test.name)})`);
+      throw new RangeError(
+        `Unexpected test status: ${test.status} (test: ${JSON.stringify(test.name)})`,
+      );
   }
 }
 
@@ -95,7 +107,7 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
   let allowUnhandledExceptions = false;
 
   const virtualConsole = new VirtualConsole().forwardTo(console, { jsdomErrors: "none" });
-  virtualConsole.on("jsdomError", e => {
+  virtualConsole.on("jsdomError", (e) => {
     if (e.type === "unhandled-exception" && !allowUnhandledExceptions) {
       unhandledExceptions.push(e);
 
@@ -113,146 +125,166 @@ function createJSDOM(urlPrefix, testPath, expectFail, expectationsFilenameForErr
     virtualConsole,
     resources: {
       dispatcher: insecureDispatcher,
-      interceptors: [createWPTInterceptor()]
+      interceptors: [createWPTInterceptor()],
     },
     pretendToBeVisual: true,
-    storageQuota: 100000 // Filling the default quota takes about a minute between two WPTs
-  })
-    .then(dom => {
-      const { window } = dom;
+    storageQuota: 100000, // Filling the default quota takes about a minute between two WPTs
+  }).then((dom) => {
+    const { window } = dom;
 
-      return new Promise((resolve, reject) => {
-        const errors = [];
+    return new Promise((resolve, reject) => {
+      const errors = [];
 
-        window.shimTest = () => {
-          // Results are reported through callbacks, so do not build a report in each test document.
-          window.setup({ output: false });
+      window.shimTest = () => {
+        // Results are reported through callbacks, so do not build a report in each test document.
+        window.setup({ output: false });
 
-          const oldSetup = window.setup;
-          window.setup = options => {
-            if (options.allow_uncaught_exception) {
-              allowUnhandledExceptions = true;
+        const oldSetup = window.setup;
+        window.setup = (options) => {
+          if (options.allow_uncaught_exception) {
+            allowUnhandledExceptions = true;
+          }
+          oldSetup(options);
+        };
+
+        // Overriding assert_throws_js and friends in order to allow us to throw exceptions from another realm. See
+        // https://github.com/jsdom/jsdom/issues/2727 for more information.
+
+        function assertThrowsJSImpl(constructor, func, description, assertionType) {
+          try {
+            func.call(this);
+            window.assert_true(false, `${assertionType}: ${description}: ${func} did not throw`);
+          } catch (e) {
+            if (e instanceof window.AssertionError) {
+              throw e;
             }
-            oldSetup(options);
-          };
 
-          // Overriding assert_throws_js and friends in order to allow us to throw exceptions from another realm. See
-          // https://github.com/jsdom/jsdom/issues/2727 for more information.
+            // Basic sanity-checks on the thrown exception.
+            window.assert_true(
+              typeof e === "object",
+              `${assertionType}: ${description}: ${func} threw ${e} with type ${typeof e}, not an object`,
+            );
 
-          function assertThrowsJSImpl(constructor, func, description, assertionType) {
-            try {
-              func.call(this);
-              window.assert_true(false, `${assertionType}: ${description}: ${func} did not throw`);
-            } catch (e) {
-              if (e instanceof window.AssertionError) {
-                throw e;
+            window.assert_true(
+              e !== null,
+              `${assertionType}: ${description}: ${func} threw null, not an object`,
+            );
+
+            // Basic sanity-check on the passed-in constructor
+            window.assert_true(
+              typeof constructor === "function",
+              `${assertionType}: ${description}: ${constructor} is not a constructor`,
+            );
+            let obj = constructor;
+            while (obj) {
+              if (typeof obj === "function" && obj.name === "Error") {
+                break;
               }
-
-              // Basic sanity-checks on the thrown exception.
-              window.assert_true(
-                typeof e === "object",
-                `${assertionType}: ${description}: ${func} threw ${e} with type ${typeof e}, not an object`
-              );
-
-              window.assert_true(
-                e !== null,
-                `${assertionType}: ${description}: ${func} threw null, not an object`
-              );
-
-              // Basic sanity-check on the passed-in constructor
-              window.assert_true(
-                typeof constructor === "function",
-                `${assertionType}: ${description}: ${constructor} is not a constructor`
-              );
-              let obj = constructor;
-              while (obj) {
-                if (typeof obj === "function" &&
-                          obj.name === "Error") {
-                  break;
-                }
-                obj = Object.getPrototypeOf(obj);
-              }
-              window.assert_true(
-                obj !== null && obj !== undefined,
-                `${assertionType}: ${description}: ${constructor} is not an Error subtype`
-              );
-
-              // And checking that our exception is reasonable
-              window.assert_equals(
-                e.name,
-                constructor.name,
-                `${assertionType}: ${description}: ${func} threw ${e} (${e.name}) ` +
-                `expected instance of ${constructor.name}`
-              );
+              obj = Object.getPrototypeOf(obj);
             }
+            window.assert_true(
+              obj !== null && obj !== undefined,
+              `${assertionType}: ${description}: ${constructor} is not an Error subtype`,
+            );
+
+            // And checking that our exception is reasonable
+            window.assert_equals(
+              e.name,
+              constructor.name,
+              `${assertionType}: ${description}: ${func} threw ${e} (${e.name}) ` +
+                `expected instance of ${constructor.name}`,
+            );
+          }
+        }
+
+        // eslint-disable-next-line camelcase
+        window.assert_throws_js = (constructor, func, description) => {
+          assertThrowsJSImpl(constructor, func, description, "assert_throws_js");
+        };
+        // eslint-disable-next-line camelcase
+        window.promise_rejects_js = (test, expected, promise, description) => {
+          return promise
+            .then(test.unreached_func("Should have rejected: " + description))
+            .catch((e) => {
+              assertThrowsJSImpl(
+                expected,
+                () => {
+                  throw e;
+                },
+                description,
+                "promise_reject_js",
+              );
+            });
+        };
+
+        window.add_result_callback((test) => {
+          if (
+            test.status === test.FAIL ||
+            test.status === test.TIMEOUT ||
+            test.status === test.NOTRUN
+          ) {
+            errors.push(formatFailedTest(test, expectationsFilenameForErrorMessage));
+          }
+        });
+
+        window.add_completion_callback((tests, harnessStatus) => {
+          // This needs to be delayed since some tests do things even after calling done().
+          process.nextTick(() => {
+            window.close();
+          });
+
+          let harnessFail = false;
+          if (harnessStatus.status === harnessStatus.ERROR) {
+            harnessFail = true;
+            errors.push(
+              new Error(`test harness should not error: ${testPath}\n${harnessStatus.message}`),
+            );
+          } else if (harnessStatus.status === harnessStatus.TIMEOUT) {
+            harnessFail = true;
+            errors.push(new Error(`test harness should not timeout: ${testPath}`));
           }
 
-          // eslint-disable-next-line camelcase
-          window.assert_throws_js = (constructor, func, description) => {
-            assertThrowsJSImpl(constructor, func, description, "assert_throws_js");
-          };
-          // eslint-disable-next-line camelcase
-          window.promise_rejects_js = (test, expected, promise, description) => {
-            return promise.then(test.unreached_func("Should have rejected: " + description)).catch(e => {
-              assertThrowsJSImpl(expected, () => {
-                throw e;
-              }, description, "promise_reject_js");
-            });
-          };
+          errors.push(...unhandledExceptions);
 
-          window.add_result_callback(test => {
-            if (test.status === test.FAIL || test.status === test.TIMEOUT || test.status === test.NOTRUN) {
-              errors.push(formatFailedTest(test, expectationsFilenameForErrorMessage));
-            }
-          });
+          if (typeof expectFail === "object" && (harnessFail || unhandledExceptions.length)) {
+            expectFail = false;
+          }
 
-          window.add_completion_callback((tests, harnessStatus) => {
-            // This needs to be delayed since some tests do things even after calling done().
-            process.nextTick(() => {
-              window.close();
-            });
-
-            let harnessFail = false;
-            if (harnessStatus.status === harnessStatus.ERROR) {
-              harnessFail = true;
-              errors.push(new Error(`test harness should not error: ${testPath}\n${harnessStatus.message}`));
-            } else if (harnessStatus.status === harnessStatus.TIMEOUT) {
-              harnessFail = true;
-              errors.push(new Error(`test harness should not timeout: ${testPath}`));
+          if (errors.length === 0 && expectFail) {
+            reject(new Error(unexpectedPassingTestMessage(expectationsFilenameForErrorMessage)));
+          } else if (errors.length === 1 && (tests.length === 1 || harnessFail) && !expectFail) {
+            reject(new Error(errors[0]));
+          } else if (errors.length && !expectFail) {
+            reject(
+              new Error(
+                `${errors.length}/${tests.length} errors in test:\n\n${errors.join("\n\n")}`,
+              ),
+            );
+          } else if (typeof expectFail !== "object") {
+            resolve();
+          } else {
+            const unexpectedErrors = [];
+            for (const test of tests) {
+              const innerExpectFail = expectFail[test.name] === "expect-fail";
+              if (innerExpectFail ? test.status === test.PASS : test.status !== test.PASS) {
+                unexpectedErrors.push(formatFailedTest(test, expectationsFilenameForErrorMessage));
+              }
             }
 
-            errors.push(...unhandledExceptions);
-
-            if (typeof expectFail === "object" && (harnessFail || unhandledExceptions.length)) {
-              expectFail = false;
-            }
-
-            if (errors.length === 0 && expectFail) {
-              reject(new Error(unexpectedPassingTestMessage(expectationsFilenameForErrorMessage)));
-            } else if ((errors.length === 1 && (tests.length === 1 || harnessFail)) && !expectFail) {
-              reject(new Error(errors[0]));
-            } else if (errors.length && !expectFail) {
-              reject(new Error(`${errors.length}/${tests.length} errors in test:\n\n${errors.join("\n\n")}`));
-            } else if (typeof expectFail !== "object") {
-              resolve();
+            if (unexpectedErrors.length) {
+              reject(
+                new Error(
+                  `${unexpectedErrors.length}/${tests.length} errors in test:\n\n${unexpectedErrors.join(
+                    "\n\n",
+                  )}`,
+                ),
+              );
             } else {
-              const unexpectedErrors = [];
-              for (const test of tests) {
-                const innerExpectFail = expectFail[test.name] === "expect-fail";
-                if (innerExpectFail ? test.status === test.PASS : test.status !== test.PASS) {
-                  unexpectedErrors.push(formatFailedTest(test, expectationsFilenameForErrorMessage));
-                }
-              }
-
-              if (unexpectedErrors.length) {
-                reject(new Error(`${unexpectedErrors.length}/${tests.length} errors in test:\n\n${
-                  unexpectedErrors.join("\n\n")}`));
-              } else {
-                resolve();
-              }
+              resolve();
             }
-          });
-        };
-      });
+          }
+        });
+      };
     });
+  });
 }

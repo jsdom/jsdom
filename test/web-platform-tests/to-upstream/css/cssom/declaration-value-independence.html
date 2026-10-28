@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Declaration values remain independent across repeated assignments</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-csstext">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const first = document.createElement("div").style;
+  const second = document.createElement("div").style;
+  first.margin = "1px 2px";
+  second.margin = "1px 2px";
+  first.marginLeft = "3px";
+  assert_equals(first.margin, "1px 2px 1px 3px");
+  assert_equals(second.margin, "1px 2px");
+  assert_equals(second.marginLeft, "2px");
+}, "Expanding the same sides shorthand produces independent declarations");
+
+test(() => {
+  const first = document.createElement("div").style;
+  const second = document.createElement("div").style;
+  first.mask = "url(x) center / cover no-repeat";
+  second.mask = "url(x) center / cover no-repeat";
+  assert_equals(first.maskSize, "cover");
+  assert_equals(second.maskSize, "cover");
+  assert_equals(first.maskRepeat, "no-repeat");
+  assert_equals(second.maskRepeat, "no-repeat");
+  first.maskSize = "contain";
+  assert_equals(second.maskSize, "cover");
+}, "Expanding a mask shorthand repeatedly preserves position, size, and repeat");
+
+test(() => {
+  const first = document.createElement("div").style;
+  const second = document.createElement("div").style;
+  first.gridTemplate = '[a] "x" [b] [c] "y" [d] / 1fr';
+  second.gridTemplate = '[a] "x" [b] [c] "y" [d] / 1fr';
+  assert_equals(first.gridTemplateRows, "[a] auto [b c] auto [d]");
+  assert_equals(second.gridTemplateRows, "[a] auto [b c] auto [d]");
+  first.gridTemplateRows = "1px 2px";
+  assert_equals(second.gridTemplateRows, "[a] auto [b c] auto [d]");
+}, "Expanding grid-template repeatedly merges adjacent line names exactly once");
+
+test(() => {
+  const first = document.createElement("div").style;
+  const second = document.createElement("div").style;
+  first.cssText = "color: red !important; margin: 1px 2px; --custom: hello";
+  second.cssText = "color: red !important; margin: 1px 2px; --custom: hello";
+  first.setProperty("color", "blue");
+  first.removeProperty("margin");
+  first.setProperty("--custom", "goodbye");
+  assert_equals(second.color, "red");
+  assert_equals(second.getPropertyPriority("color"), "important");
+  assert_equals(second.margin, "1px 2px");
+  assert_equals(second.getPropertyValue("--custom"), "hello");
+}, "Mutating one declaration block leaves an identically authored block unchanged");
+
+test(() => {
+  const first = document.createElement("div").style;
+  const second = document.createElement("div").style;
+  first.setProperty("margin", "var(--space)", "important");
+  second.setProperty("margin", "var(--space)");
+  assert_equals(first.margin, "var(--space)");
+  assert_equals(second.margin, "var(--space)");
+  assert_equals(first.getPropertyPriority("margin"), "important");
+  assert_equals(second.getPropertyPriority("margin"), "");
+  first.marginLeft = "2px";
+  assert_equals(first.margin, "");
+  assert_equals(second.margin, "var(--space)");
+}, "Pending shorthand values keep separate priorities and constituent declarations");
+</script>

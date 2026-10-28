@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Custom property setters trim outer whitespace</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-declaration">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/14365">
+<!--
+  Tentative pending the CSSOM setter trimming step tracked by #14365.
+  These cases cover plain outer whitespace; comment and escape edges are separate.
+-->
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  const retained = getComputedStyle(target);
+  target.style.setProperty("--probe", "  value  ");
+  assert_equals(target.style.getPropertyValue("--probe"), "value");
+  assert_equals(retained.getPropertyValue("--probe"), "value");
+  assert_equals(getComputedStyle(target).getPropertyValue("--probe"), "value");
+  target.style.setProperty("--probe", "\t next \n");
+  assert_equals(target.style.getPropertyValue("--probe"), "next");
+  assert_equals(retained.getPropertyValue("--probe"), "next");
+  assert_equals(getComputedStyle(target).getPropertyValue("--probe"), "next");
+}, "A custom setter trims outer whitespace for specified and retained computed getters");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("--probe", "\t\r\n\f value \f\r\n\t");
+  assert_equals(style.getPropertyValue("--probe"), "value");
+}, "A custom setter trims every CSS whitespace character at the value boundary");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("--probe", " \u00a0value\u2003 ");
+  assert_equals(style.getPropertyValue("--probe"), "\u00a0value\u2003");
+}, "A custom setter preserves non-CSS whitespace characters in identifiers");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("--probe", "  f(  value  )  ");
+  assert_equals(style.getPropertyValue("--probe"), "f(  value  )");
+}, "Trimming a custom setter's value boundary preserves whitespace inside a function");
+</script>

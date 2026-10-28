@@ -1,0 +1,127 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Invalid substitutions in if() style comparisons</title>
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/11143#issuecomment-6330893037">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#if-notation">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, declarations) {
+  const element = document.createElement("div");
+  element.style.cssText = declarations;
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style(not (--x: var(--missing))): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "yes");
+}, "A missing comparison value makes the style feature false before negation");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style((--x: var(--missing)) or (--x: 11)): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "yes");
+}, "An invalid style feature does not discard a true alternative in the same query");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style((not (--x: var(--missing))) and (--x: 11)): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "yes");
+}, "An invalid style feature preserves enclosing not and and operators");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(not style(--x: var(--missing)): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "yes");
+}, "Negation outside style() can match an invalid comparison");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --name: --x;
+    --result: if(style(not (var(--name): var(--missing))): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "yes");
+}, "A substituted property name can introduce a comparison with an invalid value");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style(not (--x: calc(var(--missing) + 1))): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "yes");
+}, "A failed substitution nested inside a comparison value makes the feature false");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style(--x: var(--missing, 11)): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "yes");
+}, "A successful variable fallback is compared normally");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style(not (--x: var(--missing))) and: yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "no");
+}, "A malformed condition is still skipped when it contains an invalid comparison");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if((not var(--missing)) or style(--x: 11): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "no");
+}, "A failed substitution outside a style comparison still discards the condition");
+
+test(t => {
+  const element = fixture(t, `
+    --result: if(not supports(--x: var(--missing)): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "no");
+}, "A failed substitution in supports() still discards the condition");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style(not (--x: var(--missing))) and supports(selector(div)) and media(width >= 0px): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "yes");
+}, "An invalid style comparison can be combined with valid supports() and media() tests");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style(not (--x: var(--missing))) or media((width: var(--missing)) or (color)): yes; else: no);
+  `);
+  assert_equals(getComputedStyle(element).getPropertyValue("--result"), "no");
+}, "An invalid media operand still discards a condition containing a recoverable style comparison");
+
+test(t => {
+  const element = fixture(t, `
+    --x: 11;
+    --result: if(style(not (--x: attr(data-value type(*)) var(--missing))): yes; else: no);
+    background-image: if(style(not (--x: attr(data-value type(*)) var(--missing))): url("https://example.test/image.png"); else: none);
+  `);
+  element.setAttribute("data-value", "11");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--result"), "yes");
+  assert_equals(computed.backgroundImage, "none");
+}, "An attribute contribution to an invalid comparison still taints the selected value");
+</script>

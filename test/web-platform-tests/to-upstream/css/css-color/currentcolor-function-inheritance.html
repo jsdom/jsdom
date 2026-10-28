@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Inherited color functions retain their currentcolor dependency</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-5/#resolving-color-mix">
+<link rel="help" href="https://drafts.csswg.org/css-color-5/#resolving-rcs">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#inherited-value">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/10536">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div style="color: red">
+  <div id="mix" style="color: color-mix(in srgb, currentcolor, black)">
+    <div id="mix-inherited">
+      <div id="mix-explicit-inherit" style="color: inherit"></div>
+    </div>
+  </div>
+  <div id="relative" style="color: rgb(from currentcolor calc(r / 2) g b)">
+    <div id="relative-inherited">
+      <div id="relative-explicit-inherit" style="color: inherit"></div>
+    </div>
+  </div>
+</div>
+<script>
+"use strict";
+
+// The current spec preserves these functions at computed-value time, so inheritance
+// reapplies them. Browsers instead inherit the resolved color, returning 0.5 for the
+// red channel at all three levels. This disagreement is unresolved in CSSWG #10536.
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("mix")).color, "color(srgb 0.5 0 0)");
+  assert_equals(getComputedStyle(document.getElementById("mix-inherited")).color, "color(srgb 0.25 0 0)");
+  assert_equals(getComputedStyle(document.getElementById("mix-explicit-inherit")).color, "color(srgb 0.125 0 0)");
+}, "An inherited color mix resolves its currentcolor dependency at each generation");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("relative")).color, "color(srgb 0.5 0 0)");
+  assert_equals(getComputedStyle(document.getElementById("relative-inherited")).color, "color(srgb 0.25 0 0)");
+  assert_equals(getComputedStyle(document.getElementById("relative-explicit-inherit")).color, "color(srgb 0.125 0 0)");
+}, "An inherited relative color resolves its currentcolor origin at each generation");
+</script>

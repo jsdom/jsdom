@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Custom property substitution preserves CDC token boundaries</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#serialization">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function check(t, left, right, expected, expression = "var(--left)var(--right)") {
+  const target = document.createElement("div");
+  target.style.setProperty("--left", left);
+  target.style.setProperty("--right", right);
+  target.style.setProperty("--result", expression);
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  const retained = getComputedStyle(target);
+  assert_equals(retained.getPropertyValue("--result"), expected);
+  assert_equals(getComputedStyle(target).getPropertyValue("--result"), expected);
+}
+
+test(t => {
+  check(t, "a", "-->", "a/**/-->");
+}, "An identifier before a substituted CDC token requires a separating comment");
+
+test(t => {
+  check(t, "@a", "-->", "@a/**/-->");
+}, "An at-keyword before a substituted CDC token requires a separating comment");
+
+test(t => {
+  check(t, "#a", "-->", "#a/**/-->");
+}, "A hash before a substituted CDC token requires a separating comment");
+
+test(t => {
+  check(t, "1px", "-->", "1px/**/-->");
+}, "A dimension before a substituted CDC token requires a separating comment");
+
+test(t => {
+  check(t, "#", "-->", "#/**/-->");
+}, "A hash delimiter before a substituted CDC token requires a separating comment");
+
+test(t => {
+  check(t, "-", "-->", "-/**/-->");
+}, "A minus delimiter before a substituted CDC token requires a separating comment");
+
+test(t => {
+  check(t, "1", "-->", "1/**/-->");
+}, "A number before a substituted CDC token requires a separating comment");
+
+test(t => {
+  check(t, "@", "-->", "@/**/-->");
+}, "An at delimiter before a substituted CDC token requires a separating comment");
+
+test(t => {
+  check(t, "-->", "a", "-->a");
+}, "A CDC token before an identifier needs no added comment");
+
+test(t => {
+  check(t, "a", "<!--", "a<!--");
+}, "An identifier before a CDO token needs no added comment");
+
+test(t => {
+  check(t, "a", "-->", "f(a/**/-->)", "f(var(--left)var(--right))");
+}, "A nested substitution preserves the CDC boundary");
+
+test(t => {
+  check(t, "a", "-->", "a/**/-->", "var(--missing, a)var(--right)");
+}, "A fallback substitution preserves the CDC boundary");
+</script>

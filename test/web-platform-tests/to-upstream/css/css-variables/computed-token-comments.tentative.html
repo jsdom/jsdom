@@ -1,0 +1,19 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Substitution preserves existing comment separators</title>
+<link rel="help" href="https://drafts.csswg.org/css-variables/#serializing-custom-props">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/5846">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.cssText = "--n: 1111111111111111111111111; --x: before/**/var(--n)/**/after;";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).getPropertyValue("--x"), "before/**/1111111111111111111111111/**/after");
+}, "Substitution preserves the replacement's spelling and surrounding comments");
+</script>

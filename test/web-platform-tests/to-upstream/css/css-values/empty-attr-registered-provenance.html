@@ -1,0 +1,105 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Empty attr() provenance survives registered custom values and style queries</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#attr-security">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  CSS.registerProperty({
+    name: "--empty-attr-registered-string",
+    syntax: "<string>",
+    inherits: false,
+    initialValue: '"initial.png"'
+  });
+  const target = document.createElement("div");
+  target.setAttribute("data-empty", "");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+
+  target.style.setProperty("--empty-attr-registered-string", '"payload.png"');
+  target.style.backgroundImage = "image-set(var(--empty-attr-registered-string))";
+  assert_not_equals(
+    getComputedStyle(target).backgroundImage,
+    "none",
+    "The same registered string is a usable image source without attr()"
+  );
+
+  target.style.setProperty("--empty-attr-registered-string", 'attr(data-empty type(*)) "payload.png"');
+  assert_equals(
+    getComputedStyle(target).getPropertyValue("--empty-attr-registered-string"),
+    '"payload.png"',
+    "The empty substitution leaves the authored string as the registered value"
+  );
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    "none",
+    "The equivalent token sequence retains attr() provenance when substituted through var()"
+  );
+}, "An empty attr() contribution taints a successfully computed registered string for later URL use");
+
+test(t => {
+  CSS.registerProperty({
+    name: "--empty-attr-query-string",
+    syntax: "<string>",
+    inherits: false,
+    initialValue: '"initial"'
+  });
+  const target = document.createElement("div");
+  target.setAttribute("data-empty", "");
+  target.style.setProperty("--empty-attr-query-string", '"payload"');
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+
+  target.style.backgroundImage =
+    'if(style(--empty-attr-query-string: "payload"): url("https://example.test/payload.png"); else: none)';
+  assert_not_equals(
+    getComputedStyle(target).backgroundImage,
+    "none",
+    "The untainted matching style query selects a usable URL"
+  );
+
+  target.style.color =
+    'if(style(--empty-attr-query-string: attr(data-empty type(*)) "payload"): red; else: blue)';
+  assert_equals(
+    getComputedStyle(target).color,
+    "rgb(255, 0, 0)",
+    "The typed expected value still matches; a false condition must not make the URL assertion vacuous"
+  );
+  target.style.backgroundImage =
+    'if(style(--empty-attr-query-string: attr(data-empty type(*)) "payload"): url("https://example.test/payload.png"); else: none)';
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    "none",
+    "The selected URL retains provenance from the typed style-query expected value"
+  );
+}, "An empty attr() contribution to a registered style-query expected value taints the selected if() result");
+test(t => {
+  const target = document.createElement("div");
+  target.setAttribute("data-empty", "");
+  target.style.backgroundImage = 'attr(data-empty type(*))url("data:,direct")';
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("data:,direct")');
+}, "A direct empty attr() substitution does not taint an adjacent URL");
+
+test(t => {
+  CSS.registerProperty({
+    name: "--empty-attr-invalid-string",
+    syntax: "<string>",
+    inherits: false,
+    initialValue: '"initial.png"'
+  });
+  const target = document.createElement("div");
+  target.setAttribute("data-empty", "");
+  target.style.setProperty("--empty-attr-invalid-string", "attr(data-empty type(*))invalid");
+  target.style.backgroundImage = "image-set(var(--empty-attr-invalid-string))";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  assert_equals(getComputedStyle(target).getPropertyValue("--empty-attr-invalid-string"), '"initial.png"');
+  assert_not_equals(getComputedStyle(target).backgroundImage, "none");
+}, "An invalid registered value does not taint the initial value used instead");
+</script>

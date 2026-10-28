@@ -1,0 +1,114 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Legacy device-pixel-ratio media features use numbers in media query contexts</title>
+<link rel="help" href="https://compat.spec.whatwg.org/#css-media-queries-webkit-device-pixel-ratio">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#typedef-boolean-media-query">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function checkMediaColor(t, query, expected) {
+  const target = document.createElement("div");
+  target.id = "target";
+  const style = document.createElement("style");
+  style.textContent = `#target { color: green; } @media ${query} { #target { color: red; } }`;
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  assert_equals(getComputedStyle(target).color, expected);
+}
+
+function checkInlineMedia(t, query, expected) {
+  const target = document.createElement("div");
+  target.style.color = `if(media(${query}): red; else: green)`;
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  assert_not_equals(target.style.color, "");
+  assert_equals(getComputedStyle(target).color, expected);
+}
+
+test(t => {
+  checkMediaColor(t, `(-webkit-device-pixel-ratio: ${devicePixelRatio})`, "rgb(255, 0, 0)");
+}, "The legacy device-pixel-ratio feature interprets a number as dppx");
+
+test(t => {
+  checkMediaColor(t, "(-webkit-min-device-pixel-ratio: 0)", "rgb(255, 0, 0)");
+}, "The legacy minimum device-pixel-ratio alias accepts a number");
+
+test(t => {
+  checkMediaColor(t, "(-webkit-max-device-pixel-ratio: 1000000)", "rgb(255, 0, 0)");
+}, "The legacy maximum device-pixel-ratio alias accepts a number");
+
+test(t => {
+  checkMediaColor(t, "(-WEBKIT-MIN-DEVICE-PIXEL-RATIO: 0)", "rgb(255, 0, 0)");
+}, "Legacy device-pixel-ratio aliases are ASCII case-insensitive");
+
+test(t => {
+  checkMediaColor(t, "(-webkit-min-device-pixel-ratio: calc(0))", "rgb(255, 0, 0)");
+}, "The legacy device-pixel-ratio alias accepts a number-valued calculation");
+
+test(t => {
+  checkMediaColor(t, "(-webkit-device-pixel-ratio > 0)", "rgb(255, 0, 0)");
+}, "The legacy device-pixel-ratio feature accepts a number in a range comparison");
+
+test(t => {
+  checkMediaColor(t, "(0 < -webkit-device-pixel-ratio)", "rgb(255, 0, 0)");
+}, "The legacy device-pixel-ratio feature accepts a reversed range comparison");
+
+test(t => {
+  checkMediaColor(t, "(-webkit-device-pixel-ratio)", "rgb(255, 0, 0)");
+}, "The legacy device-pixel-ratio feature can be used in Boolean context");
+
+test(t => {
+  checkMediaColor(t, "(-webkit-device-pixel-ratio: 1dppx)", "rgb(0, 128, 0)");
+}, "The legacy device-pixel-ratio feature does not accept a dimension");
+
+test(t => {
+  checkMediaColor(t, "(-webkit-min-device-pixel-ratio: 0dppx)", "rgb(0, 128, 0)");
+}, "The legacy minimum device-pixel-ratio alias does not accept a dimension");
+
+test(t => {
+  checkMediaColor(t, "(min--webkit-device-pixel-ratio: 0)", "rgb(0, 128, 0)");
+}, "The ordinary min- prefix does not apply to the legacy feature name");
+
+test(t => {
+  checkInlineMedia(t, "(-webkit-min-device-pixel-ratio: 0)", "rgb(255, 0, 0)");
+}, "Inline media conditions recognize the legacy minimum alias");
+
+test(t => {
+  checkInlineMedia(t, "(-webkit-max-device-pixel-ratio: 1000000)", "rgb(255, 0, 0)");
+}, "Inline media conditions recognize the legacy maximum alias");
+
+test(t => {
+  checkInlineMedia(t, "(-webkit-device-pixel-ratio > 0)", "rgb(255, 0, 0)");
+}, "Inline media conditions recognize the legacy range feature");
+
+test(t => {
+  checkInlineMedia(t, "(-webkit-device-pixel-ratio: 1dppx)", "rgb(0, 128, 0)");
+}, "Inline media conditions reject a dimension for the legacy number feature");
+
+promise_test(async t => {
+  const target = document.createElement("div");
+  target.id = "import-target";
+  const style = document.createElement("style");
+  const loaded = new Promise((resolve, reject) => {
+    style.onload = resolve;
+    style.onerror = reject;
+  });
+  style.textContent = '@import url("data:text/css,%23import-target%20%7Bcolor%3Ared%21important%7D") ' +
+    "(-webkit-min-device-pixel-ratio: 0); #import-target { color: green; }";
+  document.body.append(target);
+  document.head.append(style);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  await loaded;
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "Imported stylesheets recognize the legacy minimum device-pixel-ratio alias");
+</script>

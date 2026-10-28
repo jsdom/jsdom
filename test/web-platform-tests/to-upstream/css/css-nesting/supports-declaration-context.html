@@ -1,0 +1,61 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Nested supports conditions validate their declaration values</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-3/#supports-decl">
+<link rel="help" href="https://drafts.csswg.org/css-nesting-1/#conditionals">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function nestedSupports(t, css) {
+  const style = document.createElement("style");
+  style.textContent = css;
+  document.head.append(style);
+  const target = document.createElement("div");
+  target.className = "target";
+  document.body.append(target);
+  t.add_cleanup(() => {
+    target.remove();
+    style.remove();
+  });
+  return { target, sheet: style.sheet };
+}
+
+test(t => {
+  const { target, sheet } = nestedSupports(t, ".target { color: red; @supports (color: green) { color: green; } }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].cssRules[0].conditionText, "(color: green)");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "A supported declaration condition works inside a style rule");
+
+test(t => {
+  const { target, sheet } = nestedSupports(
+    t,
+    ".target { color: red; @supports (color: unknown-color) { color: green; } }"
+  );
+  assert_equals(sheet.cssRules[0].cssRules[0].conditionText, "(color: unknown-color)");
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "An unsupported declaration condition remains in CSSOM without applying");
+
+test(t => {
+  const { target, sheet } = nestedSupports(
+    t,
+    ".target { @media all { @supports (margin: 1px 2px) { margin: 1px 2px; } } }"
+  );
+  assert_equals(sheet.cssRules[0].cssRules[0].cssRules[0].conditionText, "(margin: 1px 2px)");
+  assert_equals(getComputedStyle(target).margin, "1px 2px");
+}, "Nested conditional rules validate shorthand declarations in supports conditions");
+
+test(t => {
+  const { target, sheet } = nestedSupports(
+    t,
+    ".target { @supports ((color: green) and (display: block)) { color: green; } color: blue; }"
+  );
+  assert_equals(sheet.cssRules[0].cssRules.length, 2);
+  assert_equals(sheet.cssRules[0].cssRules[0].conditionText, "((color: green) and (display: block))");
+  assert_equals(sheet.cssRules[0].cssRules[1].style.color, "blue");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+}, "Boolean supports conditions preserve subsequent nested declaration order");
+</script>

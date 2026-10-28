@@ -1,0 +1,47 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Unsupported declarations do not invalidate import supports conditions</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#conditional-import">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function importRule(t, condition) {
+  const style = document.createElement("style");
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  style.sheet.insertRule(`@import "data:text/css," supports(${condition});`);
+  assert_equals(style.sheet.cssRules.length, 1);
+  return style.sheet.cssRules[0];
+}
+
+test(t => {
+  const rule = importRule(t, "display: unknown-value");
+  assert_equals(rule.supportsText, "display: unknown-value");
+  assert_equals(rule.styleSheet, null);
+}, "An unsupported value in a bare declaration preserves a non-loading import rule");
+
+test(t => {
+  const rule = importRule(t, "color: #");
+  assert_equals(rule.supportsText, "color: #");
+  assert_equals(rule.styleSheet, null);
+}, "An invalid color value preserves a non-loading import rule");
+
+test(t => {
+  const rule = importRule(t, "unknown-property: value");
+  assert_equals(rule.supportsText, "unknown-property: value");
+  assert_equals(rule.styleSheet, null);
+}, "An unsupported property preserves a non-loading import rule");
+
+test(t => {
+  const rule = importRule(t, "(display: unknown-value)");
+  assert_equals(rule.styleSheet, null);
+}, "An unsupported parenthesized declaration preserves a non-loading import rule");
+
+test(t => {
+  const rule = importRule(t, "not (display: block)");
+  assert_equals(rule.styleSheet, null);
+}, "A false negated supports condition preserves a non-loading import rule");
+</script>

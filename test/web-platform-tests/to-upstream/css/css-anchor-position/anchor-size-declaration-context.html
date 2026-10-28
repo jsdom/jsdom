@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Anchor size functions are restricted to positioning properties</title>
+<link rel="help" href="https://drafts.csswg.org/css-anchor-position-1/#sizing">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.flexBasis = "anchor-size(--a width)";
+  assert_equals(style.flexBasis, "");
+}, "Anchor size is invalid in flex-basis despite its width grammar");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.flexBasis = "anchor-size(--a width, 10px)";
+  assert_equals(style.flexBasis, "");
+}, "An anchor size fallback does not make flex-basis valid");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.flex = "1 1 anchor-size(width)";
+  assert_equals(style.flex, "");
+}, "The flex shorthand cannot introduce an anchor size basis");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.flexBasis = "20px";
+  style.flexBasis = "anchor-size(width)";
+  assert_equals(style.flexBasis, "20px");
+}, "An invalid anchor size basis preserves the previous declaration");
+
+test(() => {
+  assert_false(CSS.supports("flex-basis", "anchor-size(width)"));
+  assert_false(CSS.supports("flex", "1 1 anchor-size(width)"));
+}, "Supports checks use the declaration context for anchor size");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.width = "anchor-size(width)";
+  assert_equals(style.width, "anchor-size(width)");
+}, "Anchor size remains valid in width");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "anchor-size(height)";
+  assert_equals(style.margin, "anchor-size(height)");
+}, "Anchor size remains valid in a positioning shorthand");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("--basis", "anchor-size(width)");
+  assert_equals(style.getPropertyValue("--basis"), "anchor-size(width)");
+}, "Unregistered custom properties retain anchor size tokens");
+test(() => {
+  assert_false(CSS.supports("flex-basis", "calc(anchor-size(width) + 1px)"));
+  assert_false(CSS.supports("padding-top", "max(anchor-size(width), 1px)"));
+  assert_false(CSS.supports("width", "calc(anchor(left) + 1px)"));
+  assert_false(CSS.supports("margin-top", "anchor-size(width, anchor(top))"));
+}, "Calculations and fallbacks preserve anchor function property restrictions");
+
+test(() => {
+  assert_true(CSS.supports("inset", "calc(anchor(left) + 1px)"));
+  assert_true(CSS.supports("margin", "calc(anchor-size(width) + 1px)"));
+  assert_true(CSS.supports("width", "anchor-size(width, anchor-size(height))"));
+}, "Calculations and nested fallbacks accept anchors in allowed properties");
+
+</script>

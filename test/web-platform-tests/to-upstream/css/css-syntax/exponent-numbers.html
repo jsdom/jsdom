@@ -1,0 +1,65 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Decimal CSS numbers with exponents</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax/#consume-number">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.opacity = "2.3e-1";
+  assert_equals(style.opacity, "0.23");
+}, "A decimal number can have a negative exponent");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.width = "7.1e-4cm";
+  assert_equals(style.width, "0.00071cm");
+}, "A dimension can have a fractional mantissa and negative exponent");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.marginLeft = "-9.3e3%";
+  assert_equals(style.marginLeft, "-9300%");
+}, "A percentage can have a negative fractional mantissa and exponent");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.flexGrow = "2.3e4";
+  assert_equals(style.flexGrow, "23000");
+}, "A decimal number can have an unsigned exponent");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.width = "1.2e+2px";
+  assert_equals(style.width, "120px");
+}, "A dimension can have an explicitly positive exponent");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.width = "1.2em";
+  assert_equals(style.width, "1.2em");
+  style.width = "1e3px";
+  assert_equals(style.width, "1000px");
+}, "An em unit remains a unit and an integer mantissa still accepts an exponent");
+test(() => {
+  const { style } = document.createElement("div");
+  style.order = "1.0";
+  assert_equals(style.order, "");
+  style.order = "1e0";
+  assert_equals(style.order, "");
+  style.order = "calc(1.0)";
+  assert_equals(style.order, "calc(1)");
+  style.order = "1";
+  assert_equals(style.order, "1");
+}, "Integer properties distinguish literal integer syntax from numeric calculations");
+
+test(() => {
+  assert_false(CSS.supports("selector(:nth-child(1.0n))"));
+  assert_false(CSS.supports("selector(:nth-child(1e0n))"));
+  assert_false(CSS.supports("selector(:nth-child(n + 1.0))"));
+  assert_true(CSS.supports("selector(:nth-child(1n + 1))"));
+}, "An+B coefficients and offsets require integer tokens");
+</script>

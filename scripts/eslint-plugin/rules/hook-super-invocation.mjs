@@ -1,3 +1,5 @@
+import { createInheritanceChecker } from "../implementation-inheritance.mjs";
+
 function isSuperHookInvocation(expression, hook) {
   if (expression.type !== "CallExpression") {
     return false;
@@ -35,7 +37,7 @@ export default {
   meta: {
     type: "problem",
     docs: {
-      description: "Prevent missing invocation to the super jsdom hook."
+      description: "Prevent missing invocation to the super jsdom hook.",
     },
     schema: {
       type: "array",
@@ -43,41 +45,38 @@ export default {
         type: "object",
         properties: {
           ancestor: { type: "string" },
-          hook: { type: "string" }
+          hook: { type: "string" },
         },
         required: ["ancestor", "hook"],
-        additionalProperties: false
-      }
-    }
+        additionalProperties: false,
+      },
+    },
   },
 
   create(context) {
     const { options } = context;
+    const inheritsFrom = createInheritanceChecker(context);
 
     return {
       MethodDefinition(node) {
-        if (
-          node.kind !== "method" ||
-          node.key.type !== "Identifier"
-        ) {
+        if (node.kind !== "method" || node.key.type !== "Identifier") {
           return;
         }
 
         const hookName = node.key.name;
-        const hookOption = options.find(option => option.hook === hookName);
+        const hookOption = options.find((option) => option.hook === hookName);
 
         // Don't do anything if the method is not a known hook.
         if (hookOption === undefined) {
           return;
         }
 
-        // Check if the class is not the ancestor class defining the hook. In this case it should not call super.
-        const isAncestorClass = node.parent.parent.id && node.parent.parent.id.name === hookOption.ancestor;
-        if (isAncestorClass) {
+        // Only descendants of the configured base class inherit a hook that must be called.
+        if (!inheritsFrom(node.parent.parent, hookOption.ancestor)) {
           return;
         }
 
-        const isMethodCallingSuper = node.value.body.body.some(statement => {
+        const isMethodCallingSuper = node.value.body.body.some((statement) => {
           return (
             statement.type === "ExpressionStatement" &&
             isSuperHookInvocation(statement.expression, hookName)
@@ -87,10 +86,10 @@ export default {
         if (!isMethodCallingSuper) {
           context.report({
             node,
-            message: `Missing invocation to the "${hookName}" jsdom hook super.`
+            message: `Missing invocation to the "${hookName}" jsdom hook super.`,
           });
         }
-      }
+      },
     };
-  }
+  },
 };

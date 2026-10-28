@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Registered initial URL values retain their defining base</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#relative-urls">
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api/#calculation-of-computed-values">
+<link rel="stylesheet" href="resources/computed-url-values.css">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t) {
+  const base = document.createElement("base");
+  base.href = "https://example.test/first/";
+  document.head.append(base);
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => {
+    target.remove();
+    base.remove();
+  });
+  return { base, target };
+}
+
+// Browser engines disagree on whether an initial URL captures its base before the first computed-style read.
+// CSS Properties and Values defines the initial value as a parsed value with the registration context.
+
+test(t => {
+  const { base, target } = fixture(t);
+  CSS.registerProperty({
+    name: "--url-script-initial", syntax: "<url>", inherits: false, initialValue: "url(initial.png)"
+  });
+  base.href = "https://example.test/second/";
+  assert_equals(
+    getComputedStyle(target).getPropertyValue("--url-script-initial"),
+    'url("https://example.test/first/initial.png")'
+  );
+  target.style.setProperty("--url-script-initial", "invalid");
+  assert_equals(
+    getComputedStyle(target).getPropertyValue("--url-script-initial"),
+    'url("https://example.test/first/initial.png")'
+  );
+}, "Registered URL initial values retain the registration base, including invalid-value fallback");
+
+test(t => {
+  const { base, target } = fixture(t);
+  const style = document.createElement("style");
+  style.textContent = `@property --url-rule-initial {
+    syntax: "<url>";
+    inherits: false;
+    initial-value: url(initial.png);
+  }`;
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  base.href = "https://example.test/second/";
+  assert_equals(
+    getComputedStyle(target).getPropertyValue("--url-rule-initial"),
+    'url("https://example.test/first/initial.png")'
+  );
+}, "URL initial values in @property use the defining stylesheet's base");
+
+test(t => {
+  const { target } = fixture(t);
+  assert_equals(
+    getComputedStyle(target).getPropertyValue("--external-initial-url"),
+    `url("${new URL("resources/initial.png", location.href).href}")`
+  );
+}, "An external @property initial URL retains the stylesheet base");
+</script>

@@ -61,8 +61,7 @@ module.exports = () => {
 
   /** A range over the marker span: both boundary points are inside `parent`. */
   function addSpanTask(name, listSize, siblingCount, run, { destructive = true } = {}) {
-    let tree,
-      range;
+    let tree, range;
     bench.add(name, () => run(range), {
       beforeAll() {
         tree = buildTree(listSize, siblingCount);
@@ -74,16 +73,22 @@ module.exports = () => {
         range = document.createRange();
         range.setStartAfter(tree.start);
         range.setEndBefore(tree.end);
-      }
+      },
     });
   }
 
-  addSpanTask("deleteContents: small span, small tree", 10, 20, range => range.deleteContents());
-  addSpanTask("deleteContents: small span, large tree", 10, 2000, range => range.deleteContents());
-  addSpanTask("deleteContents: large span, large tree", 500, 2000, range => range.deleteContents());
-  addSpanTask("extractContents: small span, large tree", 10, 2000, range => range.extractContents());
-  addSpanTask("cloneContents: small span, large tree", 10, 2000, range => range.cloneContents(), {
-    destructive: false
+  addSpanTask("deleteContents: small span, small tree", 10, 20, (range) => range.deleteContents());
+  addSpanTask("deleteContents: small span, large tree", 10, 2000, (range) =>
+    range.deleteContents(),
+  );
+  addSpanTask("deleteContents: large span, large tree", 500, 2000, (range) =>
+    range.deleteContents(),
+  );
+  addSpanTask("extractContents: small span, large tree", 10, 2000, (range) =>
+    range.extractContents(),
+  );
+  addSpanTask("cloneContents: small span, large tree", 10, 2000, (range) => range.cloneContents(), {
+    destructive: false,
   });
 
   let selectTree, selectRange, partialTree, partialRange;
@@ -98,7 +103,7 @@ module.exports = () => {
       selectTree.reset();
       selectRange = document.createRange();
       selectRange.selectNodeContents(selectTree.parent);
-    }
+    },
   });
 
   // Partially contained boundaries: the range starts and ends inside different
@@ -115,14 +120,14 @@ module.exports = () => {
       partialRange = document.createRange();
       partialRange.setStart(rows[0].firstChild, 2);
       partialRange.setEnd(rows[rows.length - 1].firstChild, 2);
-    }
+    },
   });
 
   for (const [shape, leftDepth, rightDepth, sharedDepth, siblingCount] of [
     ["deep branches", 200, 200, 0, 0],
     ["unequal branch depths", 200, 10, 0, 0],
     ["deep shared ancestor", 10, 10, 200, 0],
-    ["many unrelated siblings", 1, 1, 0, 1000]
+    ["many unrelated siblings", 1, 1, 0, 1000],
   ]) {
     for (const method of ["cloneContents", "extractContents", "deleteContents"]) {
       let left, right, start, end, range;
@@ -163,7 +168,7 @@ module.exports = () => {
           if (method !== "cloneContents") {
             resetBoundaries();
           }
-        }
+        },
       });
     }
   }

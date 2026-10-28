@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Normal generated content computes to none on before and after</title>
+<link rel="help" href="https://drafts.csswg.org/css-content-3/#content-property">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+#explicit::before, #explicit::after { content: normal; }
+#initial::before, #initial::after { content: initial; }
+#substituted { --content: normal; }
+#substituted::before, #substituted::after { content: var(--content); }
+</style>
+<div id="implicit"></div>
+<div id="explicit"></div>
+<div id="initial"></div>
+<div id="substituted"></div>
+<script>
+"use strict";
+
+test(() => {
+  const target = document.getElementById("implicit");
+  assert_equals(getComputedStyle(target, "::before").content, "none");
+  assert_equals(getComputedStyle(target, "::after").content, "none");
+}, "Initial content computes to none on before and after");
+
+test(() => {
+  const target = document.getElementById("explicit");
+  assert_equals(getComputedStyle(target, "::before").content, "none");
+  assert_equals(getComputedStyle(target, "::after").content, "none");
+}, "Explicit normal content computes to none on before and after");
+
+test(() => {
+  const target = document.getElementById("initial");
+  assert_equals(getComputedStyle(target, "::before").content, "none");
+  assert_equals(getComputedStyle(target, "::after").content, "none");
+}, "The CSS-wide initial keyword computes to none on before and after");
+
+test(() => {
+  const target = document.getElementById("substituted");
+  assert_equals(getComputedStyle(target, "::before").content, "none");
+  assert_equals(getComputedStyle(target, "::after").content, "none");
+}, "Normal content from a custom property computes to none on before and after");
+</script>

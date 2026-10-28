@@ -16,13 +16,13 @@ function testHTMLDocument(document) {
   assert.equal(
     p.namespaceURI,
     "http://www.w3.org/1999/xhtml",
-    "html elements should automatically be assigned the XHTML namespace"
+    "html elements should automatically be assigned the XHTML namespace",
   );
 
   assert.equal(
     p.getAttribute("xmlns:xlink"),
     "http://www.w3.org/1999/xlink",
-    "attributes should be retrievable by their full name"
+    "attributes should be retrievable by their full name",
   );
 
   const xmlnsAttr = p.attributes["xmlns:xlink"];
@@ -31,7 +31,7 @@ function testHTMLDocument(document) {
   assert.equal(
     xmlnsAttr.namespaceURI,
     null,
-    "xmlns: attributes should not automatically be assigned to the xmlns namespace"
+    "xmlns: attributes should not automatically be assigned to the xmlns namespace",
   );
 
   const img = document.getElementsByTagName("img")[0];
@@ -40,13 +40,13 @@ function testHTMLDocument(document) {
   assert.equal(
     img.namespaceURI,
     "http://www.w3.org/1999/xhtml",
-    "html elements should automatically be assigned the XHTML namespace"
+    "html elements should automatically be assigned the XHTML namespace",
   );
 
   assert.equal(
     img.getAttribute("xlink:href"),
     "#test",
-    "attributes should be retrievable by their full name"
+    "attributes should be retrievable by their full name",
   );
 
   const xlinkAttr = img.attributes["xlink:href"];
@@ -55,21 +55,21 @@ function testHTMLDocument(document) {
   assert.equal(
     xlinkAttr.namespaceURI,
     null,
-    "it shouldn't be possible to create custom namespaces"
+    "it shouldn't be possible to create custom namespaces",
   );
 }
 
 describe("jsdom/namespaces", () => {
   specify("should set namespaces in HTML documents created by jsdom.env()", () => {
-    return readTestFixture("to-port-to-wpts/files/ns-html.html").then(content => {
-      const doc = (new JSDOM(content)).window.document;
+    return readTestFixture("to-port-to-wpts/files/ns-html.html").then((content) => {
+      const doc = new JSDOM(content).window.document;
       testHTMLDocument(doc);
     });
   });
 
   specify("should set namespace-related properties in HTML documents created by innerHTML", () => {
-    return readTestFixture("to-port-to-wpts/files/ns-html.html").then(content => {
-      const doc = (new JSDOM()).window.document;
+    return readTestFixture("to-port-to-wpts/files/ns-html.html").then((content) => {
+      const doc = new JSDOM().window.document;
       doc.body.innerHTML = content;
       testHTMLDocument(doc);
     });
@@ -86,13 +86,13 @@ describe("jsdom/namespaces", () => {
     assert.equal(
       svg.namespaceURI,
       "http://www.w3.org/2000/svg",
-      "svg elements should automatically be assigned the SVG namespace"
+      "svg elements should automatically be assigned the SVG namespace",
     );
 
     assert.equal(
       svg.getAttribute("xmlns:xlink"),
       "http://www.w3.org/1999/xlink",
-      "attributes should be retrievable by their full name"
+      "attributes should be retrievable by their full name",
     );
 
     const xmlnsAttr = svg.attributes["xmlns:xlink"];
@@ -101,7 +101,7 @@ describe("jsdom/namespaces", () => {
     assert.equal(
       xmlnsAttr.namespaceURI,
       "http://www.w3.org/2000/xmlns/",
-      "xmlns: attributes should automatically be assigned to the xmlns namespace"
+      "xmlns: attributes should automatically be assigned to the xmlns namespace",
     );
 
     const use = document.getElementsByTagName("use")[0];
@@ -110,13 +110,13 @@ describe("jsdom/namespaces", () => {
     assert.equal(
       use.namespaceURI,
       "http://www.w3.org/2000/svg",
-      "svg elements should automatically be assigned the SVG namespace"
+      "svg elements should automatically be assigned the SVG namespace",
     );
 
     assert.equal(
       use.getAttribute("xlink:href"),
       "#test",
-      "attributes should be retrievable by their full name"
+      "attributes should be retrievable by their full name",
     );
 
     const xlinkAttr = use.attributes["xlink:href"];
@@ -125,22 +125,28 @@ describe("jsdom/namespaces", () => {
     assert.equal(
       xlinkAttr.namespaceURI,
       "http://www.w3.org/1999/xlink",
-      "custom defined namespaces should be valid in child elements"
+      "custom defined namespaces should be valid in child elements",
     );
   }
 
-  specify("should set namespace-related properties in HTML-SVG documents created by jsdom.env()", () => {
-    return readTestFixture("to-port-to-wpts/files/ns-svg.html").then(content => {
-      const doc = (new JSDOM(content)).window.document;
-      testDocumentWithSVG(doc);
-    });
-  });
+  specify(
+    "should set namespace-related properties in HTML-SVG documents created by jsdom.env()",
+    () => {
+      return readTestFixture("to-port-to-wpts/files/ns-svg.html").then((content) => {
+        const doc = new JSDOM(content).window.document;
+        testDocumentWithSVG(doc);
+      });
+    },
+  );
 
-  specify("should set namespace-related properties in HTML-SVG documents created by innerHTML", () => {
-    return readTestFixture("to-port-to-wpts/files/ns-svg.html").then(content => {
-      const doc = (new JSDOM()).window.document;
-      doc.body.innerHTML = content;
-      testDocumentWithSVG(doc);
-    });
-  });
+  specify(
+    "should set namespace-related properties in HTML-SVG documents created by innerHTML",
+    () => {
+      return readTestFixture("to-port-to-wpts/files/ns-svg.html").then((content) => {
+        const doc = new JSDOM().window.document;
+        doc.body.innerHTML = content;
+        testDocumentWithSVG(doc);
+      });
+    },
+  );
 });

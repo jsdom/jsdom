@@ -1,0 +1,51 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stylesheet collections follow their document or shadow root</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#extensions-to-the-document-or-shadow-root-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const shadow = host.attachShadow({ mode: "open" });
+  const style = document.createElement("style");
+  style.textContent = "div { color: red }";
+  const sheets = shadow.styleSheets;
+  const documentSheetCount = document.styleSheets.length;
+
+  shadow.append(style);
+  assert_equals(shadow.styleSheets, sheets);
+  assert_equals(sheets.length, 1);
+  assert_equals(sheets[0], style.sheet);
+  assert_equals(document.styleSheets.length, documentSheetCount);
+
+  style.remove();
+  assert_equals(sheets.length, 0);
+  assert_equals(document.styleSheets.length, documentSheetCount);
+}, "A shadow stylesheet belongs to its shadow root's live collection");
+
+test(t => {
+  const host = document.createElement("div");
+  const style = document.createElement("style");
+  document.body.append(host, style);
+  t.add_cleanup(() => host.remove());
+  t.add_cleanup(() => style.remove());
+  const shadow = host.attachShadow({ mode: "closed" });
+  const documentSheetCount = document.styleSheets.length;
+
+  shadow.append(style);
+  assert_equals(shadow.styleSheets.length, 1);
+  assert_equals(shadow.styleSheets[0], style.sheet);
+  assert_equals(document.styleSheets.length, documentSheetCount - 1);
+
+  document.body.append(style);
+  assert_equals(shadow.styleSheets.length, 0);
+  assert_equals(document.styleSheets.length, documentSheetCount);
+  assert_equals(document.styleSheets[documentSheetCount - 1], style.sheet);
+}, "Moving a style element transfers its sheet between document and closed shadow root collections");
+</script>

@@ -15,8 +15,8 @@ const testGroups = checkToRunFile(path.resolve(__dirname, toRunFilename), possib
 
 let wptServerURLs, serverProcess;
 const runSingleWPT = require("./run-single-wpt.js")(
-  testPath => getURLPrefix(wptServerURLs, testPath),
-  toRunFilename
+  (testPath) => getURLPrefix(wptServerURLs, testPath),
+  toRunFilename,
 );
 before({ timeout: 30_000 }, async () => {
   const { urls, subprocess } = await wptServer.start({ toUpstream: false });
@@ -36,7 +36,7 @@ describe("web-platform-tests", () => {
         }
         runTestWithExpectations(testFilePath, expectationDataByTestFilePath, {
           runSingleWPT,
-          prefix: dir + "/"
+          prefix: dir + "/",
         });
       }
     });

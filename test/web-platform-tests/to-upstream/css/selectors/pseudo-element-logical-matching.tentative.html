@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Logical pseudo-classes after a pseudo-element match the pseudo-element</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#pseudo-element-states">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#logical-combination">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  #not::before { content: ""; color: red; }
+  #not::before:not(:hover) { color: green; }
+  #is::before { content: ""; color: red; }
+  #is::before:is(:not(:hover)) { color: green; }
+  #where::before { content: ""; color: red; }
+  #where::before:where(:not(:hover)) { color: green; }
+  #double-not::before { content: ""; color: green; }
+  #double-not::before:not(:not(:hover)) { color: red; }
+</style>
+<div id="not"></div>
+<div id="is"></div>
+<div id="where"></div>
+<div id="double-not"></div>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.querySelector("#not"), "::before").color, "rgb(0, 128, 0)");
+}, "A negated user-action pseudo-class can match a pseudo-element");
+
+test(() => {
+  assert_equals(getComputedStyle(document.querySelector("#is"), "::before").color, "rgb(0, 128, 0)");
+}, "An is() selector can match a nested logical condition on a pseudo-element");
+
+test(() => {
+  assert_equals(getComputedStyle(document.querySelector("#where"), "::before").color, "rgb(0, 128, 0)");
+}, "A where() selector can match a nested logical condition on a pseudo-element");
+
+test(() => {
+  assert_equals(getComputedStyle(document.querySelector("#double-not"), "::before").color, "rgb(0, 128, 0)");
+}, "Nested negation on a pseudo-element preserves both boolean operations");
+</script>

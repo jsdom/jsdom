@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS variable expansion limits</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const target = document.createElement("p");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--value0", "x");
+  for (let index = 1; index <= 16; index++) {
+    target.style.setProperty(`--value${index}`, `var(--value${index - 1}) var(--value${index - 1})`);
+  }
+  target.style.content = 'var(--value16, "fallback")';
+  const computed = getComputedStyle(target);
+  assert_equals(computed.getPropertyValue("--value15"), "x ".repeat(32767) + "x");
+  assert_equals(computed.getPropertyValue("--value16"), "");
+  assert_equals(computed.content, '"fallback"');
+}, "Accepts a large expanded value and rejects the next doubling");
+
+test(t => {
+  const target = document.createElement("p");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--value0", "x");
+  for (let index = 1; index <= 16; index++) {
+    target.style.setProperty(`--value${index}`, `f(var(--value${index - 1})) f(var(--value${index - 1}))`);
+  }
+  target.style.content = 'var(--value16, "fallback")';
+  assert_equals(getComputedStyle(target).content, '"fallback"');
+}, "Counts tokens nested inside functions when limiting expansion");
+</script>

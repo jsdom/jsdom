@@ -6,7 +6,7 @@ const { JSDOM } = require("../..");
 
 describe("browser/index", () => {
   specify("notfound_getelementsbyclassname", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     const p = doc.createElement("p");
@@ -17,7 +17,7 @@ describe("browser/index", () => {
   });
 
   specify("basic_getelementsbyclassname", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     const p = doc.createElement("p");
@@ -28,7 +28,7 @@ describe("browser/index", () => {
   });
 
   specify("multiple_getelementsbyclassname", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     const p = doc.createElement("p");
@@ -43,7 +43,7 @@ describe("browser/index", () => {
   });
 
   specify("testclassnameworksasexpected", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
 
     const p = doc.createElement("p");
     p.setAttribute("class", "first-p");
@@ -53,7 +53,7 @@ describe("browser/index", () => {
   });
 
   specify("basic_getelementbyid", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     const p = doc.createElement("p");
@@ -64,7 +64,7 @@ describe("browser/index", () => {
   });
 
   specify("nonexistant_getelementbyid", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     const p = doc.createElement("p");
@@ -75,14 +75,17 @@ describe("browser/index", () => {
   });
 
   specify("remove_nonexistantattribute", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
-    assert.doesNotThrow(() => body.removeAttribute("non-existant"), "setValue_throws_NO_MODIFICATION_ERR");
+    assert.doesNotThrow(
+      () => body.removeAttribute("non-existant"),
+      "setValue_throws_NO_MODIFICATION_ERR",
+    );
   });
 
   specify("render_singletag", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
 
     const p = doc.createElement("p");
     const img = doc.createElement("img");
@@ -92,11 +95,11 @@ describe("browser/index", () => {
   });
 
   specify("render_specialchars", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
 
     const p = doc.createElement("p");
-    const specials = "\"<>&\xA0";
-    const escapedSpecials = "\"&lt;&gt;&amp;&nbsp;";
+    const specials = '"<>&\xA0';
+    const escapedSpecials = '"&lt;&gt;&amp;&nbsp;';
     p.setAttribute("specials", specials);
     p.innerHTML = escapedSpecials;
     const pp = doc.createElement("p");
@@ -105,7 +108,7 @@ describe("browser/index", () => {
   });
 
   specify("parse_scripttags", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { head } = doc;
 
     const scriptHtml = `<script>alert("hello world")</script>`;
@@ -114,7 +117,7 @@ describe("browser/index", () => {
   });
 
   specify("parse_styletags", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { head } = doc;
     const styleHtml = `<style>body: {color: #fff;}</style>`;
     head.innerHTML = styleHtml;
@@ -122,24 +125,24 @@ describe("browser/index", () => {
   });
 
   specify("parse_doublespacetags", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const html = `<html><body  class="testing" /></html>`;
     assert.doesNotThrow(() => doc.write(html), "setValue_throws_INVALID_CHARACTER_ERR");
   });
 
   specify("serialize_styleattribute", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
 
     doc.documentElement.style.color = "black";
     doc.documentElement.style.backgroundColor = "white";
     assert.equal(
       doc.documentElement.outerHTML,
-      `<html style="color: black; background-color: white;"><head></head><body></body></html>`
+      `<html style="color: black; background-color: white;"><head></head><body></body></html>`,
     );
   });
 
   specify("innerhtml_removeallchildren", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.appendChild(doc.createElement("p"));
@@ -148,7 +151,7 @@ describe("browser/index", () => {
   });
 
   specify("innerhtml_null", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.appendChild(doc.createElement("p"));
@@ -160,13 +163,13 @@ describe("browser/index", () => {
     const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n
              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html></html>`;
 
-    const doc = (new JSDOM(html)).window.document;
+    const doc = new JSDOM(html).window.document;
 
     assert.ok(doc.doctype, "doctype should not be falsy");
   });
 
   specify("basic_nodelist_indexOf", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     const p = doc.createElement("p");
@@ -180,7 +183,7 @@ describe("browser/index", () => {
   });
 
   specify("nonexistant_nodelist_indexOf", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     const p = doc.createElement("p");
@@ -192,15 +195,15 @@ describe("browser/index", () => {
   });
 
   specify("input_fires_click_event", () => {
-    const doc = (new JSDOM(`
+    const doc = new JSDOM(`
       <html><head></head><body>
         <input type="checkbox" id="check" value="check" />
       </body>
-    `)).window.document;
+    `).window.document;
 
     const checkbox = doc.getElementById("check");
 
-    checkbox.addEventListener("click", event => {
+    checkbox.addEventListener("click", (event) => {
       assert.equal(event.type, "click", "event type");
       assert.equal(event.target, checkbox, "event type");
     });
@@ -209,12 +212,12 @@ describe("browser/index", () => {
   });
 
   specify("basic_radio_selected", () => {
-    const doc = (new JSDOM(`<html><head></head><body>
+    const doc = new JSDOM(`<html><head></head><body>
         <input type="radio" id="rad0" value="rad0" name="radioGroup0" />
         <input type="radio" id="rad1" value="rad1" name="radioGroup0" checked="checked" />
         <input type="radio" id="rad2" value="rad2" name="radioGroup1" />
       </body>
-    `)).window.document;
+    `).window.document;
 
     const radio0 = doc.getElementById("rad0");
     const radio1 = doc.getElementById("rad1");
@@ -237,11 +240,11 @@ describe("browser/index", () => {
   });
 
   specify("radio_no_click_deselected", () => {
-    const doc = (new JSDOM(`
+    const doc = new JSDOM(`
       <html><head></head><body>
         <input type="radio" id="rad0" value="rad0" name="radioGroup0" />
       </body>
-    `)).window.document;
+    `).window.document;
 
     const radio0 = doc.getElementById("rad0");
 
@@ -253,7 +256,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_value_updates_value", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `
@@ -272,7 +275,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_value_updates_selectedIndex", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `
@@ -291,7 +294,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_value_updates_option_selected", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `
@@ -312,7 +315,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_selectedIndex_updates_value", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `
@@ -331,7 +334,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_selectedIndex_updates_selectedIndex", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `
@@ -350,7 +353,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_selectedIndex_updates_option_selected", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `
@@ -373,7 +376,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_option_selected_updates_value", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `
@@ -395,7 +398,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_option_selected_updates_selectedIndex", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `
@@ -416,7 +419,7 @@ describe("browser/index", () => {
   });
 
   specify("select_set_option_selected_updates_option_selected", () => {
-    const doc = (new JSDOM()).window.document;
+    const doc = new JSDOM().window.document;
     const { body } = doc;
 
     body.innerHTML = `

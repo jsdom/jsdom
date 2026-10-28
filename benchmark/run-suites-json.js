@@ -11,9 +11,9 @@ const { discoverSuites, filterSuites, runSuite } = require("./lib");
 
 const { values } = parseArgs({
   options: {
-    suite: { type: "string", multiple: true, short: "s" }
+    suite: { type: "string", multiple: true, short: "s" },
   },
-  strict: false
+  strict: false,
 });
 
 const suitesToRun = filterSuites(discoverSuites(), values.suite);
@@ -24,7 +24,7 @@ const suitesToRun = filterSuites(discoverSuites(), values.suite);
     const result = await runSuite(suiteName);
     process.stdout.write(`${JSON.stringify(result)}\n`);
   }
-})().catch(err => {
+})().catch((err) => {
   console.error(err);
   process.exit(1);
 });

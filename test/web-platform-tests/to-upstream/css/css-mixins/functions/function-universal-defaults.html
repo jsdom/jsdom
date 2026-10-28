@@ -1,0 +1,75 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Explicit universal custom function parameter types accept defaults</title>
+<link rel="help" href="https://drafts.csswg.org/css-mixins-1/#typedef-function-parameter">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function parameters(source) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(source);
+  assert_equals(sheet.cssRules.length, 1, "The function rule must parse");
+  return sheet.cssRules[0].getParameters();
+}
+
+function rejects(source) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(source);
+  assert_equals(sheet.cssRules.length, 0);
+}
+
+test(() => {
+  assert_equals(
+    JSON.stringify(parameters("@function --f(--x type(*): red) { result: var(--x); }")),
+    JSON.stringify(parameters("@function --f(--x: red) { result: var(--x); }"))
+  );
+}, "An explicit universal parameter accepts a literal default like an implicit universal parameter");
+
+test(() => {
+  assert_equals(
+    JSON.stringify(parameters("@function --f(--x type(*): {a,b}, --y: c) { result: var(--x); }")),
+    JSON.stringify(parameters("@function --f(--x: {a,b}, --y: c) { result: var(--x); }"))
+  );
+}, "An explicit universal parameter accepts a comma-containing default");
+
+test(() => {
+  assert_equals(
+    JSON.stringify(parameters("@function --f(--x type(*): {{a}}) { result: var(--x); }")),
+    JSON.stringify(parameters("@function --f(--x: {{a}}) { result: var(--x); }"))
+  );
+}, "An explicit universal parameter accepts a curly-block default");
+
+test(() => {
+  assert_equals(
+    JSON.stringify(parameters("@function --f(--x type(*): f(a,b)) { result: var(--x); }")),
+    JSON.stringify(parameters("@function --f(--x: f(a,b)) { result: var(--x); }"))
+  );
+}, "An explicit universal parameter accepts a function default");
+
+test(() => {
+  assert_equals(
+    JSON.stringify(parameters("@function --f(--x type(*)) { result: red; }")),
+    JSON.stringify(parameters("@function --f(--x) { result: red; }"))
+  );
+}, "An explicit universal parameter without a default matches an implicit universal parameter");
+
+test(() => {
+  const result = parameters("@function --f(--x type(<number>): 1) { result: var(--x); }");
+  assert_equals(result[0].type, "<number>");
+  assert_equals(result[0].defaultValue, "1");
+}, "A typed parameter continues to accept a matching default");
+
+test(() => {
+  rejects("@function --f(--x type(<number>): red) { result: var(--x); }");
+}, "A typed number parameter rejects an identifier default");
+
+test(() => {
+  rejects("@function --f(--x <color>: 1) { result: var(--x); }");
+}, "A typed color parameter rejects a number default");
+
+test(() => {
+  rejects("@function --f(--x type(*): f(])) { result: var(--x); }");
+}, "A universal parameter rejects malformed token structure");
+</script>

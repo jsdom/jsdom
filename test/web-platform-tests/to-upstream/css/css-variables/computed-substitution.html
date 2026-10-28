@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Custom property substitution and computed values</title>
+<link rel="help" href="https://drafts.csswg.org/css-variables/#substitute-a-var">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#substitution-context">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/11500">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, css) {
+  const parent = document.createElement("div");
+  const child = document.createElement("div");
+  child.style.cssText = css;
+  parent.append(child);
+  document.body.append(parent);
+  t.add_cleanup(() => parent.remove());
+  return { parent, child, computed: getComputedStyle(child) };
+}
+
+test(t => {
+  const { computed } = fixture(t, "--space: 1px 2px; margin: var(--space); margin-left: 3px");
+  assert_equals(computed.marginTop, "1px");
+  assert_equals(computed.marginRight, "2px");
+  assert_equals(computed.marginBottom, "1px");
+  assert_equals(computed.marginLeft, "3px");
+}, "A substituted shorthand expands without overwriting another winning longhand");
+
+test(t => {
+  const { computed } = fixture(t, "color: var(--missing, var(--also-missing, red))");
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+}, "Missing custom properties use nested fallbacks");
+
+test(t => {
+  const { computed } = fixture(t, "--number: 5; width: var(--number)px");
+  assert_equals(computed.width, "auto");
+}, "Substituting tokens cannot combine a number and an identifier into a dimension");
+
+test(t => {
+  const { parent, child, computed } = fixture(t, "--base: blue; color: var(--alias)");
+  parent.style.cssText = "--base: red; --alias: var(--base)";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_equals(computed.getPropertyValue("--alias"), "red");
+  child.style.setProperty("--alias", "var(--base)");
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+}, "Inherited custom properties preserve substitution in the parent's context");
+
+test(t => {
+  const { computed } = fixture(t, "--a: var(--b); --b: var(--a, red); color: var(--a, blue)");
+  assert_equals(computed.getPropertyValue("--a"), "");
+  assert_equals(computed.getPropertyValue("--b"), "");
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+}, "Every member of a custom property cycle is invalid even when a member has a fallback");
+
+test(t => {
+  const { computed } = fixture(t, "--base: green; --cycle: var(--base, var(--cycle)); color: var(--cycle, blue)");
+  assert_equals(computed.getPropertyValue("--cycle"), "green");
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "Unused fallbacks do not participate in cycle detection");
+
+test(t => {
+  const { parent, computed } = fixture(t, "color: red; color: var(--missing)");
+  parent.style.color = "green";
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "Invalid-at-computed-value declarations use unset instead of an earlier declaration");
+
+test(t => {
+  const { child, computed } = fixture(t, "--space: 2px; padding: calc(var(--space) * 2)");
+  assert_equals(computed.paddingLeft, "4px");
+  child.style.setProperty("--space", "3px");
+  assert_equals(computed.paddingLeft, "6px");
+  assert_equals(child.style.padding, "calc(var(--space) * 2)");
+}, "Substitution and calculation refresh live computed values without changing authored values");
+</script>

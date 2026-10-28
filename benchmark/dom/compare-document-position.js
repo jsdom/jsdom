@@ -6,7 +6,7 @@ const SIBLINGS = 10000;
 module.exports = () => {
   let parent, children, descendantTree, ancestorTree;
 
-  const { bench } = documentBench(document => {
+  const { bench } = documentBench((document) => {
     parent = document.createElement("div");
     children = new Array(SIBLINGS);
     for (let i = 0; i < SIBLINGS; ++i) {

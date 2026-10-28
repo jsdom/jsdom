@@ -1,0 +1,78 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Declaration serialization after changing longhands</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-declaration-block">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "1px";
+  assert_equals(style.margin, "1px");
+  assert_equals(style.cssText, "margin: 1px;");
+  style.marginRight = "2px";
+  assert_equals(style.margin, "1px 2px 1px 1px");
+  assert_equals(style.cssText, "margin: 1px 2px 1px 1px;");
+  style.removeProperty("margin-right");
+  assert_equals(style.margin, "");
+  assert_equals(style.cssText, "margin-top: 1px; margin-bottom: 1px; margin-left: 1px;");
+}, "Changing and removing a longhand updates its shorthand serialization");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.padding = "1px";
+  assert_equals(style.padding, "1px");
+  style.setProperty("padding-left", "1px", "important");
+  assert_equals(style.padding, "");
+  assert_equals(
+    style.cssText,
+    "padding-top: 1px; padding-right: 1px; padding-bottom: 1px; padding-left: 1px !important;"
+  );
+  style.paddingLeft = "1px";
+  assert_equals(style.padding, "1px");
+  assert_equals(style.cssText, "padding: 1px;");
+}, "Changing only a longhand's priority updates shorthand serialization");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.margin = "1px";
+  style.marginInlineStart = "2px";
+  assert_equals(style.margin, "1px");
+  assert_equals(style.cssText, "margin: 1px; margin-inline-start: 2px;");
+  style.marginLeft = "3px";
+  assert_equals(style.margin, "1px 1px 1px 3px");
+  assert_equals(
+    style.cssText,
+    "margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-inline-start: 2px; margin-left: 3px;"
+  );
+  style.removeProperty("margin-inline-start");
+  assert_equals(style.cssText, "margin: 1px 1px 1px 3px;");
+}, "Shorthand values do not determine whether declaration order permits shorthand serialization");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.border = "1px solid red";
+  assert_equals(style.border, "1px solid red");
+  style.borderImageSource = "url(\"example.png\")";
+  assert_equals(style.border, "");
+  style.borderImageSource = "none";
+  assert_equals(style.border, "1px solid red");
+  assert_equals(style.cssText, "border: 1px solid red;");
+}, "Changing reset-only longhands updates shorthand serialization");
+
+test(() => {
+  const element = document.createElement("div");
+  const { style } = element;
+  style.padding = "1px";
+  assert_equals(style.padding, "1px");
+  element.setAttribute("style", "padding: 2px");
+  assert_equals(style.padding, "2px");
+  assert_equals(style.cssText, "padding: 2px;");
+  style.cssText = "--empty:; color: red;";
+  assert_equals(style.padding, "");
+  assert_equals(style.getPropertyValue("--empty"), " ");
+  assert_equals(style.cssText, "--empty: ; color: red;");
+}, "Replacing a declaration block discards all previous property values");
+</script>

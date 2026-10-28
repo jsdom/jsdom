@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed style eligibility is live</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.color = "red";
+  const computed = getComputedStyle(element);
+  assert_equals(computed.length, 0);
+  assert_equals(computed.color, "");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_true(computed.length > 0);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  element.remove();
+  assert_equals(computed.length, 0);
+  assert_equals(computed.color, "");
+}, "An existing computed style reflects attachment and removal");
+
+test(t => {
+  const host = document.createElement("div");
+  const element = document.createElement("span");
+  element.style.color = "red";
+  host.append(element);
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const shadow = host.attachShadow({ mode: "closed" });
+  const computed = getComputedStyle(element);
+  assert_equals(computed.length, 0);
+  assert_equals(computed.color, "");
+  shadow.innerHTML = "<slot></slot>";
+  assert_true(computed.length > 0);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  element.slot = "missing";
+  assert_equals(computed.length, 0);
+  assert_equals(computed.color, "");
+}, "An existing computed style reflects assignment into a closed shadow tree");
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const shadow = host.attachShadow({ mode: "closed" });
+  shadow.innerHTML = '<slot><span style="color: red"></span></slot>';
+  const fallback = shadow.querySelector("span");
+  const computed = getComputedStyle(fallback);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  host.append(document.createElement("div"));
+  assert_equals(computed.length, 0);
+  assert_equals(computed.color, "");
+  host.replaceChildren();
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+}, "An existing computed style reflects whether slot fallback content is in the flat tree");
+
+test(t => {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentDocument.createElement("div");
+  child.style.color = "red";
+  frame.contentDocument.body.append(child);
+  const computed = frame.contentWindow.getComputedStyle(child);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  frame.style.display = "none";
+  assert_equals(computed.length, 0);
+  assert_equals(computed.color, "");
+  frame.style.display = "block";
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+}, "Cached eligibility observes mutations in the containing document");
+test(t => {
+  const host = document.createElement("div");
+  const element = document.createElement("span");
+  element.style.color = "red";
+  host.append(element);
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const computed = getComputedStyle(element);
+  assert_equals(computed.color, "rgb(255, 0, 0)");
+  assert_true(computed.length > 0);
+
+  host.attachShadow({ mode: "closed" });
+  assert_equals(computed.color, "", "Retained computed declaration");
+  assert_equals(computed.length, 0);
+  const fresh = getComputedStyle(element);
+  assert_equals(fresh.color, "", "Fresh computed declaration");
+  assert_equals(fresh.length, 0);
+}, "Attaching an empty shadow root removes cached light-child styles from the flat tree");
+
+</script>

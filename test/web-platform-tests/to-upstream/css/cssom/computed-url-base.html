@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed URLs retain the base of their declaration</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#relative-urls">
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api/#calculation-of-computed-values">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t) {
+  const base = document.createElement("base");
+  base.href = "https://example.test/first/";
+  document.head.append(base);
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => {
+    target.remove();
+    base.remove();
+  });
+  return { base, target };
+}
+
+test(t => {
+  const { base, target } = fixture(t);
+  target.setAttribute("style", "background-image: url(image.png)");
+  base.href = "https://example.test/second/";
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("https://example.test/first/image.png")');
+  assert_equals(target.style.backgroundImage, 'url("image.png")');
+}, "A style attribute retains its URL base before its declaration object is read");
+
+test(t => {
+  const { base, target } = fixture(t);
+  target.style.backgroundImage = "url(image.png)";
+  const computed = getComputedStyle(target);
+  assert_equals(computed.backgroundImage, 'url("https://example.test/first/image.png")');
+  base.href = "https://example.test/second/";
+  target.style.color = "red";
+  assert_equals(computed.backgroundImage, 'url("https://example.test/first/image.png")');
+  target.style.backgroundImage = "url(image.png)";
+  assert_equals(computed.backgroundImage, 'url("https://example.test/second/image.png")');
+}, "Reassigning the same relative URL uses the new base without changing unrelated declarations");
+
+test(t => {
+  const { base, target } = fixture(t);
+  target.style.background = "url(background.png) green";
+  target.style.borderImage = "url(border.png) 1";
+  base.href = "https://example.test/second/";
+  target.style.backgroundColor = "blue";
+  target.style.borderImageSlice = "2";
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("https://example.test/first/background.png")');
+  assert_equals(getComputedStyle(target).borderImageSource, 'url("https://example.test/first/border.png")');
+  target.style.background = "url(background.png) blue";
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("https://example.test/second/background.png")');
+  assert_equals(getComputedStyle(target).borderImageSource, 'url("https://example.test/first/border.png")');
+  target.style.cssText = "background-image: url(reset.png)";
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("https://example.test/second/reset.png")');
+}, "Shorthand siblings retain their own URL bases and replacing cssText captures a new base");
+
+test(t => {
+  const { base, target } = fixture(t);
+  const style = document.createElement("style");
+  style.textContent = "div { background-image: url(sheet.png); }";
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  base.href = "https://example.test/second/";
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("https://example.test/first/sheet.png")');
+  style.sheet.cssRules[0].style.backgroundImage = "url(edit.png)";
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("https://example.test/first/edit.png")');
+}, "An embedded stylesheet and its CSSOM edits use the stylesheet's original base");
+
+test(t => {
+  const { base, target } = fixture(t);
+  CSS.registerProperty({ name: "--url-typed", syntax: "<url>", inherits: true, initialValue: "url(initial.png)" });
+  target.style.setProperty("--url-typed", "url(typed.png)");
+  target.style.setProperty("--url-untyped", "url(untyped.png)");
+  base.href = "https://example.test/second/";
+  target.style.backgroundImage = "var(--url-typed), var(--url-untyped)";
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    'url("https://example.test/first/typed.png"), url("https://example.test/second/untyped.png")'
+  );
+  const child = document.createElement("div");
+  target.append(child);
+  child.style.backgroundImage = "var(--url-typed)";
+  assert_equals(getComputedStyle(child).backgroundImage, 'url("https://example.test/first/typed.png")');
+}, "Registered URL values resolve before substitution and inheritance; unregistered values resolve at use");
+
+test(t => {
+  const { target } = fixture(t);
+  target.style.backgroundImage = 'url(#local), url("")';
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("#local"), url("")');
+  target.style.backgroundImage = 'image-set("image.png" 1x, url(other.png) 2x)';
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    'image-set(url("https://example.test/first/image.png") 1dppx, url("https://example.test/first/other.png") 2dppx)'
+  );
+}, "Computed image URLs preserve fragment-only and empty URLs and resolve image-set strings");
+test(t => {
+  const { base, target } = fixture(t);
+  const attribute = "background-image: url(image.png)";
+  target.setAttribute("style", attribute);
+  const { style } = target;
+  base.href = "https://example.test/second/";
+  target.setAttribute("style", attribute);
+  assert_equals(getComputedStyle(target).backgroundImage, 'url("https://example.test/first/image.png")');
+  assert_equals(target.style, style);
+}, "Setting an identical style attribute preserves its parsed URL base");
+
+test(t => {
+  const { base, target } = fixture(t);
+  CSS.registerProperty({ name: "--url-uppercase", syntax: "<url>", inherits: false, initialValue: "url(initial.png)" });
+  target.style.setProperty("--url-uppercase", 'URL("image.png")');
+  base.href = "https://example.test/second/";
+  target.style.setProperty("--url-uppercase", 'URL("image.png")');
+  assert_equals(
+    getComputedStyle(target).getPropertyValue("--url-uppercase"),
+    'url("https://example.test/first/image.png")'
+  );
+}, "Reassigning identical custom property tokens preserves their source base");
+</script>

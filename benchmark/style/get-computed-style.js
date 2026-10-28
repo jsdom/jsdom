@@ -1,9 +1,9 @@
 "use strict";
 const documentBench = require("../document-bench");
 
-// Warm-path benchmark: DOM is built once per task by documentBench's setup,
-// so the style cache is populated on the first iteration and subsequent
-// iterations measure the cached clone path.
+// Build the DOM once per task to measure repeated getComputedStyle() calls for
+// unchanged elements. These calls create computed-style objects without reading
+// properties; property resolution has separate benchmarks.
 
 const SIBLINGS = 20;
 const DEPTH = 10;
@@ -12,7 +12,7 @@ let siblings = [];
 let nested = [];
 
 module.exports = () => {
-  const { document, bench } = documentBench(doc => {
+  const { document, bench } = documentBench((doc) => {
     siblings = [];
     for (let i = 0; i < SIBLINGS; i++) {
       const div = doc.createElement("div");

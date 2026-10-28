@@ -1,0 +1,53 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Trigger shorthand serialization with no trigger names</title>
+<link rel="help" href="https://drafts.csswg.org/animation-triggers-1/#propdef-timeline-trigger">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="target"></div>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+
+test(() => {
+  assert_equals(getComputedStyle(target).getPropertyValue("timeline-trigger"), "none auto");
+}, "The initial timeline-trigger value preserves its auto source");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("timeline-trigger", "none");
+  assert_equals(style.getPropertyValue("timeline-trigger"), "none");
+  assert_equals(style.getPropertyValue("timeline-trigger-source"), "none");
+  assert_equals(style.cssText, "timeline-trigger: none;");
+}, "An explicit timeline-trigger none sets a none source and serializes");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("timeline-trigger", "none");
+  style.setProperty("timeline-trigger-source", "auto");
+  assert_equals(style.getPropertyValue("timeline-trigger"), "none auto");
+}, "Changing a none trigger's source remains observable in the shorthand");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("timeline-trigger", "none");
+  style.setProperty("timeline-trigger-source", "auto, none");
+  assert_equals(style.getPropertyValue("timeline-trigger"), "");
+}, "A timeline-trigger with unequal name and source lists cannot serialize");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("timeline-trigger", getComputedStyle(target).getPropertyValue("timeline-trigger"));
+  assert_equals(style.getPropertyValue("timeline-trigger-name"), "none");
+  assert_equals(style.getPropertyValue("timeline-trigger-source"), "auto");
+}, "The initial timeline-trigger shorthand roundtrips through its grammar");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.setProperty("timeline-trigger", "--trigger auto");
+  assert_equals(style.getPropertyValue("timeline-trigger"), "--trigger auto");
+  assert_equals(style.getPropertyValue("timeline-trigger-activation-range"), "normal");
+  assert_equals(style.getPropertyValue("timeline-trigger-active-range"), "auto");
+}, "Timeline trigger ranges can be omitted");
+</script>

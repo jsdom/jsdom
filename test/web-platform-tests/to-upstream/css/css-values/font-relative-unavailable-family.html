@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Font relative lengths with an unavailable font family</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#font-relative-lengths">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  div { font-size: 20px; line-height: normal; width: 2cap; margin-top: 1lh; }
+  #reference { font-family: monospace; }
+  #target { font-family: unavailable-font-279b8ac7, monospace; }
+</style>
+<div id="reference"></div>
+<div id="target"></div>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+const reference = document.getElementById("reference");
+
+test(() => {
+  assert_true(CSS.supports("width", "2cap"));
+  assert_equals(getComputedStyle(target).width, getComputedStyle(reference).width);
+}, "cap units use the available fallback font");
+
+test(() => {
+  assert_true(CSS.supports("margin-top", "1lh"));
+  assert_equals(getComputedStyle(target).marginTop, getComputedStyle(reference).marginTop);
+}, "lh units use the available fallback font for normal line height");
+</script>

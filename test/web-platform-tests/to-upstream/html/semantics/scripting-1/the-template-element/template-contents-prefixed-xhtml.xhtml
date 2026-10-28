@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Children of a template element with a prefix go into its template contents in XHTML</title>
+  <link rel="help" href="https://html.spec.whatwg.org/multipage/xhtml.html#parsing-xhtml-documents" />
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+</head>
+<body>
+<h:template id="prefixed"><div>content</div></h:template>
+<script><![CDATA[
+"use strict";
+
+test(() => {
+  const template = document.getElementById("prefixed");
+  assert_equals(template.childNodes.length, 0, "the template element has no children");
+  assert_equals(template.content.childNodes.length, 1, "the template contents have the parsed child");
+
+  const div = template.content.firstChild;
+  assert_equals(div.localName, "div");
+  assert_equals(div.ownerDocument, template.content.ownerDocument);
+}, "Children of a template element written with a prefix are parsed into its template contents");
+]]></script>
+</body>
+</html>

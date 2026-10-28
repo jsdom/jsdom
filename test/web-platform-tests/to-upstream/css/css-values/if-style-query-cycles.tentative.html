@@ -1,0 +1,88 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Style queries in if() participate in substitution cycles</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#substitution">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/11500#issuecomment-2754141206">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/pull/12070">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, declarations) {
+  const element = document.createElement("div");
+  element.style.cssText = declarations;
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = fixture(t, `
+    --a: if(style(--b: 2): x; else: y);
+    --b: if(style(--a: y): 1; else: 2);
+    --fallback: var(--a, fallback);
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--a"), "");
+  assert_equals(computed.getPropertyValue("--b"), "");
+  assert_equals(computed.getPropertyValue("--fallback"), "fallback");
+}, "Mutual style queries invalidate both properties when reading the first property first");
+
+test(t => {
+  const element = fixture(t, `
+    --a: if(style(--b: 2): x; else: y);
+    --b: if(style(--a: y): 1; else: 2);
+    --fallback: var(--b, fallback);
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--b"), "");
+  assert_equals(computed.getPropertyValue("--a"), "");
+  assert_equals(computed.getPropertyValue("--fallback"), "fallback");
+}, "Mutual style queries invalidate both properties when reading the second property first");
+
+test(t => {
+  const element = fixture(t, `
+    --a: if(style(--b): x; else: y);
+    --b: if(style(--a): 1; else: 2);
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--a"), "");
+  assert_equals(computed.getPropertyValue("--b"), "");
+}, "Boolean style queries participate in substitution cycles");
+
+test(t => {
+  const element = fixture(t, `
+    --a: if(style(--b = 2): 1; else: 0);
+    --b: if(style(--a = 0): 1; else: 2);
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--a"), "");
+  assert_equals(computed.getPropertyValue("--b"), "");
+}, "Mutual style ranges invalidate both properties when reading the first property first");
+
+test(t => {
+  const element = fixture(t, `
+    --a: if(style(--b = 2): 1; else: 0);
+    --b: if(style(--a = 0): 1; else: 2);
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--b"), "");
+  assert_equals(computed.getPropertyValue("--a"), "");
+}, "Mutual style ranges invalidate both properties when reading the second property first");
+
+test(t => {
+  CSS.registerProperty({ name: "--query-cycle", syntax: "<number>", inherits: false, initialValue: "7" });
+  const element = fixture(t, `
+    --query-cycle: if(style(--other: 2): 1; else: 0);
+    --other: if(style(--query-cycle: 0): 1; else: 2);
+  `);
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--query-cycle"), "7");
+  assert_equals(computed.getPropertyValue("--other"), "");
+  element.style.setProperty("--other", "2");
+  assert_equals(computed.getPropertyValue("--query-cycle"), "1");
+  assert_equals(computed.getPropertyValue("--other"), "2");
+}, "A registered property in a style-query cycle uses its initial value and recovers when the cycle is broken");
+</script>

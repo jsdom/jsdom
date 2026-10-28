@@ -1,0 +1,61 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Named view-transition wildcard selectors match concrete style targets</title>
+<link rel="help" href="https://drafts.csswg.org/css-view-transitions-2/#typedef-pt-name-selector">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+function targetWithRules(t, rules) {
+  const target = document.createElement("span");
+  target.className = "target";
+  const style = document.createElement("style");
+  style.textContent = ".target { color: black } " + rules;
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    target.remove();
+    style.remove();
+  });
+  return target;
+}
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-group(*) { color: green }");
+  assert_equals(getComputedStyle(target, "::view-transition-group(first)").color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(target, "::view-transition-group(second)").color, "rgb(0, 128, 0)");
+}, "A group wildcard matches distinct named style targets");
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-image-pair(*) { color: green }");
+  assert_equals(getComputedStyle(target, "::view-transition-image-pair(first)").color, "rgb(0, 128, 0)");
+}, "An image-pair wildcard matches a named style target");
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-old(*) { color: green }");
+  assert_equals(getComputedStyle(target, "::view-transition-old(first)").color, "rgb(0, 128, 0)");
+}, "An old-image wildcard matches a named style target");
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-new(*) { color: green }");
+  assert_equals(getComputedStyle(target, "::view-transition-new(first)").color, "rgb(0, 128, 0)");
+}, "A new-image wildcard matches a named style target");
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-group(*) { color: green }");
+  assert_equals(getComputedStyle(target, "::view-transition-group(\\*)").color, "rgb(0, 128, 0)");
+}, "A wildcard also matches a literal asterisk name");
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-group(*) { opacity: 0.5 }");
+  assert_equals(getComputedStyle(target, "::view-transition-new(first)").opacity, "1");
+}, "A wildcard does not match another pseudo-element family");
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-group(first) { color: green }");
+  assert_equals(getComputedStyle(target, "::view-transition-group(second)").color, "rgb(0, 0, 0)");
+}, "An ordinary name is not a wildcard");
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-group(\\*) { color: green }");
+  assert_equals(getComputedStyle(target, "::view-transition-group(first)").color, "rgb(0, 0, 0)");
+}, "An escaped asterisk name is not a wildcard");
+test(t => {
+  const target = targetWithRules(t, ".target::view-transition-group(\\*) { color: green } " +
+    ".target::view-transition-group(*) { color: red }");
+  assert_equals(getComputedStyle(target, "::view-transition-group(\\*)").color, "rgb(0, 128, 0)");
+}, "An escaped asterisk name has greater specificity than a wildcard");
+</script>

@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Box shadow initial color and none shorthand color</title>
+<link rel="help" href="https://drafts.csswg.org/css-borders-4/#propdef-box-shadow-color">
+<link rel="help" href="https://drafts.csswg.org/css-borders-4/#propdef-box-shadow">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+// The color longhand's initial value is currentcolor, but a none-offset shorthand
+// defaults its omitted color to transparent. Serializing the initial longhands as
+// none would lose this distinction. The shorthand table still lists none as its
+// initial value; this inconsistency needs a CSSWG resolution before upstreaming.
+test(t => {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(getComputedStyle(element).boxShadow, "currentcolor none");
+  element.style.boxShadow = "initial";
+  assert_equals(getComputedStyle(element).boxShadow, "currentcolor none");
+  element.style.boxShadow = "none";
+  assert_equals(getComputedStyle(element).boxShadow, "none");
+}, "Initial box-shadow longhands differ from the none shorthand expansion");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.boxShadow = "currentcolor none";
+  assert_equals(style.getPropertyValue("box-shadow-color"), "currentcolor");
+  style.boxShadow = "none";
+  assert_equals(style.getPropertyValue("box-shadow-color"), "transparent");
+}, "The none shorthand round-trip must preserve its color longhand");
+</script>

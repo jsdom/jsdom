@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Counter style names are set from strings without reparsing CSS</title>
+<link rel="help" href="https://drafts.csswg.org/css-counter-styles-3/#dom-csscounterstylerule-name">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/1325">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function counterStyle(t) {
+  const style = document.createElement("style");
+  style.textContent = '@counter-style original { system: cyclic; symbols: "x"; }';
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  return style.sheet.cssRules[0];
+}
+
+test(t => {
+  const rule = counterStyle(t);
+  rule.name = "";
+  assert_equals(rule.name, "");
+  rule.name = "123";
+  assert_equals(rule.name, "\\31 23");
+  rule.name = "a b";
+  assert_equals(rule.name, "a\\ b");
+}, "The counter style name setter accepts strings that need identifier escaping");
+
+test(t => {
+  const rule = counterStyle(t);
+  rule.name = "initial";
+  assert_equals(rule.name, "initial");
+  rule.name = "inherit";
+  assert_equals(rule.name, "inherit");
+  rule.name = "default";
+  assert_equals(rule.name, "default");
+}, "The counter style name setter does not parse CSS-wide keywords");
+
+test(t => {
+  const rule = counterStyle(t);
+  rule.name = "NONE";
+  assert_equals(rule.name, "original");
+  rule.name = "DiSc";
+  assert_equals(rule.name, "original");
+  rule.name = "DECIMAL";
+  assert_equals(rule.name, "original");
+  rule.name = "Upper-Alpha";
+  assert_equals(rule.name, "upper-alpha");
+}, "Reserved and predefined counter style names are matched without ASCII case");
+
+test(t => {
+  const rule = counterStyle(t);
+  rule.name = "a\\b";
+  assert_equals(rule.name, "a\\\\b");
+}, "The counter style name setter treats a backslash as part of the name");
+</script>

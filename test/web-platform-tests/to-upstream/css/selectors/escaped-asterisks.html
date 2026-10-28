@@ -1,0 +1,164 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Escaped asterisks are identifiers in selectors</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#grammar">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#type-nmsp">
+<link rel="help" href="https://drafts.csswg.org/cssom-1/#serialize-a-simple-selector">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/8911">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="fixture"><span class="target" data-flag="present"></span></div>
+<script>
+"use strict";
+
+const target = document.querySelector(".target");
+const fixture = document.querySelector("#fixture");
+
+test(() => {
+  assert_true(CSS.supports("selector(\\*)"));
+  assert_false(target.matches("\\*"));
+  assert_equals(fixture.querySelector("\\*"), null);
+  assert_array_equals(fixture.querySelectorAll("\\*"), []);
+}, "An escaped asterisk type is valid but does not match an ordinary element");
+
+test(() => {
+  assert_false(target.matches("\\2a .target"));
+  assert_false(target.matches("*|\\*.target"));
+  assert_false(target.matches(":is(\\*.target)"));
+  assert_true(target.matches(":not(\\*.target)"));
+}, "Hex escapes, qualified types and logical arguments retain literal asterisks");
+
+test(() => {
+  assert_true(target.matches("*.target"));
+  assert_true(target.matches("*|*.target"));
+  assert_array_equals(fixture.querySelectorAll("*.target"), [target]);
+}, "Actual universal selectors remain universal");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("\\*.target { color: red } \\2a #fixture { color: blue }");
+  assert_equals(sheet.cssRules[0].selectorText, "\\*.target");
+  assert_equals(sheet.cssRules[1].selectorText, "\\*#fixture");
+}, "CSSOM does not omit a literal asterisk type from a compound");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(".target {}");
+  sheet.cssRules[0].selectorText = "\\*.target";
+  assert_equals(sheet.cssRules[0].selectorText, "\\*.target");
+  assert_false(target.matches(sheet.cssRules[0].selectorText));
+}, "Changing selectorText preserves a literal asterisk type");
+
+test(() => {
+  assert_throws_dom("SyntaxError", () => target.matches("\\*|span"));
+  assert_throws_dom("SyntaxError", () => fixture.querySelectorAll("\\*|span"));
+  assert_false(CSS.supports("selector(\\*|span)"));
+}, "An escaped asterisk prefix requires a namespace declaration");
+
+test(() => {
+  assert_throws_dom("SyntaxError", () => target.matches("[\\*|data-flag]"));
+  assert_false(CSS.supports("selector([\\*|data-flag])"));
+  assert_true(target.matches("[*|data-flag]"));
+}, "Attribute namespace prefixes distinguish identifiers from the wildcard");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync('@namespace \\* "urn:one"; \\*|item {}');
+  assert_equals(sheet.cssRules.length, 2);
+  assert_equals(sheet.cssRules[0].prefix, "*");
+  assert_equals(sheet.cssRules[1].selectorText, "\\*|item");
+}, "An escaped asterisk can name an ordinary declared namespace");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync('@namespace \\* "urn:one"; [\\*|flag] {}');
+  assert_equals(sheet.cssRules.length, 2);
+  assert_equals(sheet.cssRules[1].selectorText, "[\\*|flag]");
+}, "CSSOM preserves a declared asterisk attribute namespace prefix");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = '@namespace \\* "urn:one"; ' +
+    "*|item { color: rgb(255 0 0) } \\*|item { color: rgb(0 128 0) }";
+  document.head.append(style);
+  const one = document.createElementNS("urn:one", "item");
+  const two = document.createElementNS("urn:two", "item");
+  fixture.append(one, two);
+  t.add_cleanup(() => {
+    style.remove();
+    one.remove();
+    two.remove();
+  });
+  assert_equals(getComputedStyle(one).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(two).color, "rgb(255, 0, 0)");
+}, "A declared asterisk type prefix matches only its namespace");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = '@namespace \\* "urn:one"; ' +
+    "[*|flag] { color: rgb(255 0 0) } [\\*|flag] { color: rgb(0 128 0) }";
+  document.head.append(style);
+  const one = document.createElement("span");
+  const two = document.createElement("span");
+  one.setAttributeNS("urn:one", "flag", "present");
+  two.setAttributeNS("urn:two", "flag", "present");
+  fixture.append(one, two);
+  t.add_cleanup(() => {
+    style.remove();
+    one.remove();
+    two.remove();
+  });
+  assert_equals(getComputedStyle(one).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(two).color, "rgb(255, 0, 0)");
+}, "A declared asterisk attribute prefix matches only its namespace");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = '@namespace \\* ""; ' +
+    "*|item { color: rgb(255 0 0) } \\*|item { color: rgb(0 128 0) }";
+  document.head.append(style);
+  const none = document.createElementNS(null, "item");
+  const other = document.createElementNS("urn:two", "item");
+  fixture.append(none, other);
+  t.add_cleanup(() => {
+    style.remove();
+    none.remove();
+    other.remove();
+  });
+  assert_equals(getComputedStyle(none).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(other).color, "rgb(255, 0, 0)");
+}, "An asterisk prefix explicitly mapped to the empty namespace is not a wildcard");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = "*|*.target { color: rgb(0 128 0) } " +
+    "\\*.target { color: rgb(255 0 0) }";
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "The rule index does not make an escaped asterisk type universal");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync('@namespace "urn:one"; @namespace \\* "urn:one"; \\*|item {} *|item {}');
+  assert_equals(sheet.cssRules[2].selectorText, "item");
+  assert_equals(sheet.cssRules[3].selectorText, "*|item");
+}, "A named asterisk can alias the default namespace without changing the wildcard");
+
+test(t => {
+  const style = document.createElement("style");
+  style.textContent = '@namespace "urn:one"; @namespace \\* "urn:one"; ' +
+    "*|item { color: rgb(255 0 0) } \\*|item { color: rgb(0 128 0) }";
+  document.head.append(style);
+  const one = document.createElementNS("urn:one", "item");
+  const two = document.createElementNS("urn:two", "item");
+  fixture.append(one, two);
+  t.add_cleanup(() => {
+    style.remove();
+    one.remove();
+    two.remove();
+  });
+  assert_equals(getComputedStyle(one).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(two).color, "rgb(255, 0, 0)");
+}, "A named asterisk alias preserves default namespace matching restrictions");
+</script>

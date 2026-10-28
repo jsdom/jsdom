@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Nested boolean conditions in CSS if()</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#typedef-if-condition">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.color = "if((media(width: 1px)): red; else: blue)";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+  target.style.color = "if(((media(width: 1px))): red; else: blue)";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+}, "Parenthesized media conditions retain the if-test grammar");
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.setProperty("--x", "0");
+  target.style.color = "if(style(--x: 0) or (style(--y: 3) and style(--z: 3)): red; else: blue)";
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+  target.style.color = "if((media(width: 1px)) and (supports(color: red)): red; else: blue)";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+}, "Nested boolean groups can combine different if-test functions");
+
+test(t => {
+  const target = document.createElement("div");
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  target.style.color = "if(style(--x: 0) or style(--y: 3) and style(--z: 3): red; else: blue)";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+  target.style.color = "if((media(width: 1px)) and: red; else: blue)";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+}, "Malformed boolean conditions are skipped");
+</script>

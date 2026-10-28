@@ -1,0 +1,20 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Text autospace preserves equivalent keyword alternatives</title>
+<link rel="help" href="https://drafts.csswg.org/css-text-4/#text-autospace-property">
+<link rel="help" href="https://drafts.csswg.org/cssom-1/#serialize-a-css-value">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const element = document.createElement("div");
+  element.style.textAutospace = "ideograph-numeric ideograph-alpha";
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_equals(element.style.textAutospace, "ideograph-alpha ideograph-numeric");
+  assert_equals(getComputedStyle(element).textAutospace, "ideograph-alpha ideograph-numeric");
+}, "Autospace keywords still serialize in canonical grammar order");
+</script>

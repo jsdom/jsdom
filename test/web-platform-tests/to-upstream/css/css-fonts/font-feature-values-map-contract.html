@@ -1,0 +1,118 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Font feature value maps preserve Web IDL value semantics</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts/#cssfontfeaturevaluesmap">
+<link rel="help" href="https://webidl.spec.whatwg.org/#es-sequence">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function createRule(declarations = "example: 1 2;") {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`@font-feature-values Example { @styleset { ${declarations} } }`);
+  return sheet.cssRules[0];
+}
+
+for (const [name, getValue] of [
+  ["get", map => map.get("example")],
+  ["values", map => map.values().next().value],
+  ["entries", map => map.entries().next().value[1]],
+  ["iterator", map => map[Symbol.iterator]().next().value[1]],
+  [
+    "forEach", map => {
+      let result;
+      map.forEach(value => {
+        result = value;
+      });
+      return result;
+    }
+  ]
+]) {
+  test(() => {
+    const rule = createRule();
+    const original = rule.cssText;
+    const returned = getValue(rule.styleset);
+    assert_true(returned instanceof Array);
+    returned[0] = 99;
+    assert_array_equals(rule.styleset.get("example"), [1, 2]);
+    assert_equals(rule.cssText, original);
+    assert_not_equals(getValue(rule.styleset), getValue(rule.styleset));
+  }, `${name} returns independent feature value arrays`);
+}
+
+test(() => {
+  const map = createRule().annotation;
+  const input = [7];
+  map.set("example", input);
+  input[0] = 99;
+  assert_array_equals(map.get("example"), [7]);
+  assert_equals(map.get("missing"), undefined);
+}, "Map values are copied on input and absent keys return undefined");
+
+test(() => {
+  const rule = createRule();
+  rule.annotation.set("large", 2 ** 31);
+  rule.annotation.set("negative", -1);
+  rule.styleset.set("outside-font-range", 999);
+  assert_array_equals(rule.annotation.get("large"), [2 ** 31]);
+  assert_array_equals(rule.annotation.get("negative"), [2 ** 32 - 1]);
+  assert_array_equals(rule.styleset.get("outside-font-range"), [999]);
+}, "The setter accepts unsigned long values without applying CSS font index ranges");
+
+test(() => {
+  const rule = createRule();
+  rule.annotation.set("empty", []);
+  rule.characterVariant.set("single", [1]);
+  rule.characterVariant.set("pair", [1, 2]);
+  assert_array_equals(rule.annotation.get("empty"), []);
+  assert_array_equals(rule.characterVariant.get("single"), [1]);
+  assert_array_equals(rule.characterVariant.get("pair"), [1, 2]);
+  assert_throws_dom("InvalidAccessError", () => rule.annotation.set("too-many", [1, 2]));
+  assert_throws_dom("InvalidAccessError", () => rule.characterVariant.set("too-many", [1, 2, 3]));
+}, "The setter enforces the maximum value count without requiring a minimum count");
+
+test(() => {
+  const rule = createRule();
+  rule.annotation.set("two words", 1);
+  assert_true(rule.cssText.includes("two\\ words: 1;"));
+}, "Map keys are serialized as CSS identifiers");
+
+test(() => {
+  const rule = createRule("foo: 1; FOO: 2;");
+  const map = rule.styleset;
+  assert_equals(map.size, 2);
+  assert_array_equals(map.get("foo"), [1]);
+  assert_array_equals(map.get("FOO"), [2]);
+  map.set("FOO", [3, 4]);
+  assert_array_equals(map.get("foo"), [1]);
+  assert_array_equals(map.get("FOO"), [3, 4]);
+  assert_true(map.delete("foo"));
+  assert_false(map.has("foo"));
+  assert_true(map.has("FOO"));
+  const copy = new CSSStyleSheet();
+  copy.replaceSync(rule.cssText);
+  assert_array_equals(copy.cssRules[0].styleset.get("FOO"), [3, 4]);
+  assert_false(copy.cssRules[0].styleset.has("foo"));
+}, "Case-distinct feature names remain separate through map mutations and serialization");
+
+test(() => {
+  const rule = createRule("--feature: 1 2;");
+  const map = rule.styleset;
+  assert_array_equals(map.get("--feature"), [1, 2]);
+  map.set("--feature", [3]);
+  const copy = new CSSStyleSheet();
+  copy.replaceSync(rule.cssText);
+  assert_array_equals(copy.cssRules[0].styleset.get("--feature"), [3]);
+  assert_true(map.delete("--feature"));
+  assert_false(map.has("--feature"));
+}, "Dashed feature names retain ordinary map and serialization behavior");
+
+test(() => {
+  const first = createRule();
+  const second = createRule();
+  first.styleset.set("example", [3]);
+  assert_array_equals(second.styleset.get("example"), [1, 2]);
+  assert_array_equals(createRule().styleset.get("example"), [1, 2]);
+}, "Identical font feature rules have independent maps");
+</script>

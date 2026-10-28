@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Recovered values serialize without changing following declarations</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-escaped-code-point">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-string-token">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-a-function">
+<link rel="help" href="https://drafts.csswg.org/css-variables-1/#syntax">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/3182">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function assert_round_trip(source, expected, property = "--value") {
+  const { style } = document.createElement("div");
+  style.setProperty(property, source);
+  assert_equals(style.getPropertyValue(property), expected, "Recovered property value");
+  style.color = "red";
+  const copy = document.createElement("div").style;
+  copy.cssText = style.cssText;
+  assert_equals(copy.getPropertyValue(property), expected, "Property survives serialization and parsing");
+  assert_equals(copy.color, "red", "Following declaration survives serialization and parsing");
+}
+
+test(() => {
+  assert_round_trip("foo\\", "foo\uFFFD");
+}, "An escaped EOF in an identifier becomes the replacement character");
+
+test(() => {
+  assert_round_trip("1foo\\", "1foo\uFFFD");
+}, "An escaped EOF in a dimension becomes the replacement character");
+
+test(() => {
+  assert_round_trip('"foo\\', '"foo"');
+}, "An escaped EOF in a string is ignored and the string is closed");
+
+test(() => {
+  assert_round_trip('"foo\\\\', '"foo\\\\"');
+}, "An escaped backslash before EOF remains part of the string");
+
+test(() => {
+  assert_round_trip("url(foo\\", "url(foo\uFFFD)");
+}, "An escaped EOF in a URL is replaced and the URL is closed");
+
+test(() => {
+  assert_round_trip("f([a", "f([a])");
+}, "Nested functions and blocks are closed in order at EOF");
+
+test(() => {
+  assert_round_trip("f(\"a\\", 'f("a")');
+}, "A recovered string closes before its containing function");
+
+test(() => {
+  assert_round_trip("var(--missing, a\\", "var(--missing, a\uFFFD)");
+}, "A custom-property substitution recovers both its fallback and its closing parenthesis");
+
+test(() => {
+  assert_round_trip("var(--missing, 1px", "var(--missing, 1px)", "margin-left");
+}, "A pending property value closes its substitution at EOF");
+
+test(() => {
+  assert_round_trip("f(😀\r\n[a\\", "f(😀\r\n[a\uFFFD])");
+}, "EOF recovery preserves source spelling across Unicode and CRLF offsets");
+
+test(() => {
+  assert_round_trip("'a", "'a'");
+}, "A recovered string preserves its authored quote style");
+
+test(() => {
+  assert_round_trip("f(a/*comment", "f(a/*comment*/)");
+}, "An unclosed comment closes before its containing function");
+
+test(() => {
+  assert_round_trip("f()", "f()");
+}, "A closed empty function needs no additional closing parenthesis");
+</script>

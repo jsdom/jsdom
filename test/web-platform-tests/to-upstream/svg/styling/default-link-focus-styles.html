@@ -1,0 +1,83 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SVG links and focused elements retain their default styles</title>
+<link rel="help" href="https://svgwg.org/svg2-draft/styling.html#UAStyleSheet">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function appendSVGElement(t, localName) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const element = document.createElementNS("http://www.w3.org/2000/svg", localName);
+  svg.append(element);
+  document.body.append(svg);
+  t.add_cleanup(() => svg.remove());
+  return element;
+}
+
+test(t => {
+  const element = appendSVGElement(t, "a");
+  element.setAttribute("href", "#destination");
+  assert_equals(getComputedStyle(element).cursor, "pointer");
+}, "SVG hyperlinks have a pointer cursor");
+
+test(t => {
+  const element = appendSVGElement(t, "a");
+  element.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#destination");
+  assert_true(element.matches(":any-link"));
+  assert_true(element.matches(":link"));
+  assert_equals(getComputedStyle(element).cursor, "pointer");
+}, "SVG hyperlinks with an XLink href have a pointer cursor");
+
+test(t => {
+  const element = appendSVGElement(t, "a");
+  element.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#destination");
+  const style = getComputedStyle(element);
+  assert_equals(style.cursor, "pointer");
+  element.removeAttributeNS("http://www.w3.org/1999/xlink", "href");
+  assert_false(element.matches(":any-link"));
+  assert_false(element.matches(":link"));
+  assert_equals(style.cursor, "auto");
+}, "Removing an SVG XLink href updates link matching and live computed style");
+
+test(t => {
+  const element = document.createElement("a");
+  element.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#destination");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  assert_false(element.matches(":any-link"));
+  assert_false(element.matches(":link"));
+}, "An XLink href does not make an HTML anchor a hyperlink");
+
+test(t => {
+  const element = appendSVGElement(t, "a");
+  element.setAttributeNS("urn:foreign", "foreign:href", "#destination");
+  assert_false(element.matches(":any-link"));
+  assert_false(element.matches(":link"));
+  assert_equals(getComputedStyle(element).cursor, "auto");
+}, "A foreign-namespace href does not make an SVG anchor a hyperlink");
+
+test(t => {
+  const element = appendSVGElement(t, "a");
+  assert_equals(getComputedStyle(element).cursor, "auto");
+}, "SVG anchors without an href do not acquire a pointer cursor");
+
+test(t => {
+  const element = appendSVGElement(t, "a");
+  element.setAttribute("href", "#destination");
+  assert_equals(getComputedStyle(element).textDecorationLine, "none");
+}, "SVG hyperlinks do not acquire HTML link underlining");
+
+test(t => {
+  const element = appendSVGElement(t, "rect");
+  element.setAttribute("tabindex", "0");
+  element.setAttribute("width", "30");
+  element.setAttribute("height", "30");
+  element.focus();
+  assert_equals(document.activeElement, element);
+  assert_true(element.matches(":focus-visible"));
+  assert_equals(getComputedStyle(element).outlineStyle, "auto");
+}, "SVG focus-visible elements have an automatic focus outline");
+</script>

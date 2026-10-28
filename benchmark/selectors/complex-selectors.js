@@ -6,7 +6,7 @@ const SELECTOR = ".box:first-child ~ .box:nth-of-type(4n) + .box .block.inner > 
 module.exports = () => {
   let deepNode;
 
-  const { document, bench } = documentBench(doc => {
+  const { document, bench } = documentBench((doc) => {
     deepNode = buildComplexDOM(doc);
   });
 

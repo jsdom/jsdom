@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed custom properties preserve token spelling during substitution</title>
+<link rel="help" href="https://drafts.csswg.org/css-variables/#serializing-custom-props">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function target(t, cssText) {
+  const element = document.createElement("div");
+  element.style.cssText = cssText;
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = target(t, "--x: 1111111111111111111111111;");
+  assert_equals(getComputedStyle(element).getPropertyValue("--x"), "1111111111111111111111111");
+}, "A large integer keeps every original digit");
+
+test(t => {
+  const element = target(t, "--n: 01.2300; --x: fn(var(--n));");
+  assert_equals(getComputedStyle(element).getPropertyValue("--x"), "fn(01.2300)");
+}, "Nested functions preserve substituted numeric token spelling");
+
+test(t => {
+  const element = target(t, "--x: var(--missing, 01.2300);");
+  assert_equals(getComputedStyle(element).getPropertyValue("--x"), "01.2300");
+}, "A fallback keeps its numeric token spelling");
+
+test(t => {
+  const element = target(t, "font-size: 01.2300px; --x: 01.2300px; letter-spacing: var(--x);");
+  assert_equals(getComputedStyle(element).fontSize, "1.23px");
+  assert_equals(getComputedStyle(element).letterSpacing, "1.23px");
+  assert_equals(getComputedStyle(element).getPropertyValue("--x"), "01.2300px");
+}, "Typed properties canonicalize the same token independently of custom-property serialization");
+
+test(t => {
+  const element = target(t, '--x: foo("{") red; --y: blue;');
+  assert_equals(getComputedStyle(element).getPropertyValue("--x"), 'foo("{") red');
+  assert_equals(getComputedStyle(element).getPropertyValue("--y"), "blue");
+}, "Delimiter characters inside strings do not consume the following declaration");
+test(t => {
+  const element = target(t, "--n: 3; --x: var(--n)px; --a: before; --b: after; --y: var(--a)var(--b);");
+  assert_equals(getComputedStyle(element).getPropertyValue("--x"), "3/**/px");
+  assert_equals(getComputedStyle(element).getPropertyValue("--y"), "before/**/after");
+}, "Adjacent substitutions preserve separate tokens when their text would merge");
+
+test(t => {
+  const element = target(t, "--a: a\u00A0; --b: a\u2003; --c: a\u2028; --d: a\u2029; --e: a\uFEFF;" +
+    "--v: var(--a)b; --w: var(--b)b; --x: var(--c)b; --y: var(--d)b; --z: var(--e)b;");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--v"), "a\u00A0/**/b");
+  assert_equals(computed.getPropertyValue("--w"), "a\u2003/**/b");
+  assert_equals(computed.getPropertyValue("--x"), "a\u2028/**/b");
+  assert_equals(computed.getPropertyValue("--y"), "a\u2029/**/b");
+  assert_equals(computed.getPropertyValue("--z"), "a\uFEFF/**/b");
+}, "Non-ASCII whitespace at the end of an identifier does not separate substituted tokens");
+
+test(t => {
+  const element = target(t, "--a: \u00A0b; --b: \u2003b; --c: \u2028b; --d: \u2029b; --e: \uFEFFb; --n: a;" +
+    "--v: var(--n)var(--a); --w: var(--n)var(--b); --x: var(--n)var(--c);" +
+    "--y: var(--n)var(--d); --z: var(--n)var(--e);");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--v"), "a/**/\u00A0b");
+  assert_equals(computed.getPropertyValue("--w"), "a/**/\u2003b");
+  assert_equals(computed.getPropertyValue("--x"), "a/**/\u2028b");
+  assert_equals(computed.getPropertyValue("--y"), "a/**/\u2029b");
+  assert_equals(computed.getPropertyValue("--z"), "a/**/\uFEFFb");
+}, "Non-ASCII whitespace at the start of an identifier does not separate substituted tokens");
+
+test(t => {
+  const element = target(t, "--a: a; --empty: ; --space: var(--a) var(--empty)b;" +
+    "--comment: var(--a)/**/var(--empty)b; --tight: var(--a)var(--empty)b;");
+  const computed = getComputedStyle(element);
+  assert_equals(computed.getPropertyValue("--space"), "a b");
+  assert_equals(computed.getPropertyValue("--comment"), "a/**/b");
+  assert_equals(computed.getPropertyValue("--tight"), "a/**/b");
+}, "Empty substitutions preserve existing separation and add it only when needed");
+</script>

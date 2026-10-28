@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS uses the native environment despite replaced public properties</title>
+<link rel="help" href="https://webidl.spec.whatwg.org/#Replaceable">
+<link rel="help" href="https://drafts.csswg.org/cssom-view/#dom-window-innerwidth">
+<link rel="help" href="https://drafts.csswg.org/mediaqueries-5/#width">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, condition = "all") {
+  const style = document.createElement("style");
+  style.textContent = `
+    .target { color: black; margin-left: 10vw; margin-top: 10vh; border: 0.6px solid; }
+    @media ${condition} { .target { color: red; } }
+  `;
+  const target = document.createElement("div");
+  target.className = "target";
+  document.head.append(style);
+  document.body.append(target);
+  t.add_cleanup(() => {
+    style.remove();
+    target.remove();
+  });
+  return target;
+}
+
+function replace(t, object, property, descriptor) {
+  const original = Object.getOwnPropertyDescriptor(object, property);
+  t.add_cleanup(() => {
+    if (original) {
+      Object.defineProperty(object, property, original);
+    } else {
+      delete object[property];
+    }
+  });
+  Object.defineProperty(object, property, { configurable: true, ...descriptor });
+}
+
+for (const [property, condition] of [
+  ["devicePixelRatio", "all"],
+  ["innerWidth", "(min-width: 1px)"],
+  ["innerHeight", "(min-height: 1px)"],
+  ["screen", "(color)"],
+  ["colorDepth", "(color)"],
+  ["width", "(min-device-width: 0px)"],
+  ["height", "(min-device-height: 0px)"]
+]) {
+  test(t => {
+    const target = fixture(t, condition);
+    const object = ["colorDepth", "width", "height"].includes(property) ? screen : window;
+    replace(t, object, property, {
+      get() {
+        assert_unreached(`Public ${property} getter called`);
+      }
+    });
+    const computed = getComputedStyle(target);
+    assert_equals(computed.color, "rgb(255, 0, 0)");
+    assert_not_equals(computed.marginLeft, "");
+    assert_not_equals(computed.marginTop, "");
+    assert_not_equals(computed.borderLeftWidth, "");
+  }, `CSS does not invoke a replaced ${property} getter`);
+}
+
+for (const property of ["innerWidth", "innerHeight", "devicePixelRatio"]) {
+  test(t => {
+    const target = fixture(t, "(min-width: 1px) and (min-height: 1px) and (min-resolution: 0.01dppx)");
+    const computed = getComputedStyle(target);
+    const properties = ["color", "marginLeft", "marginTop", "borderLeftWidth"];
+    const before = properties.map(name => computed[name]);
+    replace(t, window, property, { value: 0 });
+    assert_equals(window[property], 0, "The public property is replaced");
+    assert_array_equals(properties.map(name => computed[name]), before);
+    target.setAttribute("data-refresh", "");
+    assert_array_equals(properties.map(name => computed[name]), before);
+  }, `Replacing ${property} does not alter live styles before or after another DOM mutation`);
+}
+</script>

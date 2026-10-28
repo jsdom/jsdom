@@ -10,15 +10,15 @@ const { values } = parseArgs({
     suite: {
       type: "string",
       multiple: true,
-      short: "s"
+      short: "s",
     },
     format: {
       type: "string",
       short: "f",
-      default: "terminal"
-    }
+      default: "terminal",
+    },
   },
-  strict: false
+  strict: false,
 });
 
 if (values.format !== "terminal" && values.format !== "markdown") {

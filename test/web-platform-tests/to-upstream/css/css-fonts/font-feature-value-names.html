@@ -1,0 +1,94 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Font feature value names are author-defined identifiers</title>
+<link rel="help" href="https://drafts.csswg.org/css-fonts-4/#font-feature-values-syntax">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function createRule(declarations) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`@font-feature-values Example { @styleset { ${declarations} } }`);
+  return sheet.cssRules[0];
+}
+
+function checkName(name) {
+  const rule = createRule(`${CSS.escape(name)}: 1 2;`);
+  const expected = `@font-feature-values Example { @styleset { ${CSS.escape(name)}: 1 2; } }`;
+  assert_equals(rule.cssText.replace(/\s+/g, " "), expected);
+  const copy = new CSSStyleSheet();
+  copy.replaceSync(rule.cssText);
+  assert_equals(copy.cssRules[0].cssText.replace(/\s+/g, " "), expected);
+}
+
+test(() => {
+  checkName("<layer-name>");
+}, "A feature name can contain escaped angle brackets around layer-name");
+
+test(() => {
+  checkName("<declaration>");
+}, "A feature name can contain escaped angle brackets around declaration");
+
+test(() => {
+  checkName("paint-order");
+}, "A feature name can equal the paint-order property name");
+
+test(() => {
+  checkName("range");
+}, "A feature name can equal the range descriptor name");
+
+test(() => {
+  checkName("constructor");
+}, "A feature can be named constructor");
+
+test(() => {
+  checkName("__proto__");
+}, "A feature can be named __proto__");
+
+test(() => {
+  checkName("toString");
+}, "A feature can be named toString");
+
+test(() => {
+  checkName("hasOwnProperty");
+}, "A feature can be named hasOwnProperty");
+
+test(() => {
+  checkName("initial");
+}, "A feature name can equal a CSS-wide keyword");
+
+test(() => {
+  checkName("--feature");
+}, "A feature name can begin with two hyphens");
+
+test(() => {
+  const rule = createRule("constructor: -1; valid: 2; constructor: 1 2;");
+  assert_equals(
+    rule.cssText.replace(/\s+/g, " "),
+    "@font-feature-values Example { @styleset { valid: 2; constructor: 1 2; } }"
+  );
+}, "Invalid feature values do not discard following valid declarations");
+
+test(() => {
+  const rule = createRule("--feature: -1; valid: 2;");
+  assert_equals(
+    rule.cssText.replace(/\s+/g, " "),
+    "@font-feature-values Example { @styleset { valid: 2; } }"
+  );
+}, "A dashed feature name still requires nonnegative integers");
+
+test(() => {
+  const rule = createRule("--feature: 1 {}; valid: 2;");
+  assert_equals(
+    rule.cssText.replace(/\s+/g, " "),
+    "@font-feature-values Example { @styleset { valid: 2; } }"
+  );
+}, "A dashed feature name does not accept a custom property block value");
+test(() => {
+  const rule = createRule("example: 1 2;");
+  rule.fontFamily = "Other";
+  assert_equals(rule.fontFamily, "Other");
+  assert_equals(rule.cssText, "@font-feature-values Other { @styleset { example: 1 2; } }");
+}, "The font family list is writable");
+</script>

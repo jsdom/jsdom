@@ -1,0 +1,54 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed logical positions follow the element's writing mode</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#typedef-position">
+<link rel="help" href="https://drafts.csswg.org/css-writing-modes-4/#logical-to-physical">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createTarget(t, cssText) {
+  const target = document.createElement("div");
+  target.style.cssText = cssText;
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  return target;
+}
+
+test(t => {
+  const target = createTarget(t, "direction: rtl; object-position: block-end inline-start;");
+  assert_equals(getComputedStyle(target).objectPosition, "100% 100%");
+}, "Horizontal RTL positions map block-end to bottom and inline-start to right");
+
+test(t => {
+  const target = createTarget(t, "writing-mode: vertical-rl; direction: rtl; object-position: block-end inline-start;");
+  assert_equals(getComputedStyle(target).objectPosition, "0% 100%");
+}, "Vertical RTL positions map block-end to left and inline-start to bottom");
+
+test(t => {
+  const target = createTarget(t, "writing-mode: sideways-lr; object-position: block-start inline-start;");
+  assert_equals(getComputedStyle(target).objectPosition, "0% 100%");
+}, "Sideways LR positions have a bottom-to-top inline direction");
+
+test(t => {
+  const target = createTarget(t, "writing-mode: vertical-lr; object-position: inline-end;");
+  assert_equals(getComputedStyle(target).objectPosition, "50% 100%");
+}, "A single logical edge leaves the other physical axis centered");
+
+test(t => {
+  const target = createTarget(t, "direction: rtl; object-position: start 10px end 20%;");
+  assert_equals(getComputedStyle(target).objectPosition, "20% 10px");
+}, "Axis-unspecified start and end refer to block then inline offsets");
+
+test(t => {
+  const target = createTarget(t, "writing-mode: vertical-rl; direction: rtl; object-position: x-start y-start;");
+  assert_equals(getComputedStyle(target).objectPosition, "100% 100%");
+}, "X and Y start edges resolve through the block and inline directions");
+
+test(t => {
+  const target = createTarget(t, "writing-mode: vertical-rl; object-position: center inline-start;");
+  assert_equals(getComputedStyle(target).objectPosition, "50% 0%");
+}, "A center component follows the logical axis of its companion");
+</script>

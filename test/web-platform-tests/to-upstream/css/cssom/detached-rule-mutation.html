@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Detached CSS rules remain mutable</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssgroupingrule-insertrule">
+<link rel="help" href="https://drafts.csswg.org/css-animations/#dom-csskeyframesrule-appendrule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const [operation, detach] of [
+  ["deletion", sheet => sheet.deleteRule(0)],
+  ["replacement", sheet => sheet.replaceSync("")]
+]) {
+  test(() => {
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync("@media all { @supports (color: red) { .old {} } }");
+    const group = sheet.cssRules[0];
+    const child = group.cssRules[0];
+    detach(sheet);
+
+    assert_equals(group.insertRule(".added { color: blue; }", 1), 1);
+    assert_equals(group.cssRules[1].parentRule, group);
+    assert_equals(group.cssRules[1].parentStyleSheet, null);
+    assert_equals(group.cssRules[1].style.color, "blue");
+    assert_equals(child.insertRule(".nested { color: red; }", 1), 1);
+    assert_equals(child.cssRules[1].parentRule, child);
+    assert_equals(child.cssRules[1].parentStyleSheet, null);
+    assert_equals(child.cssRules[1].style.color, "red");
+    assert_throws_dom("HierarchyRequestError", () => group.insertRule('@import "a.css";', 0));
+  }, `Grouping rules remain mutable after ${operation}`);
+
+  test(() => {
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync("@keyframes example { from { opacity: 0; } }");
+    const keyframes = sheet.cssRules[0];
+    detach(sheet);
+
+    keyframes.appendRule("to { opacity: 1; }");
+    const frame = keyframes.findRule("to");
+    assert_equals(keyframes.cssRules.length, 2);
+    assert_equals(frame.parentRule, keyframes);
+    assert_equals(frame.parentStyleSheet, null);
+    assert_equals(frame.style.opacity, "1");
+    keyframes.deleteRule("from");
+    assert_equals(keyframes.cssRules.length, 1);
+  }, `Keyframes remain mutable after ${operation}`);
+}
+</script>

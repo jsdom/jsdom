@@ -8,7 +8,7 @@ const EXPECTED_MANIFEST_VERSION = 9;
 
 const wptPath = path.resolve(__dirname, "tests");
 
-exports.getPossibleTestFilePaths = manifest => {
+exports.getPossibleTestFilePaths = (manifest) => {
   const testharnessTests = manifest.items.testharness;
 
   // Do a DFS to gather all test paths.
@@ -47,12 +47,14 @@ exports.getPossibleTestFilePaths = manifest => {
   return allPaths;
 };
 
-exports.readManifest = filename => {
+exports.readManifest = (filename) => {
   const manifestString = fs.readFileSync(filename, { encoding: "utf-8" });
   const manifest = JSON.parse(manifestString);
 
   if (manifest.version !== EXPECTED_MANIFEST_VERSION) {
-    throw new Error(`WPT manifest format mismatch; expected ${EXPECTED_MANIFEST_VERSION} but got ${manifest.version}`);
+    throw new Error(
+      `WPT manifest format mismatch; expected ${EXPECTED_MANIFEST_VERSION} but got ${manifest.version}`,
+    );
   }
 
   return manifest;
@@ -66,11 +68,14 @@ exports.regenerateManifest = (testsRoot, manifestFilename) => {
   const result = spawnFn(
     "python",
     [
-      "./wpt.py", "manifest",
-      "--tests-root", path.relative(wptPath, testsRoot),
-      "--path", path.relative(wptPath, manifestFilename)
+      "./wpt.py",
+      "manifest",
+      "--tests-root",
+      path.relative(wptPath, testsRoot),
+      "--path",
+      path.relative(wptPath, manifestFilename),
     ],
-    { cwd: wptPath, stdio: "inherit" }
+    { cwd: wptPath, stdio: "inherit" },
   );
   if (result.status !== 0) {
     throw new Error("Manifest generation failed");

@@ -1,0 +1,108 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Bad strings retain their token kind at declaration boundaries</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-string-token">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-declaration">
+<link rel="help" href="https://drafts.csswg.org/css-variables-1/#syntax">
+<link rel="help" href="https://drafts.csswg.org/css-fonts-4/#src-desc">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function parse(css) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(css);
+  return sheet.cssRules[0];
+}
+
+test(() => {
+  const rule = parse(".a { content: 'bad\n; color: red; }");
+  assert_equals(rule.style.content, "");
+  assert_equals(rule.style.color, "red");
+}, "A newline-terminated content string is invalid before a semicolon");
+
+test(() => {
+  const rule = parse(".a { font-family: 'bad\r\n; color: red; }");
+  assert_equals(rule.style.fontFamily, "");
+  assert_equals(rule.style.color, "red");
+}, "CRLF creates a bad string instead of an EOF-recovered font family");
+
+test(() => {
+  const rule = parse(".a { --x: 'bad\f; color: red; }");
+  assert_equals(rule.style.getPropertyValue("--x"), "");
+  assert_equals(rule.style.color, "red");
+}, "A form feed creates a bad custom-property string");
+
+test(() => {
+  const rule = parse(".a { --x: 'bad\n!important; }");
+  assert_equals(rule.style.length, 0);
+}, "A priority cannot turn a bad custom-property string into an EOF string");
+
+test(() => {
+  const rule = parse(".a { & {} --x: 'bad\n; &:hover {} }");
+  assert_equals(rule.cssRules.length, 2);
+  assert_equals(rule.cssRules[0].selectorText, "&");
+  assert_equals(rule.cssRules[1].selectorText, "&:hover");
+}, "An invalid-only custom declaration run does not create a nested declaration rule");
+
+test(() => {
+  const rule = parse(".a { & {} content: 'bad\n; color: red; &:hover {} }");
+  assert_equals(rule.cssRules.length, 3);
+  assert_equals(rule.cssRules[1].style.content, "");
+  assert_equals(rule.cssRules[1].style.color, "red");
+}, "A nested declaration run retains valid declarations after a bad string");
+
+test(() => {
+  const { style } = document.createElement("div");
+  style.cssText = "content: 'bad\n; --x: 'bad\n; color: red;";
+  assert_equals(style.content, "");
+  assert_equals(style.getPropertyValue("--x"), "");
+  assert_equals(style.color, "red");
+}, "Inline declaration parsing rejects newline-terminated strings");
+
+test(() => {
+  const rule = parse("@font-face { font-family: example; src: url('bad\n), url(\"valid.woff2\"); }");
+  assert_equals(rule.style.getPropertyValue("src"), 'url("valid.woff2")');
+}, "A forgiving font source list retains a valid source after a bad string");
+
+test(() => {
+  const rule = parse("@font-face { font-family: example; src: url(bad\"), url(\"valid.woff2\"); }");
+  assert_equals(rule.style.getPropertyValue("src"), 'url("valid.woff2")');
+}, "A forgiving font source list retains a valid source after a bad URL");
+
+test(() => {
+  assert_equals(parse(".a { content: 'cached").style.content, '"cached"');
+  const rule = parse(".a { content: 'cached\n; }");
+  assert_equals(rule.style.content, "");
+}, "A cached EOF string cannot validate a later bad string with the same trimmed text");
+
+test(() => {
+  const rule = parse(".a { content: 'valid");
+  assert_equals(rule.style.content, '"valid"');
+}, "A genuine EOF still closes an ordinary string");
+
+test(t => {
+  const element = document.createElement("div");
+  element.id = "custom-eof";
+  document.documentElement.append(element);
+  t.add_cleanup(() => element.remove());
+  const style = document.createElement("style");
+  style.textContent = "#custom-eof { --x: 'valid";
+  document.documentElement.append(style);
+  t.add_cleanup(() => style.remove());
+  element.style.content = "var(--x)";
+  assert_equals(getComputedStyle(element).content, '"valid"');
+}, "A genuine EOF still closes a custom-property string");
+
+test(t => {
+  const element = document.createElement("div");
+  document.documentElement.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.setProperty("--x", "'valid");
+  element.style.content = "var(--x)";
+  assert_equals(getComputedStyle(element).content, '"valid"');
+  element.style.setProperty("--x", "'bad\n");
+  assert_equals(getComputedStyle(element).content, '"valid"');
+}, "A bad string setter preserves the previous value after an EOF-recovered string");
+</script>

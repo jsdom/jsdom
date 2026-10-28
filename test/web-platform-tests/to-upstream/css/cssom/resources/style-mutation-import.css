@@ -1,5 +1,9 @@
 @import "style-mutation-nested-import.css";
 @media all {
-  #imported-media-mutation { color: red; }
+  #imported-media-mutation {
+    color: red;
+  }
 }
-#imported-mutation { color: red; }
+#imported-mutation {
+  color: red;
+}

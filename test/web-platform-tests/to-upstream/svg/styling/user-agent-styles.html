@@ -1,0 +1,75 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SVG user-agent styles</title>
+<!-- Regression coverage for the SVG user-agent stylesheet sync; no corresponding filed issue. -->
+<link rel="help" href="https://w3c.github.io/svgwg/svg2-draft/styling.html#UAStyleSheet">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<svg id="outer">
+  <svg id="nested"></svg>
+  <image id="image"></image>
+  <marker id="marker"></marker>
+  <pattern id="pattern"></pattern>
+  <symbol id="symbol"></symbol>
+  <rect id="rect"></rect>
+  <text id="preserved" xml:space="preserve"><tspan id="inherited">a b</tspan></text>
+  <text id="unqualified" space="preserve">a b</text>
+  <foreignObject><svg id="inside-foreign-object"></svg></foreignObject>
+</svg>
+<div id="html" xml:space="preserve">a b</div>
+<marker id="html-marker"></marker>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("outer")).overflow, "hidden");
+  assert_equals(getComputedStyle(document.getElementById("nested")).overflow, "hidden");
+  assert_equals(getComputedStyle(document.getElementById("image")).overflow, "hidden");
+  assert_equals(getComputedStyle(document.getElementById("marker")).overflow, "hidden");
+  assert_equals(getComputedStyle(document.getElementById("pattern")).overflow, "hidden");
+  assert_equals(getComputedStyle(document.getElementById("symbol")).overflow, "hidden");
+  assert_equals(getComputedStyle(document.getElementById("rect")).overflow, "visible");
+  assert_equals(getComputedStyle(document.getElementById("html")).overflow, "visible");
+  assert_equals(getComputedStyle(document.getElementById("html-marker")).overflow, "visible");
+}, "SVG viewport elements have hidden overflow by default");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("rect")).transformOrigin, "0px 0px");
+  assert_equals(getComputedStyle(document.getElementById("nested")).transformOrigin, "0px 0px");
+}, "SVG graphics and SVG elements with SVG parents use a zero transform origin");
+
+test(t => {
+  const outer = document.getElementById("outer");
+  const insideForeignObject = document.getElementById("inside-foreign-object");
+  const outerOrigin = getComputedStyle(outer).transformOrigin;
+  const foreignObjectOrigin = getComputedStyle(insideForeignObject).transformOrigin;
+  t.add_cleanup(() => {
+    outer.style.removeProperty("transform-origin");
+    insideForeignObject.style.removeProperty("transform-origin");
+  });
+  outer.style.transformOrigin = "initial";
+  insideForeignObject.style.transformOrigin = "initial";
+  // Compare with the initial value to avoid depending on the viewport dimensions.
+  assert_equals(outerOrigin, getComputedStyle(outer).transformOrigin);
+  assert_equals(foreignObjectOrigin, getComputedStyle(insideForeignObject).transformOrigin);
+}, "SVG elements with HTML or foreignObject parents retain the initial transform origin");
+
+test(t => {
+  const html = document.getElementById("html");
+  html.setAttributeNS("http://www.w3.org/XML/1998/namespace", "xml:space", "preserve");
+  t.add_cleanup(() => html.removeAttributeNS("http://www.w3.org/XML/1998/namespace", "space"));
+  assert_equals(getComputedStyle(document.getElementById("preserved")).whiteSpaceCollapse, "preserve-spaces");
+  assert_equals(getComputedStyle(document.getElementById("inherited")).whiteSpaceCollapse, "preserve-spaces");
+  assert_equals(getComputedStyle(document.getElementById("unqualified")).whiteSpaceCollapse, "collapse");
+  assert_equals(getComputedStyle(document.getElementById("html")).whiteSpaceCollapse, "collapse");
+}, "Only the XML-namespaced space attribute on SVG elements preserves spaces");
+
+test(t => {
+  const nested = document.getElementById("nested");
+  t.add_cleanup(() => nested.removeAttribute("style"));
+  nested.style.overflow = "visible";
+  nested.style.transformOrigin = "10px 20px";
+  assert_equals(getComputedStyle(nested).overflow, "visible");
+  assert_equals(getComputedStyle(nested).transformOrigin, "10px 20px");
+}, "Author declarations override SVG user-agent defaults");
+</script>

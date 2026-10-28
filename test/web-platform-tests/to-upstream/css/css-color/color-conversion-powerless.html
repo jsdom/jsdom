@@ -1,0 +1,75 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Color conversion handles extended gamut, missing chroma, and single-color mixes</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#color-conversion-code">
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#powerless">
+<link rel="help" href="https://drafts.csswg.org/css-color-5/#color-mix-result">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/color-testcommon.js"></script>
+<body>
+<script>
+/* global set_up_fuzzy_color_test */
+"use strict";
+
+const compareColors = set_up_fuzzy_color_test(0.00001);
+
+function computedColor(t, value) {
+  const element = document.createElement("div");
+  element.style.color = value;
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return getComputedStyle(element).color;
+}
+
+test(t => {
+  assert_equals(computedColor(t, "color-mix(in srgb, red)"), "color(srgb 1 0 0)");
+}, "A single-color mix uses modern serialization");
+
+test(t => {
+  assert_equals(computedColor(t, "color-mix(in srgb, red 50%)"), "color(srgb 1 0 0 / 0.5)");
+}, "A single-color mix scales its alpha by a partial weight");
+
+test(t => {
+  assert_equals(computedColor(t, "color-mix(in srgb, red 0%)"), "color(srgb 1 0 0 / 0)");
+}, "A zero-weight single-color mix retains its color channels");
+
+test(t => {
+  assert_equals(computedColor(t, "hwb(from color(srgb 1.6 .6 1.4) h w b)"), "color(srgb 1.6 0.6 1.4)");
+}, "Extended-gamut HWB conversion does not apply HSL's negative-saturation hue rotation");
+
+test(t => {
+  assert_equals(
+    computedColor(t, "color-mix(in hwb, color(srgb 1.6 .6 1.4) 100%, black 0%)"),
+    "color(srgb 1.6 0.6 1.4)"
+  );
+}, "Mixing in HWB preserves an extended-gamut color with full weight");
+
+test(t => {
+  compareColors(computedColor(t, "hsl(from lch(20 none 180) h s l)"), "hsl(none none 18.9376%)");
+}, "Missing LCH chroma makes hue powerless when converting to HSL");
+
+test(t => {
+  compareColors(computedColor(t, "hsl(from oklch(.5 none 180) h s l)"), "hsl(none none 38.8573%)");
+}, "Missing OKLCH chroma makes hue powerless when converting to HSL");
+
+test(t => {
+  assert_equals(computedColor(t, "hsl(from color(srgb 1.5 .5 1) h s l)"), "hsl(none 0% 100%)");
+}, "HSL conversion at full lightness avoids dividing by zero");
+
+test(t => {
+  assert_equals(computedColor(t, "hsl(from color(srgb .5 -.5 0) h s l)"), "hsl(none 0% 0%)");
+}, "HSL conversion at zero lightness avoids dividing by zero");
+
+test(t => {
+  assert_equals(computedColor(t, "hsl(from hwb(180 none none) h s l)"), "hsl(180 none none)");
+}, "Carrying missing whiteness and blackness to HSL does not erase a converted hue");
+
+test(t => {
+  compareColors(computedColor(t, "lch(from hwb(180 none none) l c h)"), "lch(none none 196.455)");
+}, "Carrying missing whiteness and blackness to LCH does not erase a converted hue");
+
+test(t => {
+  compareColors(computedColor(t, "oklch(from hwb(180 none none) l c h)"), "oklch(none none 194.769)");
+}, "Carrying missing whiteness and blackness to OKLCH does not erase a converted hue");
+</script>

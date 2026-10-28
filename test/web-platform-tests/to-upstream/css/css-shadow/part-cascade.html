@@ -1,0 +1,172 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Exposed shadow parts participate in the cascade without leaking tree selectors</title>
+<link rel="help" href="https://drafts.csswg.org/css-shadow-1/#part">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#cascade-context">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function partTree(t, outerCSS, innerHTML, mode = "open") {
+  const sheet = document.createElement("style");
+  sheet.textContent = outerCSS;
+  document.head.append(sheet);
+  const host = document.createElement("div");
+  host.id = "part-host";
+  document.body.append(host);
+  const root = host.attachShadow({ mode });
+  root.innerHTML = innerHTML;
+  t.add_cleanup(() => {
+    host.remove();
+    sheet.remove();
+  });
+  return { host, root, sheet };
+}
+
+test(t => {
+  const { root, sheet } = partTree(
+    t,
+    "#part-host::part(label) { color: green; }",
+    "<style>span { color: red; }</style><span part='label' style='color: blue'></span>"
+  );
+  const target = root.querySelector("span");
+  const computed = getComputedStyle(target);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  target.style.setProperty("color", "blue", "important");
+  sheet.textContent = "#part-host::part(label) { color: green !important; }";
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+}, "Outer part rules override normal inner declarations and yield to inner important declarations");
+
+test(t => {
+  const { root } = partTree(
+    t,
+    "#part-host::part(label active) { color: green; } #part-host::part(Label) { color: red; } " +
+    "#part-host::part(label missing) { color: blue; } .inside { background: red; }",
+    "<span class='inside' part='label\tactive label'></span>"
+  );
+  const target = root.querySelector("span");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(target).backgroundColor, "rgba(0, 0, 0, 0)");
+  assert_equals(document.querySelector("#part-host::part(label)"), null);
+}, "Part names form a case-sensitive intersection and ordinary outer selectors remain encapsulated");
+
+test(t => {
+  const { host, root } = partTree(
+    t,
+    "#part-host::part(outer) { color: green; } #part-host::part(inner) { color: red; }",
+    "<div id='middle' exportparts='inner: outer, inner: alternate'></div>",
+    "closed"
+  );
+  const middle = root.querySelector("#middle");
+  const inner = middle.attachShadow({ mode: "closed" });
+  inner.innerHTML = "<span part='inner'></span>";
+  const target = inner.querySelector("span");
+  const computed = getComputedStyle(target);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  middle.setAttribute("exportparts", "inner: different");
+  assert_equals(computed.color, "rgb(0, 0, 0)");
+  middle.setAttribute("exportparts", "inner:outer, broken mapping, inner: alternate");
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  assert_equals(host.shadowRoot, null);
+}, "Nested closed roots export only explicitly forwarded names and update live");
+
+test(t => {
+  const { root } = partTree(
+    t,
+    "#part-host::part(final) { color: green; } #part-host::part(middle) { background: red; }",
+    "<div exportparts='middle: final'></div>"
+  );
+  const middle = root.querySelector("div").attachShadow({ mode: "open" });
+  middle.innerHTML = "<div exportparts='inner: middle'></div>";
+  const inner = middle.querySelector("div").attachShadow({ mode: "open" });
+  inner.innerHTML = "<span part='inner'></span>";
+  const target = inner.querySelector("span");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(target).backgroundColor, "rgba(0, 0, 0, 0)");
+}, "Each shadow boundary applies its own export mapping");
+
+test(t => {
+  const { host, root } = partTree(
+    t,
+    "",
+    "<style>span[part] { color: red; } :host::part(label) { color: green; background: red; } " +
+    "span[part] { background: green; } :host(.changed) { &::part(label) { color: blue; } }</style>" +
+    "<span part='label'></span>"
+  );
+  const target = root.querySelector("span");
+  const computed = getComputedStyle(target);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  assert_equals(computed.backgroundColor, "rgb(0, 128, 0)");
+  host.className = "changed";
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+}, "Host part selectors share their shadow scope's source order and nesting context");
+
+test(t => {
+  const { root } = partTree(
+    t,
+    "#part-host::part(control) { color: red; } #part-host::part(control):disabled { color: green; } " +
+    "#part-host::part(control)::before { color: blue; content: 'part'; }",
+    "<button part='control' disabled></button>"
+  );
+  const target = root.querySelector("button");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(target, "::before").color, "rgb(0, 0, 255)");
+  assert_equals(getComputedStyle(target, "::before").content, '"part"');
+  target.disabled = false;
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "State pseudo-classes and following pseudo-elements apply to the exposed element");
+
+test(t => {
+  const { root } = partTree(
+    t,
+    "",
+    "<style>#inside, :host::part(label) { color: green; } :host::part(label) { color: red; }</style>" +
+    "<span id='inside' part='label'></span>"
+  );
+  assert_equals(getComputedStyle(root.querySelector("span")).color, "rgb(0, 128, 0)");
+}, "A rule matching through ordinary and part selectors retains the highest specificity");
+
+test(t => {
+  const { root } = partTree(
+    t,
+    "@layer first, last; @layer first { #part-host::part(label) { color: green; } } " +
+    "@layer last { #part-host::part(label) { color: red; } " +
+    "#part-host::part(label) { color: revert-layer; } }",
+    "<span part='label'></span>"
+  );
+  assert_equals(getComputedStyle(root.querySelector("span")).color, "rgb(0, 128, 0)");
+}, "Part rules retain cascade layer rollback");
+
+test(t => {
+  const { root } = partTree(
+    t,
+    "#part-host::part(label) { color: green; } #part-host::part(label) { color: revert-rule; }",
+    "<span part='label'></span>"
+  );
+  assert_equals(getComputedStyle(root.querySelector("span")).color, "rgb(0, 128, 0)");
+}, "Part rules retain rule rollback");
+
+test(t => {
+  const { root } = partTree(
+    t,
+    "#part-host { color: red; } #part-host::part(label) { background: blue; }",
+    "<div style='color: green'><span part='label'></span></div>"
+  );
+  const target = root.querySelector("span");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(target).backgroundColor, "rgb(0, 0, 255)");
+}, "Exposed parts inherit through their internal parent");
+test(t => {
+  const { root } = partTree(
+    t,
+    "#part-host::part(label) { color: green; } " +
+    "span::before { color: red; content: 'leak'; }",
+    "<span part='label'></span>"
+  );
+  const pseudo = getComputedStyle(root.querySelector("span"), "::before");
+  assert_equals(pseudo.color, "rgb(0, 128, 0)");
+  assert_equals(pseudo.content, "none");
+}, "Ordinary outer pseudo-element rules do not cross a part boundary");
+</script>

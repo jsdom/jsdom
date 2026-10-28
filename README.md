@@ -28,7 +28,7 @@ The resulting object is an instance of the `JSDOM` class, which contains a numbe
 ```js
 const { window } = new JSDOM(`...`);
 // or even
-const { document } = (new JSDOM(`...`)).window;
+const { document } = new JSDOM(`...`).window;
 ```
 
 Full documentation on everything you can do with the `JSDOM` class is below, in the section "`JSDOM` Object API".
@@ -45,7 +45,7 @@ const dom = new JSDOM(``, {
   referrer: "https://example.com/",
   contentType: "text/html",
   includeNodeLocations: true,
-  storageQuota: 10000000
+  storageQuota: 10000000,
 });
 ```
 
@@ -76,10 +76,13 @@ console.log(dom.window.document.getElementById("content").children.length); // 0
 To enable executing scripts inside the page, you can use the `runScripts: "dangerously"` option:
 
 ```js
-const dom = new JSDOM(`<body>
+const dom = new JSDOM(
+  `<body>
   <div id="content"></div>
   <script>document.getElementById("content").append(document.createElement("hr"));</script>
-</body>`, { runScripts: "dangerously" });
+</body>`,
+  { runScripts: "dangerously" },
+);
 
 // The script will be executed and modify the DOM:
 console.log(dom.window.document.getElementById("content").children.length); // 1
@@ -96,10 +99,13 @@ Event handler attributes, like `<div onclick="">`, are also governed by this set
 If you are simply trying to execute script "from the outside", instead of letting `<script>` elements and event handlers attributes run "from the inside", you can use the `runScripts: "outside-only"` option, which enables fresh copies of all the JavaScript spec-provided globals to be installed on `window`. This includes things like `window.Array`, `window.Promise`, etc. It also, notably, includes `window.eval`, which allows running scripts, but with the jsdom `window` as the global:
 
 ```js
-const dom = new JSDOM(`<body>
+const dom = new JSDOM(
+  `<body>
   <div id="content"></div>
   <script>document.getElementById("content").append(document.createElement("hr"));</script>
-</body>`, { runScripts: "outside-only" });
+</body>`,
+  { runScripts: "outside-only" },
+);
 
 // run a script outside of JSDOM:
 dom.window.eval('document.getElementById("content").append(document.createElement("p"));');
@@ -128,9 +134,9 @@ When the `pretendToBeVisual` option is set to `true`, jsdom will pretend that it
 - Enabling `window.requestAnimationFrame()` and `window.cancelAnimationFrame()` methods, which otherwise do not exist
 
 ```js
-const window = (new JSDOM(``, { pretendToBeVisual: true })).window;
+const window = new JSDOM(``, { pretendToBeVisual: true }).window;
 
-window.requestAnimationFrame(timestamp => {
+window.requestAnimationFrame((timestamp) => {
   console.log(timestamp > 0);
 });
 ```
@@ -178,13 +184,13 @@ const dom = new JSDOM(`<script src="https://example.com/some-specific-script.js"
         // Override the contents of this script to do something unusual.
         if (request.url === "https://example.com/some-specific-script.js") {
           return new Response("window.someGlobal = 5;", {
-            headers: { "Content-Type": "application/javascript" }
+            headers: { "Content-Type": "application/javascript" },
           });
         }
         // Return undefined to let the request proceed normally
-      })
-    ]
-  }
+      }),
+    ],
+  },
 });
 ```
 
@@ -196,7 +202,7 @@ requestInterceptor((request, { element }) => {
     console.log(`Element ${element.localName} is requesting ${request.url}`);
   }
   // Return undefined to let the request proceed normally
-})
+});
 ```
 
 To be clear on the flow: when something in your jsdom fetches resources, first the request is set up by jsdom, then it is passed through any `interceptors` in the order provided, then it reaches any provided `dispatcher` (defaulting to [`undici`'s global dispatcher](https://undici.nodejs.org/#/?id=undicigetglobaldispatcher)). If you use jsdom's `requestInterceptor()`, returning promise fulfilled with a `Response` will prevent any further interceptors from running, or the base dispatcher from being reached.
@@ -244,11 +250,11 @@ As mentioned above, the default behavior for jsdom is to send these to the Node.
 virtualConsole.forwardTo(console, { jsdomErrors: "none" });
 
 // Send only certain jsdom errors to the Node.js console, ignoring others:
-virtualConsole.forwardTo(console, { jsdomErrors: ["unhandled-exception", "not-implemented"]});
+virtualConsole.forwardTo(console, { jsdomErrors: ["unhandled-exception", "not-implemented"] });
 
 // Customize the handling of all jsdom errors:
 virtualConsole.forwardTo(console, { jsdomErrors: "none" });
-virtualConsole.on("jsdomError", err => {
+virtualConsole.on("jsdomError", (err) => {
   switch (err.type) {
     case "unhandled-exception": {
       // ... process ...
@@ -266,7 +272,7 @@ virtualConsole.on("jsdomError", err => {
 The details for each type of jsdom error, listed by their `type` property, are:
 
 - `"css-parsing"`: an error parsing CSS stylesheets
-  - `cause`: the exception object from our CSS parser library, [`@acemir/cssom`](https://github.com/acemir/CSSOM)
+  - `cause`: the error object from jsdom's CSS parser
   - `sheetText`: the full text of the stylesheet that we attempted to parse
 - `"not-implemented"`: an error emitted when certain stub methods from [unimplemented parts of the web platform](#unimplemented-parts-of-the-web-platform) are called
 - `"resource-loading"`: an error [loading resources](#loading-subresources), e.g. due to a network error or a bad response code from the server
@@ -300,8 +306,10 @@ jsdom allows you to intervene in the creation of a jsdom very early: after the `
 const dom = new JSDOM(`<p>Hello</p>`, {
   beforeParse(window) {
     window.document.childNodes.length === 0;
-    window.someCoolAPI = () => { /* ... */ };
-  }
+    window.someCoolAPI = () => {
+      /* ... */
+    };
+  },
 });
 ```
 
@@ -339,7 +347,7 @@ const dom = new JSDOM(
   `<p>Hello
     <img src="foo.jpg">
   </p>`,
-  { includeNodeLocations: true }
+  { includeNodeLocations: true },
 );
 
 const document = dom.window.document;
@@ -348,10 +356,10 @@ const pEl = document.querySelector("p");
 const textNode = pEl.firstChild;
 const imgEl = document.querySelector("img");
 
-console.log(dom.nodeLocation(bodyEl));   // null; it's not in the source
-console.log(dom.nodeLocation(pEl));      // { startOffset: 0, endOffset: 39, startTag: ..., endTag: ... }
+console.log(dom.nodeLocation(bodyEl)); // null; it's not in the source
+console.log(dom.nodeLocation(pEl)); // { startOffset: 0, endOffset: 39, startTag: ..., endTag: ... }
 console.log(dom.nodeLocation(textNode)); // { startOffset: 3, endOffset: 13 }
-console.log(dom.nodeLocation(imgEl));    // { startOffset: 13, endOffset: 32 }
+console.log(dom.nodeLocation(imgEl)); // { startOffset: 13, endOffset: 32 }
 ```
 
 Note that this feature only works if you have set the `includeNodeLocations` option; node locations are off by default for performance reasons.
@@ -416,7 +424,7 @@ Note that changing the jsdom's URL will impact all APIs that return the current 
 In addition to the `JSDOM` constructor itself, jsdom provides a promise-returning factory method for constructing a jsdom from a URL:
 
 ```js
-JSDOM.fromURL("https://example.com/", options).then(dom => {
+JSDOM.fromURL("https://example.com/", options).then((dom) => {
   console.log(dom.serialize());
 });
 ```
@@ -436,7 +444,7 @@ The options provided to `fromURL()` are similar to those provided to the `JSDOM`
 Similar to `fromURL()`, jsdom also provides a `fromFile()` factory method for constructing a jsdom from a filename:
 
 ```js
-JSDOM.fromFile("stuff.html", options).then(dom => {
+JSDOM.fromFile("stuff.html", options).then((dom) => {
   console.log(dom.serialize());
 });
 ```
@@ -518,9 +526,9 @@ window.onModulesLoaded = () => {
 ```html
 <!-- Inside the HTML you supply to jsdom -->
 <script>
-requirejs(["entry-module"], () => {
-  window.onModulesLoaded();
-});
+  requirejs(["entry-module"], () => {
+    window.onModulesLoaded();
+  });
 </script>
 ```
 
@@ -531,8 +539,6 @@ For more details, see the discussion in [#640](https://github.com/jsdom/jsdom/is
 ### Unimplemented parts of the web platform
 
 Although we enjoy adding new features to jsdom and keeping it up to date with the latest web specs, it has many missing APIs. Please feel free to file an issue for anything missing, but we're a small and busy team, so a pull request might work even better.
-
-Some features of jsdom are provided by our dependencies. Notable documentation in that regard includes the list of [supported CSS selectors](https://github.com/dperini/nwsapi/wiki/CSS-supported-selectors) for our CSS selector engine, [`nwsapi`](https://github.com/dperini/nwsapi).
 
 Beyond just features that we haven't gotten to yet, there are two major features that are currently outside the scope of jsdom. These are:
 

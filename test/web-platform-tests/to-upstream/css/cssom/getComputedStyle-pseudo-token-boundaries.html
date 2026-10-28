@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed pseudo-element styles respect token boundaries</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#consume-escaped-code-point">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+#target::highlight(𠀀) { color: blue; }
+#target::before { content: "x"; color: rgb(1 2 3); }
+</style>
+<div id="target"></div>
+<script>
+"use strict";
+const target = document.getElementById("target");
+test(() => {
+  assert_equals(getComputedStyle(target, "::before ").length, 0);
+  assert_equals(getComputedStyle(target, "::before/**/ ").length, 0);
+}, "Trailing whitespace invalidates a standalone pseudo-element selector");
+test(() => {
+  assert_equals(getComputedStyle(target, "::befor\\65 ").color, "rgb(1, 2, 3)");
+  assert_equals(getComputedStyle(target, "::befor\\65\r\n").color, "rgb(1, 2, 3)");
+}, "Whitespace terminating a hexadecimal escape belongs to the identifier token");
+test(() => {
+  assert_equals(getComputedStyle(target, "::before/**/").color, "rgb(1, 2, 3)");
+}, "A trailing comment does not create a whitespace token");
+test(() => {
+  assert_equals(getComputedStyle(target, "::highlight(𠀀)").color, "rgb(0, 0, 255)");
+}, "A supplementary code point does not invalidate the pseudo-element name");
+test(() => {
+  assert_greater_than(getComputedStyle(target, "::highlight(name ").length, 0);
+  assert_greater_than(getComputedStyle(target, "::highlight( name\t").length, 0);
+  assert_equals(getComputedStyle(target, "::highlight(name) ").length, 0);
+}, "Whitespace inside an implicitly closed function belongs to its argument");
+test(() => {
+  assert_equals(getComputedStyle(target, "::be/**/fore").length, 0);
+}, "A comment between identifier tokens does not join them");
+</script>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>XMLHttpRequest header values with internal whitespace</title>
+<link rel="help" href="https://xhr.spec.whatwg.org/#the-setrequestheader()-method">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/1511 -->
+<script>
+"use strict";
+
+for (const value of [
+  "a b",
+  "a b c",
+  "aa bb cc dd",
+  "this is a test",
+  "the value is a fixed phrase.",
+  "a  b",
+  "a\tb\tc"
+]) {
+  test(() => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "/");
+    xhr.setRequestHeader("X-Test", value);
+  }, `setRequestHeader() accepts ${JSON.stringify(value)} as a header value`);
+}
+</script>

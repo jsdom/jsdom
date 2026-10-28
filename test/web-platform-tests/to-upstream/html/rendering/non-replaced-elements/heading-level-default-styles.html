@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Default heading styles follow the heading level</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/rendering.html#sections-and-headings">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="fixture" style="font-size: 100px"></div>
+<script>
+"use strict";
+
+test(t => {
+  const section = document.createElement("section");
+  section.innerHTML = "<h1>Heading</h1>";
+  document.getElementById("fixture").append(section);
+  t.add_cleanup(() => section.remove());
+  const style = getComputedStyle(section.firstChild);
+  assert_equals(style.fontSize, "200px");
+  assert_equals(style.fontWeight, "700");
+  section.setAttribute("headingoffset", "1");
+  assert_equals(style.fontSize, "150px");
+  section.setAttribute("headingoffset", "8");
+  assert_equals(style.fontSize, "67px");
+  section.removeAttribute("headingoffset");
+  assert_equals(style.fontSize, "200px");
+}, "Default heading styles update when an ancestor's headingoffset changes");
+
+test(t => {
+  const section = document.createElement("section");
+  section.setAttribute("headingoffset", "3");
+  section.innerHTML = '<div headingreset><h1 headingoffset="1">Heading</h1></div>';
+  document.getElementById("fixture").append(section);
+  t.add_cleanup(() => section.remove());
+  const style = getComputedStyle(section.firstChild.firstChild);
+  assert_equals(style.fontSize, "150px");
+  section.firstChild.removeAttribute("headingreset");
+  assert_equals(style.fontSize, "83px");
+}, "Default heading styles respect headingreset and the heading's own offset");
+</script>

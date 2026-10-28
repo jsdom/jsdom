@@ -22,7 +22,7 @@ function serverURL(server, { host = "127.0.0.1", scheme = "http" } = {}) {
  * by the mocha `after()` hook.
  */
 function createServer(handler) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const server = http.createServer(handler);
     enablePromisifiedServerDestroy(server);
     activeServers.add(server);
@@ -35,7 +35,7 @@ function createServer(handler) {
 after(async () => {
   const serversToDestroy = [...activeServers];
   activeServers.clear();
-  await Promise.all(serversToDestroy.map(server => server.destroy().catch(() => {})));
+  await Promise.all(serversToDestroy.map((server) => server.destroy().catch(() => {})));
 });
 
 function enablePromisifiedServerDestroy(server) {
@@ -44,7 +44,7 @@ function enablePromisifiedServerDestroy(server) {
   server.destroy = function () {
     activeServers.delete(this);
     return new Promise((resolve, reject) => {
-      originalDestroy.call(this, err => {
+      originalDestroy.call(this, (err) => {
         if (err) {
           reject(err);
         }
@@ -92,7 +92,7 @@ async function neverRequestedServer() {
 
   let destroyed = false;
 
-  const server = await createServer(req => {
+  const server = await createServer((req) => {
     rejectReturnedPromise(new Error(`${req.url} was requested, but should not have been`));
     server.destroy();
     destroyed = true;
@@ -116,7 +116,7 @@ function imageServer({ status = 200 } = {}) {
   return resourceServer(
     { "Content-Type": "image/png", "Content-Length": pngBytes.byteLength },
     pngBytes,
-    { status }
+    { status },
   );
 }
 
@@ -127,7 +127,7 @@ function imageServer({ status = 200 } = {}) {
 function htmlServer(sourceString = "Hello world") {
   return resourceServer(
     { "Content-Type": "text/html", "Content-Length": sourceString.length },
-    sourceString
+    sourceString,
   );
 }
 
@@ -146,7 +146,7 @@ async function threeRequestServer() {
               window.done();
             };
             xhr.send();`,
-    "/xhr": "test"
+    "/xhr": "test",
   };
 
   const server = await createServer((req, res) => {
@@ -182,10 +182,10 @@ async function webSocketServer() {
 
     socket.write(
       "HTTP/1.1 101 Switching Protocols\r\n" +
-      "Upgrade: websocket\r\n" +
-      "Connection: Upgrade\r\n" +
-      `Sec-WebSocket-Accept: ${acceptKey}\r\n` +
-      "\r\n"
+        "Upgrade: websocket\r\n" +
+        "Connection: Upgrade\r\n" +
+        `Sec-WebSocket-Accept: ${acceptKey}\r\n` +
+        "\r\n",
     );
 
     socket.on("data", () => {
@@ -204,11 +204,11 @@ async function webSocketServer() {
  */
 async function streamingServer() {
   let headersReceivedResolve, abortedResolve;
-  const headersReceived = new Promise(resolve => {
+  const headersReceived = new Promise((resolve) => {
     headersReceivedResolve = resolve;
   });
 
-  const aborted = new Promise(resolve => {
+  const aborted = new Promise((resolve) => {
     abortedResolve = resolve;
   });
 
@@ -237,8 +237,8 @@ async function streamingServer() {
     {
       headersReceived,
       aborted,
-      destroy: () => server.destroy()
-    }
+      destroy: () => server.destroy(),
+    },
   ];
 }
 
@@ -264,7 +264,12 @@ async function recordingServer(recorder) {
  * If onRedirectTarget is provided, it is called with the request to /2 before responding.
  * @returns {Promise<[string, string]>} [requestURL, responseURL]
  */
-async function redirectServer(body, extraInitialResponseHeaders, ultimateResponseHeaders, onRedirectTarget) {
+async function redirectServer(
+  body,
+  extraInitialResponseHeaders,
+  ultimateResponseHeaders,
+  onRedirectTarget,
+) {
   const server = await createServer((req, res) => {
     if (req.url.endsWith("/1")) {
       res.writeHead(301, { Location: "/2", ...extraInitialResponseHeaders });
@@ -299,5 +304,5 @@ module.exports = {
   threeRequestServer,
   webSocketServer,
   recordingServer,
-  redirectServer
+  redirectServer,
 };

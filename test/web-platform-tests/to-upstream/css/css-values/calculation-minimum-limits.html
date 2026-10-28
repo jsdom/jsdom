@@ -1,0 +1,82 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Calculation limits count terms and nesting independently</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#calc-syntax">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="target"></div>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+
+test(() => {
+  const value = "calc(1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + " +
+    "1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px + 1px)";
+  assert_true(CSS.supports("width", value));
+  target.style.cssText = `width: ${value}`;
+  assert_equals(getComputedStyle(target).width, "32px");
+}, "A calculation accepts 32 terms");
+
+test(() => {
+  const value = "round(nearest, 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + " +
+    "1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1)";
+  assert_true(CSS.supports("z-index", value));
+  target.style.cssText = `z-index: ${value}`;
+  assert_equals(getComputedStyle(target).zIndex, "32");
+}, "An omitted rounding step does not count toward the 32-term minimum");
+
+test(() => {
+  const value = "log(1 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + " +
+    "0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0)";
+  assert_true(CSS.supports("opacity", value));
+  target.style.cssText = `opacity: ${value}`;
+  assert_equals(getComputedStyle(target).opacity, "0");
+}, "An omitted logarithm base does not count toward the 32-term minimum");
+
+test(() => {
+  const value = "calc(((((((((((((((((((((((((((((((((1px)))))))))))))))))))))))))))))))))";
+  assert_true(CSS.supports("width", value));
+  target.style.cssText = `width: ${value}`;
+  assert_equals(getComputedStyle(target).width, "1px");
+}, "A calculation accepts 32 nested pairs of parentheses");
+
+test(() => {
+  const value = "calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(" +
+    "calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(1px)" +
+    "))))))))))))))))))))))))))))))))";
+  assert_true(CSS.supports("width", value));
+  target.style.cssText = `width: ${value}`;
+  assert_equals(getComputedStyle(target).width, "1px");
+}, "A calculation accepts 32 nested math functions");
+
+test(() => {
+  const value = "calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(calc(" +
+    "calc(((((((((((((((((1px)))))))))))))))))))))))))))))))))";
+  assert_true(CSS.supports("width", value));
+  target.style.cssText = `width: ${value}`;
+  assert_equals(getComputedStyle(target).width, "1px");
+}, "The nesting minimum includes mixed parentheses and math functions");
+
+test(() => {
+  const value = "translateX(calc(((((((((((((((((((((((((((((((((1px))))))))))))))))))))))))))))))))))";
+  assert_true(CSS.supports("transform", value));
+  target.style.cssText = `transform: ${value}`;
+  assert_not_equals(target.style.transform, "");
+}, "An enclosing transform function does not reduce the calculation nesting minimum");
+
+test(() => {
+  const value = "rgb(from red calc(((((((((((((((((((((((((((((((((r))))))))))))))))))))))))))))))))) g b)";
+  assert_true(CSS.supports("color", value));
+  target.style.cssText = `color: ${value}`;
+  assert_not_equals(target.style.color, "");
+}, "An enclosing relative-color function does not reduce the calculation nesting minimum");
+
+test(() => {
+  const value = "min(1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, " +
+    "1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px, 1px)";
+  assert_true(CSS.supports("width", value));
+  target.style.cssText = `width: ${value}`;
+  assert_equals(getComputedStyle(target).width, "1px");
+}, "A comparison function accepts 32 arguments");
+</script>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Computed URLs use the stylesheet containing the winning declaration</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-4/#relative-urls">
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api/#calculation-of-computed-values">
+<link rel="stylesheet" href="resources/computed-url-values.css">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+@layer local {
+  #rollback { background-image: var(--missing, revert-layer); }
+}
+</style>
+<div id="external"></div>
+<div id="imported"></div>
+<div id="inherited"><span></span></div>
+<div id="rollback"></div>
+<script>
+"use strict";
+
+function expectedURL(path) {
+  return `url("${new URL(path, location.href).href}")`;
+}
+
+test(() => {
+  const target = document.getElementById("external");
+  assert_equals(getComputedStyle(target).backgroundImage, expectedURL("resources/external.png"));
+}, "External stylesheet declarations use the stylesheet base");
+
+test(() => {
+  assert_equals(
+    getComputedStyle(document.getElementById("imported")).backgroundImage,
+    expectedURL("resources/imported.png")
+  );
+}, "Imported stylesheet declarations use the imported stylesheet base");
+
+test(() => {
+  const target = document.getElementById("external");
+  target.style.backgroundImage = "var(--external-typed-url), var(--external-raw-url)";
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    `${expectedURL("resources/typed.png")}, ${expectedURL("raw.png")}`
+  );
+}, "Registered and unregistered URL variables resolve against different source bases");
+
+test(() => {
+  const child = document.querySelector("#inherited span");
+  assert_equals(getComputedStyle(child).listStyleImage, expectedURL("resources/inherited.png"));
+}, "Inherited URLs preserve the declaring stylesheet's base");
+
+test(() => {
+  assert_equals(
+    getComputedStyle(document.getElementById("rollback")).backgroundImage,
+    expectedURL("resources/rollback.png")
+  );
+}, "A substituted revert-layer selects the rolled-back declaration's URL base");
+</script>

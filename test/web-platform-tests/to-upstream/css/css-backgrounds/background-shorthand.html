@@ -2,6 +2,7 @@
 <meta charset="utf-8">
 <title>background shorthand</title>
 <link rel="help" href="https://drafts.csswg.org/css-backgrounds/#background">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/7802">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <!-- Regression test for https://github.com/jsdom/jsdom/issues/3663 -->
@@ -15,13 +16,16 @@
 
 test(() => {
   const div = document.getElementById("div");
-  // Chrome returns "border-box border-box"
-  assert_equals(div.style.background, "border-box");
+  assert_equals(div.style.backgroundOrigin, "border-box");
+  assert_equals(div.style.backgroundClip, "border-box");
 }, "Set style attribute by default");
 
 test(() => {
   const img = document.getElementById("img");
   img.style.background = 'url("foo.jpg") center/20px no-repeat';
-  assert_equals(img.style.background, 'url("foo.jpg") center center / 20px no-repeat');
+  assert_equals(img.style.backgroundImage, 'url("foo.jpg")');
+  assert_equals(img.style.backgroundPosition, "center center");
+  assert_equals(img.style.backgroundSize, "20px auto");
+  assert_equals(img.style.backgroundRepeat, "no-repeat");
 }, "Shorthand value containing '/'");
 </script>

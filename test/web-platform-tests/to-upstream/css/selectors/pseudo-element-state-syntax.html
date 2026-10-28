@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Generated pseudo-elements use their own permitted pseudo-class states</title>
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#pseudo-classing">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/parsing-testcommon.js"></script>
+<style>
+  #target::before { content: ""; color: green; }
+  #target::before:empty { color: red; }
+</style>
+<div id="target"></div>
+<script>
+"use strict";
+/* global test_invalid_selector, test_valid_selector */
+
+test_valid_selector("::scroll-button(up):enabled");
+test_valid_selector("::scroll-button(down):disabled");
+test_invalid_selector("::scroll-button(up):checked");
+
+test_invalid_selector("::before:empty");
+test_invalid_selector("::after:empty");
+test_invalid_selector("::first-letter:empty");
+test_invalid_selector("::marker:first-child");
+test_invalid_selector("::marker:nth-child(1)");
+test_invalid_selector("::first-letter::prefix:nth-child(1)");
+test_invalid_selector("::first-letter::suffix:last-child");
+test_invalid_selector("::before:not(:empty)");
+
+test(() => {
+  assert_false(CSS.supports("selector(::before:empty)"));
+  assert_false(CSS.supports("selector(::marker:first-child)"));
+  const sheet = new CSSStyleSheet();
+  assert_throws_dom("SyntaxError", () => sheet.insertRule("::before:empty { color: red; }"));
+  assert_throws_dom("SyntaxError", () => sheet.insertRule("::marker:first-child { color: red; }"));
+}, "Feature queries and rule insertion reject undeclared pseudo-element states");
+
+test(() => {
+  assert_equals(getComputedStyle(document.querySelector("#target"), "::before").color, "rgb(0, 128, 0)");
+}, "An invalid pseudo-element state does not interrupt computed style matching");
+</script>
+<style>
+  #target::after { content: ""; color: green; }
+  #target::after:focus { color: red; }
+  #target::after:focus-visible { color: red; }
+  #target::after:focus-within { color: red; }
+  #details::details-content { color: green; }
+  #details::details-content:any-link { color: red; }
+  #details::details-content:lang(en) { color: red; }
+</style>
+<details id="details" open><summary>Summary</summary>Content</details>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.querySelector("#target"), "::after").color, "rgb(0, 128, 0)");
+}, "Generated pseudo-elements do not acquire native element focus state");
+
+test(() => {
+  assert_equals(getComputedStyle(document.querySelector("#details"), "::details-content").color, "rgb(0, 128, 0)");
+}, "A details content pseudo-element does not acquire native element attributes");
+</script>

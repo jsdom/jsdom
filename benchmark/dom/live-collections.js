@@ -36,9 +36,9 @@ module.exports = () => {
   addUpdateTask("children: read after every mutation", "children", true);
 
   for (const [name, query] of [
-    ["tag name", parent => parent.getElementsByTagName("span")],
-    ["all elements", parent => parent.getElementsByTagName("*")],
-    ["class name", parent => parent.getElementsByClassName("match")]
+    ["tag name", (parent) => parent.getElementsByTagName("span")],
+    ["all elements", (parent) => parent.getElementsByTagName("*")],
+    ["class name", (parent) => parent.getElementsByClassName("match")],
   ]) {
     const parent = document.createElement("div");
     parent.innerHTML = '<span class="match"><b>text</b></span><!-- comment -->'.repeat(ITEM_COUNT);

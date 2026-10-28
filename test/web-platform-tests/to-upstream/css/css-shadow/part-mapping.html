@@ -1,0 +1,100 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Shadow part mappings use attribute tokens and follow live shadow ancestry</title>
+<link rel="help" href="https://drafts.csswg.org/css-shadow-1/#part">
+<link rel="help" href="https://drafts.csswg.org/css-shadow-1/#rules-for-parsing-a-list-of-part-mappings">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createParts(t, css) {
+  const style = document.createElement("style");
+  style.textContent = css;
+  const host = document.createElement("section");
+  host.id = "mapping-host";
+  document.head.append(style);
+  document.body.append(host);
+  const root = host.attachShadow({ mode: "open" });
+  const inner = document.createElement("div");
+  root.append(inner);
+  const innerRoot = inner.attachShadow({ mode: "open" });
+  const target = document.createElement("span");
+  innerRoot.append(target);
+  t.add_cleanup(() => {
+    host.remove();
+    style.remove();
+  });
+  return { host, root, inner, innerRoot, target };
+}
+
+test(t => {
+  const { inner, target } = createParts(
+    t,
+    "#mapping-host::part(first second) { color: green; } " +
+    "#mapping-host::part(bad) { color: red; }"
+  );
+  target.setAttribute("part", "input");
+  inner.setAttribute("exportparts", "input:first, bad mapping, input:second, input:bad:extra, :bad, input:");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  inner.setAttribute("exportparts", "input:first, input:bad");
+  assert_equals(getComputedStyle(target).color, "rgb(255, 0, 0)");
+}, "Invalid mappings are ignored independently and one inner name can supply an intersection of outer names");
+
+test(t => {
+  const { inner, target } = createParts(
+    t,
+    "#mapping-host::part(a\\:b) { color: green; } #mapping-host::part(a) { color: red; }"
+  );
+  target.part.value = "a:b";
+  inner.part.value = "a:b";
+  inner.setAttribute("exportparts", "a:b");
+  assert_equals(getComputedStyle(inner).color, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  target.style.color = "blue";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+}, "Colon-containing part names are matched through CSS escapes but are not forwarded as colon-containing inner names");
+
+test(t => {
+  const { inner, target } = createParts(
+    t,
+    "#mapping-host::part(outer) { color: green; } #mapping-host::part(wrong) { color: red; }"
+  );
+  target.part.value = "inner\u00A0name";
+  inner.setAttribute("exportparts", "inner\u00A0name\t:\nouter, inner name:wrong");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  inner.setAttribute("exportparts", "inner\\u00A0name:outer");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 0)");
+}, "Mapping tokens use ASCII whitespace and do not decode backslash escapes");
+
+test(t => {
+  const { inner, target } = createParts(t, "#mapping-host::part(outer) { color: green; }");
+  target.setAttributeNS("urn:test", "x:part", "inner");
+  inner.setAttribute("exportparts", "inner:outer");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 0)");
+  target.part.add("inner");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+  inner.removeAttribute("exportparts");
+  inner.setAttributeNS("urn:test", "x:exportparts", "inner:outer");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 0)");
+}, "Only null-namespace part and exportparts attributes affect exposed names");
+
+test(t => {
+  const { root, inner, target } = createParts(
+    t,
+    "#mapping-host > div::part(label) { color: red; } " +
+    "section#mapping-host::part(exported) { color: green; } " +
+    "body > div::part(label) { color: blue; }"
+  );
+  target.part.add("label");
+  inner.setAttribute("exportparts", "label:exported");
+  const computed = getComputedStyle(target);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+  document.body.append(inner);
+  t.add_cleanup(() => inner.remove());
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+  root.append(inner);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "Exposing hosts and their selector ancestry follow movement across shadow boundaries");
+</script>

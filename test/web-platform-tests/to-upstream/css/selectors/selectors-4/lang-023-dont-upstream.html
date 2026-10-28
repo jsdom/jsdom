@@ -4,6 +4,7 @@
 <title>CSS Selectors 4 - :lang matching (matches API)</title>
 <link rel="author" title="Jonathan Kew" href="mailto:jkew@mozilla.com">
 <link rel="help" href="https://drafts.csswg.org/selectors-4/#the-lang-pseudo">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/8720">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 
@@ -12,7 +13,8 @@
 <script>
 test(() => {
   const span = document.querySelector("span");
-  assert_equals(span.matches(':lang("x")'), true, "Element with lang='x-lojban' should match :lang('x') via Extended Filtering algorithm");
-}, "Private use primary tag matching via Extended Filtering");
+  assert_false(span.matches(':lang("x")'), "An incomplete private-use range must not match");
+  assert_true(span.matches(':lang("x-lojban")'), "A complete private-use range must match");
+}, "Private-use language matching requires a complete range");
 </script>
 </html>

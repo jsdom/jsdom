@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Empty attribute substitutions preserve following media feature operands</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#attr-substitution">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#if-notation">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#attr-security">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function target(t) {
+  const element = document.createElement("div");
+  element.setAttribute("data-empty", "");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  return element;
+}
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(media(width >= attr(data-empty type(*)) 0px): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A successful empty attribute leaves the authored media operand intact");
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(media(width >= attr(data-missing type(<length>), )0px): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An explicit empty attribute fallback leaves the authored media operand intact");
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(media(width >= attr(data-missing type(*)) 0px): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "A missing arbitrary attribute without a fallback still invalidates the condition");
+
+test(t => {
+  const element = target(t);
+  element.style.setProperty("--empty", "attr(data-empty type(*))");
+  element.style.color = "if(media(width >= var(--empty) 0px): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "An empty successful attribute passed through a custom property leaves the operand intact");
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(media(width >= attr(data-empty type(*)) 0px): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)", "The media condition must select its true branch");
+  element.style.backgroundImage = "if(media(width >= attr(data-empty type(*)) 0px): url(https://example.test/image.png); else: none)";
+  assert_equals(getComputedStyle(element).backgroundImage, "none");
+}, "Recognizing an empty attribute condition does not discard its taint before URL selection");
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(media(width >= 0px): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "Literal media operands provide a positive inline conditional control");
+
+test(t => {
+  const element = target(t);
+  element.style.setProperty("--limit", "0px");
+  element.style.color = "if(media(width >= var(--limit)): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A nonempty custom property can supply a name-first media operand");
+
+test(t => {
+  const element = target(t);
+  element.style.setProperty("--limit", "0px");
+  element.style.color = "if(media(var(--limit) <= width): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A nonempty custom property can supply a value-first media operand");
+
+test(t => {
+  const element = target(t);
+  element.setAttribute("data-limit", "0px");
+  element.style.color = "if(media(width >= attr(data-limit type(<length>))): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+}, "A nonempty typed attribute can supply a media operand");
+
+test(t => {
+  const element = target(t);
+  element.setAttribute("data-limit", "0px");
+  element.style.color = "if(media(width >= attr(data-limit type(<length>))): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)", "The media condition must select its true branch");
+  element.style.backgroundImage = "if(media(width >= attr(data-limit type(<length>))): url(https://example.test/image.png); else: none)";
+  assert_equals(getComputedStyle(element).backgroundImage, "none");
+}, "A successful nonempty attribute media condition taints the selected URL");
+
+test(t => {
+  const element = target(t);
+  element.style.color = "if(media(width >= 0px): red; else: blue)";
+  assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
+  element.style.backgroundImage = "if(media(width >= 0px): url(https://example.test/image.png); else: none)";
+  assert_equals(getComputedStyle(element).backgroundImage, 'url("https://example.test/image.png")');
+}, "An untainted successful media condition preserves the selected URL");
+</script>

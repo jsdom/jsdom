@@ -1,4 +1,6 @@
 "use strict";
+const { spawnSync } = require("node:child_process");
+const path = require("node:path");
 const { Bench } = require("tinybench");
 const { JSDOM } = require("../..");
 
@@ -8,9 +10,13 @@ for (let i = 0; i < 1000; ++i) {
 }
 html += `\n</body></html>\n`;
 
-const nestedBlocks = "<!doctype html>" +
-  "<section><article><h2>Heading</h2><p>Text <strong>inside</strong>.</p></article></section>".repeat(5000);
-const textHeavy = "<!doctype html>" + `<p>${"Some ordinary document text. ".repeat(20)}</p>`.repeat(1000);
+const nestedBlocks =
+  "<!doctype html>" +
+  "<section><article><h2>Heading</h2><p>Text <strong>inside</strong>.</p></article></section>".repeat(
+    5000,
+  );
+const textHeavy =
+  "<!doctype html>" + `<p>${"Some ordinary document text. ".repeat(20)}</p>`.repeat(1000);
 
 module.exports = () => {
   const bench = new Bench();
@@ -25,12 +31,15 @@ module.exports = () => {
     new JSDOM(html);
   });
 
-  for (const [name, markup] of [["nested blocks", nestedBlocks], ["text-heavy markup", textHeavy]]) {
+  for (const [name, markup] of [
+    ["nested blocks", nestedBlocks],
+    ["text-heavy markup", textHeavy],
+  ]) {
     bench.add(`new JSDOM() with ${name}`, async () => {
       const dom = new JSDOM(markup);
       dom.window.close();
       // Let document-associated tasks release each large document between samples.
-      await new Promise(resolve => {
+      await new Promise((resolve) => {
         setImmediate(resolve);
       });
     });
@@ -38,10 +47,10 @@ module.exports = () => {
 
   bench.add("new JSDOM() with nested XML blocks", async () => {
     const dom = new JSDOM(`<html>${nestedBlocks.slice("<!doctype html>".length)}</html>`, {
-      contentType: "application/xml"
+      contentType: "application/xml",
     });
     dom.window.close();
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       setImmediate(resolve);
     });
   });
@@ -54,6 +63,25 @@ module.exports = () => {
   bench.add("new JSDOM() and close with runScripts: outside-only", () => {
     const dom = new JSDOM("", { runScripts: "outside-only" });
     dom.window.close();
+  });
+
+  bench.add("new JSDOM() and first computed style in a fresh process", () => {
+    const result = spawnSync(
+      process.execPath,
+      [
+        "-e",
+        `
+      const { JSDOM } = require('./lib/api.js');
+      const { window } = new JSDOM('<style>.probe { color: blue; }</style><div class=probe></div>');
+      window.getComputedStyle(window.document.querySelector('.probe')).color;
+      window.close();
+    `,
+      ],
+      { cwd: path.resolve(__dirname, "../.."), encoding: "utf8" },
+    );
+    if (result.status !== 0) {
+      throw new Error(result.stderr);
+    }
   });
 
   return bench;

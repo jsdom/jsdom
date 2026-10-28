@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed colors serialize to valid values that round-trip</title>
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#serializing-color-values">
+<link rel="help" href="https://drafts.csswg.org/css-color-4/#hue-syntax">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function assertComputedRoundTrip(t, input) {
+  const element = document.createElement("div");
+  document.body.append(element);
+  t.add_cleanup(() => element.remove());
+  element.style.color = input;
+  const computed = getComputedStyle(element).color;
+  assert_true(CSS.supports("color", computed), "The computed color is valid CSS");
+  element.style.color = computed;
+  assert_equals(getComputedStyle(element).color, computed, "The computed color round-trips exactly");
+}
+
+test(t => {
+  assertComputedRoundTrip(t, "oklch(.5 .1 -.0000001)");
+}, "A near-zero negative OKLCH hue remains stable after rounding and normalization");
+
+test(t => {
+  assertComputedRoundTrip(t, "lch(50 20 359.9999999)");
+}, "An LCH hue approaching one turn remains stable after rounding and normalization");
+
+test(t => {
+  assertComputedRoundTrip(t, "oklch(.5 calc(infinity) 0)");
+}, "An infinite computed OKLCH chroma serializes to valid CSS");
+
+test(t => {
+  assertComputedRoundTrip(t, "color(srgb calc(infinity) 0 0)");
+}, "An infinite computed RGB channel serializes to valid CSS");
+</script>

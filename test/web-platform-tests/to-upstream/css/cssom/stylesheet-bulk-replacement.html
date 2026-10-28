@@ -1,0 +1,54 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="timeout" content="long">
+<title>Stylesheet replacement preserves live lists and detaches old rules</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-replacesync">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstylesheet-replace">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@media screen { .old { color: red; } }");
+  const rules = sheet.cssRules;
+  const oldGroup = rules[0];
+  const oldChild = oldGroup.cssRules[0];
+  sheet.replaceSync(".new { color: green; }");
+  assert_equals(sheet.cssRules, rules);
+  assert_equals(rules.length, 1);
+  assert_equals(rules[0].selectorText, ".new");
+  assert_equals(rules[0].parentStyleSheet, sheet);
+  assert_equals(oldGroup.parentStyleSheet, null);
+  assert_equals(oldChild.parentStyleSheet, null);
+  assert_equals(oldChild.parentRule, oldGroup);
+  assert_equals(oldChild.style.color, "red");
+}, "Synchronous replacement updates the existing list and detaches old rule trees");
+
+promise_test(async () => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(".old { color: red; }");
+  const rules = sheet.cssRules;
+  const oldRule = rules[0];
+  assert_equals(await sheet.replace(".new { color: blue; }"), sheet);
+  assert_equals(sheet.cssRules, rules);
+  assert_equals(rules[0].selectorText, ".new");
+  assert_equals(oldRule.parentStyleSheet, null);
+}, "Asynchronous replacement preserves the list and resolves to the same sheet");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(".item {}".repeat(130000));
+  const rules = sheet.cssRules;
+  const first = rules[0];
+  const last = rules[129999];
+  assert_equals(rules.length, 130000);
+  assert_equals(last.selectorText, ".item");
+  sheet.replaceSync(".replacement {}");
+  assert_equals(sheet.cssRules, rules);
+  assert_equals(rules.length, 1);
+  assert_equals(first.parentStyleSheet, null);
+  assert_equals(last.parentStyleSheet, null);
+}, "Large stylesheet replacement does not depend on a JavaScript argument-count limit");
+</script>

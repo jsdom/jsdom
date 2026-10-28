@@ -1,0 +1,100 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed positions use offsets from the left and top edges</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#typedef-position">
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#position-serialization">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createTarget(t) {
+  const target = document.createElement("div");
+  target.style.fontSize = "10px";
+  document.body.append(target);
+  t.add_cleanup(() => target.remove());
+  return target;
+}
+
+test(t => {
+  const target = createTarget(t);
+  target.style.backgroundImage = "radial-gradient(at right center, red, blue)";
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    "radial-gradient(at 100% 50%, rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+  assert_equals(target.style.backgroundImage, "radial-gradient(at right center, red, blue)");
+}, "Computing a gradient position resolves keywords without changing the authored value");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.backgroundImage = "radial-gradient(at left 10px top 800px, red, blue)";
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    "radial-gradient(at 10px 800px, rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+}, "Offsets from the left and top edges compute directly");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.backgroundImage = "radial-gradient(at right 10px bottom 20%, red, blue)";
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    "radial-gradient(at calc(100% - 10px) 80%, rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+}, "Offsets from the right and bottom edges are subtracted from 100%");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.backgroundImage = "radial-gradient(at bottom 1em right 2em, red, blue)";
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    "radial-gradient(at calc(100% - 20px) calc(100% - 10px), rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+}, "Position computation converts font-relative lengths and orders horizontal before vertical");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.backgroundImage = "conic-gradient(at top, red, blue)";
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    "conic-gradient(at 50% 0%, rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+}, "A one-component vertical position supplies a horizontal center");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.backgroundImage = "radial-gradient(at center, red, blue), conic-gradient(at 50% 50%, red, blue)";
+  assert_equals(
+    getComputedStyle(target).backgroundImage,
+    "radial-gradient(rgb(255, 0, 0), rgb(0, 0, 255)), conic-gradient(rgb(255, 0, 0), rgb(0, 0, 255))"
+  );
+}, "Default gradient positions remain omitted after computation");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.objectPosition = "right 10px bottom 20%";
+  assert_equals(getComputedStyle(target).objectPosition, "calc(100% - 10px) 80%");
+}, "Position-valued properties use the same computed offsets as gradients");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.clipPath = "circle(at right center)";
+  assert_equals(getComputedStyle(target).clipPath, "circle(at 100% 50%)");
+}, "Positions inside basic shapes compute their keyword offsets");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.clipPath = "shape(from left top, line to right bottom, close)";
+  assert_equals(getComputedStyle(target).clipPath, "shape(from 0% 0%, line to 100% 100%, close)");
+}, "Positions inside shape commands compute independently");
+
+test(t => {
+  const target = createTarget(t);
+  target.style.objectPosition = "1em";
+  assert_equals(getComputedStyle(target).objectPosition, "10px 50%");
+  target.style.objectPosition = "calc(1em + 10%) 20%";
+  assert_equals(getComputedStyle(target).objectPosition, "calc(10% + 10px) 20%");
+}, "Numeric one- and two-component positions compute without keyword offsets");
+</script>

@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Stylesheet media follows DOM and CSSOM mutations</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#concept-css-style-sheet-media">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#conditional-import">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+async function createSheet(t, tag) {
+  const element = document.createElement(tag);
+  t.add_cleanup(() => element.remove());
+  const text = "div { color: red; }";
+  if (tag === "style") {
+    element.textContent = text;
+  } else {
+    element.rel = "stylesheet";
+    element.href = `data:text/css,${encodeURIComponent(text)}`;
+  }
+  element.media = "print";
+  const loaded = new EventWatcher(t, element, "load").wait_for("load");
+  document.head.append(element);
+  await loaded;
+  return element;
+}
+
+for (const tag of ["style", "link"]) {
+  promise_test(async t => {
+    const element = await createSheet(t, tag);
+    const target = document.createElement("div");
+    t.add_cleanup(() => target.remove());
+    document.body.append(target);
+    const computed = getComputedStyle(target);
+    assert_not_equals(computed.color, "rgb(255, 0, 0)");
+
+    element.media = "screen";
+    assert_equals(element.sheet.media.mediaText, "screen");
+    assert_equals(computed.color, "rgb(255, 0, 0)");
+
+    element.setAttribute("media", "print");
+    assert_equals(element.sheet.media.mediaText, "print");
+    assert_not_equals(computed.color, "rgb(255, 0, 0)");
+    element.removeAttribute("media");
+    assert_equals(element.sheet.media.mediaText, "");
+    assert_equals(computed.color, "rgb(255, 0, 0)");
+  }, `${tag} media attribute mutations update sheet media and live computed style`);
+
+  promise_test(async t => {
+    const element = await createSheet(t, tag);
+    const { sheet } = element;
+    const { media } = sheet;
+    sheet.cssRules[0].style.color = "green";
+    element.media = "screen";
+    assert_equals(element.sheet, sheet);
+    assert_equals(sheet.media, media);
+    assert_equals(sheet.cssRules[0].style.color, "green");
+  }, `${tag} media attribute mutations preserve the existing sheet and its CSSOM changes`);
+
+  promise_test(async t => {
+    const element = await createSheet(t, tag);
+    const { media } = element.sheet;
+    media.mediaText = "screen";
+    assert_equals(element.media, "print");
+    media.appendMedium("print");
+    assert_equals(element.media, "print");
+    media.deleteMedium("print");
+    assert_equals(element.media, "print");
+  }, `${tag} stylesheet media list mutations do not change the media attribute`);
+}
+
+function createUnsupportedImport(t) {
+  const element = document.createElement("style");
+  t.add_cleanup(() => element.remove());
+  document.head.append(element);
+  element.sheet.insertRule('@import "data:text/css," supports(not (display: block));');
+  return element.sheet.cssRules[0];
+}
+
+test(t => {
+  assert_equals(createUnsupportedImport(t).styleSheet, null);
+}, "An import with an unsupported condition has no stylesheet");
+
+test(t => {
+  const rule = createUnsupportedImport(t);
+  assert_not_equals(rule.media, null);
+  rule.media.mediaText = "print";
+  assert_equals(rule.media.mediaText, "print");
+}, "An import with an unsupported condition has a mutable media list");
+
+test(t => {
+  const rule = createUnsupportedImport(t);
+  rule.parentStyleSheet.deleteRule(0);
+  assert_equals(rule.parentStyleSheet, null);
+}, "An import with an unsupported condition can be removed");
+</script>

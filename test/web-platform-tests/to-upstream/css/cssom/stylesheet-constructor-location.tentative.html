@@ -1,0 +1,32 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Constructed stylesheet location and base URL validation</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#create-a-constructed-cssstylesheet">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/12974">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/12975">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(new CSSStyleSheet().href, null);
+  assert_equals(new CSSStyleSheet({ baseURL: "https://example.test/styles/" }).href, null);
+}, "Constructed stylesheets have no href, including when their base URL is specified");
+
+test(() => {
+  assert_throws_dom("NotAllowedError", () => new CSSStyleSheet({ baseURL: "https://test:test/" }));
+}, "An invalid constructed stylesheet base URL throws NotAllowedError");
+
+test(t => {
+  const originalURL = window.URL;
+  t.add_cleanup(() => {
+    window.URL = originalURL;
+  });
+  window.URL = () => {
+    throw new Error("The public URL constructor was invoked");
+  };
+  const sheet = new CSSStyleSheet({ baseURL: "https://example.test/styles/" });
+  assert_equals(sheet.href, null);
+}, "Stylesheet construction does not invoke a replacement public URL constructor");
+</script>

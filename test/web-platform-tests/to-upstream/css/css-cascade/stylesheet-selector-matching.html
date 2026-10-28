@@ -1,6 +1,7 @@
 <!doctype html>
 <meta charset="utf-8">
 <title>Stylesheet selector matching, validation, and specificity</title>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/4404 -->
 <link rel="help" href="https://drafts.csswg.org/css-cascade/#cascade-sort">
 <link rel="help" href="https://drafts.csswg.org/selectors/#specificity-rules">
 <script src="/resources/testharness.js"></script>
@@ -153,6 +154,14 @@ test(t => {
   const { element } = fixture(t, ".target::before, .target { color: red; }");
   assert_equals(getComputedStyle(element).color, "rgb(255, 0, 0)");
 }, "A pseudo-element branch does not prevent a matching element branch from applying");
+
+test(t => {
+  const { element } = fixture(t, `
+    .target { color: blue; }
+    .target::before, #unmatched::after { color: red; }
+  `);
+  assert_equals(getComputedStyle(element).color, "rgb(0, 0, 255)");
+}, "A selector list containing only pseudo-element branches does not style the originating element");
 
 test(t => {
   const { element, sheet } = fixture(t, `

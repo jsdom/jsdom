@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SVG titles retain inline display</title>
+<!-- Regression test for https://github.com/jsdom/jsdom/issues/3064 -->
+<link rel="help" href="https://w3c.github.io/svgwg/svg2-draft/styling.html#UAStyleSheet">
+<link rel="help" href="https://github.com/w3c/svgwg/pull/1071">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<svg><title id="svg-title">An SVG title</title></svg>
+<svg><foreignObject id="foreign-object"></foreignObject></svg>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("svg-title")).display, "inline");
+}, "The HTML title hiding rule does not apply to SVG titles");
+
+test(t => {
+  const title = document.createElement("title");
+  document.getElementById("foreign-object").append(title);
+  t.add_cleanup(() => title.remove());
+  assert_equals(getComputedStyle(title).display, "none");
+}, "An HTML title inside an SVG foreignObject retains the HTML hiding rule");
+
+test(t => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+  title.style.display = "block";
+  svg.append(title);
+  document.body.append(svg);
+  t.add_cleanup(() => svg.remove());
+  assert_equals(getComputedStyle(title).display, "block");
+}, "An authored display value applies to an SVG title");
+</script>

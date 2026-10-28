@@ -1,0 +1,58 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Cascade rollback keywords select declarations before defaulting</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#defaulting-keywords">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+function fixture(t, rules, inline = "") {
+  const parent = document.createElement("div");
+  parent.style.color = "green";
+  const style = document.createElement("style");
+  style.textContent = rules;
+  const child = document.createElement("div");
+  child.className = "target";
+  child.style.cssText = inline;
+  parent.append(style, child);
+  document.body.append(parent);
+  t.add_cleanup(() => parent.remove());
+  return getComputedStyle(child);
+}
+
+test(t => {
+  const computed = fixture(t, `
+    @layer early, late;
+    @layer early {
+      .target { color: red !important; }
+      .target.target { color: revert-layer !important; }
+    }
+    @layer late { .target { color: blue !important; } }
+  `);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "An important revert-layer excludes its layer and intervening cascade layers");
+
+test(t => {
+  const computed = fixture(t, `
+    @layer early { .target { color: revert; } }
+    @layer late { .target { color: revert-layer; } }
+  `);
+  assert_equals(computed.color, "rgb(0, 128, 0)");
+}, "Rollback keywords selected by another rollback are processed again");
+
+test(t => {
+  const computed = fixture(t, ".target { color: blue; }", "color: revert-layer");
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+}, "An inline revert-layer can select an unlayered stylesheet declaration");
+
+test(t => {
+  const computed = fixture(t, `
+    @layer early { .target { --color: var(--color); } }
+    @layer late { .target { --color: revert-layer; } }
+    .target { color: var(--color, blue); }
+  `);
+  assert_equals(computed.getPropertyValue("--color"), "");
+  assert_equals(computed.color, "rgb(0, 0, 255)");
+}, "Custom-property cycle detection uses the declaration selected after rollback");
+</script>

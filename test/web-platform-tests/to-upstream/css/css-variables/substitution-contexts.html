@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CSS substitutions resolve evaluated dependencies and property keywords</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#substitution-context">
+<link rel="help" href="https://drafts.csswg.org/css-variables-2/#using-variables">
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api/#dependency-cycles-via-relative-units">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="parent" style="--inherited: green"><div id="target"></div></div>
+<script>
+"use strict";
+const target = document.getElementById("target");
+
+test(() => {
+  target.style.cssText = "--a: var(--valid, var(--b)); --b: var(--valid, var(--a)); --valid: green";
+  assert_equals(getComputedStyle(target).getPropertyValue("--a"), "green");
+  assert_equals(getComputedStyle(target).getPropertyValue("--b"), "green");
+}, "Unused fallbacks do not create cycles");
+
+test(() => {
+  target.style.cssText = "--a: var(--b); --b: var(--a, green); color: var(--a, blue)";
+  assert_equals(getComputedStyle(target).getPropertyValue("--a"), "");
+  assert_equals(getComputedStyle(target).getPropertyValue("--b"), "");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 0, 255)");
+}, "A fallback cannot rescue a property participating in an evaluated cycle");
+
+test(() => {
+  target.style.cssText = "--inherited: var(--missing, inherit); color: var(--inherited)";
+  assert_equals(getComputedStyle(target).getPropertyValue("--inherited"), "green");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "CSS-wide keywords produced by substitution are applied to the custom property");
+
+test(() => {
+  target.style.cssText = "--name: --value; --value: green; color: var(var(--name))";
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "A var() name can itself contain a substitution");
+
+test(() => {
+  target.style.cssText = '--value3: green; color: var(ident("--value" calc(3 * sign(1em - 1px))))';
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "ident() builds a variable name after resolving its numeric arguments");
+
+test(() => {
+  target.style.cssText = '--value: ident("ready"); color: var(ident("invalid"), green)';
+  assert_equals(getComputedStyle(target).getPropertyValue("--value"), "ready");
+  assert_equals(getComputedStyle(target).color, "rgb(0, 128, 0)");
+}, "ident() substitutes on custom properties and an invalid variable name uses its fallback");
+
+test(() => {
+  target.style.cssText = "--fallback: 7px; margin-left: env(unknown-name, var(--fallback)); " +
+    "margin-right: env(unknown-name)";
+  assert_equals(getComputedStyle(target).marginLeft, "7px");
+  assert_equals(getComputedStyle(target).marginRight, "0px");
+}, "Undefined environment variables substitute their fallback or become invalid");
+
+test(() => {
+  CSS.registerProperty({ name: "--line-unit", syntax: "<length>", inherits: false, initialValue: "0px" });
+  target.style.cssText = "--line-unit: 2lh; line-height: 13px; font-size: var(--line-unit)";
+  assert_equals(getComputedStyle(target).fontSize, "16px");
+  assert_equals(getComputedStyle(target).getPropertyValue("--line-unit"), "0px");
+}, "A registered lh value depends on font-size even when line-height is an absolute length");
+</script>

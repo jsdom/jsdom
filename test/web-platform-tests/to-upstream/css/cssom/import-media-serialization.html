@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Import rule serialization preserves an explicit media list</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createImport(t, text) {
+  const style = document.createElement("style");
+  document.head.append(style);
+  t.add_cleanup(() => style.remove());
+  style.sheet.insertRule(text);
+  return style.sheet.cssRules[0];
+}
+
+test(t => {
+  const rule = createImport(t, '@import "data:text/css," all;');
+  assert_equals(rule.media.length, 1);
+  assert_equals(rule.media.mediaText, "all");
+  assert_equals(rule.cssText, '@import url("data:text/css,") all;');
+}, "An explicit all media query is retained in import rule serialization");
+
+test(t => {
+  const rule = createImport(t, '@import "data:text/css,";');
+  assert_equals(rule.media.length, 0);
+  assert_equals(rule.cssText, '@import url("data:text/css,");');
+  rule.media.mediaText = "all";
+  assert_equals(rule.cssText, '@import url("data:text/css,") all;');
+  rule.media.deleteMedium("all");
+  assert_equals(rule.cssText, '@import url("data:text/css,");');
+}, "Import rule serialization tracks media list insertion and removal");
+
+test(t => {
+  const rule = createImport(t, '@import "data:text/css," layer(example) supports(display: block) all;');
+  assert_equals(rule.cssText, '@import url("data:text/css,") layer(example) supports(display: block) all;');
+}, "An explicit all media query follows layer and supports conditions");
+</script>

@@ -7,6 +7,8 @@ interface HTMLElement : Element {
   [CEReactions, Reflect] attribute DOMString lang;
   [CEReactions] attribute boolean translate;
   [CEReactions] attribute DOMString dir;
+  [CEReactions, Reflect, ReflectRange=(0,8)] attribute unsigned long headingOffset;
+  [CEReactions, Reflect] attribute boolean headingReset;
 
   // user interaction
   [CEReactions, Reflect] attribute boolean hidden;

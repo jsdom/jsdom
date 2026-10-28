@@ -1,0 +1,94 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Container queries use the feature grammar for their query type</title>
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#container-rule">
+<link rel="help" href="https://drafts.csswg.org/css-conditional-5/#orientation">
+<link rel="help" href="https://drafts.csswg.org/css-anchor-position-2/#typedef-anchored-query">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function checkQuery(query, expected) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`@container ${query} { .probe { color: red; } } .after { color: blue; }`);
+  assert_equals(sheet.cssRules.length, 2);
+  const rule = sheet.cssRules[0];
+  assert_true(rule instanceof CSSContainerRule);
+  assert_equals(rule.conditionText, expected);
+  assert_equals(rule.containerQuery, expected);
+  assert_equals(rule.cssRules[0].style.color, "red");
+  assert_equals(sheet.cssRules[1].style.color, "blue");
+}
+
+test(() => {
+  checkQuery("scroll-state(stuck: top)", "scroll-state(stuck: top)");
+}, "A bare scroll-state feature uses the scroll-state grammar");
+
+test(() => {
+  checkQuery("scroll-state((stuck: top))", "scroll-state((stuck: top))");
+}, "A parenthesized scroll-state feature uses the scroll-state grammar");
+
+test(() => {
+  checkQuery("scroll-state((stuck: top) and (snapped: x))", "scroll-state((stuck: top) and (snapped: x))");
+}, "Each feature in a scroll-state conjunction uses the scroll-state grammar");
+
+test(() => {
+  checkQuery("scroll-state(not (scrollable: none))", "scroll-state(not (scrollable: none))");
+}, "A negated scroll-state feature uses the scroll-state grammar");
+
+test(() => {
+  checkQuery("scroll-state(scrolled: bottom)", "scroll-state(scrolled: bottom)");
+}, "The scrolled feature is valid in a bare scroll-state query");
+
+test(() => {
+  checkQuery("scroll-state(width: 1px)", "scroll-state(width: 1px)");
+}, "A size feature in a scroll-state query is preserved as unknown syntax");
+
+test(() => {
+  checkQuery("anchored(fallback: none)", "anchored(fallback: none)");
+}, "A bare anchored feature uses the anchored grammar");
+
+test(() => {
+  checkQuery("anchored((fallback: none))", "anchored((fallback: none))");
+}, "A parenthesized anchored feature uses the anchored grammar");
+
+test(() => {
+  checkQuery("anchored(not (fallback: none))", "anchored(not (fallback: none))");
+}, "A negated anchored feature uses the anchored grammar");
+
+test(() => {
+  checkQuery("anchored(stuck: top)", "anchored(stuck: top)");
+}, "A scroll-state feature in an anchored query is preserved as unknown syntax");
+
+test(() => {
+  checkQuery("anchored((unknown: value) or (FALLBACK: NONE))", "anchored((unknown: value) or (fallback: none))");
+}, "An unknown anchored feature does not prevent parsing the remaining condition");
+
+test(() => {
+  checkQuery("(ORIENTATION: LaNdScApE)", "(orientation: landscape)");
+}, "A landscape orientation is parsed as a keyword");
+
+test(() => {
+  checkQuery("(ORIENTATION: PoRtRaIt)", "(orientation: portrait)");
+}, "A portrait orientation is parsed as a keyword");
+
+test(() => {
+  checkQuery("(WIDTH: 1PX)", "(width: 1px)");
+}, "An ordinary container size feature retains its own grammar");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.insertRule("@container scroll-state(stuck: top) {}", 0);
+  assert_equals(sheet.cssRules.length, 1);
+  assert_equals(sheet.cssRules[0].conditionText, "scroll-state(stuck: top)");
+}, "Inserting a container rule uses the same feature context as stylesheet parsing");
+test(() => {
+  checkQuery("not (width)", "not (width)");
+}, "An unnamed container query can start with not");
+
+test(() => {
+  checkQuery("not style(--x)", "not style(--x)");
+}, "An unnamed style query can start with not");
+
+</script>

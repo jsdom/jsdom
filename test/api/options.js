@@ -19,7 +19,7 @@ describe("API: constructor options", () => {
 
   describe("referrer", () => {
     it("should allow customizing document.referrer via the referrer option", () => {
-      const { document } = (new JSDOM(``, { referrer: "http://example.com/" })).window;
+      const { document } = new JSDOM(``, { referrer: "http://example.com/" }).window;
 
       assert.equal(document.referrer, "http://example.com/");
     });
@@ -29,13 +29,13 @@ describe("API: constructor options", () => {
     });
 
     it("should canonicalize referrer URLs", () => {
-      const { document } = (new JSDOM(``, { referrer: "http:example.com" })).window;
+      const { document } = new JSDOM(``, { referrer: "http:example.com" }).window;
 
       assert.equal(document.referrer, "http://example.com/");
     });
 
     it("should have a default referrer URL of the empty string", () => {
-      const { document } = (new JSDOM()).window;
+      const { document } = new JSDOM().window;
 
       assert.equal(document.referrer, "");
     });
@@ -74,25 +74,27 @@ describe("API: constructor options", () => {
 
   describe("contentType", () => {
     it("should have a default content type of text/html", () => {
-      const { document } = (new JSDOM()).window;
+      const { document } = new JSDOM().window;
 
       assert.equal(document.contentType, "text/html");
     });
 
     it("should allow customizing document content type via the contentType option", () => {
-      const { document } = (new JSDOM(`<doc/>`, { contentType: "application/funstuff+xml" })).window;
+      const { document } = new JSDOM(`<doc/>`, { contentType: "application/funstuff+xml" }).window;
 
       assert.equal(document.contentType, "application/funstuff+xml");
     });
 
     it("should not show content type parameters in document.contentType (HTML)", () => {
-      const { document } = (new JSDOM(``, { contentType: "text/html; charset=utf8" })).window;
+      const { document } = new JSDOM(``, { contentType: "text/html; charset=utf8" }).window;
 
       assert.equal(document.contentType, "text/html");
     });
 
     it("should not show content type parameters in document.contentType (XML)", () => {
-      const { document } = (new JSDOM(`<doc/>`, { contentType: "application/xhtml+xml; charset=utf8" })).window;
+      const { document } = new JSDOM(`<doc/>`, {
+        contentType: "application/xhtml+xml; charset=utf8",
+      }).window;
 
       assert.equal(document.contentType, "application/xhtml+xml");
     });
@@ -112,10 +114,13 @@ describe("API: constructor options", () => {
 
   describe("includeNodeLocations", () => {
     it("should throw when set to true alongside an XML content type", () => {
-      assert.throws(() => new JSDOM(``, {
-        includeNodeLocations: true,
-        contentType: "application/xhtml+xml"
-      }));
+      assert.throws(
+        () =>
+          new JSDOM(``, {
+            includeNodeLocations: true,
+            contentType: "application/xhtml+xml",
+          }),
+      );
     });
 
     // mostly tested by nodeLocation() tests in ./methods.js
@@ -131,7 +136,7 @@ describe("API: constructor options", () => {
 
     it("should reflect changes to the cookie jar in document.cookie", () => {
       const cookieJar = new jsdom.CookieJar();
-      const { document } = (new JSDOM(``, { url: "https://example.com/", cookieJar })).window;
+      const { document } = new JSDOM(``, { url: "https://example.com/", cookieJar }).window;
 
       cookieJar.setCookieSync("foo=bar", document.URL);
 
@@ -140,7 +145,7 @@ describe("API: constructor options", () => {
 
     it("should have loose behavior by default when using the CookieJar constructor", () => {
       const cookieJar = new jsdom.CookieJar();
-      const { document } = (new JSDOM(``, { url: "https://example.com/", cookieJar })).window;
+      const { document } = new JSDOM(``, { url: "https://example.com/", cookieJar }).window;
 
       cookieJar.setCookieSync("foo", document.URL);
 
@@ -188,7 +193,7 @@ describe("API: constructor options", () => {
           assert.equal(window.document.childNodes.length, 0);
 
           windowPassed = window;
-        }
+        },
       });
 
       assert.equal(windowPassed, dom.window);
@@ -198,7 +203,7 @@ describe("API: constructor options", () => {
   describe("pretendToBeVisual", () => {
     describe("not set", () => {
       it("document should be hidden and in prerender", () => {
-        const { document } = (new JSDOM(``)).window;
+        const { document } = new JSDOM(``).window;
 
         assert.equal(document.hidden, true);
         assert.equal(document.visibilityState, "prerender");
@@ -225,13 +230,13 @@ describe("API: constructor options", () => {
 
     describe("set to true", () => {
       it("document should be not be hidden and be visible", () => {
-        const { document } = (new JSDOM(``, { pretendToBeVisual: true })).window;
+        const { document } = new JSDOM(``, { pretendToBeVisual: true }).window;
 
         assert.equal(document.hidden, false);
         assert.equal(document.visibilityState, "visible");
       });
 
-      it("document should call rAF", { async: true }, context => {
+      it("document should call rAF", { async: true }, (context) => {
         const { window } = new JSDOM(``, { pretendToBeVisual: true });
 
         window.requestAnimationFrame(() => {
@@ -240,7 +245,7 @@ describe("API: constructor options", () => {
         // Further functionality tests are in web platform tests
       });
 
-      it("child frame document should have rAF", { async: true }, context => {
+      it("child frame document should have rAF", { async: true }, (context) => {
         const { window } = new JSDOM(`<body></body>`, { pretendToBeVisual: true });
         const frame = window.document.createElement("iframe");
         window.document.body.appendChild(frame);
@@ -275,7 +280,8 @@ describe("API: constructor options", () => {
 
     describe("not set", () => {
       it("should be 5000000 code units by default", () => {
-        const { localStorage, sessionStorage } = (new JSDOM(``, { url: "https://example.com" })).window;
+        const { localStorage, sessionStorage } = new JSDOM(``, { url: "https://example.com" })
+          .window;
         const dataWithinQuota = "0".repeat(4000000);
 
         localStorage.setItem("foo", dataWithinQuota);
@@ -293,10 +299,10 @@ describe("API: constructor options", () => {
 
     describe("set to 10000 code units", () => {
       it("should only allow setting data within the custom quota", () => {
-        const { localStorage, sessionStorage } = (new JSDOM(``, {
+        const { localStorage, sessionStorage } = new JSDOM(``, {
           url: "https://example.com",
-          storageQuota: 10000
-        })).window;
+          storageQuota: 10000,
+        }).window;
         const dataWithinQuota = "0".repeat(5);
 
         localStorage.setItem("foo", dataWithinQuota);
@@ -322,10 +328,10 @@ describe("API: constructor options", () => {
 
     describe("set to 10000000 code units", () => {
       it("should only allow setting data within the custom quota", () => {
-        const { localStorage, sessionStorage } = (new JSDOM(``, {
+        const { localStorage, sessionStorage } = new JSDOM(``, {
           url: "https://example.com",
-          storageQuota: 10000000
-        })).window;
+          storageQuota: 10000000,
+        }).window;
         const dataWithinQuota = "0000000000".repeat(800000);
 
         localStorage.someKey = dataWithinQuota;

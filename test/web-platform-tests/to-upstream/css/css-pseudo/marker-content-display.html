@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Marker content depends on the originating element's display</title>
+<link rel="help" href="https://drafts.csswg.org/css-lists-3/#marker-pseudo">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+#custom::marker { content: "marker"; }
+</style>
+<div id="ordinary">Ordinary block</div>
+<div id="custom">Custom marker content</div>
+<div id="list" style="display: inline list-item">List item</div>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("ordinary"), "::marker").content, "none");
+}, "The marker of a non-list-item has no content");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("custom"), "::marker").content, "none");
+}, "Specified marker content is suppressed on a non-list-item");
+
+test(() => {
+  assert_equals(getComputedStyle(document.getElementById("list"), "::marker").content, "normal");
+}, "An inline list item keeps normal marker content");
+
+test(t => {
+  const target = document.getElementById("custom");
+  const marker = getComputedStyle(target, "::marker");
+  t.add_cleanup(() => {
+    target.style.display = "";
+  });
+  target.style.display = "block flow-root list-item";
+  assert_equals(marker.content, "\"marker\"");
+  target.style.display = "block";
+  assert_equals(marker.content, "none");
+}, "A live marker declaration follows originating display changes");
+</script>

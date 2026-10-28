@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Computed display blockification follows formatting contexts</title>
+<link rel="help" href="https://drafts.csswg.org/css-display/#automatic-box-type-transformations">
+<link rel="help" href="https://drafts.csswg.org/css-display/#root">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<style>
+  #pseudo { display: flex; }
+  #pseudo::before { display: inline; }
+  #pseudo::after { display: inline-grid; }
+</style>
+<div id="pseudo"></div>
+<script>
+"use strict";
+
+function element(t, style, parent = document.body) {
+  const result = document.createElement("span");
+  result.style.cssText = style;
+  parent.append(result);
+  t.add_cleanup(() => result.remove());
+  return result;
+}
+
+test(t => {
+  const target = element(t, "display: inline; float: left");
+  assert_equals(getComputedStyle(target).display, "block");
+  target.style.display = "inline-block";
+  assert_equals(getComputedStyle(target).display, "block");
+  target.style.display = "inline flow-root";
+  assert_equals(getComputedStyle(target).display, "block");
+  target.style.display = "flow-root";
+  assert_equals(getComputedStyle(target).display, "flow-root");
+}, "Floating blockifies inline boxes and preserves an existing block flow root");
+
+test(t => {
+  const target = element(t, "display: inline-flex; position: absolute");
+  assert_equals(getComputedStyle(target).display, "flex");
+  target.style.display = "inline-table";
+  assert_equals(getComputedStyle(target).display, "table");
+  target.style.display = "table-cell";
+  assert_equals(getComputedStyle(target).display, "block");
+  target.style.position = "fixed";
+  target.style.display = "inline list-item";
+  assert_equals(getComputedStyle(target).display, "list-item");
+}, "Absolute and fixed positioning blockify outer display types");
+
+test(t => {
+  const parent = element(t, "display: grid");
+  const contents = element(t, "display: contents", parent);
+  const child = element(t, "display: inline-grid", contents);
+  assert_equals(getComputedStyle(contents).display, "contents");
+  assert_equals(getComputedStyle(child).display, "grid");
+  contents.style.display = "block";
+  assert_equals(getComputedStyle(child).display, "inline-grid");
+  parent.style.display = "flex";
+  contents.style.display = "contents";
+  assert_equals(getComputedStyle(child).display, "grid");
+}, "Flex and grid item blockification skips ancestors with display contents and stays live");
+
+test(() => {
+  const target = document.getElementById("pseudo");
+  assert_equals(getComputedStyle(target, "::before").display, "block");
+  assert_equals(getComputedStyle(target, "::after").display, "grid");
+}, "Before and after pseudo-elements are blockified by their originating flex container");
+
+test(t => {
+  const root = document.documentElement;
+  const saved = root.style.cssText;
+  t.add_cleanup(() => {
+    root.style.cssText = saved;
+  });
+  root.style.display = "inline";
+  assert_equals(getComputedStyle(root).display, "block");
+  root.style.display = "contents";
+  assert_equals(getComputedStyle(root).display, "block");
+  root.style.display = "none";
+  assert_equals(getComputedStyle(root).display, "none");
+}, "The document element is blockified and display contents computes to block");
+</script>

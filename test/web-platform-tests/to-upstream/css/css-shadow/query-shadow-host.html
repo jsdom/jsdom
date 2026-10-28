@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Shadow query selectors treat the host as featureless</title>
+<link rel="help" href="https://drafts.csswg.org/css-shadow-1/#host-element-in-tree">
+<link rel="help" href="https://drafts.csswg.org/selectors-4/#featureless">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<section class="host"><p class="light"></p></section>
+<script>
+"use strict";
+
+const host = document.querySelector("section");
+const root = host.attachShadow({ mode: "open" });
+root.innerHTML = '<article class="child"></article>';
+const article = root.firstElementChild;
+
+test(() => {
+  assert_equals(root.querySelector(":host > article"), article);
+  assert_equals(root.querySelector(":host(section) > article"), article);
+  assert_equals(root.querySelector(":is(:host) > article"), article);
+  assert_equals(root.querySelector(":not(:not(:host)) > article"), article);
+}, "Host pseudo-classes and their logical combinations match the host");
+
+test(() => {
+  assert_equals(root.querySelector(":not(.no) > article"), null);
+  assert_equals(root.querySelector(":host.host > article"), null);
+  assert_equals(root.querySelector(":not(.no:host) > article"), null);
+  assert_equals(root.querySelector(":not(:host > .no) > article"), null);
+  assert_equals(root.querySelector(":has(.child) > article"), null);
+}, "A featureless host cannot match selectors without an eligible host selector");
+
+test(() => {
+  assert_equals(root.querySelector(":host:has(.child) > article"), article);
+  assert_equals(root.querySelector(":host:has(.light) > article"), null);
+  assert_equals(root.querySelector("body :host > article"), null);
+}, "Host combinators use the shadow tree rather than the light tree");
+</script>

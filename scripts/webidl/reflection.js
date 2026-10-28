@@ -7,7 +7,7 @@ const recognizedReflectXAttrNames = new Set([
   "ReflectURL",
   "ReflectNonNegative",
   "ReflectPositive",
-  "ReflectPositiveWithFallback"
+  "ReflectPositiveWithFallback",
 ]);
 
 function isSimpleIDLType(idlType, expected) {
@@ -18,7 +18,7 @@ function isSimpleIDLType(idlType, expected) {
 }
 
 function getExtAttrValue(idl, extAttrName) {
-  const foundAttr = idl.extAttrs.find(extAttr => extAttr.name === extAttrName);
+  const foundAttr = idl.extAttrs.find((extAttr) => extAttr.name === extAttrName);
   if (foundAttr) {
     return JSON.parse(foundAttr.rhs.value);
   }
@@ -53,13 +53,15 @@ function extractAttributeInfo(attr) {
 }
 
 module.exports = (transformer, idl, implObj) => {
-  const reflectAttr = idl.extAttrs.find(attr => recognizedReflectXAttrNames.has(attr.name));
+  const reflectAttr = idl.extAttrs.find((attr) => recognizedReflectXAttrNames.has(attr.name));
   const attrName = reflectAttr?.rhs ? JSON.parse(reflectAttr.rhs.value) : idl.name.toLowerCase();
 
   const reflectDefault = getExtAttrValue(idl, "ReflectDefault");
 
-  const reflectRangeAttr = idl.extAttrs.find(attr => attr.name === "ReflectRange");
-  const reflectRange = reflectRangeAttr?.rhs ? reflectRangeAttr.rhs.value.map(v => JSON.parse(v.value)) : undefined;
+  const reflectRangeAttr = idl.extAttrs.find((attr) => attr.name === "ReflectRange");
+  const reflectRange = reflectRangeAttr?.rhs
+    ? reflectRangeAttr.rhs.value.map((v) => JSON.parse(v.value))
+    : undefined;
   if (reflectRange && reflectRange.length !== 2) {
     throw new Error("Invalid [ReflectRange] value");
   }
@@ -96,7 +98,7 @@ module.exports = (transformer, idl, implObj) => {
       `,
       set: `
         ${implObj}._reflectSetTheContentAttribute("${attrName}", V);
-      `
+      `,
     };
   }
 
@@ -130,7 +132,7 @@ module.exports = (transformer, idl, implObj) => {
           } else {
             ${implObj}._reflectSetTheContentAttribute("${attrName}", V);
           }
-        `
+        `,
       };
     }
 
@@ -142,7 +144,7 @@ module.exports = (transformer, idl, implObj) => {
       `,
       set: `
         ${implObj}._reflectSetTheContentAttribute("${attrName}", V);
-      `
+      `,
     };
   }
 
@@ -157,14 +159,14 @@ module.exports = (transformer, idl, implObj) => {
         } else {
           ${implObj}._reflectDeleteTheContentAttribute("${attrName}");
         }
-      `
+      `,
     };
   }
 
   if (isSimpleIDLType(idl.idlType, "long")) {
     const parser = transformer.addImport(
       "../../jsdom/living/helpers/strings",
-      reflectAttr.name === "ReflectNonNegative" ? "parseNonNegativeInteger" : "parseInteger"
+      reflectAttr.name === "ReflectNonNegative" ? "parseNonNegativeInteger" : "parseInteger",
     );
 
     let defaultValue;
@@ -203,7 +205,7 @@ module.exports = (transformer, idl, implObj) => {
       set: `
         ${setterPrefix}
         ${implObj}._reflectSetTheContentAttribute("${attrName}", String(V));
-      `
+      `,
     };
   }
 
@@ -211,9 +213,10 @@ module.exports = (transformer, idl, implObj) => {
     const helpers = "../../jsdom/living/helpers/strings";
     const parseNonNegativeInteger = transformer.addImport(helpers, "parseNonNegativeInteger");
 
-    const minimum = reflectAttr.name === "ReflectPositive" || reflectAttr.name === "ReflectPositiveWithFallback" ?
-      1 :
-      0;
+    const minimum =
+      reflectAttr.name === "ReflectPositive" || reflectAttr.name === "ReflectPositiveWithFallback"
+        ? 1
+        : 0;
     const maximum = 2147483647;
     const defaultValue = reflectDefault !== undefined ? reflectDefault : minimum;
 
@@ -270,7 +273,7 @@ module.exports = (transformer, idl, implObj) => {
         ${setterPrefix}
         const newValue = V <= ${maximum} && V >= ${minimum} ? V : ${defaultValue};
         ${implObj}._reflectSetTheContentAttribute("${attrName}", String(newValue));
-      `
+      `,
     };
   }
 
@@ -295,7 +298,7 @@ module.exports = (transformer, idl, implObj) => {
           if (V > 0) {
             ${implObj}._reflectSetTheContentAttribute("${attrName}", String(V));
           }
-        `
+        `,
       };
     }
 
@@ -312,7 +315,7 @@ module.exports = (transformer, idl, implObj) => {
       `,
       set: `
         ${implObj}._reflectSetTheContentAttribute("${attrName}", String(V));
-      `
+      `,
     };
   }
 
@@ -330,22 +333,27 @@ module.exports = (transformer, idl, implObj) => {
         return ${createSVGAnimatedString}(globalObject, [], {
           element: ${implObj},
           attribute: "${attrName}",
-          ${deprecatedAttr !== undefined ?
-            `attributeDeprecatedNamespace: ${JSON.stringify(deprecatedAttr.ns)},
-             attributeDeprecated: ${JSON.stringify(deprecatedAttr.name)},` :
-            ""}
-          ${initialValue !== undefined ?
-            `initialValue: ${JSON.stringify(initialValue)},` :
-            ""}
+          ${
+            deprecatedAttr !== undefined
+              ? `attributeDeprecatedNamespace: ${JSON.stringify(deprecatedAttr.ns)},
+             attributeDeprecated: ${JSON.stringify(deprecatedAttr.name)},`
+              : ""
+          }
+          ${initialValue !== undefined ? `initialValue: ${JSON.stringify(initialValue)},` : ""}
         });
-      `
+      `,
     };
   }
 
   if (isSimpleIDLType(idl.idlType, "SVGAnimatedPreserveAspectRatio")) {
-    const createSVGAnimatedPreserveAspectRatio = transformer.addImport("./SVGAnimatedPreserveAspectRatio", "create");
+    const createSVGAnimatedPreserveAspectRatio = transformer.addImport(
+      "./SVGAnimatedPreserveAspectRatio",
+      "create",
+    );
     if (attrName !== "preserveAspectRatio") {
-      throw new Error("SVGAnimatedPreserveAspectRatio can only be used with the preserveAspectRatio attribute");
+      throw new Error(
+        "SVGAnimatedPreserveAspectRatio can only be used with the preserveAspectRatio attribute",
+      );
     }
 
     return {
@@ -353,7 +361,7 @@ module.exports = (transformer, idl, implObj) => {
         return ${createSVGAnimatedPreserveAspectRatio}(globalObject, [], {
           element: ${implObj}
         });
-      `
+      `,
     };
   }
 
@@ -367,7 +375,7 @@ module.exports = (transformer, idl, implObj) => {
           element: ${implObj},
           attribute: "${attrName}"
         });
-      `
+      `,
     };
   }
 

@@ -1,0 +1,111 @@
+<!doctype html>
+<meta charset="utf-8">
+<!-- Local HTML companion to upstream `svg/painting/parsing/paint-order-valid.svg` and
+     `paint-order-computed.svg`. jsdom does not yet run SVG WPT documents. -->
+<title>Paint order serialization preserves normal and shortens operation lists</title>
+<link rel="help" href="https://svgwg.org/svg2-draft/painting.html#PaintOrder">
+<link rel="help" href="https://drafts.csswg.org/cssom/#serialize-a-css-value">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<svg><g id="target"></g></svg>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+
+test(() => {
+  target.style.paintOrder = "normal";
+  assert_equals(target.style.paintOrder, "normal");
+  assert_equals(getComputedStyle(target).paintOrder, "normal");
+}, "Normal remains distinct from an explicit operation list");
+
+test(() => {
+  target.style.paintOrder = "fill";
+  assert_equals(target.style.paintOrder, "fill");
+  assert_equals(getComputedStyle(target).paintOrder, "fill");
+}, "Fill remains fill");
+
+test(() => {
+  target.style.paintOrder = "stroke";
+  assert_equals(target.style.paintOrder, "stroke");
+  assert_equals(getComputedStyle(target).paintOrder, "stroke");
+}, "Stroke remains stroke");
+
+test(() => {
+  target.style.paintOrder = "markers";
+  assert_equals(target.style.paintOrder, "markers");
+  assert_equals(getComputedStyle(target).paintOrder, "markers");
+}, "Markers remains markers");
+
+test(() => {
+  target.style.paintOrder = "fill stroke";
+  assert_equals(target.style.paintOrder, "fill");
+  assert_equals(getComputedStyle(target).paintOrder, "fill");
+}, "Fill stroke shortens to fill");
+
+test(() => {
+  target.style.paintOrder = "fill markers";
+  assert_equals(target.style.paintOrder, "fill markers");
+  assert_equals(getComputedStyle(target).paintOrder, "fill markers");
+}, "Fill markers preserves the explicit order");
+
+test(() => {
+  target.style.paintOrder = "stroke fill";
+  assert_equals(target.style.paintOrder, "stroke");
+  assert_equals(getComputedStyle(target).paintOrder, "stroke");
+}, "Stroke fill shortens to stroke");
+
+test(() => {
+  target.style.paintOrder = "stroke markers";
+  assert_equals(target.style.paintOrder, "stroke markers");
+  assert_equals(getComputedStyle(target).paintOrder, "stroke markers");
+}, "Stroke markers preserves the explicit order");
+
+test(() => {
+  target.style.paintOrder = "markers fill";
+  assert_equals(target.style.paintOrder, "markers");
+  assert_equals(getComputedStyle(target).paintOrder, "markers");
+}, "Markers fill shortens to markers");
+
+test(() => {
+  target.style.paintOrder = "markers stroke";
+  assert_equals(target.style.paintOrder, "markers stroke");
+  assert_equals(getComputedStyle(target).paintOrder, "markers stroke");
+}, "Markers stroke preserves the explicit order");
+
+test(() => {
+  target.style.paintOrder = "fill stroke markers";
+  assert_equals(target.style.paintOrder, "fill");
+  assert_equals(getComputedStyle(target).paintOrder, "fill");
+}, "Fill stroke markers shortens to fill");
+
+test(() => {
+  target.style.paintOrder = "fill markers stroke";
+  assert_equals(target.style.paintOrder, "fill markers");
+  assert_equals(getComputedStyle(target).paintOrder, "fill markers");
+}, "Fill markers stroke omits the implied stroke");
+
+test(() => {
+  target.style.paintOrder = "stroke fill markers";
+  assert_equals(target.style.paintOrder, "stroke");
+  assert_equals(getComputedStyle(target).paintOrder, "stroke");
+}, "Stroke fill markers shortens to stroke");
+
+test(() => {
+  target.style.paintOrder = "stroke markers fill";
+  assert_equals(target.style.paintOrder, "stroke markers");
+  assert_equals(getComputedStyle(target).paintOrder, "stroke markers");
+}, "Stroke markers fill omits the implied fill");
+
+test(() => {
+  target.style.paintOrder = "markers fill stroke";
+  assert_equals(target.style.paintOrder, "markers");
+  assert_equals(getComputedStyle(target).paintOrder, "markers");
+}, "Markers fill stroke shortens to markers");
+
+test(() => {
+  target.style.paintOrder = "markers stroke fill";
+  assert_equals(target.style.paintOrder, "markers stroke");
+  assert_equals(getComputedStyle(target).paintOrder, "markers stroke");
+}, "Markers stroke fill omits the implied fill");
+</script>

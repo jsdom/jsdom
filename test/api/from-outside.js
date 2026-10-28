@@ -1,7 +1,5 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { spawnSync } = require("node:child_process");
-const path = require("node:path");
 const delay = require("node:timers/promises").setTimeout;
 const { describe, it } = require("mocha-sugar-free");
 const { JSDOM, VirtualConsole } = require("../..");
@@ -28,14 +26,20 @@ describe("Test cases only possible to test from the outside", () => {
   it("window.close() should prevent timers from registering and cause them to return 0", async () => {
     const { window } = new JSDOM();
 
-    assert.notEqual(window.setTimeout(() => {}, 100), undefined);
+    assert.notEqual(
+      window.setTimeout(() => {}, 100),
+      undefined,
+    );
 
     window.close();
 
     let ran = false;
-    assert.equal(window.setTimeout(() => {
-      ran = true;
-    }), 0);
+    assert.equal(
+      window.setTimeout(() => {
+        ran = true;
+      }),
+      0,
+    );
 
     await delay(10);
 
@@ -54,10 +58,13 @@ describe("Test cases only possible to test from the outside", () => {
   });
 
   it("window.close() should stop a setInterval()", async () => {
-    const { window } = new JSDOM(`<script>
+    const { window } = new JSDOM(
+      `<script>
       window.counter = 0;
       setInterval(() => window.counter++, 2);
-    </script>`, { runScripts: "dangerously" });
+    </script>`,
+      { runScripts: "dangerously" },
+    );
 
     await delay(11);
     window.close();
@@ -70,78 +77,6 @@ describe("Test cases only possible to test from the outside", () => {
 
     assert.equal(window.counter, counterBeforeSecondDelay);
   });
-
-  it("frees up callback handles passed to setTimeout", { timeout: 5000 }, () => {
-    const timeoutWithGcFixturePath = path.resolve(__dirname, "./fixtures/timeout-with-gc.js");
-    const { status, stdout } = spawnSync("node", ["--expose-gc", timeoutWithGcFixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0);
-    const ratio = Number(stdout);
-    assert(!Number.isNaN(ratio));
-
-    // At least 70% of the memory must be freed up.
-    assert(ratio < 0.3);
-  });
-
-  it("does not retain removed children through live collections", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/live-collections-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("does not retain removed subtrees after Range indexing", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/range-indexes-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("does not retain observed nodes through MutationObserver instances", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/mutation-observer-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("releases idle MutationObserver bookkeeping", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/mutation-observer-bookkeeping-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("does not retain targets or callbacks of removed signal-bound event listeners", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/event-listener-signal-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  it("does not retain removed iframe windows", { timeout: 5000 }, () => {
-    const fixturePath = path.resolve(__dirname, "./fixtures/removed-iframe-with-gc.js");
-    const { status, stderr, stdout } = spawnSync("node", ["--expose-gc", fixturePath], { encoding: "utf-8" });
-
-    assert.equal(status, 0, stderr);
-    assert.equal(stdout.trim(), "collected");
-  });
-
-  for (const scenario of ["valid", "invalid", "throwing", "imported"]) {
-    it(`does not retain closed windows after stylesheet parsing (${scenario})`, { timeout: 5000 }, () => {
-      const fixturePath = path.resolve(__dirname, "./fixtures/stylesheet-parsing-with-gc.mjs");
-      const { status, stderr, stdout } = spawnSync(process.execPath, ["--expose-gc", fixturePath, scenario], {
-        encoding: "utf-8"
-      });
-
-      assert.equal(status, 0, stderr);
-      assert.equal(stdout.trim(), "collected");
-    });
-  }
 
   it("does not dispatch storage events to removed iframe windows", async () => {
     const dom = new JSDOM("", { url: "https://example.com/" });
@@ -157,7 +92,7 @@ describe("Test cases only possible to test from the outside", () => {
       ++removedWindowEvents;
     });
 
-    const liveWindowEvent = new Promise(resolve => {
+    const liveWindowEvent = new Promise((resolve) => {
       liveFrame.contentWindow.addEventListener("storage", resolve, { once: true });
     });
 
@@ -170,7 +105,7 @@ describe("Test cases only possible to test from the outside", () => {
   it("window.close() should work from within a load event listener", async () => {
     const errors = [];
     const virtualConsole = new VirtualConsole().forwardTo(console);
-    virtualConsole.on("jsdomError", e => {
+    virtualConsole.on("jsdomError", (e) => {
       errors.push(e);
     });
 
@@ -204,7 +139,11 @@ describe("Test cases only possible to test from the outside", () => {
 
     assert.equal(sheet.cssRules.length, 1, "Should contain one CSS rule");
     const [fontFaceRule] = sheet.cssRules;
-    assert.equal(fontFaceRule.type, window.CSSRule.FONT_FACE_RULE, "Rule should be a CSSFontFaceRule");
+    assert.equal(
+      fontFaceRule.type,
+      window.CSSRule.FONT_FACE_RULE,
+      "Rule should be a CSSFontFaceRule",
+    );
   });
 
   it("should switch node context on querySelector() (GH-3928)", () => {
@@ -233,7 +172,7 @@ describe("Test cases only possible to test from the outside", () => {
 
     assert(
       dom1.window.DOMException !== dom2.window.DOMException,
-      "Precondition: DOMException should differ between jsdom instances"
+      "Precondition: DOMException should differ between jsdom instances",
     );
 
     const dom1ConstructedStylesheet = new dom1.window.CSSStyleSheet();
@@ -281,7 +220,7 @@ describe("Test cases only possible to test from the outside", () => {
     const xhr = new dom.window.XMLHttpRequest();
     xhr.open("GET", url);
 
-    const headersReceivedPromise = new Promise(resolve => {
+    const headersReceivedPromise = new Promise((resolve) => {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === dom.window.XMLHttpRequest.HEADERS_RECEIVED) {
           resolve();
@@ -304,9 +243,12 @@ describe("Test cases only possible to test from the outside", () => {
   });
 
   it("should resolve relative URLs against file: base URLs (GH-1141)", () => {
-    const { window } = new JSDOM(`<a href="/foo.pdf" id="one">one</a><a href="foo.pdf" id="two">two</a>`, {
-      url: "file:///base/path.html"
-    });
+    const { window } = new JSDOM(
+      `<a href="/foo.pdf" id="one">one</a><a href="foo.pdf" id="two">two</a>`,
+      {
+        url: "file:///base/path.html",
+      },
+    );
 
     assert.equal(window.document.querySelector("#one").href, "file:///foo.pdf");
     assert.equal(window.document.querySelector("#two").href, "file:///base/foo.pdf");

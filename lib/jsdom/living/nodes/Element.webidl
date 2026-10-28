@@ -9,6 +9,7 @@ interface Element : Node {
   [CEReactions, Reflect] attribute DOMString id;
   [CEReactions, Reflect="class"] attribute DOMString className;
   [SameObject, PutForwards=value] readonly attribute DOMTokenList classList;
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList part;
   [CEReactions, Unscopable, Reflect] attribute DOMString slot;
 
   boolean hasAttributes();

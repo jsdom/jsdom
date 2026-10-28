@@ -1,0 +1,69 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Page selector An+B values require integer tokens instead of math functions</title>
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#anb-production">
+<link rel="help" href="https://drafts.csswg.org/css-gcpm-3/#document-page-selectors">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page :nth(random(1, 1)) { margin: 1px; }");
+  assert_equals(sheet.cssRules.length, 0);
+}, "A random function cannot supply the integer in a page selector");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  assert_throws_dom("SyntaxError", () => {
+    sheet.insertRule("@page :nth(random(1, 1)) { margin: 1px; }");
+  });
+  assert_equals(sheet.cssRules.length, 0);
+}, "Inserting a page rule with a random An+B value reports a syntax error");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page :left { margin: 1px; }");
+  const rule = sheet.cssRules[0];
+  rule.selectorText = ":nth(random(1, 1))";
+  assert_equals(rule.selectorText, ":left");
+}, "Assigning a random An+B value leaves a page selector unchanged");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page :nth(calc(1)) { margin: 1px; }");
+  assert_equals(sheet.cssRules.length, 0);
+}, "A calc function cannot supply the integer in a page selector");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page :nth(min(1, 2)) { margin: 1px; }");
+  assert_equals(sheet.cssRules.length, 0);
+}, "A min function cannot supply the integer in a page selector");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page :nth(random(fixed 0.5, 1, 1)) { margin: 1px; }");
+  assert_equals(sheet.cssRules.length, 0);
+}, "A fixed random function cannot supply the integer in a page selector");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page :nth(sibling-index()) { margin: 1px; }");
+  assert_equals(sheet.cssRules.length, 0);
+}, "A tree-counting function cannot supply the integer in a page selector");
+
+test(() => {
+  const element = document.createElement("div");
+  element.style.zIndex = "calc(1 + 1)";
+  assert_not_equals(element.style.zIndex, "");
+}, "Math functions remain valid in an ordinary integer property");
+
+test(() => {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("@page :left { margin: calc(1px + 2px); }");
+  assert_equals(sheet.cssRules.length, 1);
+  assert_not_equals(sheet.cssRules[0].style.margin, "");
+}, "Math functions remain valid in page declarations");
+</script>

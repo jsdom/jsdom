@@ -45,11 +45,11 @@ module.exports = () => {
     return owners;
   }
 
-  function createExplicitOwnerFixture(contentElementCount, {
-    formBeforeContent = false,
-    controlCount = CONTROL_COUNT
-  } = {}) {
-    const { document } = (new JSDOM()).window;
+  function createExplicitOwnerFixture(
+    contentElementCount,
+    { formBeforeContent = false, controlCount = CONTROL_COUNT } = {},
+  ) {
+    const { document } = new JSDOM().window;
     const app = document.body.appendChild(document.createElement("main"));
     const form = document.createElement("form");
     form.id = "settings-form";
@@ -82,16 +82,26 @@ module.exports = () => {
       form.id = "settings-form";
     }
     document.body.append(form);
-    appendControls(document, external ? document.body : form, external ? form.id : null, controlCount);
+    appendControls(
+      document,
+      external ? document.body : form,
+      external ? form.id : null,
+      controlCount,
+    );
 
     return { body: document.body, FormData: window.FormData, form };
   }
 
   function addFormOperationsTasks(controlCount, outsideElementCount, external) {
-    const { body, FormData, form } = createFormOperationsFixture(controlCount, outsideElementCount, external);
+    const { body, FormData, form } = createFormOperationsFixture(
+      controlCount,
+      outsideElementCount,
+      external,
+    );
     const association = external ? "external" : "nested";
     const controls = `${controlCount} ${association} control${controlCount === 1 ? "" : "s"}`;
-    const fixture = `${external ? "identified" : "unidentified"} form, ${controls}, ` +
+    const fixture =
+      `${external ? "identified" : "unidentified"} form, ${controls}, ` +
       `${outsideElementCount} unrelated elements`;
     const { elements } = form;
 
@@ -108,17 +118,24 @@ module.exports = () => {
     });
   }
 
-  const { document } = (new JSDOM()).window;
+  const { document } = new JSDOM().window;
   const form = document.body.appendChild(document.createElement("form"));
   const controls = appendControls(document, form, null);
   bench.add(`read form owners for ${CONTROL_COUNT} nested controls`, () => {
     return countOwners(controls, form);
   });
 
-  addExplicitOwnerTask(`read form owners for ${CONTROL_COUNT} controls (form after 1,000 elements)`, 1000);
-  addExplicitOwnerTask(`read form owners for ${CONTROL_COUNT} controls (form before 1,000 elements)`, 1000, {
-    formBeforeContent: true
-  });
+  addExplicitOwnerTask(
+    `read form owners for ${CONTROL_COUNT} controls (form after 1,000 elements)`,
+    1000,
+  );
+  addExplicitOwnerTask(
+    `read form owners for ${CONTROL_COUNT} controls (form before 1,000 elements)`,
+    1000,
+    {
+      formBeforeContent: true,
+    },
+  );
 
   for (const controlCount of FORM_CONTROL_COUNTS) {
     for (const outsideElementCount of OUTSIDE_ELEMENT_COUNTS) {

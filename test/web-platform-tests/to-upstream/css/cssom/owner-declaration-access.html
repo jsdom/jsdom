@@ -1,0 +1,92 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Rule declarations preserve values when mutated before their first read</title>
+<link rel="help" href="https://drafts.csswg.org/cssom/#concept-declarations-specified-order">
+<link rel="help" href="https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty">
+<link rel="help" href="https://drafts.csswg.org/css-page/#the-csspagerule-interface">
+<link rel="help" href="https://drafts.csswg.org/css-animations/#interface-csskeyframesrule">
+<link rel="help" href="https://drafts.csswg.org/css-anchor-position/#position-try-rule">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function makeSheet(source) {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(source);
+  return sheet;
+}
+
+test(() => {
+  const { style } = makeSheet("@page { margin: 1px 2px; margin-left: invalid; }").cssRules[0];
+  style.setProperty("margin-left", "7px");
+  assert_equals(style.getPropertyValue("margin-left"), "7px");
+  assert_equals(style.getPropertyValue("margin-top"), "1px");
+  assert_equals(style.getPropertyValue("margin-right"), "2px");
+  assert_equals(style.cssText, "margin: 1px 2px 1px 7px;");
+}, "Setting a page declaration before reading it preserves the other longhands");
+
+test(() => {
+  const page = makeSheet('@page { @top-left { content: "heading"; margin: 1px 2px; } }').cssRules[0];
+  const { style } = page.cssRules[0];
+  assert_equals(style.removeProperty("margin-left"), "2px");
+  assert_equals(style.getPropertyValue("margin-left"), "");
+  assert_equals(style.getPropertyValue("margin-top"), "1px");
+  assert_equals(style.getPropertyValue("margin-right"), "2px");
+  assert_equals(style.getPropertyValue("content"), '"heading"');
+}, "Removing a margin-box declaration before reading it preserves unrelated values");
+
+test(() => {
+  const frames = makeSheet("@keyframes replace { from { width: 3px; margin: 1px 2px; } }").cssRules[0];
+  const { style } = frames.cssRules[0];
+  style.cssText = "width: 9px; margin-left: 8px";
+  assert_array_equals(style, ["width", "margin-left"]);
+  assert_equals(style.getPropertyValue("width"), "9px");
+  assert_equals(style.getPropertyValue("margin-left"), "8px");
+  assert_equals(style.getPropertyValue("margin-top"), "");
+}, "Replacing an unread keyframe declaration block removes its original values");
+
+test(() => {
+  const source = "@position-try --independent { width: 3px; margin: 1px 2px; }";
+  const first = makeSheet(source).cssRules[0].style;
+  const second = makeSheet(source).cssRules[0].style;
+  first.setProperty("width", "5px");
+  assert_equals(second.getPropertyValue("width"), "3px");
+  assert_equals(first.getPropertyValue("width"), "5px");
+  assert_equals(second.getPropertyValue("margin-left"), "2px");
+  second.cssText = "width: 7px";
+  assert_equals(first.getPropertyValue("margin-left"), "2px");
+  assert_equals(second.getPropertyValue("margin-left"), "");
+}, "Identical position-try rules have independent declaration blocks");
+
+test(() => {
+  const page = makeSheet("@page { margin-left: 5px !important; " +
+    "@top-left { margin-top: 8px; } margin: 4px; margin-right: 6px !important; }").cssRules[0];
+  const original = page.cssRules[0];
+  page.insertRule("@bottom-left { margin-top: 9px; }", 0);
+  page.deleteRule(0);
+  assert_equals(page.cssRules.length, 1);
+  assert_equals(page.cssRules[0], original);
+  assert_equals(page.style.getPropertyValue("margin-left"), "5px");
+  assert_equals(page.style.getPropertyPriority("margin-left"), "important");
+  assert_equals(page.style.getPropertyValue("margin-top"), "4px");
+  assert_equals(page.style.getPropertyValue("margin-right"), "6px");
+  assert_equals(page.style.getPropertyPriority("margin-right"), "important");
+  assert_equals(original.style.getPropertyValue("margin-top"), "8px");
+}, "Changing page children preserves declaration precedence across margin-box rules");
+
+test(() => {
+  const frames = makeSheet("@keyframes removed { from { width: 1px; width: 2px !important; } }").cssRules[0];
+  const original = frames.findRule("0%");
+  frames.appendRule("to { width: 7px; width: 9px !important; }");
+  const last = frames.findRule("100%");
+  frames.deleteRule("from");
+  assert_equals(frames.findRule("0%"), null);
+  assert_equals(original.style.getPropertyValue("width"), "1px");
+  assert_equals(last.style.getPropertyValue("width"), "7px");
+  assert_equals(last.style.getPropertyPriority("width"), "");
+  last.keyText = "50%";
+  assert_equals(frames.findRule("50%"), last);
+  assert_equals(frames.cssRules.length, 1);
+}, "Unread keyframe declarations remain available after removal and discard important values");
+</script>

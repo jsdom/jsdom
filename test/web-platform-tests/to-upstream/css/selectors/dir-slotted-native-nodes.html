@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Automatic slot directionality uses assigned node state</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dom.html#the-dir-attribute">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createSlot(t, content) {
+  const host = document.createElement("div");
+  host.innerHTML = content;
+  const shadow = host.attachShadow({ mode: "open" });
+  shadow.innerHTML = '<slot dir="auto"></slot>';
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  return { host, slot: shadow.firstChild };
+}
+
+test(t => {
+  const { slot } = createSlot(t, "<span><span>123</span>אב</span>");
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality traverses assigned descendants without strong text");
+
+test(t => {
+  const { slot } = createSlot(t, "<bdi>abc</bdi>אב");
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality excludes an assigned bdi subtree");
+
+test(t => {
+  const { host, slot } = createSlot(t, "אב");
+  const script = document.createElement("script");
+  script.type = "text/plain";
+  script.textContent = "abc";
+  host.prepend(script);
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality excludes an assigned script subtree");
+
+test(t => {
+  const { slot } = createSlot(t, "<style>abc</style>אב");
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality excludes an assigned style subtree");
+
+test(t => {
+  const { slot } = createSlot(t, "<textarea>abc</textarea>אב");
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality excludes an assigned textarea subtree");
+
+test(t => {
+  const { host, slot } = createSlot(t, "<span>אב</span>");
+  Object.defineProperty(host.firstChild, "nodeType", {
+    get() {
+      return assert_unreached("The public nodeType getter must not be called");
+    }
+  });
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality ignores an assigned element's overridden nodeType");
+
+test(t => {
+  const { host, slot } = createSlot(t, "<span>אב</span>");
+  Object.defineProperty(host.firstChild, "firstChild", {
+    get() {
+      return assert_unreached("The public firstChild getter must not be called");
+    }
+  });
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality ignores an assigned element's overridden firstChild");
+
+test(t => {
+  const { host, slot } = createSlot(t, "אב");
+  Object.defineProperty(host.firstChild, "data", {
+    get() {
+      return assert_unreached("The public data getter must not be called");
+    }
+  });
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality ignores an assigned text node's overridden data");
+
+test(t => {
+  const { host } = createSlot(t, '<svg dir="rtl"></svg>');
+  host.dir = "ltr";
+  assert_true(host.firstChild.matches(":dir(ltr)"));
+}, "An SVG element ignores its dir attribute and inherits its parent's directionality");
+
+test(t => {
+  const { slot } = createSlot(t, '<svg dir="ltr"><text>אב</text></svg>abc');
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality does not exclude an assigned SVG element with a dir attribute");
+
+test(t => {
+  const { slot } = createSlot(t, '<span><svg dir="ltr"><text>אב</text></svg></span>abc');
+  assert_true(slot.matches(":dir(rtl)"));
+}, "Automatic slot directionality does not exclude an SVG descendant with a dir attribute");
+</script>

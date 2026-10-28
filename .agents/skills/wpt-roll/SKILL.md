@@ -56,14 +56,14 @@ Choose what is worth running before shortening individual failure entries:
 
 Examples of the distinction, to reconsider against the implementation at each roll:
 
-| Area | Useful coverage to consider | Broadly exclude when unsupported |
-| --- | --- | --- |
-| CSS animations | An `animation-name` regression, nearby declaration parsing, and keyframes CSSOM | Animation execution and Web Animations API tests |
-| Grid | A migrated mixed-track `calc()` regression and nearby column/row grammar tests | Grid layout and unrelated grid property behavior |
-| Container queries | The migrated rule regressions, basic property parsing, and useful `CSS.supports()` checks | Container-query evaluation and invalidation |
-| Sizing | Width/height/min/max parsing and aspect-ratio property tests | Layout, intrinsic sizing, and responsive iframe behavior |
-| Media elements | State and reflection, volume/rate setters, and their queued events | Resource selection, playback, seeking, and text-track processing |
-| Iframes and forms | Implemented loading, DOM relationships, submission checks, and events | Unsupported sandboxing, lazy loading, and navigation |
+| Area              | Useful coverage to consider                                                               | Broadly exclude when unsupported                                 |
+| ----------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| CSS animations    | An `animation-name` regression, nearby declaration parsing, and keyframes CSSOM           | Animation execution and Web Animations API tests                 |
+| Grid              | A migrated mixed-track `calc()` regression and nearby column/row grammar tests            | Grid layout and unrelated grid property behavior                 |
+| Container queries | The migrated rule regressions, basic property parsing, and useful `CSS.supports()` checks | Container-query evaluation and invalidation                      |
+| Sizing            | Width/height/min/max parsing and aspect-ratio property tests                              | Layout, intrinsic sizing, and responsive iframe behavior         |
+| Media elements    | State and reflection, volume/rate setters, and their queued events                        | Resource selection, playback, seeking, and text-track processing |
+| Iframes and forms | Implemented loading, DOM relationships, submission checks, and events                     | Unsupported sandboxing, lazy loading, and navigation             |
 
 The appropriate scope can differ between directories. Broad basic-sizing parsing coverage may be worthwhile while grid retains only a handful of related files. Do not turn these examples into permanent allowlists or assume every roll should enable the same directories.
 

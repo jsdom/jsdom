@@ -8,7 +8,7 @@ module.exports = () => {
   const audio = window.document.createElement("audio");
 
   bench.add("dispatch 100 queued media events", async () => {
-    const completed = new Promise(resolve => {
+    const completed = new Promise((resolve) => {
       let remaining = 100;
       audio.onvolumechange = () => {
         if (--remaining === 0) {
@@ -23,7 +23,7 @@ module.exports = () => {
   });
 
   bench.add("dispatch 100 queued messages", async () => {
-    const completed = new Promise(resolve => {
+    const completed = new Promise((resolve) => {
       let remaining = 100;
       window.onmessage = () => {
         if (--remaining === 0) {
