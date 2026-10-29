@@ -16,7 +16,6 @@ interface DOMRectReadOnly {
     readonly attribute unrestricted double bottom;
     readonly attribute unrestricted double left;
 
-    // https://github.com/jsdom/webidl2js/issues/185
     [Default] object toJSON();
 };
 

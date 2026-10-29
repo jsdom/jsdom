@@ -3590,7 +3590,8 @@ ecmascript-binding/constructors.html:
   "Constructor in child window with bad NewTarget from child window that's a proxy for a parent window function":
     [fail, "Constructors do not fall back when newTarget.prototype is not an object"]
 ecmascript-binding/default-toJSON-cross-realm.html:
-  [fail, "toJSON results use the host realm; DOMQuad and DOMPoint are not implemented"]
+  "Cross-realm [Default] toJSON() converts its interface attributes to ECMAScript values of correct realm":
+    [fail, "DOMQuad and DOMPoint are not implemented"]
 ecmascript-binding/es-exceptions/DOMException-custom-bindings.any.html:
   "does not inherit from Error: class-side":
     [fail, "The DOMException constructor has a Function prototype from the host realm"]
