@@ -4,8 +4,7 @@
 interface MediaList {
 
     readonly attribute unsigned long length;
-    // https://github.com/jsdom/webidl2js/issues/254
-    stringifier attribute [LegacyNullToEmptyString] DOMString mediaText;
+    stringifier attribute [LegacyNullToEmptyString] CSSOMString mediaText;
 
     undefined appendMedium(CSSOMString medium);
     undefined deleteMedium(CSSOMString medium);
