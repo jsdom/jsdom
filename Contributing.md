@@ -128,9 +128,9 @@ Although ideally you should not need to worry about this, there are some tests t
 
 This project cares about performance. There are a number of benchmarks that you can run. If you suspect your contribution has an impact on the performance of existing functionality, make sure you run the benchmarks before and after your change so that you can compare.
 
-**To run benchmarks:** `npm run benchmark`
+**To run benchmarks:** `npm run bench`
 
-**To run specific suites:** `npm run benchmark -- --suite dom/construction`
+**To run specific suites:** `npm run bench -- --suite dom/construction`
 
 ## Issues
 

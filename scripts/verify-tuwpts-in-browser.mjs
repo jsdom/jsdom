@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-"use strict";
 
 // Serves to-upstream WPT tests for verification in a real browser, using the WPT Python server
 // (for .py handlers, .any.js generation, etc.) with a Node.js proxy in front for the runner UI
@@ -18,25 +17,26 @@
 
 /* eslint-disable no-console */
 
-const { spawn } = require("node:child_process");
-const { once } = require("node:events");
-const { readFile, mkdtemp, rm } = require("node:fs/promises");
-const http = require("node:http");
-const { tmpdir } = require("node:os");
-const { resolve, join, extname, basename } = require("node:path");
-const { parseArgs } = require("node:util");
-const opener = require("opener");
+import { spawn } from "node:child_process";
+import { once } from "node:events";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
+import http from "node:http";
+import { tmpdir } from "node:os";
+import { basename, extname, join, resolve } from "node:path";
+import { parseArgs } from "node:util";
 
-const wptDir = resolve(__dirname, "../test/web-platform-tests");
+import opener from "opener";
+
+import { killSubprocess } from "../test/web-platform-tests/utils.js";
+import {
+  getPossibleTestFilePaths,
+  regenerateManifest,
+} from "../test/web-platform-tests/wpt-manifest-utils.js";
+import wptServer from "../test/web-platform-tests/wpt-server.js";
+
+const wptDir = resolve(import.meta.dirname, "../test/web-platform-tests");
 const testsDir = resolve(wptDir, "tests");
 const toUpstreamDir = resolve(wptDir, "to-upstream");
-
-const wptServer = require("../test/web-platform-tests/wpt-server.js");
-const { killSubprocess } = require("../test/web-platform-tests/utils.js");
-const {
-  regenerateManifest,
-  getPossibleTestFilePaths,
-} = require("../test/web-platform-tests/wpt-manifest-utils.js");
 
 // --- Custom testharnessreport.js ---
 // Notifies the runner page (opener window) of test completion via postMessage.

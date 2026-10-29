@@ -1,12 +1,8 @@
-.DS_Store
-.svn
-.*.swp
-.eslintcache
-gmon.out
-v8.log
-node_modules
-test/web-platform-tests/tuwpt-manifest.json
+node_modules/
 npm-debug.log*
 
-.wireit
-lib/generated/
+/.wireit/
+/gmon.out
+/lib/generated/
+/test/web-platform-tests/tuwpt-manifest.json
+/v8.log

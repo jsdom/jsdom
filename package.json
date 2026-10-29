@@ -22,36 +22,40 @@
     "type": "git",
     "url": "git+https://github.com/jsdom/jsdom.git"
   },
+  "files": [
+    "lib/",
+    "!lib/**/*.webidl"
+  ],
   "type": "commonjs",
   "main": "./lib/api.js",
   "scripts": {
+    "check": "npm run lint && npm run fmt:check",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
     "prepare": "wireit",
     "prepare:convert-idl": "wireit",
     "prepare:generate-event-sets": "wireit",
     "prepare:generate-css-style-properties": "wireit",
     "prepare:generate-js-globals": "wireit",
+    "prepare:generate-default-stylesheet": "wireit",
+    "prepare:generate-css-initial-values": "wireit",
+    "prepare:generate-dom-data": "wireit",
+    "prepare:generate-css-data": "wireit",
     "pretest": "npm run prepare && npm run wpt:init",
     "test": "npm-run-all --continue-on-error test:*",
     "test:api": "mocha test/api/",
     "test:eslint": "mocha scripts/eslint-plugin/tests/*.mjs",
     "test:to-port-to-wpts": "mocha test/to-port-to-wpts/ && mocha test/to-port-to-wpts/level1/ && mocha test/to-port-to-wpts/level2/ && mocha test/to-port-to-wpts/level3/",
     "test:tuwpt": "mocha test/web-platform-tests/run-tuwpts.js",
-    "test:tuwpt:browser": "node scripts/verify-tuwpts-in-browser.js",
+    "test:tuwpt:browser": "node scripts/verify-tuwpts-in-browser.mjs",
     "test:wpt": "mocha test/web-platform-tests/run-wpts.js",
-    "check": "npm run lint && npm run fmt:check",
-    "lint": "eslint --cache",
-    "lint:fix": "eslint --cache --fix",
-    "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check",
+    "bench": "node benchmark/runner.js",
+    "bench:compare": "node benchmark/compare.js",
     "wpt:init": "git submodule update --init --recursive",
     "wpt:reset": "rm -rf ./test/web-platform-tests/tests && npm run wpt:init",
-    "wpt:update": "git submodule update --init --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
-    "benchmark": "node ./benchmark/runner",
-    "benchmark:compare": "node ./benchmark/compare",
-    "prepare:generate-default-stylesheet": "wireit",
-    "prepare:generate-css-initial-values": "wireit",
-    "prepare:generate-dom-data": "wireit",
-    "prepare:generate-css-data": "wireit"
+    "wpt:update": "git submodule update --init --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json"
   },
   "wireit": {
     "prepare": {
@@ -63,13 +67,13 @@
       ]
     },
     "prepare:convert-idl": {
-      "command": "node ./scripts/webidl/convert.js",
+      "command": "node ./scripts/webidl/convert.mjs",
       "dependencies": [
         "prepare:generate-css-style-properties"
       ]
     },
     "prepare:generate-event-sets": {
-      "command": "node ./scripts/generate-event-sets.js"
+      "command": "node ./scripts/generate-event-sets.mjs"
     },
     "prepare:generate-css-style-properties": {
       "command": "node ./scripts/generate-css-style-properties.mjs",
@@ -78,7 +82,7 @@
       ]
     },
     "prepare:generate-js-globals": {
-      "command": "node ./scripts/generate-js-globals.js"
+      "command": "node ./scripts/generate-js-globals.mjs"
     },
     "prepare:generate-default-stylesheet": {
       "command": "node ./scripts/generate-default-stylesheet.mjs",
@@ -113,37 +117,37 @@
     "parse5-parser-stream": "^8.0.0",
     "saxes": "^6.0.0",
     "tough-cookie": "^6.0.2",
-    "undici": "^8.12.1",
+    "undici": "^8.12.3",
     "w3c-xmlserializer": "^6.0.0",
     "webidl-conversions": "^8.0.1",
     "whatwg-mimetype": "^5.0.0",
-    "whatwg-url": "^17.2.0",
+    "whatwg-url": "^17.3.0",
     "xml-name-validator": "^5.0.0"
   },
   "devDependencies": {
     "@csstools/css-syntax-patches-for-csstree": "^1.1.15",
     "@domenic/eslint-config": "^6.1.0",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@unicode/unicode-17.0.0": "^2.0.8",
-    "@webref/css": "^8.7.7",
+    "@unicode/unicode-17.0.0": "^2.1.0",
+    "@webref/css": "^8.7.8",
     "css-tree": "^3.2.1",
     "eslint": "^10.13.0",
     "eslint-plugin-html": "^8.2.1",
-    "eslint-plugin-n": "^18.4.1",
+    "eslint-plugin-n": "^18.5.0",
     "globals": "^17.13.0",
-    "js-yaml": "^5.4.2",
+    "js-yaml": "^5.5.0",
     "language-subtag-registry": "^0.4.2",
     "mocha": "^12.0.3",
     "mocha-sugar-free": "^1.4.0",
-    "npm-run-all2": "^9.0.3",
+    "npm-run-all2": "^9.0.4",
     "opener": "^1.5.2",
     "oxfmt": "0.75.0",
     "semver": "^7.8.5",
     "server-destroy": "^1.0.1",
-    "tinybench": "^6.2.0",
+    "tinybench": "^6.2.2",
     "webidl2": "^24.5.0",
     "webidl2js": "^21.1.0",
-    "wireit": "^0.14.13"
+    "wireit": "^0.15.0"
   },
   "peerDependencies": {
     "canvas": "^3.2.3"

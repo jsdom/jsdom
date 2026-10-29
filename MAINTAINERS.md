@@ -35,4 +35,4 @@ Other guidelines:
 ## Minimum Node.js version changes
 
 - Update the `"engines"` field in `package.json`.
-- Update `.github/workflows/jsdom-ci.yml`.
+- Update `.github/workflows/ci.yml`.

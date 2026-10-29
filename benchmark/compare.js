@@ -24,7 +24,7 @@ const { values, positionals } = parseArgs({
 
 if (positionals.length !== 2) {
   console.error(
-    "Usage: npm run benchmark:compare -- <ref1> <ref2> [--suite <name>]... [--format=terminal|markdown] [--output=table|list]",
+    "Usage: npm run bench:compare -- <ref1> <ref2> [--suite <name>]... [--format=terminal|markdown] [--output=table|list]",
   );
   process.exit(1);
 }
@@ -51,7 +51,7 @@ function ensureCleanTree() {
   const status = git("status", "--porcelain");
   if (status !== "") {
     console.error(
-      "Working tree is not clean. Commit or stash your changes before running benchmark:compare.",
+      "Working tree is not clean. Commit or stash your changes before running bench:compare.",
     );
     console.error(status);
     process.exit(1);

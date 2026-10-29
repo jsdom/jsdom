@@ -1,2 +1,7 @@
-# tests require lf line endings
-*.js text eol=lf
+* text=auto eol=lf
+
+# Preserve fixture bytes and the generated WPT manifest.
+test/api/fixtures/** -text
+test/to-port-to-wpts/files/** -text
+test/to-port-to-wpts/jquery-fixtures/** -text
+test/web-platform-tests/wpt-manifest.json -text

@@ -2,9 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -14,37 +16,45 @@ jobs:
     name: Lint and formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Check out repository
+        uses: actions/checkout@v7
         with:
-          submodules: "recursive"
-      - uses: actions/setup-node@v7
+          submodules: recursive
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
           node-version: 22
       - name: Install dependencies
-        run: npm ci
-      - name: Check lint and formatting
+        run: npm ci --engine-strict
+      - name: Lint and formatting
         run: npm run check
-  build-with-canvas:
+
+  test-with-canvas:
     name: Tests with node-canvas
     env:
-      TEST_SUITE: "node-canvas"
+      TEST_SUITE: node-canvas
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Check out repository
+        uses: actions/checkout@v7
         with:
           submodules: recursive
-      - uses: actions/setup-node@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Install required image manipulation packages with APT
+      - name: Install canvas system dependencies
         run: sudo apt-get update && sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      - name: Setup hosts file for web platform tests server
+      - name: Configure hosts for web platform tests
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
-      - name: Install dependencies and canvas
-        run: npm ci && npm i canvas@3
+      - name: Install dependencies
+        run: npm ci --engine-strict
+      - name: Install canvas
+        run: npm install --engine-strict canvas@3
       - name: Run tests
         run: npm test
-  build:
+
+  test:
     name: Tests
     runs-on: ubuntu-latest
     strategy:
@@ -56,15 +66,18 @@ jobs:
           - 22
           - 24.15.0
           - lts/* # currently 24
+          - 26.0.0
           - latest # currently 26
     steps:
-      - uses: actions/checkout@v7
+      - name: Check out repository
+        uses: actions/checkout@v7
         with:
           submodules: recursive
-      - uses: actions/setup-node@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup hosts file for web platform tests server
+      - name: Configure hosts for web platform tests
         run: ./test/web-platform-tests/tests/wpt make-hosts-file | sudo tee -a /etc/hosts
       - name: Install dependencies
         run: npm ci --engine-strict

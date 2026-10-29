@@ -1,15 +1,14 @@
-"use strict";
-const assert = require("node:assert");
-const fs = require("node:fs");
-const path = require("node:path");
-const vm = require("node:vm");
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import vm from "node:vm";
 
 // Creates a list of globals from the JS environment (not the web), so that Window.js can alias them when necessary.
 // The generated list should match https://tc39.es/ecma262/#sec-global-object, to the extent V8 implements the spec.
 // We generate this at build time instead of runtime because we want to avoid the performance and memory overhead of
 // creating a new context when scripting is disabled in the JSDOM.
 
-const dest = path.resolve(__dirname, "../lib/generated/js-globals.json");
+const dest = path.resolve(import.meta.dirname, "../lib/generated/js-globals.json");
 
 fs.mkdirSync(path.dirname(dest), { recursive: true });
 
