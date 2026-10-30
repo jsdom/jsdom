@@ -57,6 +57,21 @@ describe("Test cases only possible to test from the outside", () => {
     assert.equal(handle, 0);
   });
 
+  it("should fix up focus without pretendToBeVisual or script execution", async () => {
+    const { window } = new JSDOM("<textarea></textarea>");
+    const textarea = window.document.querySelector("textarea");
+    textarea.focus();
+    const blurred = new Promise((resolve) => {
+      textarea.addEventListener("blur", resolve, { once: true });
+    });
+
+    textarea.hidden = true;
+    await blurred;
+
+    assert.equal(window.document.activeElement, window.document.body);
+    assert.equal(window.document.hasFocus(), true);
+  });
+
   it("window.close() should stop a setInterval()", async () => {
     const { window } = new JSDOM(
       `<script>

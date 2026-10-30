@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Focus fixup after an element loses focusability</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/webappapis.html#update-the-rendering">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, markup = "<textarea></textarea>") {
+  const container = document.createElement("div");
+  container.innerHTML = markup;
+  document.body.append(container);
+  t.add_cleanup(() => container.remove());
+  return container;
+}
+
+promise_test(async t => {
+  const element = fixture(t).firstElementChild;
+  element.focus();
+  const blurred = new Promise(resolve => {
+    element.addEventListener("blur", resolve, { once: true });
+  });
+
+  element.disabled = true;
+  const event = await blurred;
+
+  assert_equals(document.activeElement, document.body);
+  assert_equals(event.relatedTarget, null);
+  assert_true(document.hasFocus());
+}, "Disabling the focused control automatically fixes up focus");
+
+promise_test(async t => {
+  const container = fixture(t);
+  const element = container.firstElementChild;
+  element.focus();
+  let blurCount = 0;
+  element.addEventListener("blur", () => ++blurCount);
+
+  container.hidden = true;
+  await Promise.resolve();
+  container.hidden = false;
+  await new Promise(resolve => {
+    requestAnimationFrame(() => requestAnimationFrame(resolve));
+  });
+
+  assert_equals(document.activeElement, element);
+  assert_equals(blurCount, 0);
+}, "Restoring focusability before rendering preserves focus");
+
+promise_test(async t => {
+  const container = fixture(t, "<style></style><textarea></textarea>");
+  const [style, element] = container.children;
+  element.focus();
+  const blurred = new Promise(resolve => {
+    element.addEventListener("blur", resolve, { once: true });
+  });
+
+  style.sheet.insertRule("textarea { display: none; }");
+  await blurred;
+
+  assert_equals(document.activeElement, document.body);
+}, "CSSOM changes trigger focus fixup");
+
+promise_test(async t => {
+  const element = fixture(t).firstElementChild;
+  element.focus();
+  const blurred = new Promise(resolve => {
+    element.addEventListener("blur", resolve, { once: true });
+  });
+  const handle = requestAnimationFrame(t.unreached_func("The callback was canceled"));
+
+  element.hidden = true;
+  cancelAnimationFrame(handle);
+  await blurred;
+
+  assert_equals(document.activeElement, document.body);
+}, "Canceling the last animation callback does not cancel focus fixup");
+
+promise_test(async t => {
+  const iframe = fixture(t, "<iframe></iframe>").firstElementChild;
+  const childDocument = iframe.contentDocument;
+  const input = childDocument.createElement("input");
+  childDocument.body.append(input);
+  input.focus();
+  const blurred = new Promise(resolve => {
+    input.addEventListener("blur", resolve, { once: true });
+  });
+
+  input.hidden = true;
+  await blurred;
+
+  assert_equals(childDocument.activeElement, childDocument.body);
+  assert_equals(document.activeElement, iframe, "Fixup focuses the child viewport");
+}, "Focus fixup in an iframe preserves focus in the parent document");
+</script>

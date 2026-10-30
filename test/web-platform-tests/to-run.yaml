@@ -1375,13 +1375,8 @@ offset-rotate-computed.html: [fail, Motion computed values are incomplete]
 DIR: css/selectors
 
 dir-selector-auto.html: [fail, innerText not implemented; has dont-upstream version]
-focus-display-none-001.html:
-  [fail, Focus fixup rule not properly implemented; https://github.com/jsdom/jsdom/issues/3029]
 focus-visible-009.html: [fail, autofocus not implemented]
-focus-visible-017-2.html: [fail-slow, https://github.com/jsdom/jsdom/issues/3426]
-focus-visible-020.html: [fail, https://github.com/jsdom/jsdom/issues/3426]
-focus-within-display-none-001.html:
-  [fail, Focus fixup rule not properly implemented; https://github.com/jsdom/jsdom/issues/3029]
+focus-visible-020.html: [fail, delegatesFocus not implemented]
 focus-within-toplayer-001.html: [fail, Unknown]
 i18n/css3-selectors-lang-001.html: [fail, offsetWidth not implemented; has dont-upstream version]
 i18n/css3-selectors-lang-002.html: [fail, offsetWidth not implemented; has dont-upstream version]
@@ -2340,7 +2335,14 @@ DIR: html/interaction/focus
 
 document-level-focus-apis/document-has-system-focus.html: [fail-slow, window.open() not implemented]
 focus-selection.html: [fail, Unknown]
-processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
+processing-model/focus-fixup-rule-one-no-dialogs.html:
+  "#button1": [fail, ResizeObserver not implemented]
+  "#button2": [fail, ResizeObserver not implemented]
+  "#button4": [fail, ResizeObserver not implemented]
+  "#button5": [fail, ResizeObserver not implemented]
+  "#button6": [fail, ResizeObserver not implemented]
+  "#div": [fail, ResizeObserver not implemented]
+  "#editable": [fail, ResizeObserver not implemented]
 processing-model/preventScroll.html: [fail, Not implemented]
 processing-model/textarea-scroll-selection.html: [fail, Not implemented]
 the-autofocus-attribute/autofocus-area.html: [fail, Not implemented]
@@ -2779,7 +2781,11 @@ DIR: html/semantics/forms/the-fieldset-element
 
 HTMLFieldSetElement.html:
   [fail, Depends on HTMLFormElement's named properties; has dont-upstream version]
-disabled-003.html: [fail, Need to fix focus fixup rule]
+disabled-003.html:
+  [
+    fail,
+    Expects synchronous focus fixup; fixed by https://github.com/web-platform-tests/wpt/pull/62827,
+  ]
 fieldset-intrinsic-size.html: [fail, Requires a layout engine]
 
 ---
@@ -3404,8 +3410,6 @@ focus-within-shadow.html: [fail, Unknown]
 focus/ShadowRoot-delegatesFocus.html: [fail, DelegatesFocus is not implemented]
 focus/delegatesFocus-tabindex-change.html: [fail, DelegatesFocus is not implemented]
 focus/focus-pseudo-matches-on-shadow-host.html: [timeout, Seems to depend on autofocus]
-focus/focus-selector-delegatesFocus.html: [fail-slow, Not implemented]
-focus/focus-shadowhost-display-none.html: [fail-slow, DelegatesFocus is not implemented]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
 imperative-slot-**.html: [fail, Imperative slot API is not implemented]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
