@@ -3203,105 +3203,97 @@ queue-microtask-cross-realm-callback-report-exception.html:
 queue-microtask.window.html: [fail-slow, Unknown interaction with Mutation Observers]
 
 ---
-DIR: html/webappapis/scripting/event-loops
+DIR: html/webappapis/scripting
 
-microtask_before_prepare_the_script_element-01.html: [fail, Unknown]
-microtask_before_prepare_the_script_element-02.xhtml: [fail, Unknown]
-new-scroll-event-dispatched-at-next-updating-rendering-time.html: [fail, Unknown]
-task_microtask_ordering.html:
+event-loops/microtask_before_prepare_the_script_element-01.html: [fail, Unknown]
+event-loops/microtask_before_prepare_the_script_element-02.xhtml: [fail, Unknown]
+event-loops/new-scroll-event-dispatched-at-next-updating-rendering-time.html: [fail, Unknown]
+event-loops/task_microtask_ordering.html:
   "Level 1 bossfight (synthetic click)":
     [fail, Missing parser microtask checkpoint leaves an earlier mutation observer microtask queued]
-update-the-rendering-resize-autofocus.html: [fail-slow, Unknown]
-
----
-DIR: html/webappapis/scripting/events
-
-compile-event-handler-lexical-scopes-form-owner.html:
+event-loops/update-the-rendering-resize-autofocus.html: [fail-slow, Unknown]
+events/compile-event-handler-lexical-scopes-form-owner.html:
   "<img> has a form owner": [fail, Image element form association is not implemented]
   "form-associated <x-foo> has a form owner":
     [fail, Custom element form association is not implemented]
-compile-event-handler-lexical-scopes.html:
+events/compile-event-handler-lexical-scopes.html:
   [fail, document.domain and formEl.encoding is not implemented]
-compile-event-handler-settings-objects.html: [timeout, Unknown]
-event-handler-all-global-events.html: [fail, Depends on fetch]
-event-handler-attributes-body-alt.html: [fail, Depends on fetch]
-event-handler-attributes-body-window.html: [fail, Depends on fetch]
-event-handler-attributes-frameset-alt.html: [fail, Depends on fetch]
-event-handler-attributes-frameset-window.html: [fail, Depends on fetch]
-event-handler-attributes-window-frameset.html: [fail, Depends on fecth]
-event-handler-attributes-window.html: [fail, Unknown]
-event-handler-attributes-windowless-body.html: [fail, Depends on fetch]
-event-handler-idl-attribute-realm.window.html: [fail, Unknown]
-event-handler-processing-algorithm-error/document-synthetic-errorevent.html:
+events/compile-event-handler-settings-objects.html: [timeout, Unknown]
+events/event-handler-all-global-events.html: [fail, Depends on fetch]
+events/event-handler-attributes-body-alt.html: [fail, Depends on fetch]
+events/event-handler-attributes-body-window.html: [fail, Depends on fetch]
+events/event-handler-attributes-frameset-alt.html: [fail, Depends on fetch]
+events/event-handler-attributes-frameset-window.html: [fail, Depends on fetch]
+events/event-handler-attributes-window-frameset.html: [fail, Depends on fecth]
+events/event-handler-attributes-window.html: [fail, Unknown]
+events/event-handler-attributes-windowless-body.html: [fail, Depends on fetch]
+events/event-handler-idl-attribute-realm.window.html: [fail, Unknown]
+events/event-handler-processing-algorithm-error/document-synthetic-errorevent.html:
   [fail, ErrorEvent.error can't be set to undefined]
-event-handler-processing-algorithm-error/script-element.html: [timeout, Unknown]
-event-handler-processing-algorithm-error/synthetic-errorevent-click.html:
+events/event-handler-processing-algorithm-error/script-element.html: [timeout, Unknown]
+events/event-handler-processing-algorithm-error/synthetic-errorevent-click.html:
   [fail, Needs Worker implementation]
-event-handler-processing-algorithm-error/worker.html: [fail, Needs Worker implementation]
-event-handler-removal.window.html: [fail, Unknown]
-event-handler-sourcetext.html: [fail, Must return the specified format]
-messageevent-constructor.https.html:
+events/event-handler-processing-algorithm-error/worker.html: [fail, Needs Worker implementation]
+events/event-handler-removal.window.html: [fail, Unknown]
+events/event-handler-sourcetext.html: [fail, Must return the specified format]
+events/messageevent-constructor.https.html:
   "MessageEventInit dictionary": [fail, uses MessageChannel]
   "ports attribute should be a FrozenArray": [fail, FrozenArray not implemented]
   "initMessageEvent operation": [fail, uses MessageChannel]
   "Passing ServiceWorker for source member": [fail, uses service workers]
-
----
-DIR: html/webappapis/scripting/processing-model-2
-
-body-onerror-compile-error-data-url.html:
+processing-model-2/body-onerror-compile-error-data-url.html:
   <body onerror> - compile error in <script src=data:...>:
     [fail, Syntax error events report the Node.js filename]
-body-onerror-compile-error.html:
+processing-model-2/body-onerror-compile-error.html:
   <body onerror> - compile error in <script>:
     [fail, Syntax error events report the Node.js filename]
-compile-error-cross-origin.html:
+processing-model-2/compile-error-cross-origin.html:
   [fail, Script execution and error reporting differ from the browser]
-compile-error-data-url.html:
+processing-model-2/compile-error-data-url.html:
   window.onerror - compile error in <script src=data:...>:
     [fail, Syntax error events report the Node.js filename]
-compile-error-in-setInterval.html:
+processing-model-2/compile-error-in-setInterval.html:
   window.onerror - compile error in setInterval:
     [fail, Syntax error events report the Node.js filename]
-compile-error-in-setTimeout.html:
+processing-model-2/compile-error-in-setTimeout.html:
   window.onerror - compile error in setTimeout:
     [fail, Syntax error events report the Node.js filename]
-compile-error-same-origin-with-hash.html:
+processing-model-2/compile-error-same-origin-with-hash.html:
   window.onerror - compile error in <script src=...> with hash:
     [fail, Syntax error events report the Node.js filename]
-compile-error-same-origin.html:
+processing-model-2/compile-error-same-origin.html:
   window.onerror - compile error in <script src=...>:
     [fail, Syntax error events report the Node.js filename]
-compile-error.html:
+processing-model-2/compile-error.html:
   window.onerror - compile error in <script>:
     [fail, Syntax error events report the Node.js filename]
-integration-with-the-javascript-agent-formalism/atomics-wait-async.https.any.html:
+processing-model-2/integration-with-the-javascript-agent-formalism/atomics-wait-async.https.any.html:
   Atomics.waitAsync notification in a Window:
     [fail, Script execution and error reporting differ from the browser]
-integration-with-the-javascript-agent-formalism/requires-failure.https.any.html:
+processing-model-2/integration-with-the-javascript-agent-formalism/requires-failure.https.any.html:
   [fail, Script execution and error reporting differ from the browser]
-integration-with-the-javascript-job-queue/promise-job-entry-different-function-realm.html:
+processing-model-2/integration-with-the-javascript-job-queue/promise-job-entry-different-function-realm.html:
   [timeout, window.open not implemented]
-integration-with-the-javascript-job-queue/promise-job-entry.html:
+processing-model-2/integration-with-the-javascript-job-queue/promise-job-entry.html:
   [timeout, window.open not implemented]
-integration-with-the-javascript-job-queue/promise-job-incumbent.html:
+processing-model-2/integration-with-the-javascript-job-queue/promise-job-incumbent.html:
   [timeout, postMessage source not implemented]
-runtime-error-cross-origin.html:
+processing-model-2/runtime-error-cross-origin.html:
   [fail, Script execution and error reporting differ from the browser]
-"unhandled-promise-rejections/**/!(promise-rejection-event-constructor.html)":
+"processing-model-2/unhandled-promise-rejections/**/!(promise-rejection-event-constructor.html)":
   [fail-slow, Not implemented]
-window-onerror-parse-error.html:
+processing-model-2/window-onerror-parse-error.html:
   correct url passed to window.onerror:
     [fail, Script execution and error reporting differ from the browser]
   correct line number passed to window.onerror:
     [fail, Script execution and error reporting differ from the browser]
-window-onerror-runtime-error-throw.html:
+processing-model-2/window-onerror-runtime-error-throw.html:
   correct line number passed to window.onerror:
     [fail, Script execution and error reporting differ from the browser]
-window-onerror-runtime-error.html:
+processing-model-2/window-onerror-runtime-error.html:
   correct line number passed to window.onerror:
     [fail, Script execution and error reporting differ from the browser]
-window-onerror-with-cross-frame-event-listeners-**:
+processing-model-2/window-onerror-with-cross-frame-event-listeners-**:
   [fail, Script execution and error reporting differ from the browser]
 
 ---
