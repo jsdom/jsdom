@@ -1491,8 +1491,6 @@ Document-createElement.html:
 Document-createElementNS-prefix-timing.html: [fail, Unknown]
 ElementInternals-accessibility-values.html:
   "ariaActiveDescendantElement": [fail, Element reflection not implemented]
-  "ariaBrailleLabel": [fail, Element reflection not implemented]
-  "ariaBrailleRoleDescription": [fail, Element reflection not implemented]
   "ariaControlsElements": [fail, Element reflection not implemented]
   "ariaDescribedByElements": [fail, Element reflection not implemented]
   "ariaDetailsElements": [fail, Element reflection not implemented]
@@ -1502,9 +1500,6 @@ ElementInternals-accessibility-values.html:
   "ariaOwnsElements": [fail, Element reflection not implemented]
 ElementInternals-accessibility.html:
   "ariaActiveDescendantElement is defined in ElementInternals":
-    [fail, Element reflection not implemented]
-  "ariaBrailleLabel is defined in ElementInternals": [fail, Element reflection not implemented]
-  "ariaBrailleRoleDescription is defined in ElementInternals":
     [fail, Element reflection not implemented]
   "ariaControlsElements is defined in ElementInternals": [fail, Element reflection not implemented]
   "ariaDescribedByElements is defined in ElementInternals":
@@ -2251,9 +2246,6 @@ DIR: html/dom
 
 access-key-label.html:
   "Returns empty string when accesskey is invalid": [fail, Unknown]
-aria-attribute-reflection.html:
-  "aria-braillelabel attribute reflects.": [fail, Unknown]
-  "aria-brailleroledescription attribute reflects.": [fail, Unknown]
 aria-element-reflection-disconnected.html: [fail, Unknown]
 aria-element-reflection.html: [fail, WAI-ARIA not implemented]
 documents/dom-tree-accessors/Document.currentScript.html: [fail-slow, Unknown]
