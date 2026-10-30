@@ -24,4 +24,4 @@ uievents/focusevents/focusable-area.html:
     [fail, inert not implemented]
 uievents/focusevents/hasfocus-focus-blur.html:
   "document.hasFocus() returns true during internal focus shifts (blur and focus)":
-    [fail, Need to fix document.hasFocus()]
+    [fail, https://github.com/jsdom/jsdom/issues/3794]

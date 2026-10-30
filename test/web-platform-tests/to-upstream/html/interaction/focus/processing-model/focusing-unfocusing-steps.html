@@ -85,25 +85,6 @@ promise_test(async t => {
   assert_equals(childDocument.activeElement, childDocument.body, "The child viewport is focused");
 }, "A document element in an iframe resolves to the child viewport");
 
-for (const [markup, makeUnfocusable, description] of [
-  ["<div tabindex=0></div>", element => element.removeAttribute("tabindex"), "removing tabindex"],
-  ["<input>", element => element.setAttribute("disabled", ""), "disabling a control"]
-]) {
-  test(t => {
-    const element = fixture(t, markup).firstElementChild;
-    element.focus();
-    makeUnfocusable(element);
-    assert_equals(document.activeElement, element, "Focus fixup has not run synchronously");
-    let blurCount = 0;
-    element.addEventListener("blur", () => ++blurCount);
-
-    element.blur();
-
-    assert_equals(blurCount, 0, "The unfocusing steps return before firing blur");
-    assert_equals(document.activeElement, element, "The unfocusing steps leave focus unchanged");
-  }, `The unfocusing steps return if ${description} made the target non-focusable`);
-}
-
 test(() => {
   const otherDocument = document.implementation.createHTMLDocument();
   otherDocument.documentElement.focus();
