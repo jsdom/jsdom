@@ -2240,7 +2240,6 @@ DIR: html/canvas/element/drawing-images-to-the-canvas
 2d.drawImage.nowrap.html: [fail, Not implemented]
 2d.drawImage.path.html: [fail, Not implemented]
 2d.drawImage.transform.html: [fail, Not implemented]
-2d.drawImage.zerocanvas.html: [fail, Not implemented]
 2d.drawImage.zerosource.html: [fail, Not implemented]
 2d.drawImage.zerosource.image.html: [timeout, Causes crash in canvas]
 

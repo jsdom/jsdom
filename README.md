@@ -483,10 +483,10 @@ console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
 
 ### Canvas support
 
-jsdom uses [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) 1.0.10 or later in the 1.x series as its optional canvas and image decoding backend. Install it alongside jsdom:
+jsdom uses [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) 1.0.13 or later in the 1.x series as its optional canvas and image decoding backend. Install it alongside jsdom:
 
 ```sh
-npm install @napi-rs/canvas@^1.0.10
+npm install @napi-rs/canvas@^1.0.13
 ```
 
 Without it, `<canvas>` elements behave like `<div>`s and images are not decoded. Installing `canvas` alone no longer enables this support. See the [supported platforms for prebuilt binaries](https://github.com/Brooooooklyn/canvas#support-matrix).

@@ -46,7 +46,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --engine-strict
       - name: Install @napi-rs/canvas
-        run: npm install --engine-strict @napi-rs/canvas@^1.0.10
+        run: npm install --engine-strict @napi-rs/canvas@^1.0.13
       - name: Verify canvas is available
         run: node -e "require('@napi-rs/canvas')"
       - name: Run tests
