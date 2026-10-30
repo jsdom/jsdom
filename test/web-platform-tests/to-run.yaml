@@ -3013,7 +3013,6 @@ pseudo-classes/disabled.html:
   "':disabled' should match elements that are appended to a disabled fieldset dynamically":
     [fail, Unknown]
 pseudo-classes/focus-autofocus.html: [timeout, Autofocus is not implemented]
-pseudo-classes/focus.html: [timeout, Waits for document focus before running assertions]
 pseudo-classes/readwrite-readonly.html:
   "The :read-write pseudo-class must match elements that are editing hosts":
     [fail, document.designMode is not implemented]
