@@ -27,6 +27,7 @@ export default [
       "test/to-port-to-wpts/level2/**",
       "test/to-port-to-wpts/level3/**",
       "test/to-port-to-wpts/script.js",
+      "test/web-platform-tests/resources/**",
       "test/web-platform-tests/tests/**",
       "test/web-platform-tests/to-upstream/**/*dont-upstream*",
     ],

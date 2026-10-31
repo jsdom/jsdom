@@ -4,5 +4,7 @@ npm-debug.log*
 /.wireit/
 /gmon.out
 /lib/generated/
+/test/web-platform-tests/resources/testdriver.js
+/test/web-platform-tests/resources/testdriver-actions.js
 /test/web-platform-tests/tuwpt-manifest.json
 /v8.log

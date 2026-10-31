@@ -63,17 +63,22 @@ domain/domain-attribute-host-with-and-without-leading-period.sub.https.html:
 domain/domain-attribute-host-with-leading-period.sub.https.html:
   Domain=.web-platform.test => sent with same-origin requests.: [fail, fetch not implemented]
   Domain=.web-platform.test => sent with subdomain requests.: [fail, fetch not implemented]
+domain/domain-attribute-idn-host.sub.https.html: [timeout, Unknown]
 domain/domain-attribute-matches-host.sub.https.html:
   Domain=web-platform.test => sent with same-origin requests.: [fail, fetch not implemented]
   Domain=web-platform.test => sent with subdomain requests.: [fail, fetch not implemented]
 domain/domain-attribute-missing.sub.html:
   No domain attribute => sent with same-origin requests.: [fail, fetch not implemented]
   No domain attribute => not sent with subdomain requests.: [fail, fetch not implemented]
+encoding/charset.html: [timeout, Unknown]
 navigated-away.html: [fail, Cookies unavailable in the initial about:blank iframe document]
+ordering/ordering.sub.html: [fail, Unknown]
 origin-bound-cookies/port-bound-cookies.html: [fail, fetch not implemented]
 origin-bound-cookies/scheme-bound-cookies.https.html: [fail, fetch not implemented]
+path/default.html: [timeout, Unknown]
 path/match-percent-encoded.https.window.html: [fail, Service workers not implemented]
 path/match-segment-boundaries.https.window.html: [fail, fetch not implemented]
+path/match.html: [timeout, Unknown]
 path/non-ascii-path-attribute.https.window.html: [fail, fetch not implemented]
 prefix/**: [fail, fetch not implemented and cookie prefix handling is incomplete]
 samesite-none-secure/cookies-without-samesite-must-be-secure.https.html:
@@ -88,6 +93,7 @@ secure/set-from-http.https.sub.html:
 secure/set-from-http.sub.html:
   "'secure' cookie not sent in HTTP request": [fail, fetch not implemented]
 secure/set-from-ws.sub.html: [fail, Secure cookies are accepted from insecure WebSocket connections]
+size/**: [timeout, Unknown]
 value/value-overwrite.https.window.html: [fail, fetch not implemented]
 
 ---
@@ -212,9 +218,15 @@ DIR: css/css-borders
 
 border-image-width-interpolation-math-functions.html: [fail, Unknown]
 border-shape/border-shape-animation.html: [fail, Not implemented]
+border-shape/border-shape-circle-hit-test-overflow-clip-margin.html: [fail, Unknown]
+border-shape/border-shape-circle-hit-test-overflow-clip.html: [fail, Unknown]
+border-shape/border-shape-circle-hit-test-siblings.html: [fail, Unknown]
+border-shape/border-shape-circle-hit-test.html: [fail, Unknown]
+border-shape/border-shape-hit-test-overflow.html: [fail, Unknown]
 border-shape/border-shape-ignore-radius-computed.html: [fail, Not implemented]
 border-shape/border-shape-overflow-clip-margin-hit-test-ref-boxes.html: [fail, Not implemented]
 border-shape/border-shape-overflow-clip-margin-hit-test.html: [fail, Not implemented]
+border-shape/border-shape-stacking-context-hit-test.html: [fail, Not implemented]
 border-width-hairline.html:
   Computed hairline width is within bounds: [fail, Unknown]
 corner-shape/**/!(corner-shape-invalid.html|corner-shape-valid.html|corners-invalid.html):
@@ -264,6 +276,7 @@ revert-val-008.html: [fail, Unknown]
 revert-val-009.html: [fail, Unknown]
 revert-val-010.html: [fail, Unknown]
 scope-container.html: [fail, Unknown]
+scope-hover.html: [fail, Unknown]
 scope-implicit-external.html: [fail, Unknown]
 scope-name-defining-rules.html: [fail, Unknown]
 scope-nesting.html: [fail, Unknown]
@@ -407,6 +420,7 @@ DIR: css/css-display
 
 animations/display-interpolation-none.html: [fail, Not implemented]
 animations/display-interpolation.html: [fail, Not implemented]
+display-contents-pseudo-click-target.html: [fail, Unknown]
 display-first-letter-001.html: [fail, Unknown]
 display-first-line-001.html: [fail, Unknown]
 display-list-item-height-after-dom-change.html: [fail, Unknown]
@@ -737,8 +751,11 @@ font-face-006.html: [fail, Not implemented]
 font-face-007.html: [fail, Not implemented]
 font-face-008.html: [fail, Not implemented]
 font-face-009.html: [fail, Not implemented]
+has-slotted-changing-001.html: [fail, Unknown]
+has-slotted-changing-002.html: [fail, Not implemented]
 has-slotted-manual-assignment.html: [fail, Unknown]
 has-slotted-query-selector.html: [fail, Unknown]
+hover-invalidates-slotted-descendant.html: [fail, Unknown]
 idlharness.html: [fail, Depends on fetch]
 keyframes-001.html: [fail, Unknown]
 keyframes-002.html: [fail, Unknown]
@@ -747,6 +764,7 @@ keyframes-004.html: [fail, Unknown]
 keyframes-005.html: [fail, Unknown]
 keyframes-006.html: [fail, Unknown]
 part/host-part-003.html: [fail, Part generated content or rendering is incomplete]
+part/invalidation-part-pseudo.html: [timeout, Unknown]
 part/pseudo-classes-after-part.html:
   [
     fail,
@@ -1273,6 +1291,7 @@ image-x-y-zoom.html: [fail, Unknown]
 interrupt-hidden-smooth-scroll.html: [timeout, Unknown]
 matchMedia-display-none-iframe.html: [fail, Not implemented]
 matchMedia.html: [fail, Unknown]
+mouseEvent-offsetXY-svg.html: [fail, Unknown]
 mouseEvent.html: [fail, Unknown]
 negativeMargins.html: [fail, Unknown]
 offsetParent-block-in-inline.html: [fail, Not implemented]
@@ -1314,10 +1333,14 @@ scrollintoview.html: [fail, Unknown]
 smooth-scroll-in-load-event.html: [fail, Not implemented]
 smooth-scroll-nonstop.html: [fail-slow, Not implemented]
 smooth-scrollIntoView-with-smooth-fragment-scroll.html: [fail-slow, Unknown]
+smooth-scrollIntoView-with-unrelated-gesture-scroll.html: [fail-slow, Unknown]
 table-client-props.html: [fail, Needs layout]
 table-offset-props.html: [fail, Needs layout]
 table-scroll-props.html: [fail, Needs layout]
 ttwf-js-cssomview-getclientrects-length.html: [fail, Unknown]
+visual-scrollIntoView-001.html: [fail, Not implemented]
+visual-scrollIntoView-002.html: [fail, Not implemented]
+visual-scrollIntoView-003.html: [fail, Not implemented]
 window-screen-height.html: [fail, Test not applicable - no output device]
 window-screen-width.html: [fail, Test not applicable - no output device]
 window-scroll-arguments.html: [fail, Unknown]
@@ -1374,10 +1397,39 @@ offset-rotate-computed.html: [fail, Motion computed values are incomplete]
 ---
 DIR: css/selectors
 
+active-after-relayouts.html: [fail, Unknown]
+active-display-none-001.html: [fail, Unknown]
+active-inside-link.html: [fail, Unknown]
+active-observable.html: [fail, Unknown]
+active-toplayer-001.html: [fail, Not implemented]
 dir-selector-auto.html: [fail, innerText not implemented; has dont-upstream version]
+focus-visible-003.html: [fail, Unknown]
+focus-visible-004.html: [fail, Unknown]
+focus-visible-005.html: [fail, Unknown]
+focus-visible-007.html: [fail, Unknown]
 focus-visible-009.html: [fail, autofocus not implemented]
+focus-visible-012.html: [fail, Unknown]
+focus-visible-013.html: [fail, Unknown]
+focus-visible-015.html: [fail, Unknown]
+focus-visible-016.html: [fail, Unknown]
+focus-visible-018-2.html: [fail, Unknown]
+focus-visible-018.html: [fail, Unknown]
 focus-visible-020.html: [fail, delegatesFocus not implemented]
+focus-visible-024.html: [fail, Unknown]
+focus-visible-025.html: [fail, Unknown]
+focus-visible-script-focus-008-b.html: [fail, Unknown]
+focus-visible-script-focus-008.html: [fail, Unknown]
+focus-visible-script-focus-009.html: [fail, Unknown]
+focus-visible-script-focus-010.html: [fail, Unknown]
+focus-visible-script-focus-011.html: [fail, Unknown]
+focus-visible-script-focus-018.html: [fail, Unknown]
+focus-visible-script-focus-019.html: [fail, Unknown]
+focus-visible-script-focus-020.html: [fail, Unknown]
 focus-within-toplayer-001.html: [fail, Unknown]
+has-focus-display-change.html: [fail, Unknown]
+hover-002.html: [timeout, Unknown]
+hover-boundary-events.html: [fail, Unknown]
+hover-toplayer-001.html: [fail, Not implemented]
 i18n/css3-selectors-lang-001.html: [fail, offsetWidth not implemented; has dont-upstream version]
 i18n/css3-selectors-lang-002.html: [fail, offsetWidth not implemented; has dont-upstream version]
 i18n/css3-selectors-lang-004.html: [fail, offsetWidth not implemented; has dont-upstream version]
@@ -1427,15 +1479,22 @@ invalidation/empty-pseudo-in-has-display-none.html:
   "Visible after inserting text into empty #child": [fail, Unknown]
   "Visible again after inserting text into empty #child": [fail, Unknown]
   "Visible after inserting non-empty element into #child": [fail, Unknown]
+invalidation/fullscreen-pseudo-class-in-has.html: [timeout, Unknown]
+invalidation/has-with-nesting-parent-containing-hover.html: [fail, Unknown]
 invalidation/heading-pseudo-class-in-has-with-slot-reassignment.html: [fail, Unknown]
 invalidation/host-has-shadow-tree-element-at-nonsubject-position.html: [fail, Unknown]
 invalidation/host-has-shadow-tree-element-at-subject-position.html: [fail, Unknown]
+invalidation/link-pseudo-class-in-has.html: [fail, Not implemented]
 invalidation/media-loading-pseudo-classes-in-has.sub.html:
   [timeout, Media loading and playback are not implemented]
 invalidation/media-pseudo-classes-in-has.html: [fail-slow, Unknown]
+invalidation/modal-pseudo-class-in-has.html: [fail-slow, Not implemented]
 invalidation/nth-child-whole-subtree.html: [fail-slow, offsetTop not implemented]
+invalidation/open-pseudo-class-in-has.html: [fail, Not implemented]
 invalidation/option-disabled-when-ancestor-changes.html: [fail, Unknown]
 invalidation/state-in-has.html: [fail, Unknown]
+invalidation/user-action-pseudo-classes-in-has.html: [fail, Unknown]
+invalidation/user-valid-user-invalid.html: [fail, Unknown]
 media/media-loading-state-timing.sub.html: [timeout, Media loading and playback are not implemented]
 media/media-loading-state.sub.html: [timeout, Unknown]
 media/media-playback-state-timing.html: [timeout, Media loading and playback are not implemented]
@@ -1443,9 +1502,19 @@ media/media-playback-state.html: [timeout, Unknown]
 media/media-playing-paused-style-invalidation.html:
   [timeout, Media loading and playback are not implemented]
 media/sound-state.html: [timeout, Unknown]
+modal-pseudo-class.html: [fail, Not implemented]
 nth-child-large-anplusb-clamp.html: [fail, Unknown]
+old-tests/css3-modsel-18.xml: [fail, Unknown]
+old-tests/css3-modsel-18a.xml: [fail, Unknown]
+old-tests/css3-modsel-18b.xml: [fail, Unknown]
+old-tests/css3-modsel-18c.xml: [fail, Unknown]
+old-tests/css3-modsel-19.xml: [fail, Unknown]
+old-tests/css3-modsel-19b.xml: [fail, Unknown]
 old-tests/css3-modsel-22.xml:
   [fail, Invalid language tags do not match; https://github.com/web-platform-tests/wpt/pull/63981]
+old-tests/css3-modsel-63.xml: [fail, Unknown]
+old-tests/css3-modsel-64.xml: [fail, Unknown]
+open-pseudo.html: [fail, Not implemented]
 parsing/parse-attribute.html: [fail, Unknown]
 parsing/parse-part.html:
   [
@@ -1463,6 +1532,11 @@ selectors-4/lang-singleton-subtag-matching.html:
     Invalid language tags and ranges do not match; https://github.com/web-platform-tests/wpt/pull/63981,
   ]
 selectors-case-sensitive-001.html: [fail, offsetHeight not implemented; has dont-upstream version]
+toplayer-transition-001.html: [fail, Not implemented]
+user-action-pseudo-top-layer.html: [fail, Not implemented]
+user-invalid.html: [fail, Unknown]
+user-valid.html: [fail, Unknown]
+valid-invalid-form-fieldset.html: [fail, Unknown]
 
 ---
 DIR: custom-elements
@@ -1548,6 +1622,7 @@ form-associated/form-disabled-legend.html:
     [fail, Form-associated custom elements not implemented]
 form-associated/form-elements-namedItem.html: [fail, Not implemented]
 form-associated/form-reset-callback.html: [fail, Not implemented]
+form-associated/label-delegatesFocus.html: [fail, Unknown]
 htmlconstructor/newtarget-customized-builtins.html: [fail, unknown]
 htmlconstructor/newtarget.html:
   [fail, Currently impossible to get the active function associated realm]
@@ -1560,7 +1635,7 @@ perform-microtask-checkpoint-before-construction-xml-parser.xhtml:
 perform-microtask-checkpoint-before-construction.html:
   [fail, impossible to implement microtask checkpoint without patching Promise]
 pseudo-class-defined-customized-builtins.html: [fail-slow, :defined is not defined and throws]
-pseudo-class-defined.html: [fail, Unknown]
+pseudo-class-defined.html: [fail-slow, Unknown]
 reactions/Animation.html: [fail, Animation not implemented]
 reactions/AriaMixin-element-attributes.html: [fail, Element reflection not implemented]
 reactions/AriaMixin-string-attributes.html: [fail, Unknown]
@@ -1636,6 +1711,8 @@ DIR: dom/collections
 ---
 DIR: dom/events
 
+Event-dispatch-on-disabled-elements.html: [timeout, Unknown]
+Event-dispatch-redispatch.html: [timeout, Unknown]
 Event-dispatch-single-activation-behavior.html: [fail, Unknown]
 Event-dispatch-throwing-multiple-globals.html: [fail-slow, Unknown]
 Event-timestamp-high-resolution.html: [fail, Not implemented]
@@ -1650,21 +1727,56 @@ EventTarget-dispatchEvent.html:
     [fail, Interface not implemented]
   "If the event's initialized flag is not set, an InvalidStateError must be thrown (TextEvent).":
     [fail, Interface not implemented]
+click-on-absolute-pseudo.html: [fail, Unknown]
 event-global-extra.window.html:
   [fail, We're supposed to check the event listener's global (not the Event's global)]
 event-global-is-still-set-when-coercing-beforeunload-result.html: [fail-slow, unknown iframe issue]
 event-global-is-still-set-when-reporting-exception-onerror.html: [fail, unknown iframe issue]
+focus-event-document-move.html: [fail, Unknown]
+handler-count.html*: [timeout, Unknown]
 mouse-event-retarget.html: [fail, Requires a layout engine]
+no-focus-events-at-clicking-editable-content-in-link.html: [timeout, Unknown]
+non-cancelable-when-passive/**/!(generic-events-stay-cancelable.html|synthetic-events-cancelable.html):
+  [timeout, Unknown]
+pointer-event-document-move.html: [fail, Unknown]
 relatedTarget.window.html: [fail, Unknown]
+scrolling/iframe-chains.html: [timeout, Unknown]
+scrolling/input-text-scroll-event-when-using-arrow-keys.html: [timeout, Unknown]
 scrolling/save-iframe-scroll-offset-when-display-none.html: [timeout, Unknown]
+scrolling/scroll-cross-origin-iframes.html: [timeout, Unknown]
 scrolling/scroll-event-fired-to-element.html: [fail, Unknown]
 scrolling/scroll-event-fired-to-iframe.html: [fail, Unknown]
 scrolling/scroll-event-not-fired-on-ancestor-style-change.html: [timeout, Scrolling not implemented]
 scrolling/scroll-events-fired-once-per-frame-across-display-none.html:
   [fail, Scrolling not implemented]
 scrolling/scrollend-event-fired-after-instant-scroll-in-microtask.html: [fail, Unknown]
+scrolling/scrollend-event-fired-after-snap.html: [timeout, Unknown]
+scrolling/scrollend-event-fired-for-mandatory-snap-point-after-load.html: [fail, Unknown]
+scrolling/scrollend-event-fired-for-programmatic-scroll.html*: [fail, Unknown]
+scrolling/scrollend-event-fired-for-scroll-attr-change.html*: [fail, Unknown]
+scrolling/scrollend-event-fired-for-scrollIntoView.html*: [fail, Unknown]
+scrolling/scrollend-event-fired-to-document.html: [fail, Unknown]
+scrolling/scrollend-event-fired-to-element-with-overscroll-behavior.html: [fail, Unknown]
+scrolling/scrollend-event-fired-to-window.html: [fail, Unknown]
+scrolling/scrollend-event-fires-for-repeat-key-ending-after-scroll-container-end-is-reached.html:
+  [fail, Unknown]
+scrolling/scrollend-event-fires-on-visual-viewport.html: [fail-slow, Unknown]
+scrolling/scrollend-event-fires-to-iframe-window.html: [fail, Unknown]
+scrolling/scrollend-event-for-user-scroll.html: [fail, Unknown]
+scrolling/scrollend-event-handler-content-attributes.html: [fail, Unknown]
+scrolling/scrollend-event-not-fired-on-no-scroll.html: [fail, Unknown]
 scrolling/scrollend-fires-to-text-input.html: [fail-slow, Unknown]
 scrolling/scrollend-with-snap-on-fractional-offset.html: [fail, Unknown]
+scrolling/visibility-hidden-scrolls.html: [fail-slow, Unknown]
+scrolling/wheel-event-composed.html: [fail-slow, Unknown]
+scrolling/wheel-event-no-scroll-after-prevent-default.html: [fail, Unknown]
+scrolling/wheel-event-transactions-basic.html*: [fail, Unknown]
+scrolling/wheel-event-transactions-multiple-action-chains.html: [fail, Unknown]
+scrolling/wheel-event-transactions-target-display-change.html*: [fail, Unknown]
+scrolling/wheel-event-transactions-target-elements.html: [fail, Unknown]
+scrolling/wheel-event-transactions-target-move.html: [fail, Unknown]
+scrolling/wheel-event-transactions-target-removal.html: [fail, Unknown]
+scrolling/wheel-event-transactions-target-resize.html*: [fail, Unknown]
 webkit-animation-end-event.html: [fail-slow, WebKit-prefixed events not implemented]
 webkit-animation-iteration-event.html: [fail-slow, WebKit-prefixed events not implemented]
 webkit-animation-start-event.html: [fail-slow, WebKit-prefixed events not implemented]
@@ -1710,7 +1822,6 @@ insertion-removing-steps/Node-appendChild-script-and-default-style-meta-from-fra
   [fail, Unknown]
 insertion-removing-steps/Node-appendChild-script-and-source-from-fragment.html: [fail, Unknown]
 insertion-removing-steps/Node-appendChild-script-and-style.html: [fail, Unknown]
-insertion-removing-steps/change-event.window.html: [fail, scrollIntoView not implemented]
 insertion-removing-steps/insertion-removing-steps-script.window.html: [fail, Unknown]
 moveBefore/**: [fail-slow, Not implemented]
 processing-instruction-attributes.html: [fail, Not implemented]
@@ -2055,11 +2166,13 @@ assign-replace-from-top-to-nested-iframe.html: [fail-slow, Unknown]
 assign-with-nested-iframe.html: [fail-slow, Unknown]
 assign_after_load.html: [timeout, Unknown]
 assign_before_load.html: [timeout, Unknown]
+create-script-set-location.html: [fail, Unknown]
 location-ancestor-origins-inactive-document.sub.html: [fail, Unknown]
 location-ancestor-origins-new-object.html: [fail, Unknown]
 location-ancestor-origins-redirect-still-mask.sub.html:
   [fail, location.ancestorOrigins not implemented]
 location-ancestor-origins-referrerpolicy-snapshot.html: [fail, Unknown]
+location-ancestor-origins.sub.html: [fail, Unknown]
 location-encoding-parse.html: [timeout, Unknown]
 location-non-configurable-toString-valueOf.html: [fail, Not implemented]
 location-pathname-setter-question-mark.html: [timeout, Unknown]
@@ -2192,6 +2305,8 @@ auxiliary-browsing-contexts/opener.html: [timeout, Unknown]
 browsing-context-names/**: [timeout, Not implemented]
 browsing-context.html: [fail, Unknown]
 clear-window-name.https.html: [fail, Unknown]
+consume-user-activation/window-open-multi-global.html: [timeout, Unknown]
+consume-user-activation/window-open.html: [fail, Unknown]
 dangling-markup-window-name.html: [fail, Unknown]
 document-domain-nested-navigate.window.html: [fail, Unknown]
 embedded-opener-a-form.html: [timeout, Opener not implemented]
@@ -2303,7 +2418,22 @@ DIR: html/editing/activation
 ---
 DIR: html/editing/dnd
 
+canvas/**: [timeout, Unknown]
 datastore/**: [fail, DataTransfer not implemented]
+drop/**: [timeout, Unknown]
+events/dragenter-dragleave-related-target.html: [fail, Unknown]
+events/pointer-suppression.html: [timeout, Unknown]
+images/**/!(015.html|016.html|017.html|018.html|021.html|022.html): [timeout, Unknown]
+interactiveelements/**: [timeout, Unknown]
+js-file-fallback-text-only.html: [fail, Unknown]
+js-file-image-drag.html: [fail, Unknown]
+layoutshift/001.html: [fail, Unknown]
+platform/mousedown-drag-select-input-display-change.html: [fail, Unknown]
+platform/mousedown-move-inner-when-dragging-1.html: [timeout, Unknown]
+platform/mousedown-move-inner-when-dragging-2.html: [timeout, Unknown]
+platform/pointerdown-add-display-none.html: [timeout, Unknown]
+platform/pointerdown-add-overflow-hidden.html: [timeout, Unknown]
+remove/001.html: [fail, Unknown]
 synthetic/001.html: [fail, DragEvent not implemented]
 target-origin/202.html: [fail, DragEvent not implemented]
 the-dropzone-attribute/dropzone_attribute.html: [fail, dropzone not implemented]
@@ -2333,7 +2463,9 @@ nontraditional-about-srcdoc.html: [timeout, We don't support srcdoc <base> corre
 ---
 DIR: html/interaction/focus
 
+chrome-object-tab-focus-bug.html: [fail, Unknown]
 document-level-focus-apis/document-has-system-focus.html: [fail-slow, window.open() not implemented]
+focus-input-type-switch.html: [fail, Unknown]
 focus-selection.html: [fail, Unknown]
 processing-model/focus-fixup-rule-one-no-dialogs.html:
   "#button1": [fail, ResizeObserver not implemented]
@@ -2343,8 +2475,14 @@ processing-model/focus-fixup-rule-one-no-dialogs.html:
   "#button6": [fail, ResizeObserver not implemented]
   "#div": [fail, ResizeObserver not implemented]
   "#editable": [fail, ResizeObserver not implemented]
+processing-model/focusVisible.html: [fail, Unknown]
 processing-model/preventScroll.html: [fail, Not implemented]
 processing-model/textarea-scroll-selection.html: [fail, Not implemented]
+sequential-focus-navigation-after-disabled.html: [fail, Unknown]
+sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-negative.html: [fail, Unknown]
+sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-order.html: [fail, Unknown]
+tab-table-caption.html?caption-side=bottom: [fail, Unknown]
+tab-table-caption.html?caption-side=top: [fail, Unknown]
 the-autofocus-attribute/autofocus-area.html: [fail, Not implemented]
 the-autofocus-attribute/autofocus-dialog.html: [fail, Not implemented]
 the-autofocus-attribute/autofocus-on-stable-document.html: [fail, Not implemented]
@@ -2613,6 +2751,7 @@ iframe_sandbox*:
     fail-slow,
     "Iframe sandboxing, cross-origin restrictions, lazy loading, and srcdoc not implemented",
   ]
+move-node-local-root-events-still-fire.html: [fail, Unknown]
 same-origin-contextual-fragment.html: [fail, Iframe navigation is incomplete]
 sandbox*:
   [
@@ -2704,6 +2843,7 @@ formaction.html: [fail, Unknown]
 ---
 DIR: html/semantics/forms/constraints
 
+form-validation-validity-textarea-defaultValue.html: [fail, Unknown]
 form-validation-validity-valueMissing.html:
   [fail, "Spec unclear (see https://github.com/whatwg/html/issues/5202)"]
 form-validation-willValidate.html:
@@ -2750,6 +2890,7 @@ DIR: html/semantics/forms/resetting-a-form
 DIR: html/semantics/forms/textfieldselection
 
 select-event.html: [fail-slow, not yet implemented]
+selection-set-value-after-focus.html: [fail, Unknown]
 selection-start-end-extra.html:
   [
     fail,
@@ -2759,6 +2900,8 @@ selection-start-end-extra.html:
 ---
 DIR: html/semantics/forms/the-button-element
 
+active-onblur.html: [fail, Unknown]
+button-activate-keyup-prevented.html: [timeout, Unknown]
 button-activate.html: [fail-slow, iframe onload needs to run after synchronous script]
 button-click-submits-with-commandfor.html:
   "clicking a button (implicit type) should NOT trigger a submit (with command attribute)":
@@ -2803,10 +2946,18 @@ form-requestsubmit.html:
 ---
 DIR: html/semantics/forms/the-input-element
 
+anchor-contenteditable-navigate.html: [flaky, Unknown]
+change-set-value.html: [fail, Unknown]
+change-to-empty-value.html: [fail, Unknown]
+checkable-active-onblur-with-click.html: [fail, Unknown]
+checkable-active-onblur.html: [fail, Unknown]
+click-user-gesture.html: [timeout, Unknown]
 cloning-steps.html: [fail-slow, Uses JS modules]
 color-attributes.window.html: [fail, Unknown]
 color.html: [fail, Unknown]
 color.window.html: [fail, Unknown]
+defaultValue-clobbering.html: [fail, Unknown]
+email-set-value.html: [fail, Unknown]
 email-value-idn.html: [fail, Unknown]
 email.html:
   "When the multiple attribute is set, the user agent must run the value sanitization algorithm":
@@ -2817,6 +2968,7 @@ focus-dynamic-type-change.html: [fail-slow, Not implemented]
 hidden-charset-case-sensitive.html: [timeout, Unknown]
 image-click-form-data.html: [timeout, Unknown]
 image-width-height.html: [timeout, Image input dimensions and loading are not implemented]
+input-disabled-fieldset-dynamic.html: [fail, Unknown]
 input-stepdown-02.html:
   "stepDown() on input with no initial value and positive min value": [fail, Unknown]
 input-submit-remove-jssubmit.html: [fail-slow, We do not support form target yet]
@@ -2827,23 +2979,41 @@ input-untrusted-key-event.html: [fail-slow, Not implemented]
 input-valueasnumber.html:
   "valueAsNumber setter on type month (actual valueAsNumber: -1, expected value: 1969-12)":
     [fail, Unknown]
+input-whitespace.html: [fail, Unknown]
+maxlength-number.html: [fail, Unknown]
+number-constraint-validation.html: [fail, Unknown]
+number-invalid-scientific-key-events.html: [fail, Unknown]
+password-delete-space.html: [fail, Unknown]
+radio-focus-navigation-checked.html: [fail, Unknown]
+radio-focus-navigation-disabled.html: [fail, Unknown]
+radio-focus-navigation-group-first-focus.html: [fail, Unknown]
+radio-focus-navigation-group-focusable-focus.html: [fail, Unknown]
+radio-focused-and-scrolled-into-view.html: [fail-slow, Unknown]
+radio-keyboard-navigation-order.html: [fail, Unknown]
 range-2.html: [fail, step attribute not yet implemented]
 range-restore-oninput-onchange-event.https.html: [fail-slow, Not implemented]
 range.html: [fail, step attribute and range semantics not yet implemented]
 reset.html: [fail, Reset semantics not yet implemented]
+selection-pointer.html: [timeout, Unknown]
 show-picker-cross-origin-iframe.html: [fail-slow, Not implemented]
+show-picker-disabled-readonly.html: [timeout, Unknown]
+show-picker-does-not-focus.html: [timeout, Unknown]
+show-picker-user-gesture.html: [timeout, Unknown]
+type-change-in-keypress-listener.html: [fail, Unknown]
 
 ---
 DIR: html/semantics/forms/the-label-element
 
 clicking-noninteractive-unlabelable-content.html:
   [fail, Need fix activation behavior and interactive content]
+control-active-with-multiple-clicks.html: [fail, Unknown]
 forward-focus-to-associated-element.html: [fail-slow, focus label not implemented correctly]
 label-attributes.sub.html:
   "A div element which contains labelable element is removed.":
     [fail, Retained labels list loses labels in the same detached tree]
   "A labelable element is moved to iframe.":
     [fail, Retained labels list does not update after adoption into an iframe]
+label-forwarded-click-pointer-properties.html: [fail, Unknown]
 
 ---
 DIR: html/semantics/forms/the-legend-element
@@ -2863,21 +3033,33 @@ DIR: html/semantics/forms/the-progress-element
 ---
 DIR: html/semantics/forms/the-select-element
 
-customizable-select/**/!(option-color-inheritance.html|placeholder-label-option-wrapper.html):
-  [fail, Unknown]
+customizable-select-listbox/**: [fail, Unknown]
+customizable-select-multiple-popup/selectedcontent-multiple-restore.optional.html: [fail, Unknown]
+customizable-select/**/!(option-color-inheritance.html|placeholder-label-option-wrapper.html|select-anchor-regression.html|select-disabled.html|select-multiple-removed.html|select-size-change.html):
+  [fail-slow, Unknown]
 inserted-or-removed.html:
   "If an OPTION says it is selected, it should be selected after it is inserted.":
     [fail, Not implemented]
+select-listbox-touch.optional.html: [fail, Unknown]
+select-multiple-resize-does-not-autoscroll.html: [fail, Unknown]
+select-restore-invalid-option.html: [fail-slow, Unknown]
 select-selectedOptions-nesting.window.html: [fail, Unknown]
 select-validity.html: [fail, Unknown]
 select-value.html:
   "option is child of div": [fail, Unknown]
 select-willvalidate-readonly-attribute.html: [fail, Not implemented]
+show-picker-being-cv-hidden.html: [fail, Not implemented]
+show-picker-being-rendered.html: [fail, Not implemented]
 show-picker-cross-origin-iframe.html: [fail-slow, Unknown]
+show-picker-disabled.html: [fail, Not implemented]
+show-picker-multiple.html: [fail, Not implemented]
+show-picker-size.html: [fail, Not implemented]
+show-picker-user-gesture.html: [timeout, Unknown]
 
 ---
 DIR: html/semantics/forms/the-textarea-element
 
+change-to-empty-value.html: [fail, Unknown]
 textarea-placeholder-lineheight.html: [fail, getBoundingClientRect() is not implemented]
 wrap-enumerated-ascii-case-insensitive.html: [timeout, Unknown]
 
@@ -2889,7 +3071,9 @@ DIR: html/semantics/interactive-elements/the-details-element
 
 auto-expand-details-element-fragment.html:
   [fail, Ancestor details revealing algorithm is not implemented]
+details-keyboard-activation.html: [fail, Unknown]
 details-name-exclusivity-fragment-insertion.html: [fail, Unknown]
+details-toggle-source.html: [fail, Unknown]
 name-attribute.html: [fail, Unknown]
 toggleEvent.html: [fail-slow, The ninth test requires a streaming HTML parser to pass]
 
@@ -2897,6 +3081,7 @@ toggleEvent.html: [fail-slow, The ninth test requires a streaming HTML parser to
 DIR: html/semantics/interactive-elements/the-summary-element
 anchor-with-inline-element.html: [timeout, Unknown]
 anchor-without-link.html: [fail, Unknown]
+interactive-content.html: [fail, Unknown]
 summary-untrusted-key-event.html: [fail-slow, Unknown]
 
 ---
@@ -2913,6 +3098,10 @@ links-created-by-a-and-area-elements/rel-attribute-clearing.html: [fail, Unknown
 links-created-by-a-and-area-elements/target_blank_implicit_noopener.html:
   [fail, Depends on BroadcastChannel]
 links-created-by-a-and-area-elements/target_blank_implicit_noopener_base.html:
+  [fail, Depends on BroadcastChannel]
+links-created-by-a-and-area-elements/target_blank_useractivation.html:
+  [fail, Depends on BroadcastChannel]
+links-created-by-a-and-area-elements/target_blank_useractivation_multi_globals.html:
   [fail, Depends on BroadcastChannel]
 
 ---
@@ -3009,10 +3198,12 @@ template-for/!(template-for-innerHTML-outside.html|template-for-invalid.html|tem
 ---
 DIR: html/semantics/selectors
 
+pseudo-classes/active-disabled.html: [fail, Unknown]
 pseudo-classes/disabled.html:
   "':disabled' should match elements that are appended to a disabled fieldset dynamically":
     [fail, Unknown]
 pseudo-classes/focus-autofocus.html: [timeout, Autofocus is not implemented]
+pseudo-classes/invalid-after-clone.html: [fail, Unknown]
 pseudo-classes/readwrite-readonly.html:
   "The :read-write pseudo-class must match elements that are editing hosts":
     [fail, document.designMode is not implemented]
@@ -3308,6 +3499,11 @@ clientinformation.window.html: [fail, window.clientInformation is not implemente
 historical.https.window.html: [fail, Not implemented]
 per-global.window.html: [fail, window.clientInformation is not implemented]
 plugins-and-mimetypes.html: [fail, navigator.pdfViewerEnabled is not implemented]
+protocol-handler-fragment-nosw.https.html: [fail, Unknown]
+protocol-handler-fragment.https.html: [fail, Unknown]
+protocol-handler-path.https.html: [fail, Unknown]
+protocol-handler-query-nosw.https.html: [fail, Unknown]
+protocol-handler-query.https.html: [fail, Unknown]
 protocol.https.html: [fail, registerProtocolHandler() is not implemented]
 
 ---
@@ -3348,21 +3544,34 @@ DIR: pointerlock
 ---
 DIR: selection
 
+anchor-removal.html: [fail, Unknown]
 bidi/modify-extend-by-character.html: [fail, Not implemented]
 bidi/modify-move-by-character.html: [fail, Not implemented]
 caret-position-should-be-correct-while-moveup-movedown.html: [fail, Not implemented]
+caret/move-around-contenteditable-false.html: [fail, Unknown]
+caret/move-around-generated-content.html: [fail, Unknown]
 contenteditable/collapse.html:
   [
     fail,
     No spec for how selection changes should impact focus,
     https://github.com/whatwg/html/issues/6179,
   ]
+contenteditable/initial-selection-during-focus-event-propagation.html: [fail, Unknown]
 contenteditable/modify-around-non-editable-span.html: [fail, Not implemented]
+drag-selection-contenteditable-to-out-of-flow-user-select-none.html: [fail, Unknown]
+drag-selection-extend-to-user-select-none.html: [fail, Unknown]
 extend-selection-backward-on-input.html: [fail, Depends on document.execCommand]
+extend-selection-in-shadow-tree.html: [fail, Unknown]
+fire-selectionchange-event-on-deleting-single-character-inside-inline-element.html:
+  [fail, Not implemented]
 fire-selectionchange-event-on-document-if-textcontrol-element-is-in-shadow-tree.html:
   "selectionchange event fired on the document in case TextControl element is in Shadow Tree":
     [fail, Depends on document.execCommand]
+fire-selectionchange-event-on-pressing-backspace.html: [fail, Not implemented]
+fire-selectionchange-event-on-textcontrol-element-on-pressing-backspace.html: [fail, Unknown]
 idlharness.window.html: [fail, Depends on fetch]
+move-by-word-korean.html: [fail, Not implemented]
+move-by-word-with-symbol.html: [fail, Not implemented]
 onselectionchange-on-distinct-text-controls.html: [fail, Unknown]
 onselectionchange-on-document.html: [fail, Unknown]
 script-and-style-elements.html: [
@@ -3372,16 +3581,20 @@ script-and-style-elements.html: [
     https://bugzilla.mozilla.org/show_bug.cgi?id=1535392),
   ]
 selection-content-visibility-hidden.html: [fail, Unknown]
+selection-direction-on-single-click.html: [fail, Unknown]
+selection-focused-element-becomes-nonfocusable.html: [fail, Unknown]
 selection-modify-extend-word-generated-content.html: [fail, Unknown]
 selection-nested-video.html: [fail-slow, Unknown]
 shadow-dom/cross-shadow-boundary-extend.html: [fail, Declarative shadow DOM not implemented]
 shadow-dom/selection-at-nodes-not-part-of-flattened-tree.html: [fail, Unknown]
+textcontrols/focus.html: [fail, Not implemented]
 textcontrols/onselectionchange-content-attribute.html: [fail-slow, Unknown]
 textcontrols/selectionchange-bubble.html: [timeout, Unknown]
 textcontrols/selectionchange-on-shadow-dom.html: [fail, Unknown]
 textcontrols/selectionchange.html:
   [fail, selectionchange events are not dispatched on text controls]
 toString-user-select-none.html: [fail, Unknown]
+user-select-on-input-and-contenteditable.html: [fail, Unknown]
 
 ---
 DIR: shadow-dom
@@ -3389,6 +3602,7 @@ DIR: shadow-dom
 DocumentOrShadowRoot-prototype-elementFromPoint.html: [fail, offsetTop not implemented]
 HighlightRegistry-highlightsFromPoint.html: [fail, Not implemented]
 MouseEvent-prototype-offsetX-offsetY.html: [fail, offsetTop not implemented]
+attachShadow-with-ShadowRoot.html: [fail, Unknown]
 declarative/declarative-after-attachshadow.html: [fail, Not implemented]
 declarative/declarative-shadow-dom-*.html: [fail-slow, Not implemented]
 declarative/gethtml-ordering.html: [fail, Not implemented]
@@ -3397,13 +3611,71 @@ declarative/innerhtml-before-closing-tag.html: [fail, Not implemented]
 declarative/innerhtml-on-ordinary-template.html: [fail, Not implemented]
 declarative/move-template-before-closing-tag.html: [fail, Not implemented]
 declarative/script-access.html: [fail, Not implemented]
+dragenter-related-target.html: [fail, Unknown]
+dragleave-related-target.html: [fail, Unknown]
+execcommand-insertList-in-shadow.html: [fail, Not implemented]
+focus-navigation/delegatesFocus-highlight-sibling.html: [fail, DelegatesFocus is not implemented]
+focus-navigation/focus-navigation-slot-fallback-default-tabindex.html: [fail, Unknown]
+focus-navigation/focus-navigation-slot-fallback.html: [fail, Unknown]
+focus-navigation/focus-navigation-slot-nested-2levels.html: [fail, Unknown]
+focus-navigation/focus-navigation-slot-nested-delegatesFocus.html:
+  [fail, DelegatesFocus is not implemented]
+focus-navigation/focus-navigation-slot-nested-fallback.html: [fail, Unknown]
+focus-navigation/focus-navigation-slot-nested.html: [fail, Unknown]
+focus-navigation/focus-navigation-slot-shadow-in-fallback.html: [fail, Unknown]
+focus-navigation/focus-navigation-slot-shadow-in-slot.html: [fail, Unknown]
+focus-navigation/focus-navigation-slot-with-tabindex.html: [fail, Unknown]
+focus-navigation/focus-navigation-slots-in-slot.html: [fail, Unknown]
+focus-navigation/focus-navigation-slots.html: [fail, Unknown]
+focus-navigation/focus-navigation-web-component-radio.html: [fail, Unknown]
+focus-navigation/focus-navigation-with-delegatesFocus.html:
+  [fail, DelegatesFocus is not implemented]
+focus-navigation/focus-navigation.html: [fail, Unknown]
+focus-navigation/focus-nested-slots.html: [fail, Unknown]
+focus-navigation/focus-reverse-unassignable-slot.html: [fail, Unknown]
+focus-navigation/focus-reverse-unassigned-slot.html: [fail, Unknown]
+focus-navigation/focus-with-negative-index.html: [fail, Unknown]
 focus-within-shadow.html: [fail, Unknown]
 focus/ShadowRoot-delegatesFocus.html: [fail, DelegatesFocus is not implemented]
+focus/blur-on-shadow-host-delegatesFocus.html: [fail, DelegatesFocus is not implemented]
+focus/click-focus-delegatesFocus-click.html: [fail, DelegatesFocus is not implemented]
+focus/click-focus-delegatesFocus-tabindex-varies.html: [fail, DelegatesFocus is not implemented]
+focus/click-focus-delegatesFocus-tabindex-zero.html: [fail, DelegatesFocus is not implemented]
+focus/click-focus-slot-ancestor.html: [fail, Unknown]
 focus/delegatesFocus-tabindex-change.html: [fail, DelegatesFocus is not implemented]
+focus/focus-autofocus.html: [fail, Unknown]
+focus/focus-click-on-shadow-host.html: [fail, Unknown]
+focus/focus-method-delegatesFocus.html: [fail, DelegatesFocus is not implemented]
+focus/focus-method-with-delegatesFocus.html: [fail, DelegatesFocus is not implemented]
 focus/focus-pseudo-matches-on-shadow-host.html: [timeout, Seems to depend on autofocus]
+focus/focus-scroll-under-delegatesFocus.html: [timeout, DelegatesFocus is not implemented]
+focus/focus-slot-box-generated-tabindex-0.html: [fail, Unknown]
+focus/focus-tab-on-shadow-host.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-negative-delegatesFocus.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-negative.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-slot-one.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-varying-delegatesFocus.html:
+  [fail, DelegatesFocus is not implemented]
+focus/focus-tabindex-order-shadow-varying-tabindex-2.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-varying-tabindex-3.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-varying-tabindex.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-zero-delegatesFocus.html:
+  [fail, DelegatesFocus is not implemented]
+focus/focus-tabindex-order-shadow-zero-host-negative.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-zero-host-not-set-scrollable.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-zero-host-not-set.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-zero-host-one.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-zero-host-scrollable.html: [fail, Unknown]
+focus/focus-tabindex-order-shadow-zero.html: [fail, Unknown]
+focus/text-selection-with-delegatesFocus-on-slotted-content.html:
+  [fail, DelegatesFocus is not implemented]
+focus/text-selection-with-delegatesFocus-text-control.html:
+  [fail, DelegatesFocus is not implemented]
+focus/text-selection-with-delegatesFocus.html: [fail, DelegatesFocus is not implemented]
 form-control-form-attribute.html: [fail, Form association doesn't respect the spec]
 imperative-slot-**.html: [fail, Imperative slot API is not implemented]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
+leaktests/selection.html: [timeout, Unknown]
 leaktests/window-frames.html: [fail, Window.name is not implemented]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 offsetTop-offsetLeft-across-shadow-boundaries.html: [fail, offsetTop/offsetLeft not implemented]
@@ -3413,6 +3685,7 @@ shadow-root-clonable.html: [fail, Unknown]
 slotchange-customelements.html:
   [fail, Missing parser microtask checkpoints before slotchange assertions]
 slotchange.html: [fail-slow, Unknown]
+touch-event-retargeting-leak.html: [fail, Unknown]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html:
   [fail, https://github.com/w3c/selection-api/issues/114]
 untriaged/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-006.html:
@@ -3432,6 +3705,7 @@ untriaged/user-interaction/editing/inheritance-of-content-editable-001.html:
   [fail, contentEditable is not implemented]
 untriaged/user-interaction/ranges-and-selections/test-002.html:
   [fail, https://github.com/w3c/selection-api/issues/114]
+wheel-event-related-target.html: [timeout, Unknown]
 
 ---
 DIR: svg/painting
@@ -3536,8 +3810,38 @@ scripted/SVGPointList-error-handling.html:
 ---
 DIR: uievents
 
+click/**: [timeout, Unknown]
 idlharness.window.html: [fail, Depends on fetch]
-textInput/api.html: [fail, Unknown]
+interface/**/!(click-event.htm): [timeout, Unknown]
+keyboard/keyboardevent-composed.html: [timeout, Unknown]
+keyboard/keydown-input-events.html: [fail, Unknown]
+keyboard/keypress-not-fired-for-modifier-shortcuts.html: [fail, Unknown]
+keyboard/modifier-keys-combinations.html: [fail, Unknown]
+keyboard/modifier-keys.html: [fail, Unknown]
+mouse/attributes.html: [timeout, Unknown]
+mouse/cancel-mousedown-in-subframe.html: [timeout, Unknown]
+mouse/layer-coords-transform.html: [fail, Unknown]
+mouse/layout_change_should_fire_mouseover.html: [timeout, Unknown]
+mouse/mouse_boundary_events_after_removing_last_over_element.html: [fail, Unknown]
+mouse/mouse_boundary_events_modifier_no_mouse_movement.html*: [fail, Unknown]
+mouse/mouse_boundary_events_on_image_map.html: [fail, Unknown]
+mouse/mouse_buttons_back_forward.html: [timeout, Unknown]
+mouse/mouseenter-mouseleave-on-drag.html: [timeout, Unknown]
+mouse/mouseevent_move_button.html: [timeout, Unknown]
+mouse/mousemove-action-interpolation.html: [fail, Unknown]
+mouse/mousemove_after_mouseover_target_removed.html: [fail, Unknown]
+mouse/mousemove_prevent_default_action.html: [fail, Unknown]
+mouse/mouseover-at-removing-mousedown-target.html*: [fail, Unknown]
+order-of-events/focus-events/**/!(focus-automated-blink-webkit.html): [timeout, Unknown]
+order-of-events/mouse-events/click-order.html: [timeout, Unknown]
+order-of-events/mouse-events/mouseevents-mousemove.htm: [timeout, Unknown]
+order-of-events/mouse-events/mousemove-across.html: [timeout, Unknown]
+order-of-events/mouse-events/mousemove-between.html: [timeout, Unknown]
+order-of-events/mouse-events/mouseover-out.html: [timeout, Unknown]
+order-of-events/mouse-events/wheel-basic.html: [timeout, Unknown]
+order-of-events/mouse-events/wheel-multiple-sources-deadlock.html: [fail, Unknown]
+order-of-events/mouse-events/wheel-scrolling.html: [timeout, Unknown]
+textInput/**: [timeout, Unknown]
 ui_event_pseudo_target.html: [fail, Unknown]
 
 ---
