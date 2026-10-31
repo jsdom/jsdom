@@ -29,9 +29,7 @@ window.test_driver_internal = {
       const char = keys[i];
       if (char === "\ue004") {
         const focusables = [
-          ...document.querySelectorAll(
-            "[tabindex], input, button, select, textarea, a[href]",
-          ),
+          ...document.querySelectorAll("[tabindex], input, button, select, textarea, a[href]"),
         ];
         const currentIndex = focusables.indexOf(document.activeElement);
         if (currentIndex !== -1 && currentIndex + 1 < focusables.length) {
