@@ -1,3 +1,5 @@
+"use strict";
+
 // TODO: Implement functions below:
 // - delete_all_cookies()
 // - get_named_cookie()
@@ -61,7 +63,7 @@ window.test_driver_internal = {
       });
       element.dispatchEvent(keyupEvent);
     }
-    await new Promise((resolve) => setTimeout(resolve, 10));
+    await new Promise((resolve) => setTimeout(resolve, 0));
   },
 
   async action_sequence(actions, context = null) {
