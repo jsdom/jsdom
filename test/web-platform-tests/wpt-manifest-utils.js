@@ -8,6 +8,18 @@ const EXPECTED_MANIFEST_VERSION = 9;
 
 const wptPath = path.resolve(__dirname, "tests");
 
+// List of directories where testdriver tests are currently disabled.
+// To enable them, update test/web-platform-tests/resources/testdriver-vendor.js.
+const disableTestdriverDir = new Set([
+  "cookies/attributes",
+  "cookies/name",
+  "cookies/partitioned-cookies",
+  "cookies/value",
+  "css/css-display/accessibility",
+  "custom-elements",
+  "html/dom",
+]);
+
 exports.getPossibleTestFilePaths = (manifest) => {
   const testharnessTests = manifest.items.testharness;
 
@@ -26,7 +38,7 @@ exports.getPossibleTestFilePaths = (manifest) => {
             continue;
           }
           // Globally disable testdriver tests
-          if (test[key][1][1].testdriver) {
+          if (test[key][1][1].testdriver && disableTestdriverDir.has(prefix)) {
             continue;
           }
           // Globally disable shadowrealm tests

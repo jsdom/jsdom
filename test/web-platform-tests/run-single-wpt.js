@@ -51,6 +51,17 @@ function createWPTInterceptor() {
     if (url.pathname === reporterPathname) {
       return new Response("window.shimTest();");
     } else if (url.pathname.startsWith("/resources/")) {
+      // Read testdriver files from __dirname/resources.
+      if (
+        url.pathname === "/resources/testdriver.js" ||
+        url.pathname === "/resources/testdriver-actions.js" ||
+        url.pathname === "/resources/testdriver-vendor.js"
+      ) {
+        const filePath = path.resolve(__dirname, "resources", path.basename(url.pathname));
+
+        return new Response(await readFile(filePath));
+      }
+
       // When running to-upstream tests, the server doesn't have a /resources/ directory.
       // So, always go to the one in ./tests.
       // The path replacement accounts for a rewrite performed by the WPT server:
