@@ -2946,7 +2946,7 @@ form-requestsubmit.html:
 ---
 DIR: html/semantics/forms/the-input-element
 
-anchor-contenteditable-navigate.html: [fail, Unknown]
+anchor-contenteditable-navigate.html: [flaky, Unknown]
 change-set-value.html: [fail, Unknown]
 change-to-empty-value.html: [fail, Unknown]
 checkable-active-onblur-with-click.html: [fail, Unknown]
