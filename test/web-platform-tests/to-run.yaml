@@ -218,7 +218,6 @@ DIR: css/css-borders
 
 border-image-width-interpolation-math-functions.html: [fail, Unknown]
 border-shape/border-shape-animation.html: [fail, Not implemented]
-border-shape/border-shape-circle-hit-test-overflow-clip-margin.html: [fail, Unknown]
 border-shape/border-shape-circle-hit-test-overflow-clip.html: [fail, Unknown]
 border-shape/border-shape-circle-hit-test-siblings.html: [fail, Unknown]
 border-shape/border-shape-circle-hit-test.html: [fail, Unknown]
@@ -226,6 +225,7 @@ border-shape/border-shape-hit-test-overflow.html: [fail, Unknown]
 border-shape/border-shape-ignore-radius-computed.html: [fail, Not implemented]
 border-shape/border-shape-overflow-clip-margin-hit-test-ref-boxes.html: [fail, Not implemented]
 border-shape/border-shape-overflow-clip-margin-hit-test.html: [fail, Not implemented]
+border-shape/border-shape-replaced-hit-test.html: [fail, Unknown]
 border-shape/border-shape-stacking-context-hit-test.html: [fail, Not implemented]
 border-width-hairline.html:
   Computed hairline width is within bounds: [fail, Unknown]
@@ -1397,7 +1397,7 @@ offset-rotate-computed.html: [fail, Motion computed values are incomplete]
 ---
 DIR: css/selectors
 
-active-after-relayouts.html: [fail, Unknown]
+active-after-relayouts.html: [fail-slow, Unknown]
 active-display-none-001.html: [fail, Unknown]
 active-inside-link.html: [fail, Unknown]
 active-observable.html: [fail, Unknown]
@@ -2009,7 +2009,7 @@ hash-empty-string.html:
     [fail, Unknown]
 history-traversal-navigates-multiple-frames.html: [fail, Unknown]
 pagereveal/**: [fail-slow, Unknown]
-pageswap/**: [fail, BroadcastChannel not implemented]
+pageswap/**: [fail-slow, BroadcastChannel not implemented]
 persisted-user-state-restoration/resume-timer-on-history-back.html: [timeout, Unknown]
 persisted-user-state-restoration/scroll-restoration-basic.html: [fail, Not implemented]
 persisted-user-state-restoration/scroll-restoration-fragment-scrolling-cross-origin.html:
@@ -3830,7 +3830,7 @@ mouse/mouseenter-mouseleave-on-drag.html: [timeout, Unknown]
 mouse/mouseevent_move_button.html: [timeout, Unknown]
 mouse/mousemove-action-interpolation.html: [fail, Unknown]
 mouse/mousemove_after_mouseover_target_removed.html: [fail, Unknown]
-mouse/mousemove_prevent_default_action.html: [fail, Unknown]
+mouse/mousemove_prevent_default_action.html: [fail-slow, Unknown]
 mouse/mouseover-at-removing-mousedown-target.html*: [fail, Unknown]
 order-of-events/focus-events/**/!(focus-automated-blink-webkit.html): [timeout, Unknown]
 order-of-events/mouse-events/click-order.html: [timeout, Unknown]

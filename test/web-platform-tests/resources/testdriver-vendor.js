@@ -73,19 +73,17 @@ window.test_driver_internal = {
         for (const action of source.actions) {
           const target = document.getElementById("target") || document.body;
           if (action.type === "pointerDown") {
-            const event = new MouseEvent("mousedown", {
+            const event = new PointerEvent("pointerdown", {
               bubbles: true,
               cancelable: true,
-              view: window,
-              buttons: 1,
+              isPrimary: true,
             });
             target.dispatchEvent(event);
           } else if (action.type === "pointerUp") {
-            const event = new MouseEvent("mouseup", {
+            const event = new PointerEvent("pointerup", {
               bubbles: true,
               cancelable: true,
-              view: window,
-              buttons: 0,
+              isPrimary: true,
             });
             target.dispatchEvent(event);
           }
