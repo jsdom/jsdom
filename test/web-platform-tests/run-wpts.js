@@ -1,5 +1,4 @@
 "use strict";
-const fs = require("node:fs/promises");
 const path = require("node:path");
 const { describe, before, after } = require("mocha-sugar-free");
 const { readManifest, getPossibleTestFilePaths } = require("./wpt-manifest-utils.js");
@@ -20,19 +19,7 @@ const runSingleWPT = require("./run-single-wpt.js")(
   toRunFilename,
 );
 
-async function copyTestdrivers() {
-  const sourceDir = path.resolve(__dirname, "tests", "resources");
-  const testdriver = path.resolve(sourceDir, "testdriver.js");
-  const testdriverActions = path.resolve(sourceDir, "testdriver-actions.js");
-  const outDir = path.resolve(__dirname, "resources");
-
-  await fs.mkdir(outDir, { recursive: true });
-  await fs.copyFile(testdriver, path.resolve(outDir, "testdriver.js"));
-  await fs.copyFile(testdriverActions, path.resolve(outDir, "testdriver-actions.js"));
-}
-
 before({ timeout: 30_000 }, async () => {
-  await copyTestdrivers();
   const { urls, subprocess } = await wptServer.start({ toUpstream: false });
   wptServerURLs = urls;
   serverProcess = subprocess;
