@@ -1802,31 +1802,36 @@ describe("API: resources interceptors option", () => {
         );
       });
 
-      it("should fire script.onerror when interceptor throws synchronously", async () => {
-        const expectedError = new Error("Interceptor sync error for script");
-        const virtualConsole = resourceLoadingErrorRecordingVC();
+      for (const tagName of ["script", "img"]) {
+        if (tagName === "img" && !canvas) {
+          continue;
+        }
+        it(`should fire ${tagName}.onerror when interceptor throws synchronously`, async () => {
+          const expectedError = new Error(`Interceptor sync error for ${tagName}`);
+          const virtualConsole = resourceLoadingErrorRecordingVC();
 
-        const dom = new JSDOM(``, {
-          url: "http://example.com/",
-          runScripts: "dangerously",
-          virtualConsole,
-          resources: {
-            interceptors: [
-              requestInterceptor(() => {
-                throw expectedError;
-              }),
-            ],
-          },
+          const dom = new JSDOM(``, {
+            url: "http://example.com/",
+            runScripts: "dangerously",
+            virtualConsole,
+            resources: {
+              interceptors: [
+                requestInterceptor(() => {
+                  throw expectedError;
+                }),
+              ],
+            },
+          });
+
+          const element = dom.window.document.createElement(tagName);
+          setUpLoadingAsserts(element);
+          element.src = "/test.js";
+          dom.window.document.body.appendChild(element);
+
+          await assertError(element, virtualConsole);
+          assert.equal(virtualConsole.resourceLoadingErrors[0].cause, expectedError);
         });
-
-        const element = dom.window.document.createElement("script");
-        setUpLoadingAsserts(element);
-        element.src = "/test.js";
-        dom.window.document.body.appendChild(element);
-
-        await assertError(element, virtualConsole);
-        assert.equal(virtualConsole.resourceLoadingErrors[0].cause, expectedError);
-      });
+      }
     });
 
     describe("streaming errors", () => {

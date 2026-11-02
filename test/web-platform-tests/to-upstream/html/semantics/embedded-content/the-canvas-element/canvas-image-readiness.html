@@ -5,8 +5,10 @@
 <link rel="help" href="https://html.spec.whatwg.org/multipage/images.html#relevant-mutations">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
+<script src="/common/get-host-info.sub.js"></script>
 <script>
 "use strict";
+/* global get_host_info */
 
 function loadImage(src) {
   const image = new Image();
@@ -124,21 +126,38 @@ promise_test(async () => {
   assert_not_equals(ctx.createPattern(image, "repeat"), null);
 }, "Loaded images can be drawn and used in patterns inside their load handler");
 
-for (const data of ["aW52YWxpZA==", ""]) {
-  promise_test(async () => {
-    const ctx = document.createElement("canvas").getContext("2d");
-    const image = new Image();
-    const failed = new Promise(resolve => {
-      image.onerror = resolve;
-      image.onload = () => assert_unreached("Invalid image data must not load");
-    });
-    image.src = "data:image/png;base64," + data;
-    await failed;
-    assert_true(image.complete);
-    assert_equals(image.naturalWidth, 0);
-    assert_equals(image.naturalHeight, 0);
-    assert_throws_dom("InvalidStateError", () => ctx.drawImage(image, 0, 0));
-    assert_throws_dom("InvalidStateError", () => ctx.createPattern(image, "repeat"));
-  }, `Broken ${data === "" ? "empty" : "invalid"} images fire error and cannot be drawn or used in patterns`);
+const networkErrorURL = new URL("resources/truncated-image.py", get_host_info().HTTP_REMOTE_ORIGIN + location.pathname);
+for (const [name, src] of [
+  ["invalid image data", "data:image/png;base64,aW52YWxpZA=="],
+  ["empty image data", "data:image/png;base64,"],
+  ["a network error", networkErrorURL.href]
+]) {
+  for (const loaded of [false, true]) {
+    promise_test(async t => {
+      const ctx = document.createElement("canvas").getContext("2d");
+      const image = loaded ? await loadImage("/common/square.png") : new Image();
+      image.onload = image.onerror = null;
+      const events = new EventWatcher(t, image, ["load", "error"]);
+      const failed = events.wait_for("error");
+      image.src = src;
+      const event = await failed;
+      assert_equals(event.constructor, Event, "Image errors use the Event interface");
+      assert_true(image.complete);
+      assert_equals(image.naturalWidth, 0);
+      assert_equals(image.naturalHeight, 0);
+      assert_throws_dom("InvalidStateError", () => ctx.drawImage(image, 0, 0));
+      assert_throws_dom("InvalidStateError", () => ctx.createPattern(image, "repeat"));
+      assert_throws_js(TypeError, () => ctx.drawImage(image, Symbol("x"), 0));
+      assert_throws_js(TypeError, () => ctx.createPattern(image, Symbol("repetition")));
+
+      const recovered = events.wait_for("load");
+      image.src = "/common/square.png";
+      await recovered;
+      assert_equals(image.naturalWidth, 100);
+      assert_equals(image.naturalHeight, 100);
+      assert_equals(ctx.drawImage(image, 0, 0), undefined);
+      assert_not_equals(ctx.createPattern(image, "repeat"), null);
+    }, `A ${loaded ? "loaded" : "new"} image becomes unusable after ${name} and can recover`);
+  }
 }
 </script>
