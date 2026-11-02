@@ -2388,6 +2388,12 @@ the-marquee-element-0/marquee-scrolldelay.html: [fail, <marquee> is not implemen
 DIR: html/rendering/the-css-user-agent-style-sheet-and-presentational-hints
 
 ---
+DIR: html/scripting/the-script-element
+
+attr-script-fetchpriority.html: [fail, fetchPriority is not implemented]
+module-script-disabled-scripting.html: [fail, Depends on iframe sandboxing and module scripts]
+
+---
 DIR: html/semantics/disabled-elements
 
 ---
@@ -2980,9 +2986,6 @@ script-crossorigin-network.sub.html:
   [fail, fix https://github.com/zjffun/jsdom/commits/feature/crossorigin-attr]
 script-crossorigin.html: [fail, Unknown]
 script-not-executed-after-shutdown.html: [fail-slow, Unknown]
-script-onerror-insertion-point-1.html: [timeout, Unknown]
-script-onerror-insertion-point-2.html: [fail-slow, Unknown]
-script-onload-insertion-point.html: [fail, Unknown]
 script-referrerpolicy-idl.html: [fail, Not implemented]
 script-supports.html: [fail, Not implemented]
 script-text-modifications-csp.html:
@@ -3042,7 +3045,16 @@ charset/inheritance-bogus-meta.html: [fail, Unknown]
 charset/with-inheritance.html: [fail, Unknown]
 charset/without-inheritance.html: [fail-slow, Unknown]
 charset/xhr.html: [fail, Unknown]
-parsing-html-fragments/*: [timeout, Unknown]
+parsing-html-fragments/fragment-parse-form-in-template-001.html:
+  [fail, Fragment parsing inherits the form element pointer through a template]
+parsing-html-fragments/fragment-parse-form-owner-001.html:
+  parser-assigned form owner in a document parse:
+    [fail, Parser form pointers are not used to associate form controls]
+  parser-assigned form owner in a DOMParser document:
+    [fail, Parser form pointers are not used to associate form controls]
+parsing-html-fragments/the-input-byte-stream-!(003|004).html: [fail, Layout not implemented]
+parsing-html-fragments/the-input-byte-stream-00[34].html:
+  [timeout, External scripts are incorrectly decoded using the document UTF-16 encoding]
 parsing/DOMContentLoaded-defer.html: [fail, Script execution timing]
 parsing/adoption-agency-reparenting-cycle.html: [fail, srcdoc not implemented]
 parsing/adoption-agency-reparenting-document-target.html: [fail, srcdoc not implemented]
@@ -3068,7 +3080,7 @@ parsing/foster-parenting-moved-table.window.html:
     [fail, Scripts do not execute while parsing]
   "Table removed from the tree: the second foster-parented element follows it":
     [fail, Scripts do not execute while parsing]
-parsing/html5lib*: [timeout, Unknown]
+parsing/html5lib*: [timeout, Test runner requires fetch; URL variants also require blob URLs]
 parsing/inhead-noscript-head.html: [fail, Unknown iframe issue]
 parsing/insert-into-nonempty-document.html:
   [fail, document.write finishes parsing instead of leaving the parser open]
@@ -3080,7 +3092,6 @@ parsing/unclosed-svg-script.html: [fail, Unknown]
 serializing-html-fragments/escaping.html:
   [fail, Scripting isn't properly inherited for sub-documents]
 serializing-html-fragments/processing-instructions.html: [fail, Unknown]
-serializing-html-fragments/serializing-lt-gt.html: [fail, Unknown]
 serializing-html-fragments/serializing.html:
   [fail, Scripting isn't properly inherited for sub-documents]
 
@@ -3104,51 +3115,7 @@ load-event-after-location-set-during-write.window.html:
 ---
 DIR: html/webappapis/dynamic-markup-insertion/document-write
 
-001.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-002.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-003.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-004.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-005.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-006.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-007.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-008.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-009.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-010.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-011.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-012.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-013.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-014.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-015.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-016.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-017.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-040.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-041.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
 047.html: [timeout, Depends on window.open]
-049.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-050.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
-iframe_010.html:
-  [fail, parse5 buffers trailing character tokens; https://github.com/inikulin/parse5/pull/1854]
 module-delayed.html: [timeout, Module scripts are not implemented]
 module-dynamic-import.html: [timeout, Module scripts are not implemented]
 module-static-import-delayed.html: [timeout, Module scripts are not implemented]
