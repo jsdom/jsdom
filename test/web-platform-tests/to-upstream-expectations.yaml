@@ -13,6 +13,7 @@ html/semantics/embedded-content/the-canvas-element/canvas-serialization-formats.
 html/semantics/embedded-content/the-canvas-element/canvas-serialization.html: [needs-canvas]
 html/semantics/embedded-content/the-canvas-element/canvas-toBlob-encoding-failure.html:
   [needs-canvas]
+html/semantics/embedded-content/the-img-element/image-dimension-request-count.html: [needs-canvas]
 html/semantics/embedded-content/the-img-element/image-src-empty.html: [needs-canvas]
 html/semantics/embedded-content/the-img-element/image-src-replacement.html: [needs-canvas]
 html/semantics/embedded-content/the-img-element/svg-zero-dimensions.html: [needs-canvas]

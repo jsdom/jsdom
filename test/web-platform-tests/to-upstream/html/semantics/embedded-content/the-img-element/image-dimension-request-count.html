@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Image dimension attributes do not cause duplicate requests</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/images.html#relevant-mutations">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/images.html#updating-the-image-data">
+<link rel="issue" href="https://github.com/jsdom/jsdom/issues/3050">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global token, requestResource */
+
+for (const [dimensions, timing, description] of [
+  ["none", "parse", "no dimension attributes"],
+  ["height", "parse", "height after src"],
+  ["width", "parse", "width after src"],
+  ["both", "parse", "width and height after src"],
+  ["height", "load", "height set from its load handler"],
+  ["width", "load", "width set from its load handler"]
+]) {
+  promise_test(async t => {
+    const parameters = new URLSearchParams({ key: token(), action: "document", dimensions, timing });
+    const frame = document.createElement("iframe");
+    t.add_cleanup(() => frame.remove());
+    const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+    frame.src = "resources/image-dimension-request-count.py?" + parameters;
+    document.body.append(frame);
+    await loaded;
+
+    const image = frame.contentDocument.querySelector("img");
+    assert_true(image.complete);
+    assert_equals(image.naturalWidth, 1);
+    assert_equals(image.naturalHeight, 1);
+    parameters.set("action", "count");
+    const count = await requestResource("resources/image-dimension-request-count.py?" + parameters);
+    assert_equals(count, "1", "The server received one image request");
+  }, `A parser-created image with ${description} is fetched once`);
+}
+</script>
