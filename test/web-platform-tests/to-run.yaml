@@ -1563,7 +1563,6 @@ pseudo-class-defined-customized-builtins.html: [fail-slow, :defined is not defin
 pseudo-class-defined.html: [fail, Unknown]
 reactions/Animation.html: [fail, Animation not implemented]
 reactions/AriaMixin-element-attributes.html: [fail, Element reflection not implemented]
-reactions/AriaMixin-string-attributes.html: [fail, Unknown]
 reactions/Document.html:
   "execCommand on Document must enqueue a disconnected reaction when deleting a custom element from a contenteditable element":
     [fail, document.execCommand() is not implemented, https://github.com/jsdom/jsdom/issues/1539]
