@@ -104,7 +104,7 @@ describe("browser/index", () => {
     p.innerHTML = escapedSpecials;
     const pp = doc.createElement("p");
     pp.appendChild(p);
-    assert.equal(pp.innerHTML, `<p specials="&quot;<>&amp;&nbsp;">"&lt;&gt;&amp;&nbsp;</p>`);
+    assert.equal(pp.innerHTML, `<p specials="&quot;&lt;&gt;&amp;&nbsp;">"&lt;&gt;&amp;&nbsp;</p>`);
   });
 
   specify("parse_scripttags", () => {
