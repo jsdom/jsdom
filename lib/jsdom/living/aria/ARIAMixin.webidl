@@ -6,6 +6,8 @@ interface mixin ARIAMixin {
   // [CEReactions] attribute Element? ariaActiveDescendantElement;
   [CEReactions, Reflect="aria-atomic"] attribute DOMString? ariaAtomic;
   [CEReactions, Reflect="aria-autocomplete"] attribute DOMString? ariaAutoComplete;
+  [CEReactions, Reflect="aria-braillelabel"] attribute DOMString? ariaBrailleLabel;
+  [CEReactions, Reflect="aria-brailleroledescription"] attribute DOMString? ariaBrailleRoleDescription;
   [CEReactions, Reflect="aria-busy"] attribute DOMString? ariaBusy;
   [CEReactions, Reflect="aria-checked"] attribute DOMString? ariaChecked;
   [CEReactions, Reflect="aria-colcount"] attribute DOMString? ariaColCount;
