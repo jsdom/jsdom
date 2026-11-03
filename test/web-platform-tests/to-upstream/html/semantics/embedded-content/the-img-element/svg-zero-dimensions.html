@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>SVG images with zero natural dimensions load successfully</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/images.html#updating-the-image-data">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+for (const [width, height] of [[0, 100], [100, 0], [0, 0]]) {
+  promise_test(async () => {
+    const image = new Image();
+    const result = new Promise(resolve => {
+      image.onload = () => resolve("load");
+      image.onerror = () => resolve("error");
+    });
+    image.src = "data:image/svg+xml," + encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"></svg>`
+    );
+    assert_equals(await result, "load");
+    assert_true(image.complete);
+    assert_equals(image.naturalWidth, width);
+    assert_equals(image.naturalHeight, height);
+  }, `A valid ${width} by ${height} SVG image fires load`);
+}
+</script>

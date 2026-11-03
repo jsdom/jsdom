@@ -79,6 +79,12 @@ promise_test(async () => {
   const ctx = canvas.getContext("2d");
   ctx.drawImage(image, 0, 0);
 
+  const serialized = await loadImage(canvas.toDataURL());
+  assert_equals(serialized.naturalWidth, 100);
+  assert_equals(serialized.naturalHeight, 100);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(serialized, 0, 0);
+
   const blob = await new Promise(resolve => {
     canvas.toBlob(resolve, "image/png");
   });

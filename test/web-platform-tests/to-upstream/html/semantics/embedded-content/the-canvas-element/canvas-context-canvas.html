@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>A rendering context keeps its original canvas</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-canvas">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  assert_equals(ctx.canvas, canvas);
+  assert_false(Reflect.set(ctx, "canvas", document.createElement("canvas")));
+  assert_equals(ctx.canvas, canvas);
+  assert_equals(canvas.getContext("2d"), ctx);
+
+  canvas.width = 10;
+  canvas.height = 20;
+  assert_equals(canvas.getContext("2d"), ctx);
+  assert_equals(ctx.canvas, canvas);
+  assert_equals(ctx.canvas.width, 10);
+  assert_equals(ctx.canvas.height, 20);
+  ctx.fillStyle = "lime";
+  ctx.fillRect(0, 0, 1, 1);
+  assert_array_equals(ctx.getImageData(0, 0, 1, 1).data, [0, 255, 0, 255]);
+}, "The context's canvas is read-only and survives repeated getContext calls and resizing");
+</script>

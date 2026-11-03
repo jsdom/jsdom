@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Replacing a pending image source discards obsolete events</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/images.html#updating-the-image-data">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/common/utils.js"></script>
+<script src="/html/semantics/resources/resource-test-helpers.js"></script>
+<body>
+<script>
+"use strict";
+/* global controlledResponse */
+
+for (const valid of [true, false]) {
+  for (const replacement of ["image", "empty", "removed"]) {
+    promise_test(async t => {
+      const body = valid ? '<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"/>' : "invalid image";
+      const response = controlledResponse(t, body, "image/svg+xml");
+      const frame = document.createElement("iframe");
+      t.add_cleanup(() => frame.remove());
+      const ready = new Promise(resolve => {
+        window.imageDocumentReady = resolve;
+      });
+      t.add_cleanup(() => {
+        delete window.imageDocumentReady;
+      });
+      const loaded = new EventWatcher(t, frame, "load").wait_for("load");
+      frame.src = "resources/image-src-replacement.html?" + new URLSearchParams({ src: response.url });
+      document.body.append(frame);
+      const child = await ready;
+      const image = child.document.querySelector("img");
+      assert_false(image.complete);
+      assert_array_equals(child.events, [], "The pending image delays the window load event");
+
+      const src = new URL("/common/square.png", location).href;
+      const expectedEvents = [];
+      if (replacement === "image") {
+        image.src = src;
+        expectedEvents.push("image load");
+      } else if (replacement === "empty") {
+        image.src = "";
+        expectedEvents.push("image error");
+      } else {
+        image.removeAttribute("src");
+      }
+      await response.release();
+      await loaded;
+      assert_array_equals(child.events, [...expectedEvents, "window load"]);
+      assert_true(image.complete);
+      assert_equals(image.currentSrc, replacement === "image" ? src : "");
+      assert_equals(image.naturalWidth, replacement === "image" ? 100 : 0);
+      assert_equals(image.naturalHeight, replacement === "image" ? 100 : 0);
+    }, `Replacing a pending ${valid ? "valid" : "invalid"} image with ${replacement} discards obsolete events`);
+  }
+}
+</script>

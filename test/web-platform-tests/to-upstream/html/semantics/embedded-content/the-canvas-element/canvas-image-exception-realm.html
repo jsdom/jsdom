@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Canvas image exceptions use the context's realm</title>
+<link rel="help" href="https://webidl.spec.whatwg.org/#js-throwing-exceptions">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/canvas.html#check-the-usability-of-the-image-argument">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+/* global assert_throws_exactly */
+
+test(t => {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  const canvas = child.document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  assert_throws_dom("SyntaxError", child.DOMException, () => ctx.createPattern(canvas, "invalid"));
+
+  const error = new DOMException("From argument conversion", "NotSupportedError");
+  assert_throws_exactly(error, () => ctx.createPattern(canvas, {
+    toString() {
+      throw error;
+    }
+  }));
+}, "createPattern uses its context's realm for exceptions and preserves exceptions from argument conversion");
+
+promise_test(async t => {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const child = frame.contentWindow;
+  const ctx = child.document.createElement("canvas").getContext("2d");
+  const image = new Image();
+  const failed = new EventWatcher(t, image, ["load", "error"]).wait_for("error");
+  image.src = "data:image/png,invalid";
+  await failed;
+  for (const [name, args] of [["drawImage", [image, 0, 0]], ["createPattern", [image, "repeat"]]]) {
+    assert_throws_dom("InvalidStateError", child.DOMException, () => ctx[name](...args));
+  }
+}, "Broken-image exceptions use the context's realm even when the image and caller are in another realm");
+</script>
