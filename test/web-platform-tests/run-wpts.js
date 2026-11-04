@@ -18,6 +18,7 @@ const runSingleWPT = require("./run-single-wpt.js")(
   (testPath) => getURLPrefix(wptServerURLs, testPath),
   toRunFilename,
 );
+
 before({ timeout: 30_000 }, async () => {
   const { urls, subprocess } = await wptServer.start({ toUpstream: false });
   wptServerURLs = urls;
