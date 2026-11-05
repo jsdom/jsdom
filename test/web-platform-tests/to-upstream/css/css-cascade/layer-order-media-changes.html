@@ -30,7 +30,9 @@ test(t => {
   const target = doc.createElement("div");
   target.id = "target";
   doc.body.append(target);
-  const color = () => frame.contentWindow.getComputedStyle(target).color;
+  function color() {
+    return frame.contentWindow.getComputedStyle(target).color;
+  }
 
   assert_equals(color(), "rgb(255, 0, 0)", "light");
   frame.style.colorScheme = "dark";
