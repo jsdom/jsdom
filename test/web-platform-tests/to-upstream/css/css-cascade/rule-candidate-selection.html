@@ -1,0 +1,133 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Rules reach elements through attribute, parent, and conditional-group selectors</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade/#cascade-sort">
+<link rel="help" href="https://drafts.csswg.org/selectors/#child-combinators">
+<link rel="help" href="https://drafts.csswg.org/selectors/#attribute-selectors">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function fixture(t, rules, html) {
+  const style = document.createElement("style");
+  style.textContent = rules;
+  document.head.append(style);
+  const container = document.createElement("div");
+  container.innerHTML = html;
+  document.body.append(container);
+  t.add_cleanup(() => {
+    container.remove();
+    style.remove();
+  });
+  return container;
+}
+
+function color(element) {
+  return getComputedStyle(element).color;
+}
+
+function background(element) {
+  return getComputedStyle(element).backgroundColor;
+}
+
+function borderTop(element) {
+  return getComputedStyle(element).borderTopColor;
+}
+
+test(t => {
+  const container = fixture(t, `
+    [data-a] { color: red; }
+    .c { color: blue; }
+    [data-a] { color: green; }
+    .c { background-color: blue; }
+    [data-b] { background-color: green; }
+  `, `<span class="c" data-a data-b></span>`);
+  const span = container.firstChild;
+  assert_equals(color(span), "rgb(0, 128, 0)");
+  assert_equals(background(span), "rgb(0, 128, 0)");
+}, "Attribute-selector rules keep source order with class-selector rules");
+
+test(t => {
+  const container = fixture(t, `
+    [DATA-UPPER] { color: green; }
+    [class^="hl-"] { background-color: green; }
+  `, `<span data-upper class="hl-x"></span>`);
+  const span = container.firstChild;
+  assert_equals(color(span), "rgb(0, 128, 0)");
+  assert_equals(background(span), "rgb(0, 128, 0)");
+}, "Attribute-selector rules match HTML attribute names case-insensitively");
+
+test(t => {
+  const container = fixture(t, `
+    .p > * { background-color: green; }
+    .p > *:not(:has(b)) { border-top-color: green; }
+  `, `<div class="p"><span><i></i></span><em><b></b></em></div><div class="q"><span></span></div>`);
+  const [span, em] = container.querySelector(".p").children;
+  assert_equals(background(span), "rgb(0, 128, 0)", "child");
+  assert_equals(background(span.firstChild), "rgba(0, 0, 0, 0)", "grandchild");
+  assert_equals(background(container.querySelector(".q > span")), "rgba(0, 0, 0, 0)", "child of another parent");
+  assert_equals(borderTop(span), "rgb(0, 128, 0)");
+  assert_equals(borderTop(em), "rgb(0, 0, 0)");
+}, "Universal subjects match through a child combinator's parent");
+
+test(t => {
+  const container = fixture(t, `.p > span { color: green; } .p > * { background-color: green; }`, `<div class="p"><span></span></div><div class="q"></div>`);
+  const span = container.querySelector("span");
+  assert_equals(color(span), "rgb(0, 128, 0)");
+  container.querySelector(".q").append(span);
+  assert_equals(color(span), "rgb(0, 0, 0)", "after moving to another parent");
+  assert_equals(background(span), "rgba(0, 0, 0, 0)");
+  container.querySelector(".q").className = "p";
+  assert_equals(color(span), "rgb(0, 128, 0)", "after the parent gains the class");
+}, "Child-combinator rules follow parent changes");
+
+test(t => {
+  const container = fixture(t, `.host > span { color: red; } .host > * { background-color: red; }`, `<div class="host"><span slot="s"></span></div>`);
+  const host = container.firstChild;
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = `<style>:host > * { color: green; }</style><span></span><slot name="s"></slot>`;
+  const shadowSpan = root.querySelector("span");
+  assert_equals(color(shadowSpan), "rgb(0, 128, 0)", "the shadow tree's :host > * rule applies");
+  assert_equals(background(shadowSpan), "rgba(0, 0, 0, 0)", "document rules do not reach shadow children");
+  assert_equals(color(host.firstChild), "rgb(255, 0, 0)", "the host's light child matches");
+}, "Child-combinator rules do not treat a shadow host as the parent of its shadow children");
+
+test(t => {
+  const container = fixture(t, `
+    .x { color: blue; }
+    @media all { .x { color: green; } }
+    @media all { .y { background-color: red; } }
+    .y { background-color: green; }
+    @supports (display: block) { @layer l { [data-a] { border-top-color: green; } } }
+    @media all { * { outline-color: green; } }
+  `, `<span class="x y" data-a></span>`);
+  const span = container.firstChild;
+  assert_equals(color(span), "rgb(0, 128, 0)");
+  assert_equals(background(span), "rgb(0, 128, 0)");
+  assert_equals(borderTop(span), "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(span).outlineColor, "rgb(0, 128, 0)");
+}, "Rules inside conditional groups keep source order and reach matching elements");
+
+test(t => {
+  const container = fixture(t, `@media not all { .x { color: red; } }`, `<span class="x"></span>`);
+  assert_equals(color(container.firstChild), "rgb(0, 0, 0)");
+}, "Rules inside a conditional group still require its condition");
+
+test(t => {
+  const container = fixture(t, `@media all { } @media all { .x { color: red; } } .p > * { }`, `<div class="p"><span class="x" data-a></span></div>`);
+  const span = container.querySelector("span");
+  const { sheet } = document.head.lastElementChild;
+  assert_equals(color(span), "rgb(255, 0, 0)");
+  sheet.cssRules[1].insertRule("[data-a] { color: green; }", 1);
+  assert_equals(color(span), "rgb(0, 128, 0)", "after inserting into a group");
+  sheet.cssRules[1].cssRules[1].selectorText = ".nope";
+  assert_equals(color(span), "rgb(255, 0, 0)", "after retargeting a rule in a group");
+  sheet.cssRules[0].insertRule(".x { background-color: green; }");
+  assert_equals(background(span), "rgb(0, 128, 0)", "after inserting into an empty group");
+  sheet.cssRules[2].selectorText = ".p > span";
+  sheet.cssRules[2].style.borderTopColor = "green";
+  assert_equals(borderTop(span), "rgb(0, 128, 0)", "after retargeting a child-combinator rule");
+}, "Rule candidates follow CSSOM changes");
+</script>

@@ -46,6 +46,65 @@ module.exports = () => {
     );
   }
 
+  for (const [kind, createRule] of [
+    ["@media", (i) => `@media (min-width: 0px) { .rule-${i} { color: blue; } }`],
+    ["attribute", (i) => `[data-rule-${i}] { color: blue; }`],
+    ["child combinator", (i) => `.rule-${i} > * { color: blue; }`],
+  ]) {
+    let window, element, version;
+    bench.add(
+      `attribute mutation and computed color with unmatched ${kind} rules (512 rules)`,
+      () => {
+        element.setAttribute("data-version", String(version++));
+        return window.getComputedStyle(element).color;
+      },
+      {
+        beforeAll() {
+          ({ window } = new JSDOM());
+          const { document } = window;
+          const style = document.createElement("style");
+          style.textContent = Array.from({ length: 512 }, (_, i) => createRule(i)).join("\n");
+          document.head.append(style);
+          element = document.createElement("div");
+          document.body.append(element);
+          version = 0;
+        },
+        afterAll() {
+          window.close();
+        },
+      },
+    );
+  }
+
+  {
+    let window, element, version;
+    bench.add(
+      "attribute mutation and computed ::before content (128 rules)",
+      () => {
+        element.setAttribute("data-version", String(version++));
+        return window.getComputedStyle(element, "::before").content;
+      },
+      {
+        beforeAll() {
+          ({ window } = new JSDOM());
+          const { document } = window;
+          const style = document.createElement("style");
+          style.textContent = Array.from({ length: 128 }, (_, i) => {
+            return `.rule-${i}::before { content: "${i}"; }`;
+          }).join("\n");
+          document.head.append(style);
+          element = document.createElement("div");
+          element.className = "rule-127";
+          document.body.append(element);
+          version = 0;
+        },
+        afterAll() {
+          window.close();
+        },
+      },
+    );
+  }
+
   for (const depth of [10, 100, 500]) {
     let window, ancestor, leaf, version;
     bench.add(
