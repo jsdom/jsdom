@@ -3071,6 +3071,8 @@ serializing-html-fragments/serializing.html:
 DIR: html/webappapis/animation-frames
 
 callback-cross-realm-report-exception.html: [fail, Unknown]
+spurious-frame-callbacks-optimization.html:
+  [flaky, Upstream test race; https://github.com/web-platform-tests/wpt/pull/64859]
 
 ---
 DIR: html/webappapis/atob
