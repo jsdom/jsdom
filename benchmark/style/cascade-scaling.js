@@ -50,6 +50,7 @@ module.exports = () => {
     ["@media", (i) => `@media (min-width: 0px) { .rule-${i} { color: blue; } }`],
     ["attribute", (i) => `[data-rule-${i}] { color: blue; }`],
     ["child combinator", (i) => `.rule-${i} > * { color: blue; }`],
+    ["::before", (i) => `.rule-${i}::before { color: blue; }`],
   ]) {
     let window, element, version;
     bench.add(
