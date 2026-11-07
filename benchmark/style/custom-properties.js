@@ -129,7 +129,8 @@ module.exports = () => {
   {
     let window, elements;
     let version = 0;
-    // Utility stylesheets substitute the same root custom properties into many elements.
+    // Each iteration invalidates styles, then substitutes the same root custom properties into
+    // every element, as utility stylesheets do.
     bench.add(
       "Read shared custom properties after an attribute change (256 elements)",
       () => {
