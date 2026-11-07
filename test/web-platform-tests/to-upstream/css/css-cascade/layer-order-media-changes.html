@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Layer order follows changes to the media conditions that establish it</title>
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#layer-order">
+<link rel="help" href="https://drafts.csswg.org/css-color-adjust/#preferred-color-scheme">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const frame = document.createElement("iframe");
+  frame.style.colorScheme = "light";
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  const doc = frame.contentDocument;
+  const meta = doc.createElement("meta");
+  meta.name = "color-scheme";
+  meta.content = "light dark";
+  doc.head.append(meta);
+  const style = doc.createElement("style");
+  style.textContent = `
+    @media (prefers-color-scheme: dark) { .other { color: blue; } }
+    @media (prefers-color-scheme: dark) { @layer first {} }
+    @layer second { #target { color: green; } }
+    @layer first { #target { color: red; } }
+  `;
+  doc.head.append(style);
+  const target = doc.createElement("div");
+  target.id = "target";
+  doc.body.append(target);
+  function color() {
+    return frame.contentWindow.getComputedStyle(target).color;
+  }
+
+  assert_equals(color(), "rgb(255, 0, 0)", "light");
+  frame.style.colorScheme = "dark";
+  assert_equals(color(), "rgb(0, 128, 0)", "dark");
+  frame.style.colorScheme = "light";
+  assert_equals(color(), "rgb(255, 0, 0)", "light again");
+}, "A layer statement inside @media is ordered only while the media query matches");
+</script>

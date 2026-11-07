@@ -1,0 +1,63 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Media query precision is consistent for declarations, layers, and registrations</title>
+<link rel="help" href="https://drafts.csswg.org/mediaqueries/#evaluating">
+<link rel="help" href="https://drafts.csswg.org/css-cascade-5/#layer-order">
+<link rel="help" href="https://drafts.css-houdini.org/css-properties-values-api/#determining-registration">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createFrame(t) {
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  t.add_cleanup(() => frame.remove());
+  frame.contentDocument.body.innerHTML = '<div id="control"></div><div id="target"></div>';
+  return frame.contentWindow;
+}
+
+// Compare against ordinary declarations under the same condition so these tests do not require
+// a particular numeric precision. Layers and registrations must use the same matching result.
+test(t => {
+  const win = createFrame(t);
+  const style = win.document.createElement("style");
+  style.textContent = `
+    #control { color: green; }
+    @media (min-width: ${win.innerWidth}px) { .unused { color: blue; } }
+    @media (min-width: ${win.innerWidth + 0.0001}px) {
+      #control { color: red; }
+      @layer first {}
+    }
+    @layer second { #target { color: red; } }
+    @layer first { #target { color: green; } }
+  `;
+  win.document.head.append(style);
+  const control = win.document.getElementById("control");
+  const target = win.document.getElementById("target");
+  assert_equals(win.getComputedStyle(target).color, win.getComputedStyle(control).color);
+  target.setAttribute("data-mutation", "");
+  assert_equals(win.getComputedStyle(target).color, win.getComputedStyle(control).color);
+}, "Layer order and ordinary declarations agree for media queries with close numeric bounds");
+
+test(t => {
+  const win = createFrame(t);
+  const style = win.document.createElement("style");
+  style.textContent = `
+    #control { color: red; }
+    @media (min-width: ${win.innerWidth}px) { .unused { color: blue; } }
+    @media (min-width: ${win.innerWidth + 0.0001}px) {
+      #control { color: green; }
+      @property --test-color { syntax: "<color>"; inherits: false; initial-value: green; }
+    }
+    #target { color: var(--test-color, red); }
+  `;
+  win.document.head.append(style);
+  const control = win.document.getElementById("control");
+  const target = win.document.getElementById("target");
+  assert_equals(win.getComputedStyle(target).color, win.getComputedStyle(control).color);
+  target.setAttribute("data-mutation", "");
+  assert_equals(win.getComputedStyle(target).color, win.getComputedStyle(control).color);
+}, "Registrations and ordinary declarations agree for media queries with close numeric bounds");
+</script>
