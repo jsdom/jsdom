@@ -131,7 +131,7 @@ module.exports = () => {
     let version = 0;
     // Utility stylesheets substitute the same root custom properties into many elements.
     bench.add(
-      "attribute mutation and computed values from shared custom properties (256 elements)",
+      "Read shared custom properties after an attribute change (256 elements)",
       () => {
         window.document.body.setAttribute("data-version", String(++version));
         let length = 0;
