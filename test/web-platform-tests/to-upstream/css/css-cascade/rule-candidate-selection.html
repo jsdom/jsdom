@@ -1,9 +1,12 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>Rules reach elements through attribute, parent, and conditional-group selectors</title>
+<title>Rules reach the elements and pseudo-elements their selectors can match</title>
 <link rel="help" href="https://drafts.csswg.org/css-cascade/#cascade-sort">
 <link rel="help" href="https://drafts.csswg.org/selectors/#child-combinators">
 <link rel="help" href="https://drafts.csswg.org/selectors/#attribute-selectors">
+<link rel="help" href="https://drafts.csswg.org/css-pseudo/#treelike">
+<link rel="help" href="https://drafts.csswg.org/css-scoping/#slotted-pseudo">
+<link rel="help" href="https://drafts.csswg.org/css-shadow-parts/#part">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <body>
@@ -130,4 +133,43 @@ test(t => {
   sheet.cssRules[2].style.borderTopColor = "green";
   assert_equals(borderTop(span), "rgb(0, 128, 0)", "after retargeting a child-combinator rule");
 }, "Rule candidates follow CSSOM changes");
+
+test(t => {
+  const container = fixture(t, `
+    .a::before { content: "a"; color: green; }
+    span::before { background-color: green; }
+    .p > *::after { content: "p"; }
+    .a, .a::after { border-top-color: green; }
+    li::marker { color: green; }
+  `, `<div class="p"><span class="a"></span></div><ul><li></li></ul>`);
+  const span = container.querySelector("span");
+  const before = getComputedStyle(span, "::before");
+  assert_equals(before.content, '"a"');
+  assert_equals(before.color, "rgb(0, 128, 0)");
+  assert_equals(before.backgroundColor, "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(span, "::after").content, '"p"', "child combinator");
+  assert_equals(getComputedStyle(span, "::after").borderTopColor, "rgb(0, 128, 0)", "selector list");
+  assert_equals(borderTop(span), "rgb(0, 128, 0)", "selector list's element selector");
+  assert_equals(color(span), "rgb(0, 0, 0)", "pseudo-element rules do not reach the element");
+  assert_equals(getComputedStyle(container.querySelector("li"), "::marker").color, "rgb(0, 128, 0)");
+}, "Pseudo-element rules reach pseudo-elements through their originating element");
+
+test(t => {
+  const container = fixture(t, `
+    .host::part(p) { color: green; }
+    .host::part(p)::after { content: "part"; }
+  `, `<div class="host"><span slot="s"></span></div>`);
+  const host = container.firstChild;
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = `
+    <style>::slotted(span) { color: green; } ::slotted(span)::before { content: "slotted"; }</style>
+    <slot name="s"></slot><b part="p"></b>
+  `;
+  const slotted = host.firstChild;
+  const part = root.querySelector("b");
+  assert_equals(color(slotted), "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(slotted, "::before").content, '"slotted"');
+  assert_equals(color(part), "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(part, "::after").content, '"part"');
+}, "::slotted() and ::part() rules reach elements and their pseudo-elements");
 </script>
