@@ -1,0 +1,53 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>HTMLImageElement width/height parse the dimension attributes when no image data is available</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/embedded-content.html#dom-img-width">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#dimension-attributes">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#rules-for-parsing-non-negative-integers">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+// The img element is never rendered and has no image data, so width and height
+// consult the width and height content attributes, parsed with the rules for
+// parsing non-negative integers, falling back to 0 on error.
+const attributeValues = [
+  { value: "10", expected: 10 },
+  { value: "0", expected: 0 },
+  { value: "010", expected: 10 },
+  { value: "+10", expected: 10 },
+  { value: " 10 ", expected: 10 },
+  { value: "10px", expected: 10 },
+  { value: "50%", expected: 50 },
+  { value: "1.9", expected: 1 },
+  { value: "2147483647", expected: 2147483647 },
+  { value: "-10", expected: 0 },
+  { value: "", expected: 0 },
+  { value: "abc", expected: 0 },
+];
+
+for (const { value, expected } of attributeValues) {
+  test(() => {
+    const img = document.createElement("img");
+    img.setAttribute("width", value);
+    img.setAttribute("height", value);
+    assert_equals(img.width, expected, "width");
+    assert_equals(img.height, expected, "height");
+  }, `width and height attribute value ${JSON.stringify(value)}`);
+}
+
+test(() => {
+  const img = document.createElement("img");
+  assert_equals(img.width, 0, "width");
+  assert_equals(img.height, 0, "height");
+}, "width and height default to 0 with no attributes");
+
+test(() => {
+  const img = document.createElement("img");
+  img.width = 25;
+  img.height = 30;
+  assert_equals(img.width, 25, "width");
+  assert_equals(img.height, 30, "height");
+  assert_equals(img.getAttribute("width"), "25", "width content attribute");
+  assert_equals(img.getAttribute("height"), "30", "height content attribute");
+}, "width and height setters reflect to the content attributes");
+</script>
