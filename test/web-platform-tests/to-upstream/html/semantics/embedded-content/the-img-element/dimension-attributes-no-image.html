@@ -20,6 +20,12 @@ const attributeValues = [
   { value: "50%", expected: 50 },
   { value: "1.9", expected: 1 },
   { value: "2147483647", expected: 2147483647 },
+  // Values past the maximum unsigned long are out of range and treated as a
+  // parse error, like in browsers.
+  { value: "4294967295", expected: 4294967295 },
+  { value: "4294967296", expected: 0 },
+  { value: "99999999999999999999", expected: 0 },
+  { value: "9".repeat(400), expected: 0 },
   { value: "-10", expected: 0 },
   { value: "", expected: 0 },
   { value: "abc", expected: 0 },
