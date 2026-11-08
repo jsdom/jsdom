@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>tabIndex IDL attribute reflection</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-tabindex">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflecting-content-attributes-in-idl-attributes">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<div id="container"></div>
+<script>
+"use strict";
+
+const container = document.getElementById("container");
+
+const nonFocusableElements = [
+  ["div", () => document.createElement("div")],
+  ["span", () => document.createElement("span")],
+  ["summary", () => document.createElement("summary")] // not a summary for a parent details
+];
+
+const focusableElements = [
+  ["button", () => document.createElement("button")],
+  ["a", () => document.createElement("a")],
+  ["input", () => document.createElement("input")],
+  ["select", () => document.createElement("select")],
+  ["textarea", () => document.createElement("textarea")],
+  ["summary", () => {
+    const details = document.createElement("details");
+    const summary = document.createElement("summary");
+    details.append(summary);
+    container.append(details);
+    return summary;
+  }],
+  ["svg a", () => document.createElementNS("http://www.w3.org/2000/svg", "a")]
+];
+
+for (const [label, factory] of nonFocusableElements) {
+  test(t => {
+    const el = factory();
+    if (!el.parentNode) {
+      container.append(el);
+    }
+    t.add_cleanup(() => el.remove());
+
+    assert_equals(el.tabIndex, -1, "missing attribute default is -1");
+
+    el.setAttribute("tabindex", "");
+    assert_equals(el.tabIndex, -1, "empty string defaults to -1");
+
+    el.setAttribute("tabindex", "   ");
+    assert_equals(el.tabIndex, -1, "whitespace string defaults to -1");
+
+    el.setAttribute("tabindex", "foo");
+    assert_equals(el.tabIndex, -1, "non-numeric string defaults to -1");
+
+    el.setAttribute("tabindex", "1x");
+    assert_equals(el.tabIndex, 1, "'1x' parses leading integer 1");
+
+    el.setAttribute("tabindex", "0foo");
+    assert_equals(el.tabIndex, 0, "'0foo' parses leading integer 0");
+
+    el.setAttribute("tabindex", "-5px");
+    assert_equals(el.tabIndex, -5, "'-5px' parses leading integer -5");
+
+    el.setAttribute("tabindex", "2147483647");
+    assert_equals(el.tabIndex, 2147483647, "max signed 32-bit integer");
+
+    el.setAttribute("tabindex", "-2147483648");
+    assert_equals(el.tabIndex, -2147483648, "min signed 32-bit integer");
+
+    el.setAttribute("tabindex", "2147483648");
+    assert_equals(el.tabIndex, -1, "2^31 overflows signed 32-bit integer, defaults to -1");
+
+    el.setAttribute("tabindex", "99999999999");
+    assert_equals(el.tabIndex, -1, "large positive overflow defaults to -1");
+
+    el.setAttribute("tabindex", "-2147483649");
+    assert_equals(el.tabIndex, -1, "-(2^31 + 1) underflows signed 32-bit integer, defaults to -1");
+
+    el.setAttribute("tabindex", "-99999999999");
+    assert_equals(el.tabIndex, -1, "large negative underflow defaults to -1");
+  }, `tabIndex reflection on non-focusable ${label}`);
+}
+
+for (const [label, factory] of focusableElements) {
+  test(t => {
+    const el = factory();
+    if (!el.parentNode) {
+      container.append(el);
+    }
+    t.add_cleanup(() => el.remove());
+
+    assert_equals(el.tabIndex, 0, "missing attribute default is 0");
+
+    el.setAttribute("tabindex", "");
+    assert_equals(el.tabIndex, 0, "empty string defaults to 0");
+
+    el.setAttribute("tabindex", "   ");
+    assert_equals(el.tabIndex, 0, "whitespace string defaults to 0");
+
+    el.setAttribute("tabindex", "foo");
+    assert_equals(el.tabIndex, 0, "non-numeric string defaults to 0");
+
+    el.setAttribute("tabindex", "1x");
+    assert_equals(el.tabIndex, 1, "'1x' parses leading integer 1");
+
+    el.setAttribute("tabindex", "-5px");
+    assert_equals(el.tabIndex, -5, "'-5px' parses leading integer -5");
+
+    el.setAttribute("tabindex", "2147483647");
+    assert_equals(el.tabIndex, 2147483647, "max signed 32-bit integer");
+
+    el.setAttribute("tabindex", "-2147483648");
+    assert_equals(el.tabIndex, -2147483648, "min signed 32-bit integer");
+
+    el.setAttribute("tabindex", "2147483648");
+    assert_equals(el.tabIndex, 0, "2^31 overflows signed 32-bit integer, defaults to 0");
+
+    el.setAttribute("tabindex", "99999999999");
+    assert_equals(el.tabIndex, 0, "large positive overflow defaults to 0");
+
+    el.setAttribute("tabindex", "-2147483649");
+    assert_equals(el.tabIndex, 0, "-(2^31 + 1) underflows signed 32-bit integer, defaults to 0");
+
+    el.setAttribute("tabindex", "-99999999999");
+    assert_equals(el.tabIndex, 0, "large negative underflow defaults to 0");
+  }, `tabIndex reflection on focusable ${label}`);
+}
+</script>
+</body>
