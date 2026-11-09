@@ -1,0 +1,52 @@
+<!doctype html>
+<title>NodeIterator pre-remove steps fire for roots in a different node document</title>
+<link rel="author" title="hakarrr" href="https://github.com/hakarrr">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+// https://github.com/jsdom/jsdom/issues/3040
+// The remove algorithm runs the NodeIterator pre-remove steps for every
+// iterator "whose root's node document is node's node document". Template
+// contents belong to a separate template contents owner document, so an
+// iterator created from the main document must still be adjusted when nodes
+// are removed from template contents.
+
+test(() => {
+  const template = document.createElement("template");
+  template.innerHTML = "<span>foo</span> <span>bar</span>";
+  const fragment = template.content;
+
+  const it = document.createNodeIterator(fragment, NodeFilter.SHOW_TEXT);
+  const foo = it.nextNode();
+  assert_equals(foo.data, "foo");
+
+  foo.parentNode.removeChild(foo);
+
+  assert_equals(it.nextNode().data, " ");
+  assert_equals(it.nextNode().data, "bar");
+  assert_equals(it.nextNode(), null);
+}, "removing the reference node during iteration continues with the remaining nodes");
+
+test(() => {
+  const template = document.createElement("template");
+  template.innerHTML = "<span>foo</span><span>bar</span>";
+  const fragment = template.content;
+
+  const it = document.createNodeIterator(fragment, NodeFilter.SHOW_TEXT);
+  const foo = it.nextNode();
+  const span = foo.parentNode;
+
+  span.removeChild(foo);
+
+  // The reference node is the removed node and the pointer is after it, so
+  // the pre-remove steps move the reference to the first node preceding the
+  // removed node, keeping the pointer after the reference.
+  assert_equals(it.referenceNode, span);
+  assert_equals(it.pointerBeforeReferenceNode, false);
+  assert_equals(it.nextNode().data, "bar");
+}, "the reference node is adjusted to the node preceding the removed node");
+</script>
+</body>
