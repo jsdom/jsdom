@@ -1720,7 +1720,6 @@ Range-mutations-normalize.html:
 ---
 DIR: dom/traversal
 
-NodeIterator-removal.html: [fail, Unknown]
 TreeWalker-acceptNode-filter-cross-realm-null-browsing-context.html:
   [fail, No relevant realm support for callbacks in webidl2js]
 
