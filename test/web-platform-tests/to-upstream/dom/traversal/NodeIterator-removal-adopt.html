@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>NodeIterator pre-removing steps after adoption into another document</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-node-remove">
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-node-adopt">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+test(() => {
+  const other = document.implementation.createHTMLDocument("");
+  const root = other.createElement("div");
+  root.innerHTML = "<p>a</p><p>b</p>";
+  const it = other.createNodeIterator(root, NodeFilter.SHOW_ELEMENT);
+  it.nextNode(); // root
+  it.nextNode(); // first p
+
+  document.documentElement.appendChild(document.adoptNode(root));
+  root.removeChild(root.firstChild);
+
+  assert_equals(it.referenceNode, root);
+  assert_false(it.pointerBeforeReferenceNode);
+}, "pre-removing steps run for an iterator whose root was adopted into the removing node's node document");
+
+test(() => {
+  const other = document.implementation.createHTMLDocument("");
+  const outer = other.createElement("div");
+  const root = other.createElement("div");
+  root.innerHTML = "<p>a</p><p>b</p>";
+  outer.appendChild(root);
+  const it = other.createNodeIterator(root, NodeFilter.SHOW_ELEMENT);
+  it.nextNode(); // root
+  it.nextNode(); // first p
+
+  document.documentElement.appendChild(document.adoptNode(outer));
+  root.removeChild(root.firstChild);
+
+  assert_equals(it.referenceNode, root);
+  assert_false(it.pointerBeforeReferenceNode);
+}, "pre-removing steps run for an iterator whose root's inclusive ancestor was adopted into the removing node's node document");
+</script>
