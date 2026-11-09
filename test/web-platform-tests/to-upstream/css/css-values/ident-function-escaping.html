@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Generated identifiers retain their escaping through substitution</title>
+<link rel="help" href="https://drafts.csswg.org/css-values-5/#ident">
+<link rel="help" href="https://drafts.csswg.org/css-syntax-3/#serialization">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="target"></div>
+<script>
+"use strict";
+
+const target = document.getElementById("target");
+
+test(() => {
+  target.style.cssText = '--name: ident("a b"); animation-name: var(--name)';
+  const computed = getComputedStyle(target);
+  assert_equals(computed.getPropertyValue("--name"), "a\\ b", "custom property serialization");
+  assert_equals(computed.animationName, "a\\ b", "substitution into a typed property");
+}, "A generated identifier containing a space remains one identifier");
+
+test(() => {
+  target.style.cssText = '--name: ident("1x"); animation-name: var(--name)';
+  const computed = getComputedStyle(target);
+  assert_equals(computed.getPropertyValue("--name"), "\\31 x", "custom property serialization");
+  assert_equals(computed.animationName, "\\31 x", "substitution into a typed property");
+}, "A generated identifier starting with a digit remains an identifier");
+</script>

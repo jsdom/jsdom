@@ -126,5 +126,45 @@ module.exports = () => {
     );
   }
 
+  {
+    let window, elements;
+    let version = 0;
+    // Each iteration invalidates styles, then substitutes the same root custom properties into
+    // every element, as utility stylesheets do.
+    bench.add(
+      "Read shared custom properties after an attribute change (256 elements)",
+      () => {
+        window.document.body.setAttribute("data-version", String(++version));
+        let length = 0;
+        for (const element of elements) {
+          const computed = window.getComputedStyle(element);
+          length += computed.color.length + computed.paddingTop.length;
+        }
+        return length;
+      },
+      {
+        beforeAll() {
+          ({ window } = new JSDOM());
+          const { document } = window;
+          const style = document.createElement("style");
+          style.textContent =
+            ":root { --spacing: 0.25rem; --accent: oklch(55% 0.1 250); } " +
+            ".item { color: var(--accent); padding: calc(var(--spacing) * 4); }";
+          document.head.append(style);
+          elements = Array.from({ length: 256 }, () => {
+            const element = document.createElement("div");
+            element.className = "item";
+            document.body.append(element);
+            return element;
+          });
+          assert.equal(window.getComputedStyle(elements[0]).paddingTop, "16px");
+        },
+        afterAll() {
+          window.close();
+        },
+      },
+    );
+  }
+
   return bench;
 };
