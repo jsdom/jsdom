@@ -61,5 +61,39 @@ module.exports = () => {
     });
   }
 
+  // Build a detached tree from the leaves up, then connect it.
+  // Each append inserts a whole subtree, and insertion checks every node in it for connectedness.
+  // Real-world: frameworks that assemble a subtree before attaching it to the document.
+  for (const DEPTH of [10, 40]) {
+    const { document } = new JSDOM().window;
+
+    bench.add(`bottom-up build and connect: depth ${DEPTH}`, () => {
+      let subtree = document.createElement("div");
+      for (let i = 1; i < DEPTH; i++) {
+        const parent = document.createElement("div");
+        parent.appendChild(subtree);
+        subtree = parent;
+      }
+      document.body.appendChild(subtree);
+      document.body.removeChild(subtree);
+    });
+  }
+
+  // isConnected on a deep detached tree, whose root cannot be cached.
+  {
+    const DEPTH = 200;
+    const { document } = new JSDOM().window;
+    let deepest = document.createElement("div");
+    for (let i = 0; i < DEPTH; i++) {
+      const child = document.createElement("div");
+      deepest.appendChild(child);
+      deepest = child;
+    }
+
+    bench.add(`isConnected: detached, depth ${DEPTH}`, () => {
+      deepest.isConnected; // eslint-disable-line no-unused-expressions
+    });
+  }
+
   return bench;
 };
