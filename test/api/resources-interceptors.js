@@ -4,6 +4,7 @@ const { spawnSync } = require("node:child_process");
 const path = require("node:path");
 const { describe, it, beforeEach, afterEach } = require("mocha-sugar-free");
 const { setTimeout: delay, setImmediate } = require("node:timers/promises");
+const semver = require("semver");
 const { Agent, interceptors, cacheStores } = require("undici");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 
@@ -1399,7 +1400,12 @@ describe("API: resources interceptors option", () => {
       assert.equal(await canceled.promise, signal.reason);
     });
 
-    it("should report cancellation once when a fetch-backed interceptor rejects", async () => {
+    it("should report cancellation once when a fetch-backed interceptor rejects", async (context) => {
+      // Node's bundled Undici can lose abort propagation after GC: https://github.com/nodejs/undici/pull/6070
+      if (semver.lt(process.versions.undici, "8.12.4")) {
+        context.skip();
+      }
+
       const started = Promise.withResolvers();
       const server = await createServer(() => started.resolve());
       const errors = [];
