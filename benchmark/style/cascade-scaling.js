@@ -80,6 +80,35 @@ module.exports = () => {
   {
     let window, element, version;
     bench.add(
+      "attribute mutation and computed color with one-rule style sheets (512 sheets)",
+      () => {
+        element.setAttribute("data-version", String(version++));
+        return window.getComputedStyle(element).color;
+      },
+      {
+        beforeAll() {
+          ({ window } = new JSDOM());
+          const { document } = window;
+          for (let i = 0; i < 512; i++) {
+            const style = document.createElement("style");
+            style.textContent = `.rule-${i} { color: blue; }`;
+            document.head.append(style);
+          }
+          element = document.createElement("div");
+          element.className = "rule-511";
+          document.body.append(element);
+          version = 0;
+        },
+        afterAll() {
+          window.close();
+        },
+      },
+    );
+  }
+
+  {
+    let window, element, version;
+    bench.add(
       "attribute mutation and computed ::before content (128 rules)",
       () => {
         element.setAttribute("data-version", String(version++));

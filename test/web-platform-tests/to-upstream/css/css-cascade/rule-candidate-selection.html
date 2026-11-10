@@ -172,4 +172,88 @@ test(t => {
   assert_equals(color(part), "rgb(0, 128, 0)");
   assert_equals(getComputedStyle(part, "::after").content, '"part"');
 }, "::slotted() and ::part() rules reach elements and their pseudo-elements");
+
+function sheets(t, ...rules) {
+  const styles = rules.map(text => {
+    const style = document.createElement("style");
+    style.textContent = text;
+    document.head.append(style);
+    return style;
+  });
+  t.add_cleanup(() => {
+    for (const style of styles) {
+      style.remove();
+    }
+  });
+  return styles;
+}
+
+test(t => {
+  sheets(
+    t,
+    `.c { color: red; }`,
+    `* { color: red; background-color: red; }`,
+    `@keyframes k { from { color: red; } }`,
+    `[data-a] { color: green; }`,
+    `@font-face { font-family: f; src: local(f); }`,
+    `span { background-color: green; }`,
+    `.other { color: red; background-color: red; }`,
+    `@media all { .c { border-top-color: green; } }`,
+    `.c { & { outline-color: green; } }`
+  );
+  const container = fixture(t, ``, `<span class="c" data-a></span>`);
+  const span = container.firstChild;
+  assert_equals(color(span), "rgb(0, 128, 0)");
+  assert_equals(background(span), "rgb(0, 128, 0)");
+  assert_equals(borderTop(span), "rgb(0, 128, 0)");
+  assert_equals(getComputedStyle(span).outlineColor, "rgb(0, 128, 0)");
+}, "Rules in separate style sheets keep style sheet order");
+
+test(t => {
+  const [first, second, third] = sheets(t, `.c { color: red; }`, ``, `.c::before { content: "a"; }`);
+  const container = fixture(t, ``, `<span class="c"></span>`);
+  const span = container.firstChild;
+  assert_equals(color(span), "rgb(255, 0, 0)");
+  second.sheet.insertRule(".c { color: green; }");
+  assert_equals(color(span), "rgb(0, 128, 0)", "after inserting into an empty style sheet");
+  second.sheet.cssRules[0].selectorText = ".nope";
+  assert_equals(color(span), "rgb(255, 0, 0)", "after retargeting the rule");
+  second.textContent = ".c { color: green; }";
+  assert_equals(color(span), "rgb(0, 128, 0)", "after replacing the style sheet");
+  second.sheet.disabled = true;
+  assert_equals(color(span), "rgb(255, 0, 0)", "after disabling the style sheet");
+  second.sheet.disabled = false;
+  first.before(second);
+  assert_equals(color(span), "rgb(255, 0, 0)", "after moving the style sheet first");
+  first.remove();
+  assert_equals(color(span), "rgb(0, 128, 0)", "after removing the later style sheet");
+  third.sheet.insertRule(".c::before { content: 'b'; }", 1);
+  assert_equals(getComputedStyle(span, "::before").content, '"b"');
+  const adopted = new CSSStyleSheet();
+  adopted.replaceSync(".c { color: blue; }");
+  document.adoptedStyleSheets = [adopted];
+  t.add_cleanup(() => {
+    document.adoptedStyleSheets = [];
+  });
+  assert_equals(color(span), "rgb(0, 0, 255)", "after adopting a style sheet");
+  adopted.replaceSync(".d { color: blue; }");
+  assert_equals(color(span), "rgb(0, 128, 0)", "after replacing the adopted style sheet's rules");
+}, "Style sheet candidates follow style sheet changes");
+
+test(t => {
+  const container = fixture(t, ``, `<div class="host"><span slot="s" class="c"></span></div>`);
+  const host = container.firstChild;
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = `
+    <style>.c { color: red; }</style>
+    <style>:host { background-color: green; }</style>
+    <style>::slotted(.c) { color: green; }</style>
+    <style>.host { background-color: red; }</style>
+    <style>b { color: green; }</style>
+    <slot name="s"></slot><b></b>
+  `;
+  assert_equals(color(host.firstChild), "rgb(0, 128, 0)", "slotted element");
+  assert_equals(background(host), "rgb(0, 128, 0)", "host");
+  assert_equals(color(root.querySelector("b")), "rgb(0, 128, 0)", "shadow tree element");
+}, "Separate style sheets in a shadow tree reach its host and slotted elements");
 </script>
