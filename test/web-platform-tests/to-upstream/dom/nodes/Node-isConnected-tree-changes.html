@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Node.prototype.isConnected follows every kind of tree change</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-node-isconnected">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function assertConnected(expected, nodes, description) {
+  nodes.forEach((node, index) => {
+    assert_equals(node.isConnected, expected, `${description} (node ${index})`);
+  });
+}
+
+function chain(depth) {
+  const nodes = [document.createElement("div")];
+  for (let i = 1; i < depth; i++) {
+    nodes.push(nodes[i - 1].appendChild(document.createElement("div")));
+  }
+  return nodes;
+}
+
+test((t) => {
+  const nodes = chain(5);
+  const text = nodes[4].appendChild(document.createTextNode("text"));
+  const comment = nodes[4].appendChild(document.createComment("comment"));
+  const all = [...nodes, text, comment];
+  assertConnected(false, all, "before insertion");
+
+  document.body.append(nodes[0]);
+  t.add_cleanup(() => nodes[0].remove());
+  assertConnected(true, all, "after inserting the root");
+
+  nodes[2].remove();
+  assertConnected(true, nodes.slice(0, 2), "ancestors of the removed node");
+  assertConnected(false, [...nodes.slice(2), text, comment], "the removed subtree");
+
+  nodes[0].append(nodes[3]);
+  assertConnected(true, [nodes[3], nodes[4], text, comment], "after moving part of the detached subtree back");
+  assertConnected(false, [nodes[2]], "the part left behind");
+}, "Subtrees become connected and disconnected as a whole");
+
+test((t) => {
+  const fragment = document.createDocumentFragment();
+  const children = [fragment.appendChild(document.createElement("a")), fragment.appendChild(document.createElement("b"))];
+  const grandchild = children[0].appendChild(document.createElement("i"));
+
+  document.body.append(fragment);
+  t.add_cleanup(() => children.forEach((child) => child.remove()));
+  assert_false(fragment.isConnected, "the fragment itself");
+  assertConnected(true, [...children, grandchild], "the fragment's former children");
+}, "Inserting a fragment connects its children but not the fragment");
+
+test((t) => {
+  const parent = document.body.appendChild(document.createElement("div"));
+  t.add_cleanup(() => parent.remove());
+  const oldChild = parent.appendChild(document.createElement("a"));
+  const oldGrandchild = oldChild.appendChild(document.createElement("i"));
+  const newChild = document.createElement("b");
+  const newGrandchild = newChild.appendChild(document.createElement("i"));
+
+  parent.replaceChild(newChild, oldChild);
+  assertConnected(false, [oldChild, oldGrandchild], "replaced by replaceChild()");
+  assertConnected(true, [newChild, newGrandchild], "inserted by replaceChild()");
+
+  parent.replaceChildren(oldChild);
+  assertConnected(true, [oldChild, oldGrandchild], "inserted by replaceChildren()");
+  assertConnected(false, [newChild, newGrandchild], "replaced by replaceChildren()");
+
+  parent.textContent = "text";
+  assertConnected(false, [oldChild, oldGrandchild], "replaced by textContent");
+  assert_true(parent.firstChild.isConnected, "text inserted by textContent");
+
+  parent.innerHTML = "<p><span></span></p>";
+  const parsed = [parent.firstChild, parent.firstChild.firstChild];
+  assertConnected(true, parsed, "inserted by innerHTML");
+  parent.innerHTML = "";
+  assertConnected(false, parsed, "replaced by innerHTML");
+}, "Replacing children updates both the old and the new subtrees");
+
+test((t) => {
+  const parent = document.body.appendChild(document.createElement("div"));
+  t.add_cleanup(() => parent.remove());
+  parent.innerHTML = "<a><i></i></a><b></b>";
+  const [a, b] = parent.children;
+  const i = a.firstChild;
+
+  const range = document.createRange();
+  range.selectNodeContents(parent);
+  const extracted = range.extractContents();
+  assertConnected(false, [extracted, a, i, b], "extracted by a range");
+
+  range.insertNode(extracted);
+  assertConnected(true, [a, i, b], "inserted by a range");
+}, "Range mutations update connectedness");
+
+test((t) => {
+  const host = document.createElement("div");
+  const shadowRoot = host.attachShadow({ mode: "open" });
+  const inner = shadowRoot.appendChild(document.createElement("div"));
+  const innerShadowRoot = inner.attachShadow({ mode: "closed" });
+  const deepest = innerShadowRoot.appendChild(document.createElement("span"));
+  const lightChild = host.appendChild(document.createElement("p"));
+  const all = [host, shadowRoot, inner, innerShadowRoot, deepest, lightChild];
+  assertConnected(false, all, "before insertion");
+
+  const wrapper = document.createElement("section");
+  wrapper.append(host);
+  assertConnected(false, all, "after insertion into a detached parent");
+
+  document.body.append(wrapper);
+  t.add_cleanup(() => wrapper.remove());
+  assertConnected(true, all, "after connecting an ancestor of the outer host");
+
+  inner.remove();
+  assertConnected(false, [inner, innerShadowRoot, deepest], "after removing the inner host");
+  assertConnected(true, [host, shadowRoot, lightChild], "the outer host's remaining trees");
+
+  shadowRoot.append(inner);
+  assertConnected(true, all, "after inserting the inner host again");
+
+  wrapper.remove();
+  assertConnected(false, all, "after disconnecting an ancestor of the outer host");
+}, "Nested shadow trees follow their hosts");
+
+test((t) => {
+  const host = document.body.appendChild(document.createElement("div"));
+  t.add_cleanup(() => host.remove());
+  const shadowRoot = host.attachShadow({ mode: "open" });
+  assert_true(shadowRoot.isConnected, "a shadow root attached to a connected host");
+
+  const child = shadowRoot.appendChild(document.createElement("div"));
+  const grandchildShadowRoot = child.attachShadow({ mode: "open" });
+  assertConnected(true, [child, grandchildShadowRoot], "nodes created inside a connected shadow tree");
+}, "Shadow roots attached to connected hosts are connected");
+
+test((t) => {
+  const template = document.body.appendChild(document.createElement("template"));
+  t.add_cleanup(() => template.remove());
+  template.innerHTML = "<div><span></span></div>";
+  const div = template.content.firstChild;
+  const span = div.firstChild;
+  assertConnected(false, [template.content, div, span], "template contents");
+
+  document.body.append(div);
+  t.add_cleanup(() => div.remove());
+  assertConnected(true, [div, span], "after moving out of the template contents");
+
+  template.content.append(div);
+  assertConnected(false, [div, span], "after moving back into the template contents");
+}, "Template contents are not connected");
+
+test((t) => {
+  const otherDocument = document.implementation.createHTMLDocument("");
+  assertConnected(true, [otherDocument, otherDocument.doctype, otherDocument.documentElement, otherDocument.body], "nodes of another document");
+
+  const div = document.body.appendChild(document.createElement("div"));
+  t.add_cleanup(() => div.remove());
+  const span = div.appendChild(document.createElement("span"));
+
+  otherDocument.adoptNode(div);
+  assertConnected(false, [div, span], "after adoptNode()");
+
+  otherDocument.body.append(div);
+  assertConnected(true, [div, span], "after insertion into the other document");
+
+  document.body.append(div);
+  assert_equals(div.ownerDocument, document);
+  assertConnected(true, [div, span], "after moving back, which adopts implicitly");
+
+  const { doctype } = otherDocument;
+  doctype.remove();
+  assert_false(doctype.isConnected, "a removed doctype");
+}, "Connectedness survives moving between documents");
+
+test((t) => {
+  const div = document.body.appendChild(document.createElement("div"));
+  t.add_cleanup(() => div.remove());
+  div.setAttribute("title", "x");
+  assert_false(div.getAttributeNode("title").isConnected);
+}, "Attributes of connected elements are not connected");
+
+test(() => {
+  const log = [];
+  customElements.define("connected-flag-element", class extends HTMLElement {
+    connectedCallback() {
+      log.push(["connected", this.isConnected, this.firstChild.isConnected, this.parentNode.isConnected]);
+    }
+    disconnectedCallback() {
+      log.push(["disconnected", this.isConnected, this.firstChild.isConnected]);
+    }
+  });
+
+  const wrapper = document.createElement("div");
+  const element = wrapper.appendChild(document.createElement("connected-flag-element"));
+  element.append(document.createElement("span"));
+  assert_array_equals(log, [], "no reactions while detached");
+
+  document.body.append(wrapper);
+  wrapper.remove();
+  assert_equals(JSON.stringify(log), JSON.stringify([
+    ["connected", true, true, true],
+    ["disconnected", false, false],
+  ]));
+}, "Custom element reactions observe the updated connectedness");
+</script>
