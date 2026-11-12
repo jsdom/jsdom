@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<!-- Do not upstream: local counterparts to the successful signed-long getter cases in
+     https://github.com/web-platform-tests/wpt/blob/f476395b093bdb5401c200f577e35165411804e5/html/dom/reflection.js#L357-L383
+     The generic reflection suites are skipped in jsdom with a `fail-slow` expectation.
+     Delete this file when the corresponding `tabIndex` cases run in the upstream reflection suites. -->
+<title>tabIndex signed integer reflection</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-tabindex">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#rules-for-parsing-integers">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const elements = ["div", "span", "summary", "button", "a", "input", "select", "textarea"].map(tagName =>
+  [tagName, () => document.createElement(tagName)]
+);
+elements.push(["summary in details", () => {
+  const details = document.createElement("details");
+  const summary = document.createElement("summary");
+  details.append(summary);
+  return summary;
+}]);
+
+const values = [
+  ["-36", -36],
+  ["-1", -1],
+  ["0", 0],
+  ["1", 1],
+  ["2147483647", 2147483647],
+  ["-2147483648", -2147483648],
+  ["-0", 0],
+  ["\t7", 7],
+  ["\n7", 7],
+  ["\f7", 7],
+  ["\r7", 7],
+  [" 7", 7],
+  ["7\v", 7],
+  ["1.5", 1],
+  ["5%", 5],
+  ["+100", 100],
+  ["1x", 1],
+  ["0foo", 0],
+  ["-5px", -5]
+];
+
+for (const [label, createElement] of elements) {
+  for (const [value, expected] of values) {
+    test(() => {
+      const element = createElement();
+      element.setAttribute("tabindex", value);
+      assert_equals(element.tabIndex, expected);
+      assert_equals(element.getAttribute("tabindex"), value, "getter preserves the content attribute");
+    }, `${label}.tabIndex returns ${expected} for ${JSON.stringify(value)}`);
+  }
+}
+</script>
