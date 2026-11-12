@@ -107,6 +107,11 @@ export const propertyOverrides = {
   "glyph-orientation-vertical": {
     value: "auto | <angle> | <number>",
   },
+  // Remove once webref includes the updated canonical order.
+  // https://github.com/w3c/csswg-drafts/issues/14671
+  "max-lines": {
+    value: "<integer [1,∞]> || auto",
+  },
   "page-break-after": {
     value: "auto | always | avoid | left | right",
     initial: undefined,
