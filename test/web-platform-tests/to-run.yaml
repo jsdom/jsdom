@@ -2815,7 +2815,16 @@ show-picker-cross-origin-iframe.html: [fail-slow, Not implemented]
 DIR: html/semantics/forms/the-label-element
 
 clicking-noninteractive-unlabelable-content.html:
-  [fail, Need fix activation behavior and interactive content]
+  "noninteractive unlabelable content <a></a> as second child under <label>":
+    [fail, <a> always has activation behavior]
+  'noninteractive unlabelable content <a tabindex=""></a> as second child under <label>':
+    [fail, <a> always has activation behavior]
+  'noninteractive unlabelable content <input type="hidden"> as second child under <label>':
+    [fail, <input type=hidden> has activation behavior]
+  'noninteractive unlabelable content <input type="hidden" tabindex=""> as second child under <label>':
+    [fail, <input type=hidden> has activation behavior]
+  'noninteractive unlabelable content <object usemap=""></object> as second child under <label>':
+    [fail, <object usemap> treated as interactive content]
 forward-focus-to-associated-element.html: [fail-slow, focus label not implemented correctly]
 label-attributes.sub.html:
   "A div element which contains labelable element is removed.":
