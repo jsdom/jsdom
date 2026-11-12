@@ -614,11 +614,6 @@ DIR: css/css-overflow/parsing
 getComputedStyle-scroll-button.html:
   [fail, Generated pseudo-element matching and computed values are incomplete]
 line-clamp-valid.html: [fail, Modern line-clamp auto forms are not yet supported]
-max-lines-valid.html:
-  [
-    fail,
-    WPT canonical order differs from the max-lines grammar; https://github.com/web-platform-tests/wpt/pull/63925,
-  ]
 overflow-clip-margin-computed.html: [fail, Overflow computed values are incomplete]
 overflow-clip-margin.html: [fail, Overflow parsing and serialization are incomplete]
 overflow-computed.html: [fail, Overflow computed values are incomplete]
