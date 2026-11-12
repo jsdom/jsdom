@@ -1761,14 +1761,11 @@ parsed-document-origin.window.html:
 DIR: domxpath
 
 fn-lang.html: [fail, Unknown]
-fn-normalize-space.html: [fail, Unknown]
 fns-name-related.html:
   fns-name-related: [fail, XPath name functions are incomplete]
   fns-name-related 2: [fail, XPath name functions are incomplete]
   fns-name-related 5: [fail, XPath name functions are incomplete]
 lexical-structure.html: [fail, Unknown]
-node-sets.html: [fail, Unknown]
-predicates.html: [fail, Unknown]
 resolver-callback-interface.html: [fail, Unknown]
 resolver-non-string-result.html: [fail, Unknown]
 text-html-attributes.html: [fail, Unknown]
