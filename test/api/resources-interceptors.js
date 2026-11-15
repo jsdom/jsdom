@@ -95,7 +95,9 @@ describe("API: resources interceptors option", () => {
       res.end();
     });
     const redirectOrigin = serverURL(redirect);
+    const targetOrigin = serverURL(target);
     const firstReason = new Error("first abort");
+    let redirectController;
 
     try {
       // Cache only the redirect, leaving the target's first connection available for cancellation.
@@ -108,20 +110,22 @@ describe("API: resources interceptors option", () => {
           resources: {
             dispatcher,
             interceptors: [
-              (dispatch) => (options, handler) =>
-                dispatch(options, {
+              (dispatch) => (options, handler) => {
+                if (options.origin === targetOrigin) {
+                  // Abort the completed cached response before the target supplies its controller.
+                  redirectController.abort(firstReason);
+                  redirectController.abort(new Error("second abort"));
+                }
+                return dispatch(options, {
                   ...handler,
                   onRequestStart(controller, context) {
                     handler.onRequestStart(controller, context);
                     if (options.origin === redirectOrigin) {
-                      // Abort the completed cached response before the target supplies its controller.
-                      target.once("connection", () => {
-                        controller.abort(firstReason);
-                        controller.abort(new Error("second abort"));
-                      });
+                      redirectController = controller;
                     }
                   },
-                }),
+                });
+              },
             ],
           },
         }),
