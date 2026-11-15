@@ -1,34 +1,31 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>performance.now() and performance.timeOrigin are coarsened to at least 100 microseconds</title>
+<title>performance.now() changes in steps of at least 100 microseconds</title>
 <link rel="help" href="https://w3c.github.io/hr-time/#dfn-coarsen-time">
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 <script>
 "use strict";
 
-function assertCoarsened(value, label) {
-  // Allow for floating point error when checking that the value is a multiple of 0.1 ms.
-  const tenths = value * 10;
-  assert_approx_equals(tenths, Math.round(tenths), 1e-6, `${label} (${value}) is a multiple of 0.1 ms`);
-}
-
 test(() => {
-  for (let i = 0; i < 1000; ++i) {
-    assertCoarsened(performance.now(), "performance.now()");
-  }
-}, "performance.now() has a resolution of at least 100 microseconds");
+  // This document is not cross-origin isolated, so implementations may use any resolution of at least 100
+  // microseconds, and may jitter when a reading moves to the next step. So only check that every change is a step of
+  // at least that size. The 1 microsecond allowance absorbs floating point error in implementations that subtract a
+  // time origin that is not itself a round number.
+  const minimumStepInMicroseconds = 99;
+  const stepsToObserve = 5;
 
-test(() => {
-  assertCoarsened(performance.timeOrigin, "performance.timeOrigin");
-}, "performance.timeOrigin has a resolution of at least 100 microseconds");
-
-test(() => {
   let previous = performance.now();
-  for (let i = 0; i < 1000; ++i) {
+  let stepsObserved = 0;
+  while (stepsObserved < stepsToObserve) {
     const current = performance.now();
-    assert_greater_than_equal(current, previous, "performance.now() is monotonic");
+    const difference = current - previous;
+    if (difference !== 0) {
+      const message = `performance.now() went from ${previous} to ${current}`;
+      assert_greater_than_equal(difference * 1000, minimumStepInMicroseconds, message);
+      ++stepsObserved;
+    }
     previous = current;
   }
-}, "performance.now() stays monotonic after coarsening");
+}, "Consecutive performance.now() readings are equal or at least 100 microseconds apart");
 </script>
