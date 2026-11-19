@@ -2864,7 +2864,6 @@ auto-expand-details-element-fragment.html:
   [fail, Ancestor details revealing algorithm is not implemented]
 details-name-exclusivity-fragment-insertion.html: [fail, Unknown]
 name-attribute.html: [fail, Unknown]
-toggleEvent.html: [fail-slow, The ninth test requires a streaming HTML parser to pass]
 
 ---
 DIR: html/semantics/interactive-elements/the-summary-element
@@ -2887,6 +2886,11 @@ links-created-by-a-and-area-elements/target_blank_implicit_noopener.html:
   [fail, Depends on BroadcastChannel]
 links-created-by-a-and-area-elements/target_blank_implicit_noopener_base.html:
   [fail, Depends on BroadcastChannel]
+
+---
+DIR: html/semantics/popovers
+
+"!(toggleevent-interface.html)": [fail-slow, Popover is not implemented]
 
 ---
 DIR: html/semantics/scripting-1/the-noscript-element
