@@ -2,6 +2,7 @@
 const assert = require("node:assert/strict");
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
+const { gzipSync } = require("node:zlib");
 const { describe, it, beforeEach, afterEach } = require("mocha-sugar-free");
 const { setTimeout: delay, setImmediate } = require("node:timers/promises");
 const semver = require("semver");
@@ -28,6 +29,41 @@ const {
 } = require("./helpers/resources.js");
 
 describe("API: resources interceptors option", () => {
+  it("should expose the original headers of a decompressed response to interceptors", async () => {
+    const body = gzipSync("<p>compressed response</p>");
+    const url = await resourceServer(
+      {
+        "Content-Type": "text/html",
+        "Content-Encoding": "gzip",
+        "Content-Length": body.byteLength,
+      },
+      body,
+    );
+    let responseHeaders, rawHeaders;
+
+    const dom = await JSDOM.fromURL(url, {
+      resources: {
+        interceptors: [
+          (dispatch) => (options, handler) =>
+            dispatch(options, {
+              ...handler,
+              onResponseStart(controller, statusCode, headers, statusText) {
+                responseHeaders = headers;
+                rawHeaders = controller.rawHeaders.map((value) => value.toString());
+                return handler.onResponseStart(controller, statusCode, headers, statusText);
+              },
+            }),
+        ],
+      },
+    });
+
+    assert.equal(dom.window.document.querySelector("p").textContent, "compressed response");
+    assert.equal(responseHeaders["content-encoding"], "gzip");
+    assert.equal(responseHeaders["content-length"], String(body.byteLength));
+    assert.equal(rawHeaders[rawHeaders.indexOf("Content-Encoding") + 1], "gzip");
+    assert.equal(rawHeaders[rawHeaders.indexOf("Content-Length") + 1], String(body.byteLength));
+  });
+
   it("should finish loading a cached response", async () => {
     const agent = new Agent();
     const cache = interceptors.cache({ store: new cacheStores.MemoryCacheStore() });
