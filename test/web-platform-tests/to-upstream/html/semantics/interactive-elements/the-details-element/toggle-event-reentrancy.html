@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- Upstream PR: https://github.com/web-platform-tests/wpt/pull/65560 -->
+<meta charset="utf-8">
+<title>State changes during details toggle event dispatch</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interactive-elements.html#queue-a-details-toggle-event-task">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+function createDetails(t) {
+  const details = document.createElement("details");
+  document.body.append(details);
+  t.add_cleanup(() => details.remove());
+  return details;
+}
+
+for (const initiallyOpen of [false, true]) {
+  promise_test(async t => {
+    const details = createDetails(t);
+    const watcher = new EventWatcher(t, details, "toggle");
+    if (initiallyOpen) {
+      const opened = watcher.wait_for("toggle");
+      details.open = true;
+      await opened;
+    }
+
+    details.addEventListener("toggle", () => {
+      details.open = initiallyOpen;
+    }, { once: true });
+    const toggled = watcher.wait_for(["toggle", "toggle"], { record: "all" });
+    details.open = !initiallyOpen;
+    const events = await toggled;
+
+    const oldState = initiallyOpen ? "open" : "closed";
+    const newState = initiallyOpen ? "closed" : "open";
+    assert_array_equals(events.map(event => event.oldState), [oldState, newState],
+      "The second event must not inherit the first event's oldState");
+    assert_array_equals(events.map(event => event.newState), [newState, oldState]);
+  }, `${initiallyOpen ? "Opening in a closing" : "Closing in an opening"} details toggle listener starts a new transition`);
+}
+
+promise_test(async t => {
+  const details = createDetails(t);
+  const watcher = new EventWatcher(t, details, "toggle");
+  const sentinel = createDetails(t);
+
+  details.addEventListener("toggle", () => {
+    // Queue another DOM manipulation task before the closing toggle task.
+    // Its listener reopens the element after the first dispatch has finished.
+    sentinel.addEventListener("toggle", () => {
+      details.open = true;
+    }, { once: true });
+    sentinel.open = true;
+    details.open = false;
+  }, { once: true });
+
+  const toggled = watcher.wait_for(["toggle", "toggle"], { record: "all" });
+  details.open = true;
+  const events = await toggled;
+
+  assert_array_equals(events.map(event => event.oldState), ["closed", "open"]);
+  assert_array_equals(events.map(event => event.newState), ["open", "open"],
+    "A transition queued by a listener must still coalesce after dispatch finishes");
+}, "A details toggle listener's pending transition remains tracked after dispatch");
+</script>

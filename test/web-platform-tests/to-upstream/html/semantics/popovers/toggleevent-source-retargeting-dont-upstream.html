@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>ToggleEvent source retargeting during dispatch</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-toggleevent-source">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<!--
+Adapted from the manual dispatch test in:
+https://github.com/web-platform-tests/wpt/blob/master/html/semantics/the-button-element/command-and-commandfor/toggleevent-source-attribute-retargeting.html
+The upstream file requires declarative shadow DOM and popovers, which jsdom does not implement.
+-->
+<body>
+<script>
+"use strict";
+
+test(t => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  t.add_cleanup(() => host.remove());
+  const root = host.attachShadow({ mode: "open" });
+  const source = document.createElement("div");
+  const innerHost = document.createElement("div");
+  root.append(source, innerHost);
+  const innerRoot = innerHost.attachShadow({ mode: "open" });
+  const target = document.createElement("div");
+  innerRoot.append(target);
+
+  const targets = [innerHost, target];
+  const captureSources = new Map();
+  const bubbleSources = new Map();
+  for (const currentTarget of targets) {
+    currentTarget.addEventListener("toggle", event => {
+      captureSources.set(currentTarget, event.source);
+    }, { capture: true });
+    currentTarget.addEventListener("toggle", event => {
+      bubbleSources.set(currentTarget, event.source);
+    });
+  }
+
+  const event = new ToggleEvent("toggle", { composed: true, source });
+  target.dispatchEvent(event);
+
+  for (const currentTarget of targets) {
+    assert_equals(captureSources.get(currentTarget), source,
+      "Capture listeners in the source's shadow tree see the original source");
+    assert_equals(bubbleSources.get(currentTarget), source,
+      "Bubble listeners in the source's shadow tree see the original source");
+  }
+  assert_equals(event.source, host, "After dispatch, source retargets to the outer host");
+}, "A toggle event's source is retargeted against each listener's currentTarget");
+</script>
