@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Coalescing details toggle events requeues the pending task</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/interactive-elements.html#queue-a-details-toggle-event-task">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+for (const initiallyOpen of [false, true]) {
+  promise_test(async t => {
+    const first = document.createElement("details");
+    const second = document.createElement("details");
+    document.body.append(first, second);
+    t.add_cleanup(() => {
+      first.remove();
+      second.remove();
+    });
+
+    const events = [];
+    first.addEventListener("toggle", event => events.push(event));
+    second.addEventListener("toggle", event => events.push(event));
+    const firstWatcher = new EventWatcher(t, first, "toggle");
+    const secondWatcher = new EventWatcher(t, second, "toggle");
+    if (initiallyOpen) {
+      const opened = Promise.all([
+        firstWatcher.wait_for("toggle"),
+        secondWatcher.wait_for("toggle")
+      ]);
+      first.open = true;
+      second.open = true;
+      await opened;
+      events.length = 0;
+    }
+
+    const toggled = Promise.all([
+      firstWatcher.wait_for("toggle"),
+      secondWatcher.wait_for("toggle")
+    ]);
+
+    first.open = !initiallyOpen;
+    second.open = !initiallyOpen;
+    first.open = initiallyOpen;
+    await toggled;
+
+    assert_array_equals(events.map(event => event.target), [second, first],
+      "Coalescing cancels the first element's task and queues another after the second element's task");
+    const oldState = initiallyOpen ? "open" : "closed";
+    const newState = initiallyOpen ? "closed" : "open";
+    assert_array_equals(events.map(event => event.oldState), [oldState, oldState]);
+    assert_array_equals(events.map(event => event.newState), [newState, oldState]);
+  }, `Coalescing toggle events on initially ${initiallyOpen ? "open" : "closed"} details requeues the task`);
+}
+</script>
