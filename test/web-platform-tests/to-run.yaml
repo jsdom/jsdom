@@ -2762,8 +2762,7 @@ image-loading-lazy**: [fail-slow, loading attr not implemented]
 img-complete-after-error.html: [needs-canvas, Image loading requires canvas]
 img-complete-invalid-url.html: [timeout, Malformed image URLs do not dispatch error events]
 img-picture-ancestor.html: [fail, Unknown; possibly needs media queries?]
-img-src-encoding-parse.html:
-  [fail-with-canvas, currentSrc is not an absolute URL using the document encoding]
+img-src-encoding-parse.html: [needs-canvas, Image loading requires canvas]
 img.complete.html: [timeout, Unknown]
 invalid-src.html:
   [timeout, Resource loader doesn't catch bad URLs at the right point in the process]
