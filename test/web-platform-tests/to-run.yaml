@@ -1766,7 +1766,8 @@ Document-createEvent.https.html:
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
 MutationObserver-callback-order.window.html:
-  [fail, Transient observers are missing and mutation microtasks are queued without records]
+  "Mutation observers are notified in the order they were created, also when one observes a removed subtree":
+    [fail, Transient mutation observers are not implemented]
 MutationObserver-cross-realm-callback-report-exception.html:
   [fail, No relevant realm support for callbacks in webidl2js]
 MutationObserver-document.html: [fail, Missing parser microtask checkpoints]
@@ -3339,9 +3340,6 @@ event-loops/opaque-origin-same-agent.window.html:
   [timeout, iframe srcdoc and sandboxing are not implemented]
 event-loops/raf-from-animation-event-serviced-in-same-rendering-update.html:
   [fail, CSS animations are not implemented]
-event-loops/task_microtask_ordering.html:
-  "Level 1 bossfight (synthetic click)":
-    [fail, Missing parser microtask checkpoint leaves an earlier mutation observer microtask queued]
 event-loops/update-the-rendering-resize-autofocus.html: [fail-slow, Unknown]
 event-loops/worker_microtask_after_raf.html: [fail, Workers are not implemented]
 events/compile-event-handler-lexical-scopes-form-owner.html:
