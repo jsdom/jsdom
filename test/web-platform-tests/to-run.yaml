@@ -1002,9 +1002,6 @@ hypot-pow-sqrt-serialize.html: [fail, Values parsing and serialization are incom
 ident-function-shorthand.html:
   "e.style['animation'] = \"ident(\\\"--pa\\\" \\\"ss\\\") 2s\" should not set unrelated longhands":
     [fail, Test omits animation-composition and animation-trigger from expected longhands]
-ident-function-substitution.html:
-  "ident('') valid, but generating IACVT value, fallback when used as var() name":
-    [fail, Empty ident() does not trigger the var() fallback]
 if-conditionals.html:
   [
     fail,
