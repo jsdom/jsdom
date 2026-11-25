@@ -840,9 +840,6 @@ stretch/**/!(parsing.html): [fail-slow, Sizing requires layout]
 ---
 DIR: css/css-syntax
 
-charset/page-windows-1251-charset-attribute-bogus.html: [fail, Unknown]
-charset/page-windows-1251-charset-attribute-empty.html:
-  [fail, Empty stylesheet charset does not fall back to the document encoding]
 charset/page-windows-1251-css-at-charset-1250-charset-attribute-windows-1253.html: [fail, Unknown]
 charset/page-windows-1251-css-at-charset-utf16.html: [fail, Unknown]
 charset/page-windows-1251-css-at-charset-utf16be.html: [fail, Unknown]
