@@ -338,8 +338,6 @@ parsing/alpha-color-parsing-valid.html:
     Declared origin serialization and alpha canonicalization differ from WPT; https://github.com/w3c/csswg-drafts/issues/12543,
   ]
 parsing/color-computed-color-mix-function.html:
-  "Property color value 'color-mix(in oklch, teal calc(-10%), olive 0%)'":
-    [fail, Color mixing edge cases are incorrect]
   "Property color value 'color-mix(in hsl, lch(100% 0 0), blue)'":
     [fail, Color mixing edge cases are incorrect]
 parsing/color-computed-powerless.html:
