@@ -100,8 +100,8 @@ test(() => {
     option.selected = true;
   }
   select.multiple = false;
-  assert_array_equals(selectedness(select.options), [false, false, true]);
-}, "Removing multiple selects only the last selected option");
+  assert_array_equals(selectedness(select.options), [true, false, false]);
+}, "Removing multiple keeps the first selected option even if it is disabled");
 
 test(() => {
   const select = createSelect();
