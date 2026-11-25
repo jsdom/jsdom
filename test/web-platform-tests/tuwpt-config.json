@@ -26,6 +26,14 @@
     {
       "url-path": "/html/browsers/browsing-the-web/resources/",
       "local-dir": "../tests/html/browsers/browsing-the-web/resources/"
+    },
+    {
+      "url-path": "/html/browsers/windows/nested-browsing-contexts/resources/",
+      "local-dir": "../tests/html/browsers/windows/nested-browsing-contexts/resources/"
+    },
+    {
+      "url-path": "/html/semantics/resources/",
+      "local-dir": "../tests/html/semantics/resources/"
     }
   ],
   "logging": {
