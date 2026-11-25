@@ -3012,12 +3012,8 @@ inserted-or-removed.html:
   "If an OPTION says it is selected, it should be selected after it is inserted.":
     [fail, Not implemented]
 select-attribute-change-reset.html:
-  "Removing an option's disabled attribute selects it.":
-    [fail, Changes to disabled or multiple attributes reset selectedness incorrectly]
-  "Removing an optgroup's disabled attribute selects the option inside it.":
-    [fail, Changes to disabled or multiple attributes reset selectedness incorrectly]
   "Removing a select's multiple attribute keeps the first selected option.":
-    [fail, Changes to disabled or multiple attributes reset selectedness incorrectly]
+    [fail, Removing multiple retains the last selected option]
 select-selectedOptions-nesting.window.html: [fail, Unknown]
 select-validity-option-descendants.html:
   "Moving text into and out of a descendant of the placeholder label option":
