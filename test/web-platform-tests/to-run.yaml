@@ -830,26 +830,6 @@ DIR: css/css-sizing
 "@(contain-intrinsic-size|responsive-iframe)/!(parsing)/**":
   [fail-slow, Sizing and animation require layout]
 aspect-ratio/!(parsing): [fail-slow, Sizing requires layout]
-parsing/max-size-shorthand.html:
-  'e.style[''max-size''] = "100px" should set max-height':
-    [fail, Size shorthand parsing and serialization are incomplete]
-parsing/max-size-valid.html:
-  'e.style[''max-size''] = "0" should set the property value':
-    [fail, Size shorthand parsing and serialization are incomplete]
-  'e.style[''max-size''] = "calc(10% - 0.5em)" should set the property value':
-    [fail, Size shorthand parsing and serialization are incomplete]
-  'e.style[''max-size''] = "100px 100px" should set the property value':
-    [fail, Size shorthand parsing and serialization are incomplete]
-parsing/min-size-shorthand.html:
-  'e.style[''min-size''] = "100px" should set min-height':
-    [fail, Size shorthand parsing and serialization are incomplete]
-parsing/min-size-valid.html:
-  'e.style[''min-size''] = "0" should set the property value':
-    [fail, Size shorthand parsing and serialization are incomplete]
-  'e.style[''min-size''] = "calc(10% - 0.5em)" should set the property value':
-    [fail, Size shorthand parsing and serialization are incomplete]
-  'e.style[''min-size''] = "100px 100px" should set the property value':
-    [fail, Size shorthand parsing and serialization are incomplete]
 parsing/size-shorthand.html: [fail, size parsing is incomplete]
 parsing/size-valid.html:
   e.style['size'] = "100px 100px" should set the property value:
