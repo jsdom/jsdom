@@ -44,10 +44,14 @@ getRandomValues.any.html:
   "Float16 arrays": [fail-node:<24, Float16Array not implemented]
 idlharness.https.any.html: [fail, Unknown]
 import_export/**: [fail, Not implemented]
+modern-algos/**: [fail-slow, SubtleCrypto not implemented]
 normalize-algorithm-name.https.any.html: [fail, Unknown]
+secure-curves/**: [fail-slow, SubtleCrypto not implemented]
 secure_context/crypto-subtle-secure-context-available.https.sub.html: [fail, Unknown]
 serialization/**: [fail, Unknown]
+sharedarraybuffer.https.any.html: [fail, SubtleCrypto not implemented]
 sign_verify/**: [fail, Not implemented]
+wrapKey_unwrapKey/aes_kw_unwrapKey_failures.https.any.html: [fail, SubtleCrypto not implemented]
 wrapKey_unwrapKey/wrapKey_unwrapKey.https.any.html: [fail, Not implemented]
 
 ---
@@ -143,6 +147,19 @@ justify-self-valid.html: [fail, Align parsing and serialization are incomplete]
 place-content-computed.html: [fail, Align computed values are incomplete]
 place-content-valid.html: [fail, Align parsing and serialization are incomplete]
 place-items-computed.html: [fail, Align computed values are incomplete]
+place-items-shorthand.html:
+  'e.style[''place-items''] = "safe normal" should set align-items':
+    [fail, safe and unsafe normal alignment values are not supported]
+  'e.style[''place-items''] = "safe normal" should set justify-items':
+    [fail, safe and unsafe normal alignment values are not supported]
+  'e.style[''place-items''] = "safe normal" should not set unrelated longhands':
+    [fail, safe and unsafe normal alignment values are not supported]
+  'e.style[''place-items''] = "safe normal unsafe normal" should set align-items':
+    [fail, safe and unsafe normal alignment values are not supported]
+  'e.style[''place-items''] = "safe normal unsafe normal" should set justify-items':
+    [fail, safe and unsafe normal alignment values are not supported]
+  'e.style[''place-items''] = "safe normal unsafe normal" should not set unrelated longhands':
+    [fail, safe and unsafe normal alignment values are not supported]
 place-items-valid.html: [fail, Align parsing and serialization are incomplete]
 place-self-computed.html: [fail, Align computed values are incomplete]
 place-self-valid.html: [fail, Align parsing and serialization are incomplete]
@@ -159,9 +176,6 @@ container-queries/at-container-anchored-parsing-any.html:
   [fail, innerText and container query evaluation are not implemented]
 container-queries/at-container-anchored-parsing.html:
   [fail, innerText and container query evaluation are not implemented]
-parsing/position-visibility-computed.html: [fail, Anchor position computed values are incomplete]
-parsing/position-visibility-parsing.html:
-  [fail, Anchor position parsing and serialization are incomplete]
 
 ---
 DIR: css/css-animations
@@ -188,6 +202,13 @@ inheritance.sub.html:
     Box-shadow initial color differs between shorthand and longhands; https://github.com/w3c/csswg-drafts/issues/14621,
   ]
 parsing/background-image-computed.sub.html: [fail, Need to fix getComputedStyle]
+parsing/background-image-invalid.html:
+  'e.style[''background-image''] = "radial-gradient(circle 10%, red, blue)" should not set the property value':
+    [fail, Radial-gradient shape and size combinations are not validated]
+  'e.style[''background-image''] = "radial-gradient(ellipse 10px, red, blue)" should not set the property value':
+    [fail, Radial-gradient shape and size combinations are not validated]
+  'e.style[''background-image''] = "radial-gradient(ellipse 10%, red, blue)" should not set the property value':
+    [fail, Radial-gradient shape and size combinations are not validated]
 parsing/background-position-x-computed.html:
   [
     fail,
@@ -198,17 +219,32 @@ parsing/background-position-y-computed.html:
     fail,
     Logical background-position computed values are disputed; https://github.com/w3c/csswg-drafts/issues/12564,
   ]
+parsing/background-shorthand.html:
+  "e.style['background'] = \"purple url(\\\"https://example.com/\\\") repeat-x top left\" should not set unrelated longhands":
+    [fail, Spec and browsers disagree on background-blend-mode reset (csswg-drafts#14536)]
+  "e.style['background'] = \"purple url(\\\"https://example.com/\\\") repeat-y 50% 50%\" should not set unrelated longhands":
+    [fail, Spec and browsers disagree on background-blend-mode reset (csswg-drafts#14536)]
+  "e.style['background'] = \"purple url(\\\"https://example.com/\\\") repeat center\" should not set unrelated longhands":
+    [fail, Spec and browsers disagree on background-blend-mode reset (csswg-drafts#14536)]
+  "e.style['background'] = \"purple url(\\\"https://example.com/\\\") no-repeat 12px\" should not set unrelated longhands":
+    [fail, Spec and browsers disagree on background-blend-mode reset (csswg-drafts#14536)]
+  "e.style['background'] = \"purple url(\\\"https://example.com/\\\") round left 50px\" should not set unrelated longhands":
+    [fail, Spec and browsers disagree on background-blend-mode reset (csswg-drafts#14536)]
+  "e.style['background'] = \"purple url(\\\"https://example.com/\\\") space 25px 25px\" should not set unrelated longhands":
+    [fail, Spec and browsers disagree on background-blend-mode reset (csswg-drafts#14536)]
 parsing/background-valid.html:
   [
     fail,
     Background blend reset and declared color expectations differ; https://github.com/w3c/csswg-drafts/issues/14536 and https://github.com/w3c/csswg-drafts/issues/10305,
   ]
-parsing/border-image-source-computed.sub.html: [fail, Not implemented]
 parsing/box-shadow-computed.html: [fail, Not implemented]
 parsing/box-shadow-valid.html: [fail, Not implemented]
 
 ---
 DIR: css/css-borders
+
+animations/!(border-bottom-width-composition|border-left-width-composition|border-right-width-composition|border-top-width-composition).html:
+  [fail, Not implemented]
 
 border-image-width-interpolation-math-functions.html: [fail, Unknown]
 border-shape/border-shape-animation.html: [fail, Not implemented]
@@ -217,15 +253,15 @@ border-shape/border-shape-overflow-clip-margin-hit-test-ref-boxes.html: [fail, N
 border-shape/border-shape-overflow-clip-margin-hit-test.html: [fail, Not implemented]
 border-width-hairline.html:
   Computed hairline width is within bounds: [fail, Unknown]
-corner-shape/**/!(corner-shape-invalid.html|corner-shape-valid.html|corners-invalid.html):
+corner-shape/**/!(corner-invalid.html|corner-shape-invalid.html|corner-shape-valid.html|corner-top-invalid.html|corner-top-left-invalid.html|corners-invalid.html):
   [fail, Not implemented]
+parsing/border-image-source-computed.sub.html: [fail, Not implemented]
 
 ---
 DIR: css/css-box
 
 animation/**: [fail, Not implemented]
-# The excluded case only checks an untrimmed margin through logical property mapping.
-margin-trim/**/!(grid-inline-end-columns-added-to-end.html): [fail, Not implemented]
+margin-trim/**: [fail, Not implemented]
 parsing/margin-computed.html:
   "Property margin value '30%'": [fail, Need to fix getComputedStyle]
 parsing/margin-trim-computed.html: [fail, Not implemented]
@@ -251,10 +287,13 @@ all-prop-revert-layer.html:
   ]
 idlharness.html: [fail, Unknown]
 import-conditions.html: [fail-slow, innerText is not implemented]
+import-mime-type-quirks.html:
+  [fail, Cross-origin stylesheet MIME types are not checked in quirks mode]
 layer-cssom-order-reverse.html: [fail, Unknown]
 layer-font-face-override.html: [fail, Unknown]
 layer-keyframes-override.html: [fail, Unknown]
 layer-media-query.html: [fail-slow, iframe srcdoc and viewport layout are not implemented]
+layer-order-invalidation-shadow-dom.html: [fail, setHTMLUnsafe() not implemented]
 presentational-hints-rollback.html: [fail, Unknown]
 revert-layer-008.html: [fail, Unknown]
 revert-val-003.html: [fail, Unknown]
@@ -264,6 +303,17 @@ revert-val-008.html: [fail, Unknown]
 revert-val-009.html: [fail, Unknown]
 revert-val-010.html: [fail, Unknown]
 scope-container.html: [fail, Unknown]
+scope-implicit-constructed-document.html:
+  "Implicit @scope in a constructed stylesheet adopted by a document matches the root element":
+    [fail, Implicit scope in constructed stylesheets is incorrect]
+  ":scope in implicit @scope in a constructed stylesheet adopted by a document does not match any element":
+    [fail, Implicit scope in constructed stylesheets is incorrect]
+  "Scoped declarations in implicit @scope in a constructed stylesheet adopted by a document do not match any element":
+    [fail, Implicit scope in constructed stylesheets is incorrect]
+  "Child combinator in implicit @scope in a constructed stylesheet adopted by a document matches only the root element":
+    [fail, Implicit scope in constructed stylesheets is incorrect]
+  "Implicit @scope in a constructed stylesheet adopted by both a document and a shadow root":
+    [fail, Implicit scope in constructed stylesheets is incorrect]
 scope-implicit-external.html: [fail, Unknown]
 scope-name-defining-rules.html: [fail, Unknown]
 scope-nesting.html: [fail, Unknown]
@@ -274,28 +324,28 @@ scope-starting-style.html: [fail, Unknown]
 DIR: css/css-color
 
 animation/**: [fail, Unknown]
+canvas-display-p3-gamut-mapping.html:
+  [fail-with-canvas, Canvas display-p3 color space is not supported]
+canvas-srgb-gamut-mapping.html:
+  [fail-with-canvas, Canvas colors are clipped instead of gamut mapped]
+color-mix-currentcolor-parent-change.html:
+  [fail, Inherited color-mix() with currentcolor is resolved twice]
 light-dark-basic.html: [fail, Depends on matchMedia]
-light-dark-image.html: [fail, Not implemented]
 none-components-treated-as-zero.html: [needs-canvas, Tests canvas element]
 parsing/alpha-color-parsing-valid.html:
   [
     fail,
     Declared origin serialization and alpha canonicalization differ from WPT; https://github.com/w3c/csswg-drafts/issues/12543,
   ]
+parsing/color-computed-color-mix-function.html:
+  "Property color value 'color-mix(in oklch, teal calc(-10%), olive 0%)'":
+    [fail, Color mixing edge cases are incorrect]
+  "Property color value 'color-mix(in hsl, lch(100% 0 0), blue)'":
+    [fail, Color mixing edge cases are incorrect]
 parsing/color-computed-powerless.html:
   [
     fail,
     Final lightness clamping; https://github.com/w3c/csswg-drafts/issues/14463; near-full-turn fixtures replaced by https://github.com/web-platform-tests/wpt/pull/63877,
-  ]
-parsing/color-computed-relative-color.html:
-  [
-    fail,
-    Stale missing-component expectations; https://github.com/w3c/csswg-drafts/issues/10254 and https://github.com/web-platform-tests/wpt/pull/62991,
-  ]
-parsing/color-computed-rgb.html:
-  [
-    fail,
-    Exact numeric precision assertions corrected in https://github.com/web-platform-tests/wpt/pull/62991,
   ]
 parsing/color-valid-color-layers-function.html: [fail, Unknown]
 parsing/color-valid-color-mix-function.html:
@@ -308,25 +358,10 @@ parsing/color-valid-contrast-color-function.html:
     fail,
     Nested origin colors retain authored components; https://github.com/w3c/csswg-drafts/issues/10328,
   ]
-parsing/color-valid-hsl.html:
-  [
-    fail,
-    Stale missing-component expectations; https://github.com/w3c/csswg-drafts/issues/10254 and https://github.com/web-platform-tests/wpt/pull/62991,
-  ]
-parsing/color-valid-hwb.html:
-  [
-    fail,
-    Stale missing-component expectations; https://github.com/w3c/csswg-drafts/issues/10254 and https://github.com/web-platform-tests/wpt/pull/62991,
-  ]
 parsing/color-valid-relative-color.html:
   [
     fail,
     Nested origin colors retain authored components; https://github.com/w3c/csswg-drafts/issues/12543,
-  ]
-parsing/color-valid-rgb.html:
-  [
-    fail,
-    Stale missing-component expectations; https://github.com/w3c/csswg-drafts/issues/10254 and https://github.com/web-platform-tests/wpt/pull/62991,
   ]
 relative-color-with-system-color.html: [fail, computedStyleMap is not implemented]
 system-color-compute.html:
@@ -407,6 +442,13 @@ DIR: css/css-display
 
 animations/display-interpolation-none.html: [fail, Not implemented]
 animations/display-interpolation.html: [fail, Not implemented]
+display-contents-svg-tspan-child-character-positions.html:
+  [fail, SVG text layout APIs are not implemented]
+display-contents-svg-tspan-child-display-changed.html:
+  [fail, SVG text layout APIs are not implemented]
+display-contents-svg-tspan-child-removed.html: [fail, SVG text layout APIs are not implemented]
+display-contents-svg-tspan-child-text-inserted.html:
+  [fail, SVG text layout APIs are not implemented]
 display-first-letter-001.html: [fail, Unknown]
 display-first-line-001.html: [fail, Unknown]
 display-list-item-height-after-dom-change.html: [fail, Unknown]
@@ -419,6 +461,7 @@ DIR: css/css-flexbox/parsing
 
 flex-basis-computed.html:
   Property flex-basis value 'calc(10% + 0px)': [fail, flex-basis computed values are incomplete]
+flex-basis-stretch-function.html: [fail, stretch() not implemented]
 
 ---
 DIR: css/css-fonts
@@ -453,17 +496,7 @@ test_font_feature_values_parsing.html:
   ]
 variations/!(at-font-face-descriptors.html|font-@(parse-numeric-stretch-style-weight|shorthand|stretch|style-parsing|weight-parsing|weight-lighter-bolder).html):
   [fail-slow, Font loading and rendering not implemented]
-variations/at-font-face-descriptors.html:
-  [
-    fail,
-    WPT retains equal font-style range bounds; https://github.com/web-platform-tests/wpt/pull/64191,
-  ]
 variations/font-parse-numeric-stretch-style-weight.html: [fail, FontFace is not implemented]
-variations/font-stretch.html:
-  [
-    fail,
-    WPT expects an unclamped font-stretch percentage; https://github.com/web-platform-tests/wpt/pull/64193,
-  ]
 
 ---
 DIR: css/css-forced-color-adjust/parsing
@@ -518,11 +551,12 @@ gradient/color-stops-parsing.html:
 image-set/**/!(image-set-parsing.html): [fail-slow, Image rendering not implemented]
 image-set/image-set-parsing.html:
   [fail, Omitted resolutions differ; https://github.com/w3c/csswg-drafts/issues/14633]
-parsing/image-function-invalid.html:
-  [
-    fail,
-    Images 5 allows URL sources in image(); https://github.com/web-platform-tests/wpt/pull/63919,
-  ]
+parsing/gradient-position-computed.html:
+  "Property background-image value 'radial-gradient(10px 10px at center, red, blue)'":
+    [fail, Equal ellipse radii are incorrectly serialized as one radius]
+parsing/gradient-position-valid.html:
+  'e.style[''background-image''] = "radial-gradient(10px 10px at center, red, blue)" should set the property value':
+    [fail, Equal ellipse radii are incorrectly serialized as one radius]
 parsing/image-orientation-invalid.html: [fail, Images parsing and serialization are incomplete]
 parsing/image-resolution-valid.html:
   [
@@ -568,13 +602,25 @@ DIR: css/css-masking
   [fail-slow, Masking and clipping not implemented]
 "!(parsing)/**": [fail-slow, Masking and clipping not implemented]
 parsing/clip-path-computed.html: [fail, Masking computed values are incomplete]
-parsing/clip-path-invalid.html:
-  [fail, Tests reject single-radius ellipses; https://github.com/web-platform-tests/wpt/pull/63924]
 parsing/clip-path-shape-parsing.html:
   [fail, Equal absolute arc radii are shortened; https://github.com/w3c/csswg-drafts/issues/5642]
 parsing/mask-computed.html: [fail, Masking computed values are incomplete]
 parsing/mask-image-computed.html: [fail, Masking computed values are incomplete]
 parsing/mask-invalid.html: [fail, Masking parsing and serialization are incomplete]
+# WPT correction: https://github.com/web-platform-tests/wpt/pull/65701
+parsing/mask-shorthand.html:
+  "e.style['mask'] = \"url(\\\"https://example.com/\\\") repeat-x top left\" should not set unrelated longhands":
+    [fail, Test omits mask-border-mode from reset longhands]
+  "e.style['mask'] = \"url(\\\"https://example.com/\\\") repeat-y 50% 50%\" should not set unrelated longhands":
+    [fail, Test omits mask-border-mode from reset longhands]
+  "e.style['mask'] = \"url(\\\"https://example.com/\\\") repeat center\" should not set unrelated longhands":
+    [fail, Test omits mask-border-mode from reset longhands]
+  "e.style['mask'] = \"url(\\\"https://example.com/\\\") no-repeat 12px\" should not set unrelated longhands":
+    [fail, Test omits mask-border-mode from reset longhands]
+  "e.style['mask'] = \"url(\\\"https://example.com/\\\") round left 50px\" should not set unrelated longhands":
+    [fail, Test omits mask-border-mode from reset longhands]
+  "e.style['mask'] = \"url(\\\"https://example.com/\\\") space 25px 25px\" should not set unrelated longhands":
+    [fail, Test omits mask-border-mode from reset longhands]
 parsing/mask-valid.sub.html: [fail, Masking parsing and serialization are incomplete]
 
 ---
@@ -586,17 +632,10 @@ DIR: css/css-mixins/functions
 ---
 DIR: css/css-multicol/parsing
 
-column-pseudo-computed.html:
-  [fail, Generated pseudo-element matching and computed values are incomplete]
 column-pseudo-invalid.html:
   [fail, Generated pseudo-element matching and computed values are incomplete]
 column-pseudo-valid.html:
   [fail, Generated pseudo-element matching and computed values are incomplete]
-column-span-invalid.html:
-  [
-    fail,
-    Current column-span grammar allows auto; https://github.com/web-platform-tests/wpt/pull/63918,
-  ]
 column-width-invalid.html:
   [
     fail,
@@ -619,6 +658,9 @@ overflow-clip-margin.html: [fail, Overflow parsing and serialization are incompl
 overflow-computed.html: [fail, Overflow computed values are incomplete]
 scroll-markers-computed.html: [fail, Overflow computed values are incomplete]
 webkit-box-computed.html: [fail, Overflow computed values are incomplete]
+webkit-line-clamp-computed.html:
+  "Property -webkit-line-clamp sets block-ellipsis to no-ellipsis if -webkit-line-clamp is none, and to ellipsis otherwise":
+    [fail, Legacy line-clamp uses the wrong block-ellipsis value]
 
 ---
 DIR: css/css-overscroll-behavior/parsing
@@ -661,19 +703,18 @@ at-property-cssom.html:
     fail,
     Registration defaults and syntax changed; https://github.com/web-platform-tests/wpt/pull/64013,
   ]
+at-property-media-query.html:
+  [timeout, iframe srcdoc and media query evaluation are not implemented]
 at-property-viewport-units*.html: [fail-slow, Viewport layout and iframe srcdoc are not implemented]
 at-property.html:
   [
     fail,
     Registration defaults and syntax changed; https://github.com/web-platform-tests/wpt/pull/64013,
   ]
-determine-registration.html: [fail, Properties values api parsing and serialization are incomplete]
+custom-property-explicit-inherit-invalidation.html:
+  "inherit() on a non-inherited custom property tracks the parent":
+    [fail, Registered custom property inheritance is not implemented]
 idlharness.html: [fail-slow, fetch is not implemented]
-register-property.html:
-  [
-    fail,
-    Registration defaults and syntax changed; https://github.com/web-platform-tests/wpt/pull/64013,
-  ]
 registered-property-revert.html:
   [fail, Properties values api parsing and serialization are incomplete]
 var-reference-registered-properties.html:
@@ -749,6 +790,9 @@ part/pseudo-classes-after-part.html:
   ]
 part/pseudo-elements-after-part.html: [fail, Font loading is not implemented]
 shadow-cascade-order-001.html: [fail, Unknown]
+sibling-invalidation-across-slots.html:
+  "Descendant of next sibling in a different slot, with other pending style changes in the shadow tree":
+    [fail, Declarative shadow roots are not implemented]
 slotted-parsing.html:
   [
     fail,
@@ -786,10 +830,31 @@ DIR: css/css-sizing
 "@(contain-intrinsic-size|responsive-iframe)/!(parsing)/**":
   [fail-slow, Sizing and animation require layout]
 aspect-ratio/!(parsing): [fail-slow, Sizing requires layout]
+parsing/max-size-shorthand.html:
+  'e.style[''max-size''] = "100px" should set max-height':
+    [fail, Size shorthand parsing and serialization are incomplete]
+parsing/max-size-valid.html:
+  'e.style[''max-size''] = "0" should set the property value':
+    [fail, Size shorthand parsing and serialization are incomplete]
+  'e.style[''max-size''] = "calc(10% - 0.5em)" should set the property value':
+    [fail, Size shorthand parsing and serialization are incomplete]
+  'e.style[''max-size''] = "100px 100px" should set the property value':
+    [fail, Size shorthand parsing and serialization are incomplete]
+parsing/min-size-shorthand.html:
+  'e.style[''min-size''] = "100px" should set min-height':
+    [fail, Size shorthand parsing and serialization are incomplete]
+parsing/min-size-valid.html:
+  'e.style[''min-size''] = "0" should set the property value':
+    [fail, Size shorthand parsing and serialization are incomplete]
+  'e.style[''min-size''] = "calc(10% - 0.5em)" should set the property value':
+    [fail, Size shorthand parsing and serialization are incomplete]
+  'e.style[''min-size''] = "100px 100px" should set the property value':
+    [fail, Size shorthand parsing and serialization are incomplete]
 parsing/size-shorthand.html: [fail, size parsing is incomplete]
 parsing/size-valid.html:
   e.style['size'] = "100px 100px" should set the property value:
     [fail, size serialization is incomplete]
+parsing/stretch-function.html: [fail, stretch() not implemented]
 stretch/**/!(parsing.html): [fail-slow, Sizing requires layout]
 
 ---
@@ -841,6 +906,8 @@ hyphenate-limit-chars-computed.html: [fail, Text computed values are incomplete]
 hyphenate-limit-chars-valid.html: [fail, Text parsing and serialization are incomplete]
 letter-spacing-computed.html: [fail, Text computed values are incomplete]
 text-align-computed.html: [fail, Text computed values are incomplete]
+text-autospace-size-computed.html: [fail, text-autospace-size not implemented]
+text-autospace-size-valid.html: [fail, text-autospace-size not implemented]
 text-fit-computed.html: [fail, Text computed values are incomplete]
 text-spacing-computed.html: [fail, Text computed values are incomplete]
 text-spacing-valid.html: [fail, Text parsing and serialization are incomplete]
@@ -881,7 +948,7 @@ transitionevent-interface.html:
 ---
 DIR: css/css-ui
 
-"!(appearance-cssom-001.html*|@(accent-color|appearance|caret-shape|input-security|webkit-appearance)-@(parsing|serialization).html|parsing)":
+"!(appearance-cssom-001.html*|@(accent-color|appearance|caret-shape|webkit-appearance)-@(parsing|serialization).html|parsing)":
   [fail-slow, User interface rendering and interactions are not implemented]
 "!(parsing|animation)/**":
   [fail-slow, User interface rendering and interactions are not implemented]
@@ -892,28 +959,11 @@ parsing/canonical-order-outline-sub-properties-001.html:
     fail,
     Obsolete invert and default-omission assumptions; https://github.com/web-platform-tests/wpt/pull/63926,
   ]
-parsing/caret-color-computed.html:
-  [
-    fail,
-    Current caret-color grammar excludes auto followed by another component; https://github.com/web-platform-tests/wpt/pull/63923,
-  ]
-parsing/caret-color-valid.html:
-  [
-    fail,
-    Current caret-color grammar excludes auto followed by another component; https://github.com/web-platform-tests/wpt/pull/63923,
-  ]
 parsing/cursor-computed.html: [fail, Ui computed values are incomplete]
 parsing/cursor-valid.html: [fail, Ui parsing and serialization are incomplete]
 parsing/interactivity-computed.html: [fail, Ui computed values are incomplete]
-parsing/outline-color-computed.html:
-  [
-    fail,
-    Earlier subtests leave inline outline-color red on the shared target; https://github.com/web-platform-tests/wpt/pull/63875,
-  ]
 parsing/outline-offset-computed.html: [fail, Ui computed values are incomplete]
 parsing/outline-offset-valid.html: [fail, Ui parsing and serialization are incomplete]
-parsing/outline-valid.html:
-  [fail, Outline canonical order changed; https://github.com/web-platform-tests/wpt/pull/63890]
 
 ---
 DIR: css/css-values
@@ -923,11 +973,6 @@ DIR: css/css-values
   [fail-slow, Animation execution is not implemented]
 "@(cap|rcap|rch|rex|ric|rlh)-invalidation.html": [fail-slow, Font loading is not implemented]
 animations/**: [fail-slow, Animation execution is not implemented]
-attr-all-types.html:
-  [
-    fail,
-    WPT rejects malformed attr() first arguments instead of using their fallbacks; https://github.com/web-platform-tests/wpt/pull/63975,
-  ]
 attr-container-style-query.html: [fail, Values parsing and serialization are incomplete]
 attr-cycle.html:
   [
@@ -942,6 +987,7 @@ attr-security-if.html:
     fail,
     Default image-set resolution serialization differs; https://github.com/w3c/csswg-drafts/issues/14633,
   ]
+attr-security-image-set.html: [fail, attr()-tainted image-set URLs are not rejected]
 attr-security.html:
   [
     fail,
@@ -959,18 +1005,35 @@ calc-infinity-nan-computed.html: [fail, Values computed values are incomplete]
 calc-infinity-nan-serialize-length.html: [fail, Values parsing and serialization are incomplete]
 calc-nesting-002.html: [fail, Values parsing and serialization are incomplete]
 calc-nesting.html: [fail, Values parsing and serialization are incomplete]
+calc-percentage-in-number-functions.html: [fail, Percentage math requires used-value resolution]
 calc-size/!(calc-size-parsing.html|interpolate-size-computed.html|interpolate-size-parsing.html):
   [fail-slow, Intrinsic sizing requires layout]
 calc-size/animation/**: [fail-slow, Animation execution is not implemented]
 ch-*-font-load.html: [fail-slow, Font loading is not implemented]
 dynamic-viewport-units-rule-cache.html:
   [fail-slow, Iframe srcdoc and viewport layout are not implemented]
+exp-log-compute.html:
+  "log(2, 1) should be used-value-equivalent to calc(NaN)": [fail, log() edge cases are incorrect]
+  "calc(-1 * log(2, 1)) should be used-value-equivalent to calc(NaN)":
+    [fail, log() edge cases are incorrect]
+  "log(5, 1) should be used-value-equivalent to calc(NaN)": [fail, log() edge cases are incorrect]
+  "calc(-1 * log(5, 1)) should be used-value-equivalent to calc(NaN)":
+    [fail, log() edge cases are incorrect]
+  "calc(1 / log(1, 0.5)) should be used-value-equivalent to calc(infinity)":
+    [fail, log() edge cases are incorrect]
 exp-log-serialize.html: [fail, Values parsing and serialization are incomplete]
 getComputedStyle-calc-mixed-units-001.html: [fail, Values parsing and serialization are incomplete]
 getComputedStyle-calc-mixed-units-002.html: [fail, Values parsing and serialization are incomplete]
 getComputedStyle-calc-mixed-units-003.html: [fail, Values parsing and serialization are incomplete]
 hypot-pow-sqrt-computed.html: [fail, Values computed values are incomplete]
 hypot-pow-sqrt-serialize.html: [fail, Values parsing and serialization are incomplete]
+# WPT correction: https://github.com/web-platform-tests/wpt/pull/65702
+ident-function-shorthand.html:
+  "e.style['animation'] = \"ident(\\\"--pa\\\" \\\"ss\\\") 2s\" should not set unrelated longhands":
+    [fail, Test omits animation-composition and animation-trigger from expected longhands]
+ident-function-substitution.html:
+  "ident('') valid, but generating IACVT value, fallback when used as var() name":
+    [fail, Empty ident() does not trigger the var() fallback]
 if-conditionals.html:
   [
     fail,
@@ -1010,6 +1073,7 @@ tree-counting/tree-scoped-sibling-function.html:
   [fail-slow, Declarative shadow roots are not implemented]
 tree-counting/trig-functions-with-runtime-angle-arguments.html:
   [fail, Values parsing and serialization are incomplete]
+typed-arithmetic-negated-product.html: [fail, Typed arithmetic products are not fully simplified]
 typed_arithmetic.html: [fail, Values parsing and serialization are incomplete]
 urls/**/url-font-*.html: [fail-slow, Font loading is not implemented]
 urls/referrer-policy/no-referrer/url-import-referrer-policy.html:
@@ -1049,16 +1113,6 @@ variable-definition.html:
   [
     fail,
     Tests reject valid decoded custom property name strings; https://github.com/web-platform-tests/wpt/pull/63917,
-  ]
-variable-first-letter.html:
-  [
-    fail,
-    Tests require static for an optionally supported property; https://github.com/web-platform-tests/wpt/pull/63878,
-  ]
-variable-first-line.html:
-  [
-    fail,
-    Tests require static for an optionally supported property; https://github.com/web-platform-tests/wpt/pull/63878,
   ]
 variable-presentation-attribute.html: [fail, Variables parsing and serialization are incomplete]
 variable-reference-name-substitution-attr-taint.html:
@@ -1111,16 +1165,6 @@ CSSFontFeatureValuesRule.html: [fail, CSSFontFeatureValuesMap not implemented]
 CSSStyleSheet-constructable.html:
   CSSStyleSheet.replaceSync should not trigger any loads from @import rules:
     [fail, Resource Timing is not implemented]
-  CSSStyleSheet.replace allows, but ignores, import rule inside:
-    [
-      fail,
-      The preceding Resource Timing failure leaves a stylesheet attached; https://github.com/web-platform-tests/wpt/pull/64246,
-    ]
-  CSSStyleSheet.replace ignores @import rule but still loads other rules:
-    [
-      fail,
-      The preceding Resource Timing failure leaves a stylesheet attached; https://github.com/web-platform-tests/wpt/pull/64246,
-    ]
 HTMLLinkElement-disabled-001.html: [fail, Unknown]
 HTMLLinkElement-disabled-002.html: [fail, Unknown]
 HTMLLinkElement-disabled-003.html: [fail, Unknown]
@@ -1130,6 +1174,8 @@ HTMLLinkElement-load-event.html: [fail, Unknown]
 base-uri.html: [fail, Unknown]
 caretPositionFromPoint-audioVideo.html: [fail, Unknown]
 caretPositionFromPoint-in-flex-container.html: [fail, Unknown]
+caretPositionFromPoint-svg-text-scaled.html: [fail, caretPositionFromPoint() not implemented]
+caretPositionFromPoint-textarea.html: [fail, caretPositionFromPoint() not implemented]
 caretPositionFromPoint-with-transformation.html:
   [timeout, iframe srcdoc and caretPositionFromPoint are not implemented]
 caretPositionFromPoint.html: [fail, Unknown]
@@ -1139,17 +1185,9 @@ computed-style-003.html: [fail, Unknown]
 computed-style-004.html: [fail, Unknown]
 computed-style-005.html: [fail, Unknown]
 cssom-getPropertyValue-common-checks.html:
-  [
-    fail,
-    Initial longhands cannot be represented by the legacy line-clamp shorthand; https://github.com/web-platform-tests/wpt/pull/63974,
-  ]
+  [skip-node:<24, Passes but exceeds the harness timeout on Node.js 22 in CI]
 cssstyledeclaration-csstext.html: [fail, Unknown]
 flex-serialization.html: [fail, Unknown]
-font-family-serialization-001.html:
-  [
-    fail,
-    WPT incorrectly treats -webkit-generic(fangsong) as a valid family name; https://github.com/web-platform-tests/wpt/pull/63884,
-  ]
 getComputedStyle-animations-replaced-into-ib-split.html: [fail, Unknown]
 getComputedStyle-calc.html:
   getComputedStyle() returns computed value for calc(100% - 40px):
@@ -1157,11 +1195,17 @@ getComputedStyle-calc.html:
   getComputedStyle() returns computed value for calc(608px - env(safe-area-inset-top)):
     [fail, Need to fix calc() with CSS functions]
 getComputedStyle-dynamic-subdoc.html: [fail, Unknown]
+getComputedStyle-inset-inline-containing-block-vertical.html:
+  [fail, Layout-dependent inset resolution is not implemented]
 getComputedStyle-insets-absolute.html: [timeout, Module scripts are not implemented]
 getComputedStyle-insets-fixed.html: [timeout, Module scripts are not implemented]
 getComputedStyle-insets-grid.html: [fail, Unknown]
 getComputedStyle-insets-nobox.html: [timeout, Module scripts are not implemented]
 getComputedStyle-insets-relative.html: [timeout, Module scripts are not implemented]
+getComputedStyle-insets-relpos-block-in-inline.html:
+  [fail, Layout-dependent inset resolution is not implemented]
+getComputedStyle-insets-relpos-inline-002.html:
+  [fail, Layout-dependent inset resolution is not implemented]
 getComputedStyle-insets-relpos-inline.html: [fail, Unknown]
 getComputedStyle-insets-static.html: [timeout, Module scripts are not implemented]
 getComputedStyle-insets-sticky-container-for-abspos.html:
@@ -1172,6 +1216,9 @@ getComputedStyle-layout-dependent-replaced-into-ib-split.html: [fail, Unknown]
 getComputedStyle-line-height.html: [fail, Unknown]
 getComputedStyle-pseudo.html: [fail, Resolving pseudo-element percentage widths requires layout]
 getComputedStyle-resolved-min-size-auto.html: [fail, Unknown]
+getComputedStyle-ruby-width-height.html:
+  "Resolved width of a block-level ruby is the used value":
+    [fail, Layout-dependent ruby size resolution is not implemented]
 getComputedStyle-sticky-pos-percent.html: [fail, Unknown]
 idlharness.html: [fail, Depends on fetch]
 link-element-stylesheet-title.html: [fail, Unknown]
@@ -1180,22 +1227,11 @@ preferred-stylesheet-order.html: [fail, Unknown]
 serialize-values.html:
   "outline-color: invert":
     [fail, The invert keyword is obsolete; https://github.com/web-platform-tests/wpt/pull/63926]
-shorthand-values.html:
-  "The serialization of outline-width: 2px; outline-style: dotted; outline-color: blue; should be canonical.":
-    [fail, Outline canonical order changed; https://github.com/web-platform-tests/wpt/pull/63890]
-  "The serialization of -webkit-line-clamp: none; should be canonical.":
-    [
-      fail,
-      Legacy and modern line-clamp reset block-ellipsis differently; https://github.com/web-platform-tests/wpt/pull/63974,
-    ]
-style-set-property.html:
-  [
-    fail,
-    Empty custom-value serialization and setter trimming; https://github.com/web-platform-tests/wpt/pull/63986 and https://github.com/w3c/csswg-drafts/issues/14365,
-  ]
 stylesheet-cross-origin-redirect-quirks.sub.html: [fail, Unknown]
 stylesheet-same-origin.sub.html: [fail, Unknown]
 stylesheet-title.html: [fail, Unknown]
+stylesheets-in-non-rendered-document.html:
+  [fail, Stylesheets in non-rendered documents are not exposed]
 ttwf-cssom-doc-ext-load-count.html:
   [fail, External link stylesheets not synchronously available during parsing]
 ttwf-cssom-doc-ext-load-tree-order.html:
@@ -1214,6 +1250,7 @@ background-change-during-smooth-scroll.html: [fail-slow, Not implemented]
 checkVisibility.html: [fail, Not implemented]
 client-props-input.html: [fail, Not implemented]
 client-props-root.html: [fail, Not implemented]
+client-scroll-props-input.html: [fail, Layout and hit testing are not implemented]
 cssom-geometryutils-connected-callback.html: [fail, GeometryUtils not implemented]
 cssom-geometryutils-convertPointFromNode.html: [fail, Not implemented]
 cssom-geometryutils-convertQuadFromNode.html: [fail, Not implemented]
@@ -1245,6 +1282,9 @@ elementFromPoint-float-in-relative.html: [fail, Not implemented]
 elementFromPoint-float-in-table.html: [fail, Not implemented]
 elementFromPoint-list-001.html: [fail, Not implemented]
 elementFromPoint-mixed-font-sizes.html: [fail, Not implemented]
+elementFromPoint-negative-z-index-inline-overflow-clip.html:
+  [fail, Layout and hit testing are not implemented]
+elementFromPoint-negative-z-index-inline.html: [fail, Layout and hit testing are not implemented]
 elementFromPoint-subpixel.html: [fail, Not implemented]
 elementFromPoint-visibility-hidden-resizer.html: [fail, Not implemented]
 elementFromPoint.html: [fail, Not implemented]
@@ -1277,6 +1317,7 @@ offsetParent_element_test.html: [fail, Unknown]
 offsetTop-offsetLeft-nested-offsetParents.html: [fail, Not implemented]
 offsetTop-offsetLeft-with-zoom.html: [fail, Unknown]
 offsetTopLeft-border-box.html: [fail, Unknown]
+offsetTopLeft-inline-offsetParent.html: [fail, Layout and hit testing are not implemented]
 offsetTopLeft-table-caption.html: [fail, Unknown]
 offsetTopLeftInScrollableParent.html: [fail, Unknown]
 outer-svg.html: [fail, clientTop not implemented]
@@ -1370,6 +1411,19 @@ offset-rotate-computed.html: [fail, Motion computed values are incomplete]
 DIR: css/selectors
 
 dir-selector-auto.html: [fail, innerText not implemented; has dont-upstream version]
+featureless-007.html:
+  ":is(:host) does not match the shadow host with a foreign default namespace":
+    [fail, Functional pseudo-classes incorrectly match shadow hosts with a default namespace]
+  ":is(:host) does not match the shadow host with a default namespace the host is in":
+    [fail, Functional pseudo-classes incorrectly match shadow hosts with a default namespace]
+  ":where(:host) does not match the shadow host with a foreign default namespace":
+    [fail, Functional pseudo-classes incorrectly match shadow hosts with a default namespace]
+  ":where(:host) does not match the shadow host with a default namespace the host is in":
+    [fail, Functional pseudo-classes incorrectly match shadow hosts with a default namespace]
+  ":not(:not(:host)) does not match the shadow host with a foreign default namespace":
+    [fail, Functional pseudo-classes incorrectly match shadow hosts with a default namespace]
+  ":not(:not(:host)) does not match the shadow host with a default namespace the host is in":
+    [fail, Functional pseudo-classes incorrectly match shadow hosts with a default namespace]
 focus-visible-009.html: [fail, autofocus not implemented]
 focus-visible-020.html: [fail, delegatesFocus not implemented]
 focus-within-toplayer-001.html: [fail, Unknown]
@@ -1506,6 +1560,7 @@ HTMLElement-constructor.html:
     [fail, Unknown]
   "HTMLElement constructor must throw a TypeError when NewTarget is equal to itself via a Proxy object":
     [fail, webidl2js doesn't deal well with tests using Proxies to verify properties access]
+connected-callback-before-insertion-steps.html: [fail, Details name groups are not implemented]
 connected-callbacks-html-fragment-parsing.html: [fail-slow, Unknown]
 cross-realm-callback-report-exception.html:
   [fail, No relevant realm support for callbacks in webidl2js]
@@ -1523,6 +1578,10 @@ form-associated/fieldset-elements-during-construction.html:
   [fail, Form-associated custom elements not implemented]
 form-associated/fieldset-elements.html: [fail, Not implemented]
 form-associated/focusability.html: [fail, Not implemented]
+form-associated/form-associated-callback-form-attribute-removal.html:
+  [fail, Form-associated custom elements are not implemented]
+form-associated/form-associated-callback-order.html:
+  [fail, Form-associated custom elements are not implemented]
 form-associated/form-associated-callback.html: [fail, Not implemented]
 form-associated/form-disabled-callback.html: [fail-slow, Not implemented]
 form-associated/form-disabled-legend.html:
@@ -1538,13 +1597,18 @@ form-associated/form-disabled-legend.html:
     [fail, Form-associated custom elements not implemented]
 form-associated/form-elements-namedItem.html: [fail, Not implemented]
 form-associated/form-reset-callback.html: [fail, Not implemented]
+form-associated/form-upgrade-reactions.html:
+  [fail, Form-associated custom elements are not implemented]
 htmlconstructor/newtarget-customized-builtins.html: [fail, unknown]
 htmlconstructor/newtarget.html:
   [fail, Currently impossible to get the active function associated realm]
 microtasks-and-constructors.html:
   [fail, Missing parser microtask checkpoints and incorrect microtask ordering]
+parser/xml-fragment-parser-does-not-construct-synchronously.xhtml:
+  [fail, XML fragment parsing constructs custom elements synchronously]
 parser/xml-parser-custom-element-reparents-during-construction.xhtml:
   [fail, URL.createObjectURL not implemented]
+parser/xml-parser-customized-builtin-input.xhtml: [fail, URL.createObjectURL() not implemented]
 perform-microtask-checkpoint-before-construction-xml-parser.xhtml:
   [fail, impossible to implement microtask checkpoint without patching Promise]
 perform-microtask-checkpoint-before-construction.html:
@@ -1559,6 +1623,17 @@ reactions/Document.html:
 reactions/ElementContentEditable.html: [fail, contentEditable is not implemented]
 reactions/HTMLElement.html:
   [fail, translate and spellcheck attributes are not implemented on HTMLElement]
+reactions/HTMLOptionElement.html:
+  "selected on HTMLOptionElement must enqueue connectedCallback when cloning a custom element into selectedcontent":
+    [fail, selectedcontent is not implemented]
+reactions/HTMLOptionsCollection.html:
+  "selectedIndex on HTMLOptionsCollection must enqueue connectedCallback when cloning a custom element into selectedcontent":
+    [fail, selectedcontent is not implemented]
+reactions/HTMLSelectElement.html:
+  "selectedIndex on HTMLSelectElement must enqueue connectedCallback when cloning a custom element into selectedcontent":
+    [fail, selectedcontent is not implemented]
+  "value on HTMLSelectElement must enqueue connectedCallback when cloning a custom element into selectedcontent":
+    [fail, selectedcontent is not implemented]
 reactions/customized-builtins/HTMLAreaElement.html:
   [fail, HTMLAreaElement doesn't implement download ping and referrerPolicy]
 reactions/customized-builtins/HTMLButtonElement.html:
@@ -1574,27 +1649,55 @@ registries/Document-createElement.html: [fail, Unknown]
 registries/Document-createElementNS.html: [fail, Unknown]
 registries/Document-customElementRegistry.html: [fail, Unknown]
 registries/Document-importNode-cross-document.window.html: [fail, Unknown]
+registries/Document-importNode-explicit-registry.window.html:
+  [fail, Scoped custom element registries are not implemented]
 registries/Document-importNode.html: [fail, Unknown]
+registries/Element-attachShadow-disabled-shadow.window.html:
+  [fail, Scoped custom element registries are not implemented]
 registries/Element-customElementRegistry-exceptions.html: [fail, Unknown]
 registries/Element-customElementRegistry.html: [fail, Unknown]
 registries/Element-innerHTML.html: [fail, Unknown]
 registries/ShadowRoot-init-customElementRegistry.html: [fail, Unknown]
 registries/ShadowRoot-init-declarative.html: [fail, Unknown]
 registries/ShadowRoot-innerHTML.html: [fail, Unknown]
+registries/adoption-before-upgrade.window.html:
+  [fail, Scoped custom element registries are not implemented]
+registries/adoption-global-registry.window.html:
+  [fail, Scoped custom element registries are not implemented]
+registries/adoption-inherited-scoped-registry.window.html:
+  [fail, Scoped custom element registries are not implemented]
+registries/adoption-null-registry-element.window.html:
+  [fail, Scoped custom element registries are not implemented]
+registries/adoption-null-registry-shadow-root.window.html:
+  [fail, Scoped custom element registries are not implemented]
 registries/adoption.window.html: [fail, Unknown]
 registries/constructor-direct-call-fallback-registry.window.html: [fail, Unknown]
+registries/constructor-from-another-window.window.html:
+  [fail, Cross-window custom element registry selection is incorrect]
 registries/constructor-reentry-createElement.window.html: [fail, Unknown]
 registries/constructor-reentry-with-different-definition.html: [fail, Unknown]
 registries/define.html: [fail, Unknown]
 registries/element-mutation-null-registry-removal.html: [fail, Unknown]
 registries/element-mutation.html: [fail, Unknown]
+registries/global-registry-access-timing.window.html:
+  [fail, Scoped custom element registries are not implemented]
 registries/global.window.html: [fail, Unknown]
 registries/initial-about-blank.window.html: [fail, Unknown]
 registries/per-document.html: [fail, Unknown]
 registries/pseudo-class-defined.window.html: [fail, Unknown]
 registries/scoped-custom-element-registry-customelementregistry-attribute-in-xhtml.xhtml:
   [fail, Unknown]
+registries/scoped-custom-element-registry-customelementregistry-attribute-keep-null-in-xhtml.xhtml:
+  [fail, Scoped custom element registries are not implemented]
+registries/scoped-custom-element-registry-customelementregistry-attribute-keep-null.html:
+  [fail, Scoped custom element registries are not implemented]
 registries/scoped-custom-element-registry-customelementregistry-attribute.html: [fail, Unknown]
+registries/scoped-custom-element-registry-serialization.html:
+  [fail, Scoped custom element registries are not implemented]
+registries/scoped-custom-element-registry-xml-serialization-in-xhtml.xhtml:
+  [fail, Scoped custom element registries are not implemented]
+registries/scoped-custom-element-registry-xml-serialization.html:
+  [fail, Scoped custom element registries are not implemented]
 registries/scoped-registry-append.html: [fail, Unknown]
 registries/scoped-registry-define-upgrade-criteria.html: [fail, Unknown]
 registries/scoped-registry-define-upgrade-order.html: [fail, Unknown]
@@ -1643,6 +1746,8 @@ event-global-extra.window.html:
   [fail, We're supposed to check the event listener's global (not the Event's global)]
 event-global-is-still-set-when-coercing-beforeunload-result.html: [fail-slow, unknown iframe issue]
 event-global-is-still-set-when-reporting-exception-onerror.html: [fail, unknown iframe issue]
+event-listener-not-fully-active-*.html:
+  [fail, Event listener invocation does not correctly check document activity]
 mouse-event-retarget.html: [fail, Requires a layout engine]
 relatedTarget.window.html: [fail, Unknown]
 scrolling/save-iframe-scroll-offset-when-display-none.html: [timeout, Unknown]
@@ -1652,6 +1757,8 @@ scrolling/scroll-event-not-fired-on-ancestor-style-change.html: [timeout, Scroll
 scrolling/scroll-events-fired-once-per-frame-across-display-none.html:
   [fail, Scrolling not implemented]
 scrolling/scrollend-event-fired-after-instant-scroll-in-microtask.html: [fail, Unknown]
+scrolling/scrollend-event-fired-after-layout-clamping.html:
+  [fail, Layout and scrolling are not implemented]
 scrolling/scrollend-fires-to-text-input.html: [fail-slow, Unknown]
 scrolling/scrollend-with-snap-on-fractional-offset.html: [fail, Unknown]
 webkit-animation-end-event.html: [fail-slow, WebKit-prefixed events not implemented]
@@ -1669,6 +1776,9 @@ DOMTokenList-coverage-for-attributes.html:
 DIR: dom/nodes
 
 Document-URL.html: [fail, Unknown]
+Document-base-url-not-live.window.html: [fail, Inherited document base URLs are not snapshotted]
+Document-cloneNode-*base-url*.window.html:
+  [fail, Document base URL cloning and iframe srcdoc are incomplete]
 Document-createEvent.https.html:
   "DragEvent should be an alias for DragEvent.": [fail, Interface not implemented]
   "createEvent('DragEvent') should be initialized correctly.": [fail, Interface not implemented]
@@ -1684,9 +1794,13 @@ Document-createEvent.https.html:
   "createEvent('TEXTEVENT') should be initialized correctly.": [fail, Interface not implemented]
 Element-firstElementChild-entity-xhtml.xhtml: [fail, Unknown]
 Element-firstElementChild-entity.svg: [fail, Unknown]
+MutationObserver-callback-order.window.html:
+  [fail, Transient observers are missing and mutation microtasks are queued without records]
 MutationObserver-cross-realm-callback-report-exception.html:
   [fail, No relevant realm support for callbacks in webidl2js]
 MutationObserver-document.html: [fail, Missing parser microtask checkpoints]
+MutationObserver-transient-registered-observers.window.html:
+  [fail, Transient registered mutation observers are not implemented]
 Node-cloneNode-document-allow-declarative-shadow-roots.window.html: [fail, Unknown]
 Node-compareDocumentPosition.html:
   [fail, Disconnected-node ordering is not antisymmetric; has dont-upstream version]
@@ -1702,6 +1816,8 @@ insertion-removing-steps/Node-appendChild-script-and-style.html: [fail, Unknown]
 insertion-removing-steps/change-event.window.html: [fail, scrollIntoView not implemented]
 insertion-removing-steps/insertion-removing-steps-script.window.html: [fail, Unknown]
 moveBefore/**: [fail-slow, Not implemented]
+processing-instruction-attributes-clone-and-range.html:
+  [fail, ProcessingInstruction attributes are not implemented]
 processing-instruction-attributes.html: [fail, Not implemented]
 remove-and-adopt-thcrash.html: [fail, window.open not implemented]
 
@@ -1723,14 +1839,8 @@ TreeWalker-acceptNode-filter-cross-realm-null-browsing-context.html:
 DIR: domparsing
 
 DOMParser-parseFromString-stylesheets.html: [fail, Unknown]
-DOMParser-parseFromString-url-base-pushstate.html:
-  [flaky, Upstream test race; https://github.com/web-platform-tests/wpt/pull/62752]
-DOMParser-parseFromString-url-base.html:
-  [flaky, Upstream test race; https://github.com/web-platform-tests/wpt/pull/62752]
-DOMParser-parseFromString-url-pushstate.html:
-  [flaky, Upstream test race; https://github.com/web-platform-tests/wpt/pull/62752]
-DOMParser-parseFromString-url.html:
-  [flaky, Upstream test race; https://github.com/web-platform-tests/wpt/pull/62752]
+DOMParser-parseFromString-url-base-about.window.html:
+  "DOMParser in an about:srcdoc document": [fail, iframe srcdoc is not implemented]
 DOMParser-parseFromString-xml-doctype.html: [fail, saxes doesn't support DTD validation]
 DOMParser-parseFromString-xml-scripting-support-disabled.html:
   parseFromString as XML, svg script, appendChild:
@@ -1744,17 +1854,33 @@ DOMParser-parseFromString-xml-scripting-support-disabled.html:
   parseFromString as XML, svg script, append cloneNode result:
     [fail, The rootElement getter on SVG documents is not implemented]
 XMLSerializer-serializeToString.html: [fail, Unknown]
+all-stream-methods-with-trusted-types-no-policy.html:
+  [fail-slow, HTML streaming methods and Trusted Types are not implemented]
+createContextualFragment-external-scripts-async.html:
+  [fail, Fragment-parsed scripts do not have force async set]
 createContextualFragment-xhtml.xhtml: [fail, Unknown]
 createContextualFragment.html:
   "<html> in a different namespace shouldn't be special": [fail, Unknown]
+html-insertion-methods-html-element.html:
+  [fail-slow, HTML partial-update methods are not implemented]
+html-unsafe-external-scripts-async.html:
+  [fail-slow, HTML unsafe parsing methods are not implemented]
 innerhtml-05.xhtml: [fail, Unknown]
 parsed-document-origin.window.html:
   Document.parseHTML(): [fail, HTML parsing static methods on Document not implemented]
   Document.parseHTMLUnsafe(): [fail, HTML parsing static methods on Document not implemented]
+positional-*.html: [fail-slow, HTML partial-update methods are not implemented]
+stream-*.html: [fail-slow, HTML streaming methods are not implemented]
+unclosed-script-already-started.html:
+  [fail, Unclosed fragment-parsed scripts are not marked already started]
+unsafe-and-trusted-types-external-scripts-async.html:
+  [fail-slow, HTML unsafe parsing methods and Trusted Types are not implemented]
 
 ---
 DIR: domxpath
 
+absolute-location-path-attribute-context.html:
+  [fail, Absolute XPath paths from attribute contexts are incorrect]
 fn-lang.html: [fail, Unknown]
 fns-name-related.html:
   fns-name-related: [fail, XPath name functions are incomplete]
@@ -1782,6 +1908,10 @@ json-document-utf8.html:
     [fail, JSON documents incorrectly inherit the parent document encoding]
   text/json with no charset is decoded as UTF-8:
     [fail, JSON documents incorrectly inherit the parent document encoding]
+  "APPLICATION/JSON with no charset is decoded as UTF-8":
+    [fail, JSON documents are not always decoded as UTF-8]
+  "application/json;charset=windows-1251 is decoded as UTF-8":
+    [fail, JSON documents are not always decoded as UTF-8]
 "legacy-mb-japanese/euc-jp/eucjp-decode-cseucpkdfmtjapanese.html?!(1-1000)": [pass-slow]
 "legacy-mb-japanese/euc-jp/eucjp-decode-x-euc-jp.html?!(1-1000)": [pass-slow]
 "legacy-mb-japanese/euc-jp/eucjp-decode.html?!(1-1000)": [pass-slow]
@@ -1831,12 +1961,25 @@ json-document-utf8.html:
 "streams/!(realms.window.html)": [fail, Not implemented]
 streams/realms.window.html: [fail-slow, Not implemented]
 textdecoder-arguments.any.html: [fail, Unknown]
+# Decoder reset after errors: https://github.com/ExodusOSS/bytes/issues/75
+textdecoder-fatal-streaming.any.html:
+  "Fatal flag, streaming error resets BOM handling: utf-8":
+    [fail, TextDecoder does not reset BOM handling after fatal decoding errors]
+  "Fatal flag, streaming error resets BOM handling: utf-16le":
+    [fail, TextDecoder does not reset BOM handling after fatal decoding errors]
+  "Fatal flag, streaming error resets BOM handling: utf-16be":
+    [fail, TextDecoder does not reset BOM handling after fatal decoding errors]
+# Decoder reset after errors: https://github.com/ExodusOSS/bytes/issues/75
+textdecoder-mistakes.any.html:
+  "fatal stream: iso-2022-jp":
+    [fail, ISO-2022-JP decoder state is not reset after a fatal streaming error]
 
 ---
 DIR: fetch/api/headers
 
 header-setcookie.any.html:
   "Set-Cookie is a forbidden response header": [fail, Response is not defined]
+header-values-last-event-id.any.html: [fail, fetch() not implemented]
 header-values-normalize.any.html: [fail-slow, "https://github.com/nodejs/node/issues/61582"]
 header-values.any.html: [fail-slow, "https://github.com/nodejs/node/issues/61582"]
 headers-forbidden-override.any.html: [fail, Request is not defined]
@@ -1845,6 +1988,9 @@ headers-no-cors.any.html: [fail, Request is not defined]
 ---
 DIR: hr-time
 
+audioworklet-cross-origin-isolated.https.html:
+  [fail, AudioWorklet and cross-origin isolation are not implemented]
+audioworklet.https.html: [fail, AudioWorklet and cross-origin isolation are not implemented]
 clamped-time-origin-isolated.https.html: [fail, Needs crossOriginIsolated]
 clamped-time-origin.html: [fail, Needs crossOriginIsolated]
 cross-origin-isolated-timing-attack.https.html: [fail, Not implemented]
@@ -1879,10 +2025,14 @@ event-order/before-load-hash.html: [fail, We don't support navigation via locati
 event-order/pushState-inside-popstate.html: [fail, We don't support navigation via location]
 event-order/same-document-traverse-immediate.html: [fail, We don't support navigation via location]
 event-order/same-document-traverse-wait.html: [fail, We don't support navigation via location]
+event-order/same-url-fragment-link-click.html:
+  [fail, Fragment navigation event ordering is incorrect]
 hash-empty-string.html:
   "changing the hash from an empty string to an empty string does not trigger a hashchange event":
     [fail, Unknown]
 history-traversal-navigates-multiple-frames.html: [fail, Unknown]
+iframe-navigated-during-container-load.html:
+  [timeout, window.open() and navigation are not implemented]
 pagereveal/**: [fail-slow, Unknown]
 pageswap/**: [fail, BroadcastChannel not implemented]
 persisted-user-state-restoration/resume-timer-on-history-back.html: [timeout, Unknown]
@@ -1934,7 +2084,13 @@ grandparent_location_aboutsrcdoc.sub.window.html: [timeout, Unknown]
 grandparent_session_aboutsrcdoc.sub.window.html: [fail-slow, Unknown]
 initial-empty-document/!(load-event-iframe-element.html): [fail-slow, Unknown]
 javascript-url-load-as-html.xhtml: [fail, Unknown]
+javascript-url-nested-history.html:
+  [timeout, "Navigation to javascript: URL string results is not implemented"]
 javascript-url-no-beforeunload.window.html: [fail, Unknown]
+javascript-url-object-embed-history.html:
+  [timeout, "Navigation to javascript: URL string results is not implemented"]
+javascript-url-reentrant-navigation.html:
+  [timeout, "Navigation to javascript: URL string results is not implemented"]
 javascript-url-referrer.window.html: [fail, Unknown]
 javascript-url-return-value-handling-dynamic.html: [fail, Unknown]
 javascript-url-security-check-failure.sub.html: [fail, Unknown]
@@ -1949,6 +2105,8 @@ multiple-globals/context-for-location.html: [fail-slow, We don't support navigat
 multiple-globals/context-for-window-open.html: [fail-slow, We don't support navigation via location]
 navigate-cross-origin-iframe-to-same-url-with-fragment.html: [fail, Unknown]
 navigate-cross-origin-iframe-to-same-url.html: [fail, Unknown]
+navigate-iframe-to-same-url-with-document-domain.html:
+  [timeout, Navigation API and document.domain are not implemented]
 navigate-to-unparseable-url.html: [fail, We don't support navigation via location]
 navigate_too_many_calls.optional.html: [fail, Unknown]
 navigation-unload-data-url.window.html: [fail-slow, We don't support navigation via location]
@@ -1970,6 +2128,7 @@ source/navigate-child-function-parent.html: [timeout, Unknown]
 source/navigate-child-function.html: [timeout, Unknown]
 source/navigate-child-src-about-blank.html: [fail, Unknown]
 top-level-data-url.window.html: [fail, window.open() not implemented]
+window-stop-in-image-load-handler.html: [timeout, postMessage() does not populate event.source]
 
 ---
 DIR: html/browsers/browsing-the-web/scroll-to-fragid
@@ -1978,6 +2137,8 @@ DIR: html/browsers/browsing-the-web/scroll-to-fragid
 focus-changes-after-scroll-to-fragment.html: [fail, Unknown]
 fragment-and-encoding-2.html: [fail, Unknown]
 fragment-and-encoding.html: [fail, Unknown]
+html-fragment-in-svg-foreign-object-scrolls-ancestors.html:
+  [fail, Layout and scrolling are not implemented]
 scroll-frag-non-utf8-encoded-document.html:
   [fail, We don't update scrollTop because we don't calculate layout]
 scroll-frag-percent-encoded.html:
@@ -1989,6 +2150,7 @@ scroll-position-vertical-rl.html: [fail, We don't update scrollX because we don'
 scroll-position.html: [fail, We don't update scrollY because we don't calculate layout]
 scroll-restore-on-reload-non-ascii-fragment.html: [fail, Unknown]
 scroll-to-anchor-name.html: [fail, We don't update scrollTop because we don't calculate layout]
+scroll-to-fragid-from-link-is-synchronous.html: [fail, Layout and scrolling are not implemented]
 scroll-to-id-top.html: [fail, We don't update scrollTop because we don't calculate layout]
 scroll-to-top.html: [fail, We don't update scrollTop because we don't calculate layout]
 
@@ -2041,11 +2203,15 @@ assign-replace-from-top-to-nested-iframe.html: [fail-slow, Unknown]
 assign-with-nested-iframe.html: [fail-slow, Unknown]
 assign_after_load.html: [timeout, Unknown]
 assign_before_load.html: [timeout, Unknown]
+location-ancestor-origins-csp-sandbox.sub.html: [fail, location.ancestorOrigins is not implemented]
 location-ancestor-origins-inactive-document.sub.html: [fail, Unknown]
 location-ancestor-origins-new-object.html: [fail, Unknown]
+location-ancestor-origins-object.sub.html: [fail, location.ancestorOrigins is not implemented]
 location-ancestor-origins-redirect-still-mask.sub.html:
   [fail, location.ancestorOrigins not implemented]
 location-ancestor-origins-referrerpolicy-snapshot.html: [fail, Unknown]
+location-ancestor-origins-referrerpolicy-unsupported-elements.html:
+  [fail, location.ancestorOrigins is not implemented]
 location-encoding-parse.html: [timeout, Unknown]
 location-non-configurable-toString-valueOf.html: [fail, Not implemented]
 location-pathname-setter-question-mark.html: [timeout, Unknown]
@@ -2059,6 +2225,7 @@ location-prototype-setting-cross-origin.sub.html: [fail, Unknown]
 location-prototype-setting-goes-cross-origin-domain.sub.html: [fail, Unknown]
 location-prototype-setting-same-origin-domain.sub.html: [fail, Unknown]
 location-prototype-setting-same-origin.html: [fail, Unknown]
+location-replace-cross-site.html: [timeout, Cross-document navigation is not implemented]
 location-symbol-toprimitive.html: [fail, Unknown]
 location-valueof.html: [fail, Unknown]
 location_hash.html:
@@ -2177,6 +2344,8 @@ auxiliary-browsing-contexts/opener-setter.window.html: [fail, Not implemented]
 auxiliary-browsing-contexts/opener.html: [timeout, Unknown]
 browsing-context-names/**: [timeout, Not implemented]
 browsing-context.html: [fail, Unknown]
+clear-window-name-csp-sandbox.https.html:
+  [fail, fetch() and opening new browsing contexts are not implemented]
 clear-window-name.https.html: [fail, Unknown]
 dangling-markup-window-name.html: [fail, Unknown]
 document-domain-nested-navigate.window.html: [fail, Unknown]
@@ -2243,6 +2412,8 @@ documents/dom-tree-accessors/nameditem-names.html:
     [fail, Object loading is not implemented]
   An object id appears in a document's property names when the object is inside an object that is not showing its fallback content.:
     [fail, Object loading is not implemented]
+documents/dom-tree-accessors/nameditem-sandboxed-iframe.html:
+  [fail, iframe srcdoc and sandboxing are not implemented]
 documents/resource-metadata-management/document-cookie.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified-01.html: [fail, Unknown]
 documents/resource-metadata-management/document-lastModified.html: [fail, Unknown]
@@ -2314,6 +2485,7 @@ nontraditional-about-srcdoc.html: [timeout, We don't support srcdoc <base> corre
 DIR: html/interaction/focus
 
 document-level-focus-apis/document-has-system-focus.html: [fail-slow, window.open() not implemented]
+focus-management/focus-event-view.html: [timeout, iframe srcdoc is not implemented]
 focus-selection.html: [fail, Unknown]
 processing-model/focus-fixup-rule-one-no-dialogs.html:
   "#button1": [fail, ResizeObserver not implemented]
@@ -2366,12 +2538,6 @@ the-marquee-element-0/marquee-scrolldelay.html: [fail, <marquee> is not implemen
 
 ---
 DIR: html/rendering/the-css-user-agent-style-sheet-and-presentational-hints
-
----
-DIR: html/scripting/the-script-element
-
-attr-script-fetchpriority.html: [fail, fetchPriority is not implemented]
-module-script-disabled-scripting.html: [fail, Depends on iframe sandboxing and module scripts]
 
 ---
 DIR: html/semantics/disabled-elements
@@ -2427,6 +2593,11 @@ link-style-error-01.html:
     [fail, Stylesheet MIME type and nosniff checks are not implemented]
 link-style-error-limited-quirks.html: [fail, We don't fire error events]
 link-style-error-quirks.html: [fail, We don't fire error events]
+link-style-quirks-crossorigin.html:
+  "Cross-origin stylesheet with wrong MIME type, with CORS":
+    [fail, Cross-origin stylesheet MIME types are not checked when CORS succeeds]
+  "Same-origin redirect to cross-origin stylesheet with wrong MIME type, with CORS":
+    [fail, Cross-origin stylesheet MIME types are not checked when CORS succeeds]
 stylesheet-bad-mime-type.html: [fail, Unknown]
 
 ---
@@ -2600,6 +2771,7 @@ Image-constructor.html:
   [fail-with-canvas, wrong-Realm Function, https://github.com/jsdom/jsdom/issues/2727]
 adoption.html: [timeout, Unknown]
 already-loaded-image-sync-width.html: [fail-slow, Requires a layout engine]
+attr-img-fetchpriority.html: [fail, fetchPriority is not implemented]
 available-images-onload.html: [needs-canvas]
 below-viewport-image-loading-lazy-load-event.html: [timeout, Unknown]
 current-pixel-density/**: [fail-with-canvas, Unimplemented]
@@ -2609,6 +2781,7 @@ decode/**: [timeout, Unimplemented]
 delay-load-event-detached.html: [needs-canvas]
 delay-load-event-until-move-to-empty-source.html: [needs-canvas]
 delay-load-event.html: [timeout, Unknown]
+dimension-getter-transform.html: [fail-with-canvas, Image dimensions do not use CSS layout]
 disconnected-image-loading-lazy.html: [fail, loading attr not implemented]
 empty-src-no-current-request.html: [fail-slow, Unknown]
 environment-changes/**: [timeout, Unimplemented]
@@ -2620,6 +2793,8 @@ image-loading-lazy**: [fail-slow, loading attr not implemented]
 img-complete-after-error.html: [needs-canvas, Image loading requires canvas]
 img-complete-invalid-url.html: [timeout, Malformed image URLs do not dispatch error events]
 img-picture-ancestor.html: [fail, Unknown; possibly needs media queries?]
+img-src-encoding-parse.html:
+  [fail-with-canvas, currentSrc is not an absolute URL using the document encoding]
 img.complete.html: [timeout, Unknown]
 invalid-src.html:
   [timeout, Resource loader doesn't catch bad URLs at the right point in the process]
@@ -2645,6 +2820,7 @@ source-media-outside-doc.html: [fail-slow, Unknown; possibly needs media queries
 source-relevant-mutations.html: [fail, Unknown]
 srcset-natural-size-in-dynamic-iframe.html: [timeout, Unknown]
 srcset/**: [timeout, Unimplemented]
+svg-image-subpixel-size-loads.html: [needs-canvas, Image loading requires canvas]
 svg-img-density-vs-zoom.html: [fail, Unknown]
 svg-img-zero-height-with-viewbox.html: [fail-with-canvas, Layout not implemented]
 update-media.html: [timeout, Unimplemented]
@@ -2688,11 +2864,16 @@ input-maxlength-emoji.html: [fail, Unknown]
 ---
 DIR: html/semantics/forms/form-control-infrastructure
 
+form-attribute-tree-mutations.html: [fail, Named properties on forms are not implemented]
+form-named-items-non-descendant.html: [fail, Named properties on forms are not implemented]
 form.html: [fail, complex form owner semantics not implemented (see TODO in form-controls.js)]
 form_owner_and_table.html:
   [fail, complex form owner semantics not implemented (see TODO in form-controls.js)]
 form_owner_and_table_3.html:
   [fail, complex form owner semantics not implemented (see TODO in form-controls.js)]
+parser-reparented-open-element.html:
+  "Elements parsed into an open container reparented elsewhere in the same document stay associated with the open form":
+    [fail, Parser form association is lost when the open container is reparented]
 
 ---
 DIR: html/semantics/forms/form-submission-0
@@ -2741,6 +2922,15 @@ button-submit-children.html: [fail-slow, We do not support form target yet]
 button-submit-remove-children-jssubmit.html: [fail-slow, We do not support form target yet]
 button-submit-remove-children.html: [fail-slow, We do not support form target yet]
 button-submit-remove-jssubmit.html: [fail-slow, We do not support form target yet]
+# WPT correction: https://github.com/web-platform-tests/wpt/pull/65700
+button-type.html:
+  "a button in auto state with a command or commandfor attribute should return button type":
+    [
+      fail,
+      Button command APIs and auto state are incomplete; test also uses a nonexistent commandfor property,
+    ]
+  "a button in auto state with a select element parent should return button type":
+    [fail, Button auto state does not account for command attributes or select parents]
 button-untrusted-key-event.html: [fail-slow, Unknown]
 
 ---
@@ -2751,11 +2941,6 @@ DIR: html/semantics/forms/the-fieldset-element
 
 HTMLFieldSetElement.html:
   [fail, Depends on HTMLFormElement's named properties; has dont-upstream version]
-disabled-003.html:
-  [
-    fail,
-    Expects synchronous focus fixup; fixed by https://github.com/web-platform-tests/wpt/pull/62827,
-  ]
 fieldset-intrinsic-size.html: [fail, Requires a layout engine]
 
 ---
@@ -2782,7 +2967,7 @@ email.html:
   "When the multiple attribute is set, the user agent must run the value sanitization algorithm":
     [fail, Incorrectly strips inner whitespace]
 files.html: [fail, Needs DataTransfer]
-focus-dynamic-type-change-on-blur.html: [timeout, Not implemented]
+focus-dynamic-type-change-on-blur.html?*: [timeout, Input type changes do not perform focus fixup]
 focus-dynamic-type-change.html: [fail-slow, Not implemented]
 hidden-charset-case-sensitive.html: [timeout, Unknown]
 image-click-form-data.html: [timeout, Unknown]
@@ -2793,10 +2978,16 @@ input-submit-remove-jssubmit.html: [fail-slow, We do not support form target yet
 input-type-button.html: [fail, Depends on offsetWidth]
 input-type-change-submit.html: [timeout, Unknown]
 input-type-change-value.html: [fail, Unknown]
+input-type-checkbox-switch*.html: [fail, Checkbox switches are not implemented]
 input-untrusted-key-event.html: [fail-slow, Not implemented]
 input-valueasnumber.html:
   "valueAsNumber setter on type month (actual valueAsNumber: -1, expected value: 1969-12)":
     [fail, Unknown]
+radio-form-owner-reset.html:
+  "Changing the ID target reassociates a radio without joining the ownerless group":
+    [fail, Radio groups are not updated correctly when form ownership changes]
+  "Disconnecting a subtree reassociates a radio with its ancestor form without joining the ownerless group":
+    [fail, Radio groups are not updated correctly when form ownership changes]
 range-2.html: [fail, step attribute not yet implemented]
 range-restore-oninput-onchange-event.https.html: [fail-slow, Not implemented]
 range.html: [fail, step attribute and range semantics not yet implemented]
@@ -2832,6 +3023,7 @@ DIR: html/semantics/forms/the-meter-element
 
 ---
 DIR: html/semantics/forms/the-option-element
+option-text-image.html: [fail, Option text collection does not skip image descendants]
 
 ---
 DIR: html/semantics/forms/the-output-element
@@ -2842,12 +3034,26 @@ DIR: html/semantics/forms/the-progress-element
 ---
 DIR: html/semantics/forms/the-select-element
 
-customizable-select/**/!(option-color-inheritance.html|placeholder-label-option-wrapper.html):
+customizable-select-listbox/select-listbox-option-optgroup-client-rects.html:
+  [fail, Layout is not implemented]
+customizable-select/**/!(option-color-inheritance.html|placeholder-label-option-wrapper.html|select-ask-for-reset-base-appearance.html):
   [fail, Unknown]
 inserted-or-removed.html:
   "If an OPTION says it is selected, it should be selected after it is inserted.":
     [fail, Not implemented]
+options-length-too-large.html:
+  [fail-slow, Option collection length setter lacks the 100000 growth limit]
+select-attribute-change-reset.html:
+  "Removing an option's disabled attribute selects it.":
+    [fail, Changes to disabled or multiple attributes reset selectedness incorrectly]
+  "Removing an optgroup's disabled attribute selects the option inside it.":
+    [fail, Changes to disabled or multiple attributes reset selectedness incorrectly]
+  "Removing a select's multiple attribute keeps the first selected option.":
+    [fail, Changes to disabled or multiple attributes reset selectedness incorrectly]
 select-selectedOptions-nesting.window.html: [fail, Unknown]
+select-validity-option-descendants.html:
+  "Moving text into and out of a descendant of the placeholder label option":
+    [fail, moveBefore() not implemented]
 select-validity.html: [fail, Unknown]
 select-value.html:
   "option is child of div": [fail, Unknown]
@@ -2904,6 +3110,7 @@ DIR: html/semantics/scripting-1/the-noscript-element
 ---
 DIR: html/semantics/scripting-1/the-script-element
 
+attr-script-fetchpriority.html: [fail, fetchPriority is not implemented]
 css-module/**: [fail-slow, Unimplemented]
 data-url.html: [timeout, Unknown]
 execution-timing/040.html: [fail, Unknown]
@@ -2919,7 +3126,6 @@ execution-timing/106-module-noimport.html: [timeout, Modules not implemented]
 execution-timing/108.html:
   [fail, Frame javascript URLs execute synchronously instead of queuing a navigation task]
 execution-timing/109.html: [fail, Unknown]
-execution-timing/128.html: [fail, Unknown]
 execution-timing/131.html: [fail, Unknown]
 execution-timing/132.html: [fail, Unknown]
 execution-timing/133.html: [fail, Unknown]
@@ -2936,6 +3142,8 @@ execution-timing/144.html: [fail, Unknown]
 execution-timing/145.html: [fail, Unknown]
 execution-timing/146-href.html: [fail, Unknown]
 execution-timing/non-external-no-import.html: [fail, Unknown]
+fetch-src/empty-set-while-connected.html: [timeout, Module scripts are not implemented]
+fetch-src/whitespace-with-base-module.html: [timeout, Module scripts are not implemented]
 import-attributes/**: [fail-slow, Not implemented]
 json-module/**: [fail-slow, Not implemented]
 load-error-events-1.html: [timeout, Unknown]
@@ -2952,6 +3160,7 @@ microtasks/evaluation-order-2.html: [fail-slow, Workers and modules not implemen
 microtasks/evaluation-order-3.any.*: [fail, Workers and modules not implemented]
 microtasks/evaluation-order-3.html: [fail-slow, Workers and modules not implemented]
 microtasks/evaluation-order-4.html: [fail-slow, Workers and modules not implemented]
+module-script-disabled-scripting.html: [fail, Depends on iframe sandboxing and module scripts]
 module/**: [timeout, Not implemented]
 moving-between-documents-during-evaluation.html: [fail, Unknown]
 moving-between-documents/**-classic.html: [fail-slow, Unknown]
@@ -2965,15 +3174,12 @@ script-crossorigin.html: [fail, Unknown]
 script-not-executed-after-shutdown.html: [fail-slow, Unknown]
 script-referrerpolicy-idl.html: [fail, Not implemented]
 script-supports.html: [fail, Not implemented]
-script-text-modifications-csp.html:
-  [flaky, Upstream test race; https://github.com/web-platform-tests/wpt/pull/62754]
-script-text-modifications.html:
-  [flaky, Upstream test race; https://github.com/web-platform-tests/wpt/pull/62754]
 script-type-and-language-js-svg.svg:
   [
     fail,
     Our script execution timing is off; see discussion in https://github.com/jsdom/jsdom/pull/1406,
   ]
+src-empty-or-invalid-error-event-queued.html: [timeout, Module scripts are not implemented]
 svg-script-fragment-parsed-not-executed-on-clone.html:
   "Sanity check: a normally-created SVG <script> runs when inserted":
     [fail, SVG scripts are not implemented]
@@ -2993,6 +3199,7 @@ pseudo-classes/disabled.html:
   "':disabled' should match elements that are appended to a disabled fieldset dynamically":
     [fail, Unknown]
 pseudo-classes/focus-autofocus.html: [timeout, Autofocus is not implemented]
+pseudo-classes/input-checkbox-switch.window.html: [fail, Checkbox switches are not implemented]
 pseudo-classes/readwrite-readonly.html:
   "The :read-write pseudo-class must match elements that are editing hosts":
     [fail, document.designMode is not implemented]
@@ -3064,6 +3271,8 @@ parsing/insert-into-nonempty-document.html:
 parsing/noscript-template-querySelector.html:
   "noscript contents are escaped when serialized in a template":
     [fail, Serialization uses the wrong scripting flag for the template contents document]
+parsing/parser-text-node-coalescing-and-mutations.html:
+  [fail, Parser text coalescing differs and a failed streaming assertion breaks test cleanup]
 parsing/truncated-markup-declaration-at-eof.html: [fail, Unknown]
 parsing/unclosed-svg-script.html: [fail, Unknown]
 serializing-html-fragments/escaping.html:
@@ -3076,8 +3285,6 @@ serializing-html-fragments/serializing.html:
 DIR: html/webappapis/animation-frames
 
 callback-cross-realm-report-exception.html: [fail, Unknown]
-spurious-frame-callbacks-optimization.html:
-  [flaky, Upstream test race; https://github.com/web-platform-tests/wpt/pull/64859]
 
 ---
 DIR: html/webappapis/atob
@@ -3156,13 +3363,23 @@ queue-microtask.window.html: [fail-slow, Unknown interaction with Mutation Obser
 ---
 DIR: html/webappapis/scripting
 
+event-loops/document-without-browsing-context.window.html:
+  "Mutation observer watching a Document.parseHTMLUnsafe() document":
+    [fail, HTML parsing static methods on Document are not implemented]
+  "Mutation observer watching an XMLHttpRequest response document":
+    [fail, Empty HTML XHR responses produce null instead of a document]
 event-loops/microtask_before_prepare_the_script_element-01.html: [fail, Unknown]
 event-loops/microtask_before_prepare_the_script_element-02.xhtml: [fail, Unknown]
 event-loops/new-scroll-event-dispatched-at-next-updating-rendering-time.html: [fail, Unknown]
+event-loops/opaque-origin-same-agent.window.html:
+  [timeout, iframe srcdoc and sandboxing are not implemented]
+event-loops/raf-from-animation-event-serviced-in-same-rendering-update.html:
+  [fail, CSS animations are not implemented]
 event-loops/task_microtask_ordering.html:
   "Level 1 bossfight (synthetic click)":
     [fail, Missing parser microtask checkpoint leaves an earlier mutation observer microtask queued]
 event-loops/update-the-rendering-resize-autofocus.html: [fail-slow, Unknown]
+event-loops/worker_microtask_after_raf.html: [fail, Workers are not implemented]
 events/compile-event-handler-lexical-scopes-form-owner.html:
   "<img> has a form owner": [fail, Image element form association is not implemented]
   "form-associated <x-foo> has a form owner":
@@ -3187,6 +3404,8 @@ events/event-handler-processing-algorithm-error/synthetic-errorevent-click.html:
 events/event-handler-processing-algorithm-error/worker.html: [fail, Needs Worker implementation]
 events/event-handler-removal.window.html: [fail, Unknown]
 events/event-handler-sourcetext.html: [fail, Must return the specified format]
+events/event-listener-sandboxed-scripts.html:
+  [fail, iframe srcdoc and sandboxing are not implemented]
 events/messageevent-constructor.https.html:
   "MessageEventInit dictionary": [fail, uses MessageChannel]
   "ports attribute should be a FrozenArray": [fail, FrozenArray not implemented]
@@ -3264,6 +3483,7 @@ setinterval-cross-realm-callback-report-exception.html:
 settimeout-cross-realm-callback-report-exception.html:
   [fail, No relevant realm support for callbacks in webidl2js]
 timer-nesting-not-inherited-in-microtask.html: [flaky]
+zero-settimeout.any.html: [fail, Node.js timers clamp zero delays to one millisecond]
 
 ---
 DIR: mediacapture-record
@@ -3318,6 +3538,7 @@ script-and-style-elements.html: [
     https://bugzilla.mozilla.org/show_bug.cgi?id=1535392),
   ]
 selection-content-visibility-hidden.html: [fail, Unknown]
+selection-modify-across-*.html?*: [fail, Selection modification is not implemented]
 selection-modify-extend-word-generated-content.html: [fail, Unknown]
 selection-nested-video.html: [fail-slow, Unknown]
 shadow-dom/cross-shadow-boundary-extend.html: [fail, Declarative shadow DOM not implemented]
@@ -3351,6 +3572,7 @@ form-control-form-attribute.html: [fail, Form association doesn't respect the sp
 imperative-slot-**.html: [fail, Imperative slot API is not implemented]
 leaktests/html-collection.html: [fail, Document.all is not implemented]
 leaktests/window-frames.html: [fail, Window.name is not implemented]
+manual-slot-assignment-with-details.html: [fail, Manual slot assignment is not implemented]
 offsetParent-across-shadow-boundaries.html: [fail, offsetParent not implemented]
 offsetTop-offsetLeft-across-shadow-boundaries.html: [fail, offsetTop/offsetLeft not implemented]
 scroll-restore-shadow.html: [fail, Unknown]
@@ -3390,7 +3612,10 @@ DIR: svg/struct/scripted
 "*.svg": [timeout, SVG WPT scripts do not run]
 SVGSVGElement-currentTranslate.html: [fail, SVG interfaces and layout are incomplete]
 currentScale-outermost.html: [fail, SVG interfaces and layout are incomplete]
+switch_reentrant_removal.html: [fail, SVG getBBox() is not implemented]
 use-external-reload-in-iframe.html: [timeout, SVG interfaces and layout are incomplete]
+use-script-not-executed.html:
+  [fail, SVG use cloning and declarative shadow roots are not implemented]
 
 ---
 DIR: svg/types
@@ -3398,6 +3623,7 @@ DIR: svg/types
 "**/*.svg": [timeout, We do not yet support running SVG WPTs]
 SVGElement.ownerSVGElement-01.html: [fail, Unknown]
 SameObject-identity.html: [fail, Not implemented]
+scripted/SVGAngle-valueAsString.html: [fail, SVGAngle is not implemented]
 scripted/SVGAnimatedAngle*: [fail, Not implemented]
 scripted/SVGAnimatedBoolean*: [fail, Not implemented]
 scripted/SVGAnimatedEnumeration*: [fail, Not implemented]
@@ -3448,6 +3674,10 @@ scripted/SVGList-animVal-reflects-base-value.html:
     [fail, SVG animated lists not implemented]
   "SVGTransformList (gradientTransform on linearGradient): animVal items are read only":
     [fail, SVG animated lists not implemented]
+scripted/SVGList-getItem-identity.html: [fail, SVG animated lists are not implemented]
+scripted/SVGList-identity-across-attribute-change.html:
+  [fail, SVG animated lists are not implemented]
+scripted/SVGList-mutator-return-identity.html: [fail, SVG animated lists are not implemented]
 scripted/SVGList-parse-invalid-clears-items.html: [fail, Not implemented]
 scripted/SVGList-reflected-attribute-synchronize.html: [fail, SVG animated lists not implemented]
 scripted/SVGMatrix.html: [fail, Not implemented]
@@ -3483,6 +3713,19 @@ scripted/SVGPointList-error-handling.html:
 DIR: uievents
 
 idlharness.window.html: [fail, Depends on fetch]
+mouse/mouseevent-constructor-button-range.html:
+  "new DragEvent() with button -32768": [fail, DragEvent is not implemented]
+  "new DragEvent() with button -3": [fail, DragEvent is not implemented]
+  "new DragEvent() with button -2": [fail, DragEvent is not implemented]
+  "new DragEvent() with button -1": [fail, DragEvent is not implemented]
+  "new DragEvent() with button 0": [fail, DragEvent is not implemented]
+  "new DragEvent() with button 1": [fail, DragEvent is not implemented]
+  "new DragEvent() with button 2": [fail, DragEvent is not implemented]
+  "new DragEvent() with button 3": [fail, DragEvent is not implemented]
+  "new DragEvent() with button 4": [fail, DragEvent is not implemented]
+  "new DragEvent() with button 5": [fail, DragEvent is not implemented]
+  "new DragEvent() with button 32767": [fail, DragEvent is not implemented]
+  "new DragEvent() without button defaults to 0": [fail, DragEvent is not implemented]
 textInput/api.html: [fail, Unknown]
 ui_event_pseudo_target.html: [fail, Unknown]
 
@@ -3533,6 +3776,8 @@ ecmascript-binding/constructors.html:
 ecmascript-binding/default-toJSON-cross-realm.html:
   "Cross-realm [Default] toJSON() converts its interface attributes to ECMAScript values of correct realm":
     [fail, "DOMQuad and DOMPoint are not implemented"]
+ecmascript-binding/es-exceptions/DOMException-audioworklet.https.html:
+  [fail, AudioWorklet is not implemented]
 ecmascript-binding/es-exceptions/DOMException-custom-bindings.any.html:
   "does not inherit from Error: class-side":
     [fail, "The DOMException constructor has a Function prototype from the host realm"]
@@ -3594,6 +3839,7 @@ Channel_postMessage_clone_port_error.any.html: [fail, MessageChannel not impleme
 Channel_postMessage_event_properties.any.html: [timeout, MessageChannel not implemented]
 Channel_postMessage_ports_readonly_array.any.html: [timeout, MessageChannel not implemented]
 Channel_postMessage_target_source.any.html: [timeout, MessageChannel not implemented]
+Channel_postMessage_transfer_target_port.any.html: [fail, MessageChannel is not implemented]
 Channel_postMessage_transfer_xsite_incoming_messages.window.html:
   [fail, MessageChannel not implemented]
 Channel_postMessage_with_transfer_*.any.html: [fail, MessageChannel not implemented]
@@ -3608,6 +3854,7 @@ broadcastchannel/blobs.html: [fail, BroadcastChannel not implemented]
 broadcastchannel/cross-origin.html: [fail, BroadcastChannel not implemented]
 broadcastchannel/detached-iframe.html: [fail, BroadcastChannel not implemented]
 broadcastchannel/interface.any.html: [fail, BroadcastChannel not implemented]
+broadcastchannel/messageerror-listener-gc.html: [fail, SharedWorker is not implemented]
 broadcastchannel/opaque-origin.html: [timeout, BroadcastChannel not implemented]
 broadcastchannel/ordering.html: [fail, BroadcastChannel not implemented]
 broadcastchannel/origin.window.html: [timeout, BroadcastChannel not implemented]
@@ -3619,6 +3866,7 @@ event.data.sub.htm: [timeout, Cross-document postMessage]
 message-channels/*.any.html: [fail, MessageChannel not implemented]
 message-channels/cross-document.html: [fail, MessageChannel not implemented]
 message-channels/detached-iframe.window.html: [fail, MessageChannel not implemented]
+message-channels/messageerror-listener-gc.html: [fail, SharedWorker is not implemented]
 multi-globals/**: [fail, MessageChannel/BroadcastChannel not implemented]
 postMessage-to-target-not-fully-active-on-reload.html: [timeout, Unknown]
 postMessage_ArrayBuffer.sub.htm: [fail-slow, Cross-document postMessage]
@@ -3663,8 +3911,8 @@ without-ports/028.html: [needs-canvas]
 DIR: websockets
 
 "**/**?wpt_flags=h2": [fail-slow, HTTP/2 web sockets not implemented]
-Create-blocked-port.any.html?default: [fail-slow, Not implemented]
-Create-blocked-port.any.html?wss: [fail-slow, Not implemented]
+"**/**?wpt_flags=websocket-h3": [fail-slow, HTTP/3 web sockets not implemented]
+Create-blocked-port.any.html: [fail-slow, Requires a proxy auto-configuration script]
 Create-http-urls.any.html: [fail, Unknown]
 Create-non-absolute-url.any.html: [fail, Unknown]
 Create-on-worker-shutdown.any.html: [fail, Needs Worker implementation]
@@ -3690,6 +3938,16 @@ keeping-connection-open/001.html?default: [pass-slow]
 keeping-connection-open/001.html?wss: [pass-slow]
 mixed-content.https.any.html: [fail, Unknown]
 multi-globals/url-parsing/url-parsing.html: [fail, Unknown]
+opening-handshake/005.html?default:
+  [
+    timeout,
+    Undici does not echo the close reason expected by the server; https://github.com/whatwg/websockets/issues/80,
+  ]
+opening-handshake/005.html?wss:
+  [
+    timeout,
+    Undici does not echo the close reason expected by the server; https://github.com/whatwg/websockets/issues/80,
+  ]
 opening-handshake/received-301-code.html: [fail, Unknown]
 remove-own-iframe-during-onerror.window.html?default: [timeout, iframe.srcdoc not implemented]
 remove-own-iframe-during-onerror.window.html?wss: [timeout, iframe.srcdoc not implemented]
@@ -3732,6 +3990,8 @@ access-control-sandboxed-iframe-denied.htm: [fail, we don't implement sandboxed 
 blob-range.any.html: [fail, Unknown]
 close-worker-with-xhr-in-progress.html: [fail, Needs Worker implementation]
 cors-expose-star.sub.any.html: [fail, Unknown]
+cors-upload-listener-timing.any.html:
+  [fail, fetch() is required to inspect the preflight log and clean up the test]
 data-uri.htm: [fail, Unknown]
 event-timeout-order.any.html: [fail, Unknown]
 formdata.html:
@@ -3746,6 +4006,15 @@ getallresponseheaders.htm: [fail, Unknown]
 getresponseheader.any.html: [fail, Unknown]
 headers-normalize-response.htm: [fail, Unknown]
 idlharness.any.html: [fail, Depends on fetch]
+json.any.html:
+  "Ensure the response charset (windows-1252) is ignored":
+    [fail, URL.createObjectURL() is not implemented]
+  "Ensure the overrideMimeType() charset (windows-1252) is ignored":
+    [fail, URL.createObjectURL() is not implemented]
+  "Ensure the response charset (utf-16le) is ignored":
+    [fail, URL.createObjectURL() is not implemented]
+  "Ensure the overrideMimeType() charset (utf-16le) is ignored":
+    [fail, URL.createObjectURL() is not implemented]
 open-url-encoding.htm:
   [
     fail,
@@ -3760,7 +4029,7 @@ open-url-worker-origin.htm: [fail, Needs Worker implementation]
 open-url-worker-simple.htm: [fail-slow, Needs Worker implementation]
 overridemimetype-blob.html: [fail, Unknown]
 overridemimetype-edge-cases.window.html: [fail, Unknown]
-progressevent-constructor.html:
+progressevent-constructor.any.html:
   "Decimal number test.": [fail, Unknown]
   "Mixed integer and decimal number test.": [fail, Unknown]
   "Negative number.": [fail, Unknown]
