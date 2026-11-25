@@ -656,9 +656,6 @@ overflow-clip-margin.html: [fail, Overflow parsing and serialization are incompl
 overflow-computed.html: [fail, Overflow computed values are incomplete]
 scroll-markers-computed.html: [fail, Overflow computed values are incomplete]
 webkit-box-computed.html: [fail, Overflow computed values are incomplete]
-webkit-line-clamp-computed.html:
-  "Property -webkit-line-clamp sets block-ellipsis to no-ellipsis if -webkit-line-clamp is none, and to ellipsis otherwise":
-    [fail, Legacy line-clamp uses the wrong block-ellipsis value]
 
 ---
 DIR: css/css-overscroll-behavior/parsing
