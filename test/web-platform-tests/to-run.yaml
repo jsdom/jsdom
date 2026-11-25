@@ -3011,8 +3011,6 @@ customizable-select/**/!(option-color-inheritance.html|placeholder-label-option-
 inserted-or-removed.html:
   "If an OPTION says it is selected, it should be selected after it is inserted.":
     [fail, Not implemented]
-options-length-too-large.html:
-  [fail-slow, Option collection length setter lacks the 100000 growth limit]
 select-attribute-change-reset.html:
   "Removing an option's disabled attribute selects it.":
     [fail, Changes to disabled or multiple attributes reset selectedness incorrectly]
