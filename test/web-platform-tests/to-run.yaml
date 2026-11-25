@@ -992,15 +992,6 @@ calc-size/animation/**: [fail-slow, Animation execution is not implemented]
 ch-*-font-load.html: [fail-slow, Font loading is not implemented]
 dynamic-viewport-units-rule-cache.html:
   [fail-slow, Iframe srcdoc and viewport layout are not implemented]
-exp-log-compute.html:
-  "log(2, 1) should be used-value-equivalent to calc(NaN)": [fail, log() edge cases are incorrect]
-  "calc(-1 * log(2, 1)) should be used-value-equivalent to calc(NaN)":
-    [fail, log() edge cases are incorrect]
-  "log(5, 1) should be used-value-equivalent to calc(NaN)": [fail, log() edge cases are incorrect]
-  "calc(-1 * log(5, 1)) should be used-value-equivalent to calc(NaN)":
-    [fail, log() edge cases are incorrect]
-  "calc(1 / log(1, 0.5)) should be used-value-equivalent to calc(infinity)":
-    [fail, log() edge cases are incorrect]
 exp-log-serialize.html: [fail, Values parsing and serialization are incomplete]
 getComputedStyle-calc-mixed-units-001.html: [fail, Values parsing and serialization are incomplete]
 getComputedStyle-calc-mixed-units-002.html: [fail, Values parsing and serialization are incomplete]
