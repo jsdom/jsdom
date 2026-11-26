@@ -12,6 +12,10 @@
   },
   "aliases": [
     {
+      "url-path": "/images/",
+      "local-dir": "../tests/images/"
+    },
+    {
       "url-path": "/common/",
       "local-dir": "../tests/common/"
     },
