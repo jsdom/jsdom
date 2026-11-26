@@ -1,0 +1,37 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>HTML image dimension setters reflect unsigned long values</title>
+<!-- Subset of `/html/dom/reflection-embedded.html`, which is skipped in jsdom. -->
+<link rel="help" href="https://html.spec.whatwg.org/multipage/embedded-content.html#dom-img-width">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const attributeValues = [
+  [0, "0"],
+  [25, "25"],
+  [25.9, "25"],
+  ["30", "30"],
+  ["10px", "0"],
+  [-1, "4294967295"],
+  [2147483648, "2147483648"],
+  [4294967295, "4294967295"],
+  [4294967296, "0"],
+  [4294967297, "1"],
+  [NaN, "0"],
+  [Infinity, "0"],
+  [null, "0"],
+  [undefined, "0"],
+];
+
+for (const attribute of ["width", "height"]) {
+  for (const [value, expected] of attributeValues) {
+    test(() => {
+      const img = document.createElement("img");
+      img[attribute] = value;
+      assert_equals(img.getAttribute(attribute), expected);
+    }, `Setting ${attribute} to ${format_value(value)} reflects ${expected}`);
+  }
+}
+</script>

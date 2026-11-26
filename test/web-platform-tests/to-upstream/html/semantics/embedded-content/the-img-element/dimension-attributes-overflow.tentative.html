@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Image dimension attributes at and above the unsigned long limit</title>
+<meta name="variant" content="?no-image">
+<meta name="variant" content="?loaded">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#determine-dimensions">
+<link rel="issue" href="https://github.com/whatwg/html/issues/11539#issuecomment-6845948110">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+// The maximum supported value and fallback on overflow are pending specification.
+const attributeValues = [
+  ["4294967295", 4294967295, 4294967295, 4294967295],
+  ["4294967296", 0, 100, 50],
+  ["9".repeat(400), 0, 100, 50],
+];
+
+const hasImage = location.search === "?loaded";
+for (const [value, expectedWithoutImage, expectedWidth, expectedHeight] of attributeValues) {
+  promise_test(async t => {
+    const img = document.createElement("img");
+    if (hasImage) {
+      const loaded = new EventWatcher(t, img, ["load", "error"]).wait_for("load");
+      img.src = "/images/green-100x50.png";
+      await loaded;
+      assert_equals(img.naturalWidth, 100);
+      assert_equals(img.naturalHeight, 50);
+    }
+
+    img.setAttribute("width", value);
+    img.setAttribute("height", value);
+    assert_equals(img.width, hasImage ? expectedWidth : expectedWithoutImage, "width");
+    assert_equals(img.height, hasImage ? expectedHeight : expectedWithoutImage, "height");
+  }, `Dimension attributes ${value.length > 10 ? "with 400 digits" : value}`);
+}
+</script>

@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Image dimension attributes override or fall back to natural dimensions</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#determine-dimensions">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+const attributeValues = [
+  ["abc", 100, 50],
+  ["", 100, 50],
+  ["-10", 100, 50],
+  ["0", 0, 0],
+  ["-0", 0, 0],
+  ["10px", 10, 10],
+];
+
+for (const [value, expectedWidth, expectedHeight] of attributeValues) {
+  promise_test(async t => {
+    const img = document.createElement("img");
+    const loaded = new EventWatcher(t, img, ["load", "error"]).wait_for("load");
+    img.src = "/images/green-100x50.png";
+    await loaded;
+    assert_equals(img.naturalWidth, 100);
+    assert_equals(img.naturalHeight, 50);
+
+    img.setAttribute("width", value);
+    assert_equals(img.width, expectedWidth, "The width attribute overrides or falls back to the natural width");
+    assert_equals(img.height, 50, "The height remains natural");
+
+    img.removeAttribute("width");
+    assert_equals(img.width, 100, "Removing the width attribute restores the natural width");
+  }, `width=${JSON.stringify(value)} on a loaded, detached image`);
+
+  promise_test(async t => {
+    const img = document.createElement("img");
+    const loaded = new EventWatcher(t, img, ["load", "error"]).wait_for("load");
+    img.src = "/images/green-100x50.png";
+    await loaded;
+    assert_equals(img.naturalWidth, 100);
+    assert_equals(img.naturalHeight, 50);
+
+    img.setAttribute("height", value);
+    assert_equals(img.height, expectedHeight, "The height attribute overrides or falls back to the natural height");
+    assert_equals(img.width, 100, "The width remains natural");
+
+    img.removeAttribute("height");
+    assert_equals(img.height, 50, "Removing the height attribute restores the natural height");
+  }, `height=${JSON.stringify(value)} on a loaded, detached image`);
+}
+</script>
