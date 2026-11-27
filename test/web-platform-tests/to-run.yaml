@@ -1840,8 +1840,6 @@ unsafe-and-trusted-types-external-scripts-async.html:
 ---
 DIR: domxpath
 
-absolute-location-path-attribute-context.html:
-  [fail, Absolute XPath paths from attribute contexts are incorrect]
 fn-lang.html: [fail, Unknown]
 fns-name-related.html:
   fns-name-related: [fail, XPath name functions are incomplete]
