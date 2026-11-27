@@ -14,10 +14,11 @@ test(() => {
   // time origin that is not itself a round number.
   const minimumStepInMicroseconds = 99;
   const stepsToObserve = 5;
+  const deadline = Date.now() + 5000;
 
   let previous = performance.now();
   let stepsObserved = 0;
-  while (stepsObserved < stepsToObserve) {
+  while (stepsObserved < stepsToObserve && Date.now() < deadline) {
     const current = performance.now();
     const difference = current - previous;
     if (difference !== 0) {
@@ -27,5 +28,6 @@ test(() => {
     }
     previous = current;
   }
+  assert_equals(stepsObserved, stepsToObserve, "performance.now() should change within five seconds");
 }, "Consecutive performance.now() readings are equal or at least 100 microseconds apart");
 </script>
