@@ -1,0 +1,33 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>performance.now() changes in steps of at least 100 microseconds</title>
+<link rel="help" href="https://w3c.github.io/hr-time/#dfn-coarsen-time">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  // This document is not cross-origin isolated, so implementations may use any resolution of at least 100
+  // microseconds, and may jitter when a reading moves to the next step. So only check that every change is a step of
+  // at least that size. The 1 microsecond allowance absorbs floating point error in implementations that subtract a
+  // time origin that is not itself a round number.
+  const minimumStepInMicroseconds = 99;
+  const stepsToObserve = 5;
+  const deadline = Date.now() + 5000;
+
+  let previous = performance.now();
+  let stepsObserved = 0;
+  while (stepsObserved < stepsToObserve && Date.now() < deadline) {
+    const current = performance.now();
+    const difference = current - previous;
+    if (difference !== 0) {
+      const message = `performance.now() went from ${previous} to ${current}`;
+      assert_greater_than_equal(difference * 1000, minimumStepInMicroseconds, message);
+      ++stepsObserved;
+    }
+    previous = current;
+  }
+  assert_equals(stepsObserved, stepsToObserve, "performance.now() should change within five seconds");
+}, "Consecutive performance.now() readings are equal or at least 100 microseconds apart");
+</script>
