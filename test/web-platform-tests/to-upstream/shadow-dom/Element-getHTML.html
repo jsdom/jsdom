@@ -1,0 +1,173 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Element.getHTML() and ShadowRoot.getHTML()</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html#html-serialization-methods">
+<link rel="help" href="https://github.com/jsdom/jsdom/issues/3955">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<body>
+<script>
+"use strict";
+
+// Creates a host element with a light DOM child and (optionally) an attached shadow root.
+function createHost({ serializable = false, clonable = false, delegatesFocus = false, mode = "open", lightDOM = "<p>x</p>" } = {}) {
+  const host = document.createElement("div");
+  document.body.append(host);
+  host.innerHTML = lightDOM;
+  const shadowRoot = host.attachShadow({ mode, serializable, clonable, delegatesFocus });
+  shadowRoot.innerHTML = "<b>s</b>";
+  return { host, shadowRoot };
+}
+
+test(() => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  host.innerHTML = "<p>x</p><span>y</span>";
+  assert_equals(host.getHTML(), "<p>x</p><span>y</span>");
+  assert_equals(host.getHTML({}), "<p>x</p><span>y</span>");
+  assert_equals(host.getHTML({ serializableShadowRoots: false }), "<p>x</p><span>y</span>");
+  assert_equals(host.getHTML({ serializableShadowRoots: false, shadowRoots: [] }), "<p>x</p><span>y</span>");
+  assert_equals(host.getHTML(), host.innerHTML);
+  host.remove();
+}, "getHTML() without shadow root options serializes the light DOM like innerHTML");
+
+test(() => {
+  const { host } = createHost({ mode: "open" });
+  assert_equals(host.getHTML(), "<p>x</p>");
+  assert_equals(host.getHTML({ serializableShadowRoots: true }), "<p>x</p>");
+  assert_equals(host.getHTML({ serializableShadowRoots: true }), host.innerHTML);
+}, "getHTML() does not serialize shadow roots that are not serializable");
+
+test(() => {
+  const { host } = createHost({ mode: "open", serializable: true });
+  assert_equals(host.getHTML(), "<p>x</p>");
+  assert_equals(
+    host.getHTML({ serializableShadowRoots: true }),
+    '<template shadowrootmode="open" shadowrootserializable=""><b>s</b></template><p>x</p>'
+  );
+}, "getHTML({serializableShadowRoots: true}) serializes serializable shadow roots before the light DOM");
+
+test(() => {
+  const { host } = createHost({ mode: "closed", serializable: true });
+  assert_equals(
+    host.getHTML({ serializableShadowRoots: true }),
+    '<template shadowrootmode="closed" shadowrootserializable=""><b>s</b></template><p>x</p>'
+  );
+}, "getHTML({serializableShadowRoots: true}) serializes serializable closed shadow roots");
+
+test(() => {
+  const { host } = createHost({ mode: "open", serializable: true, clonable: true, delegatesFocus: true });
+  assert_equals(
+    host.getHTML({ serializableShadowRoots: true }),
+    '<template shadowrootmode="open" shadowrootdelegatesfocus="" shadowrootserializable="" shadowrootclonable=""><b>s</b></template><p>x</p>'
+  );
+}, "The shadow root template reflects delegatesFocus, serializable and clonable");
+
+test(() => {
+  const { host, shadowRoot } = createHost({ mode: "open", serializable: true });
+  // An explicit shadowRoots list serializes the shadow root regardless of the serializableShadowRoots option.
+  assert_equals(
+    host.getHTML({ serializableShadowRoots: true, shadowRoots: [shadowRoot] }),
+    '<template shadowrootmode="open" shadowrootserializable=""><b>s</b></template><p>x</p>'
+  );
+  assert_equals(
+    host.getHTML({ serializableShadowRoots: false, shadowRoots: [shadowRoot] }),
+    '<template shadowrootmode="open" shadowrootserializable=""><b>s</b></template><p>x</p>'
+  );
+  assert_equals(
+    host.getHTML({ shadowRoots: [shadowRoot] }),
+    '<template shadowrootmode="open" shadowrootserializable=""><b>s</b></template><p>x</p>'
+  );
+}, "getHTML({shadowRoots: [root]}) serializes the given shadow roots regardless of serializableShadowRoots");
+
+test(() => {
+  const { host, shadowRoot } = createHost({ mode: "closed", serializable: false });
+  assert_equals(host.getHTML({ serializableShadowRoots: true }), "<p>x</p>");
+  assert_equals(
+    host.getHTML({ shadowRoots: [shadowRoot] }),
+    '<template shadowrootmode="closed"><b>s</b></template><p>x</p>'
+  );
+}, "getHTML({shadowRoots: [root]}) can serialize closed and non-serializable shadow roots");
+
+test(() => {
+  const { host, shadowRoot } = createHost({ mode: "open", serializable: true });
+  const other = document.createElement("div");
+  document.body.append(other);
+  // Shadow roots whose host is not part of the serialized subtree are ignored.
+  assert_equals(other.getHTML({ serializableShadowRoots: true, shadowRoots: [shadowRoot] }), "");
+  assert_equals(host.getHTML({ serializableShadowRoots: true, shadowRoots: [] }),
+    '<template shadowrootmode="open" shadowrootserializable=""><b>s</b></template><p>x</p>');
+}, "getHTML() ignores shadow roots that are not hosted inside the serialized subtree");
+
+test(() => {
+  const { host, shadowRoot } = createHost({ mode: "open", serializable: true });
+  const nested = document.createElement("div");
+  shadowRoot.append(nested);
+  nested.attachShadow({ mode: "open", serializable: true }).innerHTML = "<i>n</i>";
+  assert_equals(
+    host.getHTML({ serializableShadowRoots: true }),
+    '<template shadowrootmode="open" shadowrootserializable="">' +
+      '<b>s</b><div><template shadowrootmode="open" shadowrootserializable=""><i>n</i></template></div>' +
+      "</template><p>x</p>"
+  );
+}, "getHTML() serializes nested serializable shadow roots");
+
+test(() => {
+  const { shadowRoot } = createHost({ mode: "open", serializable: true });
+  assert_equals(shadowRoot.getHTML(), "<b>s</b>");
+  assert_equals(shadowRoot.getHTML({}), "<b>s</b>");
+  assert_equals(shadowRoot.getHTML({ serializableShadowRoots: true }), "<b>s</b>");
+  const nested = document.createElement("div");
+  shadowRoot.append(nested);
+  nested.attachShadow({ mode: "open", serializable: true }).innerHTML = "<i>n</i>";
+  assert_equals(
+    shadowRoot.getHTML({ serializableShadowRoots: true }),
+    '<b>s</b><div><template shadowrootmode="open" shadowrootserializable=""><i>n</i></template></div>'
+  );
+}, "ShadowRoot.getHTML() serializes the shadow root's children and nested shadow roots");
+
+test(() => {
+  const { host } = createHost({ mode: "open", serializable: true });
+  const wrapper = document.createElement("div");
+  document.body.append(wrapper);
+  wrapper.append(host);
+  assert_equals(
+    wrapper.getHTML({ serializableShadowRoots: true }),
+    '<div><template shadowrootmode="open" shadowrootserializable=""><b>s</b></template><p>x</p></div>'
+  );
+}, "getHTML() on an ancestor serializes nested shadow roots of descendant hosts");
+
+test(() => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  host.innerHTML = "<template><p>t</p></template><!--c-->";
+  assert_equals(host.getHTML(), "<template><p>t</p></template><!--c-->");
+  assert_equals(host.getHTML({ serializableShadowRoots: true }), host.innerHTML);
+}, "getHTML() serializes template contents and comments like innerHTML");
+
+test(() => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  host.innerHTML = "<p>x</p>";
+  const shadowRoot = host.attachShadow({ mode: "open" });
+  shadowRoot.innerHTML = "<b>s</b>";
+  assert_equals(shadowRoot.mode, "open");
+  assert_equals(shadowRoot.serializable, false);
+  assert_equals(shadowRoot.clonable, false);
+  assert_equals(shadowRoot.delegatesFocus, false);
+}, "ShadowRoot reflects the attachShadow() init dictionary");
+
+test(() => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  host.innerHTML = "<p>x</p>";
+  const shadowRoot = host.attachShadow({ mode: "closed", serializable: true, clonable: true, delegatesFocus: true });
+  shadowRoot.innerHTML = "<b>s</b>";
+  assert_equals(shadowRoot.mode, "closed");
+  assert_equals(shadowRoot.serializable, true);
+  assert_equals(shadowRoot.clonable, true);
+  assert_equals(shadowRoot.delegatesFocus, true);
+  assert_equals(host.getHTML({ serializableShadowRoots: true }),
+    '<template shadowrootmode="closed" shadowrootdelegatesfocus="" shadowrootserializable="" shadowrootclonable=""><b>s</b></template><p>x</p>');
+}, "ShadowRoot reflects all attachShadow() flags and getHTML() uses them");
+</script>
