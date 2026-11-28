@@ -135,6 +135,42 @@ module.exports = () => {
     );
   }
 
+  {
+    let window, elements, version;
+    bench.add(
+      "attribute mutation and computed display of 64 elements with @scope rules (128 rules)",
+      () => {
+        window.document.body.setAttribute("data-version", String(version++));
+        return elements.map((element) => window.getComputedStyle(element).display);
+      },
+      {
+        beforeAll() {
+          ({ window } = new JSDOM());
+          const { document } = window;
+          const style = document.createElement("style");
+          style.textContent = Array.from({ length: 128 }, (_, i) => {
+            return `@scope ([data-scope="${i}"]) to ([data-limit]) { .item { color: blue; } }`;
+          }).join("\n");
+          document.head.append(style);
+          elements = [];
+          for (let i = 0; i < 64; i++) {
+            const scope = document.createElement("section");
+            scope.dataset.scope = String(i);
+            const item = document.createElement("div");
+            item.className = "item";
+            scope.append(item);
+            document.body.append(scope);
+            elements.push(item);
+          }
+          version = 0;
+        },
+        afterAll() {
+          window.close();
+        },
+      },
+    );
+  }
+
   for (const depth of [10, 100, 500]) {
     let window, ancestor, leaf, version;
     bench.add(
