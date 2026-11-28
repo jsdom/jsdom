@@ -5,7 +5,7 @@ const path = require("node:path");
 const { describe, it, beforeEach, afterEach } = require("mocha-sugar-free");
 const { setTimeout: delay, setImmediate } = require("node:timers/promises");
 const semver = require("semver");
-const { Agent, interceptors, cacheStores } = require("undici");
+const { Agent, buildConnector, interceptors, cacheStores } = require("undici");
 const canvas = require("../../lib/jsdom/utils.js").Canvas;
 
 const { JSDOM, VirtualConsole, requestInterceptor } = require("../..");
@@ -1523,8 +1523,20 @@ describe("API: resources interceptors option", () => {
     });
 
     it("should cancel a pass-through request stopped while connecting", async () => {
-      const agent = new Agent();
-      const stopped = Promise.withResolvers();
+      const connecting = Promise.withResolvers();
+      const connect = buildConnector({});
+      const agent = new Agent({
+        connect(options, callback) {
+          return connect(options, (error, socket) => {
+            if (error) {
+              connecting.reject(error);
+              callback(error, socket);
+              return;
+            }
+            connecting.resolve(() => callback(error, socket));
+          });
+        },
+      });
       const errors = [];
       let requested = false;
       const server = await createServer((req, res) => {
@@ -1540,13 +1552,14 @@ describe("API: resources interceptors option", () => {
         },
       });
 
-      server.once("connection", () => {
-        // Stop before the client sends the request on its newly established connection.
-        window.stop();
-        stopped.resolve();
-      });
       try {
-        await stopped.promise;
+        // Hold the connected client socket until cancellation, before Undici can send the request.
+        const finishConnecting = await connecting.promise;
+        try {
+          window.stop();
+        } finally {
+          finishConnecting();
+        }
         await agent.close();
         assert.equal(requested, false);
         assert.equal(window.interceptedScriptRan, undefined);

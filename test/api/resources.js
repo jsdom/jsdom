@@ -2,7 +2,7 @@
 const assert = require("node:assert/strict");
 const { setImmediate } = require("node:timers/promises");
 const { describe, it } = require("mocha-sugar-free");
-const { Agent } = require("undici");
+const { Agent, buildConnector } = require("undici");
 const { Canvas } = require("../../lib/jsdom/utils.js");
 const { version: packageVersion } = require("../../package.json");
 const { JSDOM } = require("../..");
@@ -533,7 +533,6 @@ describe("API: resource loading configuration", () => {
       });
 
       it("should not run a redirected script after stopping the window", async () => {
-        const agent = new Agent();
         let targetRequests = 0;
         const target = await createServer((req, res) => {
           targetRequests++;
@@ -544,20 +543,36 @@ describe("API: resource loading configuration", () => {
           res.writeHead(302, { Location: serverURL(target) });
           res.end();
         });
+        const connecting = Promise.withResolvers();
+        const connect = buildConnector({});
+        const agent = new Agent({
+          connect(options, callback) {
+            return connect(options, (error, socket) => {
+              if (error) {
+                connecting.reject(error);
+                callback(error, socket);
+                return;
+              }
+              if (Number(options.port) === target.address().port) {
+                connecting.resolve(() => callback(error, socket));
+              } else {
+                callback(error, socket);
+              }
+            });
+          },
+        });
         const { window } = new JSDOM(`<script src="${serverURL(redirect)}"></script>`, {
           resources: { dispatcher: agent },
           runScripts: "dangerously",
         });
-        // Stop as the redirect target accepts the connection, before it sends the script.
-        const stopped = new Promise((resolve) => {
-          target.once("connection", () => {
-            window.stop();
-            resolve();
-          });
-        });
-
         try {
-          await stopped;
+          // Hold the redirect target's client socket before handing it to Undici to send the request.
+          const finishConnecting = await connecting.promise;
+          try {
+            window.stop();
+          } finally {
+            finishConnecting();
+          }
           // `close()` waits for pending requests to finish without canceling them.
           await agent.close();
           assert.equal(targetRequests, 0, "Stopping must cancel the request before it is sent");

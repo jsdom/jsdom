@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Absolute XPath evaluation uses the context node's tree root</title>
+<link rel="help" href="https://www.w3.org/TR/xpath-10/#location-paths">
+<link rel="help" href="https://www.w3.org/TR/DOM-Level-3-XPath/xpath.html#XPathEvaluator">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+function createFixture() {
+  const doc = document.implementation.createHTMLDocument();
+  const outside = doc.createComment("document-only");
+  doc.body.append(outside);
+  const root = doc.createElement("div");
+  root.innerHTML = "<section><!-- target --></section>";
+  return { doc, outside, root, target: root.firstChild.firstChild };
+}
+
+for (const context of ["root", "descendant", "comment"]) {
+  test(() => {
+    const { doc, root, target } = createFixture();
+    const node = { root, descendant: root.firstChild, comment: target }[context];
+    const result = doc.evaluate(
+      "//comment()[contains(., 'target')]", node, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
+    );
+
+    assert_equals(result.singleNodeValue, target);
+  }, `Absolute XPath finds nodes in a detached tree from its ${context}`);
+}
+
+test(() => {
+  const { doc, root } = createFixture();
+  const result = doc.evaluate(
+    "//comment()[contains(., 'document-only')]", root, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
+  );
+
+  assert_equals(result.singleNodeValue, null);
+}, "Absolute XPath in a detached tree does not select nodes from its owner document");
+
+test(() => {
+  const { doc, root, target } = createFixture();
+  const result = doc.evaluate(".//comment()", root, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+
+  assert_equals(result.singleNodeValue, target);
+}, "Relative XPath still selects descendants of a detached context");
+
+test(() => {
+  const { doc, outside, root, target } = createFixture();
+  doc.body.append(root);
+  const result = doc.evaluate("//comment()", root, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+  assert_equals(result.snapshotLength, 2);
+  assert_equals(result.snapshotItem(0), outside);
+  assert_equals(result.snapshotItem(1), target);
+}, "Absolute XPath in a connected tree still starts at the document");
+
+test(() => {
+  const { doc, root, target } = createFixture();
+  const expression = doc.createExpression("//comment()", null);
+  assert_equals(expression.evaluate(doc, XPathResult.FIRST_ORDERED_NODE_TYPE).singleNodeValue, doc.body.firstChild);
+  assert_equals(expression.evaluate(root, XPathResult.FIRST_ORDERED_NODE_TYPE).singleNodeValue, target);
+
+  const other = doc.createElement("div");
+  const otherTarget = doc.createComment("other");
+  other.append(otherTarget);
+  assert_equals(expression.evaluate(other, XPathResult.FIRST_ORDERED_NODE_TYPE).singleNodeValue, otherTarget);
+}, "A reusable XPathExpression selects the root of each evaluation context");
+
+test(() => {
+  const { doc, root, target } = createFixture();
+  const result = doc.evaluate("//comment()", root, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+
+  assert_false(result.invalidIteratorState);
+  assert_equals(result.iterateNext(), target);
+  assert_equals(result.iterateNext(), null);
+}, "An XPath iterator can return nodes from a detached context tree");
+</script>
