@@ -48,12 +48,25 @@ interface Element : Node {
 
 dictionary ShadowRootInit {
   required ShadowRootMode mode;
+  boolean delegatesFocus = false;
+  boolean serializable = false;
+  boolean clonable = false;
 };
 
 // https://w3c.github.io/DOM-Parsing/#extensions-to-the-element-interface
 partial interface Element {
   [CEReactions] attribute [LegacyNullToEmptyString] DOMString outerHTML;
   [CEReactions] undefined insertAdjacentHTML(DOMString position, DOMString text);
+};
+
+// https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html#dom-element-gethtml
+partial interface Element {
+  DOMString getHTML(optional GetHTMLOptions options = {});
+};
+
+dictionary GetHTMLOptions {
+  boolean serializableShadowRoots = false;
+  sequence<ShadowRoot> shadowRoots = [];
 };
 
 // https://drafts.csswg.org/cssom-view/#extension-to-the-element-interface
